@@ -46,13 +46,13 @@ export default defineNuxtConfig({
 
   app: {
     head: {
-      title: 'SERP DIR',
+      title: 'Boxing Undefeated',
       meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1, maximum-scale=1' },
         {
           name: 'description',
-          content: 'SERP - Search Engine Results Portal. Find MCP servers to give AI agents superpowers.',
+          content: 'Boxing Undefeated - Your comprehensive guide to professional boxing. Fighter profiles, weight divisions, and the sweet science.',
         },
       ],
       link: [

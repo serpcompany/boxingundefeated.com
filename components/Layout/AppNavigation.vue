@@ -1,27 +1,55 @@
 <script setup lang="ts">
-const rulesItems = [
+const divisionsItems = [
   [{
-    label: 'SERP',
-    to: 'https://serp.co',
+    label: 'All Divisions',
+    to: '/divisions',
   }],
   [{
-    label: 'SERP AI',
-    to: 'https://serp.ai',
+    label: 'Heavyweight',
+    to: '/divisions/heavyweight',
+  }],
+  [{
+    label: 'Cruiserweight',
+    to: '/divisions/cruiserweight',
+  }],
+  [{
+    label: 'Light Heavyweight',
+    to: '/divisions/light-heavyweight',
+  }],
+  [{
+    label: 'Middleweight',
+    to: '/divisions/middleweight',
+  }],
+  [{
+    label: 'Welterweight',
+    to: '/divisions/welterweight',
+  }],
+  [{
+    label: 'Lightweight',
+    to: '/divisions/lightweight',
   }],
 ]
 </script>
 
 <template>
   <nav class="flex items-center space-x-6">
-    <!-- Rules dropdown -->
-    <UDropdown :items="rulesItems" :popper="{ placement: 'bottom-start' }">
+    <NuxtLink to="/" class="nav-link">
+      Home
+    </NuxtLink>
+
+    <NuxtLink to="/boxers" class="nav-link">
+      Boxers
+    </NuxtLink>
+
+    <!-- Divisions dropdown -->
+    <UDropdown :items="divisionsItems" :popper="{ placement: 'bottom-start' }">
       <UButton variant="ghost" trailing-icon="i-heroicons-chevron-down-20-solid" class="nav-link">
-        Rules
+        Divisions
       </UButton>
     </UDropdown>
 
-    <NuxtLink to="/" class="nav-link">
-      MCPs
+    <NuxtLink to="/about" class="nav-link">
+      About
     </NuxtLink>
   </nav>
 </template>
