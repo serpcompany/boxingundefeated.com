@@ -1,0 +1,8 @@
+#!/bin/bash
+npx lint-staged
+
+# Generate coverage summary if COVERAGE=1 environment variable is set
+if [ "$COVERAGE" = "1" ]; then
+  echo "🧪 Generating test coverage report..."
+  ./scripts/generate-coverage-summary.sh
+fi
