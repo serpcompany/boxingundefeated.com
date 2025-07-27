@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mkdir:*)",
+      "Bash(rm:*)"
+    ]
+  },
+  "enabledMcpjsonServers": [
+    "playwright",
+    "webresearch",
+    "docs-manager",
+    "mcp-installer",
+    "nuxt",
+    "open-docs-mcp",
+    "Context7",
+    "browser-tools",
+    "taskmanager"
+  ]
+}
