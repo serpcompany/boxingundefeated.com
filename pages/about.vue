@@ -8,8 +8,8 @@ useSeoMeta({
 <template>
   <div class="min-h-screen bg-zinc-50 dark:bg-zinc-900">
     <!-- Header -->
-    <div class="bg-gradient-to-br from-red-600 to-red-800 text-white">
-      <div class="max-w-7xl mx-auto px-6 lg:px-8 py-16">
+    <div class="bg-red-600 text-white min-h-[350px] flex items-center">
+      <div class="max-w-7xl mx-auto px-6 lg:px-8 py-24">
         <h1 class="text-4xl font-bold mb-4">About Boxing Undefeated</h1>
         <p class="text-xl text-red-100">
           Your ultimate resource for the sweet science

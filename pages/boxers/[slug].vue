@@ -55,13 +55,74 @@ function calculateKOPercentage(boxer: Boxer): string {
   if (boxer.record.wins === 0) return '0'
   return ((boxer.record.knockouts / boxer.record.wins) * 100).toFixed(1)
 }
+
+function calculateAge(birthDate: string): number {
+  const birth = new Date(birthDate)
+  const today = new Date()
+  let age = today.getFullYear() - birth.getFullYear()
+  const monthDiff = today.getMonth() - birth.getMonth()
+  if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
+    age--
+  }
+  return age
+}
+
+function getTotalFights(boxer: Boxer): number {
+  return boxer.record.wins + boxer.record.losses + boxer.record.draws
+}
+
+// Sample fight data - replace with real data
+const mockFights = ref([
+  { id: 1, date: '2024-03-15', opponent: 'John Smith', result: 'W', method: 'KO', round: 3, venue: 'Madison Square Garden, NY' },
+  { id: 2, date: '2023-11-20', opponent: 'Mike Johnson', result: 'W', method: 'UD', round: 12, venue: 'MGM Grand, Las Vegas' },
+  { id: 3, date: '2023-07-08', opponent: 'Carlos Rodriguez', result: 'L', method: 'SD', round: 12, venue: 'Staples Center, LA' },
+  { id: 4, date: '2023-03-22', opponent: 'Tommy Lee', result: 'W', method: 'TKO', round: 7, venue: 'Barclays Center, Brooklyn' },
+  { id: 5, date: '2022-12-01', opponent: 'Roberto Garcia', result: 'D', method: 'Draw', round: 10, venue: 'T-Mobile Arena, Las Vegas' },
+  { id: 6, date: '2022-08-15', opponent: 'David Martinez', result: 'W', method: 'KO', round: 1, venue: 'Mandalay Bay, Las Vegas' },
+  { id: 7, date: '2022-04-20', opponent: 'James Wilson', result: 'W', method: 'UD', round: 12, venue: 'AT&T Stadium, Dallas' },
+  { id: 8, date: '2021-12-10', opponent: 'Anthony Brown', result: 'W', method: 'TKO', round: 9, venue: 'Chase Center, San Francisco' },
+  { id: 9, date: '2021-07-04', opponent: 'Michael Davis', result: 'W', method: 'MD', round: 12, venue: 'T-Mobile Arena, Las Vegas' },
+  { id: 10, date: '2021-02-14', opponent: 'Frank Thomas', result: 'W', method: 'KO', round: 5, venue: 'Madison Square Garden, NY' },
+])
+
+// Table columns configuration
+const columns = [
+  {
+    key: 'date',
+    label: 'Date',
+    sortable: true
+  },
+  {
+    key: 'opponent',
+    label: 'Opponent',
+    sortable: true
+  },
+  {
+    key: 'result',
+    label: 'Result',
+    sortable: true
+  },
+  {
+    key: 'method',
+    label: 'Method'
+  },
+  {
+    key: 'round',
+    label: 'Round',
+    sortable: true
+  },
+  {
+    key: 'venue',
+    label: 'Venue'
+  }
+]
 </script>
 
 <template>
   <!-- Loading State -->
   <div
     v-if="pending"
-    class="min-h-screen bg-zinc-50 dark:bg-zinc-900 flex items-center justify-center"
+    class="min-h-screen bg-white dark:bg-zinc-950 flex items-center justify-center"
   >
     <div class="text-center">
       <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-red-500 mx-auto mb-4" />
@@ -74,7 +135,7 @@ function calculateKOPercentage(boxer: Boxer): string {
   <!-- Error State -->
   <div
     v-else-if="error"
-    class="min-h-screen bg-zinc-50 dark:bg-zinc-900 flex items-center justify-center"
+    class="min-h-screen bg-white dark:bg-zinc-950 flex items-center justify-center"
   >
     <div class="text-center">
       <h1 class="text-2xl font-bold text-zinc-900 dark:text-white mb-2">
@@ -90,309 +151,259 @@ function calculateKOPercentage(boxer: Boxer): string {
   </div>
 
   <!-- Boxer Content -->
-  <div v-else-if="boxer" class="boxer-detail-page">
-    <!-- Page Header -->
-    <div class="bg-white dark:bg-zinc-900 border-b border-zinc-200 dark:border-zinc-700">
-      <UContainer class="py-8">
-        <div class="lg:grid lg:grid-cols-3 lg:gap-8">
-          <!-- Main Header Content -->
-          <div class="lg:col-span-2">
-            <h1 class="text-3xl font-bold text-zinc-900 dark:text-white mb-3">
+  <div v-else-if="boxer" class="min-h-screen bg-zinc-50 dark:bg-zinc-900">
+    <!-- Hero Section -->
+    <div class="bg-red-600 text-white min-h-[350px] flex items-center">
+      <div class="max-w-7xl mx-auto px-6 lg:px-8 py-24 w-full">
+        <!-- Breadcrumb -->
+        <nav class="flex items-center gap-2 text-sm text-red-200 mb-6">
+          <NuxtLink to="/boxers" class="hover:text-white">
+            Boxers
+          </NuxtLink>
+          <span>/</span>
+          <span class="text-white">{{ boxer.name }}</span>
+        </nav>
+
+        <div class="flex items-start gap-8">
+          <!-- Main Info -->
+          <div class="flex-1">
+            <h1 class="text-4xl font-bold mb-4">
               {{ boxer.name }}
-              <span v-if="boxer.nickname" class="text-xl text-zinc-600 dark:text-zinc-400">
+              <span v-if="boxer.nickname" class="text-red-200 font-normal">
                 "{{ boxer.nickname }}"
               </span>
             </h1>
-            <p v-if="boxer.bio" class="text-lg text-zinc-600 dark:text-zinc-400 mb-6">
-              {{ boxer.bio }}
-            </p>
-
-            <!-- Quick Stats -->
-            <div class="flex flex-wrap gap-4">
-              <UBadge
-                v-if="boxer.active"
-                color="green"
-                variant="subtle"
-                size="lg"
-              >
-                Active Fighter
-              </UBadge>
-              <UBadge
-                v-else
-                color="gray"
-                variant="subtle"
-                size="lg"
-              >
+            
+            <div class="flex flex-wrap items-center gap-6 text-lg">
+              <span class="text-red-100">
+                {{ formatRecord(boxer) }} ({{ boxer.record.knockouts }} KOs)
+              </span>
+              <span v-if="boxer.division" class="text-red-100">
+                {{ division?.name }}
+              </span>
+              <span v-if="boxer.nationality" class="text-red-100">
+                {{ boxer.nationality }}
+              </span>
+              <span v-if="boxer.active" class="text-green-300">
+                Active
+              </span>
+              <span v-else class="text-red-200">
                 Retired
-              </UBadge>
-              <div class="text-zinc-600 dark:text-zinc-400">
-                <span class="font-semibold">Record:</span> {{ formatRecord(boxer) }}
-              </div>
-              <div class="text-zinc-600 dark:text-zinc-400">
-                <span class="font-semibold">KOs:</span> {{ boxer.record.knockouts }}
-              </div>
+              </span>
             </div>
           </div>
 
-          <!-- Sidebar Info -->
-          <div class="mt-8 lg:mt-0">
-            <div
-              v-if="boxer.image"
-              class="bg-zinc-50 dark:bg-zinc-800 rounded-lg overflow-hidden
-                     border border-zinc-200 dark:border-zinc-700"
+          <!-- Image -->
+          <div v-if="boxer.image" class="hidden lg:block">
+            <img
+              :src="boxer.image"
+              :alt="boxer.name"
+              class="w-32 h-32 rounded-lg object-cover shadow-lg"
             >
-              <img
-                :src="boxer.image"
-                :alt="boxer.name"
-                class="w-full h-auto"
-              >
-            </div>
           </div>
         </div>
-      </UContainer>
+      </div>
     </div>
 
     <!-- Main Content -->
-    <UContainer class="py-8">
-      <div class="lg:grid lg:grid-cols-3 lg:gap-8">
-        <!-- Main Content Column -->
+    <div class="max-w-7xl mx-auto px-6 lg:px-8 py-12">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- Main Content -->
         <div class="lg:col-span-2 space-y-8">
-          <!-- Career Stats -->
-          <div class="bg-white dark:bg-zinc-800 rounded-lg p-6 shadow-sm">
-            <h2 class="text-2xl font-bold text-zinc-900 dark:text-white mb-6">
-              Career Statistics
-            </h2>
-            
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-              <div class="text-center">
-                <div class="text-3xl font-bold text-green-600">
-                  {{ boxer.record.wins }}
-                </div>
-                <div class="text-sm text-zinc-600 dark:text-zinc-400">Wins</div>
-              </div>
-              <div class="text-center">
-                <div class="text-3xl font-bold text-red-600">
-                  {{ boxer.record.losses }}
-                </div>
-                <div class="text-sm text-zinc-600 dark:text-zinc-400">Losses</div>
-              </div>
-              <div class="text-center">
-                <div class="text-3xl font-bold text-yellow-600">
-                  {{ boxer.record.draws }}
-                </div>
-                <div class="text-sm text-zinc-600 dark:text-zinc-400">Draws</div>
-              </div>
-              <div class="text-center">
-                <div class="text-3xl font-bold text-blue-600">
-                  {{ calculateKOPercentage(boxer) }}%
-                </div>
-                <div class="text-sm text-zinc-600 dark:text-zinc-400">KO Rate</div>
-              </div>
+          <!-- Stats Grid -->
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="bg-zinc-50 dark:bg-zinc-900 rounded-lg p-4 border border-zinc-200 dark:border-zinc-800">
+              <div class="text-sm text-zinc-600 dark:text-zinc-400 mb-1">Wins</div>
+              <div class="text-2xl font-semibold text-zinc-900 dark:text-white">{{ boxer.record.wins }}</div>
             </div>
-
-            <div class="mt-6 pt-6 border-t border-zinc-200 dark:border-zinc-700">
-              <div class="text-center">
-                <div class="text-4xl font-bold text-zinc-900 dark:text-white">
-                  {{ boxer.record.wins + boxer.record.losses + boxer.record.draws }}
-                </div>
-                <div class="text-sm text-zinc-600 dark:text-zinc-400">Total Fights</div>
-              </div>
+            <div class="bg-zinc-50 dark:bg-zinc-900 rounded-lg p-4 border border-zinc-200 dark:border-zinc-800">
+              <div class="text-sm text-zinc-600 dark:text-zinc-400 mb-1">Losses</div>
+              <div class="text-2xl font-semibold text-zinc-900 dark:text-white">{{ boxer.record.losses }}</div>
             </div>
-          </div>
-
-          <!-- Physical Attributes -->
-          <div class="bg-white dark:bg-zinc-800 rounded-lg p-6 shadow-sm">
-            <h2 class="text-2xl font-bold text-zinc-900 dark:text-white mb-6">
-              Physical Attributes
-            </h2>
-            
-            <div class="grid grid-cols-2 gap-6">
-              <div v-if="boxer.height">
-                <h3 class="text-sm font-medium text-zinc-500 dark:text-zinc-400 mb-1">
-                  Height
-                </h3>
-                <p class="text-lg text-zinc-900 dark:text-white">
-                  {{ boxer.height }}
-                </p>
-              </div>
-              
-              <div v-if="boxer.reach">
-                <h3 class="text-sm font-medium text-zinc-500 dark:text-zinc-400 mb-1">
-                  Reach
-                </h3>
-                <p class="text-lg text-zinc-900 dark:text-white">
-                  {{ boxer.reach }}
-                </p>
-              </div>
-              
-              <div v-if="boxer.stance">
-                <h3 class="text-sm font-medium text-zinc-500 dark:text-zinc-400 mb-1">
-                  Stance
-                </h3>
-                <p class="text-lg text-zinc-900 dark:text-white capitalize">
-                  {{ boxer.stance }}
-                </p>
-              </div>
-              
-              <div v-if="division">
-                <h3 class="text-sm font-medium text-zinc-500 dark:text-zinc-400 mb-1">
-                  Division
-                </h3>
-                <NuxtLink
-                  :to="`/divisions/${boxer.division}`"
-                  class="text-lg text-red-600 hover:text-red-700 dark:text-red-400"
-                >
-                  {{ division.name }}
-                </NuxtLink>
-              </div>
+            <div class="bg-zinc-50 dark:bg-zinc-900 rounded-lg p-4 border border-zinc-200 dark:border-zinc-800">
+              <div class="text-sm text-zinc-600 dark:text-zinc-400 mb-1">Draws</div>
+              <div class="text-2xl font-semibold text-zinc-900 dark:text-white">{{ boxer.record.draws }}</div>
             </div>
-          </div>
-
-          <!-- Championships -->
-          <div v-if="boxer.titles && boxer.titles.length > 0" 
-               class="bg-white dark:bg-zinc-800 rounded-lg p-6 shadow-sm">
-            <h2 class="text-2xl font-bold text-zinc-900 dark:text-white mb-6">
-              Championships
-            </h2>
-            
-            <div class="flex flex-wrap gap-3">
-              <UBadge
-                v-for="title in boxer.titles"
-                :key="title"
-                color="amber"
-                variant="solid"
-                size="lg"
-              >
-                {{ title }}
-              </UBadge>
+            <div class="bg-zinc-50 dark:bg-zinc-900 rounded-lg p-4 border border-zinc-200 dark:border-zinc-800">
+              <div class="text-sm text-zinc-600 dark:text-zinc-400 mb-1">KO Rate</div>
+              <div class="text-2xl font-semibold text-zinc-900 dark:text-white">{{ calculateKOPercentage(boxer) }}%</div>
             </div>
           </div>
 
           <!-- Biography -->
-          <div v-if="boxer.bio" class="prose prose-zinc dark:prose-invert max-w-none">
-            <h2>Biography</h2>
-            <p>{{ boxer.bio }}</p>
+          <div v-if="boxer.bio">
+            <h2 class="text-lg font-semibold text-zinc-900 dark:text-white mb-4">Biography</h2>
+            <p class="text-zinc-600 dark:text-zinc-400 leading-relaxed">{{ boxer.bio }}</p>
           </div>
         </div>
 
         <!-- Sidebar -->
-        <div class="mt-12 lg:mt-0">
-          <div class="lg:sticky lg:top-16 space-y-6">
-            <!-- Personal Info -->
-            <div
-              class="bg-zinc-50 dark:bg-zinc-800 rounded-lg p-5
-                     border border-zinc-200 dark:border-zinc-700"
-            >
-              <h3 class="text-lg font-bold text-zinc-900 dark:text-white mb-4">
-                Personal Information
-              </h3>
-              <div class="space-y-3">
-                <div v-if="boxer.birthDate">
-                  <h4 class="text-sm font-medium text-zinc-500 dark:text-zinc-400">
-                    Date of Birth
-                  </h4>
-                  <p class="text-base text-zinc-900 dark:text-white">
-                    {{ new Date(boxer.birthDate).toLocaleDateString() }}
-                  </p>
-                </div>
-                
-                <div v-if="boxer.birthPlace">
-                  <h4 class="text-sm font-medium text-zinc-500 dark:text-zinc-400">
-                    Birthplace
-                  </h4>
-                  <p class="text-base text-zinc-900 dark:text-white">
-                    {{ boxer.birthPlace }}
-                  </p>
-                </div>
-                
-                <div v-if="boxer.nationality">
-                  <h4 class="text-sm font-medium text-zinc-500 dark:text-zinc-400">
-                    Nationality
-                  </h4>
-                  <p class="text-base text-zinc-900 dark:text-white">
-                    {{ boxer.nationality }}
-                  </p>
-                </div>
+        <div class="space-y-6">
+          <!-- Info Card -->
+          <div class="bg-zinc-50 dark:bg-zinc-900 rounded-lg p-6 border border-zinc-200 dark:border-zinc-800">
+            <h3 class="text-base font-semibold text-zinc-900 dark:text-white mb-4">Information</h3>
+            <dl class="space-y-3">
+              <!-- Basic Info -->
+              <div v-if="boxer.birthDate" class="flex justify-between">
+                <dt class="text-sm text-zinc-600 dark:text-zinc-400">Born</dt>
+                <dd class="text-sm text-zinc-900 dark:text-white">{{ new Date(boxer.birthDate).toLocaleDateString() }}</dd>
               </div>
-            </div>
-
-            <!-- Social Links -->
-            <div
-              v-if="boxer.socialLinks"
-              class="bg-zinc-50 dark:bg-zinc-800 rounded-lg p-5
-                     border border-zinc-200 dark:border-zinc-700"
-            >
-              <h3 class="text-lg font-bold text-zinc-900 dark:text-white mb-4">
-                Follow {{ boxer.name }}
-              </h3>
-              <div class="space-y-3">
-                <UButton
-                  v-if="boxer.socialLinks.twitter"
-                  :to="boxer.socialLinks.twitter"
-                  external
-                  target="_blank"
-                  variant="outline"
-                  class="w-full justify-center text-sm"
-                >
-                  <UIcon name="i-heroicons-at-symbol" class="mr-2" />
-                  Twitter
-                </UButton>
-                
-                <UButton
-                  v-if="boxer.socialLinks.instagram"
-                  :to="boxer.socialLinks.instagram"
-                  external
-                  target="_blank"
-                  variant="outline"
-                  class="w-full justify-center text-sm"
-                >
-                  <UIcon name="i-heroicons-camera" class="mr-2" />
-                  Instagram
-                </UButton>
-                
-                <UButton
-                  v-if="boxer.socialLinks.website"
-                  :to="boxer.socialLinks.website"
-                  external
-                  target="_blank"
-                  variant="outline"
-                  class="w-full justify-center text-sm"
-                >
-                  <UIcon name="i-heroicons-globe-alt" class="mr-2" />
-                  Official Website
-                </UButton>
+              <div v-if="boxer.birthDate" class="flex justify-between">
+                <dt class="text-sm text-zinc-600 dark:text-zinc-400">Age</dt>
+                <dd class="text-sm text-zinc-900 dark:text-white">{{ calculateAge(boxer.birthDate) }} years</dd>
               </div>
-            </div>
+              <div v-if="boxer.birthPlace" class="flex justify-between">
+                <dt class="text-sm text-zinc-600 dark:text-zinc-400">Birthplace</dt>
+                <dd class="text-sm text-zinc-900 dark:text-white text-right">{{ boxer.birthPlace }}</dd>
+              </div>
+              <div v-if="boxer.nationality" class="flex justify-between">
+                <dt class="text-sm text-zinc-600 dark:text-zinc-400">Nationality</dt>
+                <dd class="text-sm text-zinc-900 dark:text-white">{{ boxer.nationality }}</dd>
+              </div>
+              <div v-if="division" class="flex justify-between">
+                <dt class="text-sm text-zinc-600 dark:text-zinc-400">Division</dt>
+                <dd class="text-sm text-zinc-900 dark:text-white">{{ division.name }}</dd>
+              </div>
+              
+              <!-- Physical Stats -->
+              <div v-if="boxer.height" class="flex justify-between pt-3 border-t border-zinc-200 dark:border-zinc-800">
+                <dt class="text-sm text-zinc-600 dark:text-zinc-400">Height</dt>
+                <dd class="text-sm text-zinc-900 dark:text-white">{{ boxer.height }}</dd>
+              </div>
+              <div v-if="boxer.reach" class="flex justify-between">
+                <dt class="text-sm text-zinc-600 dark:text-zinc-400">Reach</dt>
+                <dd class="text-sm text-zinc-900 dark:text-white">{{ boxer.reach }}</dd>
+              </div>
+              <div v-if="boxer.stance" class="flex justify-between">
+                <dt class="text-sm text-zinc-600 dark:text-zinc-400">Stance</dt>
+                <dd class="text-sm text-zinc-900 dark:text-white capitalize">{{ boxer.stance }}</dd>
+              </div>
+              <div v-if="boxer.reach && boxer.height" class="flex justify-between">
+                <dt class="text-sm text-zinc-600 dark:text-zinc-400">Reach Advantage</dt>
+                <dd class="text-sm text-zinc-900 dark:text-white">+{{ (parseInt(boxer.reach) - parseInt(boxer.height)).toFixed(0) }}"</dd>
+              </div>
+              
+              <!-- Career Stats -->
+              <div class="flex justify-between pt-3 border-t border-zinc-200 dark:border-zinc-800">
+                <dt class="text-sm text-zinc-600 dark:text-zinc-400">Total Fights</dt>
+                <dd class="text-sm text-zinc-900 dark:text-white">{{ getTotalFights(boxer) }}</dd>
+              </div>
+              <div class="flex justify-between">
+                <dt class="text-sm text-zinc-600 dark:text-zinc-400">Win Rate</dt>
+                <dd class="text-sm text-zinc-900 dark:text-white">{{ boxer.record.wins > 0 ? ((boxer.record.wins / getTotalFights(boxer)) * 100).toFixed(1) : 0 }}%</dd>
+              </div>
+              <div class="flex justify-between">
+                <dt class="text-sm text-zinc-600 dark:text-zinc-400">Knockouts</dt>
+                <dd class="text-sm text-zinc-900 dark:text-white">{{ boxer.record.knockouts }}</dd>
+              </div>
+              <div class="flex justify-between">
+                <dt class="text-sm text-zinc-600 dark:text-zinc-400">KO Rate</dt>
+                <dd class="text-sm text-zinc-900 dark:text-white">{{ calculateKOPercentage(boxer) }}%</dd>
+              </div>
+              <div v-if="boxer.ranking" class="flex justify-between">
+                <dt class="text-sm text-zinc-600 dark:text-zinc-400">World Rank</dt>
+                <dd class="text-sm text-zinc-900 dark:text-white">#{{ boxer.ranking }}</dd>
+              </div>
+              <div v-if="boxer.isChampion" class="flex justify-between">
+                <dt class="text-sm text-zinc-600 dark:text-zinc-400">Status</dt>
+                <dd class="text-sm text-zinc-900 dark:text-white">
+                  <UBadge color="amber" variant="subtle" size="xs">Champion</UBadge>
+                </dd>
+              </div>
+            </dl>
+          </div>
 
-            <!-- Related Boxers -->
-            <div
-              class="bg-zinc-50 dark:bg-zinc-800 rounded-lg p-5
-                     border border-zinc-200 dark:border-zinc-700"
+          <!-- More in Division -->
+          <div class="bg-zinc-50 dark:bg-zinc-900 rounded-lg p-6 border border-zinc-200 dark:border-zinc-800">
+            <h3 class="text-base font-semibold text-zinc-900 dark:text-white mb-2">More {{ division?.name }} Fighters</h3>
+            <p class="text-sm text-zinc-600 dark:text-zinc-400 mb-4">
+              Explore other boxers in this division
+            </p>
+            <UButton
+              :to="`/divisions/${boxer.division}`"
+              variant="ghost"
+              color="gray"
+              size="sm"
+              class="w-full"
             >
-              <h3 class="text-lg font-bold text-zinc-900 dark:text-white mb-4">
-                More {{ division?.name }} Fighters
-              </h3>
-              <p class="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed mb-4">
-                Explore more boxers in the {{ division?.name }} division
-              </p>
-              <UButton
-                :to="`/divisions/${boxer.division}`"
-                variant="ghost"
-                size="sm"
-                class="mt-3 w-full justify-center text-sm"
-              >
-                Browse {{ division?.name }}
-              </UButton>
-            </div>
+              View All {{ division?.name }}
+            </UButton>
           </div>
         </div>
       </div>
-    </UContainer>
+      
+      <!-- Fight History - Full Width at Bottom -->
+      <div class="mt-12">
+        <h2 class="text-lg font-semibold text-zinc-900 dark:text-white mb-4">Fight History</h2>
+        <div class="h-[400px] overflow-auto">
+          <UTable 
+            :rows="mockFights" 
+            :columns="columns"
+            :sort="{ column: 'date', direction: 'desc' }"
+            :ui="{
+              wrapper: 'relative overflow-x-auto bg-white dark:bg-zinc-900 shadow ring-1 ring-zinc-200 dark:ring-zinc-800 rounded-lg',
+              base: 'min-w-full table-fixed',
+              divide: 'divide-y divide-zinc-200 dark:divide-zinc-800',
+              thead: 'sticky top-0 bg-white dark:bg-zinc-900 z-10',
+              tbody: 'divide-y divide-zinc-200 dark:divide-zinc-800',
+              tr: {
+                base: 'hover:bg-zinc-50 dark:hover:bg-zinc-800/50 transition-colors',
+                selected: 'bg-zinc-50 dark:bg-zinc-800/50'
+              },
+              th: {
+                base: 'text-left rtl:text-right',
+                padding: 'px-4 py-3.5',
+                color: 'text-zinc-900 dark:text-white',
+                font: 'font-semibold',
+                size: 'text-sm'
+              },
+              td: {
+                base: 'whitespace-nowrap',
+                padding: 'px-4 py-4',
+                color: 'text-zinc-600 dark:text-zinc-400',
+                font: '',
+                size: 'text-sm'
+              }
+            }"
+          >
+            <template #date-data="{ row }">
+              <time :datetime="row.date" class="text-zinc-900 dark:text-white">
+                {{ new Date(row.date).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }) }}
+              </time>
+            </template>
+            
+            <template #opponent-data="{ row }">
+              <span class="font-medium text-zinc-900 dark:text-white">{{ row.opponent }}</span>
+            </template>
+            
+            <template #result-data="{ row }">
+              <UBadge 
+                :color="row.result === 'W' ? 'green' : row.result === 'L' ? 'red' : 'gray'"
+                variant="subtle"
+                size="xs"
+              >
+                {{ row.result === 'W' ? 'Win' : row.result === 'L' ? 'Loss' : 'Draw' }}
+              </UBadge>
+            </template>
+            
+            <template #method-data="{ row }">
+              <span class="text-zinc-700 dark:text-zinc-300">{{ row.method }}</span>
+            </template>
+            
+            <template #round-data="{ row }">
+              <span class="text-zinc-700 dark:text-zinc-300">R{{ row.round }}</span>
+            </template>
+            
+            <template #venue-data="{ row }">
+              <span class="text-zinc-600 dark:text-zinc-400 text-xs">{{ row.venue }}</span>
+            </template>
+          </UTable>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <style scoped>
-.boxer-detail-page {
-  @apply min-h-screen bg-zinc-50 dark:bg-zinc-900;
-}
+/* Keep styles minimal and clean */
 </style>

@@ -92,8 +92,8 @@ function clearAllFilters() {
 <template>
   <div class="min-h-screen bg-zinc-50 dark:bg-zinc-900">
     <!-- Header -->
-    <div class="bg-gradient-to-br from-red-600 to-red-800 text-white">
-      <div class="max-w-7xl mx-auto px-6 lg:px-8 py-16">
+    <div class="bg-red-600 text-white min-h-[350px] flex items-center">
+      <div class="max-w-7xl mx-auto px-6 lg:px-8 py-24">
         <h1 class="text-4xl font-bold mb-4">Professional Boxers</h1>
         <p class="text-xl text-red-100">
           Browse {{ allBoxers.length }} fighter profiles
@@ -104,16 +104,20 @@ function clearAllFilters() {
     <!-- Main Content -->
     <div class="max-w-7xl mx-auto px-6 lg:px-8 py-8">
       <!-- Filters -->
-      <div class="mb-8 space-y-4">
-        <!-- Search -->
-        <div class="flex gap-4 items-center">
+      <div class="mb-10">
+        <!-- Search Bar -->
+        <div class="mb-6">
           <UInput
             v-model="filters.search"
             placeholder="Search boxers..."
             size="lg"
-            class="flex-1"
+            class="max-w-md"
             icon="i-heroicons-magnifying-glass"
           />
+        </div>
+
+        <!-- Filter Options -->
+        <div class="flex flex-wrap items-center gap-4">
           <USelectMenu
             v-model="filters.sortBy"
             :options="[
@@ -124,12 +128,8 @@ function clearAllFilters() {
             ]"
             value-attribute="value"
             option-attribute="label"
-            size="lg"
           />
-        </div>
-
-        <!-- Filter Chips -->
-        <div class="flex flex-wrap gap-2">
+          
           <USelectMenu
             v-model="filters.active"
             :options="[
@@ -166,69 +166,62 @@ function clearAllFilters() {
       </div>
 
       <!-- Boxers Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        <UCard
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <NuxtLink
           v-for="boxer in paginatedBoxers"
           :key="boxer.id"
-          class="hover:shadow-xl transition-shadow"
+          :to="`/boxers/${boxer.slug}`"
+          class="block"
         >
-          <template #header>
-            <div class="aspect-square bg-zinc-200 dark:bg-zinc-700 rounded-lg overflow-hidden">
-              <img
-                v-if="boxer.image"
-                :src="boxer.image"
-                :alt="boxer.name"
-                class="w-full h-full object-cover"
-              >
-            </div>
-          </template>
+          <UCard class="h-full hover:shadow-lg transition-all hover:-translate-y-1">
+            <div class="flex flex-col h-full">
+              <!-- Image -->
+              <div class="aspect-square bg-zinc-100 dark:bg-zinc-800 rounded-lg overflow-hidden mb-4">
+                <img
+                  v-if="boxer.image"
+                  :src="boxer.image"
+                  :alt="boxer.name"
+                  class="w-full h-full object-cover"
+                >
+                <div v-else class="w-full h-full flex items-center justify-center">
+                  <UIcon name="i-heroicons-user" class="w-16 h-16 text-zinc-400" />
+                </div>
+              </div>
 
-          <div class="space-y-3">
-            <div>
-              <h3 class="text-lg font-semibold text-zinc-900 dark:text-white">
-                {{ boxer.name }}
-              </h3>
-              <p v-if="boxer.nickname" class="text-sm text-zinc-600 dark:text-zinc-400">
-                "{{ boxer.nickname }}"
-              </p>
-            </div>
+              <!-- Content -->
+              <div class="flex-1 space-y-3">
+                <div>
+                  <h3 class="text-lg font-semibold text-zinc-900 dark:text-white">
+                    {{ boxer.name }}
+                  </h3>
+                  <p v-if="boxer.nickname" class="text-sm text-zinc-500 dark:text-zinc-400">
+                    "{{ boxer.nickname }}"
+                  </p>
+                </div>
 
-            <div class="flex items-center gap-2">
-              <UBadge v-if="boxer.active" color="green" variant="subtle" size="xs">
-                Active
-              </UBadge>
-              <UBadge v-else color="gray" variant="subtle" size="xs">
-                Retired
-              </UBadge>
-              <span class="text-xs text-zinc-600 dark:text-zinc-400">
-                {{ boxer.division.replace(/-/g, ' ') }}
-              </span>
-            </div>
+                <div class="flex items-center gap-2 text-sm">
+                  <UBadge 
+                    :color="boxer.active ? 'green' : 'gray'" 
+                    variant="subtle"
+                    size="xs"
+                  >
+                    {{ boxer.active ? 'Active' : 'Retired' }}
+                  </UBadge>
+                  <span class="text-zinc-600 dark:text-zinc-400">
+                    {{ boxer.division.replace(/-/g, ' ') }}
+                  </span>
+                </div>
 
-            <div class="space-y-1 text-sm">
-              <p class="text-zinc-600 dark:text-zinc-400">
-                <span class="font-medium">Record:</span> 
-                {{ boxer.record.wins }}-{{ boxer.record.losses }}-{{ boxer.record.draws }}
-              </p>
-              <p class="text-zinc-600 dark:text-zinc-400">
-                <span class="font-medium">KOs:</span> {{ boxer.record.knockouts }}
-              </p>
-              <p v-if="boxer.nationality" class="text-zinc-600 dark:text-zinc-400">
-                <span class="font-medium">Country:</span> {{ boxer.nationality }}
-              </p>
+                <div class="pt-3 mt-auto border-t border-zinc-200 dark:border-zinc-700">
+                  <p class="text-sm text-zinc-600 dark:text-zinc-400">
+                    Record: <span class="font-medium text-zinc-900 dark:text-white">{{ boxer.record.wins }}-{{ boxer.record.losses }}-{{ boxer.record.draws }}</span>
+                    <span class="text-zinc-500"> ({{ boxer.record.knockouts }} KOs)</span>
+                  </p>
+                </div>
+              </div>
             </div>
-
-            <UButton
-              :to="`/boxers/${boxer.slug}`"
-              variant="soft"
-              color="red"
-              class="w-full"
-              size="sm"
-            >
-              View Profile
-            </UButton>
-          </div>
-        </UCard>
+          </UCard>
+        </NuxtLink>
       </div>
 
       <!-- Empty State -->

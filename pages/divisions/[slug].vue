@@ -32,8 +32,8 @@ function formatWeightLimit(division: Division) {
 <template>
   <div class="min-h-screen bg-zinc-50 dark:bg-zinc-900">
     <!-- Header -->
-    <div class="bg-gradient-to-br from-red-600 to-red-800 text-white">
-      <div class="max-w-7xl mx-auto px-6 lg:px-8 py-16">
+    <div class="bg-red-600 text-white min-h-[350px] flex items-center">
+      <div class="max-w-7xl mx-auto px-6 lg:px-8 py-24">
         <h1 class="text-4xl font-bold mb-4">{{ division.name }}</h1>
         <p class="text-xl text-red-100 mb-2">
           Weight Limit: {{ formatWeightLimit(division) }}
@@ -101,60 +101,60 @@ function formatWeightLimit(division: Division) {
           Current Champions
         </h2>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <UCard
+          <NuxtLink
             v-for="boxer in champions"
             :key="boxer.id"
-            class="hover:shadow-xl transition-shadow"
+            :to="`/boxers/${boxer.slug}`"
+            class="block"
           >
-            <template #header>
-              <div class="aspect-square bg-zinc-200 dark:bg-zinc-700 rounded-lg overflow-hidden">
-                <img
-                  v-if="boxer.image"
-                  :src="boxer.image"
-                  :alt="boxer.name"
-                  class="w-full h-full object-cover"
-                >
-              </div>
-            </template>
+            <UCard class="h-full hover:shadow-xl transition-all hover:-translate-y-1">
+              <div class="flex flex-col h-full">
+                <!-- Image -->
+                <div class="aspect-square bg-zinc-100 dark:bg-zinc-800 rounded-lg overflow-hidden mb-4">
+                  <img
+                    v-if="boxer.image"
+                    :src="boxer.image"
+                    :alt="boxer.name"
+                    class="w-full h-full object-cover"
+                  >
+                  <div v-else class="w-full h-full flex items-center justify-center">
+                    <UIcon name="i-heroicons-user" class="w-16 h-16 text-zinc-400" />
+                  </div>
+                </div>
 
-            <div class="space-y-3">
-              <div>
-                <h3 class="text-lg font-semibold text-zinc-900 dark:text-white">
-                  {{ boxer.name }}
-                </h3>
-                <p v-if="boxer.nickname" class="text-sm text-zinc-600 dark:text-zinc-400">
-                  "{{ boxer.nickname }}"
-                </p>
-              </div>
+                <!-- Content -->
+                <div class="flex-1 space-y-3">
+                  <div>
+                    <h3 class="text-lg font-semibold text-zinc-900 dark:text-white">
+                      {{ boxer.name }}
+                    </h3>
+                    <p v-if="boxer.nickname" class="text-sm text-zinc-600 dark:text-zinc-400">
+                      "{{ boxer.nickname }}"
+                    </p>
+                  </div>
 
-              <div class="flex flex-wrap gap-2">
-                <UBadge
-                  v-for="title in boxer.titles"
-                  :key="title"
-                  color="amber"
-                  variant="solid"
-                  size="xs"
-                >
-                  {{ title }}
-                </UBadge>
-              </div>
+                  <div class="flex flex-wrap gap-2">
+                    <UBadge
+                      v-for="title in boxer.titles"
+                      :key="title"
+                      color="amber"
+                      variant="solid"
+                      size="xs"
+                    >
+                      {{ title }}
+                    </UBadge>
+                  </div>
 
-              <div class="text-sm text-zinc-600 dark:text-zinc-400">
-                Record: {{ boxer.record.wins }}-{{ boxer.record.losses }}-{{ boxer.record.draws }}
-                ({{ boxer.record.knockouts }} KOs)
+                  <div class="pt-3 mt-auto border-t border-zinc-200 dark:border-zinc-700">
+                    <p class="text-sm text-zinc-600 dark:text-zinc-400">
+                      Record: <span class="font-medium text-zinc-900 dark:text-white">{{ boxer.record.wins }}-{{ boxer.record.losses }}-{{ boxer.record.draws }}</span>
+                      <span class="text-zinc-500"> ({{ boxer.record.knockouts }} KOs)</span>
+                    </p>
+                  </div>
+                </div>
               </div>
-
-              <UButton
-                :to="`/boxers/${boxer.slug}`"
-                variant="soft"
-                color="red"
-                class="w-full"
-                size="sm"
-              >
-                View Profile
-              </UButton>
-            </div>
-          </UCard>
+            </UCard>
+          </NuxtLink>
         </div>
       </div>
 
