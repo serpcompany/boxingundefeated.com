@@ -13,6 +13,7 @@ const divisions = computed(() => {
 function formatWeightLimit(division: any) {
   return `${division.weightLimit.pounds} lbs / ${division.weightLimit.kilograms.toFixed(1)} kg`
 }
+
 </script>
 
 <template>
@@ -48,9 +49,6 @@ function formatWeightLimit(division: any) {
                 <th class="px-6 py-3 text-left text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wider hidden md:table-cell">
                   Alternative Names
                 </th>
-                <th class="px-6 py-3 text-left text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wider hidden lg:table-cell">
-                  Description
-                </th>
               </tr>
             </thead>
             <tbody class="bg-white dark:bg-zinc-800 divide-y divide-zinc-200 dark:divide-zinc-700">
@@ -67,29 +65,29 @@ function formatWeightLimit(division: any) {
                         {{ division.name }}
                       </div>
                       <div class="text-xs text-zinc-500 dark:text-zinc-400">
-                        {{ division.order === 1 ? 'Heaviest' : division.order === 17 ? 'Lightest' : `Division ${division.order}` }}
+                        {{ division.order === 1 ? 'Heaviest' : division.order === 17 ? 'Lightest' : '' }}
                       </div>
                     </div>
                   </div>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
-                  <div class="text-sm text-zinc-900 dark:text-white font-medium">
-                    {{ formatWeightLimit(division) }}
+                  <div v-if="division.slug === 'heavyweight'" class="text-base font-semibold text-zinc-900 dark:text-white">
+                    No limit
                   </div>
-                  <div v-if="division.weightLimit.stone" class="text-xs text-zinc-500 dark:text-zinc-400">
-                    {{ division.weightLimit.stone }}
+                  <div v-else>
+                    <div class="text-base font-semibold text-zinc-900 dark:text-white">
+                      {{ division.weightLimit.pounds }} lbs
+                    </div>
+                    <div class="text-sm text-zinc-500 dark:text-zinc-400">
+                      {{ division.weightLimit.kilograms.toFixed(1) }} kg
+                      <span v-if="division.weightLimit.stone"> / {{ division.weightLimit.stone }}</span>
+                    </div>
                   </div>
                 </td>
                 <td class="px-6 py-4 text-sm text-zinc-500 dark:text-zinc-400 hidden md:table-cell">
                   <span v-if="division.alternativeNames && division.alternativeNames.length > 0">
                     {{ division.alternativeNames.join(', ') }}
                   </span>
-                  <span v-else class="text-zinc-400 dark:text-zinc-600">—</span>
-                </td>
-                <td class="px-6 py-4 text-sm text-zinc-500 dark:text-zinc-400 hidden lg:table-cell">
-                  <p v-if="division.description" class="line-clamp-2">
-                    {{ division.description }}
-                  </p>
                   <span v-else class="text-zinc-400 dark:text-zinc-600">—</span>
                 </td>
               </tr>
