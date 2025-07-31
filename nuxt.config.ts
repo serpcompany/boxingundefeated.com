@@ -1,7 +1,7 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
 
-  modules: ['@nuxt/ui', '@nuxt/fonts', '@nuxt/image', '@nuxt/eslint', '@nuxtjs/seo', '@nuxt/scripts'],
+  modules: ['@nuxt/ui', '@nuxt/fonts', '@nuxt/image', '@nuxt/eslint', '@nuxtjs/seo', '@nuxt/scripts', '@nuxthub/core'],
 
   // Site configuration for SEO modules
   site: {
@@ -144,6 +144,13 @@ export default defineNuxtConfig({
         id: 'GTM-PP4HWLM',
       },
     },
+  },
+
+  // NuxtHub configuration for Cloudflare integration
+  hub: {
+    database: true, // Enable D1 database
+    blob: true,     // Enable R2 storage
+    kv: true,       // Enable KV storage
   },
 
 })
