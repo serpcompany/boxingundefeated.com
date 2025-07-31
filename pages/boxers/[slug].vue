@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import type { Boxer } from '~/types/Boxing'
-import { mockBoxers, mockDivisions } from '~/data/boxing-data'
+import { mockDivisions } from '~/data/boxing-data'
+import { findBoxerBySlug } from '~/utils/loadBoxerData'
 
 async function fetchBoxerData(slug: string): Promise<Boxer> {
-  const boxer = mockBoxers.find(b => b.slug === slug)
+  const boxer = findBoxerBySlug(slug)
   
   if (!boxer) {
     throw new Error(`Boxer with slug "${slug}" not found`)
@@ -48,15 +49,21 @@ const division = computed(() => {
 })
 
 function formatRecord(boxer: Boxer): string {
-  return `${boxer.record.wins}-${boxer.record.losses}-${boxer.record.draws}`
+  if (boxer.pro_wins !== undefined) {
+    return `${boxer.pro_wins}-${boxer.pro_losses}-${boxer.pro_draws}`
+  }
+  return `${boxer.record?.wins || 0}-${boxer.record?.losses || 0}-${boxer.record?.draws || 0}`
 }
 
 function calculateKOPercentage(boxer: Boxer): string {
-  if (boxer.record.wins === 0) return '0'
-  return ((boxer.record.knockouts / boxer.record.wins) * 100).toFixed(1)
+  const wins = boxer.pro_wins || boxer.record?.wins || 0
+  const kos = boxer.pro_wins_by_knockout || boxer.record?.knockouts || 0
+  if (wins === 0) return '0'
+  return ((kos / wins) * 100).toFixed(1)
 }
 
-function calculateAge(birthDate: string): number {
+function calculateAge(birthDate: string | null | undefined): number | null {
+  if (!birthDate) return null
   const birth = new Date(birthDate)
   const today = new Date()
   let age = today.getFullYear() - birth.getFullYear()
@@ -68,34 +75,66 @@ function calculateAge(birthDate: string): number {
 }
 
 function getTotalFights(boxer: Boxer): number {
-  return boxer.record.wins + boxer.record.losses + boxer.record.draws
+  if (boxer.pro_total_bouts !== undefined) {
+    return boxer.pro_total_bouts
+  }
+  return (boxer.record?.wins || 0) + (boxer.record?.losses || 0) + (boxer.record?.draws || 0)
 }
 
-// Sample fight data - replace with real data
-const mockFights = ref([
-  { id: 1, date: '2024-03-15', opponent: 'John Smith', result: 'W', method: 'KO', round: 3, venue: 'Madison Square Garden, NY' },
-  { id: 2, date: '2023-11-20', opponent: 'Mike Johnson', result: 'W', method: 'UD', round: 12, venue: 'MGM Grand, Las Vegas' },
-  { id: 3, date: '2023-07-08', opponent: 'Carlos Rodriguez', result: 'L', method: 'SD', round: 12, venue: 'Staples Center, LA' },
-  { id: 4, date: '2023-03-22', opponent: 'Tommy Lee', result: 'W', method: 'TKO', round: 7, venue: 'Barclays Center, Brooklyn' },
-  { id: 5, date: '2022-12-01', opponent: 'Roberto Garcia', result: 'D', method: 'Draw', round: 10, venue: 'T-Mobile Arena, Las Vegas' },
-  { id: 6, date: '2022-08-15', opponent: 'David Martinez', result: 'W', method: 'KO', round: 1, venue: 'Mandalay Bay, Las Vegas' },
-  { id: 7, date: '2022-04-20', opponent: 'James Wilson', result: 'W', method: 'UD', round: 12, venue: 'AT&T Stadium, Dallas' },
-  { id: 8, date: '2021-12-10', opponent: 'Anthony Brown', result: 'W', method: 'TKO', round: 9, venue: 'Chase Center, San Francisco' },
-  { id: 9, date: '2021-07-04', opponent: 'Michael Davis', result: 'W', method: 'MD', round: 12, venue: 'T-Mobile Arena, Las Vegas' },
-  { id: 10, date: '2021-02-14', opponent: 'Frank Thomas', result: 'W', method: 'KO', round: 5, venue: 'Madison Square Garden, NY' },
-])
+function formatHeight(height: string | null | undefined): string {
+  return height || 'N/A'
+}
+
+function formatReach(reach: string | null | undefined): string {
+  return reach || 'N/A'
+}
+
+// Use fights from boxer data or legacy bouts
+const fights = computed(() => {
+  if (!boxer.value) return []
+  
+  // Check if new format fights exist
+  if (boxer.value.fights && boxer.value.fights.length > 0) {
+    return boxer.value.fights.map((fight, index) => ({
+      id: index + 1,
+      ...fight
+    }))
+  }
+  
+  // Fall back to legacy bouts format
+  if (boxer.value.bouts && boxer.value.bouts.length > 0) {
+    return boxer.value.bouts.map((bout, index) => ({
+      id: index + 1,
+      bout_date: bout.date,
+      opponent_name: bout.opponent,
+      opponent_record: bout.opponent_record,
+      result: bout.result.toLowerCase(),
+      result_method: bout.method?.toLowerCase() || 'decision',
+      result_round: bout.rounds,
+      venue_name: bout.venue,
+      title_fight: false,
+      num_rounds_scheduled: 10 // Default
+    }))
+  }
+  
+  return []
+})
 
 // Table columns configuration
 const columns = [
   {
-    key: 'date',
+    key: 'bout_date',
     label: 'Date',
     sortable: true
   },
   {
-    key: 'opponent',
+    key: 'opponent_name',
     label: 'Opponent',
     sortable: true
+  },
+  {
+    key: 'opponent_record',
+    label: 'Opponent Record'
   },
   {
     key: 'result',
@@ -103,17 +142,21 @@ const columns = [
     sortable: true
   },
   {
-    key: 'method',
+    key: 'result_method',
     label: 'Method'
   },
   {
-    key: 'round',
+    key: 'result_round',
     label: 'Round',
     sortable: true
   },
   {
-    key: 'venue',
+    key: 'venue_name',
     label: 'Venue'
+  },
+  {
+    key: 'title_fight',
+    label: 'Title'
   }
 ]
 </script>
@@ -168,7 +211,7 @@ const columns = [
           <!-- Main Info -->
           <div class="flex-1">
             <h1 class="text-4xl font-bold mb-4">
-              {{ boxer.name }}
+              {{ boxer.full_name || boxer.name }}
               <span v-if="boxer.nickname" class="text-red-200 font-normal">
                 "{{ boxer.nickname }}"
               </span>
@@ -176,28 +219,28 @@ const columns = [
             
             <div class="flex flex-wrap items-center gap-6 text-lg">
               <span class="text-red-100">
-                {{ formatRecord(boxer) }} ({{ boxer.record.knockouts }} KOs)
+                {{ formatRecord(boxer) }} ({{ boxer.pro_wins_by_knockout || boxer.record?.knockouts || 0 }} KOs)
               </span>
-              <span v-if="boxer.division" class="text-red-100">
-                {{ division?.name }}
+              <span v-if="boxer.pro_division || boxer.division" class="text-red-100">
+                {{ boxer.pro_division || boxer.division }}
               </span>
               <span v-if="boxer.nationality" class="text-red-100">
                 {{ boxer.nationality }}
               </span>
-              <span v-if="boxer.active" class="text-green-300">
+              <span v-if="boxer.pro_status === 'active' || boxer.active" class="text-green-300">
                 Active
               </span>
               <span v-else class="text-red-200">
-                Retired
+                {{ boxer.pro_status || 'Retired' }}
               </span>
             </div>
           </div>
 
           <!-- Image -->
-          <div v-if="boxer.image" class="hidden lg:block">
+          <div v-if="boxer.image_url || boxer.image" class="hidden lg:block">
             <img
-              :src="boxer.image"
-              :alt="boxer.name"
+              :src="boxer.image_url || boxer.image"
+              :alt="boxer.full_name || boxer.name"
               class="w-32 h-32 rounded-lg object-cover shadow-lg"
             >
           </div>
@@ -210,23 +253,49 @@ const columns = [
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <!-- Main Content -->
         <div class="lg:col-span-2 space-y-8">
-          <!-- Stats Grid -->
-          <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div class="bg-zinc-50 dark:bg-zinc-900 rounded-lg p-4 border border-zinc-200 dark:border-zinc-800">
-              <div class="text-sm text-zinc-600 dark:text-zinc-400 mb-1">Wins</div>
-              <div class="text-2xl font-semibold text-zinc-900 dark:text-white">{{ boxer.record.wins }}</div>
+          <!-- Professional Stats Grid -->
+          <div>
+            <h2 class="text-lg font-semibold text-zinc-900 dark:text-white mb-4">Professional Record</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div class="bg-zinc-50 dark:bg-zinc-900 rounded-lg p-4 border border-zinc-200 dark:border-zinc-800">
+                <div class="text-sm text-zinc-600 dark:text-zinc-400 mb-1">Wins</div>
+                <div class="text-2xl font-semibold text-zinc-900 dark:text-white">{{ boxer.pro_wins || boxer.record?.wins || 0 }}</div>
+              </div>
+              <div class="bg-zinc-50 dark:bg-zinc-900 rounded-lg p-4 border border-zinc-200 dark:border-zinc-800">
+                <div class="text-sm text-zinc-600 dark:text-zinc-400 mb-1">Losses</div>
+                <div class="text-2xl font-semibold text-zinc-900 dark:text-white">{{ boxer.pro_losses || boxer.record?.losses || 0 }}</div>
+              </div>
+              <div class="bg-zinc-50 dark:bg-zinc-900 rounded-lg p-4 border border-zinc-200 dark:border-zinc-800">
+                <div class="text-sm text-zinc-600 dark:text-zinc-400 mb-1">Draws</div>
+                <div class="text-2xl font-semibold text-zinc-900 dark:text-white">{{ boxer.pro_draws || boxer.record?.draws || 0 }}</div>
+              </div>
+              <div class="bg-zinc-50 dark:bg-zinc-900 rounded-lg p-4 border border-zinc-200 dark:border-zinc-800">
+                <div class="text-sm text-zinc-600 dark:text-zinc-400 mb-1">KO Rate</div>
+                <div class="text-2xl font-semibold text-zinc-900 dark:text-white">{{ calculateKOPercentage(boxer) }}%</div>
+              </div>
             </div>
-            <div class="bg-zinc-50 dark:bg-zinc-900 rounded-lg p-4 border border-zinc-200 dark:border-zinc-800">
-              <div class="text-sm text-zinc-600 dark:text-zinc-400 mb-1">Losses</div>
-              <div class="text-2xl font-semibold text-zinc-900 dark:text-white">{{ boxer.record.losses }}</div>
-            </div>
-            <div class="bg-zinc-50 dark:bg-zinc-900 rounded-lg p-4 border border-zinc-200 dark:border-zinc-800">
-              <div class="text-sm text-zinc-600 dark:text-zinc-400 mb-1">Draws</div>
-              <div class="text-2xl font-semibold text-zinc-900 dark:text-white">{{ boxer.record.draws }}</div>
-            </div>
-            <div class="bg-zinc-50 dark:bg-zinc-900 rounded-lg p-4 border border-zinc-200 dark:border-zinc-800">
-              <div class="text-sm text-zinc-600 dark:text-zinc-400 mb-1">KO Rate</div>
-              <div class="text-2xl font-semibold text-zinc-900 dark:text-white">{{ calculateKOPercentage(boxer) }}%</div>
+          </div>
+          
+          <!-- Amateur Stats Grid (if available) -->
+          <div v-if="boxer.amateur_total_bouts && boxer.amateur_total_bouts > 0" class="mt-6">
+            <h2 class="text-lg font-semibold text-zinc-900 dark:text-white mb-4">Amateur Record</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div class="bg-zinc-50 dark:bg-zinc-900 rounded-lg p-4 border border-zinc-200 dark:border-zinc-800">
+                <div class="text-sm text-zinc-600 dark:text-zinc-400 mb-1">Wins</div>
+                <div class="text-2xl font-semibold text-zinc-900 dark:text-white">{{ boxer.amateur_wins }}</div>
+              </div>
+              <div class="bg-zinc-50 dark:bg-zinc-900 rounded-lg p-4 border border-zinc-200 dark:border-zinc-800">
+                <div class="text-sm text-zinc-600 dark:text-zinc-400 mb-1">Losses</div>
+                <div class="text-2xl font-semibold text-zinc-900 dark:text-white">{{ boxer.amateur_losses }}</div>
+              </div>
+              <div class="bg-zinc-50 dark:bg-zinc-900 rounded-lg p-4 border border-zinc-200 dark:border-zinc-800">
+                <div class="text-sm text-zinc-600 dark:text-zinc-400 mb-1">Draws</div>
+                <div class="text-2xl font-semibold text-zinc-900 dark:text-white">{{ boxer.amateur_draws }}</div>
+              </div>
+              <div class="bg-zinc-50 dark:bg-zinc-900 rounded-lg p-4 border border-zinc-200 dark:border-zinc-800">
+                <div class="text-sm text-zinc-600 dark:text-zinc-400 mb-1">KOs</div>
+                <div class="text-2xl font-semibold text-zinc-900 dark:text-white">{{ boxer.amateur_wins_by_knockout }}</div>
+              </div>
             </div>
           </div>
 
@@ -244,71 +313,128 @@ const columns = [
             <h3 class="text-base font-semibold text-zinc-900 dark:text-white mb-4">Information</h3>
             <dl class="space-y-3">
               <!-- Basic Info -->
-              <div v-if="boxer.birthDate" class="flex justify-between">
+              <div v-if="boxer.date_of_birth || boxer.birthDate" class="flex justify-between">
                 <dt class="text-sm text-zinc-600 dark:text-zinc-400">Born</dt>
-                <dd class="text-sm text-zinc-900 dark:text-white">{{ new Date(boxer.birthDate).toLocaleDateString() }}</dd>
+                <dd class="text-sm text-zinc-900 dark:text-white">{{ new Date(boxer.date_of_birth || boxer.birthDate).toLocaleDateString() }}</dd>
               </div>
-              <div v-if="boxer.birthDate" class="flex justify-between">
+              <div v-if="calculateAge(boxer.date_of_birth || boxer.birthDate)" class="flex justify-between">
                 <dt class="text-sm text-zinc-600 dark:text-zinc-400">Age</dt>
-                <dd class="text-sm text-zinc-900 dark:text-white">{{ calculateAge(boxer.birthDate) }} years</dd>
+                <dd class="text-sm text-zinc-900 dark:text-white">{{ calculateAge(boxer.date_of_birth || boxer.birthDate) }} years</dd>
               </div>
-              <div v-if="boxer.birthPlace" class="flex justify-between">
+              <div v-if="boxer.birth_place || boxer.birthPlace" class="flex justify-between">
                 <dt class="text-sm text-zinc-600 dark:text-zinc-400">Birthplace</dt>
-                <dd class="text-sm text-zinc-900 dark:text-white text-right">{{ boxer.birthPlace }}</dd>
+                <dd class="text-sm text-zinc-900 dark:text-white text-right">{{ boxer.birth_place || boxer.birthPlace }}</dd>
+              </div>
+              <div v-if="boxer.residence" class="flex justify-between">
+                <dt class="text-sm text-zinc-600 dark:text-zinc-400">Residence</dt>
+                <dd class="text-sm text-zinc-900 dark:text-white text-right">{{ boxer.residence }}</dd>
               </div>
               <div v-if="boxer.nationality" class="flex justify-between">
                 <dt class="text-sm text-zinc-600 dark:text-zinc-400">Nationality</dt>
                 <dd class="text-sm text-zinc-900 dark:text-white">{{ boxer.nationality }}</dd>
               </div>
-              <div v-if="division" class="flex justify-between">
-                <dt class="text-sm text-zinc-600 dark:text-zinc-400">Division</dt>
-                <dd class="text-sm text-zinc-900 dark:text-white">{{ division.name }}</dd>
+              <div v-if="boxer.gender" class="flex justify-between">
+                <dt class="text-sm text-zinc-600 dark:text-zinc-400">Gender</dt>
+                <dd class="text-sm text-zinc-900 dark:text-white capitalize">{{ boxer.gender }}</dd>
               </div>
               
               <!-- Physical Stats -->
               <div v-if="boxer.height" class="flex justify-between pt-3 border-t border-zinc-200 dark:border-zinc-800">
                 <dt class="text-sm text-zinc-600 dark:text-zinc-400">Height</dt>
-                <dd class="text-sm text-zinc-900 dark:text-white">{{ boxer.height }}</dd>
+                <dd class="text-sm text-zinc-900 dark:text-white">{{ formatHeight(boxer.height) }}</dd>
               </div>
               <div v-if="boxer.reach" class="flex justify-between">
                 <dt class="text-sm text-zinc-600 dark:text-zinc-400">Reach</dt>
-                <dd class="text-sm text-zinc-900 dark:text-white">{{ boxer.reach }}</dd>
+                <dd class="text-sm text-zinc-900 dark:text-white">{{ formatReach(boxer.reach) }}</dd>
+              </div>
+              <div v-if="boxer.weight" class="flex justify-between">
+                <dt class="text-sm text-zinc-600 dark:text-zinc-400">Weight</dt>
+                <dd class="text-sm text-zinc-900 dark:text-white">{{ boxer.weight }}</dd>
               </div>
               <div v-if="boxer.stance" class="flex justify-between">
                 <dt class="text-sm text-zinc-600 dark:text-zinc-400">Stance</dt>
                 <dd class="text-sm text-zinc-900 dark:text-white capitalize">{{ boxer.stance }}</dd>
               </div>
-              <div v-if="boxer.reach && boxer.height" class="flex justify-between">
-                <dt class="text-sm text-zinc-600 dark:text-zinc-400">Reach Advantage</dt>
-                <dd class="text-sm text-zinc-900 dark:text-white">+{{ (parseInt(boxer.reach) - parseInt(boxer.height)).toFixed(0) }}"</dd>
+              
+              <!-- Management Team -->
+              <div v-if="boxer.promoter || boxer.trainer || boxer.manager || boxer.gym" class="pt-3 border-t border-zinc-200 dark:border-zinc-800">
+                <div v-if="boxer.promoter" class="flex justify-between mb-2">
+                  <dt class="text-sm text-zinc-600 dark:text-zinc-400">Promoter</dt>
+                  <dd class="text-sm text-zinc-900 dark:text-white text-right">{{ boxer.promoter }}</dd>
+                </div>
+                <div v-if="boxer.trainer" class="flex justify-between mb-2">
+                  <dt class="text-sm text-zinc-600 dark:text-zinc-400">Trainer</dt>
+                  <dd class="text-sm text-zinc-900 dark:text-white text-right">{{ boxer.trainer }}</dd>
+                </div>
+                <div v-if="boxer.manager" class="flex justify-between mb-2">
+                  <dt class="text-sm text-zinc-600 dark:text-zinc-400">Manager</dt>
+                  <dd class="text-sm text-zinc-900 dark:text-white text-right">{{ boxer.manager }}</dd>
+                </div>
+                <div v-if="boxer.gym" class="flex justify-between">
+                  <dt class="text-sm text-zinc-600 dark:text-zinc-400">Gym</dt>
+                  <dd class="text-sm text-zinc-900 dark:text-white text-right">{{ boxer.gym }}</dd>
+                </div>
               </div>
               
-              <!-- Career Stats -->
-              <div class="flex justify-between pt-3 border-t border-zinc-200 dark:border-zinc-800">
-                <dt class="text-sm text-zinc-600 dark:text-zinc-400">Total Fights</dt>
-                <dd class="text-sm text-zinc-900 dark:text-white">{{ getTotalFights(boxer) }}</dd>
+              <!-- Professional Career Stats -->
+              <div class="pt-3 border-t border-zinc-200 dark:border-zinc-800">
+                <div class="text-xs font-semibold text-zinc-700 dark:text-zinc-300 mb-2">Professional Career</div>
+                <div v-if="boxer.pro_debut_date" class="flex justify-between mb-2">
+                  <dt class="text-sm text-zinc-600 dark:text-zinc-400">Debut</dt>
+                  <dd class="text-sm text-zinc-900 dark:text-white">{{ new Date(boxer.pro_debut_date).toLocaleDateString() }}</dd>
+                </div>
+                <div class="flex justify-between mb-2">
+                  <dt class="text-sm text-zinc-600 dark:text-zinc-400">Total Fights</dt>
+                  <dd class="text-sm text-zinc-900 dark:text-white">{{ boxer.pro_total_bouts || getTotalFights(boxer) }}</dd>
+                </div>
+                <div class="flex justify-between mb-2">
+                  <dt class="text-sm text-zinc-600 dark:text-zinc-400">Total Rounds</dt>
+                  <dd class="text-sm text-zinc-900 dark:text-white">{{ boxer.pro_total_rounds || 'N/A' }}</dd>
+                </div>
+                <div class="flex justify-between mb-2">
+                  <dt class="text-sm text-zinc-600 dark:text-zinc-400">Win Rate</dt>
+                  <dd class="text-sm text-zinc-900 dark:text-white">{{ boxer.pro_wins > 0 ? ((boxer.pro_wins / (boxer.pro_total_bouts || getTotalFights(boxer))) * 100).toFixed(1) : 0 }}%</dd>
+                </div>
+                <div class="flex justify-between mb-2">
+                  <dt class="text-sm text-zinc-600 dark:text-zinc-400">KO Rate</dt>
+                  <dd class="text-sm text-zinc-900 dark:text-white">{{ calculateKOPercentage(boxer) }}%</dd>
+                </div>
+                <div class="flex justify-between">
+                  <dt class="text-sm text-zinc-600 dark:text-zinc-400">Losses by KO</dt>
+                  <dd class="text-sm text-zinc-900 dark:text-white">{{ boxer.pro_losses_by_knockout || 0 }}</dd>
+                </div>
               </div>
-              <div class="flex justify-between">
-                <dt class="text-sm text-zinc-600 dark:text-zinc-400">Win Rate</dt>
-                <dd class="text-sm text-zinc-900 dark:text-white">{{ boxer.record.wins > 0 ? ((boxer.record.wins / getTotalFights(boxer)) * 100).toFixed(1) : 0 }}%</dd>
+              
+              <!-- Amateur Career Stats (if available) -->
+              <div v-if="boxer.amateur_total_bouts && boxer.amateur_total_bouts > 0" class="pt-3 border-t border-zinc-200 dark:border-zinc-800">
+                <div class="text-xs font-semibold text-zinc-700 dark:text-zinc-300 mb-2">Amateur Career</div>
+                <div v-if="boxer.amateur_debut_date" class="flex justify-between mb-2">
+                  <dt class="text-sm text-zinc-600 dark:text-zinc-400">Debut</dt>
+                  <dd class="text-sm text-zinc-900 dark:text-white">{{ new Date(boxer.amateur_debut_date).toLocaleDateString() }}</dd>
+                </div>
+                <div class="flex justify-between mb-2">
+                  <dt class="text-sm text-zinc-600 dark:text-zinc-400">Total Fights</dt>
+                  <dd class="text-sm text-zinc-900 dark:text-white">{{ boxer.amateur_total_bouts }}</dd>
+                </div>
+                <div class="flex justify-between">
+                  <dt class="text-sm text-zinc-600 dark:text-zinc-400">Record</dt>
+                  <dd class="text-sm text-zinc-900 dark:text-white">{{ boxer.amateur_wins }}-{{ boxer.amateur_losses }}-{{ boxer.amateur_draws }}</dd>
+                </div>
               </div>
-              <div class="flex justify-between">
-                <dt class="text-sm text-zinc-600 dark:text-zinc-400">Knockouts</dt>
-                <dd class="text-sm text-zinc-900 dark:text-white">{{ boxer.record.knockouts }}</dd>
-              </div>
-              <div class="flex justify-between">
-                <dt class="text-sm text-zinc-600 dark:text-zinc-400">KO Rate</dt>
-                <dd class="text-sm text-zinc-900 dark:text-white">{{ calculateKOPercentage(boxer) }}%</dd>
-              </div>
-              <div v-if="boxer.ranking" class="flex justify-between">
-                <dt class="text-sm text-zinc-600 dark:text-zinc-400">World Rank</dt>
-                <dd class="text-sm text-zinc-900 dark:text-white">#{{ boxer.ranking }}</dd>
-              </div>
-              <div v-if="boxer.isChampion" class="flex justify-between">
-                <dt class="text-sm text-zinc-600 dark:text-zinc-400">Status</dt>
-                <dd class="text-sm text-zinc-900 dark:text-white">
-                  <UBadge color="amber" variant="subtle" size="xs">Champion</UBadge>
-                </dd>
+              
+              <!-- Links -->
+              <div v-if="boxer.boxrec_url || boxer.boxrecUrl" class="pt-3 border-t border-zinc-200 dark:border-zinc-800">
+                <a 
+                  :href="boxer.boxrec_url || boxer.boxrecUrl" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  class="text-sm text-red-600 hover:text-red-700 dark:text-red-400 flex items-center gap-1"
+                >
+                  View on BoxRec
+                  <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                  </svg>
+                </a>
               </div>
             </dl>
           </div>
@@ -335,11 +461,11 @@ const columns = [
       <!-- Fight History - Full Width at Bottom -->
       <div class="mt-12">
         <h2 class="text-lg font-semibold text-zinc-900 dark:text-white mb-4">Fight History</h2>
-        <div class="h-[400px] overflow-auto">
+        <div class="h-[400px] overflow-auto" v-if="fights.length > 0">
           <UTable 
-            :rows="mockFights" 
+            :rows="fights" 
             :columns="columns"
-            :sort="{ column: 'date', direction: 'desc' }"
+            :sort="{ column: 'bout_date', direction: 'desc' }"
             :ui="{
               wrapper: 'relative overflow-x-auto bg-white dark:bg-zinc-900 shadow ring-1 ring-zinc-200 dark:ring-zinc-800 rounded-lg',
               base: 'min-w-full table-fixed',
@@ -366,38 +492,56 @@ const columns = [
               }
             }"
           >
-            <template #date-data="{ row }">
-              <time :datetime="row.date" class="text-zinc-900 dark:text-white">
-                {{ new Date(row.date).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }) }}
+            <template #bout_date-data="{ row }">
+              <time :datetime="row.bout_date" class="text-zinc-900 dark:text-white">
+                {{ new Date(row.bout_date).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }) }}
               </time>
             </template>
             
-            <template #opponent-data="{ row }">
-              <span class="font-medium text-zinc-900 dark:text-white">{{ row.opponent }}</span>
+            <template #opponent_name-data="{ row }">
+              <span class="font-medium text-zinc-900 dark:text-white">{{ row.opponent_name }}</span>
+            </template>
+            
+            <template #opponent_record-data="{ row }">
+              <span class="text-zinc-600 dark:text-zinc-400 text-xs">{{ row.opponent_record }}</span>
             </template>
             
             <template #result-data="{ row }">
               <UBadge 
-                :color="row.result === 'W' ? 'green' : row.result === 'L' ? 'red' : 'gray'"
+                :color="row.result === 'win' ? 'green' : row.result === 'loss' ? 'red' : 'gray'"
                 variant="subtle"
                 size="xs"
               >
-                {{ row.result === 'W' ? 'Win' : row.result === 'L' ? 'Loss' : 'Draw' }}
+                {{ row.result === 'win' ? 'Win' : row.result === 'loss' ? 'Loss' : row.result === 'draw' ? 'Draw' : 'NC' }}
               </UBadge>
             </template>
             
-            <template #method-data="{ row }">
-              <span class="text-zinc-700 dark:text-zinc-300">{{ row.method }}</span>
+            <template #result_method-data="{ row }">
+              <span class="text-zinc-700 dark:text-zinc-300 uppercase">{{ row.result_method }}</span>
             </template>
             
-            <template #round-data="{ row }">
-              <span class="text-zinc-700 dark:text-zinc-300">R{{ row.round }}</span>
+            <template #result_round-data="{ row }">
+              <span class="text-zinc-700 dark:text-zinc-300">R{{ row.result_round }}</span>
             </template>
             
-            <template #venue-data="{ row }">
-              <span class="text-zinc-600 dark:text-zinc-400 text-xs">{{ row.venue }}</span>
+            <template #venue_name-data="{ row }">
+              <span class="text-zinc-600 dark:text-zinc-400 text-xs">{{ row.venue_name }}</span>
+            </template>
+            
+            <template #title_fight-data="{ row }">
+              <UBadge 
+                v-if="row.title_fight"
+                color="amber"
+                variant="subtle"
+                size="xs"
+              >
+                Title
+              </UBadge>
             </template>
           </UTable>
+        </div>
+        <div v-else class="bg-zinc-50 dark:bg-zinc-900 rounded-lg p-8 text-center">
+          <p class="text-zinc-600 dark:text-zinc-400">No fight history available</p>
         </div>
       </div>
     </div>
