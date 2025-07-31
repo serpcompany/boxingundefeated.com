@@ -66,5 +66,15 @@ export function findBoxerBySlug(slug: string): Boxer | null {
 
 export function findBoxersByDivision(division: string): Boxer[] {
   const boxers = loadBoxers()
-  return boxers.filter(b => (b.division || b.pro_division) === division)
+  // Normalize the division slug to match the data format
+  // Convert "super-featherweight" to "Super Featherweight"
+  const normalizedDivision = division
+    .split('-')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ')
+  
+  return boxers.filter(b => {
+    const boxerDivision = b.division || b.pro_division
+    return boxerDivision === normalizedDivision || boxerDivision === division
+  })
 }

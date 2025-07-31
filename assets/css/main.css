@@ -76,3 +76,24 @@ html {
 .layout-container {
   @apply max-w-7xl mx-auto px-5;
 }
+
+/* Data row styles for consistent information display */
+.data-row {
+  @apply flex;
+}
+
+.data-label {
+  @apply text-sm text-zinc-600 dark:text-zinc-400 w-24 flex-shrink-0;
+}
+
+.data-value {
+  @apply text-sm text-zinc-900 dark:text-white ml-4;
+}
+
+.data-section {
+  @apply pt-2 mt-2 border-t border-zinc-200 dark:border-zinc-800;
+}
+
+.data-section-title {
+  @apply text-sm font-semibold text-zinc-700 dark:text-zinc-300 mb-2;
+}

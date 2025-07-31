@@ -2,6 +2,7 @@ export default defineAppConfig({
   ui: {
     primary: 'black',
     gray: 'zinc',
+    secondary: 'blue',
   },
   site: {
     url: 'https://boxingundefeated.com',

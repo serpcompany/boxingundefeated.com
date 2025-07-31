@@ -38,7 +38,7 @@ function getDivisionSlug(boxer: Boxer): string {
 
 <template>
   <div class="bg-white border-b border-zinc-200">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 md:py-16 w-full">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 md:py-16 w-full">
       <!-- Mobile Layout (Stacked) -->
       <div class="sm:hidden">
         <!-- Centered Image -->
@@ -46,7 +46,7 @@ function getDivisionSlug(boxer: Boxer): string {
           <img
             :src="getImageUrl(boxer)"
             :alt="getDisplayName(boxer)"
-            class="w-32 h-32 rounded-full object-cover shadow-lg"
+            class="w-32 h-32 rounded-full object-cover"
           >
         </div>
         
@@ -61,38 +61,23 @@ function getDivisionSlug(boxer: Boxer): string {
           
           <div class="flex flex-wrap justify-center items-center gap-2">
             <!-- Division Badge -->
-            <NuxtLink 
+            <DivisionBadge 
               v-if="getDivision(boxer)"
-              :to="`/divisions/${getDivisionSlug(boxer)}`"
-            >
-              <UBadge 
-                color="primary"
-                variant="soft"
-                size="sm"
-                class="hover:shadow-md transition-shadow cursor-pointer"
-              >
-                {{ getDivision(boxer) }}
-              </UBadge>
-            </NuxtLink>
+              :division="getDivision(boxer)"
+            />
             
             <!-- Nationality Badge -->
             <UBadge 
               v-if="boxer.nationality"
-              color="neutral"
-              variant="subtle"
+              color="gray"
+              variant="soft"
               size="sm"
             >
               {{ boxer.nationality }}
             </UBadge>
             
             <!-- Status Badge -->
-            <UBadge 
-              :color="isActive(boxer) ? 'success' : 'neutral'"
-              :variant="isActive(boxer) ? 'soft' : 'subtle'"
-              size="sm"
-            >
-              {{ getStatus(boxer) }}
-            </UBadge>
+            <StatusBadge :active="isActive(boxer)" />
           </div>
         </div>
       </div>
@@ -104,7 +89,7 @@ function getDivisionSlug(boxer: Boxer): string {
           <img
             :src="getImageUrl(boxer)"
             :alt="getDisplayName(boxer)"
-            class="w-36 h-36 md:w-48 md:h-48 rounded-full object-cover shadow-lg"
+            class="w-36 h-36 md:w-48 md:h-48 rounded-full object-cover"
           >
         </div>
         
@@ -119,38 +104,24 @@ function getDivisionSlug(boxer: Boxer): string {
           
           <div class="flex flex-wrap items-center gap-3 md:gap-4">
             <!-- Division Badge -->
-            <NuxtLink 
+            <DivisionBadge 
               v-if="getDivision(boxer)"
-              :to="`/divisions/${getDivisionSlug(boxer)}`"
-            >
-              <UBadge 
-                color="primary"
-                variant="soft"
-                size="md"
-                class="hover:shadow-md transition-shadow cursor-pointer"
-              >
-                {{ getDivision(boxer) }}
-              </UBadge>
-            </NuxtLink>
+              :division="getDivision(boxer)"
+              size="md"
+            />
             
             <!-- Nationality Badge -->
             <UBadge 
               v-if="boxer.nationality"
-              color="neutral"
-              variant="subtle"
+              color="gray"
+              variant="soft"
               size="md"
             >
               {{ boxer.nationality }}
             </UBadge>
             
             <!-- Status Badge -->
-            <UBadge 
-              :color="isActive(boxer) ? 'success' : 'neutral'"
-              :variant="isActive(boxer) ? 'soft' : 'subtle'"
-              size="md"
-            >
-              {{ getStatus(boxer) }}
-            </UBadge>
+            <StatusBadge :active="isActive(boxer)" size="md" />
           </div>
         </div>
       </div>

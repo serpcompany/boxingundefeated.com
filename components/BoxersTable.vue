@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useScroll } from '@vueuse/core'
 import type { Boxer } from '~/types/Boxing'
 
 interface Props {
@@ -13,9 +14,10 @@ const props = withDefaults(defineProps<Props>(), {
 })
 
 // Filter state
+const searchQuery = ref('')
 const statusFilter = ref('')
 const nationalityFilter = ref('')
-const divisionFilter = ref('')
+const divisionFilter = ref<string[]>([])
 const page = ref(1)
 
 // Table columns
@@ -27,6 +29,11 @@ const columns = computed(() => {
       sortable: true
     },
     {
+      key: 'division',
+      label: 'Weight Class',
+      sortable: true
+    },
+    {
       key: 'record',
       label: 'Record'
     },
@@ -34,21 +41,12 @@ const columns = computed(() => {
       key: 'nationality',
       label: 'Nationality',
       sortable: true
+    },
+    {
+      key: 'status',
+      label: 'Status'
     }
   ]
-  
-  if (props.showDivision) {
-    cols.splice(2, 0, {
-      key: 'division',
-      label: 'Division',
-      sortable: true
-    })
-  }
-  
-  cols.push({
-    key: 'status',
-    label: 'Status'
-  })
   
   return cols
 })
@@ -86,15 +84,25 @@ const nationalityOptions = computed(() => {
 
 const divisionOptions = computed(() => {
   const divisions = [...new Set(props.boxers.map(b => b.division).filter(Boolean))]
-  return [
-    { label: 'All Divisions', value: '' },
-    ...divisions.map(d => ({ label: d, value: d }))
-  ]
+  return divisions.sort().map(d => ({ 
+    label: d.charAt(0).toUpperCase() + d.slice(1).replace(/-/g, ' '), 
+    value: d 
+  }))
 })
 
 // Apply filters to data
 const filteredData = computed(() => {
   let filtered = tableData.value
+  
+  // Search filter
+  if (searchQuery.value) {
+    const search = searchQuery.value.toLowerCase()
+    filtered = filtered.filter(boxer => 
+      boxer.name.toLowerCase().includes(search) ||
+      boxer.nationality.toLowerCase().includes(search) ||
+      boxer.division.toLowerCase().includes(search)
+    )
+  }
   
   if (statusFilter.value) {
     filtered = filtered.filter(boxer => boxer.status === statusFilter.value)
@@ -104,19 +112,47 @@ const filteredData = computed(() => {
     filtered = filtered.filter(boxer => boxer.nationality === nationalityFilter.value)
   }
   
-  if (divisionFilter.value && props.showDivision) {
-    filtered = filtered.filter(boxer => boxer.division === divisionFilter.value)
+  if (divisionFilter.value.length > 0) {
+    filtered = filtered.filter(boxer => divisionFilter.value.includes(boxer.division))
   }
   
   return filtered
 })
 
-// Pagination
-const totalPages = computed(() => Math.ceil(filteredData.value.length / props.pageSize))
-const paginatedData = computed(() => {
-  const start = (page.value - 1) * props.pageSize
-  const end = start + props.pageSize
-  return filteredData.value.slice(start, end)
+// Infinite scroll setup
+const loadedCount = ref(props.pageSize)
+const isLoading = ref(false)
+
+// Reset loaded count when filters change
+watch([searchQuery, statusFilter, nationalityFilter, divisionFilter], () => {
+  loadedCount.value = props.pageSize
+})
+
+// Data to display (with infinite scroll)
+const displayedData = computed(() => {
+  return filteredData.value.slice(0, loadedCount.value)
+})
+
+// Load more function
+const loadMore = () => {
+  if (isLoading.value || loadedCount.value >= filteredData.value.length) return
+  
+  isLoading.value = true
+  // Simulate loading delay
+  setTimeout(() => {
+    loadedCount.value = Math.min(loadedCount.value + props.pageSize, filteredData.value.length)
+    isLoading.value = false
+  }, 300)
+}
+
+// Infinite scroll composable
+const tableRef = ref<HTMLElement>()
+const { arrivedState } = useScroll(tableRef)
+
+watch(() => arrivedState.bottom, (arrived) => {
+  if (arrived && !isLoading.value) {
+    loadMore()
+  }
 })
 
 // Row click handler
@@ -126,15 +162,50 @@ function onRowClick(row: any) {
 </script>
 
 <template>
-  <div class="space-y-4">
+  <div class="space-y-4 my-8">
     <!-- Filters -->
-    <div class="flex flex-wrap gap-4 mb-6">
+    <div class="flex items-center gap-3 mb-6">
+      <!-- Search Bar -->
+      <div class="relative flex-1 max-w-md">
+        <UInput
+          v-model="searchQuery"
+          placeholder="Search fighters..."
+          icon="i-heroicons-magnifying-glass"
+          size="lg"
+          class="w-full"
+          :ui="{
+            wrapper: 'relative',
+            base: 'relative block w-full disabled:cursor-not-allowed disabled:opacity-75 focus:outline-none border-0',
+            padding: {
+              lg: 'ps-11 pe-10 py-2.5'
+            },
+            rounded: 'rounded-lg',
+            color: {
+              white: {
+                outline: 'shadow-sm bg-white dark:bg-gray-900 text-gray-900 dark:text-white ring-1 ring-inset ring-gray-300 dark:ring-gray-700 focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400'
+              }
+            }
+          }"
+        />
+        
+        <!-- Clear Search Button -->
+        <button
+          v-if="searchQuery"
+          type="button"
+          class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+          @click="searchQuery = ''"
+        >
+          <UIcon name="i-heroicons-x-mark-20-solid" class="w-5 h-5" />
+        </button>
+      </div>
+
       <USelectMenu
         v-model="statusFilter"
         :options="statusOptions"
         option-attribute="label"
         value-attribute="value"
         placeholder="Status"
+        size="lg"
         class="w-40"
       />
       
@@ -144,46 +215,56 @@ function onRowClick(row: any) {
         option-attribute="label"
         value-attribute="value"
         placeholder="Nationality"
+        size="lg"
         class="w-48"
       />
       
       <USelectMenu
-        v-if="showDivision"
         v-model="divisionFilter"
         :options="divisionOptions"
         option-attribute="label"
         value-attribute="value"
-        placeholder="Division"
-        class="w-48"
-      />
+        placeholder="Filter by division"
+        multiple
+        size="lg"
+        class="w-64"
+      >
+        <template #label>
+          <span v-if="divisionFilter.length === 0">All divisions</span>
+          <span v-else>{{ divisionFilter.length }} {{ divisionFilter.length === 1 ? 'division' : 'divisions' }}</span>
+        </template>
+      </USelectMenu>
       
       <!-- Results count -->
-      <div class="flex items-center text-sm text-zinc-600 dark:text-zinc-400 ml-auto">
-        Showing {{ paginatedData.length }} of {{ filteredData.length }} fighters
+      <div class="flex items-center text-sm text-gray-500 dark:text-gray-400 ml-auto whitespace-nowrap">
+        Showing {{ displayedData.length }} of {{ filteredData.length }} fighters
       </div>
     </div>
 
-    <UTable 
-      :rows="paginatedData" 
-      :columns="columns"
-      :loading="false"
-      class="cursor-pointer border border-zinc-200 dark:border-zinc-700 shadow-sm rounded-lg overflow-hidden"
-      :ui="{
-        wrapper: 'relative overflow-hidden',
-        base: 'min-w-full table-fixed',
-        thead: 'bg-zinc-50/50 dark:bg-zinc-800/50 border-b border-zinc-200 dark:border-zinc-700',
-        th: { 
-          base: 'px-4 py-3.5 text-left text-sm font-semibold text-zinc-900 dark:text-white'
-        },
-        tbody: 'bg-white dark:bg-zinc-900 divide-y divide-zinc-200 dark:divide-zinc-700',
-        tr: { 
-          base: 'hover:bg-zinc-50 dark:hover:bg-zinc-800/30 transition-colors duration-150',
-          selected: 'bg-primary-50 dark:bg-primary-950'
-        },
-        td: { 
-          base: 'px-4 py-3 whitespace-nowrap text-sm text-zinc-900 dark:text-zinc-100 border-r border-zinc-100 dark:border-zinc-800 last:border-r-0'
-        }
-      }"
+    <!-- Table wrapper for infinite scroll with border -->
+    <div class="border border-zinc-200 dark:border-zinc-700 rounded-lg overflow-hidden">
+      <div ref="tableRef" class="max-h-[800px] overflow-y-auto">
+        <UTable 
+          :rows="displayedData" 
+          :columns="columns"
+          :loading="false"
+          class="cursor-pointer"
+          :ui="{
+            wrapper: 'relative',
+            base: 'min-w-full table-fixed',
+            thead: 'sticky top-0 z-10 bg-zinc-50 dark:bg-zinc-800 border-b border-zinc-200 dark:border-zinc-700',
+            th: { 
+              base: 'px-4 py-3.5 text-left text-sm font-semibold text-zinc-900 dark:text-white'
+            },
+            tbody: 'bg-white dark:bg-zinc-900 divide-y divide-zinc-200 dark:divide-zinc-700',
+            tr: { 
+              base: 'hover:bg-zinc-50 dark:hover:bg-zinc-800/30 transition-colors duration-150',
+              selected: 'bg-primary-50 dark:bg-primary-950'
+            },
+            td: { 
+              base: 'px-4 py-3 whitespace-nowrap text-sm text-zinc-900 dark:text-zinc-100'
+            }
+          }"
       @select="onRowClick"
     >
       <template #name-data="{ row }">
@@ -198,11 +279,18 @@ function onRowClick(row: any) {
             <div v-else class="w-full h-full bg-zinc-300"></div>
           </div>
           <div>
-            <div class="text-zinc-900 dark:text-white">
+            <NuxtLink 
+              :to="`/boxers/${row.slug}`"
+              class="text-zinc-900 dark:text-white hover:text-red-600 dark:hover:text-red-400"
+            >
               {{ row.name }}
-            </div>
+            </NuxtLink>
           </div>
         </div>
+      </template>
+
+      <template #division-data="{ row }">
+        <DivisionBadge :division="row.division" />
       </template>
 
       <template #record-data="{ row }">
@@ -217,24 +305,20 @@ function onRowClick(row: any) {
       </template>
 
       <template #status-data="{ row }">
-        <UBadge 
-          :color="row.active ? 'green' : 'gray'"
-          :variant="row.active ? 'soft' : 'subtle'"
-          size="sm"
-        >
-          {{ row.status }}
-        </UBadge>
+        <StatusBadge :active="row.active" />
       </template>
-    </UTable>
+        </UTable>
+      </div>
+    </div>
 
-    <!-- Pagination -->
-    <div v-if="totalPages > 1" class="flex justify-center">
-      <UPagination 
-        v-model="page" 
-        :page-count="props.pageSize" 
-        :total="filteredData.length"
-        :max="7"
-      />
+    <!-- Loading indicator -->
+    <div v-if="isLoading" class="flex justify-center py-4">
+      <UIcon name="i-heroicons-arrow-path" class="w-6 h-6 animate-spin text-zinc-500" />
+    </div>
+
+    <!-- End of list message -->
+    <div v-if="!isLoading && displayedData.length === filteredData.length && filteredData.length > 0" class="text-center py-4 text-sm text-zinc-500">
+      End of list - {{ filteredData.length }} fighters shown
     </div>
   </div>
 </template>

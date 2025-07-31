@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import type { Division, Boxer } from '~/types/Boxing'
-import { mockDivisions, mockBoxers } from '~/data/boxing-data'
+import { mockDivisions } from '~/data/boxing-data'
+import { findBoxersByDivision } from '~/utils/loadBoxerData'
 
 const route = useRoute()
 const slug = route.params.slug as string
 
 const division = computed(() => mockDivisions.find(d => d.slug === slug))
-const boxersInDivision = computed(() => mockBoxers.filter(b => b.division === slug))
+const boxersInDivision = computed(() => findBoxersByDivision(slug))
 
 if (!division.value) {
   throw createError({
@@ -27,15 +28,18 @@ const retiredBoxers = computed(() => boxersInDivision.value.filter(b => !b.activ
 const champions = computed(() => boxersInDivision.value.filter(b => b.titles && b.titles.length > 0))
 
 function formatWeightLimit(division: Division) {
+  if (division.slug === 'heavyweight') {
+    return 'No limit'
+  }
   return `${division.weightLimit.pounds} lbs / ${division.weightLimit.kilograms.toFixed(1)} kg`
 }
 </script>
 
 <template>
-  <div class="min-h-screen bg-white">
+  <div class="min-h-screen bg-white dark:bg-zinc-900">
     <!-- Breadcrumbs -->
-    <div class="bg-white border-b border-gray-100">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+    <div class="bg-white dark:bg-zinc-900 border-b border-gray-100 dark:border-zinc-800">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
         <BreadCrumbs 
           :items="[
             { label: 'Divisions', to: '/divisions' },
@@ -65,7 +69,7 @@ function formatWeightLimit(division: Division) {
     </PageHero>
 
     <!-- Main Content -->
-    <div class="max-w-7xl mx-auto px-6 lg:px-8 py-12">
+    <div class="max-w-6xl mx-auto px-6 lg:px-8 py-12">
       <!-- Division Info -->
       <div v-if="division.description" class="mb-12">
         <p class="text-lg text-zinc-600 dark:text-zinc-400">

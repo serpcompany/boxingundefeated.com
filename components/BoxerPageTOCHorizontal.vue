@@ -13,35 +13,28 @@ const navigationItems = computed(() => {
   
   // Professional Record
   items.push({
-    label: 'Professional Record',
+    label: 'Record',
     to: '#professional-record'
   })
   
-  // Amateur Record (if available)
-  if (props.boxer.amateur_total_bouts && props.boxer.amateur_total_bouts > 0) {
-    items.push({
-      label: 'Amateur Record',
-      to: '#amateur-record'
-    })
-  }
   
   // Fighter Information
   items.push({
-    label: 'Fighter Info',
+    label: 'Stats',
     to: '#fighter-information'
   })
   
   // Biography (if available)
   if (props.boxer.bio || props.boxer.bioSections) {
     items.push({
-      label: 'Biography',
+      label: 'About',
       to: '#biography'
     })
   }
   
   // Fight History
   items.push({
-    label: 'Fight History',
+    label: 'Fights',
     to: '#fight-history'
   })
   
@@ -114,7 +107,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <nav class="sticky top-16 z-40 bg-white dark:bg-zinc-900 shadow-sm">
+  <nav class="sticky top-16 z-40 bg-white dark:bg-zinc-900 border-b border-zinc-200 dark:border-zinc-700">
     <!-- Mobile Dropdown -->
     <div class="sm:hidden">
       <div class="px-4 py-3">
@@ -136,7 +129,7 @@ onMounted(() => {
     </div>
     
     <!-- Desktop Horizontal Nav -->
-    <div class="hidden sm:block max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="hidden sm:block max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-center gap-1 overflow-x-auto scrollbar-hide py-3">
         <button
           v-for="item in navigationItems"

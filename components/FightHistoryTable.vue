@@ -11,6 +11,7 @@ interface Props {
 
 const props = defineProps<Props>()
 
+
 // Format date consistently
 function formatDate(date: string | null | undefined): string {
   if (!date) return 'N/A'
@@ -25,8 +26,13 @@ function formatDate(date: string | null | undefined): string {
   }
 }
 
-// Table columns configuration
-const columns = [
+// All available columns
+const allColumns = [
+  {
+    key: 'fight_number',
+    label: 'Fight',
+    sortable: false
+  },
   {
     key: 'bout_date',
     label: 'Date',
@@ -38,17 +44,9 @@ const columns = [
     sortable: true
   },
   {
-    key: 'opponent_record',
-    label: 'Opponent Record'
-  },
-  {
     key: 'result',
     label: 'Result',
     sortable: true
-  },
-  {
-    key: 'result_method',
-    label: 'Method'
   },
   {
     key: 'result_round',
@@ -64,22 +62,28 @@ const columns = [
     label: 'Title'
   }
 ]
+
+// Use all columns
+const columns = allColumns
 </script>
 
 <template>
-  <div id="fight-history" class="my-20">
-    <h2 class="text-lg font-semibold text-zinc-900 dark:text-white mb-4">Fight History</h2>
-    <div class="relative max-h-[800px] border-2 border-zinc-200 dark:border-zinc-700 rounded-lg shadow-md overflow-hidden" v-if="fights.length > 0">
+  <div id="fight-history" class="my-24">
+    <div class="mb-4">
+      <h2 class="text-lg font-semibold text-zinc-900 dark:text-white">Fight History</h2>
+    </div>
+    
+    <div class="relative border border-zinc-200 dark:border-zinc-700 rounded-lg" v-if="fights.length > 0">
       <UTable 
         :rows="fights" 
         :columns="columns"
         :sort="{ column: 'bout_date', direction: 'desc' }"
         :ui="{
-          wrapper: 'h-full overflow-auto bg-white dark:bg-zinc-900',
+          wrapper: 'relative bg-white dark:bg-zinc-900',
           base: 'min-w-full table-fixed',
           divide: 'divide-y divide-zinc-200 dark:divide-zinc-700',
-          thead: 'sticky top-0 bg-zinc-50 dark:bg-zinc-800 z-10 border-b-2 border-zinc-300 dark:border-zinc-600',
-          tbody: 'divide-y divide-zinc-200 dark:divide-zinc-700',
+          thead: 'bg-zinc-50 dark:bg-zinc-800 border-b border-zinc-200 dark:border-zinc-700',
+            tbody: 'divide-y divide-zinc-200 dark:divide-zinc-700',
           tr: {
             base: 'hover:bg-zinc-50 dark:hover:bg-zinc-800/50 transition-colors border-b border-zinc-100 dark:border-zinc-800',
             selected: 'bg-zinc-50 dark:bg-zinc-800/50'
@@ -100,6 +104,10 @@ const columns = [
           }
         }"
       >
+        <template #fight_number-data="{ row, index }">
+          <span class="text-zinc-500 dark:text-zinc-400 text-sm">{{ fights.length - index }}</span>
+        </template>
+        
         <template #bout_date-data="{ row }">
           <time :datetime="row.bout_date" class="text-zinc-900 dark:text-white">
             {{ formatDate(row.bout_date) }}
@@ -107,38 +115,38 @@ const columns = [
         </template>
         
         <template #opponent_name-data="{ row }">
-          <NuxtLink 
-            :to="`/boxers/${row.opponent_name.toLowerCase().replace(/\s+/g, '-')}`"
-            class="font-medium text-zinc-900 dark:text-white hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
-          >
-            {{ row.opponent_name }}
-          </NuxtLink>
-        </template>
-        
-        <template #opponent_record-data="{ row }">
-          <span class="text-zinc-600 dark:text-zinc-400 text-xs">{{ row.opponent_record }}</span>
+          <div class="space-y-1">
+            <NuxtLink 
+              :to="`/boxers/${row.opponent_name.toLowerCase().replace(/\s+/g, '-')}`"
+              class="font-medium text-zinc-900 dark:text-white hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
+            >
+              {{ row.opponent_name }}
+            </NuxtLink>
+            <div class="text-gray-500 dark:text-gray-400 text-sm">{{ row.opponent_record }}</div>
+          </div>
         </template>
         
         <template #result-data="{ row }">
-          <UBadge 
-            :color="row.result === 'win' ? 'green' : row.result === 'loss' ? 'red' : 'gray'"
-            variant="subtle"
-            size="xs"
-          >
-            {{ row.result === 'win' ? 'Win' : row.result === 'loss' ? 'Loss' : row.result === 'draw' ? 'Draw' : 'NC' }}
-          </UBadge>
-        </template>
-        
-        <template #result_method-data="{ row }">
-          <span class="text-zinc-700 dark:text-zinc-300 uppercase">{{ row.result_method }}</span>
+          <div class="space-y-1">
+            <UBadge 
+              :color="row.result === 'win' ? 'green' : row.result === 'loss' ? 'red' : 'gray'"
+              variant="subtle"
+              size="xs"
+            >
+              {{ row.result === 'win' ? 'Win' : row.result === 'loss' ? 'Loss' : row.result === 'draw' ? 'Draw' : 'NC' }}
+            </UBadge>
+            <div class="text-xs text-zinc-600 dark:text-zinc-400">
+              {{ row.result_method === 'ko' || row.result_method === 'tko' ? row.result_method.toUpperCase() : row.result_method }}
+            </div>
+          </div>
         </template>
         
         <template #result_round-data="{ row }">
-          <span class="text-zinc-700 dark:text-zinc-300">R{{ row.result_round }}</span>
+          <span class="text-zinc-700 dark:text-zinc-300">{{ row.result_round }}</span>
         </template>
         
         <template #venue_name-data="{ row }">
-          <span class="text-zinc-600 dark:text-zinc-400 text-xs">{{ row.venue_name }}</span>
+          <span class="text-gray-500 dark:text-gray-400 text-sm">{{ row.venue_name }}</span>
         </template>
         
         <template #title_fight-data="{ row }">
@@ -150,6 +158,7 @@ const columns = [
           >
             Title
           </UBadge>
+          <span v-else></span>
         </template>
       </UTable>
     </div>
