@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 // Hero headline with emphasis on "community"
 </script>
 

@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 // Learn section with value proposition cards
 </script>
 

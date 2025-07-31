@@ -15,9 +15,11 @@ if (!division.value) {
   })
 }
 
+const { site } = useAppConfig()
+
 useSeoMeta({
-  title: `${division.value.name} - Boxing Undefeated`,
-  description: `Explore ${division.value.name} boxers and champions. Weight limit: ${division.value.weightLimit.pounds} lbs.`,
+  title: `${division.value.name} - ${site.name}`,
+  description: `${division.value.name} Boxing Division - Champions, Contenders & More!`,
 })
 
 const activeBoxers = computed(() => boxersInDivision.value.filter(b => b.active))

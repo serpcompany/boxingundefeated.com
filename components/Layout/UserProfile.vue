@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 // User profile component with avatar and name
 </script>
 

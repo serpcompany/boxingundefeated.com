@@ -27,6 +27,68 @@ const division = computed(() => {
   return mockDivisions.find(d => d.slug === divisionSlug)
 })
 
+const { site } = useAppConfig()
+
+useSeoMeta({
+  title: computed(() => {
+    if (!boxer.value) return site.name
+    const nickname = boxer.value.nickname ? ` "${boxer.value.nickname}"` : ''
+    return `${boxer.value.name}${nickname} - ${site.name}`
+  }),
+  description: computed(() => {
+    if (!boxer.value) return site.description
+    return `${boxer.value.name} Bio, Record, Fights, News & More!`
+  }),
+})
+
+// Schema.org structured data for boxer profile
+useHead({
+  script: [
+    {
+      type: 'application/ld+json',
+      children: computed(() => {
+        if (!boxer.value) return '{}'
+        
+        const wins = boxer.value.pro_wins || boxer.value.record?.wins || 0
+        const losses = boxer.value.pro_losses || boxer.value.record?.losses || 0
+        const draws = boxer.value.pro_draws || boxer.value.record?.draws || 0
+        
+        return JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'Person',
+          '@id': `${site.url}/boxers/${slug}/#person`,
+          name: boxer.value.name,
+          alternateName: boxer.value.nickname,
+          url: `${site.url}/boxers/${slug}`,
+          nationality: boxer.value.nationality,
+          birthDate: boxer.value.date_of_birth,
+          jobTitle: 'Professional Boxer',
+          sport: 'Boxing',
+          description: `${boxer.value.name} Bio, Record, Fights, News & More!`,
+          image: boxer.value.image,
+          additionalProperty: [
+            {
+              '@type': 'PropertyValue',
+              name: 'Professional Record',
+              value: `${wins}-${losses}-${draws}`,
+            },
+            {
+              '@type': 'PropertyValue', 
+              name: 'Weight Division',
+              value: division.value?.name || 'Professional',
+            },
+            {
+              '@type': 'PropertyValue',
+              name: 'Status',
+              value: boxer.value.active ? 'Active' : 'Retired',
+            },
+          ],
+        })
+      }),
+    },
+  ],
+})
+
 
 function calculateKOPercentage(boxer: Boxer): string {
   const wins = boxer.pro_wins || boxer.record?.wins || 0

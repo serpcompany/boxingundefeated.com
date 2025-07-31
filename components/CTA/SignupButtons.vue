@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 // Signup buttons with primary CTA and future OAuth integration
 </script>
 

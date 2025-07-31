@@ -2,9 +2,49 @@
 import type { BoxerFilters } from '~/types/Boxing'
 import { mockBoxers, mockDivisions } from '~/data/boxing-data'
 
+const { site } = useAppConfig()
+
+const title = `Boxers - ${site.name}`
+const description = `Browse profiles of ${mockBoxers.length} professional boxers from around the world. Filter by weight division and search for your favorite fighters.`
+
 useSeoMeta({
-  title: 'Boxers - Boxing Undefeated',
-  description: 'Browse profiles of professional boxers from around the world. Filter by weight division and search for your favorite fighters.',
+  title,
+  description,
+  ogTitle: title,
+  ogDescription: description,
+  ogImage: `${site.url}/og-image-boxers.jpg`,
+  ogUrl: `${site.url}/boxers`,
+  ogType: 'website',
+  twitterCard: 'summary_large_image',
+  twitterTitle: title,
+  twitterDescription: description,
+  twitterImage: `${site.url}/og-image-boxers.jpg`,
+})
+
+// Schema.org structured data for boxers collection page
+useHead({
+  script: [
+    {
+      type: 'application/ld+json',
+      children: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'CollectionPage',
+        '@id': `${site.url}/boxers/#webpage`,
+        url: `${site.url}/boxers`,
+        name: title,
+        description,
+        isPartOf: {
+          '@id': `${site.url}/#website`,
+        },
+        mainEntity: {
+          '@type': 'ItemList',
+          name: 'Professional Boxers',
+          description: `Directory of ${mockBoxers.length} professional boxers`,
+          numberOfItems: mockBoxers.length,
+        },
+      }),
+    },
+  ],
 })
 
 const loading = ref(false)

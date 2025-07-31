@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 // Hero section container with proper spacing
 </script>
 

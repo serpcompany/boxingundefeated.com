@@ -1,9 +1,14 @@
 <script setup lang="ts">
 import { mockDivisions } from '~/data/boxing-data'
 
+const { site } = useAppConfig()
+
+const title = `Professional Boxing Weight Classes - ${site.name}`
+const description = `Explore all ${mockDivisions.length} professional boxing weight divisions from minimumweight to heavyweight. Learn about weight limits and division history.`
+
 useSeoMeta({
-  title: 'Weight Divisions - Boxing Undefeated',
-  description: 'Explore all professional boxing weight divisions from minimumweight to heavyweight. Learn about weight limits and division history.',
+  title,
+  description,
 })
 
 const divisions = computed(() => {

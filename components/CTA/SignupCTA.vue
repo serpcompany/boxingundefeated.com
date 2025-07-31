@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 // Call-to-action section with signup prompt
 </script>
 

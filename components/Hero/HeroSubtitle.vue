@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 // Hero subtitle with exact copy from original
 </script>
 

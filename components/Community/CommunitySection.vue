@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 // Community section with code sharing and help panel
 </script>
 

@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 // Default layout for most pages
 </script>
 

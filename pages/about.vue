@@ -1,7 +1,9 @@
 <script setup lang="ts">
+const { site } = useAppConfig()
+
 useSeoMeta({
-  title: 'About - Boxing Undefeated',
-  description: 'Learn about Boxing Undefeated, your comprehensive resource for professional boxing information, fighter profiles, and the sweet science.',
+  title: `About - ${site.name}`,
+  description: `Learn about ${site.name}, your comprehensive resource for professional boxing information, fighter profiles, and the sweet science.`,
 })
 </script>
 
