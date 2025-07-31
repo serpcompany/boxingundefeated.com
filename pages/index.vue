@@ -1,10 +1,39 @@
 <script setup lang="ts">
 import { mockBoxers, mockDivisions } from '~/data/boxing-data'
 
+const { site } = useAppConfig()
+
+const title = `${site.name} - ${site.tagline}`
+const description = site.description
+
 useSeoMeta({
-  title: 'Boxing Undefeated - Your Ultimate Boxing Resource',
-  description: 'Explore fighter profiles, weight divisions, fight records, and the latest boxing news. Your comprehensive guide to the sweet science.',
+  title,
+  description,
+  ogTitle: title,
+  ogDescription: description,
+  ogImage: `${site.url}/og-image-home.jpg`,
+  ogUrl: site.url,
+  ogType: 'website',
+  twitterCard: 'summary_large_image',
+  twitterTitle: title,
+  twitterDescription: description,
+  twitterImage: `${site.url}/og-image-home.jpg`,
 })
+
+useSchemaOrg([
+  defineWebSite({
+    name: site.name,
+    url: site.url,
+    description: site.description,
+    inLanguage: site.defaultLocale,
+  }),
+  defineOrganization({
+    name: site.name,
+    url: site.url,
+    description: site.description,
+    logo: `${site.url}/logo.png`,
+  }),
+])
 
 const featuredBoxers = computed(() => mockBoxers.slice(0, 3))
 const divisions = computed(() => mockDivisions.slice(0, 8))

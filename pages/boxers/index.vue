@@ -2,10 +2,34 @@
 import type { BoxerFilters } from '~/types/Boxing'
 import { mockBoxers, mockDivisions } from '~/data/boxing-data'
 
+const { site } = useAppConfig()
+
+const title = `Boxers - ${site.name}`
+const description = `Browse profiles of ${mockBoxers.length} professional boxers from around the world. Filter by weight division and search for your favorite fighters.`
+
 useSeoMeta({
-  title: 'Boxers - Boxing Undefeated',
-  description: 'Browse profiles of professional boxers from around the world. Filter by weight division and search for your favorite fighters.',
+  title,
+  description,
+  ogTitle: title,
+  ogDescription: description,
+  ogImage: `${site.url}/og-image-boxers.jpg`,
+  ogUrl: `${site.url}/boxers`,
+  ogType: 'website',
+  twitterCard: 'summary_large_image',
+  twitterTitle: title,
+  twitterDescription: description,
+  twitterImage: `${site.url}/og-image-boxers.jpg`,
 })
+
+useSchemaOrg([
+  defineWebPage({
+    '@type': 'CollectionPage',
+    name: title,
+    description,
+    url: `${site.url}/boxers`,
+    inLanguage: site.defaultLocale,
+  }),
+])
 
 const loading = ref(false)
 const currentPage = ref(1)

@@ -87,7 +87,7 @@ const appConfig = useAppConfig()
       </div>
 
       <div class="border-t border-zinc-200 dark:border-zinc-700 pt-8 text-center text-sm text-zinc-600 dark:text-zinc-400">
-        <p>{{ appConfig.brand.copyright }}</p>
+        <p>{{ appConfig.site.copyright }}</p>
       </div>
     </div>
   </footer>

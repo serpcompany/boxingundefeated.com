@@ -27,6 +27,20 @@ const division = computed(() => {
   return mockDivisions.find(d => d.slug === divisionSlug)
 })
 
+const { site } = useAppConfig()
+
+useSeoMeta({
+  title: computed(() => {
+    if (!boxer.value) return site.name
+    const nickname = boxer.value.nickname ? ` "${boxer.value.nickname}"` : ''
+    return `${boxer.value.name}${nickname} - ${site.name}`
+  }),
+  description: computed(() => {
+    if (!boxer.value) return site.description
+    return `${boxer.value.name} Bio, Record, Fights, News & More!`
+  }),
+})
+
 
 function calculateKOPercentage(boxer: Boxer): string {
   const wins = boxer.pro_wins || boxer.record?.wins || 0

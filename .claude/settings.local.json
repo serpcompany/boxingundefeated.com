@@ -11,7 +11,9 @@
       "mcp__nuxt__search_nuxt_docs",
       "mcp__browser-tools__runDebuggerMode",
       "Bash(curl:*)",
-      "mcp__browser-tools__getSelectedElement"
+      "mcp__browser-tools__getSelectedElement",
+      "Bash(gh issue view:*)",
+      "WebFetch(domain:nuxtseo.com)"
     ]
   },
   "enabledMcpjsonServers": [
