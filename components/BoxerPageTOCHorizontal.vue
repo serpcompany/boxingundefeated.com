@@ -114,7 +114,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <nav class="sticky top-16 z-40 bg-white dark:bg-zinc-900 shadow-sm">
+  <nav class="sticky top-16 z-40 bg-white dark:bg-zinc-900 border-b border-zinc-200 dark:border-zinc-700">
     <!-- Mobile Dropdown -->
     <div class="sm:hidden">
       <div class="px-4 py-3">
@@ -136,7 +136,7 @@ onMounted(() => {
     </div>
     
     <!-- Desktop Horizontal Nav -->
-    <div class="hidden sm:block max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="hidden sm:block max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-center gap-1 overflow-x-auto scrollbar-hide py-3">
         <button
           v-for="item in navigationItems"

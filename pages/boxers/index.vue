@@ -52,7 +52,7 @@ useHead({
   <div class="min-h-screen bg-white dark:bg-zinc-900">
     <!-- Breadcrumbs -->
     <div class="bg-white dark:bg-zinc-900 border-b border-gray-100 dark:border-zinc-800">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
         <BreadCrumbs 
           :items="[
             { label: 'Boxers' }
@@ -69,7 +69,7 @@ useHead({
 
     <!-- All Boxers Table -->
     <section class="py-16 sm:py-24">
-      <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="max-w-6xl mx-auto px-6 lg:px-8">
         <div class="text-center mb-12">
           <h2 class="text-3xl font-bold text-zinc-900 dark:text-white mb-4">
             All Fighters

@@ -25,7 +25,7 @@ function formatWeightLimit(division: any) {
   <div class="min-h-screen bg-white dark:bg-zinc-900">
     <!-- Breadcrumbs -->
     <div class="bg-white dark:bg-zinc-900 border-b border-gray-100 dark:border-zinc-800">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
         <BreadCrumbs 
           :items="[
             { label: 'Divisions' }
@@ -40,7 +40,7 @@ function formatWeightLimit(division: any) {
     />
 
     <!-- Main Content -->
-    <div class="max-w-7xl mx-auto px-6 lg:px-8 py-12">
+    <div class="max-w-6xl mx-auto px-6 lg:px-8 py-12">
       <div class="mb-8">
         <p class="text-zinc-600 dark:text-zinc-400">
           Boxing has {{ divisions.length }} recognized weight divisions, each with specific weight limits to ensure fair competition.
@@ -48,7 +48,7 @@ function formatWeightLimit(division: any) {
       </div>
 
       <!-- Divisions Table -->
-      <div class="bg-white dark:bg-zinc-800 rounded-lg shadow-sm overflow-hidden border border-zinc-200 dark:border-zinc-700">
+      <div class="bg-white dark:bg-zinc-800 rounded-lg overflow-hidden border border-zinc-200 dark:border-zinc-700">
         <DivisionsTable :divisions="divisions" />
       </div>
     </div>

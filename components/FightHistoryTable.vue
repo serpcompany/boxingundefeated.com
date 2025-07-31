@@ -11,6 +11,9 @@ interface Props {
 
 const props = defineProps<Props>()
 
+// Column visibility state
+const selectedColumns = ref(['bout_date', 'opponent_name', 'opponent_record', 'result', 'result_round', 'venue_name', 'title_fight'])
+
 // Format date consistently
 function formatDate(date: string | null | undefined): string {
   if (!date) return 'N/A'
@@ -25,8 +28,8 @@ function formatDate(date: string | null | undefined): string {
   }
 }
 
-// Table columns configuration
-const columns = [
+// All available columns
+const allColumns = [
   {
     key: 'bout_date',
     label: 'Date',
@@ -47,10 +50,6 @@ const columns = [
     sortable: true
   },
   {
-    key: 'result_method',
-    label: 'Method'
-  },
-  {
     key: 'result_round',
     label: 'Round',
     sortable: true
@@ -64,22 +63,54 @@ const columns = [
     label: 'Title'
   }
 ]
+
+// Displayed columns based on selection
+const columns = computed(() => {
+  return allColumns.filter(col => selectedColumns.value.includes(col.key))
+})
 </script>
 
 <template>
   <div id="fight-history" class="my-20">
-    <h2 class="text-lg font-semibold text-zinc-900 dark:text-white mb-4">Fight History</h2>
-    <div class="relative max-h-[800px] border-2 border-zinc-200 dark:border-zinc-700 rounded-lg shadow-md overflow-hidden" v-if="fights.length > 0">
+    <div class="flex items-center justify-between mb-4">
+      <h2 class="text-lg font-semibold text-zinc-900 dark:text-white">Fight History</h2>
+      
+      <!-- Column Display Dropdown -->
+      <UDropdown :items="[allColumns]" :popper="{ placement: 'bottom-start' }">
+        <UButton color="white" variant="solid" size="sm" icon="i-heroicons-adjustments-horizontal-20-solid" trailing>
+          Display
+        </UButton>
+        
+        <template #item="{ item }">
+          <div class="flex items-center gap-2 min-w-0">
+            <UCheckbox 
+              :model-value="selectedColumns.includes(item.key)"
+              @update:model-value="(checked) => {
+                if (checked) {
+                  selectedColumns = [...selectedColumns, item.key]
+                } else {
+                  selectedColumns = selectedColumns.filter(col => col !== item.key)
+                }
+              }"
+            />
+            <span class="truncate">{{ item.label }}</span>
+          </div>
+        </template>
+      </UDropdown>
+    </div>
+    
+    <div class="relative border border-zinc-200 dark:border-zinc-700 rounded-lg" v-if="fights.length > 0">
       <UTable 
         :rows="fights" 
         :columns="columns"
         :sort="{ column: 'bout_date', direction: 'desc' }"
+        class="max-h-[800px]"
         :ui="{
-          wrapper: 'h-full overflow-auto bg-white dark:bg-zinc-900',
+          wrapper: 'relative overflow-auto max-h-[800px] bg-white dark:bg-zinc-900',
           base: 'min-w-full table-fixed',
           divide: 'divide-y divide-zinc-200 dark:divide-zinc-700',
-          thead: 'sticky top-0 bg-zinc-50 dark:bg-zinc-800 z-10 border-b-2 border-zinc-300 dark:border-zinc-600',
-          tbody: 'divide-y divide-zinc-200 dark:divide-zinc-700',
+          thead: 'sticky top-0 bg-zinc-50 dark:bg-zinc-800 z-10 border-b border-zinc-200 dark:border-zinc-700',
+            tbody: 'divide-y divide-zinc-200 dark:divide-zinc-700',
           tr: {
             base: 'hover:bg-zinc-50 dark:hover:bg-zinc-800/50 transition-colors border-b border-zinc-100 dark:border-zinc-800',
             selected: 'bg-zinc-50 dark:bg-zinc-800/50'
@@ -116,29 +147,30 @@ const columns = [
         </template>
         
         <template #opponent_record-data="{ row }">
-          <span class="text-zinc-600 dark:text-zinc-400 text-xs">{{ row.opponent_record }}</span>
+          <span class="text-gray-500 dark:text-gray-400 text-sm">{{ row.opponent_record }}</span>
         </template>
         
         <template #result-data="{ row }">
-          <UBadge 
-            :color="row.result === 'win' ? 'green' : row.result === 'loss' ? 'red' : 'gray'"
-            variant="subtle"
-            size="xs"
-          >
-            {{ row.result === 'win' ? 'Win' : row.result === 'loss' ? 'Loss' : row.result === 'draw' ? 'Draw' : 'NC' }}
-          </UBadge>
-        </template>
-        
-        <template #result_method-data="{ row }">
-          <span class="text-zinc-700 dark:text-zinc-300 uppercase">{{ row.result_method }}</span>
+          <div class="space-y-1">
+            <UBadge 
+              :color="row.result === 'win' ? 'green' : row.result === 'loss' ? 'red' : 'gray'"
+              variant="subtle"
+              size="xs"
+            >
+              {{ row.result === 'win' ? 'Win' : row.result === 'loss' ? 'Loss' : row.result === 'draw' ? 'Draw' : 'NC' }}
+            </UBadge>
+            <div class="text-xs text-zinc-600 dark:text-zinc-400">
+              {{ row.result_method === 'ko' || row.result_method === 'tko' ? row.result_method.toUpperCase() : row.result_method }}
+            </div>
+          </div>
         </template>
         
         <template #result_round-data="{ row }">
-          <span class="text-zinc-700 dark:text-zinc-300">R{{ row.result_round }}</span>
+          <span class="text-zinc-700 dark:text-zinc-300">{{ row.result_round }}</span>
         </template>
         
         <template #venue_name-data="{ row }">
-          <span class="text-zinc-600 dark:text-zinc-400 text-xs">{{ row.venue_name }}</span>
+          <span class="text-gray-500 dark:text-gray-400 text-sm">{{ row.venue_name }}</span>
         </template>
         
         <template #title_fight-data="{ row }">
@@ -150,6 +182,7 @@ const columns = [
           >
             Title
           </UBadge>
+          <span v-else></span>
         </template>
       </UTable>
     </div>

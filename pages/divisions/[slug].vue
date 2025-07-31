@@ -39,7 +39,7 @@ function formatWeightLimit(division: Division) {
   <div class="min-h-screen bg-white dark:bg-zinc-900">
     <!-- Breadcrumbs -->
     <div class="bg-white dark:bg-zinc-900 border-b border-gray-100 dark:border-zinc-800">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
         <BreadCrumbs 
           :items="[
             { label: 'Divisions', to: '/divisions' },
@@ -69,7 +69,7 @@ function formatWeightLimit(division: Division) {
     </PageHero>
 
     <!-- Main Content -->
-    <div class="max-w-7xl mx-auto px-6 lg:px-8 py-12">
+    <div class="max-w-6xl mx-auto px-6 lg:px-8 py-12">
       <!-- Division Info -->
       <div v-if="division.description" class="mb-12">
         <p class="text-lg text-zinc-600 dark:text-zinc-400">

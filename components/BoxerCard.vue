@@ -13,7 +13,7 @@ const props = defineProps<Props>()
     :to="`/boxers/${boxer.slug}`"
     class="block h-full"
   >
-    <UCard class="h-full hover:shadow-xl transition-all hover:-translate-y-1">
+    <UCard class="h-full hover:border-zinc-300 dark:hover:border-zinc-600 transition-colors">
       <div class="flex flex-col h-full">
         <!-- Image -->
         <div class="aspect-square bg-zinc-100 dark:bg-zinc-800 rounded-lg overflow-hidden mb-4">

@@ -5,7 +5,7 @@ const appConfig = useAppConfig()
 
 <template>
   <footer class="border-t border-zinc-200 dark:border-zinc-800 py-8 mt-auto">
-    <div class="max-w-7xl mx-auto px-5">
+    <div class="max-w-6xl mx-auto px-5">
       <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
         <!-- About Section -->
         <div>

@@ -8,10 +8,10 @@ useSeoMeta({
 </script>
 
 <template>
-  <div class="min-h-screen bg-white">
+  <div class="min-h-screen bg-white dark:bg-zinc-900">
     <!-- Breadcrumbs -->
-    <div class="bg-white border-b border-gray-100">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+    <div class="bg-white dark:bg-zinc-900 border-b border-gray-100 dark:border-zinc-800">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
         <BreadCrumbs 
           :items="[
             { label: 'About' }
@@ -27,7 +27,7 @@ useSeoMeta({
     />
 
     <!-- Main Content -->
-    <div class="max-w-4xl mx-auto px-6 lg:px-8 py-12">
+    <div class="max-w-6xl mx-auto px-6 lg:px-8 py-12">
       <div class="prose prose-zinc dark:prose-invert max-w-none">
         <p class="text-lg leading-relaxed">
           Boxing Undefeated is your comprehensive guide to the world of professional boxing. 
@@ -89,12 +89,6 @@ useSeoMeta({
           We welcome your feedback and contributions to make this the best boxing 
           resource available.
         </p>
-        
-        <div class="mt-8">
-          <UButton to="/" size="lg" variant="outline">
-            Explore Boxing Undefeated
-          </UButton>
-        </div>
       </div>
     </div>
   </div>

@@ -47,6 +47,21 @@ const divisionUrl = computed(() => {
 })
 
 const color = computed(() => getDivisionColor(props.division))
+
+// Get border class based on color
+const borderClass = computed(() => {
+  const borderMap: Record<string, string> = {
+    'red': 'border border-red-500',
+    'orange': 'border border-orange-500',
+    'amber': 'border border-amber-500',
+    'yellow': 'border border-yellow-500',
+    'lime': 'border border-lime-500',
+    'green': 'border border-green-500',
+    'emerald': 'border border-emerald-500',
+    'gray': 'border border-gray-500'
+  }
+  return borderMap[color.value] || 'border border-gray-500'
+})
 </script>
 
 <template>
@@ -59,7 +74,7 @@ const color = computed(() => getDivisionColor(props.division))
       :color="color"
       variant="soft"
       :size="size"
-      class="hover:opacity-80 transition-opacity font-medium"
+      :class="[borderClass, 'hover:opacity-80 transition-opacity font-medium']"
     >
       {{ division }}
     </UBadge>
@@ -70,7 +85,7 @@ const color = computed(() => getDivisionColor(props.division))
     :color="color"
     variant="soft"
     :size="size"
-    class="font-medium"
+    :class="[borderClass, 'font-medium']"
   >
     {{ division }}
   </UBadge>

@@ -21,13 +21,13 @@ useSeoMeta({
 <template>
   <div class="min-h-screen bg-white dark:bg-zinc-900">
     <!-- Hero Section -->
-    <section class="relative overflow-hidden bg-red-600 text-white min-h-[350px] flex items-center">
-      <div class="relative w-full max-w-7xl mx-auto px-6 lg:px-8 py-24 sm:py-32">
+    <section class="relative overflow-hidden bg-black text-white min-h-[350px] flex items-center">
+      <div class="relative w-full max-w-6xl mx-auto px-6 lg:px-8 py-24 sm:py-32">
         <div class="text-center">
           <h1 class="text-4xl sm:text-6xl font-bold tracking-tight mb-6">
             Boxing Undefeated
           </h1>
-          <p class="text-xl sm:text-2xl max-w-3xl mx-auto mb-8 text-red-100">
+          <p class="text-xl sm:text-2xl max-w-3xl mx-auto mb-8 text-zinc-300">
             Your comprehensive guide to the sweet science. Explore fighter profiles, 
             weight divisions, and boxing history.
           </p>
@@ -55,7 +55,7 @@ useSeoMeta({
 
     <!-- All Boxers Table -->
     <section class="py-16 sm:py-24">
-      <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="max-w-6xl mx-auto px-6 lg:px-8">
         <div class="text-center mb-12">
           <h2 class="text-3xl font-bold text-zinc-900 dark:text-white mb-4">
             All Fighters

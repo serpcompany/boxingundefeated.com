@@ -147,7 +147,7 @@ const fights = computed(() => {
     
     <!-- Breadcrumbs -->
     <div class="bg-white border-b border-gray-100">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
         <BreadCrumbs 
           :items="[
             { label: 'Boxers', to: '/boxers' },
@@ -164,7 +164,7 @@ const fights = computed(() => {
     <BoxerPageTOCHorizontal :boxer="boxer" />
 
     <!-- Main Content -->
-    <div class="max-w-7xl mx-auto px-6 lg:px-8 py-8 sm:py-12">
+    <div class="max-w-6xl mx-auto px-6 lg:px-8 py-8 sm:py-12">
       <div class="space-y-8">
         <!-- Combined Record Stats -->
         <BoxerRecordTabs :boxer="boxer" />
