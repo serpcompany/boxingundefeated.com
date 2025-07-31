@@ -4,10 +4,10 @@
 
 <template>
   <div class="min-h-screen bg-white dark:bg-zinc-900">
-    <LayoutAppHeader />
+    <AppHeader />
     <main class="flex-1">
       <slot />
     </main>
-    <LayoutAppFooter />
+    <AppFooter />
   </div>
 </template>
