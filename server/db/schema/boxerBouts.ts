@@ -1,0 +1,48 @@
+/**
+ * BoxerBouts table stores individual fight records from a specific boxer's perspective.
+ * This is a denormalized table designed for displaying fight history on boxer profile pages.
+ * 
+ * Note: This is not a complete bouts table with full fight data between two boxers.
+ * It's a subset of fields available from the boxer's fight history, which will be
+ * populated from scraped data. Full bout details and calculated fields would require
+ * pulling complete fight data from all participants.
+ */
+
+import { sqliteTable, text, integer, index } from 'drizzle-orm/sqlite-core'
+import { sql } from 'drizzle-orm'
+import { boxers } from './boxers'
+
+export const boxerBouts = sqliteTable('boxer_bouts', {
+  id: integer().primaryKey({ autoIncrement: true }),
+  boxerId: text().notNull().references(() => boxers.id, { onDelete: 'cascade' }),
+  
+  boutDate: text().notNull(),
+  opponentName: text().notNull(),
+  opponentWeight: text(),
+  opponentRecord: text(),
+  venueName: text(),
+  refereeName: text(),
+  
+  judge1Name: text(),
+  judge1Score: text(),
+  judge2Name: text(),
+  judge2Score: text(),
+  judge3Name: text(),
+  judge3Score: text(),
+  
+  numRoundsScheduled: integer(),
+  result: text().notNull(),
+  resultMethod: text(),
+  resultRound: integer(),
+  
+  eventPageLink: text(),
+  boutPageLink: text(),
+  scorecardsPageLink: text(),
+  
+  titleFight: integer({ mode: 'boolean' }).default(false),
+  
+  createdAt: text().notNull().default(sql`CURRENT_TIMESTAMP`),
+}, (table) => ({
+  boxerIdIdx: index('boxer_bouts_boxer_id_idx').on(table.boxerId),
+  boutDateIdx: index('boxer_bouts_date_idx').on(table.boutDate),
+}))

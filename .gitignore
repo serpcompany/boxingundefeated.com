@@ -46,3 +46,5 @@ gh-users/
 .codersinflow
 .vscode
 node_modules
+
+.data
