@@ -41,4 +41,8 @@ yarn-error.log*
 gh-users/
 .clauderefereces/
 .claude/
+
+# Coders in Flow
 .codersinflow
+.vscode
+node_modules
