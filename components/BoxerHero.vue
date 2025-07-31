@@ -7,17 +7,6 @@ interface Props {
 
 const props = defineProps<Props>()
 
-function formatRecord(boxer: Boxer): string {
-  if (boxer.pro_wins !== undefined) {
-    return `${boxer.pro_wins}-${boxer.pro_losses}-${boxer.pro_draws}`
-  }
-  return `${boxer.record?.wins || 0}-${boxer.record?.losses || 0}-${boxer.record?.draws || 0}`
-}
-
-function getKnockouts(boxer: Boxer): number {
-  return boxer.pro_wins_by_knockout || boxer.record?.knockouts || 0
-}
-
 function getDivision(boxer: Boxer): string | undefined {
   return boxer.pro_division || boxer.division
 }
@@ -37,6 +26,13 @@ function getDisplayName(boxer: Boxer): string {
 
 function getImageUrl(boxer: Boxer): string | undefined {
   return boxer.image_url || boxer.image
+}
+
+function getDivisionSlug(boxer: Boxer): string {
+  const division = getDivision(boxer)
+  if (!division) return ''
+  // Convert division name to slug format
+  return division.toLowerCase().replace(/\s+/g, '-')
 }
 </script>
 
@@ -58,7 +54,7 @@ function getImageUrl(boxer: Boxer): string | undefined {
           <img
             :src="getImageUrl(boxer)"
             :alt="getDisplayName(boxer)"
-            class="w-32 h-32 md:w-40 md:h-40 rounded-lg object-cover shadow-lg"
+            class="w-40 h-40 md:w-48 md:h-48 rounded-full object-cover shadow-lg"
           >
         </div>
         
@@ -71,21 +67,40 @@ function getImageUrl(boxer: Boxer): string | undefined {
             </span>
           </h1>
           
-          <div class="flex flex-wrap items-center gap-4 md:gap-6 text-base md:text-lg">
-            <span class="text-zinc-700 dark:text-zinc-300">
-              {{ formatRecord(boxer) }} ({{ getKnockouts(boxer) }} KOs)
-            </span>
-            <span v-if="getDivision(boxer)" class="text-zinc-700 dark:text-zinc-300">
-              {{ getDivision(boxer) }}
-            </span>
-            <span v-if="boxer.nationality" class="text-zinc-700 dark:text-zinc-300">
+          <div class="flex flex-wrap items-center gap-3 md:gap-4">
+            <!-- Division Badge -->
+            <NuxtLink 
+              v-if="getDivision(boxer)"
+              :to="`/divisions/${getDivisionSlug(boxer)}`"
+            >
+              <UBadge 
+                color="primary"
+                variant="soft"
+                size="md"
+                class="hover:shadow-md transition-shadow cursor-pointer"
+              >
+                {{ getDivision(boxer) }}
+              </UBadge>
+            </NuxtLink>
+            
+            <!-- Nationality Badge -->
+            <UBadge 
+              v-if="boxer.nationality"
+              color="neutral"
+              variant="subtle"
+              size="md"
+            >
               {{ boxer.nationality }}
-            </span>
-            <span 
-              :class="isActive(boxer) ? 'text-green-600 dark:text-green-400' : 'text-zinc-600 dark:text-zinc-400'"
+            </UBadge>
+            
+            <!-- Status Badge -->
+            <UBadge 
+              :color="isActive(boxer) ? 'success' : 'neutral'"
+              :variant="isActive(boxer) ? 'soft' : 'subtle'"
+              size="md"
             >
               {{ getStatus(boxer) }}
-            </span>
+            </UBadge>
           </div>
         </div>
       </div>
