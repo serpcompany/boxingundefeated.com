@@ -34,7 +34,7 @@ const columns = computed(() => {
         tbody: 'divide-y divide-gray-200 dark:divide-gray-700',
         tr: { base: 'hover:bg-gray-50 dark:hover:bg-gray-800 cursor-pointer' }
       }"
-      @click="(row: Division) => $router.push(`/divisions/${row.slug}`)"
+      @select="(row: Division) => navigateTo(`/divisions/${row.slug}`)"
     >
       <template #name-data="{ row }">
         <div class="font-medium text-gray-900 dark:text-white">
@@ -45,15 +45,18 @@ const columns = computed(() => {
       <template #weightLimit-data="{ row }">
         <div>
           <template v-if="row.slug === 'heavyweight'">
-            <span class="font-medium">No limit</span>
+            <span class="font-medium text-gray-900 dark:text-white">No limit</span>
           </template>
           <template v-else>
-            <WeightDisplay
-              :pounds="row.weightLimit.pounds"
-              :kilograms="row.weightLimit.kilograms"
-              :stone="row.weightLimit.stone"
-              format="compact"
-            />
+            <div>
+              <div class="font-medium text-gray-900 dark:text-white">
+                {{ row.weightLimit.pounds }} lbs
+              </div>
+              <div class="text-sm text-gray-500 dark:text-gray-400">
+                {{ row.weightLimit.kilograms.toFixed(1) }} kg
+                <span v-if="row.weightLimit.stone"> / {{ row.weightLimit.stone }}</span>
+              </div>
+            </div>
           </template>
         </div>
       </template>
