@@ -77,6 +77,23 @@ function formatDate(date: string | null | undefined): string {
   }
 }
 
+// Format bio content with basic markdown support
+function formatBioContent(content: string): string {
+  // Convert **bold** to <strong>
+  let formatted = content.replace(/\*\*(.*?)\*\*/g, '<strong class="font-semibold text-zinc-900 dark:text-white">$1</strong>')
+  
+  // Convert line breaks to <br> for paragraphs
+  formatted = formatted.replace(/\n\n/g, '</p><p class="mb-4 text-zinc-600 dark:text-zinc-400">')
+  
+  // Convert bullet points
+  formatted = formatted.replace(/• /g, '<span class="inline-block w-2 h-2 bg-zinc-400 dark:bg-zinc-600 rounded-full mr-2 mb-1"></span>')
+  
+  // Wrap in paragraph tags
+  formatted = `<p class="mb-4 text-zinc-600 dark:text-zinc-400">${formatted}</p>`
+  
+  return formatted
+}
+
 // Use fights from boxer data or legacy bouts
 const fights = computed(() => {
   if (!boxer.value) return []
@@ -153,7 +170,7 @@ const columns = [
   <!-- Error State -->
   <div
     v-if="error"
-    class="min-h-screen bg-white dark:bg-zinc-950 flex items-center justify-center"
+    class="min-h-screen bg-white flex items-center justify-center"
   >
     <div class="text-center">
       <h1 class="text-2xl font-bold text-zinc-900 dark:text-white mb-2">
@@ -171,7 +188,7 @@ const columns = [
   <!-- Loading State -->
   <div
     v-else-if="pending"
-    class="min-h-screen bg-white dark:bg-zinc-950 flex items-center justify-center"
+    class="min-h-screen bg-white flex items-center justify-center"
   >
     <div class="text-center">
       <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-red-500 mx-auto mb-4" />
@@ -182,7 +199,7 @@ const columns = [
   </div>
 
   <!-- Boxer Content -->
-  <div v-else-if="boxer" class="min-h-screen bg-zinc-50 dark:bg-zinc-900">
+  <div v-else-if="boxer" class="min-h-screen bg-white">
     <!-- Hero Section -->
     <BoxerHero :boxer="boxer" />
 
@@ -192,7 +209,7 @@ const columns = [
         <!-- Left Sidebar - Info Card -->
         <div class="space-y-6">
           <!-- Info Card -->
-          <div class="bg-zinc-50 dark:bg-zinc-900 rounded-lg p-6 border border-zinc-200 dark:border-zinc-800">
+          <div class="bg-white rounded-lg p-6 border border-zinc-200">
             <h3 class="text-base font-semibold text-zinc-900 dark:text-white mb-4">Information</h3>
             <dl class="space-y-3">
               <!-- Basic Info -->
@@ -308,7 +325,7 @@ const columns = [
           </div>
 
           <!-- More in Division -->
-          <div class="bg-zinc-50 dark:bg-zinc-900 rounded-lg p-6 border border-zinc-200 dark:border-zinc-800">
+          <div class="bg-white rounded-lg p-6 border border-zinc-200">
             <h3 class="text-base font-semibold text-zinc-900 dark:text-white mb-2">More {{ division?.name }} Fighters</h3>
             <p class="text-sm text-zinc-600 dark:text-zinc-400 mb-4">
               Explore other boxers in this division
@@ -331,19 +348,19 @@ const columns = [
           <div>
             <h2 class="text-lg font-semibold text-zinc-900 dark:text-white mb-4">Professional Record</h2>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-              <div class="bg-zinc-50 dark:bg-zinc-900 rounded-lg p-4 border border-zinc-200 dark:border-zinc-800">
+              <div class="bg-white rounded-lg p-4 border border-zinc-200">
                 <div class="text-sm text-zinc-600 dark:text-zinc-400 mb-1">Wins</div>
                 <div class="text-2xl font-semibold text-zinc-900 dark:text-white">{{ boxer.pro_wins || boxer.record?.wins || 0 }}</div>
               </div>
-              <div class="bg-zinc-50 dark:bg-zinc-900 rounded-lg p-4 border border-zinc-200 dark:border-zinc-800">
+              <div class="bg-white rounded-lg p-4 border border-zinc-200">
                 <div class="text-sm text-zinc-600 dark:text-zinc-400 mb-1">Losses</div>
                 <div class="text-2xl font-semibold text-zinc-900 dark:text-white">{{ boxer.pro_losses || boxer.record?.losses || 0 }}</div>
               </div>
-              <div class="bg-zinc-50 dark:bg-zinc-900 rounded-lg p-4 border border-zinc-200 dark:border-zinc-800">
+              <div class="bg-white rounded-lg p-4 border border-zinc-200">
                 <div class="text-sm text-zinc-600 dark:text-zinc-400 mb-1">Draws</div>
                 <div class="text-2xl font-semibold text-zinc-900 dark:text-white">{{ boxer.pro_draws || boxer.record?.draws || 0 }}</div>
               </div>
-              <div class="bg-zinc-50 dark:bg-zinc-900 rounded-lg p-4 border border-zinc-200 dark:border-zinc-800">
+              <div class="bg-white rounded-lg p-4 border border-zinc-200">
                 <div class="text-sm text-zinc-600 dark:text-zinc-400 mb-1">KO Rate</div>
                 <div class="text-2xl font-semibold text-zinc-900 dark:text-white">{{ calculateKOPercentage(boxer) }}%</div>
               </div>
@@ -354,19 +371,19 @@ const columns = [
           <div v-if="boxer.amateur_total_bouts && boxer.amateur_total_bouts > 0">
             <h2 class="text-lg font-semibold text-zinc-900 dark:text-white mb-4">Amateur Record</h2>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-              <div class="bg-zinc-50 dark:bg-zinc-900 rounded-lg p-4 border border-zinc-200 dark:border-zinc-800">
+              <div class="bg-white rounded-lg p-4 border border-zinc-200">
                 <div class="text-sm text-zinc-600 dark:text-zinc-400 mb-1">Wins</div>
                 <div class="text-2xl font-semibold text-zinc-900 dark:text-white">{{ boxer.amateur_wins }}</div>
               </div>
-              <div class="bg-zinc-50 dark:bg-zinc-900 rounded-lg p-4 border border-zinc-200 dark:border-zinc-800">
+              <div class="bg-white rounded-lg p-4 border border-zinc-200">
                 <div class="text-sm text-zinc-600 dark:text-zinc-400 mb-1">Losses</div>
                 <div class="text-2xl font-semibold text-zinc-900 dark:text-white">{{ boxer.amateur_losses }}</div>
               </div>
-              <div class="bg-zinc-50 dark:bg-zinc-900 rounded-lg p-4 border border-zinc-200 dark:border-zinc-800">
+              <div class="bg-white rounded-lg p-4 border border-zinc-200">
                 <div class="text-sm text-zinc-600 dark:text-zinc-400 mb-1">Draws</div>
                 <div class="text-2xl font-semibold text-zinc-900 dark:text-white">{{ boxer.amateur_draws }}</div>
               </div>
-              <div class="bg-zinc-50 dark:bg-zinc-900 rounded-lg p-4 border border-zinc-200 dark:border-zinc-800">
+              <div class="bg-white rounded-lg p-4 border border-zinc-200">
                 <div class="text-sm text-zinc-600 dark:text-zinc-400 mb-1">KOs</div>
                 <div class="text-2xl font-semibold text-zinc-900 dark:text-white">{{ boxer.amateur_wins_by_knockout }}</div>
               </div>
@@ -374,9 +391,20 @@ const columns = [
           </div>
 
           <!-- Biography -->
-          <div v-if="boxer.bio">
-            <h2 class="text-lg font-semibold text-zinc-900 dark:text-white mb-4">Biography</h2>
-            <p class="text-zinc-600 dark:text-zinc-400 leading-relaxed">{{ boxer.bio }}</p>
+          <div v-if="boxer.bio || boxer.bioSections" class="space-y-8">
+            <!-- Short Bio Summary -->
+            <div v-if="boxer.bio">
+              <h2 class="text-2xl font-bold text-zinc-900 dark:text-white mb-4">Biography</h2>
+              <p class="text-zinc-700 dark:text-zinc-300 leading-relaxed text-lg">{{ boxer.bio }}</p>
+            </div>
+            
+            <!-- Detailed Bio Sections -->
+            <div v-if="boxer.bioSections" class="space-y-8">
+              <div v-for="(section, key) in boxer.bioSections" :key="key" class="prose prose-zinc dark:prose-invert max-w-none">
+                <h3 class="text-xl font-semibold text-zinc-900 dark:text-white mb-3">{{ section.title }}</h3>
+                <div class="text-zinc-600 dark:text-zinc-400 leading-relaxed whitespace-pre-wrap" v-html="formatBioContent(section.content)"></div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -463,7 +491,7 @@ const columns = [
             </template>
           </UTable>
         </div>
-        <div v-else class="bg-zinc-50 dark:bg-zinc-900 rounded-lg p-8 text-center">
+        <div v-else class="bg-white rounded-lg p-8 text-center border border-zinc-200">
           <p class="text-zinc-600 dark:text-zinc-400">No fight history available</p>
         </div>
       </div>

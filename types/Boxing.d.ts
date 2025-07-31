@@ -53,6 +53,12 @@ export interface Boxer {
   
   // Content
   bio?: string
+  bioSections?: {
+    [key: string]: {
+      title: string
+      content: string
+    }
+  }
   
   // Management
   promoter?: string | null

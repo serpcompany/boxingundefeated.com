@@ -41,7 +41,7 @@ function getImageUrl(boxer: Boxer): string | undefined {
 </script>
 
 <template>
-  <div class="bg-white dark:bg-zinc-950 min-h-[350px] flex items-center">
+  <div class="bg-white min-h-[350px] flex items-center">
     <div class="max-w-7xl mx-auto px-6 lg:px-8 py-24 w-full">
       <!-- Breadcrumb -->
       <BreadCrumbs 
