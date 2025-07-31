@@ -8,7 +8,10 @@
       "mcp__browser-tools__getConsoleLogs",
       "mcp__browser-tools__wipeLogs",
       "WebFetch(domain:ui.nuxt.com)",
-      "mcp__nuxt__search_nuxt_docs"
+      "mcp__nuxt__search_nuxt_docs",
+      "mcp__browser-tools__runDebuggerMode",
+      "Bash(curl:*)",
+      "mcp__browser-tools__getSelectedElement"
     ]
   },
   "enabledMcpjsonServers": [

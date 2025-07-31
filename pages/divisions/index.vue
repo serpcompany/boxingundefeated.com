@@ -17,22 +17,25 @@ function formatWeightLimit(division: any) {
 </script>
 
 <template>
-  <div class="min-h-screen bg-zinc-50 dark:bg-zinc-900">
+  <div class="min-h-screen bg-white">
+    <!-- Breadcrumbs -->
+    <div class="bg-white border-b border-gray-100">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+        <BreadCrumbs 
+          :items="[
+            { label: 'Divisions' }
+          ]"
+        />
+      </div>
+    </div>
+    
     <!-- Header -->
     <PageHero 
       title="Boxing Weight Divisions"
-      :subtitle="`From ${divisions[divisions.length - 1].name} to ${divisions[0].name}`"
     />
 
     <!-- Main Content -->
     <div class="max-w-7xl mx-auto px-6 lg:px-8 py-12">
-      <!-- Introduction -->
-      <div class="prose prose-zinc dark:prose-invert max-w-none mb-12">
-        <p class="text-lg">
-          Professional boxing recognizes 17 weight divisions, each with specific weight limits. 
-          These divisions ensure fair competition by matching fighters of similar size and weight.
-        </p>
-      </div>
 
       <!-- Divisions Table -->
       <div class="bg-white dark:bg-zinc-800 rounded-lg shadow-sm overflow-hidden">
@@ -59,15 +62,8 @@ function formatWeightLimit(division: any) {
                 @click="$router.push(`/divisions/${division.slug}`)"
               >
                 <td class="px-6 py-4 whitespace-nowrap">
-                  <div class="flex items-center">
-                    <div>
-                      <div class="text-sm font-medium text-zinc-900 dark:text-white">
-                        {{ division.name }}
-                      </div>
-                      <div class="text-xs text-zinc-500 dark:text-zinc-400">
-                        {{ division.order === 1 ? 'Heaviest' : division.order === 17 ? 'Lightest' : '' }}
-                      </div>
-                    </div>
+                  <div class="text-base font-semibold text-zinc-900 dark:text-white">
+                    {{ division.name }}
                   </div>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
@@ -96,49 +92,6 @@ function formatWeightLimit(division: any) {
         </div>
       </div>
 
-      <!-- Additional Info -->
-      <div class="mt-16 bg-white dark:bg-zinc-800 rounded-lg p-8 shadow-sm">
-        <h2 class="text-2xl font-bold text-zinc-900 dark:text-white mb-6">
-          Understanding Weight Divisions
-        </h2>
-        
-        <div class="grid md:grid-cols-2 gap-8">
-          <div>
-            <h3 class="text-lg font-semibold text-zinc-900 dark:text-white mb-3">
-              Traditional Eight Divisions
-            </h3>
-            <p class="text-zinc-600 dark:text-zinc-400 mb-4">
-              The original eight weight divisions that formed the foundation of professional boxing:
-            </p>
-            <ul class="list-disc list-inside text-zinc-600 dark:text-zinc-400 space-y-1">
-              <li>Heavyweight (unlimited)</li>
-              <li>Light Heavyweight (175 lbs)</li>
-              <li>Middleweight (160 lbs)</li>
-              <li>Welterweight (147 lbs)</li>
-              <li>Lightweight (135 lbs)</li>
-              <li>Featherweight (126 lbs)</li>
-              <li>Bantamweight (118 lbs)</li>
-              <li>Flyweight (112 lbs)</li>
-            </ul>
-          </div>
-          
-          <div>
-            <h3 class="text-lg font-semibold text-zinc-900 dark:text-white mb-3">
-              Weight Class Rules
-            </h3>
-            <p class="text-zinc-600 dark:text-zinc-400 mb-4">
-              Key regulations for weight divisions in professional boxing:
-            </p>
-            <ul class="list-disc list-inside text-zinc-600 dark:text-zinc-400 space-y-1">
-              <li>Fighters must not exceed the division's weight limit</li>
-              <li>Official weigh-ins typically occur 24-36 hours before the fight</li>
-              <li>Fighters can compete in multiple divisions throughout their career</li>
-              <li>Championship belts are specific to each weight division</li>
-              <li>Catch-weight bouts can be arranged between divisions</li>
-            </ul>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 </template>

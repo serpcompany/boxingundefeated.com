@@ -114,7 +114,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <nav class="sticky top-0 z-40 bg-white dark:bg-zinc-900 border-b border-zinc-200 dark:border-zinc-800 shadow-sm">
+  <nav class="sticky top-16 z-40 bg-white dark:bg-zinc-900 shadow-sm">
     <!-- Mobile Dropdown -->
     <div class="sm:hidden">
       <div class="px-4 py-3">

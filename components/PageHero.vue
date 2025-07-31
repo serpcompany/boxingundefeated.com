@@ -2,23 +2,14 @@
 interface Props {
   title: string
   subtitle?: string
-  variant?: 'default' | 'compact'
 }
 
-const props = withDefaults(defineProps<Props>(), {
-  variant: 'default'
-})
-
-const paddingClasses = computed(() => {
-  return props.variant === 'compact' 
-    ? 'py-8 sm:py-12' 
-    : 'py-8 sm:py-12 md:py-16'
-})
+const props = defineProps<Props>()
 </script>
 
 <template>
-  <div class="bg-white dark:bg-zinc-900 border-b border-zinc-200 dark:border-zinc-800">
-    <div :class="['max-w-7xl mx-auto px-4 sm:px-6 lg:px-8', paddingClasses]">
+  <div class="bg-white border-b border-zinc-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 md:py-16 w-full min-h-[200px] sm:min-h-[240px] flex flex-col justify-center">
       <slot name="before" />
       
       <h1 class="text-3xl sm:text-4xl font-bold mb-4 text-zinc-900 dark:text-white">
