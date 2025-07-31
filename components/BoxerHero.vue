@@ -46,7 +46,7 @@ function getDivisionSlug(boxer: Boxer): string {
           <img
             :src="getImageUrl(boxer)"
             :alt="getDisplayName(boxer)"
-            class="w-32 h-32 rounded-full object-cover shadow-lg"
+            class="w-32 h-32 rounded-full object-cover"
           >
         </div>
         
@@ -70,7 +70,7 @@ function getDivisionSlug(boxer: Boxer): string {
             <UBadge 
               v-if="boxer.nationality"
               color="gray"
-              variant="subtle"
+              variant="soft"
               size="sm"
             >
               {{ boxer.nationality }}
@@ -89,7 +89,7 @@ function getDivisionSlug(boxer: Boxer): string {
           <img
             :src="getImageUrl(boxer)"
             :alt="getDisplayName(boxer)"
-            class="w-36 h-36 md:w-48 md:h-48 rounded-full object-cover shadow-lg"
+            class="w-36 h-36 md:w-48 md:h-48 rounded-full object-cover"
           >
         </div>
         
@@ -114,7 +114,7 @@ function getDivisionSlug(boxer: Boxer): string {
             <UBadge 
               v-if="boxer.nationality"
               color="gray"
-              variant="subtle"
+              variant="soft"
               size="md"
             >
               {{ boxer.nationality }}

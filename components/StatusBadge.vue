@@ -10,7 +10,7 @@ const props = withDefaults(defineProps<Props>(), {
 
 const label = computed(() => props.active ? 'Active' : 'Retired')
 const color = computed(() => props.active ? 'green' : 'gray')
-const variant = computed(() => props.active ? 'soft' : 'subtle')
+const variant = computed(() => 'soft') // Always use soft variant to avoid borders
 </script>
 
 <template>
