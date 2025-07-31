@@ -25,7 +25,6 @@ useSchemaOrg([
     name: site.name,
     url: site.url,
     description: site.description,
-    inLanguage: site.defaultLocale,
   }),
   defineOrganization({
     name: site.name,
@@ -190,29 +189,6 @@ const divisions = computed(() => mockDivisions.slice(0, 8))
         </div>
       </div>
     </section>
-
-    <!-- CTA Section -->
-    <section class="py-16 sm:py-24">
-      <div class="max-w-7xl mx-auto px-6 lg:px-8">
-        <UCard class="bg-red-600 border-0">
-          <div class="text-center py-8">
-            <h2 class="text-3xl font-bold text-white mb-4">
-              Stay Updated with Boxing News
-            </h2>
-            <p class="text-xl text-red-100 mb-8 max-w-2xl mx-auto">
-              Get the latest updates on fights, rankings, and boxing events delivered to your inbox.
-            </p>
-            <div class="flex gap-4 justify-center">
-              <UButton color="white" size="lg">
-                Subscribe Now
-              </UButton>
-              <UButton color="white" variant="outline" size="lg" to="/about">
-                Learn More
-              </UButton>
-            </div>
-          </div>
-        </UCard>
-      </div>
-    </section>
+    
   </div>
 </template>

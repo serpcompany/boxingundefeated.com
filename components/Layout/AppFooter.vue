@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 // Footer component with links and attribution
 const appConfig = useAppConfig()
 </script>

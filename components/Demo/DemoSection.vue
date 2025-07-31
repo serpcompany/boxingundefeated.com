@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 // Demo section showcasing the platform in action
 </script>
 

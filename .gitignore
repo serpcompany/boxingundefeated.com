@@ -40,3 +40,4 @@ yarn-error.log*
 # User-specific
 gh-users/
 .clauderefereces/
+.claude/

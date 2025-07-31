@@ -27,7 +27,6 @@ useSchemaOrg([
     name: title,
     description,
     url: `${site.url}/boxers`,
-    inLanguage: site.defaultLocale,
   }),
 ])
 
