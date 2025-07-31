@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { BoxerBout } from '~/types/Boxing'
+import type { BoxerBout } from '~/types'
 
 interface Fight extends BoxerBout {
   id?: number

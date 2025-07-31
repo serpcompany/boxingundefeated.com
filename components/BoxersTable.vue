@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useScroll } from '@vueuse/core'
-import type { Boxer } from '~/types/Boxing'
+import type { Boxer } from '~/types'
 
 interface Props {
   boxers: Boxer[]

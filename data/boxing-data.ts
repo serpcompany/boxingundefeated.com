@@ -1,4 +1,4 @@
-import type { Boxer, Division, Bout } from '~/types/Boxing'
+import type { Boxer, Division, Bout } from '~/types'
 
 export const mockDivisions: Division[] = [
   {
