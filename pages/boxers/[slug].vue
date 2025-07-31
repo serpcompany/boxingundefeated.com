@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Boxer } from '~/types/Boxing'
+import type { Boxer } from '~/types'
 import { mockDivisions } from '~/data/boxing-data'
 import { findBoxerBySlug } from '~/utils/loadBoxerData'
 

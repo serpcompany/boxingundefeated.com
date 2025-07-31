@@ -1,4 +1,4 @@
-import type { Boxer } from '~/types/Boxing'
+import type { Boxer } from '~/types'
 import boxersData from '~/data/boxers.json'
 // Import mock data for development
 import mockBoxersData from '~/data/boxers-mock.json'
