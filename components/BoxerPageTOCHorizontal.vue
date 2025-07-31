@@ -27,7 +27,7 @@ const navigationItems = computed(() => {
   
   // Fighter Information
   items.push({
-    label: 'Fighter Info',
+    label: 'Stats',
     to: '#fighter-information'
   })
   
@@ -41,7 +41,7 @@ const navigationItems = computed(() => {
   
   // Fight History
   items.push({
-    label: 'Fight History',
+    label: 'Fights',
     to: '#fight-history'
   })
   

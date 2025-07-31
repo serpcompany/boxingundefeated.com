@@ -61,24 +61,15 @@ function getDivisionSlug(boxer: Boxer): string {
           
           <div class="flex flex-wrap justify-center items-center gap-2">
             <!-- Division Badge -->
-            <NuxtLink 
+            <DivisionBadge 
               v-if="getDivision(boxer)"
-              :to="`/divisions/${getDivisionSlug(boxer)}`"
-            >
-              <UBadge 
-                color="primary"
-                variant="soft"
-                size="sm"
-                class="hover:shadow-md transition-shadow cursor-pointer"
-              >
-                {{ getDivision(boxer) }}
-              </UBadge>
-            </NuxtLink>
+              :division="getDivision(boxer)"
+            />
             
             <!-- Nationality Badge -->
             <UBadge 
               v-if="boxer.nationality"
-              color="neutral"
+              color="gray"
               variant="subtle"
               size="sm"
             >
@@ -86,13 +77,7 @@ function getDivisionSlug(boxer: Boxer): string {
             </UBadge>
             
             <!-- Status Badge -->
-            <UBadge 
-              :color="isActive(boxer) ? 'success' : 'neutral'"
-              :variant="isActive(boxer) ? 'soft' : 'subtle'"
-              size="sm"
-            >
-              {{ getStatus(boxer) }}
-            </UBadge>
+            <StatusBadge :active="isActive(boxer)" />
           </div>
         </div>
       </div>
@@ -119,24 +104,16 @@ function getDivisionSlug(boxer: Boxer): string {
           
           <div class="flex flex-wrap items-center gap-3 md:gap-4">
             <!-- Division Badge -->
-            <NuxtLink 
+            <DivisionBadge 
               v-if="getDivision(boxer)"
-              :to="`/divisions/${getDivisionSlug(boxer)}`"
-            >
-              <UBadge 
-                color="primary"
-                variant="soft"
-                size="md"
-                class="hover:shadow-md transition-shadow cursor-pointer"
-              >
-                {{ getDivision(boxer) }}
-              </UBadge>
-            </NuxtLink>
+              :division="getDivision(boxer)"
+              size="md"
+            />
             
             <!-- Nationality Badge -->
             <UBadge 
               v-if="boxer.nationality"
-              color="neutral"
+              color="gray"
               variant="subtle"
               size="md"
             >
@@ -144,13 +121,7 @@ function getDivisionSlug(boxer: Boxer): string {
             </UBadge>
             
             <!-- Status Badge -->
-            <UBadge 
-              :color="isActive(boxer) ? 'success' : 'neutral'"
-              :variant="isActive(boxer) ? 'soft' : 'subtle'"
-              size="md"
-            >
-              {{ getStatus(boxer) }}
-            </UBadge>
+            <StatusBadge :active="isActive(boxer)" size="md" />
           </div>
         </div>
       </div>

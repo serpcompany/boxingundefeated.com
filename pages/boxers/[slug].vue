@@ -21,10 +21,16 @@ const { data: boxer, pending, error } = await useAsyncData(
   }
 )
 
+const divisionSlug = computed(() => {
+  if (!boxer.value) return ''
+  return boxer.value.pro_division || boxer.value.division || ''
+})
+
 const division = computed(() => {
-  if (!boxer.value) return null
-  const divisionSlug = boxer.value.pro_division || boxer.value.division
-  return mockDivisions.find(d => d.slug === divisionSlug)
+  if (!divisionSlug.value) return null
+  // Normalize the division slug to match mockDivisions format
+  const normalized = divisionSlug.value.toLowerCase().replace(/\s+/g, '-')
+  return mockDivisions.find(d => d.slug === normalized)
 })
 
 const { site } = useAppConfig()
@@ -90,34 +96,6 @@ useHead({
 })
 
 
-function calculateKOPercentage(boxer: Boxer): string {
-  const wins = boxer.pro_wins || boxer.record?.wins || 0
-  const kos = boxer.pro_wins_by_knockout || boxer.record?.knockouts || 0
-  if (wins === 0) return '0'
-  return ((kos / wins) * 100).toFixed(1)
-}
-
-// Computed values for stats grids
-const professionalStats = computed(() => {
-  if (!boxer.value) return []
-  return [
-    { label: 'Wins', value: boxer.value.pro_wins || boxer.value.record?.wins || 0 },
-    { label: 'Losses', value: boxer.value.pro_losses || boxer.value.record?.losses || 0 },
-    { label: 'Draws', value: boxer.value.pro_draws || boxer.value.record?.draws || 0 },
-    { label: 'KO Rate', value: `${calculateKOPercentage(boxer.value)}%` }
-  ]
-})
-
-const amateurStats = computed(() => {
-  if (!boxer.value) return []
-  return [
-    { label: 'Wins', value: boxer.value.amateur_wins },
-    { label: 'Losses', value: boxer.value.amateur_losses },
-    { label: 'Draws', value: boxer.value.amateur_draws },
-    { label: 'KOs', value: boxer.value.amateur_wins_by_knockout }
-  ]
-})
-
 // Use fights from boxer data or legacy bouts
 const fights = computed(() => {
   if (!boxer.value) return []
@@ -162,10 +140,7 @@ const fights = computed(() => {
     />
 
     <!-- Loading State -->
-    <LoadingState
-      v-else-if="pending"
-      message="Loading boxer details..."
-    />
+    <BoxerSkeleton v-else-if="pending" />
 
     <!-- Boxer Content -->
     <div v-else-if="boxer" class="min-h-screen bg-white">
@@ -191,38 +166,11 @@ const fights = computed(() => {
     <!-- Main Content -->
     <div class="max-w-7xl mx-auto px-6 lg:px-8 py-8 sm:py-12">
       <div class="space-y-8">
-        <!-- Professional Stats Grid -->
-        <StatsGrid 
-          title="Professional Record" 
-          :stats="professionalStats" 
-        />
-        
-        <!-- Amateur Stats Grid (if available) -->
-        <StatsGrid 
-          v-if="boxer.amateur_total_bouts && boxer.amateur_total_bouts > 0"
-          title="Amateur Record" 
-          :stats="amateurStats" 
-        />
+        <!-- Combined Record Stats -->
+        <BoxerRecordTabs :boxer="boxer" />
 
         <!-- Fighter Information Card -->
         <FighterInfoCard :boxer="boxer" />
-
-        <!-- More in Division -->
-        <div class="rounded-lg p-6 border border-zinc-200">
-          <h3 class="text-base font-semibold text-zinc-900 dark:text-white mb-2">More {{ division?.name }} Fighters</h3>
-          <p class="text-sm text-zinc-600 dark:text-zinc-400 mb-4">
-            Explore other boxers in this division
-          </p>
-          <UButton
-            :to="`/divisions/${boxer.division}`"
-            variant="ghost"
-            color="gray"
-            size="sm"
-            class="w-full"
-          >
-            View All {{ division?.name }}
-          </UButton>
-        </div>
         
         <!-- Biography Section -->
         <BiographySection :boxer="boxer" />
