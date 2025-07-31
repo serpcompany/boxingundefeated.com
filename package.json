@@ -47,7 +47,7 @@
     "drizzle-orm": "^0.44.4",
     "drizzle-zod": "^0.8.2",
     "pinia": "^2.1.7",
-    "zod": "^4.0.14"
+    "zod": "^3.25.76"
   },
   "lint-staged": {
     "*.{js,ts,vue}": [
