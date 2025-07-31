@@ -12,7 +12,7 @@ import { sqliteTable, text, integer, index } from 'drizzle-orm/sqlite-core'
 import { sql } from 'drizzle-orm'
 import { boxers } from './boxers'
 
-export const boxerBouts = sqliteTable('boxer_bouts', {
+export const boxerBoutsTable = sqliteTable('boxer_bouts', {
   id: integer().primaryKey({ autoIncrement: true }),
   boxerId: text().notNull().references(() => boxers.id, { onDelete: 'cascade' }),
   
@@ -31,8 +31,8 @@ export const boxerBouts = sqliteTable('boxer_bouts', {
   judge3Score: text(),
   
   numRoundsScheduled: integer(),
-  result: text().notNull(),
-  resultMethod: text(),
+  result: text().notNull(), // 'win' | 'loss' | 'draw' | 'no-contest'
+  resultMethod: text(), // 'ko' | 'tko' | 'decision' | 'dq' | 'rtd'
   resultRound: integer(),
   
   eventPageLink: text(),

@@ -1,11 +1,10 @@
 import { sqliteTable, text, integer, index } from 'drizzle-orm/sqlite-core'
 import { sql } from 'drizzle-orm'
 
-export const boxers = sqliteTable('boxers', {
+export const boxers = sqliteTable('boxer', {
   id: text().primaryKey(),
   boxrecId: text().notNull().unique(),
   boxrecUrl: text().notNull(),
-  boxrecWikiUrl: text(),
   slug: text().notNull().unique(),
   
   fullName: text().notNull(),
@@ -13,13 +12,12 @@ export const boxers = sqliteTable('boxers', {
   nickname: text(),
   gender: text(), // 'male' | 'female'
   
-  imageUrl: text(),
+  avatarImage: text(),
   
   residence: text(),
   birthPlace: text(),
   dateOfBirth: text(),
   nationality: text(),
-  age: integer(),
   
   height: text(),
   reach: text(),
@@ -27,12 +25,11 @@ export const boxers = sqliteTable('boxers', {
   stance: text(), // 'orthodox' | 'southpaw'
   
   bio: text(),
-  bioSections: text(),
   
-  promoter: text(),
-  trainer: text(),
-  manager: text(),
-  gym: text(),
+  promoter: text(), // TODO: FK to people table
+  trainer: text(), // TODO: FK to people table
+  manager: text(), // TODO: FK to people table
+  gym: text(), // TODO: FK to gyms table
   
   proDebutDate: text(),
   proDivision: text(),
@@ -41,7 +38,7 @@ export const boxers = sqliteTable('boxers', {
   proLosses: integer().notNull().default(0),
   proLossesByKnockout: integer().notNull().default(0),
   proDraws: integer().notNull().default(0),
-  proStatus: text(), // 'active' | 'retired'
+  proStatus: text(), // 'active' | 'inactive'
   proTotalBouts: integer().notNull().default(0),
   proTotalRounds: integer().notNull().default(0),
   
@@ -52,23 +49,18 @@ export const boxers = sqliteTable('boxers', {
   amateurLosses: integer().notNull().default(0),
   amateurLossesByKnockout: integer().notNull().default(0),
   amateurDraws: integer().notNull().default(0),
-  amateurStatus: text(),
+  amateurStatus: text(), // 'active' | 'inactive'
   amateurTotalBouts: integer().notNull().default(0),
   amateurTotalRounds: integer().notNull().default(0),
   
-  name: text(),
-  birthDate: text(),
-  image: text(),
-  division: text(),
-  active: integer({ mode: 'boolean' }),
   isChampion: integer({ mode: 'boolean' }),
   ranking: integer(),
   
   createdAt: text().notNull().default(sql`CURRENT_TIMESTAMP`),
   updatedAt: text().notNull().default(sql`CURRENT_TIMESTAMP`),
 }, (table) => ({
-  slugIdx: index('boxers_slug_idx').on(table.slug),
-  boxrecIdIdx: index('boxers_boxrec_id_idx').on(table.boxrecId),
-  nationalityIdx: index('boxers_nationality_idx').on(table.nationality),
-  divisionIdx: index('boxers_division_idx').on(table.proDivision),
+  slugIdx: index('boxer_slug_idx').on(table.slug),
+  boxrecIdIdx: index('boxer_boxrec_id_idx').on(table.boxrecId),
+  nationalityIdx: index('boxer_nationality_idx').on(table.nationality),
+  divisionIdx: index('boxer_division_idx').on(table.proDivision),
 }))

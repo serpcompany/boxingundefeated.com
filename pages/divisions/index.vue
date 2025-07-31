@@ -12,11 +12,12 @@ useSeoMeta({
 })
 
 const divisions = computed(() => {
-  return [...mockDivisions].sort((a, b) => a.order - b.order)
+  return [...mockDivisions].sort((a, b) => a.weightLimitPounds - b.weightLimitPounds)
 })
 
 function formatWeightLimit(division: any) {
-  return `${division.weightLimit.pounds} lbs / ${division.weightLimit.kilograms.toFixed(1)} kg`
+  const kilograms = division.weightLimitPounds * 0.453592
+  return `${division.weightLimitPounds} lbs / ${kilograms.toFixed(1)} kg`
 }
 
 </script>

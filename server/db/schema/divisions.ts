@@ -1,7 +1,7 @@
 import { sqliteTable, text, integer, real, index } from 'drizzle-orm/sqlite-core'
 import { sql } from 'drizzle-orm'
 
-export const divisions = sqliteTable('divisions', {
+export const divisions = sqliteTable('division', {
   id: text().primaryKey(),
   slug: text().notNull().unique(),
   name: text().notNull(),
@@ -10,11 +10,9 @@ export const divisions = sqliteTable('divisions', {
   weightLimitPounds: real().notNull(),
   
   description: text(),
-  order: integer().notNull(),
   
   createdAt: text().notNull().default(sql`CURRENT_TIMESTAMP`),
   updatedAt: text().notNull().default(sql`CURRENT_TIMESTAMP`),
 }, (table) => ({
-  slugIdx: index('divisions_slug_idx').on(table.slug),
-  orderIdx: index('divisions_order_idx').on(table.order),
+  slugIdx: index('division_slug_idx').on(table.slug),
 }))
