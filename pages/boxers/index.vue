@@ -60,12 +60,6 @@ useHead({
         />
       </div>
     </div>
-    
-    <!-- Header -->
-    <PageHero 
-      title="Professional Boxers"
-      :subtitle="`Browse ${boxers.length} fighter profiles`"
-    />
 
     <!-- All Boxers Table -->
     <section class="py-16 sm:py-24">

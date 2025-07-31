@@ -169,7 +169,7 @@ function onRowClick(row: any) {
       <div class="relative flex-1 max-w-md">
         <UInput
           v-model="searchQuery"
-          placeholder="Search fighters..."
+          placeholder="Search..."
           icon="i-heroicons-magnifying-glass"
           size="lg"
           class="w-full"
@@ -215,6 +215,8 @@ function onRowClick(row: any) {
         option-attribute="label"
         value-attribute="value"
         placeholder="Nationality"
+        searchable
+        searchable-placeholder="Type to search..."
         size="lg"
         class="w-48"
       />
@@ -227,10 +229,10 @@ function onRowClick(row: any) {
         placeholder="Filter by division"
         multiple
         size="lg"
-        class="w-64"
+        class="w-48"
       >
         <template #label>
-          <span v-if="divisionFilter.length === 0">All divisions</span>
+          <span v-if="divisionFilter.length === 0">Divisions</span>
           <span v-else>{{ divisionFilter.length }} {{ divisionFilter.length === 1 ? 'division' : 'divisions' }}</span>
         </template>
       </USelectMenu>
