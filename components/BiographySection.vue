@@ -26,7 +26,7 @@ function formatBioContent(content: string): string {
 </script>
 
 <template>
-  <div v-if="boxer.bio || boxer.bioSections" class="space-y-8">
+  <div v-if="boxer.bio || boxer.bioSections" id="biography" class="space-y-8">
     <!-- Short Bio Summary -->
     <div v-if="boxer.bio">
       <h2 class="text-2xl font-bold text-zinc-900 dark:text-white mb-4">Biography</h2>
@@ -37,7 +37,8 @@ function formatBioContent(content: string): string {
     <div v-if="boxer.bioSections" class="space-y-8">
       <div 
         v-for="(section, key) in boxer.bioSections" 
-        :key="key" 
+        :key="key"
+        :id="`bio-${key}`" 
         class="prose prose-zinc dark:prose-invert max-w-none"
       >
         <h3 class="text-xl font-semibold text-zinc-900 dark:text-white mb-3">{{ section.title }}</h3>

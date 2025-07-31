@@ -109,8 +109,11 @@ const fights = computed(() => {
     <div v-else-if="boxer" class="min-h-screen bg-white">
     <!-- Hero Section -->
     <BoxerHero :boxer="boxer" />
+    
+    <!-- Sticky Horizontal TOC -->
+    <BoxerPageTOCHorizontal :boxer="boxer" />
 
-    <!-- Main Content - Single Column -->
+    <!-- Main Content -->
     <div class="max-w-7xl mx-auto px-6 lg:px-8 py-8 sm:py-12">
       <div class="space-y-8">
         <!-- Professional Stats Grid -->
@@ -148,10 +151,10 @@ const fights = computed(() => {
         
         <!-- Biography Section -->
         <BiographySection :boxer="boxer" />
+        
+        <!-- Fight History Table -->
+        <FightHistoryTable :fights="fights" />
       </div>
-      
-      <!-- Fight History Table -->
-      <FightHistoryTable :fights="fights" />
     </div>
   </div>
   </div>

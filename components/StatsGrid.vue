@@ -13,7 +13,7 @@ const props = defineProps<Props>()
 </script>
 
 <template>
-  <div>
+  <div :id="title.toLowerCase().replace(/\s+/g, '-')">
     <h2 class="text-lg font-semibold text-zinc-900 dark:text-white mb-4">{{ title }}</h2>
     <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
       <div 

@@ -67,7 +67,7 @@ const columns = [
 </script>
 
 <template>
-  <div class="my-20">
+  <div id="fight-history" class="my-20">
     <h2 class="text-lg font-semibold text-zinc-900 dark:text-white mb-4">Fight History</h2>
     <div class="relative max-h-[800px] border-2 border-zinc-200 dark:border-zinc-700 rounded-lg shadow-md overflow-hidden" v-if="fights.length > 0">
       <UTable 
