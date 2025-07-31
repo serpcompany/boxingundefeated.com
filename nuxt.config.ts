@@ -74,7 +74,7 @@ export default defineNuxtConfig({
   // Robots configuration
   robots: {
     allow: ['/'],
-    disallow: ['/admin', '/api'],
+    disallow: ['/admin'],
     sitemap: 'https://boxingundefeated.com/sitemap_index.xml',
   },
 
