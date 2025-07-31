@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useScroll } from '@vueuse/core'
 import type { Boxer } from '~/types/Boxing'
 
 interface Props {
@@ -13,9 +14,10 @@ const props = withDefaults(defineProps<Props>(), {
 })
 
 // Filter state
+const searchQuery = ref('')
 const statusFilter = ref('')
 const nationalityFilter = ref('')
-const divisionFilter = ref('')
+const divisionFilter = ref<string[]>([])
 const page = ref(1)
 
 // Table columns
@@ -27,6 +29,11 @@ const columns = computed(() => {
       sortable: true
     },
     {
+      key: 'division',
+      label: 'Weight Class',
+      sortable: true
+    },
+    {
       key: 'record',
       label: 'Record'
     },
@@ -34,21 +41,12 @@ const columns = computed(() => {
       key: 'nationality',
       label: 'Nationality',
       sortable: true
+    },
+    {
+      key: 'status',
+      label: 'Status'
     }
   ]
-  
-  if (props.showDivision) {
-    cols.splice(2, 0, {
-      key: 'division',
-      label: 'Division',
-      sortable: true
-    })
-  }
-  
-  cols.push({
-    key: 'status',
-    label: 'Status'
-  })
   
   return cols
 })
@@ -86,15 +84,25 @@ const nationalityOptions = computed(() => {
 
 const divisionOptions = computed(() => {
   const divisions = [...new Set(props.boxers.map(b => b.division).filter(Boolean))]
-  return [
-    { label: 'All Divisions', value: '' },
-    ...divisions.map(d => ({ label: d, value: d }))
-  ]
+  return divisions.sort().map(d => ({ 
+    label: d.charAt(0).toUpperCase() + d.slice(1).replace(/-/g, ' '), 
+    value: d 
+  }))
 })
 
 // Apply filters to data
 const filteredData = computed(() => {
   let filtered = tableData.value
+  
+  // Search filter
+  if (searchQuery.value) {
+    const search = searchQuery.value.toLowerCase()
+    filtered = filtered.filter(boxer => 
+      boxer.name.toLowerCase().includes(search) ||
+      boxer.nationality.toLowerCase().includes(search) ||
+      boxer.division.toLowerCase().includes(search)
+    )
+  }
   
   if (statusFilter.value) {
     filtered = filtered.filter(boxer => boxer.status === statusFilter.value)
@@ -104,19 +112,47 @@ const filteredData = computed(() => {
     filtered = filtered.filter(boxer => boxer.nationality === nationalityFilter.value)
   }
   
-  if (divisionFilter.value && props.showDivision) {
-    filtered = filtered.filter(boxer => boxer.division === divisionFilter.value)
+  if (divisionFilter.value.length > 0) {
+    filtered = filtered.filter(boxer => divisionFilter.value.includes(boxer.division))
   }
   
   return filtered
 })
 
-// Pagination
-const totalPages = computed(() => Math.ceil(filteredData.value.length / props.pageSize))
-const paginatedData = computed(() => {
-  const start = (page.value - 1) * props.pageSize
-  const end = start + props.pageSize
-  return filteredData.value.slice(start, end)
+// Infinite scroll setup
+const loadedCount = ref(props.pageSize)
+const isLoading = ref(false)
+
+// Reset loaded count when filters change
+watch([searchQuery, statusFilter, nationalityFilter, divisionFilter], () => {
+  loadedCount.value = props.pageSize
+})
+
+// Data to display (with infinite scroll)
+const displayedData = computed(() => {
+  return filteredData.value.slice(0, loadedCount.value)
+})
+
+// Load more function
+const loadMore = () => {
+  if (isLoading.value || loadedCount.value >= filteredData.value.length) return
+  
+  isLoading.value = true
+  // Simulate loading delay
+  setTimeout(() => {
+    loadedCount.value = Math.min(loadedCount.value + props.pageSize, filteredData.value.length)
+    isLoading.value = false
+  }, 300)
+}
+
+// Infinite scroll composable
+const tableRef = ref<HTMLElement>()
+const { arrivedState } = useScroll(tableRef)
+
+watch(() => arrivedState.bottom, (arrived) => {
+  if (arrived && !isLoading.value) {
+    loadMore()
+  }
 })
 
 // Row click handler
@@ -129,6 +165,12 @@ function onRowClick(row: any) {
   <div class="space-y-4">
     <!-- Filters -->
     <div class="flex flex-wrap gap-4 mb-6">
+      <UInput
+        v-model="searchQuery"
+        placeholder="Search fighters..."
+        icon="i-heroicons-magnifying-glass"
+        class="w-64"
+      />
       <USelectMenu
         v-model="statusFilter"
         :options="statusOptions"
@@ -148,30 +190,37 @@ function onRowClick(row: any) {
       />
       
       <USelectMenu
-        v-if="showDivision"
         v-model="divisionFilter"
         :options="divisionOptions"
         option-attribute="label"
         value-attribute="value"
-        placeholder="Division"
-        class="w-48"
-      />
+        placeholder="Filter by division"
+        multiple
+        class="w-64"
+      >
+        <template #label>
+          <span v-if="divisionFilter.length === 0">All divisions</span>
+          <span v-else>{{ divisionFilter.length }} {{ divisionFilter.length === 1 ? 'division' : 'divisions' }}</span>
+        </template>
+      </USelectMenu>
       
       <!-- Results count -->
       <div class="flex items-center text-sm text-zinc-600 dark:text-zinc-400 ml-auto">
-        Showing {{ paginatedData.length }} of {{ filteredData.length }} fighters
+        Showing {{ displayedData.length }} of {{ filteredData.length }} fighters
       </div>
     </div>
 
-    <UTable 
-      :rows="paginatedData" 
+    <!-- Table wrapper for infinite scroll -->
+    <div ref="tableRef" class="max-h-[800px] overflow-y-auto">
+      <UTable 
+        :rows="displayedData" 
       :columns="columns"
       :loading="false"
       class="cursor-pointer border border-zinc-200 dark:border-zinc-700 shadow-sm rounded-lg overflow-hidden"
       :ui="{
         wrapper: 'relative overflow-hidden',
         base: 'min-w-full table-fixed',
-        thead: 'bg-zinc-50/50 dark:bg-zinc-800/50 border-b border-zinc-200 dark:border-zinc-700',
+        thead: 'bg-zinc-50 dark:bg-zinc-800 border-b border-zinc-200 dark:border-zinc-700',
         th: { 
           base: 'px-4 py-3.5 text-left text-sm font-semibold text-zinc-900 dark:text-white'
         },
@@ -181,7 +230,7 @@ function onRowClick(row: any) {
           selected: 'bg-primary-50 dark:bg-primary-950'
         },
         td: { 
-          base: 'px-4 py-3 whitespace-nowrap text-sm text-zinc-900 dark:text-zinc-100 border-r border-zinc-100 dark:border-zinc-800 last:border-r-0'
+          base: 'px-4 py-3 whitespace-nowrap text-sm text-zinc-900 dark:text-zinc-100'
         }
       }"
       @select="onRowClick"
@@ -198,11 +247,23 @@ function onRowClick(row: any) {
             <div v-else class="w-full h-full bg-zinc-300"></div>
           </div>
           <div>
-            <div class="text-zinc-900 dark:text-white">
+            <NuxtLink 
+              :to="`/boxers/${row.slug}`"
+              class="text-zinc-900 dark:text-white hover:text-red-600 dark:hover:text-red-400"
+            >
               {{ row.name }}
-            </div>
+            </NuxtLink>
           </div>
         </div>
+      </template>
+
+      <template #division-data="{ row }">
+        <NuxtLink 
+          :to="`/divisions/${row.division}`"
+          class="text-zinc-600 dark:text-zinc-400 hover:text-red-600 dark:hover:text-red-400"
+        >
+          {{ row.division.charAt(0).toUpperCase() + row.division.slice(1).replace(/-/g, ' ') }}
+        </NuxtLink>
       </template>
 
       <template #record-data="{ row }">
@@ -226,15 +287,16 @@ function onRowClick(row: any) {
         </UBadge>
       </template>
     </UTable>
+    </div>
 
-    <!-- Pagination -->
-    <div v-if="totalPages > 1" class="flex justify-center">
-      <UPagination 
-        v-model="page" 
-        :page-count="props.pageSize" 
-        :total="filteredData.length"
-        :max="7"
-      />
+    <!-- Loading indicator -->
+    <div v-if="isLoading" class="flex justify-center py-4">
+      <UIcon name="i-heroicons-arrow-path" class="w-6 h-6 animate-spin text-zinc-500" />
+    </div>
+
+    <!-- End of list message -->
+    <div v-if="!isLoading && displayedData.length === filteredData.length && filteredData.length > 0" class="text-center py-4 text-sm text-zinc-500">
+      End of list - {{ filteredData.length }} fighters shown
     </div>
   </div>
 </template>
