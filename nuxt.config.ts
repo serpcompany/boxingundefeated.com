@@ -3,6 +3,81 @@ export default defineNuxtConfig({
 
   modules: ['@nuxt/ui', '@nuxt/fonts', '@nuxt/image', '@nuxt/eslint', '@nuxtjs/seo'],
 
+  // Site configuration for SEO modules
+  site: {
+    url: 'https://boxingundefeated.com',
+  },
+
+  // Sitemap configuration
+  sitemap: {
+    // Chunk size for automatic sitemap splitting (25,000 URLs max as requested)
+    defaultSitemapsChunkSize: 25000,
+    
+    // Multi-sitemap configuration
+    sitemaps: {
+      // Core pages sitemap
+      pages: {
+        urls: ['/', '/about', '/boxers', '/divisions'],
+        defaults: {
+          changefreq: 'weekly',
+          priority: 0.8,
+        },
+      },
+      // Boxers sitemap with sample pages
+      boxers: {
+        urls: [
+          '/boxers/floyd-mayweather-jr',
+          '/boxers/manny-pacquiao', 
+          '/boxers/canelo-alvarez',
+          '/boxers/tyson-fury',
+          '/boxers/anthony-joshua',
+        ],
+        defaults: {
+          changefreq: 'monthly',
+          priority: 0.7,
+        },
+      },
+      // Divisions sitemap
+      divisions: {
+        urls: [
+          '/divisions/heavyweight',
+          '/divisions/cruiserweight',
+          '/divisions/light-heavyweight',
+          '/divisions/super-middleweight',
+          '/divisions/middleweight',
+          '/divisions/super-welterweight',
+          '/divisions/welterweight',
+          '/divisions/super-lightweight',
+          '/divisions/lightweight',
+        ],
+        defaults: {
+          changefreq: 'monthly',
+          priority: 0.6,
+        },
+      },
+      // Legal pages sitemap
+      legal: {
+        urls: [
+          '/legal/privacy-policy',
+          '/legal/terms-conditions', 
+          '/legal/dmca',
+          '/legal/affiliate-disclosure'
+        ],
+        defaults: {
+          changefreq: 'yearly',
+          priority: 0.3,
+        },
+      },
+    },
+  },
+
+  // Robots configuration
+  robots: {
+    allow: ['/'],
+    disallow: ['/admin', '/api'],
+    sitemap: 'https://boxingundefeated.com/sitemap_index.xml',
+  },
+
   // Configure @nuxt/eslint to work with antfu config
   eslint: {
     config: {
