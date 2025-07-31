@@ -75,10 +75,14 @@ useSeoMeta({
           repeat infringers.
         </p>
 
+        <h2>Intellectual Property Protection</h2>
+        <p>
+          We take intellectual property very seriously.
+        </p>
+
         <h2>Contact Information</h2>
         <p>
-          Please send all DMCA notices to our designated copyright agent at 
-          the contact information provided on our contact page.
+          If you would like to file a complaint regarding the DMCA or other intellectual property matters, please email: dmca[@]boxingundefeated.com and/or ipcomplaints[@]boxingundefeated.com Please make sure you remove the brackets [ ] and spaces in the above provided emails. We format it like this to reduce spam from bots, spiders, and scrapers. Thank you.
         </p>
       </div>
     </div>
