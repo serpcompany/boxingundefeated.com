@@ -18,10 +18,10 @@ function formatWeightLimit(division: any) {
 <template>
   <div class="min-h-screen bg-zinc-50 dark:bg-zinc-900">
     <!-- Header -->
-    <div class="bg-red-600 text-white min-h-[350px] flex items-center">
-      <div class="max-w-7xl mx-auto px-6 lg:px-8 py-24">
-        <h1 class="text-4xl font-bold mb-4">Boxing Weight Divisions</h1>
-        <p class="text-xl text-red-100">
+    <div class="bg-white dark:bg-zinc-900 border-b border-zinc-200 dark:border-zinc-800">
+      <div class="max-w-7xl mx-auto px-6 lg:px-8 py-16">
+        <h1 class="text-4xl font-bold mb-4 text-zinc-900 dark:text-white">Boxing Weight Divisions</h1>
+        <p class="text-xl text-zinc-600 dark:text-zinc-400">
           From {{ divisions[divisions.length - 1].name }} to {{ divisions[0].name }}
         </p>
       </div>
@@ -37,59 +37,69 @@ function formatWeightLimit(division: any) {
         </p>
       </div>
 
-      <!-- Divisions Grid -->
-      <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        <NuxtLink
-          v-for="division in divisions"
-          :key="division.id"
-          :to="`/divisions/${division.slug}`"
-          class="block"
-        >
-          <UCard
-            class="h-full hover:shadow-lg transition-all hover:-translate-y-1 cursor-pointer"
-          >
-            <template #header>
-              <div class="flex justify-between items-center">
-                <h2 class="text-xl font-bold text-zinc-900 dark:text-white">
-                  {{ division.name }}
-                </h2>
-                <UBadge color="gray" variant="subtle">
-                  #{{ division.order }}
-                </UBadge>
-              </div>
-            </template>
-
-            <div class="space-y-4">
-              <!-- Weight Limit -->
-              <div>
-                <h3 class="text-sm font-medium text-zinc-500 dark:text-zinc-400 mb-1">
+      <!-- Divisions Table -->
+      <div class="bg-white dark:bg-zinc-800 rounded-lg shadow-sm overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="min-w-full divide-y divide-zinc-200 dark:divide-zinc-700">
+            <thead class="bg-zinc-50 dark:bg-zinc-900">
+              <tr>
+                <th class="px-6 py-3 text-left text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">
+                  Division
+                </th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">
                   Weight Limit
-                </h3>
-                <p class="text-lg font-semibold text-zinc-900 dark:text-white">
-                  {{ formatWeightLimit(division) }}
-                </p>
-                <p v-if="division.weightLimit.stone" class="text-sm text-zinc-600 dark:text-zinc-400">
-                  {{ division.weightLimit.stone }}
-                </p>
-              </div>
-
-              <!-- Alternative Names -->
-              <div v-if="division.alternativeNames && division.alternativeNames.length > 0">
-                <h3 class="text-sm font-medium text-zinc-500 dark:text-zinc-400 mb-1">
-                  Also Known As
-                </h3>
-                <p class="text-sm text-zinc-600 dark:text-zinc-400">
-                  {{ division.alternativeNames.join(', ') }}
-                </p>
-              </div>
-
-              <!-- Description -->
-              <p v-if="division.description" class="text-sm text-zinc-600 dark:text-zinc-400 line-clamp-2">
-                {{ division.description }}
-              </p>
-            </div>
-          </UCard>
-        </NuxtLink>
+                </th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wider hidden md:table-cell">
+                  Alternative Names
+                </th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wider hidden lg:table-cell">
+                  Description
+                </th>
+              </tr>
+            </thead>
+            <tbody class="bg-white dark:bg-zinc-800 divide-y divide-zinc-200 dark:divide-zinc-700">
+              <tr 
+                v-for="division in divisions" 
+                :key="division.id"
+                class="hover:bg-zinc-50 dark:hover:bg-zinc-700 transition-colors cursor-pointer"
+                @click="$router.push(`/divisions/${division.slug}`)"
+              >
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="flex items-center">
+                    <div>
+                      <div class="text-sm font-medium text-zinc-900 dark:text-white">
+                        {{ division.name }}
+                      </div>
+                      <div class="text-xs text-zinc-500 dark:text-zinc-400">
+                        {{ division.order === 1 ? 'Heaviest' : division.order === 17 ? 'Lightest' : `Division ${division.order}` }}
+                      </div>
+                    </div>
+                  </div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="text-sm text-zinc-900 dark:text-white font-medium">
+                    {{ formatWeightLimit(division) }}
+                  </div>
+                  <div v-if="division.weightLimit.stone" class="text-xs text-zinc-500 dark:text-zinc-400">
+                    {{ division.weightLimit.stone }}
+                  </div>
+                </td>
+                <td class="px-6 py-4 text-sm text-zinc-500 dark:text-zinc-400 hidden md:table-cell">
+                  <span v-if="division.alternativeNames && division.alternativeNames.length > 0">
+                    {{ division.alternativeNames.join(', ') }}
+                  </span>
+                  <span v-else class="text-zinc-400 dark:text-zinc-600">—</span>
+                </td>
+                <td class="px-6 py-4 text-sm text-zinc-500 dark:text-zinc-400 hidden lg:table-cell">
+                  <p v-if="division.description" class="line-clamp-2">
+                    {{ division.description }}
+                  </p>
+                  <span v-else class="text-zinc-400 dark:text-zinc-600">—</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
 
       <!-- Additional Info -->
