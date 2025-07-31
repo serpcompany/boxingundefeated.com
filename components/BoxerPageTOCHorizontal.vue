@@ -13,17 +13,10 @@ const navigationItems = computed(() => {
   
   // Professional Record
   items.push({
-    label: 'Professional Record',
+    label: 'Record',
     to: '#professional-record'
   })
   
-  // Amateur Record (if available)
-  if (props.boxer.amateur_total_bouts && props.boxer.amateur_total_bouts > 0) {
-    items.push({
-      label: 'Amateur Record',
-      to: '#amateur-record'
-    })
-  }
   
   // Fighter Information
   items.push({
@@ -34,7 +27,7 @@ const navigationItems = computed(() => {
   // Biography (if available)
   if (props.boxer.bio || props.boxer.bioSections) {
     items.push({
-      label: 'Biography',
+      label: 'About',
       to: '#biography'
     })
   }
