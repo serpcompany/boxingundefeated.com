@@ -38,16 +38,7 @@ function getDivisionSlug(boxer: Boxer): string {
 
 <template>
   <div class="bg-white min-h-[350px] flex items-center">
-    <div class="max-w-7xl mx-auto px-6 lg:px-8 py-24 w-full">
-      <!-- Breadcrumb -->
-      <BreadCrumbs 
-        :items="[
-          { label: 'Boxers', to: '/boxers' },
-          { label: getDisplayName(boxer) }
-        ]"
-        class="mb-6"
-      />
-
+    <div class="max-w-7xl mx-auto px-6 lg:px-8 py-16 w-full">
       <div class="flex items-start gap-8">
         <!-- Image on the left -->
         <div v-if="getImageUrl(boxer)" class="flex-shrink-0">

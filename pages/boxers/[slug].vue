@@ -107,6 +107,18 @@ const fights = computed(() => {
 
     <!-- Boxer Content -->
     <div v-else-if="boxer" class="min-h-screen bg-white">
+    <!-- Breadcrumbs -->
+    <div class="bg-white">
+      <div class="max-w-7xl mx-auto px-6 lg:px-8 py-4">
+        <BreadCrumbs 
+          :items="[
+            { label: 'Boxers', to: '/boxers' },
+            { label: boxer.full_name || boxer.name || '' }
+          ]"
+        />
+      </div>
+    </div>
+    
     <!-- Hero Section -->
     <BoxerHero :boxer="boxer" />
     

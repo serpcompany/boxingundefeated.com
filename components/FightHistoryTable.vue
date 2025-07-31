@@ -107,7 +107,12 @@ const columns = [
         </template>
         
         <template #opponent_name-data="{ row }">
-          <span class="font-medium text-zinc-900 dark:text-white">{{ row.opponent_name }}</span>
+          <NuxtLink 
+            :to="`/boxers/${row.opponent_name.toLowerCase().replace(/\s+/g, '-')}`"
+            class="font-medium text-zinc-900 dark:text-white hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
+          >
+            {{ row.opponent_name }}
+          </NuxtLink>
         </template>
         
         <template #opponent_record-data="{ row }">
