@@ -3,57 +3,30 @@ import type { Boxer } from '~/types/Boxing'
 import { mockDivisions } from '~/data/boxing-data'
 import { findBoxerBySlug } from '~/utils/loadBoxerData'
 
-async function fetchBoxerData(slug: string): Promise<Boxer> {
-  const boxer = findBoxerBySlug(slug)
-  
-  if (!boxer) {
-    throw new Error(`Boxer with slug "${slug}" not found`)
-  }
-  
-  return boxer
-}
-
 const route = useRoute()
 const slug = route.params.slug as string
 
-const pending = ref(false)
-const error = ref(false)
-const boxer = ref<Boxer | null>(null)
-
-onMounted(async () => {
-  try {
-    pending.value = true
-    boxer.value = await fetchBoxerData(slug)
+// Use useAsyncData for proper SSR and hydration
+const { data: boxer, pending, error } = await useAsyncData(
+  `boxer-${slug}`,
+  () => {
+    const boxerData = findBoxerBySlug(slug)
+    if (!boxerData) {
+      throw createError({
+        statusCode: 404,
+        statusMessage: `Boxer with slug "${slug}" not found`
+      })
+    }
+    return boxerData
   }
-  catch (err) {
-    error.value = true
-    console.error('Failed to fetch boxer data:', err)
-  }
-  finally {
-    pending.value = false
-  }
-})
-
-if (import.meta.server || import.meta.env.NODE_ENV === 'test') {
-  try {
-    boxer.value = await fetchBoxerData(slug)
-  }
-  catch {
-    error.value = true
-  }
-}
+)
 
 const division = computed(() => {
   if (!boxer.value) return null
-  return mockDivisions.find(d => d.slug === boxer.value.division)
+  const divisionSlug = boxer.value.pro_division || boxer.value.division
+  return mockDivisions.find(d => d.slug === divisionSlug)
 })
 
-function formatRecord(boxer: Boxer): string {
-  if (boxer.pro_wins !== undefined) {
-    return `${boxer.pro_wins}-${boxer.pro_losses}-${boxer.pro_draws}`
-  }
-  return `${boxer.record?.wins || 0}-${boxer.record?.losses || 0}-${boxer.record?.draws || 0}`
-}
 
 function calculateKOPercentage(boxer: Boxer): string {
   const wins = boxer.pro_wins || boxer.record?.wins || 0
@@ -87,6 +60,21 @@ function formatHeight(height: string | null | undefined): string {
 
 function formatReach(reach: string | null | undefined): string {
   return reach || 'N/A'
+}
+
+// Format date consistently to avoid hydration mismatches
+function formatDate(date: string | null | undefined): string {
+  if (!date) return 'N/A'
+  try {
+    const d = new Date(date)
+    // Use a consistent format that doesn't vary between server/client
+    const month = d.getMonth() + 1
+    const day = d.getDate()
+    const year = d.getFullYear()
+    return `${month}/${day}/${year}`
+  } catch {
+    return 'N/A'
+  }
 }
 
 // Use fights from boxer data or legacy bouts
@@ -162,22 +150,9 @@ const columns = [
 </script>
 
 <template>
-  <!-- Loading State -->
-  <div
-    v-if="pending"
-    class="min-h-screen bg-white dark:bg-zinc-950 flex items-center justify-center"
-  >
-    <div class="text-center">
-      <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-red-500 mx-auto mb-4" />
-      <p class="text-zinc-600 dark:text-zinc-400">
-        Loading boxer details...
-      </p>
-    </div>
-  </div>
-
   <!-- Error State -->
   <div
-    v-else-if="error"
+    v-if="error"
     class="min-h-screen bg-white dark:bg-zinc-950 flex items-center justify-center"
   >
     <div class="text-center">
@@ -193,120 +168,28 @@ const columns = [
     </div>
   </div>
 
+  <!-- Loading State -->
+  <div
+    v-else-if="pending"
+    class="min-h-screen bg-white dark:bg-zinc-950 flex items-center justify-center"
+  >
+    <div class="text-center">
+      <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-red-500 mx-auto mb-4" />
+      <p class="text-zinc-600 dark:text-zinc-400">
+        Loading boxer details...
+      </p>
+    </div>
+  </div>
+
   <!-- Boxer Content -->
   <div v-else-if="boxer" class="min-h-screen bg-zinc-50 dark:bg-zinc-900">
     <!-- Hero Section -->
-    <div class="bg-red-600 text-white min-h-[350px] flex items-center">
-      <div class="max-w-7xl mx-auto px-6 lg:px-8 py-24 w-full">
-        <!-- Breadcrumb -->
-        <nav class="flex items-center gap-2 text-sm text-red-200 mb-6">
-          <NuxtLink to="/boxers" class="hover:text-white">
-            Boxers
-          </NuxtLink>
-          <span>/</span>
-          <span class="text-white">{{ boxer.name }}</span>
-        </nav>
-
-        <div class="flex items-start gap-8">
-          <!-- Main Info -->
-          <div class="flex-1">
-            <h1 class="text-4xl font-bold mb-4">
-              {{ boxer.full_name || boxer.name }}
-              <span v-if="boxer.nickname" class="text-red-200 font-normal">
-                "{{ boxer.nickname }}"
-              </span>
-            </h1>
-            
-            <div class="flex flex-wrap items-center gap-6 text-lg">
-              <span class="text-red-100">
-                {{ formatRecord(boxer) }} ({{ boxer.pro_wins_by_knockout || boxer.record?.knockouts || 0 }} KOs)
-              </span>
-              <span v-if="boxer.pro_division || boxer.division" class="text-red-100">
-                {{ boxer.pro_division || boxer.division }}
-              </span>
-              <span v-if="boxer.nationality" class="text-red-100">
-                {{ boxer.nationality }}
-              </span>
-              <span v-if="boxer.pro_status === 'active' || boxer.active" class="text-green-300">
-                Active
-              </span>
-              <span v-else class="text-red-200">
-                {{ boxer.pro_status || 'Retired' }}
-              </span>
-            </div>
-          </div>
-
-          <!-- Image -->
-          <div v-if="boxer.image_url || boxer.image" class="hidden lg:block">
-            <img
-              :src="boxer.image_url || boxer.image"
-              :alt="boxer.full_name || boxer.name"
-              class="w-32 h-32 rounded-lg object-cover shadow-lg"
-            >
-          </div>
-        </div>
-      </div>
-    </div>
+    <BoxerHero :boxer="boxer" />
 
     <!-- Main Content -->
     <div class="max-w-7xl mx-auto px-6 lg:px-8 py-12">
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <!-- Main Content -->
-        <div class="lg:col-span-2 space-y-8">
-          <!-- Professional Stats Grid -->
-          <div>
-            <h2 class="text-lg font-semibold text-zinc-900 dark:text-white mb-4">Professional Record</h2>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-              <div class="bg-zinc-50 dark:bg-zinc-900 rounded-lg p-4 border border-zinc-200 dark:border-zinc-800">
-                <div class="text-sm text-zinc-600 dark:text-zinc-400 mb-1">Wins</div>
-                <div class="text-2xl font-semibold text-zinc-900 dark:text-white">{{ boxer.pro_wins || boxer.record?.wins || 0 }}</div>
-              </div>
-              <div class="bg-zinc-50 dark:bg-zinc-900 rounded-lg p-4 border border-zinc-200 dark:border-zinc-800">
-                <div class="text-sm text-zinc-600 dark:text-zinc-400 mb-1">Losses</div>
-                <div class="text-2xl font-semibold text-zinc-900 dark:text-white">{{ boxer.pro_losses || boxer.record?.losses || 0 }}</div>
-              </div>
-              <div class="bg-zinc-50 dark:bg-zinc-900 rounded-lg p-4 border border-zinc-200 dark:border-zinc-800">
-                <div class="text-sm text-zinc-600 dark:text-zinc-400 mb-1">Draws</div>
-                <div class="text-2xl font-semibold text-zinc-900 dark:text-white">{{ boxer.pro_draws || boxer.record?.draws || 0 }}</div>
-              </div>
-              <div class="bg-zinc-50 dark:bg-zinc-900 rounded-lg p-4 border border-zinc-200 dark:border-zinc-800">
-                <div class="text-sm text-zinc-600 dark:text-zinc-400 mb-1">KO Rate</div>
-                <div class="text-2xl font-semibold text-zinc-900 dark:text-white">{{ calculateKOPercentage(boxer) }}%</div>
-              </div>
-            </div>
-          </div>
-          
-          <!-- Amateur Stats Grid (if available) -->
-          <div v-if="boxer.amateur_total_bouts && boxer.amateur_total_bouts > 0" class="mt-6">
-            <h2 class="text-lg font-semibold text-zinc-900 dark:text-white mb-4">Amateur Record</h2>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-              <div class="bg-zinc-50 dark:bg-zinc-900 rounded-lg p-4 border border-zinc-200 dark:border-zinc-800">
-                <div class="text-sm text-zinc-600 dark:text-zinc-400 mb-1">Wins</div>
-                <div class="text-2xl font-semibold text-zinc-900 dark:text-white">{{ boxer.amateur_wins }}</div>
-              </div>
-              <div class="bg-zinc-50 dark:bg-zinc-900 rounded-lg p-4 border border-zinc-200 dark:border-zinc-800">
-                <div class="text-sm text-zinc-600 dark:text-zinc-400 mb-1">Losses</div>
-                <div class="text-2xl font-semibold text-zinc-900 dark:text-white">{{ boxer.amateur_losses }}</div>
-              </div>
-              <div class="bg-zinc-50 dark:bg-zinc-900 rounded-lg p-4 border border-zinc-200 dark:border-zinc-800">
-                <div class="text-sm text-zinc-600 dark:text-zinc-400 mb-1">Draws</div>
-                <div class="text-2xl font-semibold text-zinc-900 dark:text-white">{{ boxer.amateur_draws }}</div>
-              </div>
-              <div class="bg-zinc-50 dark:bg-zinc-900 rounded-lg p-4 border border-zinc-200 dark:border-zinc-800">
-                <div class="text-sm text-zinc-600 dark:text-zinc-400 mb-1">KOs</div>
-                <div class="text-2xl font-semibold text-zinc-900 dark:text-white">{{ boxer.amateur_wins_by_knockout }}</div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Biography -->
-          <div v-if="boxer.bio">
-            <h2 class="text-lg font-semibold text-zinc-900 dark:text-white mb-4">Biography</h2>
-            <p class="text-zinc-600 dark:text-zinc-400 leading-relaxed">{{ boxer.bio }}</p>
-          </div>
-        </div>
-
-        <!-- Sidebar -->
+        <!-- Left Sidebar - Info Card -->
         <div class="space-y-6">
           <!-- Info Card -->
           <div class="bg-zinc-50 dark:bg-zinc-900 rounded-lg p-6 border border-zinc-200 dark:border-zinc-800">
@@ -315,7 +198,7 @@ const columns = [
               <!-- Basic Info -->
               <div v-if="boxer.date_of_birth || boxer.birthDate" class="flex justify-between">
                 <dt class="text-sm text-zinc-600 dark:text-zinc-400">Born</dt>
-                <dd class="text-sm text-zinc-900 dark:text-white">{{ new Date(boxer.date_of_birth || boxer.birthDate).toLocaleDateString() }}</dd>
+                <dd class="text-sm text-zinc-900 dark:text-white">{{ formatDate(boxer.date_of_birth || boxer.birthDate) }}</dd>
               </div>
               <div v-if="calculateAge(boxer.date_of_birth || boxer.birthDate)" class="flex justify-between">
                 <dt class="text-sm text-zinc-600 dark:text-zinc-400">Age</dt>
@@ -381,7 +264,7 @@ const columns = [
                 <div class="text-xs font-semibold text-zinc-700 dark:text-zinc-300 mb-2">Professional Career</div>
                 <div v-if="boxer.pro_debut_date" class="flex justify-between mb-2">
                   <dt class="text-sm text-zinc-600 dark:text-zinc-400">Debut</dt>
-                  <dd class="text-sm text-zinc-900 dark:text-white">{{ new Date(boxer.pro_debut_date).toLocaleDateString() }}</dd>
+                  <dd class="text-sm text-zinc-900 dark:text-white">{{ formatDate(boxer.pro_debut_date) }}</dd>
                 </div>
                 <div class="flex justify-between mb-2">
                   <dt class="text-sm text-zinc-600 dark:text-zinc-400">Total Fights</dt>
@@ -410,7 +293,7 @@ const columns = [
                 <div class="text-xs font-semibold text-zinc-700 dark:text-zinc-300 mb-2">Amateur Career</div>
                 <div v-if="boxer.amateur_debut_date" class="flex justify-between mb-2">
                   <dt class="text-sm text-zinc-600 dark:text-zinc-400">Debut</dt>
-                  <dd class="text-sm text-zinc-900 dark:text-white">{{ new Date(boxer.amateur_debut_date).toLocaleDateString() }}</dd>
+                  <dd class="text-sm text-zinc-900 dark:text-white">{{ formatDate(boxer.amateur_debut_date) }}</dd>
                 </div>
                 <div class="flex justify-between mb-2">
                   <dt class="text-sm text-zinc-600 dark:text-zinc-400">Total Fights</dt>
@@ -420,21 +303,6 @@ const columns = [
                   <dt class="text-sm text-zinc-600 dark:text-zinc-400">Record</dt>
                   <dd class="text-sm text-zinc-900 dark:text-white">{{ boxer.amateur_wins }}-{{ boxer.amateur_losses }}-{{ boxer.amateur_draws }}</dd>
                 </div>
-              </div>
-              
-              <!-- Links -->
-              <div v-if="boxer.boxrec_url || boxer.boxrecUrl" class="pt-3 border-t border-zinc-200 dark:border-zinc-800">
-                <a 
-                  :href="boxer.boxrec_url || boxer.boxrecUrl" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  class="text-sm text-red-600 hover:text-red-700 dark:text-red-400 flex items-center gap-1"
-                >
-                  View on BoxRec
-                  <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                  </svg>
-                </a>
               </div>
             </dl>
           </div>
@@ -454,6 +322,61 @@ const columns = [
             >
               View All {{ division?.name }}
             </UButton>
+          </div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="lg:col-span-2 space-y-8">
+          <!-- Professional Stats Grid -->
+          <div>
+            <h2 class="text-lg font-semibold text-zinc-900 dark:text-white mb-4">Professional Record</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div class="bg-zinc-50 dark:bg-zinc-900 rounded-lg p-4 border border-zinc-200 dark:border-zinc-800">
+                <div class="text-sm text-zinc-600 dark:text-zinc-400 mb-1">Wins</div>
+                <div class="text-2xl font-semibold text-zinc-900 dark:text-white">{{ boxer.pro_wins || boxer.record?.wins || 0 }}</div>
+              </div>
+              <div class="bg-zinc-50 dark:bg-zinc-900 rounded-lg p-4 border border-zinc-200 dark:border-zinc-800">
+                <div class="text-sm text-zinc-600 dark:text-zinc-400 mb-1">Losses</div>
+                <div class="text-2xl font-semibold text-zinc-900 dark:text-white">{{ boxer.pro_losses || boxer.record?.losses || 0 }}</div>
+              </div>
+              <div class="bg-zinc-50 dark:bg-zinc-900 rounded-lg p-4 border border-zinc-200 dark:border-zinc-800">
+                <div class="text-sm text-zinc-600 dark:text-zinc-400 mb-1">Draws</div>
+                <div class="text-2xl font-semibold text-zinc-900 dark:text-white">{{ boxer.pro_draws || boxer.record?.draws || 0 }}</div>
+              </div>
+              <div class="bg-zinc-50 dark:bg-zinc-900 rounded-lg p-4 border border-zinc-200 dark:border-zinc-800">
+                <div class="text-sm text-zinc-600 dark:text-zinc-400 mb-1">KO Rate</div>
+                <div class="text-2xl font-semibold text-zinc-900 dark:text-white">{{ calculateKOPercentage(boxer) }}%</div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Amateur Stats Grid (if available) -->
+          <div v-if="boxer.amateur_total_bouts && boxer.amateur_total_bouts > 0">
+            <h2 class="text-lg font-semibold text-zinc-900 dark:text-white mb-4">Amateur Record</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div class="bg-zinc-50 dark:bg-zinc-900 rounded-lg p-4 border border-zinc-200 dark:border-zinc-800">
+                <div class="text-sm text-zinc-600 dark:text-zinc-400 mb-1">Wins</div>
+                <div class="text-2xl font-semibold text-zinc-900 dark:text-white">{{ boxer.amateur_wins }}</div>
+              </div>
+              <div class="bg-zinc-50 dark:bg-zinc-900 rounded-lg p-4 border border-zinc-200 dark:border-zinc-800">
+                <div class="text-sm text-zinc-600 dark:text-zinc-400 mb-1">Losses</div>
+                <div class="text-2xl font-semibold text-zinc-900 dark:text-white">{{ boxer.amateur_losses }}</div>
+              </div>
+              <div class="bg-zinc-50 dark:bg-zinc-900 rounded-lg p-4 border border-zinc-200 dark:border-zinc-800">
+                <div class="text-sm text-zinc-600 dark:text-zinc-400 mb-1">Draws</div>
+                <div class="text-2xl font-semibold text-zinc-900 dark:text-white">{{ boxer.amateur_draws }}</div>
+              </div>
+              <div class="bg-zinc-50 dark:bg-zinc-900 rounded-lg p-4 border border-zinc-200 dark:border-zinc-800">
+                <div class="text-sm text-zinc-600 dark:text-zinc-400 mb-1">KOs</div>
+                <div class="text-2xl font-semibold text-zinc-900 dark:text-white">{{ boxer.amateur_wins_by_knockout }}</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Biography -->
+          <div v-if="boxer.bio">
+            <h2 class="text-lg font-semibold text-zinc-900 dark:text-white mb-4">Biography</h2>
+            <p class="text-zinc-600 dark:text-zinc-400 leading-relaxed">{{ boxer.bio }}</p>
           </div>
         </div>
       </div>
@@ -494,7 +417,7 @@ const columns = [
           >
             <template #bout_date-data="{ row }">
               <time :datetime="row.bout_date" class="text-zinc-900 dark:text-white">
-                {{ new Date(row.bout_date).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }) }}
+                {{ formatDate(row.bout_date) }}
               </time>
             </template>
             
