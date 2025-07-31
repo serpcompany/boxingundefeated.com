@@ -7,7 +7,8 @@
       "mcp__browser-tools__getConsoleErrors",
       "mcp__browser-tools__getConsoleLogs",
       "mcp__browser-tools__wipeLogs",
-      "WebFetch(domain:ui.nuxt.com)"
+      "WebFetch(domain:ui.nuxt.com)",
+      "mcp__nuxt__search_nuxt_docs"
     ]
   },
   "enabledMcpjsonServers": [

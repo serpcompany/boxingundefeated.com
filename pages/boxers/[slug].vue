@@ -144,22 +144,22 @@ const fights = computed(() => {
         <!-- Fighter Information Card -->
         <FighterInfoCard :boxer="boxer" />
 
-          <!-- More in Division -->
-          <div class="bg-white rounded-lg p-6 border border-zinc-200">
-            <h3 class="text-base font-semibold text-zinc-900 dark:text-white mb-2">More {{ division?.name }} Fighters</h3>
-            <p class="text-sm text-zinc-600 dark:text-zinc-400 mb-4">
-              Explore other boxers in this division
-            </p>
-            <UButton
-              :to="`/divisions/${boxer.division}`"
-              variant="ghost"
-              color="gray"
-              size="sm"
-              class="w-full"
-            >
-              View All {{ division?.name }}
-            </UButton>
-          </div>
+        <!-- More in Division -->
+        <div class="rounded-lg p-6 border border-zinc-200">
+          <h3 class="text-base font-semibold text-zinc-900 dark:text-white mb-2">More {{ division?.name }} Fighters</h3>
+          <p class="text-sm text-zinc-600 dark:text-zinc-400 mb-4">
+            Explore other boxers in this division
+          </p>
+          <UButton
+            :to="`/divisions/${boxer.division}`"
+            variant="ghost"
+            color="gray"
+            size="sm"
+            class="w-full"
+          >
+            View All {{ division?.name }}
+          </UButton>
+        </div>
         
         <!-- Biography Section -->
         <BiographySection :boxer="boxer" />
@@ -168,7 +168,7 @@ const fights = computed(() => {
         <FightHistoryTable :fights="fights" />
       </div>
     </div>
-  </div>
+    </div>
   </div>
 </template>
 

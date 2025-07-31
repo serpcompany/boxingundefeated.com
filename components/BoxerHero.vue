@@ -37,15 +37,74 @@ function getDivisionSlug(boxer: Boxer): string {
 </script>
 
 <template>
-  <div class="bg-white min-h-[350px] flex items-center">
-    <div class="max-w-7xl mx-auto px-6 lg:px-8 py-16 w-full">
-      <div class="flex items-start gap-8">
+  <div class="bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 md:py-16 w-full">
+      <!-- Mobile Layout (Stacked) -->
+      <div class="sm:hidden">
+        <!-- Centered Image -->
+        <div v-if="getImageUrl(boxer)" class="flex justify-center mb-6">
+          <img
+            :src="getImageUrl(boxer)"
+            :alt="getDisplayName(boxer)"
+            class="w-32 h-32 rounded-full object-cover shadow-lg"
+          >
+        </div>
+        
+        <!-- Centered Info -->
+        <div class="text-center">
+          <h1 class="text-2xl font-bold mb-3 text-zinc-900 dark:text-white">
+            {{ getDisplayName(boxer) }}
+          </h1>
+          <p v-if="boxer.nickname" class="text-lg text-zinc-600 dark:text-zinc-400 mb-4">
+            "{{ boxer.nickname }}"
+          </p>
+          
+          <div class="flex flex-wrap justify-center items-center gap-2">
+            <!-- Division Badge -->
+            <NuxtLink 
+              v-if="getDivision(boxer)"
+              :to="`/divisions/${getDivisionSlug(boxer)}`"
+            >
+              <UBadge 
+                color="primary"
+                variant="soft"
+                size="sm"
+                class="hover:shadow-md transition-shadow cursor-pointer"
+              >
+                {{ getDivision(boxer) }}
+              </UBadge>
+            </NuxtLink>
+            
+            <!-- Nationality Badge -->
+            <UBadge 
+              v-if="boxer.nationality"
+              color="neutral"
+              variant="subtle"
+              size="sm"
+            >
+              {{ boxer.nationality }}
+            </UBadge>
+            
+            <!-- Status Badge -->
+            <UBadge 
+              :color="isActive(boxer) ? 'success' : 'neutral'"
+              :variant="isActive(boxer) ? 'soft' : 'subtle'"
+              size="sm"
+            >
+              {{ getStatus(boxer) }}
+            </UBadge>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Desktop Layout (Side by Side) -->
+      <div class="hidden sm:flex items-start gap-6 md:gap-8">
         <!-- Image on the left -->
         <div v-if="getImageUrl(boxer)" class="flex-shrink-0">
           <img
             :src="getImageUrl(boxer)"
             :alt="getDisplayName(boxer)"
-            class="w-40 h-40 md:w-48 md:h-48 rounded-full object-cover shadow-lg"
+            class="w-36 h-36 md:w-48 md:h-48 rounded-full object-cover shadow-lg"
           >
         </div>
         
