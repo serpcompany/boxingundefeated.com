@@ -1,7 +1,7 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
 
-  modules: ['@nuxt/ui', '@nuxt/fonts', '@nuxt/image', '@nuxt/eslint', '@nuxtjs/seo'],
+  modules: ['@nuxt/ui', '@nuxt/fonts', '@nuxt/image', '@nuxt/eslint', '@nuxtjs/seo', '@nuxt/scripts'],
 
   // Site configuration for SEO modules
   site: {
@@ -134,6 +134,15 @@ export default defineNuxtConfig({
       link: [
         { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       ],
+    },
+  },
+
+  // Google Tag Manager configuration
+  scripts: {
+    registry: {
+      googleTagManager: {
+        id: 'GTM-PP4HWLM',
+      },
     },
   },
 
