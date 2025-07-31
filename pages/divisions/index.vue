@@ -3,7 +3,7 @@ import { mockDivisions } from '~/data/boxing-data'
 
 const { site } = useAppConfig()
 
-const title = `Professional Boxing Weight Classes - ${site.name}`
+const title = 'Professional Boxing Weight Classes'
 const description = `Explore all ${mockDivisions.length} professional boxing weight divisions from minimumweight to heavyweight. Learn about weight limits and division history.`
 
 useSeoMeta({

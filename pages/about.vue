@@ -2,7 +2,7 @@
 const { site } = useAppConfig()
 
 useSeoMeta({
-  title: `About - ${site.name}`,
+  title: 'About',
   description: `Learn about ${site.name}, your comprehensive resource for professional boxing information, fighter profiles, and the sweet science.`,
 })
 </script>

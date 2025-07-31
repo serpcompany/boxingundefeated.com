@@ -18,7 +18,7 @@ if (!division.value) {
 const { site } = useAppConfig()
 
 useSeoMeta({
-  title: `${division.value.name} - ${site.name}`,
+  title: division.value.name,
   description: `${division.value.name} Boxing Division - Champions, Contenders & More!`,
 })
 

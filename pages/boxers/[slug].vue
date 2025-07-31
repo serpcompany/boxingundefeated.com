@@ -31,9 +31,9 @@ const { site } = useAppConfig()
 
 useSeoMeta({
   title: computed(() => {
-    if (!boxer.value) return site.name
+    if (!boxer.value) return 'Boxer Profile'
     const nickname = boxer.value.nickname ? ` "${boxer.value.nickname}"` : ''
-    return `${boxer.value.name}${nickname} - ${site.name}`
+    return `${boxer.value.name}${nickname}`
   }),
   description: computed(() => {
     if (!boxer.value) return site.description

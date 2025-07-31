@@ -3,7 +3,7 @@ import { mockBoxers, mockDivisions } from '~/data/boxing-data'
 
 const { site } = useAppConfig()
 
-const title = `${site.name} - ${site.tagline}`
+const title = site.tagline
 const description = site.description
 
 useSeoMeta({

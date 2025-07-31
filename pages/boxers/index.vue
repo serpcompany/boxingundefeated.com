@@ -4,7 +4,7 @@ import { mockBoxers, mockDivisions } from '~/data/boxing-data'
 
 const { site } = useAppConfig()
 
-const title = `Boxers - ${site.name}`
+const title = 'Boxers'
 const description = `Browse profiles of ${mockBoxers.length} professional boxers from around the world. Filter by weight division and search for your favorite fighters.`
 
 useSeoMeta({

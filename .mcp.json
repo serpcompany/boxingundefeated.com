@@ -1,9 +1,5 @@
 {
   "mcpServers": {
-    "playwright": {
-      "command": "npx",
-      "args": ["-y", "@executeautomation/playwright-mcp-server"]
-    },
     "webresearch": {
       "command": "npx",
       "args": ["-y", "@mzxrai/mcp-webresearch@latest"]
