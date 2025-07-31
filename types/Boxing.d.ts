@@ -1,107 +1,120 @@
+// Bout details for a boxer's fight history
+export interface BoxerBout {
+  bout_date: string
+  opponent_name: string
+  opponent_weight: string
+  opponent_record: string
+  venue_name: string
+  referee_name: string
+  judge_1_name: string
+  judge_1_score: string
+  judge_2_name: string
+  judge_2_score: string
+  judge_3_name: string
+  judge_3_score: string
+  num_rounds_scheduled: number
+  result: 'win' | 'loss' | 'draw' | 'no-contest'
+  result_method: 'ko' | 'tko' | 'decision' | 'dq' | 'rtd'
+  result_round: number
+  event_page_link: string
+  bout_page_link: string
+  scorecards_page_link: string
+  title_fight: boolean
+}
+
 export interface Boxer {
   // Core identification
   id: string
+  boxrec_id: string
+  boxrec_url: string
+  boxrec_wiki_url?: string
   slug: string
-  boxrecId?: string
-  wikidataQID?: string
   
   // Basic information
-  name: string
-  birthName?: string
-  nickname?: string
-  nicknames?: string[]
-  alias?: string
-  sex?: 'male' | 'female'
+  full_name: string
+  birth_name?: string | null
+  nickname?: string | null
+  gender?: 'male' | 'female'
   
   // Images and media
-  image?: string
-  profilePictureUrl?: string
-  boxrecImageUrl?: string
-  cloudflareImageUrl?: string
-  googleSearchImageUrl?: string
-  vaSourcedImageUrl?: string
+  image_url?: string
   
-  // Birth and personal info
-  birthDate?: string
-  deathDate?: string
-  age?: number
-  birthPlace?: string
+  // Location info
+  residence?: string | null
+  birth_place?: string | null
+  date_of_birth?: string | null
   nationality?: string
-  residence?: string
   
   // Physical attributes
-  height?: string  // e.g. "6′ 2″"
-  heightMetric?: number  // in cm
-  weight?: string  // e.g. "147 lbs"
-  weightMetric?: number  // in kg
-  reach?: string  // e.g. "72″"
-  reachMetric?: number  // in cm
-  apeIndex?: number  // reach minus height
-  stance?: 'orthodox' | 'southpaw' | 'switch'
-  
-  // Career info
-  division: string
-  weightClass?: string
-  status?: 'active' | 'retired' | 'deceased' | 'inactive'
-  debut?: string
-  
-  // Record
-  record: {
-    wins: number
-    losses: number
-    draws: number
-    noContests?: number
-    knockouts: number
-    lossesViaKO?: number
-    totalFights?: number
-    totalRounds?: number
-    koPercentage?: number
-  }
-  
-  // Titles and achievements
-  titles?: string[]
-  titleWins?: number
-  titleDefenses?: number
-  titleKnockouts?: number
-  rating?: number
-  ranking?: number
-  
-  // Management
-  manager?: string
-  promoter?: string
+  height?: string | null  // e.g. "5′ 9″ / 175cm"
+  reach?: string | null  // e.g. "69″ / 175cm"
+  weight?: string | null
+  stance?: 'orthodox' | 'southpaw' | 'switch' | string
   
   // Content
   bio?: string
-  excerpt?: string
-  description?: string
-  article?: string
-  careerSummary?: string
-  careerHighlights?: string
-  professionalCareer?: string
-  amateurCareer?: string
-  personalLife?: string
-  faq?: string
-  
-  // External links
-  boxrecUrl?: string
-  wikipediaUrl?: string
-  wikidataUrl?: string
-  martialbotUrl?: string
-  
-  // Social media
-  socialLinks?: {
-    twitter?: string
-    instagram?: string
-    facebook?: string
-    youtube?: string
-    website?: string
+  bioSections?: {
+    [key: string]: {
+      title: string
+      content: string
+    }
   }
   
-  // Metadata
+  // Management
+  promoter?: string | null
+  trainer?: string | null
+  manager?: string | null
+  gym?: string | null
+  
+  // Professional career
+  pro_debut_date?: string | null
+  pro_division?: string | null
+  pro_wins: number
+  pro_wins_by_knockout: number
+  pro_losses: number
+  pro_losses_by_knockout: number
+  pro_draws: number
+  pro_status?: 'active' | 'retired' | string
+  pro_total_bouts: number
+  pro_total_rounds: number
+  
+  // Amateur career
+  amateur_debut_date?: string | null
+  amateur_division?: string | null
+  amateur_wins: number
+  amateur_wins_by_knockout: number
+  amateur_losses: number
+  amateur_losses_by_knockout: number
+  amateur_draws: number
+  amateur_status?: 'active' | 'retired' | string
+  amateur_total_bouts: number
+  amateur_total_rounds: number
+  
+  // Fight history
+  fights?: BoxerBout[]
+  
+  // Timestamps
+  created_at?: string
+  updated_at?: string
+  
+  // Legacy/compatibility fields (mapped from new structure)
+  name?: string  // Maps to full_name
+  birthDate?: string  // Maps to date_of_birth
+  birthPlace?: string  // Maps to birth_place
+  birthName?: string  // Maps to birth_name
+  boxrecId?: string  // Maps to boxrec_id
+  boxrecUrl?: string  // Maps to boxrec_url
+  image?: string  // Maps to image_url
+  division?: string  // Maps to pro_division
+  active?: boolean  // Maps from pro_status
   isChampion?: boolean
-  active: boolean
-  createdAt: string
-  updatedAt: string
+  ranking?: number | null
+  record?: {
+    wins: number
+    losses: number
+    draws: number
+    knockouts: number
+  }
 }
 
 export interface Division {

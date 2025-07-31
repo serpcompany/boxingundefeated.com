@@ -90,16 +90,23 @@ function clearAllFilters() {
 </script>
 
 <template>
-  <div class="min-h-screen bg-zinc-50 dark:bg-zinc-900">
-    <!-- Header -->
-    <div class="bg-red-600 text-white min-h-[350px] flex items-center">
-      <div class="max-w-7xl mx-auto px-6 lg:px-8 py-24">
-        <h1 class="text-4xl font-bold mb-4">Professional Boxers</h1>
-        <p class="text-xl text-red-100">
-          Browse {{ allBoxers.length }} fighter profiles
-        </p>
+  <div class="min-h-screen bg-white">
+    <!-- Breadcrumbs -->
+    <div class="bg-white border-b border-gray-100">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+        <BreadCrumbs 
+          :items="[
+            { label: 'Boxers' }
+          ]"
+        />
       </div>
     </div>
+    
+    <!-- Header -->
+    <PageHero 
+      title="Professional Boxers"
+      :subtitle="`Browse ${allBoxers.length} fighter profiles`"
+    />
 
     <!-- Main Content -->
     <div class="max-w-7xl mx-auto px-6 lg:px-8 py-8">
