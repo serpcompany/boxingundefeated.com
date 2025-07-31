@@ -1,6 +1,6 @@
 import { drizzle } from 'drizzle-orm/d1'
 export { sql, eq, and, or, desc, asc, inArray } from 'drizzle-orm'
-import * as schema from '../db/schema'
+import * as schema from '../database/schema'
 
 export const tables = schema
 
@@ -8,7 +8,7 @@ export function useDrizzle() {
   // hubDatabase() is provided by NuxtHub for D1 access
   return drizzle(hubDatabase(), { 
     schema,
-    casing: 'snake_case' // Automatically convert camelCase to snake_case
+    casing: 'snake_case'
   })
 }
 

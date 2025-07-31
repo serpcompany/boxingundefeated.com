@@ -48,3 +48,4 @@ gh-users/
 node_modules
 
 .data
+.wrangler

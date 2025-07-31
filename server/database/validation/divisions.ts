@@ -12,7 +12,6 @@ export const divisionInsertSchema = createInsertSchema(divisions, {
   name: z.string().min(1, 'Division name is required'),
   weightLimitPounds: z.number().min(0, 'Weight limit must be positive'),
   alternativeNames: z.string().optional(), // JSON string of alternative names
-  description: z.string().optional(),
 })
 
 // Schema for updating a division - validates API requests (all fields optional)
@@ -22,7 +21,6 @@ export const divisionUpdateSchema = createUpdateSchema(divisions, {
   name: z.string().min(1, 'Division name is required').optional(),
   weightLimitPounds: z.number().min(0, 'Weight limit must be positive').optional(),
   alternativeNames: z.string().optional(),
-  description: z.string().optional(),
 })
 
 // Helper schema for parsing alternative names JSON

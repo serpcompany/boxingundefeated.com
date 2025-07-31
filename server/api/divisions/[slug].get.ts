@@ -1,5 +1,5 @@
-import { divisions, boxers } from '~/server/db/schema'
-import { divisionSelectSchema, boxerSelectSchema } from '~/server/db/validation'
+import { divisions, boxers } from '~/server/database/schema'
+import { divisionSelectSchema, boxerSelectSchema } from '~/server/database/validation'
 import { eq, desc, count } from 'drizzle-orm'
 import { z } from 'zod'
 

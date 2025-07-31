@@ -63,4 +63,5 @@ export const boxers = sqliteTable('boxer', {
   boxrecIdIdx: index('boxer_boxrec_id_idx').on(table.boxrecId),
   nationalityIdx: index('boxer_nationality_idx').on(table.nationality),
   divisionIdx: index('boxer_division_idx').on(table.proDivision),
+  statusIdx: index('boxer_status_idx').on(table.proStatus),
 }))

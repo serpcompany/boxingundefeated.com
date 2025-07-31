@@ -9,8 +9,6 @@ export const divisions = sqliteTable('division', {
   
   weightLimitPounds: real().notNull(),
   
-  description: text(),
-  
   createdAt: text().notNull().default(sql`CURRENT_TIMESTAMP`),
   updatedAt: text().notNull().default(sql`CURRENT_TIMESTAMP`),
 }, (table) => ({

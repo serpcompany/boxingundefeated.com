@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "30a10f4f-4cfa-467b-8dc9-4366be46464f",
+  "id": "a15dbc39-e453-4278-be03-e4046481d205",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "boxer": {
@@ -14,15 +14,15 @@
           "notNull": true,
           "autoincrement": false
         },
-        "boxrecId": {
-          "name": "boxrecId",
+        "boxrec_id": {
+          "name": "boxrec_id",
           "type": "text",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
         },
-        "boxrecUrl": {
-          "name": "boxrecUrl",
+        "boxrec_url": {
+          "name": "boxrec_url",
           "type": "text",
           "primaryKey": false,
           "notNull": true,
@@ -35,15 +35,15 @@
           "notNull": true,
           "autoincrement": false
         },
-        "fullName": {
-          "name": "fullName",
+        "full_name": {
+          "name": "full_name",
           "type": "text",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
         },
-        "birthName": {
-          "name": "birthName",
+        "birth_name": {
+          "name": "birth_name",
           "type": "text",
           "primaryKey": false,
           "notNull": false,
@@ -63,8 +63,8 @@
           "notNull": false,
           "autoincrement": false
         },
-        "avatarImage": {
-          "name": "avatarImage",
+        "avatar_image": {
+          "name": "avatar_image",
           "type": "text",
           "primaryKey": false,
           "notNull": false,
@@ -77,15 +77,15 @@
           "notNull": false,
           "autoincrement": false
         },
-        "birthPlace": {
-          "name": "birthPlace",
+        "birth_place": {
+          "name": "birth_place",
           "type": "text",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
         },
-        "dateOfBirth": {
-          "name": "dateOfBirth",
+        "date_of_birth": {
+          "name": "date_of_birth",
           "type": "text",
           "primaryKey": false,
           "notNull": false,
@@ -161,162 +161,162 @@
           "notNull": false,
           "autoincrement": false
         },
-        "proDebutDate": {
-          "name": "proDebutDate",
+        "pro_debut_date": {
+          "name": "pro_debut_date",
           "type": "text",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
         },
-        "proDivision": {
-          "name": "proDivision",
+        "pro_division": {
+          "name": "pro_division",
           "type": "text",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
         },
-        "proWins": {
-          "name": "proWins",
+        "pro_wins": {
+          "name": "pro_wins",
           "type": "integer",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false,
           "default": 0
         },
-        "proWinsByKnockout": {
-          "name": "proWinsByKnockout",
+        "pro_wins_by_knockout": {
+          "name": "pro_wins_by_knockout",
           "type": "integer",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false,
           "default": 0
         },
-        "proLosses": {
-          "name": "proLosses",
+        "pro_losses": {
+          "name": "pro_losses",
           "type": "integer",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false,
           "default": 0
         },
-        "proLossesByKnockout": {
-          "name": "proLossesByKnockout",
+        "pro_losses_by_knockout": {
+          "name": "pro_losses_by_knockout",
           "type": "integer",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false,
           "default": 0
         },
-        "proDraws": {
-          "name": "proDraws",
+        "pro_draws": {
+          "name": "pro_draws",
           "type": "integer",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false,
           "default": 0
         },
-        "proStatus": {
-          "name": "proStatus",
+        "pro_status": {
+          "name": "pro_status",
           "type": "text",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
         },
-        "proTotalBouts": {
-          "name": "proTotalBouts",
+        "pro_total_bouts": {
+          "name": "pro_total_bouts",
           "type": "integer",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false,
           "default": 0
         },
-        "proTotalRounds": {
-          "name": "proTotalRounds",
+        "pro_total_rounds": {
+          "name": "pro_total_rounds",
           "type": "integer",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false,
           "default": 0
         },
-        "amateurDebutDate": {
-          "name": "amateurDebutDate",
+        "amateur_debut_date": {
+          "name": "amateur_debut_date",
           "type": "text",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
         },
-        "amateurDivision": {
-          "name": "amateurDivision",
+        "amateur_division": {
+          "name": "amateur_division",
           "type": "text",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
         },
-        "amateurWins": {
-          "name": "amateurWins",
+        "amateur_wins": {
+          "name": "amateur_wins",
           "type": "integer",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false,
           "default": 0
         },
-        "amateurWinsByKnockout": {
-          "name": "amateurWinsByKnockout",
+        "amateur_wins_by_knockout": {
+          "name": "amateur_wins_by_knockout",
           "type": "integer",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false,
           "default": 0
         },
-        "amateurLosses": {
-          "name": "amateurLosses",
+        "amateur_losses": {
+          "name": "amateur_losses",
           "type": "integer",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false,
           "default": 0
         },
-        "amateurLossesByKnockout": {
-          "name": "amateurLossesByKnockout",
+        "amateur_losses_by_knockout": {
+          "name": "amateur_losses_by_knockout",
           "type": "integer",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false,
           "default": 0
         },
-        "amateurDraws": {
-          "name": "amateurDraws",
+        "amateur_draws": {
+          "name": "amateur_draws",
           "type": "integer",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false,
           "default": 0
         },
-        "amateurStatus": {
-          "name": "amateurStatus",
+        "amateur_status": {
+          "name": "amateur_status",
           "type": "text",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
         },
-        "amateurTotalBouts": {
-          "name": "amateurTotalBouts",
+        "amateur_total_bouts": {
+          "name": "amateur_total_bouts",
           "type": "integer",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false,
           "default": 0
         },
-        "amateurTotalRounds": {
-          "name": "amateurTotalRounds",
+        "amateur_total_rounds": {
+          "name": "amateur_total_rounds",
           "type": "integer",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false,
           "default": 0
         },
-        "isChampion": {
-          "name": "isChampion",
+        "is_champion": {
+          "name": "is_champion",
           "type": "integer",
           "primaryKey": false,
           "notNull": false,
@@ -329,16 +329,16 @@
           "notNull": false,
           "autoincrement": false
         },
-        "createdAt": {
-          "name": "createdAt",
+        "created_at": {
+          "name": "created_at",
           "type": "text",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false,
           "default": "CURRENT_TIMESTAMP"
         },
-        "updatedAt": {
-          "name": "updatedAt",
+        "updated_at": {
+          "name": "updated_at",
           "type": "text",
           "primaryKey": false,
           "notNull": true,
@@ -350,7 +350,7 @@
         "boxer_boxrecId_unique": {
           "name": "boxer_boxrecId_unique",
           "columns": [
-            "boxrecId"
+            "boxrec_id"
           ],
           "isUnique": true
         },
@@ -371,7 +371,7 @@
         "boxer_boxrec_id_idx": {
           "name": "boxer_boxrec_id_idx",
           "columns": [
-            "boxrecId"
+            "boxrec_id"
           ],
           "isUnique": false
         },
@@ -385,7 +385,14 @@
         "boxer_division_idx": {
           "name": "boxer_division_idx",
           "columns": [
-            "proDivision"
+            "pro_division"
+          ],
+          "isUnique": false
+        },
+        "boxer_status_idx": {
+          "name": "boxer_status_idx",
+          "columns": [
+            "pro_status"
           ],
           "isUnique": false
         }
@@ -405,99 +412,99 @@
           "notNull": true,
           "autoincrement": true
         },
-        "boxerId": {
-          "name": "boxerId",
+        "boxer_id": {
+          "name": "boxer_id",
           "type": "text",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
         },
-        "boutDate": {
-          "name": "boutDate",
+        "bout_date": {
+          "name": "bout_date",
           "type": "text",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
         },
-        "opponentName": {
-          "name": "opponentName",
+        "opponent_name": {
+          "name": "opponent_name",
           "type": "text",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
         },
-        "opponentWeight": {
-          "name": "opponentWeight",
+        "opponent_weight": {
+          "name": "opponent_weight",
           "type": "text",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
         },
-        "opponentRecord": {
-          "name": "opponentRecord",
+        "opponent_record": {
+          "name": "opponent_record",
           "type": "text",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
         },
-        "venueName": {
-          "name": "venueName",
+        "venue_name": {
+          "name": "venue_name",
           "type": "text",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
         },
-        "refereeName": {
-          "name": "refereeName",
+        "referee_name": {
+          "name": "referee_name",
           "type": "text",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
         },
-        "judge1Name": {
-          "name": "judge1Name",
+        "judge1_name": {
+          "name": "judge1_name",
           "type": "text",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
         },
-        "judge1Score": {
-          "name": "judge1Score",
+        "judge1_score": {
+          "name": "judge1_score",
           "type": "text",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
         },
-        "judge2Name": {
-          "name": "judge2Name",
+        "judge2_name": {
+          "name": "judge2_name",
           "type": "text",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
         },
-        "judge2Score": {
-          "name": "judge2Score",
+        "judge2_score": {
+          "name": "judge2_score",
           "type": "text",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
         },
-        "judge3Name": {
-          "name": "judge3Name",
+        "judge3_name": {
+          "name": "judge3_name",
           "type": "text",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
         },
-        "judge3Score": {
-          "name": "judge3Score",
+        "judge3_score": {
+          "name": "judge3_score",
           "type": "text",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
         },
-        "numRoundsScheduled": {
-          "name": "numRoundsScheduled",
+        "num_rounds_scheduled": {
+          "name": "num_rounds_scheduled",
           "type": "integer",
           "primaryKey": false,
           "notNull": false,
@@ -510,51 +517,51 @@
           "notNull": true,
           "autoincrement": false
         },
-        "resultMethod": {
-          "name": "resultMethod",
+        "result_method": {
+          "name": "result_method",
           "type": "text",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
         },
-        "resultRound": {
-          "name": "resultRound",
+        "result_round": {
+          "name": "result_round",
           "type": "integer",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
         },
-        "eventPageLink": {
-          "name": "eventPageLink",
+        "event_page_link": {
+          "name": "event_page_link",
           "type": "text",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
         },
-        "boutPageLink": {
-          "name": "boutPageLink",
+        "bout_page_link": {
+          "name": "bout_page_link",
           "type": "text",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
         },
-        "scorecardsPageLink": {
-          "name": "scorecardsPageLink",
+        "scorecards_page_link": {
+          "name": "scorecards_page_link",
           "type": "text",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
         },
-        "titleFight": {
-          "name": "titleFight",
+        "title_fight": {
+          "name": "title_fight",
           "type": "integer",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false,
           "default": false
         },
-        "createdAt": {
-          "name": "createdAt",
+        "created_at": {
+          "name": "created_at",
           "type": "text",
           "primaryKey": false,
           "notNull": true,
@@ -566,25 +573,25 @@
         "boxer_bouts_boxer_id_idx": {
           "name": "boxer_bouts_boxer_id_idx",
           "columns": [
-            "boxerId"
+            "boxer_id"
           ],
           "isUnique": false
         },
         "boxer_bouts_date_idx": {
           "name": "boxer_bouts_date_idx",
           "columns": [
-            "boutDate"
+            "bout_date"
           ],
           "isUnique": false
         }
       },
       "foreignKeys": {
-        "boxer_bouts_boxerId_boxer_id_fk": {
-          "name": "boxer_bouts_boxerId_boxer_id_fk",
+        "boxer_bouts_boxer_id_boxer_id_fk": {
+          "name": "boxer_bouts_boxer_id_boxer_id_fk",
           "tableFrom": "boxer_bouts",
           "tableTo": "boxer",
           "columnsFrom": [
-            "boxerId"
+            "boxer_id"
           ],
           "columnsTo": [
             "id"
@@ -621,37 +628,30 @@
           "notNull": true,
           "autoincrement": false
         },
-        "alternativeNames": {
-          "name": "alternativeNames",
+        "alternative_names": {
+          "name": "alternative_names",
           "type": "text",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
         },
-        "weightLimitPounds": {
-          "name": "weightLimitPounds",
+        "weight_limit_pounds": {
+          "name": "weight_limit_pounds",
           "type": "real",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
         },
-        "description": {
-          "name": "description",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "createdAt": {
-          "name": "createdAt",
+        "created_at": {
+          "name": "created_at",
           "type": "text",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false,
           "default": "CURRENT_TIMESTAMP"
         },
-        "updatedAt": {
-          "name": "updatedAt",
+        "updated_at": {
+          "name": "updated_at",
           "type": "text",
           "primaryKey": false,
           "notNull": true,

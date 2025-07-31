@@ -1,5 +1,5 @@
-import { boxers, boxerBoutsTable } from '~/server/db/schema'
-import { boxerSelectSchema, boxerBoutSelectSchema } from '~/server/db/validation'
+import { boxers, boxerBoutsTable } from '~/server/database/schema'
+import { boxerSelectSchema, boxerBoutSelectSchema } from '~/server/database/validation'
 import { eq, desc } from 'drizzle-orm'
 
 export default defineEventHandler(async (event) => {
