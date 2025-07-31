@@ -162,7 +162,7 @@ function onRowClick(row: any) {
 </script>
 
 <template>
-  <div class="space-y-4">
+  <div class="space-y-4 my-8">
     <!-- Filters -->
     <div class="flex items-center gap-3 mb-6">
       <!-- Search Bar -->
