@@ -159,6 +159,38 @@ watch(() => arrivedState.bottom, (arrived) => {
 function onRowClick(row: any) {
   navigateTo(`/boxers/${row.slug}`)
 }
+
+// Weight class color mapping - gradient from green (light) to red (heavy)
+function getDivisionColor(division: string): string {
+  // Normalize division name to lowercase with hyphens
+  const normalized = division.toLowerCase().replace(/\s+/g, '-')
+  
+  const colorMap: Record<string, string> = {
+    // Heaviest - Red spectrum
+    'heavyweight': 'red',
+    'cruiserweight': 'red',
+    'light-heavyweight': 'orange',
+    'super-middleweight': 'orange',
+    'middleweight': 'amber',
+    'light-middleweight': 'amber',
+    'super-welterweight': 'yellow',
+    'welterweight': 'yellow',
+    // Middle - Yellow/Green spectrum  
+    'super-lightweight': 'lime',
+    'lightweight': 'lime',
+    'super-featherweight': 'green',
+    'featherweight': 'green',
+    // Lightest - Green spectrum
+    'super-bantamweight': 'emerald',
+    'bantamweight': 'emerald',
+    'super-flyweight': 'green',
+    'flyweight': 'green',
+    'light-flyweight': 'green',
+    'minimumweight': 'green'
+  }
+  
+  return colorMap[normalized] || 'gray'
+}
 </script>
 
 <template>
@@ -291,16 +323,16 @@ function onRowClick(row: any) {
 
       <template #division-data="{ row }">
         <NuxtLink 
-          :to="`/divisions/${row.division}`"
+          :to="`/divisions/${row.division.toLowerCase().replace(/\s+/g, '-')}`"
           class="inline-block"
         >
           <UBadge 
-            color="gray"
+            :color="getDivisionColor(row.division)"
             variant="soft"
             size="sm"
-            class="hover:bg-zinc-200 dark:hover:bg-zinc-700 transition-colors"
+            class="hover:opacity-80 transition-opacity font-medium"
           >
-            {{ row.division.charAt(0).toUpperCase() + row.division.slice(1).replace(/-/g, ' ') }}
+            {{ row.division }}
           </UBadge>
         </NuxtLink>
       </template>
