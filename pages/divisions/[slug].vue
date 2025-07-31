@@ -18,7 +18,7 @@ if (!division.value) {
 const { site } = useAppConfig()
 
 useSeoMeta({
-  title: division.value.name,
+  title: `${division.value.name} Weight Class`,
   description: `${division.value.name} Boxing Division - Champions, Contenders & More!`,
 })
 
