@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { mockBoxers } from '~/data/boxing-data'
+import { loadBoxers } from '~/utils/loadBoxerData'
 
 const { site } = useAppConfig()
 
@@ -65,7 +65,7 @@ useSeoMeta({
           </p>
         </div>
         
-        <BoxersTable :boxers="mockBoxers" />
+        <BoxersTable :boxers="loadBoxers()" />
       </div>
     </section>
   </div>
