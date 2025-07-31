@@ -32,20 +32,23 @@ function formatWeightLimit(division: Division) {
 <template>
   <div class="min-h-screen bg-zinc-50 dark:bg-zinc-900">
     <!-- Header -->
-    <div class="bg-red-600 text-white min-h-[350px] flex items-center">
-      <div class="max-w-7xl mx-auto px-6 lg:px-8 py-24">
-        <h1 class="text-4xl font-bold mb-4">{{ division.name }}</h1>
-        <p class="text-xl text-red-100 mb-2">
-          Weight Limit: {{ formatWeightLimit(division) }}
-          <span v-if="division.weightLimit.stone" class="text-lg">
-            ({{ division.weightLimit.stone }})
-          </span>
-        </p>
-        <div v-if="division.alternativeNames && division.alternativeNames.length > 0" class="text-red-200">
-          Also known as: {{ division.alternativeNames.join(', ') }}
+    <PageHero 
+      :title="division.name"
+    >
+      <template #after>
+        <div class="mt-4 space-y-2">
+          <p class="text-lg text-zinc-600 dark:text-zinc-400">
+            Weight Limit: {{ formatWeightLimit(division) }}
+            <span v-if="division.weightLimit.stone" class="text-base">
+              ({{ division.weightLimit.stone }})
+            </span>
+          </p>
+          <p v-if="division.alternativeNames && division.alternativeNames.length > 0" class="text-zinc-500 dark:text-zinc-500">
+            Also known as: {{ division.alternativeNames.join(', ') }}
+          </p>
         </div>
-      </div>
-    </div>
+      </template>
+    </PageHero>
 
     <!-- Main Content -->
     <div class="max-w-7xl mx-auto px-6 lg:px-8 py-12">

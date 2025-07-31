@@ -18,14 +18,10 @@ function formatWeightLimit(division: any) {
 <template>
   <div class="min-h-screen bg-zinc-50 dark:bg-zinc-900">
     <!-- Header -->
-    <div class="bg-white dark:bg-zinc-900 border-b border-zinc-200 dark:border-zinc-800">
-      <div class="max-w-7xl mx-auto px-6 lg:px-8 py-16">
-        <h1 class="text-4xl font-bold mb-4 text-zinc-900 dark:text-white">Boxing Weight Divisions</h1>
-        <p class="text-xl text-zinc-600 dark:text-zinc-400">
-          From {{ divisions[divisions.length - 1].name }} to {{ divisions[0].name }}
-        </p>
-      </div>
-    </div>
+    <PageHero 
+      title="Boxing Weight Divisions"
+      :subtitle="`From ${divisions[divisions.length - 1].name} to ${divisions[0].name}`"
+    />
 
     <!-- Main Content -->
     <div class="max-w-7xl mx-auto px-6 lg:px-8 py-12">
