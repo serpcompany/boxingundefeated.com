@@ -20,19 +20,35 @@ useSeoMeta({
   twitterImage: `${site.url}/og-image-home.jpg`,
 })
 
-useSchemaOrg([
-  defineWebSite({
-    name: site.name,
-    url: site.url,
-    description: site.description,
-  }),
-  defineOrganization({
-    name: site.name,
-    url: site.url,
-    description: site.description,
-    logo: `${site.url}/logo.png`,
-  }),
-])
+// Schema.org structured data using useHead
+useHead({
+  script: [
+    {
+      type: 'application/ld+json',
+      children: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@graph': [
+          {
+            '@type': 'WebSite',
+            '@id': `${site.url}/#website`,
+            url: site.url,
+            name: site.name,
+            description: site.description,
+            inLanguage: site.defaultLocale,
+          },
+          {
+            '@type': 'Organization',
+            '@id': `${site.url}/#organization`,
+            name: site.name,
+            url: site.url,
+            description: site.description,
+            logo: `${site.url}/logo.png`,
+          },
+        ],
+      }),
+    },
+  ],
+})
 
 const featuredBoxers = computed(() => mockBoxers.slice(0, 3))
 const divisions = computed(() => mockDivisions.slice(0, 8))

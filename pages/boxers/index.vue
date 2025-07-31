@@ -21,14 +21,31 @@ useSeoMeta({
   twitterImage: `${site.url}/og-image-boxers.jpg`,
 })
 
-useSchemaOrg([
-  defineWebPage({
-    '@type': 'CollectionPage',
-    name: title,
-    description,
-    url: `${site.url}/boxers`,
-  }),
-])
+// Schema.org structured data for boxers collection page
+useHead({
+  script: [
+    {
+      type: 'application/ld+json',
+      children: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'CollectionPage',
+        '@id': `${site.url}/boxers/#webpage`,
+        url: `${site.url}/boxers`,
+        name: title,
+        description,
+        isPartOf: {
+          '@id': `${site.url}/#website`,
+        },
+        mainEntity: {
+          '@type': 'ItemList',
+          name: 'Professional Boxers',
+          description: `Directory of ${mockBoxers.length} professional boxers`,
+          numberOfItems: mockBoxers.length,
+        },
+      }),
+    },
+  ],
+})
 
 const loading = ref(false)
 const currentPage = ref(1)
