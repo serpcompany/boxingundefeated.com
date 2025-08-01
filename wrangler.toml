@@ -1,0 +1,16 @@
+name = "boxingundefeated"
+main = "index.js"
+compatibility_date = "2025-08-01"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "boxingundefeated-com"
+database_id = "6b463a07-05a9-4da1-9637-f8331d40b36c"
+migrations_dir = "server/database/migrations"
+
+[env.preview]
+[[env.preview.d1_databases]]
+binding = "DB"
+database_name = "boxingundefeated-com-preview"
+database_id = "9dde6ccf-fc52-41a3-9268-1a92dabaafb7"
+migrations_dir = "server/database/migrations"

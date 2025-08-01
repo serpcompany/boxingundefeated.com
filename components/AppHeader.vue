@@ -52,7 +52,11 @@ const divisionsItems = [
             Boxers
           </NuxtLink>
 
-          <UDropdown :items="divisionsItems" :popper="{ placement: 'bottom-start' }">
+          <NuxtLink to="/divisions" class="text-sm font-medium text-zinc-700 hover:text-zinc-900 transition-colors">
+            Divisions
+          </NuxtLink>
+
+          <!-- <UDropdown :items="divisionsItems" :popper="{ placement: 'bottom-start' }">
             <UButton 
               variant="ghost" 
               trailing-icon="i-heroicons-chevron-down-20-solid" 
@@ -60,7 +64,7 @@ const divisionsItems = [
             >
               Divisions
             </UButton>
-          </UDropdown>
+          </UDropdown> -->
 
           <NuxtLink to="/about" class="text-sm font-medium text-zinc-700 hover:text-zinc-900 transition-colors">
             About
