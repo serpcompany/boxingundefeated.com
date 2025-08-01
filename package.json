@@ -12,7 +12,11 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "install:clean": "rm -rf node_modules pnpm-lock.yaml && pnpm install",
-    "typecheck": "nuxt typecheck"
+    "typecheck": "nuxt typecheck",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "db:push": "drizzle-kit push",
+    "db:studio": "drizzle-kit studio"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^4.13.2",
@@ -28,6 +32,7 @@
     "@types/node": "^22.15.29",
     "@vitest/coverage-v8": "^3.1.4",
     "@vitest/ui": "^3.1.4",
+    "better-sqlite3": "^12.2.0",
     "drizzle-kit": "^0.31.4",
     "eslint": "^9.28.0",
     "eslint-plugin-format": "^1.0.1",
