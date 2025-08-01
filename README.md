@@ -28,3 +28,7 @@
 - https://hub.nuxt.com/docs/recipes/cloudflare-access
 
 NuxtHub creates and manages its own local D1 database in `.data/hub/d1/`. This is the database your app uses during development.
+
+### Seed DB:
+
+1. seed-divisions: `server/tasks/seed-divisions.ts`

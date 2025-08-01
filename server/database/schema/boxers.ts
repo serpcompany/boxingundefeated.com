@@ -4,7 +4,7 @@ import { sql } from 'drizzle-orm'
 export const boxers = sqliteTable('boxers', {
   id: text().primaryKey(),
   boxrecId: text().notNull().unique(),
-  boxrecUrl: text().notNull(),
+  boxrecUrl: text().notNull().unique(),
   boxrecWikiUrl: text(),
   slug: text().notNull().unique(),
   
@@ -39,19 +39,19 @@ export const boxers = sqliteTable('boxers', {
   proLossesByKnockout: integer().notNull().default(0),
   proDraws: integer().notNull().default(0),
   proStatus: text(), // 'active' | 'inactive'
-  proTotalBouts: integer().notNull().default(0),
-  proTotalRounds: integer().notNull().default(0),
+  proTotalBouts: integer(),
+  proTotalRounds: integer(),
   
   amateurDebutDate: text(),
   amateurDivision: text(),
-  amateurWins: integer().notNull().default(0),
-  amateurWinsByKnockout: integer().notNull().default(0),
-  amateurLosses: integer().notNull().default(0),
-  amateurLossesByKnockout: integer().notNull().default(0),
-  amateurDraws: integer().notNull().default(0),
+  amateurWins: integer(),
+  amateurWinsByKnockout: integer(),
+  amateurLosses: integer(),
+  amateurLossesByKnockout: integer(),
+  amateurDraws: integer(),
   amateurStatus: text(), // 'active' | 'inactive'
-  amateurTotalBouts: integer().notNull().default(0),
-  amateurTotalRounds: integer().notNull().default(0),
+  amateurTotalBouts: integer(),
+  amateurTotalRounds: integer(),
   
   createdAt: text().notNull().default(sql`CURRENT_TIMESTAMP`),
   updatedAt: text().notNull().default(sql`CURRENT_TIMESTAMP`),
