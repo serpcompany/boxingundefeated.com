@@ -2,6 +2,7 @@ import { boxers } from '~/server/database/schema'
 import { boxerSelectSchema } from '~/server/database/validation'
 import { like, eq, and, desc, asc } from 'drizzle-orm'
 import { z } from 'zod'
+import { transformBoxersForFrontend } from '~/server/utils/transformers'
 
 // Query parameters validation schema
 const boxersQuerySchema = z.object({
@@ -89,7 +90,7 @@ export default defineEventHandler(async (event) => {
     const validatedResults = results.map(boxer => boxerSelectSchema.parse(boxer))
     
     return {
-      boxers: validatedResults,
+      boxers: transformBoxersForFrontend(validatedResults),
       pagination: {
         page,
         limit,

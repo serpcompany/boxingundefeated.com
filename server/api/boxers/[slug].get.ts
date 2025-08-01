@@ -1,6 +1,7 @@
 import { boxers, boxerBoutsTable } from '~/server/database/schema'
 import { boxerSelectSchema, boxerBoutSelectSchema } from '~/server/database/validation'
 import { eq, desc } from 'drizzle-orm'
+import { transformBoxerForFrontend } from '~/server/utils/transformers'
 
 export default defineEventHandler(async (event) => {
   try {
@@ -50,7 +51,7 @@ export default defineEventHandler(async (event) => {
     const titleFights = validatedFights.filter(f => f.titleFight).length
     
     return {
-      boxer: validatedBoxer,
+      boxer: transformBoxerForFrontend(validatedBoxer),
       fights: validatedFights,
       stats: {
         totalFights,
