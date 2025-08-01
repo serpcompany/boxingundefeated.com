@@ -1,16 +1,17 @@
 /**
  * Transform database boxer data to match frontend expectations
  * This maintains backward compatibility with existing components
+ * Now that we're using camelCase in the database, we only need to add
+ * the computed/aliased fields that the frontend expects
  */
 import type { BoxerSelect } from '../database/validation/boxers'
 
 export function transformBoxerForFrontend(dbBoxer: BoxerSelect) {
   return {
     ...dbBoxer,
-    // Map database fields to expected frontend fields
-    name: dbBoxer.fullName,
+    // Add computed/aliased fields the frontend expects
+    fullName: dbBoxer.name, // Frontend expects fullName, DB has name
     image: dbBoxer.avatarImage,
-    image_url: dbBoxer.avatarImage,
     active: dbBoxer.proStatus === 'active',
     division: dbBoxer.proDivision,
     
@@ -22,19 +23,19 @@ export function transformBoxerForFrontend(dbBoxer: BoxerSelect) {
       knockouts: dbBoxer.proWinsByKnockout,
     },
     
-    // Keep snake_case versions for compatibility - ALL FIELDS
-    // Personal Info
-    date_of_birth: dbBoxer.dateOfBirth,
-    birth_date: dbBoxer.dateOfBirth, // alias
+    // Keep snake_case aliases for compatibility
+    // These will be removed once frontend is updated
+    image_url: dbBoxer.avatarImage,
+    birth_date: dbBoxer.dateOfBirth,
     birth_place: dbBoxer.birthPlace,
     birth_name: dbBoxer.birthName,
-    full_name: dbBoxer.fullName,
-    
-    // BoxRec Info
+    full_name: dbBoxer.name,
     boxrec_id: dbBoxer.boxrecId,
     boxrec_url: dbBoxer.boxrecUrl,
+    boxrec_wiki_url: dbBoxer.boxrecWikiUrl,
+    date_of_birth: dbBoxer.dateOfBirth,
     
-    // Professional Career
+    // Professional career snake_case aliases
     pro_wins: dbBoxer.proWins,
     pro_losses: dbBoxer.proLosses,
     pro_draws: dbBoxer.proDraws,
@@ -46,7 +47,7 @@ export function transformBoxerForFrontend(dbBoxer: BoxerSelect) {
     pro_total_rounds: dbBoxer.proTotalRounds,
     pro_debut_date: dbBoxer.proDebutDate,
     
-    // Amateur Career
+    // Amateur career snake_case aliases
     amateur_wins: dbBoxer.amateurWins,
     amateur_losses: dbBoxer.amateurLosses,
     amateur_draws: dbBoxer.amateurDraws,
@@ -58,16 +59,13 @@ export function transformBoxerForFrontend(dbBoxer: BoxerSelect) {
     amateur_division: dbBoxer.amateurDivision,
     amateur_status: dbBoxer.amateurStatus,
     
-    // Champion/Ranking Info
-    is_champion: dbBoxer.isChampion,
-    
-    // Timestamps
+    // Other snake_case aliases
     created_at: dbBoxer.createdAt,
     updated_at: dbBoxer.updatedAt,
     
     // Add placeholder for missing complex fields
-    bioSections: null, // This would need to be stored separately or generated
-    bouts: [], // Legacy format - will be replaced by fights
+    bioSections: null,
+    bouts: [], // Legacy format
     fights: [], // Will be populated separately from boxerBoutsTable
   }
 }

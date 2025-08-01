@@ -41,7 +41,7 @@ export default defineEventHandler(async (event) => {
     const conditions = []
     
     if (search) {
-      conditions.push(like(boxers.fullName, `%${search}%`))
+      conditions.push(like(boxers.name, `%${search}%`))
     }
     
     if (nationality) {
@@ -58,10 +58,10 @@ export default defineEventHandler(async (event) => {
     
     // Build ORDER BY clause
     const sortColumn = {
-      name: boxers.fullName,
+      name: boxers.name,
       wins: boxers.proWins,
       losses: boxers.proLosses,
-      ranking: boxers.ranking,
+      ranking: boxers.id, // Use id as fallback since ranking was removed
     }[sortBy]
     
     const orderFn = sortOrder === 'desc' ? desc : asc

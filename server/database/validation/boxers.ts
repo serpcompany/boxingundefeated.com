@@ -7,35 +7,36 @@ export const boxerSelectSchema = createSelectSchema(boxers)
 
 // Schema for inserting a boxer - validates API requests
 export const boxerInsertSchema = createInsertSchema(boxers, {
-  // Custom validations
-  boxrecId: z.string().min(1, 'BoxRec ID is required'),
-  boxrecUrl: z.string().url('Must be a valid URL'),
-  slug: z.string().min(1, 'Slug is required').regex(/^[a-z0-9-]+$/, 'Slug must be lowercase alphanumeric with hyphens'),
-  fullName: z.string().min(1, 'Full name is required'),
-  nationality: z.string().optional(),
+  // Custom validations - use callbacks to extend the base schema
+  boxrecId: (schema) => schema.min(1, 'BoxRec ID is required'),
+  boxrecUrl: (schema) => schema.url('Must be a valid URL'),
+  boxrecWikiUrl: (schema) => schema.url('Must be a valid URL'),
+  slug: (schema) => schema.min(1, 'Slug is required').regex(/^[a-z0-9-]+$/, 'Slug must be lowercase alphanumeric with hyphens'),
+  name: (schema) => schema.min(1, 'Name is required'),
   // Ensure numeric stats are non-negative
-  proWins: z.number().min(0).default(0),
-  proWinsByKnockout: z.number().min(0).default(0),
-  proLosses: z.number().min(0).default(0),
-  proLossesByKnockout: z.number().min(0).default(0),
-  proDraws: z.number().min(0).default(0),
-  proTotalBouts: z.number().min(0).default(0),
-  proTotalRounds: z.number().min(0).default(0),
-  amateurWins: z.number().min(0).default(0),
-  amateurWinsByKnockout: z.number().min(0).default(0),
-  amateurLosses: z.number().min(0).default(0),
-  amateurLossesByKnockout: z.number().min(0).default(0),
-  amateurDraws: z.number().min(0).default(0),
-  amateurTotalBouts: z.number().min(0).default(0),
-  amateurTotalRounds: z.number().min(0).default(0),
+  proWins: (schema) => schema.min(0),
+  proWinsByKnockout: (schema) => schema.min(0),
+  proLosses: (schema) => schema.min(0),
+  proLossesByKnockout: (schema) => schema.min(0),
+  proDraws: (schema) => schema.min(0),
+  proTotalBouts: (schema) => schema.min(0),
+  proTotalRounds: (schema) => schema.min(0),
+  amateurWins: (schema) => schema.min(0),
+  amateurWinsByKnockout: (schema) => schema.min(0),
+  amateurLosses: (schema) => schema.min(0),
+  amateurLossesByKnockout: (schema) => schema.min(0),
+  amateurDraws: (schema) => schema.min(0),
+  amateurTotalBouts: (schema) => schema.min(0),
+  amateurTotalRounds: (schema) => schema.min(0),
 })
 
 // Schema for updating a boxer - validates API requests (all fields optional)
 export const boxerUpdateSchema = createUpdateSchema(boxers, {
   // Custom validations for updates
   boxrecUrl: z.string().url('Must be a valid URL').optional(),
+  boxrecWikiUrl: z.string().url('Must be a valid URL').optional(),
   slug: z.string().min(1, 'Slug is required').regex(/^[a-z0-9-]+$/, 'Slug must be lowercase alphanumeric with hyphens').optional(),
-  fullName: z.string().min(1, 'Full name is required').optional(),
+  name: z.string().min(1, 'Name is required').optional(),
   // Ensure numeric stats are non-negative when provided
   proWins: z.number().min(0).optional(),
   proWinsByKnockout: z.number().min(0).optional(),

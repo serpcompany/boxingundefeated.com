@@ -1,34 +1,34 @@
 import { sqliteTable, text, integer, index } from 'drizzle-orm/sqlite-core'
 import { sql } from 'drizzle-orm'
 
-export const boxers = sqliteTable('boxer', {
+export const boxers = sqliteTable('boxers', {
   id: text().primaryKey(),
   boxrecId: text().notNull().unique(),
   boxrecUrl: text().notNull(),
+  boxrecWikiUrl: text(),
   slug: text().notNull().unique(),
   
-  fullName: text().notNull(),
+  name: text().notNull(),
   birthName: text(),
-  nickname: text(),
-  gender: text(), // 'male' | 'female'
+  nicknames: text(),
   
   avatarImage: text(),
   
   residence: text(),
   birthPlace: text(),
   dateOfBirth: text(),
+  gender: text(), // 'M' | 'F'
   nationality: text(),
   
-  height: text(),
-  reach: text(),
-  weight: text(),
+  height: text(), // cm by default, calculate other variations for F/E
+  reach: text(), // cm by default, calculate other variations for F/E
   stance: text(), // 'orthodox' | 'southpaw'
   
   bio: text(),
   
-  promoter: text(), // TODO: FK to people table
-  trainer: text(), // TODO: FK to people table
-  manager: text(), // TODO: FK to people table
+  promoters: text(), // JSON array stored as text
+  trainers: text(), // JSON array stored as text
+  managers: text(), // JSON array stored as text
   gym: text(), // TODO: FK to gyms table
   
   proDebutDate: text(),
@@ -53,15 +53,12 @@ export const boxers = sqliteTable('boxer', {
   amateurTotalBouts: integer().notNull().default(0),
   amateurTotalRounds: integer().notNull().default(0),
   
-  isChampion: integer({ mode: 'boolean' }),
-  ranking: integer(),
-  
   createdAt: text().notNull().default(sql`CURRENT_TIMESTAMP`),
   updatedAt: text().notNull().default(sql`CURRENT_TIMESTAMP`),
 }, (table) => ({
-  slugIdx: index('boxer_slug_idx').on(table.slug),
-  boxrecIdIdx: index('boxer_boxrec_id_idx').on(table.boxrecId),
-  nationalityIdx: index('boxer_nationality_idx').on(table.nationality),
-  divisionIdx: index('boxer_division_idx').on(table.proDivision),
-  statusIdx: index('boxer_status_idx').on(table.proStatus),
+  slugIdx: index('boxersSlugIdx').on(table.slug),
+  boxrecIdIdx: index('boxersBoxrecIdIdx').on(table.boxrecId),
+  nationalityIdx: index('boxersNationalityIdx').on(table.nationality),
+  divisionIdx: index('boxersDivisionIdx').on(table.proDivision),
+  statusIdx: index('boxersStatusIdx').on(table.proStatus),
 }))
