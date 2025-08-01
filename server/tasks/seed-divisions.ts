@@ -1,15 +1,15 @@
+import { useDrizzle } from '~/server/utils/drizzle';
+import { divisions } from '~/server/database/schema';
+
 export default defineTask({
   meta: {
     name: 'db:seed:divisions',
     description: 'Seed the divisions table with boxing weight classes'
   },
   async run() {
-    const { useDrizzle } = await import('../../utils/drizzle')
-    const { divisions } = await import('../../database/schema')
+    console.log('🥊 Starting divisions seed...');
     
-    console.log('🥊 Starting divisions seed...')
-    
-    const db = useDrizzle()
+    const db = useDrizzle();
     
     try {
       // Clear existing divisions
@@ -40,16 +40,22 @@ export default defineTask({
       
       console.log(`✅ Successfully seeded ${divisionsData.length} divisions`)
       
-      return { 
-        success: true, 
-        count: divisionsData.length
+      return {
+        result: {
+          success: true,
+          count: divisionsData.length,
+          error: undefined as string | undefined
+        }
       }
       
     } catch (error) {
       console.error('❌ Divisions seed failed:', error)
-      return { 
-        success: false, 
-        error: error instanceof Error ? error.message : 'Unknown error' 
+      return {
+        result: {
+          success: false,
+          error: error instanceof Error ? error.message : 'Unknown error',
+          count: 0
+        }
       }
     }
   }

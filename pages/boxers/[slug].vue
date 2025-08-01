@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { Boxer } from '~/types'
-import { mockDivisions } from '~/data/boxing-data'
 
 const route = useRoute()
 const slug = route.params.slug as string
@@ -19,11 +18,13 @@ const divisionSlug = computed(() => {
   return boxer.value.pro_division || boxer.value.division || ''
 })
 
+const { data: divisions } = useFetch('/api/divisions')
+
 const division = computed(() => {
-  if (!divisionSlug.value) return null
-  // Normalize the division slug to match mockDivisions format
+  if (!divisionSlug.value || !divisions.value) return null
+  // Normalize the division slug to match divisions format
   const normalized = divisionSlug.value.toLowerCase().replace(/\s+/g, '-')
-  return mockDivisions.find(d => d.slug === normalized)
+  return divisions.value.divisions.find(d => d.slug === normalized)
 })
 
 const { site } = useAppConfig()

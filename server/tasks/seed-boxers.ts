@@ -1,17 +1,17 @@
+import { useDrizzle } from '~/server/utils/drizzle';
+import { boxers, boxerBouts } from '~/server/database/schema';
+import { readdir, readFile } from 'fs/promises';
+import { join } from 'path';
+
 export default defineTask({
   meta: {
     name: 'db:seed:boxers',
     description: 'Seed the boxers and boxer bouts tables from JSON files'
   },
   async run() {
-    const { useDrizzle } = await import('../../utils/drizzle')
-    const { boxers, boxerBouts } = await import('../../database/schema')
-    const { readdir, readFile } = await import('fs/promises')
-    const { join } = await import('path')
+    console.log('🥊 Starting boxers seed...');
     
-    console.log('🥊 Starting boxers seed...')
-    
-    const db = useDrizzle()
+    const db = useDrizzle();
     
     try {
       // Clear existing data
@@ -180,19 +180,28 @@ export default defineTask({
         }
       }
       
-      return { 
-        success: true, 
-        boxers: importedBoxers, 
-        fights: importedFights, 
-        skipped: skippedBoxers,
-        errors: errors.length 
+      return {
+        result: {
+          success: true,
+          boxers: importedBoxers,
+          fights: importedFights,
+          skipped: skippedBoxers,
+          errors: errors.length,
+          error: undefined as string | undefined
+        }
       }
       
     } catch (error) {
       console.error('❌ Boxers seed failed:', error)
-      return { 
-        success: false, 
-        error: error instanceof Error ? error.message : 'Unknown error' 
+      return {
+        result: {
+          success: false,
+          error: error instanceof Error ? error.message : 'Unknown error',
+          boxers: 0,
+          fights: 0,
+          skipped: 0,
+          errors: 0
+        }
       }
     }
   }
