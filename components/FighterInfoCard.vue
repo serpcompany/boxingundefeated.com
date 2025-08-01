@@ -57,7 +57,7 @@ function calculateKOPercentage(boxer: Boxer): string {
 
 <template>
   <div id="fighter-information" class="bg-white rounded-lg p-6 border border-zinc-200">
-    <h3 class="text-lg font-semibold text-zinc-900 dark:text-white mb-4">Fighter Information</h3>
+    <h3 class="text-lg font-semibold text-zinc-900 mb-4">Fighter Information</h3>
     <dl class="space-y-3">
       <!-- Basic Info -->
       <div v-if="boxer.date_of_birth || boxer.birthDate" class="data-row">

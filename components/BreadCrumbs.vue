@@ -31,26 +31,26 @@ const breadcrumbItems = computed(() => {
 </script>
 
 <template>
-  <nav class="flex items-center gap-2 text-sm text-zinc-600 dark:text-zinc-400">
+  <nav class="flex items-center gap-2 text-sm text-zinc-600">
     <template v-for="(item, index) in breadcrumbItems" :key="index">
       <!-- Link item -->
       <NuxtLink 
         v-if="item.to" 
         :to="item.to"
-        class="hover:text-zinc-900 dark:hover:text-white transition-colors"
+        class="hover:text-zinc-900 transition-colors"
       >
         {{ item.label }}
       </NuxtLink>
       
       <!-- Text item (last item) -->
-      <span v-else class="text-zinc-900 dark:text-white">
+      <span v-else class="text-zinc-900">
         {{ item.label }}
       </span>
       
       <!-- Separator -->
       <span 
         v-if="index < breadcrumbItems.length - 1" 
-        class="text-zinc-400 dark:text-zinc-600"
+        class="text-zinc-400"
       >
         /
       </span>

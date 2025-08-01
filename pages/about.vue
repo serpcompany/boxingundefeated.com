@@ -8,9 +8,9 @@ useSeoMeta({
 </script>
 
 <template>
-  <div class="min-h-screen bg-white dark:bg-zinc-900">
+  <div class="min-h-screen bg-white">
     <!-- Breadcrumbs -->
-    <div class="bg-white dark:bg-zinc-900 border-b border-gray-100 dark:border-zinc-800">
+    <div class="bg-white border-b border-gray-100">
       <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
         <BreadCrumbs 
           :items="[
@@ -28,7 +28,7 @@ useSeoMeta({
 
     <!-- Main Content -->
     <div class="max-w-6xl mx-auto px-6 lg:px-8 py-12">
-      <div class="prose prose-zinc dark:prose-invert max-w-none">
+      <div class="prose prose-zinc max-w-none">
         <p class="text-lg leading-relaxed">
           Boxing Undefeated is your comprehensive guide to the world of professional boxing. 
           We provide detailed information about fighters, weight divisions, championship titles, 

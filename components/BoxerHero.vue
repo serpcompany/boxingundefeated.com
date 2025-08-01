@@ -52,10 +52,10 @@ function getDivisionSlug(boxer: Boxer): string {
         
         <!-- Centered Info -->
         <div class="text-center">
-          <h1 class="text-2xl font-bold mb-3 text-zinc-900 dark:text-white">
+          <h1 class="text-2xl font-bold mb-3 text-zinc-900">
             {{ getDisplayName(boxer) }}
           </h1>
-          <p v-if="boxer.nickname" class="text-lg text-zinc-600 dark:text-zinc-400 mb-4">
+          <p v-if="boxer.nickname" class="text-lg text-zinc-600 mb-4">
             "{{ boxer.nickname }}"
           </p>
           
@@ -95,9 +95,9 @@ function getDivisionSlug(boxer: Boxer): string {
         
         <!-- Main Info -->
         <div class="flex-1">
-          <h1 class="text-3xl md:text-4xl font-bold mb-4 text-zinc-900 dark:text-white">
+          <h1 class="text-3xl md:text-4xl font-bold mb-4 text-zinc-900">
             {{ getDisplayName(boxer) }}
-            <span v-if="boxer.nickname" class="text-zinc-600 dark:text-zinc-400 font-normal">
+            <span v-if="boxer.nickname" class="text-zinc-600 font-normal">
               "{{ boxer.nickname }}"
             </span>
           </h1>

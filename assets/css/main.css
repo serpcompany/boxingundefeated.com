@@ -24,32 +24,24 @@ html {
   font-family: var(--font-sans);
 }
 
-/* Dark mode color scheme */
-:root.dark {
-  color-scheme: dark;
-}
 
 /* Brand-specific button styles matching original */
 .btn-primary {
   @apply bg-zinc-900 text-white hover:bg-zinc-800 transition-colors duration-200;
-  @apply dark:bg-white dark:text-zinc-900 dark:hover:bg-zinc-100;
 }
 
 .btn-secondary {
   @apply bg-white border border-zinc-300 text-zinc-900
          hover:bg-zinc-50 transition-colors duration-200;
-  @apply dark:bg-zinc-800 dark:border-zinc-700 dark:text-white dark:hover:bg-zinc-700;
 }
 
 /* Navigation styles matching original */
 .nav-link {
   @apply text-zinc-600 hover:text-zinc-900 transition-colors duration-200;
-  @apply dark:text-zinc-400 dark:hover:text-white;
 }
 
 .nav-link.active {
   @apply text-zinc-900 font-medium;
-  @apply dark:text-white;
 }
 
 /* Hero section styles matching original measurements */
@@ -59,16 +51,16 @@ html {
 
 .hero-headline {
   @apply text-5xl lg:text-6xl font-semibold leading-tight mb-6 text-center;
-  @apply text-zinc-900 dark:text-white;
+  @apply text-zinc-900;
 }
 
 .hero-subtitle {
-  @apply text-lg text-zinc-600 dark:text-zinc-400 mb-8 max-w-2xl mx-auto;
+  @apply text-lg text-zinc-600 mb-8 max-w-2xl mx-auto;
 }
 
 /* Card styles matching original */
 .base-card {
-  @apply bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700;
+  @apply bg-white border border-zinc-200;
   @apply rounded-lg p-6 hover:shadow-lg transition-shadow duration-200;
 }
 
@@ -83,17 +75,17 @@ html {
 }
 
 .data-label {
-  @apply text-sm text-zinc-600 dark:text-zinc-400 w-24 flex-shrink-0;
+  @apply text-sm text-zinc-600 w-24 flex-shrink-0;
 }
 
 .data-value {
-  @apply text-sm text-zinc-900 dark:text-white ml-4;
+  @apply text-sm text-zinc-900 ml-4;
 }
 
 .data-section {
-  @apply pt-2 mt-2 border-t border-zinc-200 dark:border-zinc-800;
+  @apply pt-2 mt-2 border-t border-zinc-200;
 }
 
 .data-section-title {
-  @apply text-sm font-semibold text-zinc-700 dark:text-zinc-300 mb-2;
+  @apply text-sm font-semibold text-zinc-700 mb-2;
 }

@@ -107,7 +107,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <nav class="sticky top-16 z-40 bg-white dark:bg-zinc-900 border-b border-zinc-200 dark:border-zinc-700">
+  <nav class="sticky top-16 z-40 bg-white border-b border-zinc-200">
     <!-- Mobile Dropdown -->
     <div class="sm:hidden">
       <div class="px-4 py-3">
@@ -138,15 +138,15 @@ onMounted(() => {
           :class="[
             'px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium rounded-md whitespace-nowrap transition-all relative',
             activeSection === item.to
-              ? 'text-zinc-900 dark:text-white'
-              : 'text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-zinc-200'
+              ? 'text-zinc-900'
+              : 'text-zinc-500 hover:text-zinc-700'
           ]"
         >
           {{ item.label }}
           <!-- Active indicator -->
           <span 
             v-if="activeSection === item.to"
-            class="absolute bottom-0 left-0 right-0 h-0.5 bg-zinc-900 dark:bg-white transition-all"
+            class="absolute bottom-0 left-0 right-0 h-0.5 bg-zinc-900 transition-all"
           />
         </button>
       </div>

@@ -3,16 +3,16 @@
 </script>
 
 <template>
-  <div class="min-h-screen bg-white dark:bg-zinc-900">
+  <div class="min-h-screen bg-white">
     <!-- Breadcrumbs skeleton -->
-    <div class="bg-white dark:bg-zinc-900 border-b border-gray-100 dark:border-zinc-800">
+    <div class="bg-white border-b border-gray-100">
       <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
         <USkeleton class="h-5 w-48" />
       </div>
     </div>
     
     <!-- Hero skeleton -->
-    <div class="bg-zinc-50 dark:bg-zinc-800 py-12">
+    <div class="bg-zinc-50 py-12">
       <div class="max-w-6xl mx-auto px-6 lg:px-8">
         <div class="flex flex-col md:flex-row gap-8">
           <!-- Image skeleton -->
@@ -32,7 +32,7 @@
     </div>
     
     <!-- TOC skeleton -->
-    <div class="sticky top-0 z-10 bg-white dark:bg-zinc-900 border-b border-zinc-200 dark:border-zinc-700">
+    <div class="sticky top-0 z-10 bg-white border-b border-zinc-200">
       <div class="max-w-6xl mx-auto px-6 lg:px-8">
         <div class="flex gap-4 py-4">
           <USkeleton class="h-10 w-24" />

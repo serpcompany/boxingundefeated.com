@@ -34,7 +34,7 @@ const divisionsItems = [
 </script>
 
 <template>
-  <header class="sticky top-0 z-50 w-full bg-white dark:bg-zinc-900 border-b border-zinc-200 dark:border-zinc-800">
+  <header class="sticky top-0 z-50 w-full bg-white border-b border-zinc-200">
     <div class="container mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex h-16 items-center justify-between">
         <!-- Logo -->
@@ -44,11 +44,11 @@ const divisionsItems = [
 
         <!-- Desktop Navigation -->
         <nav class="hidden lg:flex items-center space-x-6">
-          <NuxtLink to="/" class="text-sm font-medium text-zinc-700 hover:text-zinc-900 dark:text-zinc-300 dark:hover:text-white transition-colors">
+          <NuxtLink to="/" class="text-sm font-medium text-zinc-700 hover:text-zinc-900 transition-colors">
             Home
           </NuxtLink>
 
-          <NuxtLink to="/boxers" class="text-sm font-medium text-zinc-700 hover:text-zinc-900 dark:text-zinc-300 dark:hover:text-white transition-colors">
+          <NuxtLink to="/boxers" class="text-sm font-medium text-zinc-700 hover:text-zinc-900 transition-colors">
             Boxers
           </NuxtLink>
 
@@ -56,13 +56,13 @@ const divisionsItems = [
             <UButton 
               variant="ghost" 
               trailing-icon="i-heroicons-chevron-down-20-solid" 
-              class="text-sm font-medium text-zinc-700 hover:text-zinc-900 dark:text-zinc-300 dark:hover:text-white"
+              class="text-sm font-medium text-zinc-700 hover:text-zinc-900"
             >
               Divisions
             </UButton>
           </UDropdown>
 
-          <NuxtLink to="/about" class="text-sm font-medium text-zinc-700 hover:text-zinc-900 dark:text-zinc-300 dark:hover:text-white transition-colors">
+          <NuxtLink to="/about" class="text-sm font-medium text-zinc-700 hover:text-zinc-900 transition-colors">
             About
           </NuxtLink>
         </nav>
@@ -98,7 +98,7 @@ const divisionsItems = [
           <div class="space-y-1">
             <NuxtLink 
               to="/" 
-              class="block px-3 py-2 text-base font-medium text-zinc-700 hover:text-zinc-900 hover:bg-zinc-100 dark:text-zinc-300 dark:hover:text-white dark:hover:bg-zinc-800 rounded-md"
+              class="block px-3 py-2 text-base font-medium text-zinc-700 hover:text-zinc-900 hover:bg-zinc-100 rounded-md"
               @click="isMobileMenuOpen = false"
             >
               Home
@@ -106,7 +106,7 @@ const divisionsItems = [
 
             <NuxtLink 
               to="/boxers" 
-              class="block px-3 py-2 text-base font-medium text-zinc-700 hover:text-zinc-900 hover:bg-zinc-100 dark:text-zinc-300 dark:hover:text-white dark:hover:bg-zinc-800 rounded-md"
+              class="block px-3 py-2 text-base font-medium text-zinc-700 hover:text-zinc-900 hover:bg-zinc-100 rounded-md"
               @click="isMobileMenuOpen = false"
             >
               Boxers
@@ -114,7 +114,7 @@ const divisionsItems = [
 
             <NuxtLink 
               to="/divisions" 
-              class="block px-3 py-2 text-base font-medium text-zinc-700 hover:text-zinc-900 hover:bg-zinc-100 dark:text-zinc-300 dark:hover:text-white dark:hover:bg-zinc-800 rounded-md"
+              class="block px-3 py-2 text-base font-medium text-zinc-700 hover:text-zinc-900 hover:bg-zinc-100 rounded-md"
               @click="isMobileMenuOpen = false"
             >
               All Divisions
@@ -122,14 +122,14 @@ const divisionsItems = [
 
             <NuxtLink 
               to="/about" 
-              class="block px-3 py-2 text-base font-medium text-zinc-700 hover:text-zinc-900 hover:bg-zinc-100 dark:text-zinc-300 dark:hover:text-white dark:hover:bg-zinc-800 rounded-md"
+              class="block px-3 py-2 text-base font-medium text-zinc-700 hover:text-zinc-900 hover:bg-zinc-100 rounded-md"
               @click="isMobileMenuOpen = false"
             >
               About
             </NuxtLink>
           </div>
 
-          <div class="mt-4 pt-4 border-t border-zinc-200 dark:border-zinc-800">
+          <div class="mt-4 pt-4 border-t border-zinc-200">
             <UserProfile />
           </div>
         </nav>

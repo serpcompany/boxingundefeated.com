@@ -10,7 +10,7 @@
       size="sm"
     />
     <!-- User name -->
-    <span class="text-sm font-medium text-zinc-900 dark:text-white">
+    <span class="text-sm font-medium text-zinc-900">
     </span>
   </div>
 </template>

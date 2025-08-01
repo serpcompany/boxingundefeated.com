@@ -26,9 +26,9 @@ function formatWeightLimit(division: any) {
 </script>
 
 <template>
-  <div class="min-h-screen bg-white dark:bg-zinc-900">
+  <div class="min-h-screen bg-white">
     <!-- Breadcrumbs -->
-    <div class="bg-white dark:bg-zinc-900 border-b border-gray-100 dark:border-zinc-800">
+    <div class="bg-white border-b border-gray-100">
       <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
         <BreadCrumbs 
           :items="[
@@ -46,7 +46,7 @@ function formatWeightLimit(division: any) {
     <!-- Main Content -->
     <div class="max-w-6xl mx-auto px-6 lg:px-8 py-12">
       <!-- Divisions Table -->
-      <div class="bg-white dark:bg-zinc-800 rounded-lg overflow-hidden border border-zinc-200 dark:border-zinc-700">
+      <div class="bg-white rounded-lg overflow-hidden border border-zinc-200">
         <DivisionsTable v-if="divisions.length > 0" :divisions="divisions" />
       </div>
     </div>
