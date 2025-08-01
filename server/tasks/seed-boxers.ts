@@ -1,3 +1,19 @@
+// NuxtHub/Tasks: use global defineTask, do not import it!
+let defaultExport: any = undefined;
+if (typeof defineTask !== 'undefined') {
+  defaultExport = defineTask({
+    meta: {
+      name: 'seed-boxers',
+      description: 'Seed the boxers table'
+    },
+    async run() {
+      await seedBoxers()
+      return {}
+    }
+  });
+}
+export default defaultExport;
+// NuxtHub/Tasks: use global defineTask, do not import it!
 // Allow running directly from CLI (ESM compatible)
 if (import.meta.url === `file://${process.argv[1]}`) {
   seedBoxers().then(console.log).catch((err) => {

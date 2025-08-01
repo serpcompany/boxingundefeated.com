@@ -21,7 +21,7 @@ const appConfig = useAppConfig()
 
         <!-- Boxing Links -->
         <div>
-          <h3 class="font-semibold text-zinc-900 mb-3">People</h3>
+          <h3 class="font-semibold text-zinc-900 mb-3">Boxing</h3>
           <ul class="space-y-2 text-sm text-zinc-600">
             <li>
               <NuxtLink to="/boxers" class="hover:text-zinc-900 transition-colors">
@@ -30,7 +30,7 @@ const appConfig = useAppConfig()
             </li>
             <li>
               <NuxtLink to="/divisions" class="hover:text-zinc-900 transition-colors">
-                Weight Classes
+                Divisions
               </NuxtLink>
             </li>
           </ul>

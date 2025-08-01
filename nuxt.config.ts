@@ -46,7 +46,8 @@ export default defineNuxtConfig({
   // Enable experimental tasks for database seeding and prerender sitemap.xml
   nitro: {
     experimental: {
-      tasks: true
+      tasks: true,
+      openAPI: true
     },
     prerender: {
       routes: ['/sitemap_index.xml'],

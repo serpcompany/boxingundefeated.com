@@ -5,9 +5,10 @@ const appConfig = useAppConfig()
 
 <template>
   <NuxtLink to="/" class="flex items-center space-x-2 text-lg font-bold">
-    <!-- Boxing glove icon -->
-    <div class="text-red-600">
     </div>
     <span class="text-zinc-900">{{ appConfig.site.name }}</span>
+    <span class="text-zinc-900">
+      <img src="/logo.svg" alt="Logo" class="h-8 w-8" />
+    </span>
   </NuxtLink>
 </template>

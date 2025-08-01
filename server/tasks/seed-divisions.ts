@@ -1,3 +1,18 @@
+// NuxtHub/Tasks: use global defineTask, do not import it!
+let defaultExport: any = undefined;
+if (typeof defineTask !== 'undefined') {
+  defaultExport = defineTask({
+    meta: {
+      name: 'seed-divisions',
+      description: 'Seed the divisions table'
+    },
+    async run() {
+      await seedDivisions()
+      return {}
+    }
+  });
+}
+export default defaultExport;
 // Allow running directly from CLI (ESM compatible)
 if (import.meta.url === `file://${process.argv[1]}`) {
   seedDivisions().then(console.log).catch((err) => {

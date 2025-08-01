@@ -1,3 +1,19 @@
+// NuxtHub/Tasks: use global defineTask, do not import it!
+let defaultExport: any = undefined;
+if (typeof defineTask !== 'undefined') {
+  defaultExport = defineTask({
+    meta: {
+      name: 'seed-boxer-bouts',
+      description: 'Seed the boxerBouts table'
+    },
+    async run() {
+      await seedBoxerBouts()
+      return {}
+    }
+  });
+}
+export default defaultExport;
+// NuxtHub/Tasks: use global defineTask, do not import it!
 // server/tasks/seed-boxer-bouts.ts
 import { tables } from '../utils/drizzle'
 import { drizzle } from 'drizzle-orm/better-sqlite3'
