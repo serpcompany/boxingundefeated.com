@@ -45,7 +45,7 @@ const navigationItems = computed(() => {
 function scrollToSection(sectionId: string) {
   const element = document.querySelector(sectionId)
   if (element) {
-    const offset = 120 // Account for sticky header and nav
+    const offset = 140 // Account for sticky header and nav (increased from 120)
     const elementPosition = element.getBoundingClientRect().top
     const offsetPosition = elementPosition + window.pageYOffset - offset
     

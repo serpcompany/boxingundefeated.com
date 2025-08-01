@@ -22,8 +22,8 @@ useSeoMeta({
 <template>
   <div class="min-h-screen bg-white dark:bg-zinc-900">
     <!-- Hero Section -->
-    <section class="relative overflow-hidden bg-black text-white min-h-[350px] flex items-center">
-      <div class="relative w-full max-w-6xl mx-auto px-6 lg:px-8 py-24 sm:py-32">
+    <section class="relative overflow-hidden bg-black text-white min-h-[300px] sm:min-h-[350px] max-h-[450px] flex items-center">
+      <div class="relative w-full max-w-6xl mx-auto px-6 lg:px-8 py-20 sm:py-24">
         <div class="text-center">
           <h1 class="text-4xl sm:text-6xl font-bold tracking-tight mb-6">
             Boxing Undefeated

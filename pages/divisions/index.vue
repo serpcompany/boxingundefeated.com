@@ -6,7 +6,8 @@ const { data, pending, error } = await useFetch('/api/divisions')
 
 const divisions = computed(() => {
   if (!data.value?.divisions) return []
-  return data.value.divisions
+  // Sort by weight limit descending (heaviest first)
+  return [...data.value.divisions].sort((a, b) => b.weightLimitPounds - a.weightLimitPounds)
 })
 
 const title = 'Professional Boxing Weight Classes'
@@ -44,15 +45,9 @@ function formatWeightLimit(division: any) {
 
     <!-- Main Content -->
     <div class="max-w-6xl mx-auto px-6 lg:px-8 py-12">
-      <div class="mb-8">
-        <p class="text-zinc-600 dark:text-zinc-400">
-          Boxing has {{ divisions.length }} recognized weight divisions, each with specific weight limits to ensure fair competition.
-        </p>
-      </div>
-
       <!-- Divisions Table -->
       <div class="bg-white dark:bg-zinc-800 rounded-lg overflow-hidden border border-zinc-200 dark:border-zinc-700">
-        <DivisionsTable v-if="data" :divisions="data?.value?.divisions" />
+        <DivisionsTable v-if="divisions.length > 0" :divisions="divisions" />
       </div>
     </div>
   </div>

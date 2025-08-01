@@ -69,7 +69,7 @@ const currentStats = computed(() => tabs.value[selectedTab.value].stats)
 </script>
 
 <template>
-  <div class="bg-white dark:bg-zinc-900 rounded-lg border border-zinc-200 dark:border-zinc-700 overflow-hidden">
+  <div id="professional-record" class="bg-white dark:bg-zinc-900 rounded-lg border border-zinc-200 dark:border-zinc-700 overflow-hidden">
     <!-- Tab Headers -->
     <div v-if="hasAmateurRecord" class="border-b border-zinc-200 dark:border-zinc-700">
       <div class="flex">
