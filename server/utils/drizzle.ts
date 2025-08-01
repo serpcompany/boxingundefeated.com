@@ -8,7 +8,7 @@ export function useDrizzle() {
   // hubDatabase() is provided by NuxtHub for D1 access
   return drizzle(hubDatabase(), { 
     schema,
-    casing: 'snake_case'
+    casing: 'camelCase'
   })
 }
 

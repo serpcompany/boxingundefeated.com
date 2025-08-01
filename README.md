@@ -22,27 +22,29 @@ Repurpose this theme to accomodate 'boxing' instead of 'mcp servers' so we can r
 
 ## Database Commands
 
-### Development Database (D1 Local)
+### Development Database (NuxtHub D1 Local)
+
+NuxtHub creates and manages its own local D1 database in `.data/hub/d1/`. This is the database your app uses during development.
 
 ```bash
-# Apply migrations to create/update database schema
-npx wrangler d1 execute boxingundefeated-localdb --local --file=./server/database/migrations/0000_short_killer_shrike.sql
-
 # View database with Drizzle Studio GUI
 npm run db:studio
 
-# Query database directly
-npx wrangler d1 execute boxingundefeated-localdb --local --command="SELECT * FROM boxers LIMIT 5;"
+# Seed database with boxer data
+curl http://localhost:3000/api/seed-database
 
-# Other useful queries
-npx wrangler d1 execute boxingundefeated-localdb --local --command="SELECT COUNT(*) FROM boxers;"
-npx wrangler d1 execute boxingundefeated-localdb --local --command="SELECT name FROM sqlite_master WHERE type='table';"
-npx wrangler d1 execute boxingundefeated-localdb --local --command="PRAGMA table_info(boxers);"
+# Clear database (using sqlite3)
+sqlite3 ./.data/hub/d1/miniflare-D1DatabaseObject/*.sqlite "DELETE FROM boxerBouts; DELETE FROM boxers;"
 ```
 
 ### Database Scripts
 
 - `npm run db:generate` - Generate new migrations from schema changes
-- `npm run db:migrate` - Run migrations (use wrangler for D1)
-- `npm run db:push` - Push schema changes directly (use wrangler for D1)
 - `npm run db:studio` - Open Drizzle Studio GUI to browse database
+
+### Important Notes
+
+- **Do NOT use `wrangler d1` commands** - NuxtHub manages its own database
+- The database is automatically created when you run `npm run dev`
+- Migrations are automatically applied by NuxtHub
+- Use the `/api/seed-database` endpoint to populate data

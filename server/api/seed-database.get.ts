@@ -1,5 +1,6 @@
 import { boxers, boxerBoutsTable } from '~/server/database/schema'
-import boxersDataFile from '~/data/boxers.json'
+import { readdir, readFile } from 'fs/promises'
+import { join } from 'path'
 
 export default defineEventHandler(async (event) => {
   try {
@@ -10,62 +11,84 @@ export default defineEventHandler(async (event) => {
     await db.delete(boxers)
     console.log('Cleared existing data')
     
-    const boxerData = boxersDataFile.boxers
-    console.log(`Loading ${boxerData.length} real boxers from boxers.json...`)
+    // Read all JSON files from the boxrec_json directory
+    const boxrecJsonDir = join(process.cwd(), 'data', 'boxrec_json')
+    const files = await readdir(boxrecJsonDir)
+    const jsonFiles = files.filter(f => f.endsWith('.json'))
+    
+    console.log(`Found ${jsonFiles.length} boxer JSON files to import...`)
     
     let importedBoxers = 0
     let importedFights = 0
+    let skippedBoxers = 0
     let errors = []
     
-    // Process each boxer
-    for (const boxer of boxerData) {
+    // Process each file
+    for (const file of jsonFiles) {
       try {
-        // Map JSON fields to database fields (now camelCase)
+        const filePath = join(boxrecJsonDir, file)
+        const fileContent = await readFile(filePath, 'utf-8')
+        const boxer = JSON.parse(fileContent)
+        
+        // Skip if no valid boxer data (e.g. login errors)
+        if (!boxer.boxrecId || boxer.boxrecId === '' || !boxer.name || boxer.name === 'Login') {
+          skippedBoxers++
+          continue
+        }
+        
+        // Convert numeric strings to numbers and handle empty strings
+        const parseIntOrNull = (val: string | number) => {
+          if (val === '' || val === null || val === undefined) return null
+          const parsed = parseInt(val.toString())
+          return isNaN(parsed) ? null : parsed
+        }
+        
+        // Map JSON fields to database fields
         const dbBoxer = {
-          id: boxer.boxrec_id, // Use boxrec_id as primary key
-          boxrecId: boxer.boxrec_id,
-          boxrecUrl: boxer.boxrec_url,
-          boxrecWikiUrl: null, // Not in this JSON
-          slug: boxer.slug,
+          id: boxer.boxrecId, // Use boxrecId as primary key
+          boxrecId: boxer.boxrecId,
+          boxrecUrl: boxer.boxrecUrl || null,
+          boxrecWikiUrl: boxer.boxrecWikiUrl || null,
+          slug: boxer.slug || boxer.name.toLowerCase().replace(/\s+/g, '-'),
           name: boxer.name,
-          birthName: boxer.birth_name || null,
-          nicknames: boxer.alias || null,
-          avatarImage: boxer.image || null,
-          residence: null, // Not in this JSON
-          birthPlace: boxer.birth_place || null,
-          dateOfBirth: boxer.birth_date || null,
-          gender: null, // Not in this JSON
+          birthName: boxer.birthName || null,
+          nicknames: boxer.nicknames || null,
+          avatarImage: boxer.avatarImage || null,
+          residence: boxer.residence || null,
+          birthPlace: boxer.birthPlace || null,
+          dateOfBirth: boxer.dateOfBirth || null,
+          gender: boxer.gender || null,
           nationality: boxer.nationality || null,
           height: boxer.height || null,
           reach: boxer.reach || null,
           stance: boxer.stance || null,
-          bio: boxer.biography || null,
-          promoters: null, // Not in JSON
-          trainers: null, // Not in JSON
-          managers: null, // Not in JSON
-          gym: null, // Not in JSON
-          proDebutDate: null, // Not in this JSON
-          proDivision: boxer.division || null,
-          proWins: boxer.record?.wins || 0,
-          proWinsByKnockout: boxer.record?.kos || 0,
-          proLosses: boxer.record?.losses || 0,
-          proLossesByKnockout: 0, // Not in this JSON
-          proDraws: boxer.record?.draws || 0,
-          proStatus: boxer.status || 'active',
-          proTotalBouts: ((boxer.record?.wins || 0) + (boxer.record?.losses || 0) + (boxer.record?.draws || 0)),
-          proTotalRounds: 0, // Not in this JSON
-          amateurDebutDate: null, // Not in JSON
-          amateurDivision: null, // Not in JSON
-          amateurWins: 0, // Not in JSON
-          amateurWinsByKnockout: 0, // Not in JSON
-          amateurLosses: 0, // Not in JSON
-          amateurLossesByKnockout: 0, // Not in JSON
-          amateurDraws: 0, // Not in JSON
-          amateurStatus: null, // Not in JSON
-          amateurTotalBouts: 0, // Not in JSON
-          amateurTotalRounds: 0, // Not in JSON
-          createdAt: new Date().toISOString(),
-          updatedAt: new Date().toISOString(),
+          bio: boxer.bio || null,
+          promoters: boxer.promoters || null,
+          trainers: boxer.trainers || null,
+          managers: boxer.managers || null,
+          gym: boxer.gym || null,
+          proDebutDate: boxer.proDebutDate || null,
+          proDivision: boxer.proDivision || null,
+          proWins: parseIntOrNull(boxer.proWins) || 0,
+          proWinsByKnockout: parseIntOrNull(boxer.proWinsByKnockout) || 0,
+          proLosses: parseIntOrNull(boxer.proLosses) || 0,
+          proLossesByKnockout: parseIntOrNull(boxer.proLossesByKnockout) || 0,
+          proDraws: parseIntOrNull(boxer.proDraws) || 0,
+          proStatus: boxer.proStatus || null,
+          proTotalBouts: parseIntOrNull(boxer.proTotalBouts) || 0,
+          proTotalRounds: parseIntOrNull(boxer.proTotalRounds) || 0,
+          amateurDebutDate: boxer.amateurDebutDate || null,
+          amateurDivision: boxer.amateurDivision || null,
+          amateurWins: parseIntOrNull(boxer.amateurWins) || 0,
+          amateurWinsByKnockout: parseIntOrNull(boxer.amateurWinsByKnockout) || 0,
+          amateurLosses: parseIntOrNull(boxer.amateurLosses) || 0,
+          amateurLossesByKnockout: parseIntOrNull(boxer.amateurLossesByKnockout) || 0,
+          amateurDraws: parseIntOrNull(boxer.amateurDraws) || 0,
+          amateurStatus: boxer.amateurStatus || null,
+          amateurTotalBouts: parseIntOrNull(boxer.amateurTotalBouts) || 0,
+          amateurTotalRounds: parseIntOrNull(boxer.amateurTotalRounds) || 0,
+          createdAt: boxer.createdAt || new Date().toISOString(),
+          updatedAt: boxer.updatedAt || new Date().toISOString(),
         }
         
         // Insert boxer
@@ -73,46 +96,46 @@ export default defineEventHandler(async (event) => {
         importedBoxers++
         
         // Import fights if available
-        if (boxer.fights && Array.isArray(boxer.fights)) {
-          for (const fight of boxer.fights) {
+        if (boxer.bouts && Array.isArray(boxer.bouts)) {
+          for (const fight of boxer.bouts) {
             try {
               const dbFight = {
-                boxerId: boxer.id,
-                boxrecId: null, // Not in JSON
-                boutDate: fight.bout_date || '',
-                opponentName: fight.opponent_name || '',
-                opponentWeight: null, // Not in JSON
-                opponentRecord: fight.opponent_record || null,
-                eventName: fight.venue_name || null, // Using venue_name for eventName
-                refereeName: null, // Not in JSON
-                judge1Name: null, // Not in JSON
-                judge1Score: null, // Not in JSON
-                judge2Name: null, // Not in JSON
-                judge2Score: null, // Not in JSON
-                judge3Name: null, // Not in JSON
-                judge3Score: null, // Not in JSON
-                numRoundsScheduled: fight.num_rounds_scheduled || null,
-                result: fight.result || '', // 'win' | 'loss' | 'draw' | 'no-contest'
-                resultMethod: null, // Not in JSON
-                resultRound: null, // Not in JSON
-                eventPageLink: fight.event_page_link || null,
-                boutPageLink: null, // Not in JSON
-                scorecardsPageLink: null, // Not in JSON
-                titleFight: fight.title_fight === true ? 1 : 0,
+                boxerId: boxer.boxrecId,
+                boxrecId: null, // Not in current JSON format
+                boutDate: fight.boutDate || '',
+                opponentName: fight.opponentName || '',
+                opponentWeight: fight.opponentWeight || null,
+                opponentRecord: fight.opponentRecord || null,
+                eventName: fight.eventName || fight.venueName || null,
+                refereeName: fight.refereeName || null,
+                judge1Name: fight.judge1Name || null,
+                judge1Score: fight.judge1Score || null,
+                judge2Name: fight.judge2Name || null,
+                judge2Score: fight.judge2Score || null,
+                judge3Name: fight.judge3Name || null,
+                judge3Score: fight.judge3Score || null,
+                numRoundsScheduled: parseIntOrNull(fight.numRoundsScheduled),
+                result: fight.result || '',
+                resultMethod: fight.resultMethod || null,
+                resultRound: parseIntOrNull(fight.resultRound),
+                eventPageLink: fight.eventPageLink || null,
+                boutPageLink: fight.boutPageLink || null,
+                scorecardsPageLink: fight.scorecardsPageLink || null,
+                titleFight: fight.titleFight === 'true' || fight.titleFight === true,
               }
               
               await db.insert(boxerBoutsTable).values(dbFight)
               importedFights++
             } catch (fightError) {
-              console.error(`Error importing fight for ${boxer.full_name}:`, fightError)
+              console.error(`Error importing fight for ${boxer.name}:`, fightError)
             }
           }
         }
         
       } catch (boxerError) {
-        console.error(`Error importing boxer ${boxer.full_name}:`, boxerError)
+        console.error(`Error importing boxer from ${file}:`, boxerError)
         errors.push({
-          boxer: boxer.full_name,
+          file,
           error: boxerError.message
         })
       }
@@ -124,9 +147,10 @@ export default defineEventHandler(async (event) => {
         boxers: importedBoxers,
         fights: importedFights
       },
-      total: boxerData.length,
+      total: jsonFiles.length,
+      skipped: skippedBoxers,
       errors: errors.length > 0 ? errors : undefined,
-      message: `Successfully imported ${importedBoxers} boxers and ${importedFights} fights`
+      message: `Successfully imported ${importedBoxers} boxers and ${importedFights} fights from ${jsonFiles.length} files (skipped ${skippedBoxers} invalid entries)`
     }
     
   } catch (error) {
