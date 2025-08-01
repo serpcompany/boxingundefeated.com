@@ -27,12 +27,19 @@ const columns = computed(() => {
       key: 'name',
       label: 'Fighter',
       sortable: true
-    },
-    {
+    }
+  ]
+  
+  // Only show division column if showDivision is true
+  if (props.showDivision) {
+    cols.push({
       key: 'division',
       label: 'Weight Class',
       sortable: true
-    },
+    })
+  }
+  
+  cols.push(
     {
       key: 'record',
       label: 'Record'
@@ -46,7 +53,7 @@ const columns = computed(() => {
       key: 'status',
       label: 'Status'
     }
-  ]
+  )
   
   return cols
 })
@@ -239,7 +246,7 @@ function onRowClick(row: any) {
       
       <!-- Results count -->
       <div class="flex items-center text-sm text-gray-500 dark:text-gray-400 ml-auto whitespace-nowrap">
-        Showing {{ displayedData.length }} of {{ filteredData.length }} fighters
+        {{ displayedData.length }} of {{ filteredData.length }} fighters
       </div>
     </div>
 

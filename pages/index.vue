@@ -39,7 +39,7 @@ useSeoMeta({
               color="white"
               variant="solid"
             >
-              Browse Fighters
+              Fighters
             </UButton>
             <UButton 
               to="/divisions" 
@@ -66,7 +66,7 @@ useSeoMeta({
           </p>
         </div>
         
-        <BoxersTable :boxers="boxersData?.boxers || []" />
+        <BoxersTable :boxers="boxersData?.boxers || []" :show-division="true" />
       </div>
     </section>
   </div>

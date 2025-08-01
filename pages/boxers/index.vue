@@ -74,7 +74,7 @@ useHead({
           </p>
         </div>
         
-        <BoxersTable :boxers="boxers" />
+        <BoxersTable :boxers="boxers" :show-division="true" />
       </div>
     </section>
   </div>
