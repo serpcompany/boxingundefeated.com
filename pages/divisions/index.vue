@@ -52,7 +52,7 @@ function formatWeightLimit(division: any) {
 
       <!-- Divisions Table -->
       <div class="bg-white dark:bg-zinc-800 rounded-lg overflow-hidden border border-zinc-200 dark:border-zinc-700">
-        <DivisionsTable v-if="data" :divisions="data.value.divisions" />
+        <DivisionsTable v-if="data" :divisions="data?.value?.divisions" />
       </div>
     </div>
   </div>

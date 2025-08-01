@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "23569cf5-d0c6-4e4f-8ee9-41dda846d35e",
+  "id": "237cd48f-ba92-45fc-97af-5add79e8cbad",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "boxers": {
@@ -633,6 +633,20 @@
           "type": "real",
           "primaryKey": false,
           "notNull": true,
+          "autoincrement": false
+        },
+        "weightLimitKilograms": {
+          "name": "weightLimitKilograms",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "weightLimitStone": {
+          "name": "weightLimitStone",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
           "autoincrement": false
         },
         "createdAt": {

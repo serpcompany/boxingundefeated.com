@@ -1,6 +1,5 @@
 # README
 
-Repurpose this theme to accomodate 'boxing' instead of 'mcp servers' so we can relaunch the boxingundefeated.com website.
 
 ## Sitemap
 

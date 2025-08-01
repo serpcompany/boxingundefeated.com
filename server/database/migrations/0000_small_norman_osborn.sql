@@ -88,6 +88,8 @@ CREATE TABLE `divisions` (
 	`name` text NOT NULL,
 	`alternativeNames` text,
 	`weightLimitPounds` real NOT NULL,
+	`weightLimitKilograms` real NOT NULL,
+	`weightLimitStone` text,
 	`createdAt` text DEFAULT CURRENT_TIMESTAMP NOT NULL,
 	`updatedAt` text DEFAULT CURRENT_TIMESTAMP NOT NULL
 );
