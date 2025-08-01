@@ -4,9 +4,12 @@ export interface Division {
   id: string
   slug: string
   name: string
-  alternativeNames?: string[]
+  shortName?: string | null
+  alternativeNames?: string[] | null
   
   weightLimitPounds: number
+  weightLimitKilograms: number
+  weightLimitStone?: string
   
   createdAt: string
   updatedAt: string
