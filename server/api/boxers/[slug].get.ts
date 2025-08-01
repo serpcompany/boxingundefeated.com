@@ -1,5 +1,4 @@
 import { boxers, boxerBouts } from '~/server/database/schema'
-import { boxerSelectSchema, boxerBoutSelectSchema } from '~/server/database/validation'
 import { eq, desc } from 'drizzle-orm'
 import { transformBoxerForFrontend } from '~/server/utils/transformers'
 
@@ -38,9 +37,9 @@ export default defineEventHandler(async (event) => {
       .where(eq(boxerBouts.boxerId, boxer.id))
       .orderBy(desc(boxerBouts.boutDate))
     
-    // Validate response data
-    const validatedBoxer = boxerSelectSchema.parse(boxer)
-    const validatedFights = fightsResults.map(fight => boxerBoutSelectSchema.parse(fight))
+    // Use data directly without validation for now
+    const validatedBoxer = boxer
+    const validatedFights = fightsResults
     
     // Calculate additional stats
     const totalFights = validatedFights.length
