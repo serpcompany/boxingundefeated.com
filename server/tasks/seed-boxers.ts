@@ -1,23 +1,23 @@
 export default defineTask({
   meta: {
-    name: 'seed',
-    description: 'Seed the database with boxer data'
+    name: 'db:seed:boxers',
+    description: 'Seed the boxers and boxer bouts tables from JSON files'
   },
   async run() {
-    const { useDrizzle } = await import('../utils/drizzle')
-    const { boxers, boxerBoutsTable } = await import('../database/schema')
+    const { useDrizzle } = await import('../../utils/drizzle')
+    const { boxers, boxerBouts } = await import('../../database/schema')
     const { readdir, readFile } = await import('fs/promises')
     const { join } = await import('path')
     
-    console.log('🌱 Starting database seed...')
+    console.log('🥊 Starting boxers seed...')
     
     const db = useDrizzle()
     
     try {
-      // First clear existing data
-      await db.delete(boxerBoutsTable)
+      // Clear existing data
+      await db.delete(boxerBouts)
       await db.delete(boxers)
-      console.log('✅ Cleared existing data')
+      console.log('✅ Cleared existing boxer data')
       
       // Read all JSON files from the boxrec_json directory
       const boxrecJsonDir = join(process.cwd(), 'data', 'boxrec_json')
@@ -140,7 +140,7 @@ export default defineTask({
                   titleFight: fight.titleFight === 'true' || fight.titleFight === true,
                 }
                 
-                await db.insert(boxerBoutsTable).values(dbFight)
+                await db.insert(boxerBouts).values(dbFight)
                 importedFights++
               } catch (fightError) {
                 console.error(`Error importing fight for ${boxer.name}:`, fightError)
@@ -163,7 +163,7 @@ export default defineTask({
       }
       
       console.log(`
-✅ Seed completed!
+✅ Boxers seed completed!
 - Boxers imported: ${importedBoxers}
 - Fights imported: ${importedFights}
 - Skipped files: ${skippedBoxers}
@@ -180,11 +180,20 @@ export default defineTask({
         }
       }
       
-      return { success: true, importedBoxers, importedFights, errors: errors.length }
+      return { 
+        success: true, 
+        boxers: importedBoxers, 
+        fights: importedFights, 
+        skipped: skippedBoxers,
+        errors: errors.length 
+      }
       
     } catch (error) {
-      console.error('❌ Seed failed:', error)
-      return { success: false, error: error instanceof Error ? error.message : 'Unknown error' }
+      console.error('❌ Boxers seed failed:', error)
+      return { 
+        success: false, 
+        error: error instanceof Error ? error.message : 'Unknown error' 
+      }
     }
   }
 })

@@ -1,4 +1,4 @@
-import { boxers, boxerBoutsTable } from '~/server/database/schema'
+import { boxers, boxerBouts } from '~/server/database/schema'
 import { boxerSelectSchema, boxerBoutSelectSchema } from '~/server/database/validation'
 import { eq, desc } from 'drizzle-orm'
 import { transformBoxerForFrontend } from '~/server/utils/transformers'
@@ -34,9 +34,9 @@ export default defineEventHandler(async (event) => {
     // Get boxer's fights (ordered by date, most recent first)
     const fightsResults = await db
       .select()
-      .from(boxerBoutsTable)
-      .where(eq(boxerBoutsTable.boxerId, boxer.id))
-      .orderBy(desc(boxerBoutsTable.boutDate))
+      .from(boxerBouts)
+      .where(eq(boxerBouts.boxerId, boxer.id))
+      .orderBy(desc(boxerBouts.boutDate))
     
     // Validate response data
     const validatedBoxer = boxerSelectSchema.parse(boxer)

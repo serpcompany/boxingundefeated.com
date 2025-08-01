@@ -1,12 +1,12 @@
 import { createInsertSchema, createSelectSchema, createUpdateSchema } from 'drizzle-zod'
-import { boxerBoutsTable } from '../schema'
+import { boxerBouts } from '../schema'
 import { z } from 'zod'
 
 // Schema for selecting a boxer bout - validates API responses
-export const boxerBoutSelectSchema = createSelectSchema(boxerBoutsTable)
+export const boxerBoutSelectSchema = createSelectSchema(boxerBouts)
 
 // Schema for inserting a boxer bout - validates API requests
-export const boxerBoutInsertSchema = createInsertSchema(boxerBoutsTable, {
+export const boxerBoutInsertSchema = createInsertSchema(boxerBouts, {
   // Custom validations
   boxerId: z.string().min(1, 'Boxer ID is required'),
   boutDate: z.string().min(1, 'Bout date is required'), // ISO date string
@@ -26,7 +26,7 @@ export const boxerBoutInsertSchema = createInsertSchema(boxerBoutsTable, {
 })
 
 // Schema for updating a boxer bout - validates API requests (all fields optional except id)
-export const boxerBoutUpdateSchema = createUpdateSchema(boxerBoutsTable, {
+export const boxerBoutUpdateSchema = createUpdateSchema(boxerBouts, {
   // Custom validations for updates
   boutDate: z.string().min(1, 'Bout date is required').optional(),
   opponentName: z.string().min(1, 'Opponent name is required').optional(),

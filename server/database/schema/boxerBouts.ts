@@ -12,7 +12,7 @@ import { sqliteTable, text, integer, index } from 'drizzle-orm/sqlite-core'
 import { sql } from 'drizzle-orm'
 import { boxers } from './boxers'
 
-export const boxerBoutsTable = sqliteTable('boxerBouts', {
+export const boxerBouts = sqliteTable('boxerBouts', {
   id: integer().primaryKey({ autoIncrement: true }),
   boxerId: text().notNull().references(() => boxers.id, { onDelete: 'cascade' }),
   boxrecId: text(),

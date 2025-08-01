@@ -1,18 +1,20 @@
 <script setup lang="ts">
-// import { mockDivisions } from '~/data/boxing-data'
-
 const { site } = useAppConfig()
 
+// Fetch divisions from API
+const { data, pending, error } = await useFetch('/api/divisions')
+
+const divisions = computed(() => {
+  if (!data.value?.divisions) return []
+  return data.value.divisions
+})
+
 const title = 'Professional Boxing Weight Classes'
-const description = `Explore all ${mockDivisions.length} professional boxing weight divisions from minimumweight to heavyweight. Learn about weight limits and division history.`
+const description = `Explore all ${divisions.value.length} professional boxing weight divisions from minimumweight to heavyweight. Learn about weight limits and division history.`
 
 useSeoMeta({
   title,
   description,
-})
-
-const divisions = computed(() => {
-  return [...mockDivisions].sort((a, b) => a.weightLimitPounds - b.weightLimitPounds)
 })
 
 function formatWeightLimit(division: any) {
@@ -37,7 +39,7 @@ function formatWeightLimit(division: any) {
     
     <!-- Header -->
     <PageHero 
-      title="Boxing Weight Divisions"
+      title="Weight Divisions"
     />
 
     <!-- Main Content -->

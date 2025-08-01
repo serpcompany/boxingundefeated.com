@@ -66,7 +66,7 @@ export function transformBoxerForFrontend(dbBoxer: BoxerSelect) {
     // Add placeholder for missing complex fields
     bioSections: null,
     bouts: [], // Legacy format
-    fights: [], // Will be populated separately from boxerBoutsTable
+    fights: [], // Will be populated separately from boxerBouts
   }
 }
 
