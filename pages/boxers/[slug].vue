@@ -1,25 +1,18 @@
 <script setup lang="ts">
 import type { Boxer } from '~/types'
 import { mockDivisions } from '~/data/boxing-data'
-import { findBoxerBySlug } from '~/utils/loadBoxerData'
 
 const route = useRoute()
 const slug = route.params.slug as string
 
-// Use useAsyncData for proper SSR and hydration
-const { data: boxer, pending, error } = await useAsyncData(
+// Use useAsyncData for proper SSR and hydration with API
+const { data: boxerResponse, pending, error } = await useAsyncData(
   `boxer-${slug}`,
-  () => {
-    const boxerData = findBoxerBySlug(slug)
-    if (!boxerData) {
-      throw createError({
-        statusCode: 404,
-        statusMessage: `Boxer with slug "${slug}" not found`
-      })
-    }
-    return boxerData
-  }
+  () => $fetch(`/api/boxers/${slug}`)
 )
+
+// Extract boxer from API response
+const boxer = computed(() => boxerResponse.value?.boxer)
 
 const divisionSlug = computed(() => {
   if (!boxer.value) return ''
@@ -96,35 +89,10 @@ useHead({
 })
 
 
-// Use fights from boxer data or legacy bouts
+// Use fights from API response
 const fights = computed(() => {
-  if (!boxer.value) return []
-  
-  // Check if new format fights exist
-  if (boxer.value.fights && boxer.value.fights.length > 0) {
-    return boxer.value.fights.map((fight, index) => ({
-      id: index + 1,
-      ...fight
-    }))
-  }
-  
-  // Fall back to legacy bouts format
-  if (boxer.value.bouts && boxer.value.bouts.length > 0) {
-    return boxer.value.bouts.map((bout, index) => ({
-      id: index + 1,
-      bout_date: bout.date,
-      opponent_name: bout.opponent,
-      opponent_record: bout.opponent_record,
-      result: bout.result.toLowerCase(),
-      result_method: bout.method?.toLowerCase() || 'decision',
-      result_round: bout.rounds,
-      venue_name: bout.venue,
-      title_fight: false,
-      num_rounds_scheduled: 10 // Default
-    }))
-  }
-  
-  return []
+  if (!boxerResponse.value?.fights) return []
+  return boxerResponse.value.fights
 })
 </script>
 

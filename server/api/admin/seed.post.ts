@@ -1,20 +1,15 @@
-import { drizzle } from 'drizzle-orm/better-sqlite3'
-import { boxers, boxerBoutsTable } from './schema'
-import { readdir, readFile } from 'fs/promises'
-import { join } from 'path'
-import Database from 'better-sqlite3'
-
-async function seed() {
-  console.log('🌱 Starting database seed...')
-  
-  // For local development, use the SQLite file directly
-  const dbPath = './7b8799eb95f0bb5448e259812996a461ce40142dacbdea254ea597e307767f45.sqlite'
-  const sqlite = new Database(dbPath)
-  const db = drizzle(sqlite, { casing: 'camelCase' })
-  
-  console.log(`📁 Using database: ${dbPath}`)
-  
+export default defineEventHandler(async (event) => {
   try {
+    // Import the seed task logic
+    const { useDrizzle } = await import('../../utils/drizzle')
+    const { boxers, boxerBoutsTable } = await import('../../database/schema')
+    const { readdir, readFile } = await import('fs/promises')
+    const { join } = await import('path')
+    
+    console.log('🌱 Starting database seed...')
+    
+    const db = useDrizzle()
+    
     // First clear existing data
     await db.delete(boxerBoutsTable)
     await db.delete(boxers)
@@ -33,8 +28,8 @@ async function seed() {
     const errors: Array<{ file: string; error: string }> = []
     const usedSlugs = new Map<string, number>()
     
-    // Process each file
-    for (const file of jsonFiles) {
+    // Process each file (limit to first 10 for testing)
+    for (const file of jsonFiles.slice(0, 10)) {
       try {
         const filePath = join(boxrecJsonDir, file)
         const fileContent = await readFile(filePath, 'utf-8')
@@ -112,9 +107,9 @@ async function seed() {
         await db.insert(boxers).values(dbBoxer)
         importedBoxers++
         
-        // Import fights if available
+        // Import fights if available (limit to first 5 per boxer for testing)
         if (boxer.bouts && Array.isArray(boxer.bouts)) {
-          for (const fight of boxer.bouts) {
+          for (const fight of boxer.bouts.slice(0, 5)) {
             try {
               const dbFight = {
                 boxerId: boxer.boxrecId,
@@ -149,11 +144,6 @@ async function seed() {
           }
         }
         
-        // Show progress every 50 boxers
-        if (importedBoxers % 50 === 0) {
-          console.log(`Progress: ${importedBoxers} boxers imported...`)
-        }
-        
       } catch (boxerError) {
         console.error(`Error importing boxer from ${file}:`, boxerError)
         errors.push({
@@ -163,39 +153,25 @@ async function seed() {
       }
     }
     
-    console.log(`
-✅ Seed completed!
-- Boxers imported: ${importedBoxers}
-- Fights imported: ${importedFights}
-- Skipped files: ${skippedBoxers}
-- Errors: ${errors.length}
-`)
-    
-    if (errors.length > 0) {
-      console.log('\n❌ Errors encountered:')
-      errors.slice(0, 5).forEach(err => {
-        console.log(`  - ${err.file}: ${err.error}`)
-      })
-      if (errors.length > 5) {
-        console.log(`  ... and ${errors.length - 5} more errors`)
-      }
+    const result = {
+      success: true,
+      importedBoxers,
+      importedFights,
+      skippedBoxers,
+      errors: errors.length,
+      message: `Seed completed! Imported ${importedBoxers} boxers and ${importedFights} fights`
     }
+    
+    console.log(`✅ ${result.message}`)
+    
+    return result
     
   } catch (error) {
     console.error('❌ Seed failed:', error)
-    process.exit(1)
-  } finally {
-    sqlite.close()
+    throw createError({
+      statusCode: 500,
+      statusMessage: 'Seed operation failed',
+      data: error instanceof Error ? error.message : 'Unknown error'
+    })
   }
-}
-
-// Run the seed function
-seed()
-  .then(() => {
-    console.log('🎉 Database seeded successfully!')
-    process.exit(0)
-  })
-  .catch((err) => {
-    console.error('💥 Unexpected error:', err)
-    process.exit(1)
-  })
+})

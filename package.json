@@ -36,6 +36,8 @@
     "@vitest/ui": "^3.1.4",
     "better-sqlite3": "^12.2.0",
     "drizzle-kit": "^0.31.4",
+    "drizzle-orm": "^0.44.4",
+    "drizzle-zod": "^0.8.2",
     "eslint": "^9.28.0",
     "eslint-plugin-format": "^1.0.1",
     "eslint-plugin-jsdoc": "^50.6.17",
@@ -52,8 +54,6 @@
     "@nuxt/ui": "^2.22.0",
     "@pinia/nuxt": "^0.5.1",
     "@vueuse/nuxt": "^10.5.0",
-    "drizzle-orm": "^0.44.4",
-    "drizzle-zod": "^0.8.2",
     "pinia": "^2.1.7",
     "zod": "^3.25.76"
   },

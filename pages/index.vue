@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { loadBoxers } from '~/utils/loadBoxerData'
-
 const { site } = useAppConfig()
+
+// Fetch boxers data from API using useFetch for proper SSR
+const { data: boxersData } = await useFetch('/api/boxers')
 
 useSeoMeta({
   title: site.tagline,
@@ -65,7 +66,7 @@ useSeoMeta({
           </p>
         </div>
         
-        <BoxersTable :boxers="loadBoxers()" />
+        <BoxersTable :boxers="boxersData?.boxers || []" />
       </div>
     </section>
   </div>

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { Division, Boxer } from '~/types'
-import { mockDivisions } from '~/data/boxing-data'
-import { findBoxersByDivision } from '~/utils/loadBoxerData'
+// import { mockDivisions } from '~/data/boxing-data'
+// import { findBoxersByDivision } from '~/utils/loadBoxerData'
 
 const route = useRoute()
 const slug = route.params.slug as string

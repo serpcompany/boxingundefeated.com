@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import { loadBoxers } from '~/utils/loadBoxerData'
-
 const { site } = useAppConfig()
 
+// Fetch boxers data from API using useFetch for proper SSR
+const { data: boxersData } = await useFetch('/api/boxers')
+const boxers = boxersData.value?.boxers || []
+
 const title = 'Professional Boxers'
-const boxers = loadBoxers()
 const description = `Browse profiles of ${boxers.length} professional boxers from around the world. Filter by weight division and search for your favorite fighters.`
 
 useSeoMeta({

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { mockDivisions } from '~/data/boxing-data'
+// import { mockDivisions } from '~/data/boxing-data'
 
 const { site } = useAppConfig()
 

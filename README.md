@@ -16,13 +16,17 @@ Repurpose this theme to accomodate 'boxing' instead of 'mcp servers' so we can r
 - /legal/dmca/
 
 
-## Data needed
+## Development Database (NuxtHub D1 Local)
 
-- [Data fields](https://docs.google.com/spreadsheets/d/1g6x1PUqBg4_f-Ljn1IF9YqeGJ2m-k3ehhfgu_tWE9oo/edit?gid=0#gid=0)
+### READ THIS DOCUMENTATION:
 
-## Database Commands
-
-### Development Database (NuxtHub D1 Local)
+- https://developers.cloudflare.com/d1/best-practices/local-development/
+- https://developers.cloudflare.com/pages/framework-guides/deploy-a-nuxt-site/
+- https://orm.drizzle.team/docs/drizzle-config-file
+- https://orm.drizzle.team/docs/connect-overview
+- https://hub.nuxt.com/docs/features/database
+- https://hub.nuxt.com/docs/recipes/drizzle
+- https://hub.nuxt.com/docs/recipes/cloudflare-access
 
 NuxtHub creates and manages its own local D1 database in `.data/hub/d1/`. This is the database your app uses during development.
 
