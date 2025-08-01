@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "79b808f8-cc36-4b84-b5e1-ea14f1ec5a24",
+  "id": "23569cf5-d0c6-4e4f-8ee9-41dda846d35e",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "boxers": {

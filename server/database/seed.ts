@@ -1,27 +1,41 @@
-import { boxers, boxerBoutsTable } from '~/server/database/schema'
+import { drizzle } from 'drizzle-orm/better-sqlite3'
+import { eq } from 'drizzle-orm'
+import { boxers, boxerBoutsTable } from './schema'
 import { readdir, readFile } from 'fs/promises'
 import { join } from 'path'
+import { readdirSync } from 'fs'
+import Database from 'better-sqlite3'
 
-export default defineEventHandler(async (event) => {
+async function seed() {
+  console.log('🌱 Starting database seed...')
+  
+  // Use the database path from drizzle.config.ts
+  const dbPath = './7b8799eb95f0bb5448e259812996a461ce40142dacbdea254ea597e307767f45.sqlite'
+  
+  console.log(`📁 Using database: ${dbPath}`)
+  
+  // Connect to the local database
+  const sqlite = new Database(dbPath)
+  const db = drizzle(sqlite)
+  
   try {
-    const db = useDrizzle()
-    
     // First clear existing data
     await db.delete(boxerBoutsTable)
     await db.delete(boxers)
-    console.log('Cleared existing data')
+    console.log('✅ Cleared existing data')
     
     // Read all JSON files from the boxrec_json directory
     const boxrecJsonDir = join(process.cwd(), 'data', 'boxrec_json')
     const files = await readdir(boxrecJsonDir)
     const jsonFiles = files.filter(f => f.endsWith('.json'))
     
-    console.log(`Found ${jsonFiles.length} boxer JSON files to import...`)
+    console.log(`📁 Found ${jsonFiles.length} boxer JSON files to import...`)
     
     let importedBoxers = 0
     let importedFights = 0
     let skippedBoxers = 0
-    let errors = []
+    const errors: Array<{ file: string; error: string }> = []
+    const usedSlugs = new Map<string, number>()
     
     // Process each file
     for (const file of jsonFiles) {
@@ -37,11 +51,18 @@ export default defineEventHandler(async (event) => {
         }
         
         // Convert numeric strings to numbers and handle empty strings
-        const parseIntOrNull = (val: string | number) => {
+        const parseIntOrNull = (val: string | number | null | undefined): number | null => {
           if (val === '' || val === null || val === undefined) return null
           const parsed = parseInt(val.toString())
           return isNaN(parsed) ? null : parsed
         }
+        
+        // Handle duplicate slugs by appending boxrec ID
+        let slug = boxer.slug
+        if (usedSlugs.has(slug)) {
+          slug = `${slug}-${boxer.boxrecId}`
+        }
+        usedSlugs.set(slug, 1)
         
         // Map JSON fields to database fields
         const dbBoxer = {
@@ -49,7 +70,7 @@ export default defineEventHandler(async (event) => {
           boxrecId: boxer.boxrecId,
           boxrecUrl: boxer.boxrecUrl || null,
           boxrecWikiUrl: boxer.boxrecWikiUrl || null,
-          slug: boxer.slug || boxer.name.toLowerCase().replace(/\s+/g, '-'),
+          slug: slug,
           name: boxer.name,
           birthName: boxer.birthName || null,
           nicknames: boxer.nicknames || null,
@@ -101,7 +122,7 @@ export default defineEventHandler(async (event) => {
             try {
               const dbFight = {
                 boxerId: boxer.boxrecId,
-                boxrecId: null, // Not in current JSON format
+                boxrecId: fight.boxrecId || null,
                 boutDate: fight.boutDate || '',
                 opponentName: fight.opponentName || '',
                 opponentWeight: fight.opponentWeight || null,
@@ -132,33 +153,53 @@ export default defineEventHandler(async (event) => {
           }
         }
         
+        // Show progress every 50 boxers
+        if (importedBoxers % 50 === 0) {
+          console.log(`Progress: ${importedBoxers} boxers imported...`)
+        }
+        
       } catch (boxerError) {
         console.error(`Error importing boxer from ${file}:`, boxerError)
         errors.push({
           file,
-          error: boxerError.message
+          error: boxerError instanceof Error ? boxerError.message : 'Unknown error'
         })
       }
     }
     
-    return {
-      success: true,
-      imported: {
-        boxers: importedBoxers,
-        fights: importedFights
-      },
-      total: jsonFiles.length,
-      skipped: skippedBoxers,
-      errors: errors.length > 0 ? errors : undefined,
-      message: `Successfully imported ${importedBoxers} boxers and ${importedFights} fights from ${jsonFiles.length} files (skipped ${skippedBoxers} invalid entries)`
+    console.log(`
+✅ Seed completed!
+- Boxers imported: ${importedBoxers}
+- Fights imported: ${importedFights}
+- Skipped files: ${skippedBoxers}
+- Errors: ${errors.length}
+`)
+    
+    if (errors.length > 0) {
+      console.log('\n❌ Errors encountered:')
+      errors.slice(0, 5).forEach(err => {
+        console.log(`  - ${err.file}: ${err.error}`)
+      })
+      if (errors.length > 5) {
+        console.log(`  ... and ${errors.length - 5} more errors`)
+      }
     }
     
   } catch (error) {
-    console.error('Error seeding database:', error)
-    throw createError({
-      statusCode: 500,
-      statusMessage: 'Failed to seed database',
-      data: error instanceof Error ? error.message : 'Unknown error'
-    })
+    console.error('❌ Seed failed:', error)
+    process.exit(1)
+  } finally {
+    sqlite.close()
   }
-})
+}
+
+// Run the seed function
+seed()
+  .then(() => {
+    console.log('🎉 Database seeded successfully!')
+    process.exit(0)
+  })
+  .catch((err) => {
+    console.error('💥 Unexpected error:', err)
+    process.exit(1)
+  })
