@@ -11,6 +11,10 @@ interface Props {
 
 const props = defineProps<Props>()
 
+// Generate opponent boxer link
+function getOpponentLink(opponentName: string): string {
+  return `/boxers/${opponentName.toLowerCase().replace(/\s+/g, '-')}`
+}
 
 // Format date consistently
 function formatDate(date: string | null | undefined): string {
@@ -109,20 +113,20 @@ const columns = allColumns
         </template>
         
         <template #bout_date-data="{ row }">
-          <time :datetime="row.bout_date" class="text-zinc-900 dark:text-white">
-            {{ formatDate(row.bout_date) }}
+          <time :datetime="row.boutDate" class="text-zinc-900 dark:text-white">
+            {{ formatDate(row.boutDate) }}
           </time>
         </template>
         
         <template #opponent_name-data="{ row }">
           <div class="space-y-1">
             <NuxtLink 
-              :to="`/boxers/${row.opponent_name.toLowerCase().replace(/\s+/g, '-')}`"
+              :to="getOpponentLink(row.opponentName)"
               class="font-medium text-zinc-900 dark:text-white hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
             >
-              {{ row.opponent_name }}
+              {{ row.opponentName }}
             </NuxtLink>
-            <div class="text-gray-500 dark:text-gray-400 text-sm">{{ row.opponent_record }}</div>
+            <div class="text-gray-500 dark:text-gray-400 text-sm">{{ row.opponentRecord }}</div>
           </div>
         </template>
         
@@ -136,22 +140,22 @@ const columns = allColumns
               {{ row.result === 'win' ? 'Win' : row.result === 'loss' ? 'Loss' : row.result === 'draw' ? 'Draw' : 'NC' }}
             </UBadge>
             <div class="text-xs text-zinc-600 dark:text-zinc-400">
-              {{ row.result_method === 'ko' || row.result_method === 'tko' ? row.result_method.toUpperCase() : row.result_method }}
+              {{ row.resultMethod === 'ko' || row.resultMethod === 'tko' ? row.resultMethod.toUpperCase() : row.resultMethod }}
             </div>
           </div>
         </template>
         
         <template #result_round-data="{ row }">
-          <span class="text-zinc-700 dark:text-zinc-300">{{ row.result_round }}</span>
+          <span class="text-zinc-700 dark:text-zinc-300">{{ row.resultRound }}</span>
         </template>
         
         <template #venue_name-data="{ row }">
-          <span class="text-gray-500 dark:text-gray-400 text-sm">{{ row.venue_name }}</span>
+          <span class="text-gray-500 dark:text-gray-400 text-sm">{{ row.venueName || 'N/A' }}</span>
         </template>
         
         <template #title_fight-data="{ row }">
           <UBadge 
-            v-if="row.title_fight"
+            v-if="row.titleFight"
             color="amber"
             variant="subtle"
             size="xs"

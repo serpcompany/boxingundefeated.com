@@ -12,15 +12,16 @@ import { sqliteTable, text, integer, index } from 'drizzle-orm/sqlite-core'
 import { sql } from 'drizzle-orm'
 import { boxers } from './boxers'
 
-export const boxerBoutsTable = sqliteTable('boxer_bouts', {
+export const boxerBouts = sqliteTable('boxerBouts', {
   id: integer().primaryKey({ autoIncrement: true }),
   boxerId: text().notNull().references(() => boxers.id, { onDelete: 'cascade' }),
+  boxrecId: text(),
   
   boutDate: text().notNull(),
   opponentName: text().notNull(),
   opponentWeight: text(),
   opponentRecord: text(),
-  venueName: text(),
+  eventName: text(),
   refereeName: text(),
   
   judge1Name: text(),
@@ -43,6 +44,6 @@ export const boxerBoutsTable = sqliteTable('boxer_bouts', {
   
   createdAt: text().notNull().default(sql`CURRENT_TIMESTAMP`),
 }, (table) => ({
-  boxerIdIdx: index('boxer_bouts_boxer_id_idx').on(table.boxerId),
-  boutDateIdx: index('boxer_bouts_date_idx').on(table.boutDate),
+  boxerIdIdx: index('boxerBoutsBoxerIdIdx').on(table.boxerId),
+  boutDateIdx: index('boxerBoutsDateIdx').on(table.boutDate),
 }))

@@ -49,3 +49,5 @@ node_modules
 
 .data
 .wrangler
+docs/
+data/boxrec_json/

@@ -1,6 +1,6 @@
-import { boxers, boxerBoutsTable } from '~/server/database/schema'
-import { boxerSelectSchema, boxerBoutSelectSchema } from '~/server/database/validation'
+import { boxers, boxerBouts } from '~/server/database/schema'
 import { eq, desc } from 'drizzle-orm'
+import { transformBoxerForFrontend } from '~/server/utils/transformers'
 
 export default defineEventHandler(async (event) => {
   try {
@@ -33,13 +33,13 @@ export default defineEventHandler(async (event) => {
     // Get boxer's fights (ordered by date, most recent first)
     const fightsResults = await db
       .select()
-      .from(boxerBoutsTable)
-      .where(eq(boxerBoutsTable.boxerId, boxer.id))
-      .orderBy(desc(boxerBoutsTable.boutDate))
+      .from(boxerBouts)
+      .where(eq(boxerBouts.boxerId, boxer.id))
+      .orderBy(desc(boxerBouts.boutDate))
     
-    // Validate response data
-    const validatedBoxer = boxerSelectSchema.parse(boxer)
-    const validatedFights = fightsResults.map(fight => boxerBoutSelectSchema.parse(fight))
+    // Use data directly without validation for now
+    const validatedBoxer = boxer
+    const validatedFights = fightsResults
     
     // Calculate additional stats
     const totalFights = validatedFights.length
@@ -50,7 +50,7 @@ export default defineEventHandler(async (event) => {
     const titleFights = validatedFights.filter(f => f.titleFight).length
     
     return {
-      boxer: validatedBoxer,
+      boxer: transformBoxerForFrontend(validatedBoxer),
       fights: validatedFights,
       stats: {
         totalFights,

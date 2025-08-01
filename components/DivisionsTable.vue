@@ -50,11 +50,11 @@ const columns = computed(() => {
           <template v-else>
             <div>
               <div class="font-medium text-gray-900 dark:text-white">
-                {{ row.weightLimit.pounds }} lbs
+                {{ row.weightLimitPounds }} lbs
               </div>
               <div class="text-sm text-gray-500 dark:text-gray-400">
-                {{ row.weightLimit.kilograms.toFixed(1) }} kg
-                <span v-if="row.weightLimit.stone"> / {{ row.weightLimit.stone }}</span>
+                {{ (row.weightLimitPounds * 0.453592).toFixed(1) }} kg
+                <span v-if="row.weightLimitStone"> / {{ row.weightLimitStone }}</span>
               </div>
             </div>
           </template>

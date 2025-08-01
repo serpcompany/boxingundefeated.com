@@ -1,5 +1,4 @@
-// Re-export all types from individual files
+export * from './boxerBouts'
 export * from './boxers'
 export * from './divisions'
-export * from './boxerBouts'
 export * from './filters'

@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import { loadBoxers } from '~/utils/loadBoxerData'
-
 const { site } = useAppConfig()
 
+// Fetch boxers data from API using useFetch for proper SSR
+const { data: boxersData } = await useFetch('/api/boxers')
+const boxers = boxersData.value?.boxers || []
+
 const title = 'Professional Boxers'
-const boxers = loadBoxers()
 const description = `Browse profiles of ${boxers.length} professional boxers from around the world. Filter by weight division and search for your favorite fighters.`
 
 useSeoMeta({
@@ -38,7 +39,7 @@ useHead({
         },
         mainEntity: {
           '@type': 'ItemList',
-          name: 'Professional Boxers',
+          name: 'All Boxers',
           description: `Directory of ${boxers.length} professional boxers`,
           numberOfItems: boxers.length,
         },
@@ -61,19 +62,17 @@ useHead({
       </div>
     </div>
 
+    <!-- Hero -->
+    <PageHero 
+      title="Boxers"
+      :description="`Browse profiles of ${boxers.length} professional boxers from around the world.`"
+    />
+
     <!-- All Boxers Table -->
     <section class="py-16 sm:py-24">
       <div class="max-w-6xl mx-auto px-6 lg:px-8">
-        <div class="text-center mb-12">
-          <h2 class="text-3xl font-bold text-zinc-900 dark:text-white mb-4">
-            All Fighters
-          </h2>
-          <p class="text-lg text-zinc-600 dark:text-zinc-400">
-            Browse our complete database of professional boxers
-          </p>
-        </div>
         
-        <BoxersTable :boxers="boxers" />
+        <BoxersTable :boxers="boxers" :show-division="true" />
       </div>
     </section>
   </div>

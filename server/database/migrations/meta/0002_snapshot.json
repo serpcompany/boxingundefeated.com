@@ -1,8 +1,8 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "237cd48f-ba92-45fc-97af-5add79e8cbad",
-  "prevId": "00000000-0000-0000-0000-000000000000",
+  "id": "16468a9c-c8f0-4eb0-a2b8-9b83b8db9257",
+  "prevId": "4efb7dfa-6e6a-4b0f-a78d-8d107083e43a",
   "tables": {
     "boxers": {
       "name": "boxers",
@@ -226,17 +226,15 @@
           "name": "proTotalBouts",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false,
-          "default": 0
+          "notNull": false,
+          "autoincrement": false
         },
         "proTotalRounds": {
           "name": "proTotalRounds",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false,
-          "default": 0
+          "notNull": false,
+          "autoincrement": false
         },
         "amateurDebutDate": {
           "name": "amateurDebutDate",
@@ -256,41 +254,36 @@
           "name": "amateurWins",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false,
-          "default": 0
+          "notNull": false,
+          "autoincrement": false
         },
         "amateurWinsByKnockout": {
           "name": "amateurWinsByKnockout",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false,
-          "default": 0
+          "notNull": false,
+          "autoincrement": false
         },
         "amateurLosses": {
           "name": "amateurLosses",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false,
-          "default": 0
+          "notNull": false,
+          "autoincrement": false
         },
         "amateurLossesByKnockout": {
           "name": "amateurLossesByKnockout",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false,
-          "default": 0
+          "notNull": false,
+          "autoincrement": false
         },
         "amateurDraws": {
           "name": "amateurDraws",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false,
-          "default": 0
+          "notNull": false,
+          "autoincrement": false
         },
         "amateurStatus": {
           "name": "amateurStatus",
@@ -303,17 +296,15 @@
           "name": "amateurTotalBouts",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false,
-          "default": 0
+          "notNull": false,
+          "autoincrement": false
         },
         "amateurTotalRounds": {
           "name": "amateurTotalRounds",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false,
-          "default": 0
+          "notNull": false,
+          "autoincrement": false
         },
         "createdAt": {
           "name": "createdAt",
@@ -337,6 +328,13 @@
           "name": "boxers_boxrecId_unique",
           "columns": [
             "boxrecId"
+          ],
+          "isUnique": true
+        },
+        "boxers_boxrecUrl_unique": {
+          "name": "boxers_boxrecUrl_unique",
+          "columns": [
+            "boxrecUrl"
           ],
           "isUnique": true
         },
@@ -621,6 +619,13 @@
           "notNull": true,
           "autoincrement": false
         },
+        "shortName": {
+          "name": "shortName",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
         "alternativeNames": {
           "name": "alternativeNames",
           "type": "text",
@@ -678,6 +683,13 @@
           "name": "divisionsSlugIdx",
           "columns": [
             "slug"
+          ],
+          "isUnique": false
+        },
+        "divisionsShortNameIdx": {
+          "name": "divisionsShortNameIdx",
+          "columns": [
+            "shortName"
           ],
           "isUnique": false
         }

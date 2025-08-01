@@ -1,20 +1,31 @@
 <script setup lang="ts">
 import type { Division, Boxer } from '~/types'
-import { mockDivisions } from '~/data/boxing-data'
-import { findBoxersByDivision } from '~/utils/loadBoxerData'
 
 const route = useRoute()
 const slug = route.params.slug as string
 
-const division = computed(() => mockDivisions.find(d => d.slug === slug))
-const boxersInDivision = computed(() => findBoxersByDivision(slug))
+// Fetch division data
+const { data: divisionData, error: divisionError } = await useFetch(`/api/divisions/${slug}`)
 
-if (!division.value) {
+if (divisionError.value || !divisionData.value) {
   throw createError({
     statusCode: 404,
     statusMessage: 'Division not found',
   })
 }
+
+const division = computed(() => divisionData.value!.division)
+const weightLimits = computed(() => divisionData.value!.weightLimits)
+
+// Fetch boxers in this division using the short name
+const { data: boxersData } = await useFetch('/api/boxers', {
+  query: {
+    division: division.value.shortName || slug,
+    limit: 100, // Get all boxers in division
+  }
+})
+
+const boxersInDivision = computed(() => boxersData.value?.boxers || [])
 
 const { site } = useAppConfig()
 
@@ -27,11 +38,11 @@ const activeBoxers = computed(() => boxersInDivision.value.filter(b => b.active)
 const retiredBoxers = computed(() => boxersInDivision.value.filter(b => !b.active))
 const champions = computed(() => boxersInDivision.value.filter(b => b.titles && b.titles.length > 0))
 
-function formatWeightLimit(division: Division) {
-  if (division.slug === 'heavyweight') {
+function formatWeightLimit() {
+  if (slug === 'heavyweight') {
     return 'No limit'
   }
-  return `${division.weightLimit.pounds} lbs / ${division.weightLimit.kilograms.toFixed(1)} kg`
+  return `${weightLimits.value.pounds} lbs / ${weightLimits.value.kilograms} kg`
 }
 </script>
 
@@ -56,9 +67,9 @@ function formatWeightLimit(division: Division) {
       <template #after>
         <div class="mt-4 space-y-2">
           <p class="text-lg text-zinc-600 dark:text-zinc-400">
-            Weight Limit: {{ formatWeightLimit(division) }}
-            <span v-if="division.weightLimit.stone" class="text-base">
-              ({{ division.weightLimit.stone }})
+            Weight Limit: {{ formatWeightLimit() }}
+            <span v-if="weightLimits.stone" class="text-base">
+              ({{ weightLimits.stone }})
             </span>
           </p>
           <p v-if="division.alternativeNames && division.alternativeNames.length > 0" class="text-zinc-500 dark:text-zinc-500">
@@ -80,10 +91,6 @@ function formatWeightLimit(division: Division) {
 
       <!-- All Fighters -->
       <div>
-        <h2 class="text-2xl font-bold text-zinc-900 dark:text-white mb-6">
-          {{ division.name }} Fighters
-        </h2>
-        
         <div v-if="boxersInDivision.length === 0" class="text-center py-12">
           <UIcon name="i-heroicons-users" class="w-12 h-12 text-zinc-400 mx-auto mb-4" />
           <p class="text-zinc-600 dark:text-zinc-400">

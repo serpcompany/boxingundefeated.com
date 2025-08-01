@@ -5,9 +5,10 @@
  */
 export interface BoxerBout {
   id?: number
-  boxerId: string
+  boxerId: string         // your boxer’s own BoxRec ID
   
   boutDate: string
+  opponentBoxrecId: string  // raw BoxRec ID for the opponent
   opponentName: string
   opponentWeight?: string | null
   opponentRecord?: string | null

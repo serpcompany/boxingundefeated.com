@@ -10,11 +10,38 @@ const props = withDefaults(defineProps<Props>(), {
   link: true
 })
 
+// Map shortened division names to full names and slugs
+const divisionMapping: Record<string, { name: string; slug: string }> = {
+  // Short forms from database
+  'super feather': { name: 'Super Featherweight', slug: 'super-featherweight' },
+  'super light': { name: 'Super Lightweight', slug: 'super-lightweight' },
+  'super welter': { name: 'Super Welterweight', slug: 'super-welterweight' },
+  'super middle': { name: 'Super Middleweight', slug: 'super-middleweight' },
+  'super bantam': { name: 'Super Bantamweight', slug: 'super-bantamweight' },
+  'super fly': { name: 'Super Flyweight', slug: 'super-flyweight' },
+  'light heavy': { name: 'Light Heavyweight', slug: 'light-heavyweight' },
+  'light fly': { name: 'Light Flyweight', slug: 'light-flyweight' },
+  'cruiser': { name: 'Cruiserweight', slug: 'cruiserweight' },
+  'heavy': { name: 'Heavyweight', slug: 'heavyweight' },
+  'middle': { name: 'Middleweight', slug: 'middleweight' },
+  'welter': { name: 'Welterweight', slug: 'welterweight' },
+  'light': { name: 'Lightweight', slug: 'lightweight' },
+  'feather': { name: 'Featherweight', slug: 'featherweight' },
+  'bantam': { name: 'Bantamweight', slug: 'bantamweight' },
+  'fly': { name: 'Flyweight', slug: 'flyweight' },
+  'minimum': { name: 'Minimumweight', slug: 'minimumweight' },
+}
+
+const divisionInfo = computed(() => {
+  const normalized = props.division.toLowerCase().trim()
+  return divisionMapping[normalized] || { 
+    name: props.division, 
+    slug: props.division.toLowerCase().replace(/\s+/g, '-') 
+  }
+})
+
 // Weight class color mapping - gradient from green (light) to red (heavy)
-function getDivisionColor(division: string): string {
-  // Normalize division name to lowercase with hyphens
-  const normalized = division.toLowerCase().replace(/\s+/g, '-')
-  
+function getDivisionColor(slug: string): string {
   const colorMap: Record<string, string> = {
     // Heaviest - Red spectrum
     'heavyweight': 'red',
@@ -39,14 +66,14 @@ function getDivisionColor(division: string): string {
     'minimumweight': 'green'
   }
   
-  return colorMap[normalized] || 'gray'
+  return colorMap[slug] || 'gray'
 }
 
 const divisionUrl = computed(() => {
-  return `/divisions/${props.division.toLowerCase().replace(/\s+/g, '-')}`
+  return `/divisions/${divisionInfo.value.slug}`
 })
 
-const color = computed(() => getDivisionColor(props.division))
+const color = computed(() => getDivisionColor(divisionInfo.value.slug))
 
 // Get border class based on color
 const borderClass = computed(() => {
@@ -76,7 +103,7 @@ const borderClass = computed(() => {
       :size="size"
       :class="[borderClass, 'hover:opacity-80 transition-opacity font-medium']"
     >
-      {{ division }}
+      {{ divisionInfo.name }}
     </UBadge>
   </NuxtLink>
   

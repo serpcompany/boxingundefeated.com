@@ -153,4 +153,11 @@ export default defineNuxtConfig({
     kv: true,       // Enable KV storage
   },
 
+  // Enable experimental tasks for database seeding
+  nitro: {
+    experimental: {
+      tasks: true
+    }
+  },
+
 })
