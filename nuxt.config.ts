@@ -8,65 +8,40 @@ export default defineNuxtConfig({
     url: 'https://boxingundefeated.com',
   },
 
-  // Sitemap configuration
+  // Real XML Sitemap configuration using @nuxt-modules/sitemap
   sitemap: {
-    // Chunk size for automatic sitemap splitting (25,000 URLs max as requested)
     defaultSitemapsChunkSize: 25000,
-    
-    // Multi-sitemap configuration
     sitemaps: {
-      // Core pages sitemap
       pages: {
-        urls: ['/', '/about', '/boxers', '/divisions'],
+        sources: [
+          '/',
+          '/about',
+          '/boxers',
+          '/divisions',
+        ],
         defaults: {
           changefreq: 'weekly',
           priority: 0.8,
         },
       },
-      // Boxers sitemap with sample pages
       boxers: {
-        urls: [
-          '/boxers/floyd-mayweather-jr',
-          '/boxers/manny-pacquiao', 
-          '/boxers/canelo-alvarez',
-          '/boxers/tyson-fury',
-          '/boxers/anthony-joshua',
-        ],
-        defaults: {
-          changefreq: 'monthly',
-          priority: 0.7,
-        },
+        sources: ['/api/sitemap/boxers'], // Dynamic endpoint for all boxer URLs
+        chunks: true, // Enable automatic chunking (uses defaultSitemapsChunkSize)
+        
       },
-      // Divisions sitemap
       divisions: {
-        urls: [
-          '/divisions/heavyweight',
-          '/divisions/cruiserweight',
-          '/divisions/light-heavyweight',
-          '/divisions/super-middleweight',
-          '/divisions/middleweight',
-          '/divisions/super-welterweight',
-          '/divisions/welterweight',
-          '/divisions/super-lightweight',
-          '/divisions/lightweight',
-        ],
-        defaults: {
-          changefreq: 'monthly',
-          priority: 0.6,
-        },
+        sources: ['/api/sitemap/divisions'], // Dynamic endpoint for all division URLs
+        chunks: true, // Enable automatic chunking (uses defaultSitemapsChunkSize)
+      
       },
-      // Legal pages sitemap
       legal: {
-        urls: [
+        sources: [
           '/legal/privacy-policy',
-          '/legal/terms-conditions', 
+          '/legal/terms-conditions',
           '/legal/dmca',
-          '/legal/affiliate-disclosure'
+          '/legal/affiliate-disclosure',
         ],
-        defaults: {
-          changefreq: 'yearly',
-          priority: 0.3,
-        },
+    
       },
     },
   },
@@ -153,11 +128,14 @@ export default defineNuxtConfig({
     kv: true,       // Enable KV storage
   },
 
-  // Enable experimental tasks for database seeding
+  // Enable experimental tasks for database seeding and prerender sitemap.xml
   nitro: {
     experimental: {
       tasks: true
-    }
+    },
+    prerender: {
+      routes: ['/sitemap.xml'],
+    },
   },
 
 })

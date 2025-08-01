@@ -1,101 +1,119 @@
+// Allow running directly from CLI (ESM compatible)
+if (import.meta.url === `file://${process.argv[1]}`) {
+  seedBoxers().then(console.log).catch((err) => {
+    console.error(err)
+    process.exit(1)
+  })
+}
 // server/tasks/seed-boxers.ts
-import { useDrizzle, tables } from '../utils/drizzle'
 import { eq } from 'drizzle-orm'
+import { drizzle } from 'drizzle-orm/better-sqlite3'
+import Database from 'better-sqlite3'
+import { tables } from '../utils/drizzle'
 import { promises as fs } from 'fs'
 import { join, dirname } from 'path'
 import { fileURLToPath } from 'url'
 
-export default defineTask({
-  meta: {
-    name: 'db:seed-boxers',
-    description: 'Seed the boxers table with BoxRec JSON files'
-  },
-  async run() {
-    console.log('Seeding boxers table…')
+export async function seedBoxers() {
+  console.log('Seeding boxers table…')
 
-    const __dirname = dirname(fileURLToPath(import.meta.url))
-    const dataDir = join(__dirname, '../../data/boxrec_json')
+  const __dirname = dirname(fileURLToPath(import.meta.url))
+  const dataDir = join(__dirname, '../../data/boxrec_json')
 
-    const files = await fs.readdir(dataDir)
-    let inserted = 0
+  // Use env or fallback to default path
+  const dbPath = process.env.DRIZZLE_DB_URL || './.data/hub/d1/miniflare-D1DatabaseObject/7b8799eb95f0bb5448e259812996a461ce40142dacbdea254ea597e307767f45.sqlite'
+  const sqlite = new Database(dbPath)
+  const db = drizzle(sqlite, { schema: tables })
 
-    for (const file of files) {
-      if (!file.endsWith('.json')) continue
-      const content = await fs.readFile(join(dataDir, file), 'utf-8')
-      const boxer = JSON.parse(content)
+  const files = await fs.readdir(dataDir)
+  let inserted = 0
 
-      // Check if slug already exists
-      let finalSlug = boxer.slug
-      const existingBoxer = await useDrizzle()
-        .select()
-        .from(tables.boxers)
-        .where(eq(tables.boxers.slug, finalSlug))
-        .get()
-      
-      // If slug exists, append boxrecId to make it unique
-      if (existingBoxer) {
-        finalSlug = `${boxer.slug}-${boxer.boxrecId}`
-      }
+  for (const file of files) {
+    if (!file.endsWith('.json')) continue
+    const content = await fs.readFile(join(dataDir, file), 'utf-8')
+    const boxer = JSON.parse(content)
 
-      // Map JSON fields to your DB columns; adjust column names as needed.
-      const record = {
-        id: boxer.boxrecId.toString().padStart(6, '0'),
-        boxrecId: boxer.boxrecId,
-        boxrecUrl: boxer.boxrecUrl,
-        boxrecWikiUrl: boxer.boxrecWikiUrl,
-        slug: finalSlug,
-        name: boxer.name,
-        birthName: boxer.birthName || null,
-        nicknames: boxer.nicknames || null,
-        avatarImage: boxer.avatarImage || null,
-        residence: boxer.residence || null,
-        birthPlace: boxer.birthPlace || null,
-        dateOfBirth: boxer.dateOfBirth || null,
-        gender: boxer.gender || null,
-        nationality: boxer.nationality || null,
-        height: boxer.height ? String(boxer.height) : null,
-        reach: boxer.reach ? String(boxer.reach) : null,
-        stance: boxer.stance || null,
-        bio: boxer.bio || null,
-        promoters: boxer.promoters || null,
-        trainers: boxer.trainers || null,
-        managers: boxer.managers || null,
-        gym: boxer.gym || null,
-        proDebutDate: boxer.proDebutDate || null,
-        proDivision: boxer.proDivision || null,
-        proWins: boxer.proWins ? Number(boxer.proWins) : null,
-        proWinsByKnockout: boxer.proWinsByKnockout ? Number(boxer.proWinsByKnockout) : null,
-        proLosses: boxer.proLosses ? Number(boxer.proLosses) : null,
-        proLossesByKnockout: boxer.proLossesByKnockout ? Number(boxer.proLossesByKnockout) : null,
-        proDraws: boxer.proDraws ? Number(boxer.proDraws) : null,
-        proStatus: boxer.proStatus || null,
-        proTotalBouts: boxer.proTotalBouts ? Number(boxer.proTotalBouts) : null,
-        proTotalRounds: boxer.proTotalRounds ? Number(boxer.proTotalRounds) : null,
-        amateurDebutDate: boxer.amateurDebutDate || null,
-        amateurDivision: boxer.amateurDivision || null,
-        amateurWins: boxer.amateurWins ? Number(boxer.amateurWins) : null,
-        amateurWinsByKnockout: boxer.amateurWinsByKnockout ? Number(boxer.amateurWinsByKnockout) : null,
-        amateurLosses: boxer.amateurLosses ? Number(boxer.amateurLosses) : null,
-        amateurLossesByKnockout: boxer.amateurLossesByKnockout ? Number(boxer.amateurLossesByKnockout) : null,
-        amateurDraws: boxer.amateurDraws ? Number(boxer.amateurDraws) : null,
-        amateurStatus: boxer.amateurStatus || null,
-        amateurTotalBouts: boxer.amateurTotalBouts ? Number(boxer.amateurTotalBouts) : null,
-        amateurTotalRounds: boxer.amateurTotalRounds ? Number(boxer.amateurTotalRounds) : null
-      }
+    // Check if slug already exists
+    let finalSlug = boxer.slug
+    const existingBoxer = await db
+      .select()
+      .from(tables.boxers)
+      .where(eq(tables.boxers.slug, finalSlug))
+      .get()
 
-      try {
-        await useDrizzle().insert(tables.boxers).values(record)
-        inserted += 1
-      } catch (e: any) {
-        console.log(`Conflict on boxrecUrl ${record.boxrecUrl}, updating existing row.`)
-        await useDrizzle()
-          .update(tables.boxers)
-          .set(record)
-          .where(eq(tables.boxers.boxrecUrl, record.boxrecUrl))
-        continue
-      }
+    // Only append boxrecId if slug exists and it's a different boxer
+    if (existingBoxer && existingBoxer.boxrecId !== boxer.boxrecId) {
+      finalSlug = `${boxer.slug}-${boxer.boxrecId}`
     }
 
-    return { result: 'success', count: inserted }
-  },
-})
+    // Map JSON fields to your DB columns; adjust column names as needed.
+    const record = {
+      id: boxer.boxrecId.toString().padStart(6, '0'),
+      boxrecId: boxer.boxrecId,
+      boxrecUrl: boxer.boxrecUrl,
+      boxrecWikiUrl: boxer.boxrecWikiUrl,
+      slug: finalSlug,
+      name: boxer.name,
+      birthName: boxer.birthName || undefined,
+      nicknames: boxer.nicknames || undefined,
+      avatarImage: boxer.avatarImage || undefined,
+      residence: boxer.residence || undefined,
+      birthPlace: boxer.birthPlace || undefined,
+      dateOfBirth: boxer.dateOfBirth || undefined,
+      gender: boxer.gender || undefined,
+      nationality: boxer.nationality || undefined,
+      height: boxer.height ? String(boxer.height) : undefined,
+      reach: boxer.reach ? String(boxer.reach) : undefined,
+      stance: boxer.stance || undefined,
+      bio: boxer.bio || undefined,
+      promoters: boxer.promoters || undefined,
+      trainers: boxer.trainers || undefined,
+      managers: boxer.managers || undefined,
+      gym: boxer.gym || undefined,
+      proDebutDate: boxer.proDebutDate || undefined,
+      proDivision: boxer.proDivision || undefined,
+      proWins: boxer.proWins ? Number(boxer.proWins) : undefined,
+      proWinsByKnockout: boxer.proWinsByKnockout ? Number(boxer.proWinsByKnockout) : undefined,
+      proLosses: boxer.proLosses ? Number(boxer.proLosses) : undefined,
+      proLossesByKnockout: boxer.proLossesByKnockout ? Number(boxer.proLossesByKnockout) : undefined,
+      proDraws: boxer.proDraws ? Number(boxer.proDraws) : undefined,
+      proStatus: boxer.proStatus || undefined,
+      proTotalBouts: boxer.proTotalBouts ? Number(boxer.proTotalBouts) : undefined,
+      proTotalRounds: boxer.proTotalRounds ? Number(boxer.proTotalRounds) : undefined,
+      amateurDebutDate: boxer.amateurDebutDate || undefined,
+      amateurDivision: boxer.amateurDivision || undefined,
+      amateurWins: boxer.amateurWins ? Number(boxer.amateurWins) : undefined,
+      amateurWinsByKnockout: boxer.amateurWinsByKnockout ? Number(boxer.amateurWinsByKnockout) : undefined,
+      amateurLosses: boxer.amateurLosses ? Number(boxer.amateurLosses) : undefined,
+      amateurLossesByKnockout: boxer.amateurLossesByKnockout ? Number(boxer.amateurLossesByKnockout) : undefined,
+      amateurDraws: boxer.amateurDraws ? Number(boxer.amateurDraws) : undefined,
+      amateurStatus: boxer.amateurStatus || undefined,
+      amateurTotalBouts: boxer.amateurTotalBouts ? Number(boxer.amateurTotalBouts) : undefined,
+      amateurTotalRounds: boxer.amateurTotalRounds ? Number(boxer.amateurTotalRounds) : undefined
+    }
+
+    try {
+      await db.insert(tables.boxers).values(record)
+      inserted += 1
+    } catch (e: any) {
+      console.log(`Conflict on boxrecUrl ${record.boxrecUrl}, updating existing row.`)
+      await db
+        .update(tables.boxers)
+        .set(record)
+        .where(eq(tables.boxers.boxrecUrl, record.boxrecUrl))
+      continue
+    }
+  }
+
+  return { result: 'success', count: inserted }
+}
+// Nuxt DevTools GUI support (uncomment for Nuxt DevTools, comment for CLI/tsx)
+// export default defineTask({
+//   meta: {
+//     name: 'db:seed-boxers',
+//     description: 'Seed the boxers table with BoxRec JSON files'
+//   },
+//   async run() {
+//     return seedBoxers()
+//   },
+// })
