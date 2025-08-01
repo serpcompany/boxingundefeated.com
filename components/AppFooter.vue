@@ -38,21 +38,21 @@ const appConfig = useAppConfig()
 
         <!-- Popular Divisions -->
         <div>
-          <h3 class="font-semibold text-zinc-900 mb-3">Popular Divisions</h3>
+          <h3 class="font-semibold text-zinc-900 mb-3">Socials</h3>
           <ul class="space-y-2 text-sm text-zinc-600">
             <li>
-              <NuxtLink to="/divisions/heavyweight" class="hover:text-zinc-900 transition-colors">
-                Heavyweight
+              <NuxtLink to="https://serp.ly/@boxingundefeated/instagram" class="hover:text-zinc-900 transition-colors">
+                Instagram
               </NuxtLink>
             </li>
             <li>
-              <NuxtLink to="/divisions/welterweight" class="hover:text-zinc-900 transition-colors">
-                Welterweight
+             <NuxtLink to="https://serp.ly/@boxingundefeated/youtube" class="hover:text-zinc-900 transition-colors">
+                Youtube
               </NuxtLink>
             </li>
             <li>
-              <NuxtLink to="/divisions/lightweight" class="hover:text-zinc-900 transition-colors">
-                Lightweight
+              <NuxtLink to="https://serp.ly/@boxingundefeated/github" class="hover:text-zinc-900 transition-colors">
+                Github
               </NuxtLink>
             </li>
           </ul>

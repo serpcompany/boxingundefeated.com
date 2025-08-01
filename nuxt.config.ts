@@ -37,11 +37,11 @@ export default defineNuxtConfig({
       },
     },
   },
-  // NuxtHub configuration for Cloudflare integration
   hub: {
-    database: true, // Enable D1 database
-    blob: true,     // Enable R2 storage
-    kv: true,       // Enable KV storage
+    database: true, 
+    blob: true,     
+    kv: true,
+    workers: true,     
   },
   // Enable experimental tasks for database seeding and prerender sitemap.xml
   nitro: {
@@ -51,7 +51,7 @@ export default defineNuxtConfig({
     prerender: {
       routes: ['/sitemap_index.xml'],
     },
-     preset: 'cloudflare',
+     preset: 'cloudflare_pages'
   },
   sitemap: {
     defaultSitemapsChunkSize: 25000,
