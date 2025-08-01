@@ -7,7 +7,7 @@ export default defineNuxtConfig({
    css: [
     '~/assets/css/main.css',
   ],
-  // Configure @nuxt/eslint to work with antfu config
+  compatibilityDate: '2025-08-01',
   eslint: {
     config: {
       standalone: false, // Generate only Nuxt-specific rules
