@@ -1,14 +1,58 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
-
   modules: ['@nuxt/ui', '@nuxt/fonts', '@nuxt/image', '@nuxt/eslint', '@nuxtjs/seo', '@nuxt/scripts', '@nuxthub/core'],
-
-  // Site configuration for SEO modules
   site: {
     url: 'https://boxingundefeated.com',
   },
-
-  // Real XML Sitemap configuration using @nuxt-modules/sitemap
+   css: [
+    '~/assets/css/main.css',
+  ],
+  // Configure @nuxt/eslint to work with antfu config
+  eslint: {
+    config: {
+      standalone: false, // Generate only Nuxt-specific rules
+    },
+  },
+  app: {
+    head: {
+      title: 'Boxing Undefeated',
+      titleTemplate: '%s | Boxing Undefeated',
+      meta: [
+        { charset: 'utf-8' },
+        { name: 'viewport', content: 'width=device-width, initial-scale=1, maximum-scale=1' },
+        {
+          name: 'description',
+          content: 'Boxing Undefeated - Your comprehensive guide to professional boxing. Fighter profiles, weight divisions, and the sweet science.',
+        },
+      ],
+      link: [
+        { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      ],
+    },
+  },
+  scripts: {
+    registry: {
+      googleTagManager: {
+        id: 'GTM-PP4HWLM',
+      },
+    },
+  },
+  // NuxtHub configuration for Cloudflare integration
+  hub: {
+    database: true, // Enable D1 database
+    blob: true,     // Enable R2 storage
+    kv: true,       // Enable KV storage
+  },
+  // Enable experimental tasks for database seeding and prerender sitemap.xml
+  nitro: {
+    experimental: {
+      tasks: true
+    },
+    prerender: {
+      routes: ['/sitemap_index.xml'],
+    },
+     preset: 'cloudflare',
+  },
   sitemap: {
     defaultSitemapsChunkSize: 25000,
     sitemaps: {
@@ -45,97 +89,10 @@ export default defineNuxtConfig({
       },
     },
   },
-
-  // Robots configuration
   robots: {
     allow: ['/'],
     disallow: ['/admin'],
     sitemap: 'https://boxingundefeated.com/sitemap_index.xml',
-  },
-
-  // Configure @nuxt/eslint to work with antfu config
-  eslint: {
-    config: {
-      standalone: false, // Generate only Nuxt-specific rules
-    },
-  },
-
-  css: [
-    '~/assets/css/main.css',
-  ],
-
-  // Font configuration using @nuxt/fonts
-  fonts: {
-    families: [
-      // Inter font family for body text (matching original)
-      {
-        name: 'Inter',
-        provider: 'fontsource',
-        weights: [400, 500, 600, 700],
-      },
-      // Geist Mono for code/logo (matching original)
-      {
-        name: 'Geist Mono',
-        provider: 'fontsource',
-        weights: [400, 500],
-      },
-    ],
-  },
-
-  // Color mode configuration (handled by @nuxtjs/color-mode auto-installed with Nuxt UI)
-  colorMode: {
-    preference: 'system',
-    fallback: 'light',
-    hid: 'nuxt-color-mode-script',
-    globalName: '__NUXT_COLOR_MODE__',
-    componentName: 'ColorScheme',
-    classPrefix: '',
-    classSuffix: '',
-    storageKey: 'flux.appearance', // Match original localStorage key
-  },
-
-  app: {
-    head: {
-      title: 'Boxing Undefeated',
-      titleTemplate: '%s | Boxing Undefeated',
-      meta: [
-        { charset: 'utf-8' },
-        { name: 'viewport', content: 'width=device-width, initial-scale=1, maximum-scale=1' },
-        {
-          name: 'description',
-          content: 'Boxing Undefeated - Your comprehensive guide to professional boxing. Fighter profiles, weight divisions, and the sweet science.',
-        },
-      ],
-      link: [
-        { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      ],
-    },
-  },
-
-  // Google Tag Manager configuration
-  scripts: {
-    registry: {
-      googleTagManager: {
-        id: 'GTM-PP4HWLM',
-      },
-    },
-  },
-
-  // NuxtHub configuration for Cloudflare integration
-  hub: {
-    database: true, // Enable D1 database
-    blob: true,     // Enable R2 storage
-    kv: true,       // Enable KV storage
-  },
-
-  // Enable experimental tasks for database seeding and prerender sitemap.xml
-  nitro: {
-    experimental: {
-      tasks: true
-    },
-    prerender: {
-      routes: ['/sitemap.xml'],
-    },
   },
 
 })
