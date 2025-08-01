@@ -1,27 +1,3 @@
-// NuxtHub/Tasks: use global defineTask, do not import it!
-let defaultExport: any = undefined;
-if (typeof defineTask !== 'undefined') {
-  defaultExport = defineTask({
-    meta: {
-      name: 'seed-boxers',
-      description: 'Seed the boxers table'
-    },
-    async run() {
-      await seedBoxers()
-      return {}
-    }
-  });
-}
-export default defaultExport;
-// NuxtHub/Tasks: use global defineTask, do not import it!
-// Allow running directly from CLI (ESM compatible)
-if (import.meta.url === `file://${process.argv[1]}`) {
-  seedBoxers().then(console.log).catch((err) => {
-    console.error(err)
-    process.exit(1)
-  })
-}
-// server/tasks/seed-boxers.ts
 import { eq } from 'drizzle-orm'
 import { drizzle } from 'drizzle-orm/better-sqlite3'
 import Database from 'better-sqlite3'
@@ -36,8 +12,8 @@ export async function seedBoxers() {
   const __dirname = dirname(fileURLToPath(import.meta.url))
   const dataDir = join(__dirname, '../../data/boxrec_json')
 
-  // Use env or fallback to default path
-  const dbPath = process.env.DRIZZLE_DB_URL || './.data/hub/d1/miniflare-D1DatabaseObject/7b8799eb95f0bb5448e259812996a461ce40142dacbdea254ea597e307767f45.sqlite'
+  // Use env variable for remote CF database
+  const dbPath = process.env.DRIZZLE_DB_URL || 'YOUR_CLOUDFLARE_D1_URL'
   const sqlite = new Database(dbPath)
   const db = drizzle(sqlite, { schema: tables })
 
@@ -49,7 +25,6 @@ export async function seedBoxers() {
     const content = await fs.readFile(join(dataDir, file), 'utf-8')
     const boxer = JSON.parse(content)
 
-    // Check if slug already exists
     let finalSlug = boxer.slug
     const existingBoxer = await db
       .select()
@@ -57,12 +32,10 @@ export async function seedBoxers() {
       .where(eq(tables.boxers.slug, finalSlug))
       .get()
 
-    // Only append boxrecId if slug exists and it's a different boxer
     if (existingBoxer && existingBoxer.boxrecId !== boxer.boxrecId) {
       finalSlug = `${boxer.slug}-${boxer.boxrecId}`
     }
 
-    // Map JSON fields to your DB columns; adjust column names as needed.
     const record = {
       id: boxer.boxrecId.toString().padStart(6, '0'),
       boxrecId: boxer.boxrecId,
@@ -123,13 +96,13 @@ export async function seedBoxers() {
 
   return { result: 'success', count: inserted }
 }
-// Nuxt DevTools GUI support (uncomment for Nuxt DevTools, comment for CLI/tsx)
-// export default defineTask({
-//   meta: {
-//     name: 'db:seed-boxers',
-//     description: 'Seed the boxers table with BoxRec JSON files'
-//   },
-//   async run() {
-//     return seedBoxers()
-//   },
-// })
+
+export default defineTask({
+  meta: {
+    name: 'db:seed-boxers',
+    description: 'Seed the boxers table with BoxRec JSON files'
+  },
+  async run() {
+    return seedBoxers()
+  },
+})

@@ -24,10 +24,3 @@ async function main() {
   const idInSlugCount = typeof boxersWithIdInSlug?.count === 'number' ? boxersWithIdInSlug.count : Number(boxersWithIdInSlug?.count || 0)
   console.log(`Boxers with boxrecId in slug: ${idInSlugCount}`)
 }
-
-if (import.meta.url === `file://${process.argv[1]}`) {
-  main().catch((err) => {
-    console.error(err)
-    process.exit(1)
-  })
-}

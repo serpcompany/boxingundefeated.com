@@ -1,26 +1,3 @@
-// NuxtHub/Tasks: use global defineTask, do not import it!
-let defaultExport: any = undefined;
-if (typeof defineTask !== 'undefined') {
-  defaultExport = defineTask({
-    meta: {
-      name: 'seed-divisions',
-      description: 'Seed the divisions table'
-    },
-    async run() {
-      await seedDivisions()
-      return {}
-    }
-  });
-}
-export default defaultExport;
-// Allow running directly from CLI (ESM compatible)
-if (import.meta.url === `file://${process.argv[1]}`) {
-  seedDivisions().then(console.log).catch((err) => {
-    console.error(err)
-    process.exit(1)
-  })
-}
-// server/tasks/seed-divisions.ts
 import { tables } from '../utils/drizzle'
 import { drizzle } from 'drizzle-orm/better-sqlite3'
 import Database from 'better-sqlite3'
@@ -29,8 +6,8 @@ import { sql } from 'drizzle-orm'
 export async function seedDivisions() {
   console.log('Seeding divisions table…')
 
-  // Use env or fallback to default path
-  const dbPath = process.env.DRIZZLE_DB_URL || './.data/hub/d1/miniflare-D1DatabaseObject/7b8799eb95f0bb5448e259812996a461ce40142dacbdea254ea597e307767f45.sqlite'
+  // Use env variable for remote CF database
+  const dbPath = process.env.DRIZZLE_DB_URL || 'YOUR_CLOUDFLARE_D1_URL'
   const sqlite = new Database(dbPath)
   const db = drizzle(sqlite, { schema: tables })
 
@@ -78,13 +55,12 @@ export async function seedDivisions() {
   return { result: 'success', count: inserted }
 }
 
-// Nuxt DevTools GUI support (uncomment for Nuxt DevTools, comment for CLI/tsx)
-// export default defineTask({
-//   meta: {
-//     name: 'db:seed-divisions',
-//     description: 'Populate the divisions table with boxing weight classes',
-//   },
-//   async run() {
-//     return seedDivisions()
-//   },
-// })
+export default defineTask({
+  meta: {
+    name: 'db:seed-divisions',
+    description: 'Populate the divisions table with boxing weight classes',
+  },
+  async run() {
+    return seedDivisions()
+  },
+})

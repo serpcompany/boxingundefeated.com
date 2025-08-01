@@ -52,7 +52,7 @@ export default defineNuxtConfig({
     prerender: {
       routes: ['/sitemap_index.xml'],
     },
-     preset: 'cloudflare_pages'
+    preset: 'cloudflare-pages'
   },
   sitemap: {
     defaultSitemapsChunkSize: 25000,

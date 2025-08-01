@@ -1,20 +1,3 @@
-// NuxtHub/Tasks: use global defineTask, do not import it!
-let defaultExport: any = undefined;
-if (typeof defineTask !== 'undefined') {
-  defaultExport = defineTask({
-    meta: {
-      name: 'seed-boxer-bouts',
-      description: 'Seed the boxerBouts table'
-    },
-    async run() {
-      await seedBoxerBouts()
-      return {}
-    }
-  });
-}
-export default defaultExport;
-// NuxtHub/Tasks: use global defineTask, do not import it!
-// server/tasks/seed-boxer-bouts.ts
 import { tables } from '../utils/drizzle'
 import { drizzle } from 'drizzle-orm/better-sqlite3'
 import Database from 'better-sqlite3'
@@ -26,8 +9,8 @@ import { eq, and } from 'drizzle-orm'
 export async function seedBoxerBouts() {
   console.log('Seeding boxerBouts table…')
 
-  // Use env or fallback to default path
-  const dbPath = process.env.DRIZZLE_DB_URL || './.data/hub/d1/miniflare-D1DatabaseObject/7b8799eb95f0bb5448e259812996a461ce40142dacbdea254ea597e307767f45.sqlite'
+  // Use env variable for remote CF database
+  const dbPath = process.env.DRIZZLE_DB_URL || 'YOUR_CLOUDFLARE_D1_URL'
   const sqlite = new Database(dbPath)
   const db = drizzle(sqlite, { schema: tables })
 
@@ -68,7 +51,6 @@ export async function seedBoxerBouts() {
         titleFight: !!bout.titleFight,
       }
 
-      // Upsert: insert or update existing by boxerId + boutPageLink
       try {
         await db
           .insert(tables.boxerBouts)
@@ -91,13 +73,12 @@ export async function seedBoxerBouts() {
   return { result: 'success', count: inserted }
 }
 
-// Nuxt DevTools GUI support (uncomment for Nuxt DevTools, comment for CLI/tsx)
-// export default defineTask({
-//   meta: {
-//     name: 'db:seed-boxer-bouts',
-//     description: 'Seed the boxerBouts table with BoxRec bout data'
-//   },
-//   async run() {
-//     return seedBoxerBouts()
-//   }
-// })
+export default defineTask({
+  meta: {
+    name: 'db:seed-boxer-bouts',
+    description: 'Seed the boxerBouts table with BoxRec bout data'
+  },
+  async run() {
+    return seedBoxerBouts()
+  }
+})
