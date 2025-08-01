@@ -10,16 +10,16 @@ const props = defineProps<Props>()
 // Format bio content with basic markdown support
 function formatBioContent(content: string): string {
   // Convert **bold** to <strong>
-  let formatted = content.replace(/\*\*(.*?)\*\*/g, '<strong class="font-semibold text-zinc-900 dark:text-white">$1</strong>')
+  let formatted = content.replace(/\*\*(.*?)\*\*/g, '<strong class="font-semibold text-zinc-900">$1</strong>')
   
   // Convert line breaks to <br> for paragraphs
-  formatted = formatted.replace(/\n\n/g, '</p><p class="mb-4 text-zinc-600 dark:text-zinc-400">')
+  formatted = formatted.replace(/\n\n/g, '</p><p class="mb-4 text-zinc-600">')
   
   // Convert bullet points
-  formatted = formatted.replace(/• /g, '<span class="inline-block w-2 h-2 bg-zinc-400 dark:bg-zinc-600 rounded-full mr-2 mb-1"></span>')
+  formatted = formatted.replace(/• /g, '<span class="inline-block w-2 h-2 bg-zinc-400 rounded-full mr-2 mb-1"></span>')
   
   // Wrap in paragraph tags
-  formatted = `<p class="mb-4 text-zinc-600 dark:text-zinc-400">${formatted}</p>`
+  formatted = `<p class="mb-4 text-zinc-600">${formatted}</p>`
   
   return formatted
 }
@@ -29,8 +29,8 @@ function formatBioContent(content: string): string {
   <div v-if="boxer.bio || boxer.bioSections" id="biography" class="space-y-8">
     <!-- Short Bio Summary -->
     <div v-if="boxer.bio">
-      <h2 class="text-2xl font-bold text-zinc-900 dark:text-white mb-4">Biography</h2>
-      <p class="text-zinc-700 dark:text-zinc-300 leading-relaxed text-lg">{{ boxer.bio }}</p>
+      <h2 class="text-2xl font-bold text-zinc-900 mb-4">Biography</h2>
+      <p class="text-zinc-700 leading-relaxed text-lg">{{ boxer.bio }}</p>
     </div>
     
     <!-- Detailed Bio Sections -->
@@ -39,11 +39,11 @@ function formatBioContent(content: string): string {
         v-for="(section, key) in boxer.bioSections" 
         :key="key"
         :id="`bio-${key}`" 
-        class="prose prose-zinc dark:prose-invert max-w-none"
+        class="prose prose-zinc max-w-none"
       >
-        <h3 class="text-xl font-semibold text-zinc-900 dark:text-white mb-3">{{ section.title }}</h3>
+        <h3 class="text-xl font-semibold text-zinc-900 mb-3">{{ section.title }}</h3>
         <div 
-          class="text-zinc-600 dark:text-zinc-400 leading-relaxed whitespace-pre-wrap" 
+          class="text-zinc-600 leading-relaxed whitespace-pre-wrap" 
           v-html="formatBioContent(section.content)"
         ></div>
       </div>

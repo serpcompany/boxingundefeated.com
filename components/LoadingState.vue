@@ -12,7 +12,7 @@ const props = withDefaults(defineProps<Props>(), {
   <div class="min-h-screen bg-white flex items-center justify-center">
     <div class="text-center">
       <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-red-500 mx-auto mb-4" />
-      <p class="text-zinc-600 dark:text-zinc-400">
+      <p class="text-zinc-600">
         {{ message }}
       </p>
     </div>

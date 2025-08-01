@@ -47,9 +47,9 @@ function formatWeightLimit() {
 </script>
 
 <template>
-  <div class="min-h-screen bg-white dark:bg-zinc-900">
+  <div class="min-h-screen bg-white">
     <!-- Breadcrumbs -->
-    <div class="bg-white dark:bg-zinc-900 border-b border-gray-100 dark:border-zinc-800">
+    <div class="bg-white border-b border-gray-100">
       <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
         <BreadCrumbs 
           :items="[
@@ -66,13 +66,13 @@ function formatWeightLimit() {
     >
       <template #after>
         <div class="mt-4 space-y-2">
-          <p class="text-lg text-zinc-600 dark:text-zinc-400">
+          <p class="text-lg text-zinc-600">
             Weight Limit: {{ formatWeightLimit() }}
             <span v-if="weightLimits.stone" class="text-base">
               ({{ weightLimits.stone }})
             </span>
           </p>
-          <p v-if="division.alternativeNames && division.alternativeNames.length > 0" class="text-zinc-500 dark:text-zinc-500">
+          <p v-if="division.alternativeNames && division.alternativeNames.length > 0" class="text-zinc-500">
             Also known as: {{ division.alternativeNames.join(', ') }}
           </p>
         </div>
@@ -83,7 +83,7 @@ function formatWeightLimit() {
     <div class="max-w-6xl mx-auto px-6 lg:px-8 py-12">
       <!-- Division Info -->
       <div v-if="division.description" class="mb-12">
-        <p class="text-lg text-zinc-600 dark:text-zinc-400">
+        <p class="text-lg text-zinc-600">
           {{ division.description }}
         </p>
       </div>
@@ -93,7 +93,7 @@ function formatWeightLimit() {
       <div>
         <div v-if="boxersInDivision.length === 0" class="text-center py-12">
           <UIcon name="i-heroicons-users" class="w-12 h-12 text-zinc-400 mx-auto mb-4" />
-          <p class="text-zinc-600 dark:text-zinc-400">
+          <p class="text-zinc-600">
             No fighters currently listed in this division.
           </p>
         </div>

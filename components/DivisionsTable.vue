@@ -31,13 +31,13 @@ const columns = computed(() => {
       :columns="columns"
       :ui="{
         td: { base: 'whitespace-nowrap' },
-        tbody: 'divide-y divide-gray-200 dark:divide-gray-700',
-        tr: { base: 'hover:bg-gray-50 dark:hover:bg-gray-800 cursor-pointer' }
+        tbody: 'divide-y divide-gray-200',
+        tr: { base: 'hover:bg-gray-50 cursor-pointer' }
       }"
       @select="(row: Division) => navigateTo(`/divisions/${row.slug}`)"
     >
       <template #name-data="{ row }">
-        <div class="font-medium text-gray-900 dark:text-white">
+        <div class="font-medium text-gray-900">
           {{ row.name }}
         </div>
       </template>
@@ -45,14 +45,14 @@ const columns = computed(() => {
       <template #weightLimit-data="{ row }">
         <div>
           <template v-if="row.slug === 'heavyweight'">
-            <span class="font-medium text-gray-900 dark:text-white">No limit</span>
+            <span class="font-medium text-gray-900">No limit</span>
           </template>
           <template v-else>
             <div>
-              <div class="font-medium text-gray-900 dark:text-white">
+              <div class="font-medium text-gray-900">
                 {{ row.weightLimitPounds }} lbs
               </div>
-              <div class="text-sm text-gray-500 dark:text-gray-400">
+              <div class="text-sm text-gray-500">
                 {{ (row.weightLimitPounds * 0.453592).toFixed(1) }} kg
                 <span v-if="row.weightLimitStone"> / {{ row.weightLimitStone }}</span>
               </div>

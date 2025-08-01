@@ -69,9 +69,9 @@ const currentStats = computed(() => tabs.value[selectedTab.value].stats)
 </script>
 
 <template>
-  <div id="professional-record" class="bg-white dark:bg-zinc-900 rounded-lg border border-zinc-200 dark:border-zinc-700 overflow-hidden">
+  <div id="professional-record" class="bg-white rounded-lg border border-zinc-200 overflow-hidden">
     <!-- Tab Headers -->
-    <div v-if="hasAmateurRecord" class="border-b border-zinc-200 dark:border-zinc-700">
+    <div v-if="hasAmateurRecord" class="border-b border-zinc-200">
       <div class="flex">
         <button
           v-for="(tab, index) in tabs"
@@ -80,8 +80,8 @@ const currentStats = computed(() => tabs.value[selectedTab.value].stats)
           :class="[
             'flex-1 px-4 py-3 text-sm font-medium transition-colors',
             selectedTab === index
-              ? 'bg-zinc-50 dark:bg-zinc-800 text-zinc-900 dark:text-white border-b-2 border-red-600'
-              : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-50 dark:hover:bg-zinc-800/50'
+              ? 'bg-zinc-50 text-zinc-900 border-b-2 border-red-600'
+              : 'text-zinc-600 hover:text-zinc-900 hover:bg-zinc-50'
           ]"
         >
           {{ tab.label }} Record
@@ -91,7 +91,7 @@ const currentStats = computed(() => tabs.value[selectedTab.value].stats)
     
     <!-- Stats Grid -->
     <div class="p-6">
-      <h3 class="text-lg font-semibold text-zinc-900 dark:text-white mb-4">
+      <h3 class="text-lg font-semibold text-zinc-900 mb-4">
         {{ tabs[selectedTab].label }} Record
       </h3>
       
@@ -105,17 +105,17 @@ const currentStats = computed(() => tabs.value[selectedTab.value].stats)
             :class="[
               'text-2xl md:text-3xl font-bold mb-1',
               {
-                'text-green-600 dark:text-green-500': stat.color === 'green',
-                'text-red-600 dark:text-red-500': stat.color === 'red',
-                'text-zinc-600 dark:text-zinc-400': stat.color === 'gray',
-                'text-orange-600 dark:text-orange-500': stat.color === 'orange',
-                'text-zinc-900 dark:text-white': !stat.color
+                'text-green-600': stat.color === 'green',
+                'text-red-600': stat.color === 'red',
+                'text-zinc-600': stat.color === 'gray',
+                'text-orange-600': stat.color === 'orange',
+                'text-zinc-900': !stat.color
               }
             ]"
           >
             {{ stat.value }}
           </div>
-          <div class="text-sm text-zinc-600 dark:text-zinc-400">
+          <div class="text-sm text-zinc-600">
             {{ stat.label }}
           </div>
         </div>

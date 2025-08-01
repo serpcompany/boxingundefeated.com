@@ -50,9 +50,9 @@ useHead({
 </script>
 
 <template>
-  <div class="min-h-screen bg-white dark:bg-zinc-900">
+  <div class="min-h-screen bg-white">
     <!-- Breadcrumbs -->
-    <div class="bg-white dark:bg-zinc-900 border-b border-gray-100 dark:border-zinc-800">
+    <div class="bg-white border-b border-gray-100">
       <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
         <BreadCrumbs 
           :items="[

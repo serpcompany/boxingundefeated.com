@@ -6,13 +6,13 @@ useSeoMeta({
 </script>
 
 <template>
-  <div class="min-h-screen bg-zinc-50 dark:bg-zinc-900">
+  <div class="min-h-screen bg-zinc-50">
     <div class="max-w-4xl mx-auto px-6 lg:px-8 py-12">
-      <h1 class="text-3xl font-bold text-zinc-900 dark:text-white mb-8">
+      <h1 class="text-3xl font-bold text-zinc-900 mb-8">
         Terms & Conditions
       </h1>
       
-      <div class="prose prose-zinc dark:prose-invert max-w-none">
+      <div class="prose prose-zinc max-w-none">
         <p>Last updated: {{ new Date().toLocaleDateString() }}</p>
         
         <p>
