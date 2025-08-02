@@ -203,8 +203,8 @@ async function generateMigration() {
   
   console.log(`Processed ${processedCount} boxers, skipped ${skippedCount}`)
   
-  // Split into multiple smaller migration files
-  const recordsPerFile = 500 // Split into chunks of 500 records
+  // Split into multiple smaller migration files with individual INSERT statements
+  const recordsPerFile = 250 // Split into chunks of 250 records
   const fileCount = Math.ceil(sqlStatements.length / recordsPerFile)
   
   for (let i = 0; i < fileCount; i++) {
@@ -212,10 +212,8 @@ async function generateMigration() {
     const end = Math.min((i + 1) * recordsPerFile, sqlStatements.length)
     const chunk = sqlStatements.slice(start, end)
     
-    const migrationContent = `-- Seed boxer data part ${i + 1} of ${fileCount}
--- Generated from boxrec_json directory (records ${start + 1} to ${end})
-
-INSERT OR IGNORE INTO boxers (
+    // Create individual INSERT statements for each record
+    const insertStatements = chunk.map(values => `INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
   avatarImage, residence, birthPlace, dateOfBirth, gender, nationality,
   height, reach, stance, bio, promoters, trainers, managers, gym,
@@ -224,8 +222,13 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES
-${chunk.join(',\n')};
+) VALUES ${values};`).join('\n\n')
+    
+    const migrationContent = `-- Seed boxer data part ${i + 1} of ${fileCount}
+-- Generated from boxrec_json directory (records ${start + 1} to ${end})
+-- Individual INSERT statements to avoid SQLITE_TOOBIG error
+
+${insertStatements}
 `
     
     const fileNumber = String(5 + i).padStart(4, '0')

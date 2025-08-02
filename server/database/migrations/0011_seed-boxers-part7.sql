@@ -1,5 +1,5 @@
--- Seed boxer data part 5 of 11
--- Generated from boxrec_json directory (records 1001 to 1250)
+-- Seed boxer data part 7 of 11
+-- Generated from boxrec_json directory (records 1501 to 1750)
 -- Individual INSERT statements to avoid SQLITE_TOOBIG error
 
 INSERT OR IGNORE INTO boxers (
@@ -11,7 +11,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('c4dadf26-947e-44bb-ba86-ff64861dc2f6', '459071', 'https://boxrec.com/en/box-pro/459071', 'https://boxrec.com/wiki/index.php?title=Human:459071', 'hyun-mi-choi', 'Hyun Mi Choi', '', '"Defector Girl Boxer"', 'https://boxrec.com/images/thumb/8/86/Hyun_Mi_Choi_2020.jpg/200px-Hyun_Mi_Choi_2020.jpg', 'Seoul, South Korea', 'Pyongyang, North Korea', '', 'F', 'South Korea', '170', '166', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2008-10-11', 'lightweight', 21, 5, 1, 0, 1, 'inactive', 23, 204, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('01cc5350-0658-4c77-84db-04055fa5b8fb', '627649', 'https://boxrec.com/en/box-pro/627649', 'https://boxrec.com/wiki/index.php?title=Human:627649', 'jason-sanchez', 'Jason Sanchez', 'Jason Sanchez', '"El Alacrancito"', 'https://boxrec.com/images/thumb/b/bc/627649.jpg/200px-627649.jpg', 'Albuquerque, New Mexico, USA', 'Albuquerque, New Mexico, USA', '', 'M', 'USA', '168', '173', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2012-12-07', 'superfeatherweight', 17, 9, 6, 1, 0, 'active', 23, 132, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -22,7 +22,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('b8e4dc1c-2def-4300-b8e1-4abce9b141d3', '45950', 'https://boxrec.com/en/box-pro/45950', 'https://boxrec.com/wiki/index.php?title=Human:45950', 'freddy-hernandez', 'Freddy Hernandez', 'Freddy Hernández Gómez', '"El Riel The Rail"', 'https://boxrec.com/images/thumb/8/84/FreddyHernandez.jpg/200px-FreddyHernandez.jpg', 'Mexico City, Distrito Federal, Mexico', 'Mexico City, Distrito Federal, Mexico', '', 'M', 'Mexico', '180', '183', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2001-02-02', 'superwelterweight', 34, 22, 11, 5, 0, 'inactive', 46, 264, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('81c18997-eba8-4405-ba02-e76627ac206b', '627772', 'https://boxrec.com/en/box-pro/627772', 'https://boxrec.com/wiki/index.php?title=Human:627772', 'jerry-odom', 'Jerry Odom', '', '"The King''s Son"', 'https://boxrec.com/images/thumb/8/82/627772.jpeg/200px-627772.jpeg', 'Maryland, USA', 'Washington, District of Columbia, USA', '', 'M', 'USA', '185', '187', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2012-10-27', 'supermiddleweight', 18, 17, 3, 2, 1, 'inactive', 23, 59, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -33,7 +33,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('e214bad4-be2d-42d9-b767-f1c2170bad3a', '459569', 'https://boxrec.com/en/box-pro/459569', 'https://boxrec.com/wiki/index.php?title=Human:459569', 'ricardo-alvarez', 'Ricardo Alvarez', 'Ricardo Álvarez Barragán', '"Dinamita"', 'https://boxrec.com/images/thumb/5/5e/Ricardo_Alvarez.JPG/200px-Ricardo_Alvarez.JPG', 'Guadalajara, Jalisco, Mexico', 'Guadalajara, Jalisco, Mexico', '', 'M', 'Mexico', '170', '183', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2008-02-08', 'superlightweight', 24, 14, 3, 0, 3, 'inactive', 30, 146, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('aeec3764-2016-4edb-9b84-f45d47dcb8cf', '628089', 'https://boxrec.com/en/box-pro/628089', 'https://boxrec.com/wiki/index.php?title=Human:628089', 'kendo-castaneda', 'Kendo Castaneda', '', '', 'https://boxrec.com/images/thumb/f/fd/628089.jpg/200px-628089.jpg', 'San Antonio, Texas, USA', 'San Antonio, Texas, USA', '', 'M', 'USA', '178', '170', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2012-10-27', 'welterweight', 21, 9, 11, 3, 0, 'active', 33, 204, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -44,7 +44,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('34e0934b-de0e-4920-9013-88420eee31c8', '459640', 'https://boxrec.com/en/box-pro/459640', 'https://boxrec.com/wiki/index.php?title=Human:459640', 'lee-selby', 'Lee Selby', '', '"''Lightning''"', 'https://boxrec.com/images/thumb/d/d5/Lee_Selby.jpeg/200px-Lee_Selby.jpeg', 'Barry, Wales, United Kingdom', 'Barry, Wales, United Kingdom', '', 'M', 'United Kingdom', '174', '175', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2008-07-12', 'featherweight', 28, 9, 4, 1, 0, 'inactive', 32, 260, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('aa36b87d-6dc5-463b-adf4-be6a2fc89a17', '628407', 'https://boxrec.com/en/box-pro/628407', 'https://boxrec.com/wiki/index.php?title=Human:628407', 'naoya-inoue', 'Naoya Inoue', '井上尚弥', '"Monster"', 'https://boxrec.com/images/thumb/c/c5/628407.jpeg/200px-628407.jpeg', 'Yokohama, Kanagawa, Japan', 'Zama, Kanagawa, Japan', '', 'M', 'Japan', '165', '171', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2012-10-02', 'superbantamweight', 30, 27, 0, 0, 0, 'active', 30, 181, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -55,7 +55,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('3145952c-bcd0-4f09-9ab4-544a8792fc2c', '459668', 'https://boxrec.com/en/box-pro/459668', 'https://boxrec.com/wiki/index.php?title=Human:459668', 'antonio-orozco', 'Antonio Orozco', '', '"Relentless"', 'https://boxrec.com/images/thumb/9/95/Antonio_Orozco.jpeg/200px-Antonio_Orozco.jpeg', 'San Diego, California, USA', 'Tecate, Baja California, Mexico', '', 'M', 'Mexico', '170', '178', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2008-06-27', 'superlightweight', 28, 17, 2, 1, 0, 'inactive', 30, 155, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('4531ed53-945d-46c7-8e5d-568d25f3977b', '628451', 'https://boxrec.com/en/box-pro/628451', 'https://boxrec.com/wiki/index.php?title=Human:628451', 'andy-vences', 'Andy Vences', '', '"El Tiburon"', 'https://boxrec.com/images/thumb/a/ae/628451.jpg/200px-628451.jpg', 'San Jose, California, USA', 'Watsonville, California, USA', '', 'M', 'USA', '174', '183', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2012-10-06', 'superfeatherweight', 23, 12, 5, 0, 1, 'inactive', 30, 165, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -66,7 +66,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('713a17ec-7a98-43d6-8788-b1b4e9b22a38', '460', 'https://boxrec.com/en/box-pro/460', 'https://boxrec.com/wiki/index.php?title=Human:460', 'luisito-espinosa', 'Luisito Espinosa', 'Luisito Pio Espinosa', '"Golden Boy / Lindol (Earthquake)"', 'https://boxrec.com/images/thumb/6/65/LuisitoEspinosa.jpg/200px-LuisitoEspinosa.jpg', 'San Francisco, California, USA', 'Manila, Metro Manila, Philippines', '', 'M', 'Philippines', '172', '175', 'orthodox', NULL, NULL, NULL, NULL, NULL, '1984-05-25', 'featherweight', 47, 26, 13, 7, 0, 'inactive', 60, 389, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('10e08177-0351-4209-beb9-321c8543dc3e', '629462', 'https://boxrec.com/en/box-pro/629462', 'https://boxrec.com/wiki/index.php?title=Human:629462', 'dominic-breazeale', 'Dominic Breazeale', 'Dominic Angelo Breazeale', '"Trouble"', 'https://boxrec.com/images/thumb/1/17/DominicBraz1.jpg/200px-DominicBraz1.jpg', 'Eastvale, California, USA', 'Glendale, California, USA', '', 'M', 'USA', '201', '207', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2012-11-09', 'heavyweight', 20, 18, 3, 2, 0, 'inactive', 23, 99, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -77,7 +77,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('f1a56004-dd2a-463c-a2fa-0bfa135b8e83', '460173', 'https://boxrec.com/en/box-pro/460173', 'https://boxrec.com/wiki/index.php?title=Human:460173', 'diego-gabriel-chaves', 'Diego Gabriel Chaves', '', '"La Joya"', 'https://boxrec.com/images/thumb/1/1a/Diego_Gabriel_Chaves.jpg/200px-Diego_Gabriel_Chaves.jpg', 'San Miguel, Buenos Aires, Argentina', 'San Miguel, Buenos Aires, Argentina', '', 'M', 'Argentina', '171', '169', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2008-07-05', 'middleweight', 30, 24, 11, 6, 2, 'active', 43, 216, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('fc6a9205-b4e9-4675-a7f9-9f9555839862', '629463', 'https://boxrec.com/en/box-pro/629463', 'https://boxrec.com/wiki/index.php?title=Human:629463', 'marcus-browne', 'Marcus Browne', 'Marcus Recardo Browne', '"Sir"', 'https://boxrec.com/images/thumb/0/05/MarcusBrowne1.jpg/200px-MarcusBrowne1.jpg', 'Carteret, New Jersey, USA', 'Staten Island, New York, USA', '', 'M', 'USA', '187', '192', 'southpaw', NULL, NULL, NULL, NULL, NULL, '2012-11-09', 'cruiserweight', 25, 16, 2, 1, 0, 'inactive', 27, 132, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -88,7 +88,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('16d8e858-081e-48e5-9ae4-91f6204978e5', '4602', 'https://boxrec.com/en/box-pro/4602', 'https://boxrec.com/wiki/index.php?title=Human:4602', 'roberto-garcia', 'Roberto Garcia', 'Roberto Garcia Cortez', '"Grandpa"', 'https://boxrec.com/images/thumb/4/42/RobertoGarciaBoxrec.jpg/200px-RobertoGarciaBoxrec.jpg', 'Oxnard, California, USA', 'San Pedro, California, USA', '', 'M', 'USA', '171', '170', 'orthodox', NULL, NULL, NULL, NULL, NULL, '1992-07-15', 'superfeatherweight', 34, 25, 3, 3, 0, 'inactive', 37, 206, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('80c12a4d-24bc-4d80-b3f5-19ffd4074501', '629464', 'https://boxrec.com/en/box-pro/629464', 'https://boxrec.com/wiki/index.php?title=Human:629464', 'terrell-gausha', 'Terrell Gausha', 'Terrell Maurice Gausha', '', 'https://boxrec.com/images/thumb/f/f6/629464.jpeg/200px-629464.jpeg', 'Encino, California, USA', 'Cleveland, Ohio, USA', '', 'M', 'USA', '178', '187', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2012-11-09', 'middleweight', 24, 12, 5, 0, 1, 'active', 30, 199, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -99,7 +99,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('2e38022d-1e22-4b64-a7a9-e507df73e856', '4616', 'https://boxrec.com/en/box-pro/4616', 'https://boxrec.com/wiki/index.php?title=Human:4616', 'pierre-coetzer', 'Pierre Coetzer', '', '', 'https://boxrec.com/images/thumb/5/58/PierreCoetzer.jpg/200px-PierreCoetzer.jpg', 'Pretoria, Gauteng, South Africa', 'Pretoria, Gauteng, South Africa', '', 'M', 'South Africa', '193', NULL, 'orthodox', NULL, NULL, NULL, NULL, NULL, '1983-02-05', 'heavyweight', 39, 27, 5, 3, 0, 'inactive', 44, 268, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('1c47ebea-25e7-47e0-967b-bc90d4bc101a', '629465', 'https://boxrec.com/en/box-pro/629465', 'https://boxrec.com/wiki/index.php?title=Human:629465', 'errol-spence-jr', 'Errol Spence Jr', '', '"The Truth"', 'https://boxrec.com/images/thumb/d/de/629465.jpeg/200px-629465.jpeg', 'Desoto, Texas, USA', 'Long Island, New York, USA', '', 'M', 'USA', '177', '183', 'southpaw', NULL, NULL, NULL, NULL, NULL, '2012-11-09', 'welterweight', 28, 22, 1, 1, 0, 'inactive', 29, 151, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -110,7 +110,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('1ea38ce8-c275-440a-9d36-0983aa1fad50', '462', 'https://boxrec.com/en/box-pro/462', 'https://boxrec.com/wiki/index.php?title=Human:462', 'michael-nunn', 'Michael Nunn', 'Michael John Nunn', '"Second To"', 'https://boxrec.com/images/thumb/5/52/Nunn161748740_(2).jpg/200px-Nunn161748740_(2).jpg', 'Davenport, Iowa, USA', 'Davenport, Iowa, USA', '', 'M', 'USA', '185', '196', 'southpaw', NULL, NULL, NULL, NULL, NULL, '1984-12-20', 'middleweight', 58, 38, 4, 1, 0, 'inactive', 62, 415, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('186068a8-981a-4fa7-977d-ede62737a61d', '629662', 'https://boxrec.com/en/box-pro/629662', 'https://boxrec.com/wiki/index.php?title=Human:629662', 'jose-antonio-laje', 'Jose Antonio Laje', 'José Antonio Laje Ruibal', '', 'https://boxrec.com/build/images/main/v6-avatar.svg', 'Montevideo, Uruguay', 'Montevideo, Uruguay', '', 'M', 'Uruguay', NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, '1922-05-14', 'middleweight', 4, 4, 4, 2, 0, 'inactive', 9, 41, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -121,7 +121,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('0358b5b1-bb14-4403-83d6-27f58a01955a', '462044', 'https://boxrec.com/en/box-pro/462044', 'https://boxrec.com/wiki/index.php?title=Human:462044', 'ryosuke-iwasa', 'Ryosuke Iwasa', '岩佐亮佑', '', 'https://boxrec.com/images/thumb/6/64/Ryosuke_Iwasa01.JPG/200px-Ryosuke_Iwasa01.JPG', 'Kashiwa, Chiba, Japan', 'Kashiwa, Chiba, Japan', '', 'M', 'Japan', '172', '181', 'southpaw', NULL, NULL, NULL, NULL, NULL, '2008-08-02', 'superbantamweight', 28, 18, 5, 3, 0, 'inactive', 33, 208, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('53df0bb4-6d4e-4138-9a7d-6ee63dca0d59', '629775', 'https://boxrec.com/en/box-pro/629775', 'https://boxrec.com/wiki/index.php?title=Human:629775', 'kamil-szeremeta', 'Kamil Szeremeta', '', '', 'https://boxrec.com/images/thumb/f/f2/Kamil_Szeremeta.jpg/200px-Kamil_Szeremeta.jpg', 'Bialystok, Poland', 'Bialystok, Poland', '', 'M', 'Poland', '177', '186', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2012-12-02', 'middleweight', 25, 8, 3, 3, 2, 'active', 30, 210, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -132,7 +132,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('8ca5351c-3c50-4f41-8916-29776bb71d00', '462158', 'https://boxrec.com/en/box-pro/462158', 'https://boxrec.com/wiki/index.php?title=Human:462158', 'billy-ham', 'Billy Ham', '', '', 'https://boxrec.com/build/images/main/v6-avatar.svg', 'Galveston, Texas, USA', '', '', 'M', 'USA', NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, '1946-07-08', 'lightweight', 0, 0, 1, 1, 0, 'inactive', 1, 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('8c3a21aa-8a8a-443b-9fb5-feaf160464d0', '629933', 'https://boxrec.com/en/box-pro/629933', 'https://boxrec.com/wiki/index.php?title=Human:629933', 'oscar-valdez', 'Oscar Valdez', 'Óscar Rafael Valdez Fierro', '', 'https://boxrec.com/images/thumb/c/c2/OscarValdez12.jpg/200px-OscarValdez12.jpg', 'Nogales, Sonora, Mexico', 'Nogales, Sonora, Mexico', '', 'M', 'Mexico', '166', '168', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2012-11-03', 'superfeatherweight', 32, 24, 3, 1, 0, 'active', 35, 227, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -143,7 +143,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('9229292c-d0ff-4068-ad44-05bd2d135e23', '4622', 'https://boxrec.com/en/box-pro/4622', 'https://boxrec.com/wiki/index.php?title=Human:4622', 'rudy-zavala', 'Rudy Zavala', '', '', 'https://boxrec.com/images/thumb/3/3f/Rudy_Zavala.jpg/200px-Rudy_Zavala.jpg', 'Rosemead, California, USA', 'Rosemead, California, USA', '', 'M', 'USA', '170', '173', '', NULL, NULL, NULL, NULL, NULL, '1990-03-26', 'featherweight', 25, 21, 8, 3, 2, 'inactive', 35, 192, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('a12cb523-b823-4521-b039-f81bd596ca8c', '630274', 'https://boxrec.com/en/box-pro/630274', 'https://boxrec.com/wiki/index.php?title=Human:630274', 'lewis-van-poetsch', 'Lewis van Poetsch', '', '"''Poochi''"', 'https://boxrec.com/images/thumb/f/f4/630274.jpg/200px-630274.jpg', 'Lydney, Gloucestershire, United Kingdom', 'Haywards Heath, Sussex, United Kingdom', '', 'M', 'United Kingdom', NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, '2012-11-23', 'lightheavyweight', 14, 4, 152, 11, 4, 'inactive', 170, 744, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -154,7 +154,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('3a5f5ae3-e6a6-4885-a526-e51a5ac5c34d', '4629', 'https://boxrec.com/en/box-pro/4629', 'https://boxrec.com/wiki/index.php?title=Human:4629', 'shannon-briggs', 'Shannon Briggs', 'Shannon Demont Briggs', '"The Cannon"', 'https://boxrec.com/images/thumb/6/68/Shannon_Briggs.jpeg/200px-Shannon_Briggs.jpeg', 'Brooklyn, New York, USA', 'Brooklyn, New York, USA', '', 'M', 'USA', '193', '203', 'orthodox', NULL, NULL, NULL, NULL, NULL, '1992-07-24', 'heavyweight', 60, 53, 6, 2, 1, 'inactive', 68, 226, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('2a105e6a-0bf9-4db5-bf38-f54d69d2386a', '630357', 'https://boxrec.com/en/box-pro/630357', 'https://boxrec.com/wiki/index.php?title=Human:630357', 'felix-verdejo', 'Felix Verdejo', 'Felix G Verdejo Sanchez', '"El Diamante"', 'https://boxrec.com/images/thumb/0/07/630357.jpeg/200px-630357.jpeg', 'San Juan, Puerto Rico', 'San Juan, Puerto Rico', '', 'M', 'Puerto Rico', '175', '182', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2012-12-06', 'lightweight', 27, 17, 2, 2, 0, 'inactive', 29, 144, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -165,7 +165,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('69678a8c-e79d-469a-b964-6dfb3eebd9bd', '462931', 'https://boxrec.com/en/box-pro/462931', 'https://boxrec.com/wiki/index.php?title=Human:462931', 'luis-garcia', 'Luis Garcia', 'Luis Enrique Garcia Campoalegre', '"El Leon"', 'https://boxrec.com/images/thumb/b/ba/Luis_Garcia.jpg/200px-Luis_Garcia.jpg', 'Peekskill, New York, USA', 'Matanzas, Cuba', '', 'M', 'Cuba', '183', '187', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2008-09-13', 'cruiserweight', 15, 12, 0, 0, 0, 'inactive', 15, 51, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('0ba8bd62-d8e2-451e-a673-63ebf87d0ea8', '6307', 'https://boxrec.com/en/box-pro/6307', 'https://boxrec.com/wiki/index.php?title=Human:6307', 'mark-ramsey', 'Mark Ramsey', '', '"Razor"', 'https://boxrec.com/build/images/main/v6-avatar.svg', 'Birmingham, West Midlands, United Kingdom', 'Birmingham, West Midlands, United Kingdom', '', 'M', 'United Kingdom', '171', NULL, 'orthodox', NULL, NULL, NULL, NULL, NULL, '1989-11-15', 'welterweight', 19, 10, 41, 9, 6, 'inactive', 66, 396, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -176,7 +176,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('6f64d12f-dd90-402d-8853-ae460f63ad61', '462974', 'https://boxrec.com/en/box-pro/462974', 'https://boxrec.com/wiki/index.php?title=Human:462974', 'nicholas-walters', 'Nicholas Walters', 'Nicholas O''Brian Walters', '"Axe Man"', 'https://boxrec.com/images/thumb/4/49/462974.jpg/200px-462974.jpg', 'Panama City, Panama', 'Montego Bay, Jamaica', '', 'M', 'Jamaica', '170', '185', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2008-08-02', 'lightweight', 29, 22, 2, 2, 1, 'active', 32, 167, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('688a87d0-ca27-4c3e-958b-c093df4c5847', '630710', 'https://boxrec.com/en/box-pro/630710', 'https://boxrec.com/wiki/index.php?title=Human:630710', 'david-allen', 'David Allen', '', '"''White Rhino''"', 'https://boxrec.com/images/thumb/b/ba/630710.jpeg/200px-630710.jpeg', 'Conisbrough, Yorkshire, United Kingdom', 'Doncaster, Yorkshire, United Kingdom', '', 'M', 'United Kingdom', '191', '191', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2012-12-08', 'heavyweight', 24, 19, 7, 4, 2, 'active', 33, 144, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -187,7 +187,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('8d41f0fa-f39b-4376-95a1-9a047c67b655', '4637', 'https://boxrec.com/en/box-pro/4637', 'https://boxrec.com/wiki/index.php?title=Human:4637', 'todd-foster', 'Todd Foster', '', '"Kid"', 'https://boxrec.com/images/thumb/a/a9/Todd_Foster.jpg/200px-Todd_Foster.jpg', 'Great Falls, Montana, USA', '', '', 'M', 'USA', '173', NULL, 'orthodox', NULL, NULL, NULL, NULL, NULL, '1989-01-24', 'lightweight', 41, 34, 4, 3, 1, 'inactive', 46, 211, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('a7580050-0f37-4c76-9547-09da8a2032ce', '6309', 'https://boxrec.com/en/box-pro/6309', 'https://boxrec.com/wiki/index.php?title=Human:6309', 'paul-carlo', 'Paul Carlo', '', '', 'https://boxrec.com/build/images/main/v6-avatar.svg', 'Saint Louis, Missouri, USA', 'Saint Louis, Missouri, USA', '', 'M', 'USA', NULL, NULL, 'southpaw', NULL, NULL, NULL, NULL, NULL, '1988-03-05', 'lightheavyweight', 23, 10, 4, 2, 0, 'inactive', 27, 137, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -198,7 +198,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('52ca4a30-6588-44eb-a22d-c4d6919502ab', '464', 'https://boxrec.com/en/box-pro/464', 'https://boxrec.com/wiki/index.php?title=Human:464', 'frank-tate', 'Frank Tate', '', '', 'https://boxrec.com/images/thumb/4/42/TateFrank.jpg/200px-TateFrank.jpg', 'Houston, Texas, USA', 'Detroit, Michigan, USA', '', 'M', 'USA', '183', '183', 'orthodox', NULL, NULL, NULL, NULL, NULL, '1984-12-07', 'middleweight', 41, 24, 5, 2, 0, 'inactive', 46, 351, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('c7c39f2c-4576-4ca5-a6dc-73de56355fd9', '631078', 'https://boxrec.com/en/box-pro/631078', 'https://boxrec.com/wiki/index.php?title=Human:631078', 'charles-martin', 'Charles Martin', 'Charles Lee Martin', '"Prince Charles"', 'https://boxrec.com/images/thumb/f/f1/CharlesMartin123.jpg/200px-CharlesMartin123.jpg', 'Arizona, USA', 'Saint Louis, Missouri, USA', '', 'M', 'USA', '196', '203', 'southpaw', NULL, NULL, NULL, NULL, NULL, '2012-10-27', 'heavyweight', 30, 27, 4, 2, 1, 'active', 35, 126, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -209,7 +209,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('8c5c55de-bcf0-4ea7-a78a-d577a1f7d4e9', '4645', 'https://boxrec.com/en/box-pro/4645', 'https://boxrec.com/wiki/index.php?title=Human:4645', 'danny-romero-jr', 'Danny Romero Jr', 'Daniel Gregorio Romero', '"Kid Dynamite"', 'https://boxrec.com/images/thumb/0/07/Danny_Romero_1788458.jpg/200px-Danny_Romero_1788458.jpg', 'Albuquerque, New Mexico, USA', 'Albuquerque, New Mexico, USA', '', 'M', 'USA', '165', '173', 'orthodox', NULL, NULL, NULL, NULL, NULL, '1992-08-14', 'superflyweight', 45, 38, 5, 2, 2, 'inactive', 52, 263, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('2b5ce7f4-9020-4f88-b692-57b0e08806ab', '631178', 'https://boxrec.com/en/box-pro/631178', 'https://boxrec.com/wiki/index.php?title=Human:631178', 'callum-smith', 'Callum Smith', 'Callum John Smith', '"''Mundo''"', 'https://boxrec.com/images/thumb/e/eb/Callum_Smith_2023.jpeg/200px-Callum_Smith_2023.jpeg', 'Liverpool, Merseyside, United Kingdom', 'Liverpool, Merseyside, United Kingdom', '', 'M', 'United Kingdom', '191', '198', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2012-11-17', 'lightheavyweight', 31, 22, 2, 1, 0, 'active', 33, 176, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -220,7 +220,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('261304d2-0e8b-48d1-8cff-89c97aecdf4b', '4655', 'https://boxrec.com/en/box-pro/4655', 'https://boxrec.com/wiki/index.php?title=Human:4655', 'john-ruiz', 'John Ruiz', '', '"The Quiet Man"', 'https://boxrec.com/images/thumb/f/f9/John_Ruiz_November_2009.jpg/200px-John_Ruiz_November_2009.jpg', 'Chelsea, Massachusetts, USA', 'Methuen, Massachusetts, USA', '', 'M', 'USA', '188', '198', 'orthodox', NULL, NULL, NULL, NULL, NULL, '1992-08-20', 'heavyweight', 44, 30, 9, 2, 1, 'inactive', 55, 331, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('ef6bd900-0cf3-4477-a30a-dab894913569', '631511', 'https://boxrec.com/en/box-pro/631511', 'https://boxrec.com/wiki/index.php?title=Human:631511', 'duke-micah', 'Duke Micah', 'Duke Akuetteh Micah', '"The Baby Faced Terminator"', 'https://boxrec.com/images/thumb/9/96/Duke_Micah_Fotor.jpg/200px-Duke_Micah_Fotor.jpg', 'Worcester, Massachusetts, USA', 'Accra, Ghana', '', 'M', 'Ghana', '170', NULL, '', NULL, NULL, NULL, NULL, NULL, '2012-11-02', 'superbantamweight', 24, 19, 3, 3, 0, 'active', 27, 140, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -231,7 +231,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('7df9bed3-7b0f-4afc-8f6c-7939683a905f', '466374', 'https://boxrec.com/en/box-pro/466374', 'https://boxrec.com/wiki/index.php?title=Human:466374', 'kali-reis', 'Kali Reis', '', '"KO Mequinonoag"', 'https://boxrec.com/images/thumb/6/6b/Kali_Reis.jpg/200px-Kali_Reis.jpg', 'Providence, Rhode Island, USA', 'USA', '', 'F', 'USA', '173', NULL, 'orthodox', NULL, NULL, NULL, NULL, NULL, '2008-09-06', 'superlightweight', 19, 5, 7, 0, 1, 'inactive', 27, 180, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('dd8c8842-00c6-4552-8ee9-e891103a1e7d', '631773', 'https://boxrec.com/en/box-pro/631773', 'https://boxrec.com/wiki/index.php?title=Human:631773', 'robert-easter-jr', 'Robert Easter Jr', '', '', 'https://boxrec.com/images/thumb/0/00/RobertEasterJr1.jpg/200px-RobertEasterJr1.jpg', 'Toledo, Ohio, USA', 'Toledo, Ohio, USA', '', 'M', 'USA', '180', '193', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2012-11-10', 'superlightweight', 23, 14, 1, 0, 1, 'inactive', 25, 152, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -242,7 +242,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('7172cf5a-d3c4-415d-83e1-fe95a29d1877', '466535', 'https://boxrec.com/en/box-pro/466535', 'https://boxrec.com/wiki/index.php?title=Human:466535', 'liam-smith', 'Liam Smith', 'Liam Mark Smith', '"''Beefy''"', 'https://boxrec.com/images/thumb/1/11/LiamSmithBoxrec.JPG/200px-LiamSmithBoxrec.JPG', 'Liverpool, Merseyside, United Kingdom', 'Liverpool, Merseyside, United Kingdom', '15 2 0', 'M', 'United Kingdom', '176', NULL, 'orthodox', NULL, NULL, NULL, NULL, NULL, '2008-10-10', 'middleweight', 33, 20, 5, 2, 1, 'active', 39, 254, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('e9a64fa0-5be1-49c1-8fe8-42920f3e4007', '632077', 'https://boxrec.com/en/box-pro/632077', 'https://boxrec.com/wiki/index.php?title=Human:632077', 'luis-arias', 'Luis Arias', 'Luis Enrique Arias', '', 'https://boxrec.com/images/thumb/8/82/Luis_Arias1990.jpg/200px-Luis_Arias1990.jpg', 'Las Vegas, Nevada, USA', 'Milwaukee, Wisconsin, USA', '', 'M', 'USA', '180', NULL, 'orthodox', NULL, NULL, NULL, NULL, NULL, '2012-11-10', 'middleweight', 22, 11, 5, 1, 1, 'active', 29, 176, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -253,7 +253,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('4b0e247d-7b61-4cbe-9a3e-6ba3ce0f47a1', '466607', 'https://boxrec.com/en/box-pro/466607', 'https://boxrec.com/wiki/index.php?title=Human:466607', 'rodolfo-gomez-jr', 'Rodolfo Gomez Jr', 'Rodolfo Martin Gomez Garcia', '"Cobrita"', 'https://boxrec.com/images/thumb/f/f6/RodolfoGomezJr_profile.jpg/200px-RodolfoGomezJr_profile.jpg', 'Laredo, Texas, USA', 'Nuevo Laredo, Tamaulipas, Mexico', '', 'M', 'USA', '191', NULL, 'orthodox', NULL, NULL, NULL, NULL, NULL, '2008-08-29', 'lightheavyweight', 14, 10, 9, 1, 3, 'active', 26, 137, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('c323ceb0-1634-41a9-a350-69a00a1b7386', '632104', 'https://boxrec.com/en/box-pro/632104', 'https://boxrec.com/wiki/index.php?title=Human:632104', 'jose-carlos-ramirez', 'Jose Carlos Ramirez', 'Jose Carlos Ramirez', '', 'https://boxrec.com/images/thumb/3/32/JuanCarlosRamirez.jpg/200px-JuanCarlosRamirez.jpg', 'Avenal, California, USA', 'Avenal, California, USA', '', 'M', 'USA', '178', '183', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2012-12-08', 'welterweight', 29, 18, 3, 0, 0, 'active', 32, 196, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -264,7 +264,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('ae51e1eb-50c8-4500-bbc2-728c42c37483', '467271', 'https://boxrec.com/en/box-pro/467271', 'https://boxrec.com/wiki/index.php?title=Human:467271', 'magomed-abdusalamov', 'Magomed Abdusalamov', 'Магомед Магомедгаджиевич Абдусаламов', '"Mago"', 'https://boxrec.com/images/thumb/c/cc/467271.jpeg/200px-467271.jpeg', 'Hallandale, Florida, USA', 'Makhachkala, Russia', '', 'M', 'Russia', '190', NULL, 'southpaw', NULL, NULL, NULL, NULL, NULL, '2008-09-06', 'heavyweight', 18, 18, 1, 0, 0, 'inactive', 19, 41, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('d7d5561d-6a81-4b96-9aa7-6e27501304e6', '632391', 'https://boxrec.com/en/box-pro/632391', 'https://boxrec.com/wiki/index.php?title=Human:632391', 'miguel-cruz', 'Miguel Cruz', 'Miguel Alejandro Cruz', '', 'https://boxrec.com/images/thumb/d/de/MiguelCruz.jpg/200px-MiguelCruz.jpg', 'Lake Mary, Florida, USA', 'Cincinnati, Ohio, USA', '', 'M', 'USA', '180', '188', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2012-12-07', 'superwelterweight', 18, 12, 1, 0, 0, 'inactive', 19, 93, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -275,7 +275,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('aaa7d4f7-7ce4-4333-bb72-207afb78a977', '467571', 'https://boxrec.com/en/box-pro/467571', 'https://boxrec.com/wiki/index.php?title=Human:467571', 'danny-o-connor', 'Danny O''Connor', '', '"Danny O"', 'https://boxrec.com/images/thumb/2/24/Danny_OConnor.JPG/200px-Danny_OConnor.JPG', 'Framingham, Massachusetts, USA', 'Framingham, Massachusetts, USA', '', 'M', 'USA', '173', '171', 'southpaw', NULL, NULL, NULL, NULL, NULL, '2008-09-17', 'welterweight', 31, 12, 3, 1, 0, 'inactive', 34, 178, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('8f759941-754a-46e4-8414-e1deac70f03b', '632458', 'https://boxrec.com/en/box-pro/632458', 'https://boxrec.com/wiki/index.php?title=Human:632458', 'angelo-leo', 'Angelo Leo', 'Angel Miguel Leo', '"El Chinito"', 'https://boxrec.com/images/thumb/2/2f/ANGELO_EL_CHINITO_LEO.jpg/200px-ANGELO_EL_CHINITO_LEO.jpg', 'Las Vegas, Nevada, USA', 'Albuquerque, New Mexico, USA', '', 'M', 'USA', '168', '174', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2012-11-17', 'featherweight', 26, 12, 1, 0, 0, 'active', 27, 177, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -286,7 +286,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('b9973725-4bcf-4e85-8298-f2973c73e16e', '46763', 'https://boxrec.com/en/box-pro/46763', 'https://boxrec.com/wiki/index.php?title=Human:46763', 'mario-lopez', 'Mario Lopez', 'Mario López González', '', 'https://boxrec.com/build/images/main/v6-avatar.svg', 'Mexicali, Baja California, Mexico', '', '', 'M', 'Mexico', '178', NULL, 'southpaw', NULL, NULL, NULL, NULL, NULL, '2000-11-19', 'middleweight', 2, 0, 5, 3, 2, 'inactive', 9, 36, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('e3725e4c-21df-407b-85ca-adcfe272e1f7', '633100', 'https://boxrec.com/en/box-pro/633100', 'https://boxrec.com/wiki/index.php?title=Human:633100', 'paul-valenzuela-cuesta', 'Paul Valenzuela Cuesta', 'Paul Ramon Valenzuela Cuesta', '"Chicho"', 'https://boxrec.com/images/thumb/5/5a/PaulValenzuela.jpeg/200px-PaulValenzuela.jpeg', 'Santa Rosalia, Baja California Sur, Mexico', 'Santa Rosalia, Baja California Sur, Mexico', '', 'M', 'Mexico', '178', '175', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2012-07-13', 'lightheavyweight', 28, 18, 13, 5, 1, 'active', 43, 201, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -297,7 +297,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('60422c11-8b21-4fd0-9f3d-81189d37e694', '467843', 'https://boxrec.com/en/box-pro/467843', 'https://boxrec.com/wiki/index.php?title=Human:467843', 'juan-francisco-estrada', 'Juan Francisco Estrada', 'Juan Francisco Estrada Romero', '"El Gallo"', 'https://boxrec.com/images/thumb/7/75/467843.jpeg/200px-467843.jpeg', 'Hermosillo, Sonora, Mexico', 'Puerto Penasco, Sonora, Mexico', '', 'M', 'Mexico', '163', '168', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2008-08-30', 'bantamweight', 45, 28, 4, 1, 0, 'active', 49, 339, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('2d0951bb-ea25-4f91-87de-1c94ffdf2860', '634455', 'https://boxrec.com/en/box-pro/634455', 'https://boxrec.com/wiki/index.php?title=Human:634455', 'jamel-herring', 'Jamel Herring', 'Jamel William Herring', '"Semper Fi"', 'https://boxrec.com/images/thumb/b/bd/Jamel_Herring_2021.JPG/200px-Jamel_Herring_2021.JPG', 'Cincinnati, Ohio, USA', 'Coram, New York, USA', '', 'M', 'USA', '178', '183', 'southpaw', NULL, NULL, NULL, NULL, NULL, '2012-12-08', 'superfeatherweight', 24, 12, 5, 2, 0, 'inactive', 29, 183, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -308,7 +308,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('e765e2f5-8a1b-44c5-b0d5-9ec6213267bb', '468', 'https://boxrec.com/en/box-pro/468', 'https://boxrec.com/wiki/index.php?title=Human:468', 'jorge-paez', 'Jorge Paez', 'Jorge Adolfo Páez Febles', '"El Maromero"', 'https://boxrec.com/images/thumb/c/cf/Jorge_Paez.jpg/200px-Jorge_Paez.jpg', 'Beverly Hills, California, USA', 'Mexicali, Baja California, Mexico', '', 'M', 'Mexico', '165', '173', 'orthodox', NULL, NULL, NULL, NULL, NULL, '1984-11-16', 'featherweight', 79, 52, 14, 6, 5, 'inactive', 98, 633, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('8c538c2a-0231-499e-a7a3-627de9f94017', '634535', 'https://boxrec.com/en/box-pro/634535', 'https://boxrec.com/wiki/index.php?title=Human:634535', 'jono-carroll', 'Jono Carroll', 'Jonathan Patrick Beresford', '"''King Kong''"', 'https://boxrec.com/images/thumb/9/97/634535.jpg/200px-634535.jpg', 'Dublin, Ireland', 'Dublin, Ireland', '', 'M', 'Ireland', '170', NULL, 'southpaw', NULL, NULL, NULL, NULL, NULL, '2012-12-16', 'lightweight', 25, 7, 3, 1, 1, 'active', 29, 198, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -319,7 +319,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('27ff738b-2f01-4239-be68-f1d832047068', '4681', 'https://boxrec.com/en/box-pro/4681', 'https://boxrec.com/wiki/index.php?title=Human:4681', 'brian-nielsen', 'Brian Nielsen', '', '"Super Brian"', 'https://boxrec.com/images/thumb/7/7e/Brian_Nielsen.jpeg/200px-Brian_Nielsen.jpeg', 'Korsoer, Denmark', 'Korsoer, Denmark', '', 'M', 'Denmark', '191', '196', 'orthodox', NULL, NULL, NULL, NULL, NULL, '1992-09-04', 'heavyweight', 64, 43, 3, 3, 0, 'inactive', 67, 323, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('633f4ef5-935b-452f-bd9d-92bd6d78edf4', '634552', 'https://boxrec.com/en/box-pro/634552', 'https://boxrec.com/wiki/index.php?title=Human:634552', 'angel-l-acosta-gomez', 'Angel L. Acosta Gomez', 'Angel L. Acosta Gómez', '"Tito"', 'https://boxrec.com/images/thumb/0/08/634552.jpeg/200px-634552.jpeg', 'San Juan, Puerto Rico', 'San Juan, Puerto Rico', '', 'M', 'Puerto Rico', '163', '161', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2012-11-17', 'lightflyweight', 25, 23, 5, 3, 0, 'active', 30, 155, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -330,7 +330,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('3af37c63-612e-4875-a5aa-95943208c0a5', '468433', 'https://boxrec.com/en/box-pro/468433', 'https://boxrec.com/wiki/index.php?title=Human:468433', 'demetrius-andrade', 'Demetrius Andrade', '', '"Boo Boo"', 'https://boxrec.com/images/thumb/b/bc/Demetrius_Andrade_2019.JPG/200px-Demetrius_Andrade_2019.JPG', 'Providence, Rhode Island, USA', 'Providence, Rhode Island, USA', '', 'M', 'USA', '183', '187', 'southpaw', NULL, NULL, NULL, NULL, NULL, '2008-10-23', 'supermiddleweight', 32, 19, 1, 1, 0, 'inactive', 33, 206, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('e5a7c250-9003-49b7-b7ef-c48ade3daa4e', '634553', 'https://boxrec.com/en/box-pro/634553', 'https://boxrec.com/wiki/index.php?title=Human:634553', 'alberto-machado', 'Alberto Machado', 'Alberto Josue Machado Becerril', '"El Explosivo"', 'https://boxrec.com/images/thumb/e/ee/Albertomachado1.JPG/200px-Albertomachado1.JPG', 'San Juan, Puerto Rico', 'Rio Piedras, Puerto Rico', '', 'M', 'Puerto Rico', '178', '183', 'southpaw', NULL, NULL, NULL, NULL, NULL, '2012-11-17', 'superlightweight', 24, 20, 4, 4, 0, 'active', 28, 91, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -341,7 +341,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('d7175a33-e32f-4712-857a-972da735b78a', '468475', 'https://boxrec.com/en/box-pro/468475', 'https://boxrec.com/wiki/index.php?title=Human:468475', 'jessie-vargas', 'Jessie Vargas', '', '"The Pride of Las Vegas"', 'https://boxrec.com/images/thumb/0/0d/Jessie_Vargas.jpg/200px-Jessie_Vargas.jpg', 'Las Vegas, Nevada, USA', 'Las Vegas, Nevada, USA', '', 'M', 'USA', '180', '180', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2008-09-05', 'superwelterweight', 29, 11, 4, 1, 2, 'inactive', 35, 263, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('40ad3f62-7084-41ed-9055-d61d1ac3c039', '634695', 'https://boxrec.com/en/box-pro/634695', 'https://boxrec.com/wiki/index.php?title=Human:634695', 'francisco-pedroza-portillo', 'Francisco Pedroza Portillo', 'Francisco Javier Pedroza Portillo', '"Rayito"', 'https://boxrec.com/images/thumb/e/e8/FranciscoPedroza-2019-12-05.JPG/200px-FranciscoPedroza-2019-12-05.JPG', 'Tijuana, Baja California, Mexico', 'Tijuana, Baja California, Mexico', '', 'M', 'Mexico', '168', NULL, 'orthodox', NULL, NULL, NULL, NULL, NULL, '2012-11-30', 'superbantamweight', 19, 11, 13, 2, 2, 'active', 35, 158, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -352,7 +352,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('c568bd72-efa3-4387-b69b-3864eee9ac96', '468841', 'https://boxrec.com/en/box-pro/468841', 'https://boxrec.com/wiki/index.php?title=Human:468841', 'deontay-wilder', 'Deontay Wilder', 'Deontay Leshun Wilder', '"The Bronze Bomber"', 'https://boxrec.com/images/thumb/e/e0/DeontayWilder123.jpg/200px-DeontayWilder123.jpg', 'Tuscaloosa, Alabama, USA', 'Tuscaloosa, Alabama, USA', '', 'M', 'USA', '198', '211', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2008-11-15', 'heavyweight', 44, 43, 4, 3, 1, 'active', 49, 186, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('f33effab-b75a-4594-a19c-f61569e3e5b7', '634717', 'https://boxrec.com/en/box-pro/634717', 'https://boxrec.com/wiki/index.php?title=Human:634717', 'joseph-pedroza-diaz-jr', 'Joseph Pedroza Diaz Jr', 'Joseph Pedroza Diaz Jr.', '"Jo Jo"', 'https://boxrec.com/images/thumb/b/b3/634717.jpg/200px-634717.jpg', 'Covina, California, USA', 'South El Monte, California, USA', '', 'M', 'USA', '168', '163', 'southpaw', NULL, NULL, NULL, NULL, NULL, '2012-12-15', 'lightweight', 34, 15, 7, 1, 1, 'active', 42, 332, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -363,7 +363,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('8abedccf-d2f3-479e-b2f0-408cd792a318', '469170', 'https://boxrec.com/en/box-pro/469170', 'https://boxrec.com/wiki/index.php?title=Human:469170', 'steve-claggett', 'Steve Claggett', 'Stephen James Claggett', '"The Dragon"', 'https://boxrec.com/images/thumb/1/1c/SteveClaggett_profile.jpeg/200px-SteveClaggett_profile.jpeg', 'Calgary, Alberta, Canada', 'Calgary, Alberta, Canada', '', 'M', 'Canada', '173', '178', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2008-09-12', 'superlightweight', 39, 27, 8, 1, 2, 'active', 49, 292, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('b15a269c-1a6d-45f1-bedc-f826cd8ea979', '635000', 'https://boxrec.com/en/box-pro/635000', 'https://boxrec.com/wiki/index.php?title=Human:635000', 'jeff-horn', 'Jeff Horn', 'Jeffrey Christopher Horn', '"The Hornet"', 'https://boxrec.com/images/thumb/8/82/JeffHorn1.jpg/200px-JeffHorn1.jpg', 'Acacia Ridge, Queensland, Australia', 'Brisbane, Queensland, Australia', '', 'M', 'Australia', '175', '173', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2013-03-01', 'welterweight', 20, 13, 3, 3, 1, 'inactive', 24, 154, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -374,7 +374,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('9d4b2dca-1f1e-46f6-8eb6-ce18102dcce3', '469544', 'https://boxrec.com/en/box-pro/469544', 'https://boxrec.com/wiki/index.php?title=Human:469544', 'matvey-korobov', 'Matvey Korobov', 'Матвей Георгиевич Коробов', '', 'https://boxrec.com/images/thumb/f/f1/Matvey_Korobov.JPG/200px-Matvey_Korobov.JPG', 'Lantana, Florida, USA', 'Orotukan, Russia', '', 'M', 'USA', '180', '179', 'southpaw', NULL, NULL, NULL, NULL, NULL, '2008-11-01', 'middleweight', 28, 14, 4, 3, 1, 'inactive', 33, 182, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('0ea63f16-724a-4fc3-a7d4-dadd21eb8898', '6361', 'https://boxrec.com/en/box-pro/6361', 'https://boxrec.com/wiki/index.php?title=Human:6361', 'juan-arroyo', 'Juan Arroyo', '', '', 'https://boxrec.com/images/thumb/6/64/6361.jpg/200px-6361.jpg', 'Miami, Florida, USA', '', '', 'M', 'Puerto Rico', NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, '1981-09-30', 'superlightweight', 37, 16, 5, 3, 4, 'inactive', 46, 264, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -385,7 +385,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('7ee6e09f-6a6f-45bf-8d5b-a430dc83168a', '469744', 'https://boxrec.com/en/box-pro/469744', 'https://boxrec.com/wiki/index.php?title=Human:469744', 'michel-soro', 'Michel Soro', 'Michel Abou Lessonguy Soro', '', 'https://boxrec.com/images/thumb/9/94/SoroMichel11.jpg/200px-SoroMichel11.jpg', 'Villeurbanne, Rhône, France', 'Abidjan, Côte D’Ivoire', '', 'M', 'France', '179', '178', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2008-10-02', 'superwelterweight', 37, 26, 4, 1, 2, 'active', 43, 249, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('16d70879-c11c-4f30-8832-f35a08832254', '636442', 'https://boxrec.com/en/box-pro/636442', 'https://boxrec.com/wiki/index.php?title=Human:636442', 'khalid-graidia', 'Khalid Graidia', '', '', 'https://boxrec.com/images/thumb/e/ee/636442.jpeg/200px-636442.jpeg', 'Luxembourg, Luxembourg', 'Rumilly, Haute-Savoie, France', '', 'M', 'France', NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, '2012-12-15', 'lightheavyweight', 12, 3, 15, 3, 5, 'active', 32, 170, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -396,7 +396,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('e302e028-e350-40d6-ac2a-e7b0767fbf37', '470122', 'https://boxrec.com/en/box-pro/470122', 'https://boxrec.com/wiki/index.php?title=Human:470122', 'adrian-granados', 'Adrian Granados', 'Adrian Rene Granados', '"Tigre"', 'https://boxrec.com/images/thumb/8/83/470122.jpeg/200px-470122.jpeg', 'Woodland Hills, California, USA', 'Berwyn, Illinois, USA', '', 'M', 'Mexico', '175', '188', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2008-09-20', 'welterweight', 21, 15, 9, 1, 3, 'inactive', 34, 204, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('09c64792-2eba-4732-baab-f29b1f8206ce', '636531', 'https://boxrec.com/en/box-pro/636531', 'https://boxrec.com/wiki/index.php?title=Human:636531', 'umar-salamov', 'Umar Salamov', 'Умар Исаевич Саламов', '', 'https://boxrec.com/images/thumb/a/a6/Salamov_Umar.jpg/200px-Salamov_Umar.jpg', 'Las Vegas, Nevada, USA', 'Grozny, Russia', '', 'M', 'Kyrgyzstan', '192', '193', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2012-12-15', 'cruiserweight', 30, 22, 2, 0, 0, 'active', 32, 178, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -407,7 +407,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('4e54ecf3-a3c8-45a7-ab15-bddb03762232', '470367', 'https://boxrec.com/en/box-pro/470367', 'https://boxrec.com/wiki/index.php?title=Human:470367', 'krzysztof-glowacki', 'Krzysztof Glowacki', 'Krzysztof Henryk Glowacki', '"Glowka"', 'https://boxrec.com/images/thumb/1/10/470367.jpeg/200px-470367.jpeg', 'Walcz, Poland', 'Walcz, Poland', '', 'M', 'Poland', '183', '191', 'southpaw', NULL, NULL, NULL, NULL, NULL, '2008-10-03', 'cruiserweight', 32, 20, 4, 3, 0, 'inactive', 36, 207, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('12c62d1c-a093-4bb1-86f7-c9551c9ac9d3', '636887', 'https://boxrec.com/en/box-pro/636887', 'https://boxrec.com/wiki/index.php?title=Human:636887', 'guillermo-perez', 'Guillermo Perez', 'Guillermo Perez Hernendez', '"The Cutman"', 'https://boxrec.com/images/thumb/c/cf/Guillermo_Perez.jpeg/200px-Guillermo_Perez.jpeg', 'West Palm Beach, Florida, USA', 'Sagua La Grande, Cuba', '', 'M', 'USA', '173', '183', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2012-12-15', 'superfeatherweight', 1, 1, 0, 0, 0, 'inactive', 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -418,7 +418,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('71c9e8fb-327c-4336-b530-665ee43ab1e0', '47041', 'https://boxrec.com/en/box-pro/47041', 'https://boxrec.com/wiki/index.php?title=Human:47041', 'david-rodriguez', 'David Rodriguez', '', '"Nino"', 'https://boxrec.com/images/thumb/f/f0/Rodriguez_D.jpg/200px-Rodriguez_D.jpg', 'El Paso, Texas, USA', 'El Paso, Texas, USA', '', 'M', 'USA', '193', '201', 'orthodox', NULL, NULL, NULL, NULL, NULL, '1998-12-03', 'heavyweight', 37, 35, 2, 2, 0, 'inactive', 39, 73, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('95cc261c-711f-4e85-bd3a-d966e68814ca', '6371', 'https://boxrec.com/en/box-pro/6371', 'https://boxrec.com/wiki/index.php?title=Human:6371', 'justin-fortune', 'Justin Fortune', 'Justin Andrew Fortune', '', 'https://boxrec.com/images/thumb/d/d3/6371.jpg/200px-6371.jpg', 'Los Angeles, California, USA', 'Australia', '', 'M', 'Australia', '175', NULL, 'orthodox', NULL, NULL, NULL, NULL, NULL, '1990-06-12', 'heavyweight', 15, 9, 9, 9, 1, 'inactive', 25, 105, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -429,7 +429,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('be60a711-6dd3-416b-9b90-4bbcaa3c706d', '47099', 'https://boxrec.com/en/box-pro/47099', 'https://boxrec.com/wiki/index.php?title=Human:47099', 'roy-alexander', 'Roy Alexander', '', '', 'https://boxrec.com/images/thumb/4/48/47099.jpg/200px-47099.jpg', 'Penrith,Sydney, New South Wales, Australia', '', '', 'M', 'Australia', '175', NULL, 'orthodox', NULL, NULL, NULL, NULL, NULL, '1982-02-09', 'lightheavyweight', 20, 6, 22, 9, 1, 'inactive', 43, 263, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('faa67efb-6056-466d-ace4-f7a669fb1ebd', '637333', 'https://boxrec.com/en/box-pro/637333', 'https://boxrec.com/wiki/index.php?title=Human:637333', 'alexandro-santiago', 'Alexandro Santiago', 'Agustín Alexandro Santiago Barrios', '"Peque"', 'https://boxrec.com/images/thumb/1/1f/637333.jpeg/200px-637333.jpeg', 'Tijuana, Baja California, Mexico', 'Tijuana, Baja California, Mexico', '', 'M', 'Mexico', '159', '166', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2012-12-21', 'bantamweight', 28, 14, 5, 1, 5, 'active', 38, 233, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -440,7 +440,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('9f15d9c4-c4be-48f6-88fe-4351f80157b8', '471634', 'https://boxrec.com/en/box-pro/471634', 'https://boxrec.com/wiki/index.php?title=Human:471634', 'jermall-charlo', 'Jermall Charlo', 'Jermall Deandre Charlo', '"Hit Man"', 'https://boxrec.com/images/thumb/8/8e/471634_2022.jpg/200px-471634_2022.jpg', 'Houston, Texas, USA', 'Richmond, Texas, USA', '', 'M', 'USA', '185', '187', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2008-09-12', 'supermiddleweight', 34, 23, 0, 0, 0, 'active', 34, 187, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('36fd8532-d1aa-4f6f-a3c0-513d1484aa75', '638', 'https://boxrec.com/en/box-pro/638', 'https://boxrec.com/wiki/index.php?title=Human:638', 'jesse-ferguson', 'Jesse Ferguson', '', '"The Boogieman / Thunder"', 'https://boxrec.com/images/thumb/2/26/FergusonJesse.jpg/200px-FergusonJesse.jpg', 'Philadelphia, Pennsylvania, USA', 'Knightdale, North Carolina, USA', '', 'M', 'USA', '188', '196', 'orthodox', NULL, NULL, NULL, NULL, NULL, '1983-01-12', 'heavyweight', 26, 16, 18, 7, 0, 'inactive', 44, 334, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -451,7 +451,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('f9ce64c7-d349-461e-8057-e38980fd904b', '471653', 'https://boxrec.com/en/box-pro/471653', 'https://boxrec.com/wiki/index.php?title=Human:471653', 'terrel-williams', 'Terrel Williams', 'Terrel Shawn Williams', '', 'https://boxrec.com/images/thumb/c/c4/471653.jpeg/200px-471653.jpeg', 'Los Angeles, California, USA', 'Inglewood, California, USA', '', 'M', 'USA', '183', '185', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2008-11-13', 'welterweight', 18, 13, 1, 0, 0, 'inactive', 19, 81, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('8b8b6b15-0550-4d34-ab42-248aeebd54ff', '638177', 'https://boxrec.com/en/box-pro/638177', 'https://boxrec.com/wiki/index.php?title=Human:638177', 'carlos-nieves', 'Carlos Nieves', '', '', 'https://boxrec.com/images/thumb/8/82/Carlos_Nieves.jpeg/200px-Carlos_Nieves.jpeg', 'The Bronx, New York, USA', 'Aguadilla, Puerto Rico', '', 'M', 'USA', '175', NULL, 'orthodox', NULL, NULL, NULL, NULL, NULL, '2013-01-10', 'welterweight', 0, 0, 8, 3, 1, 'inactive', 9, 32, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -462,7 +462,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('ec3f69b4-a966-463c-964a-755bc1f72b27', '47207', 'https://boxrec.com/en/box-pro/47207', 'https://boxrec.com/wiki/index.php?title=Human:47207', 'sam-jordan', 'Sam Jordan', '', '', 'https://boxrec.com/build/images/main/v6-avatar.svg', 'San Francisco, California, USA', 'Diboll, Texas, USA', '', 'M', 'USA', NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, '1948-03-10', 'lightheavyweight', 11, 3, 5, 2, 5, 'inactive', 21, 87, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('27ab1661-f4bd-4dba-ad65-45783c54a023', '638294', 'https://boxrec.com/en/box-pro/638294', 'https://boxrec.com/wiki/index.php?title=Human:638294', 'bd-hanley', 'Bd Hanley', '', '', 'https://boxrec.com/build/images/main/v6-avatar.svg', 'Devon, United Kingdom', '', '', 'M', 'United Kingdom', NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, '1921-07-01', NULL, 0, 0, 1, 1, 0, 'inactive', 1, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -473,7 +473,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('529043b4-ac48-40b1-b686-05787e1c8df4', '472133', 'https://boxrec.com/en/box-pro/472133', 'https://boxrec.com/wiki/index.php?title=Human:472133', 'shawn-porter', 'Shawn Porter', 'Shawn Christian Porter', '"Showtime"', 'https://boxrec.com/images/thumb/c/c4/Porter-large1.jpg/200px-Porter-large1.jpg', 'Las Vegas, Nevada, USA', 'Akron, Ohio, USA', '', 'M', 'USA', '170', '177', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2008-10-03', 'welterweight', 31, 17, 4, 1, 1, 'inactive', 36, 253, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('f9d89b4c-d4fe-4b95-8250-8ce9628fce58', '638768', 'https://boxrec.com/en/box-pro/638768', 'https://boxrec.com/wiki/index.php?title=Human:638768', 'patrick-day', 'Patrick Day', '', '', 'https://boxrec.com/images/thumb/5/55/Patrick_Day.jpg/200px-Patrick_Day.jpg', 'Freeport, New York, USA', 'Freeport, New York, USA', '', 'M', 'USA', '175', '188', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2013-01-23', 'superwelterweight', 17, 6, 4, 2, 1, 'inactive', 22, 126, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -484,7 +484,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('3df25448-49ee-4227-895c-190b44bf3f39', '47231', 'https://boxrec.com/en/box-pro/47231', 'https://boxrec.com/wiki/index.php?title=Human:47231', 'johnny-digilio', 'Johnny DiGilio', 'John Joseph DiGilio', '', 'https://boxrec.com/images/thumb/3/3f/Johnny_DiGilio.JPG/200px-Johnny_DiGilio.JPG', 'Bayonne, New Jersey, USA', 'Bayonne, New Jersey, USA', '', 'M', 'USA', '170', NULL, '', NULL, NULL, NULL, NULL, NULL, '1950-10-16', 'welterweight', 28, 9, 10, 3, 0, 'inactive', 38, 231, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('3ab985bd-1cab-42d7-9bab-c3763b0dcf4f', '639', 'https://boxrec.com/en/box-pro/639', 'https://boxrec.com/wiki/index.php?title=Human:639', 'anders-eklund', 'Anders Eklund', '', '"Lillen"', 'https://boxrec.com/images/thumb/7/7b/Anders_Eklund2.jpg/200px-Anders_Eklund2.jpg', 'Gaevle, Sweden', 'Gaevle, Sweden', '', 'M', 'Sweden', '199', NULL, '', NULL, NULL, NULL, NULL, NULL, '1982-10-07', 'heavyweight', 19, 10, 5, 4, 1, 'inactive', 25, 128, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -495,7 +495,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('a0a08529-ec4b-408c-abc6-d0f1d4b827d6', '472418', 'https://boxrec.com/en/box-pro/472418', 'https://boxrec.com/wiki/index.php?title=Human:472418', 'moises-flores', 'Moises Flores', 'Moises Flores Barba', '"Chucky"', 'https://boxrec.com/images/thumb/f/f1/472418.jpeg/200px-472418.jpeg', 'Guadalajara, Jalisco, Mexico', 'Guadalajara, Jalisco, Mexico', '', 'M', 'Mexico', '175', '175', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2008-08-29', 'superfeatherweight', 26, 17, 11, 7, 1, 'active', 40, 171, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('463e39ff-0897-4b64-a79e-157d380d0467', '639668', 'https://boxrec.com/en/box-pro/639668', 'https://boxrec.com/wiki/index.php?title=Human:639668', 'oscar-molina', 'Oscar Molina', 'Óscar Molina Casillas', '', 'https://boxrec.com/images/thumb/a/ac/OscarMolina.jpg/200px-OscarMolina.jpg', 'Norwalk, California, USA', 'Commerce, California, USA', '', 'M', 'USA', '175', '178', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2013-01-26', 'superwelterweight', 14, 10, 2, 1, 1, 'inactive', 17, 80, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -506,7 +506,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('6a9bd9e5-70d3-4f14-886f-aa95e2a6b030', '472580', 'https://boxrec.com/en/box-pro/472580', 'https://boxrec.com/wiki/index.php?title=Human:472580', 'george-groves', 'George Groves', '', '"''Saint George''"', 'https://boxrec.com/images/thumb/c/ca/George_Groves.jpg/200px-George_Groves.jpg', 'Hammersmith, London, United Kingdom', 'Hammersmith, London, United Kingdom', '', 'M', 'United Kingdom', '182', '183', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2008-11-15', 'supermiddleweight', 28, 20, 4, 3, 0, 'inactive', 32, 205, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('449cb4d9-8407-4da3-b769-d59f89837c3e', '640268', 'https://boxrec.com/en/box-pro/640268', 'https://boxrec.com/wiki/index.php?title=Human:640268', 'michael-hunter', 'Michael Hunter', 'Michael Hunter II', '"The Bounty"', 'https://boxrec.com/images/thumb/2/2f/640268.jpg/200px-640268.jpg', 'Las Vegas, Nevada, USA', 'Van Nuys, California, USA', '', 'M', 'USA', '188', '202', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2013-03-09', 'heavyweight', 24, 17, 1, 0, 2, 'active', 27, 159, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -517,7 +517,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('16054c5b-7100-427d-a9b1-bea34f6d73ea', '47267', 'https://boxrec.com/en/box-pro/47267', 'https://boxrec.com/wiki/index.php?title=Human:47267', 'rocky-hernandez', 'Rocky Hernandez', '', '', 'https://boxrec.com/build/images/main/v6-avatar.svg', 'San Luis Potosi, San Luis Potosí, Mexico', '', '', 'M', 'Mexico', NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, '1968-08-31', 'middleweight', 7, 4, 17, 8, 1, 'inactive', 25, 208, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('830e5a19-3f19-45d7-be8a-ef01837d52c1', '640437', 'https://boxrec.com/en/box-pro/640437', 'https://boxrec.com/wiki/index.php?title=Human:640437', 'shiming-zou', 'Shiming Zou', '邹市明', '', 'https://boxrec.com/images/thumb/9/9f/Zou-Shiming.jpg/200px-Zou-Shiming.jpg', 'Zunyi, China', 'Zunyi, China', '', 'M', 'China', '164', '164', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2013-04-06', 'flyweight', 9, 2, 2, 1, 0, 'inactive', 11, 98, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -528,7 +528,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('29298b44-47cb-4fe6-9e53-31250236832c', '472893', 'https://boxrec.com/en/box-pro/472893', 'https://boxrec.com/wiki/index.php?title=Human:472893', 'bastie-samir', 'Bastie Samir', 'Bastie Samir', '', 'https://boxrec.com/images/thumb/d/d4/472893.jpg/200px-472893.jpg', 'Las Vegas, Nevada, USA', 'Accra, Ghana', '', 'M', 'Ghana', '173', NULL, 'orthodox', NULL, NULL, NULL, NULL, NULL, '2008-11-08', 'lightheavyweight', 21, 19, 2, 1, 1, 'active', 24, 71, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('2153b29e-41e6-46c8-9ed7-814afd80b958', '640497', 'https://boxrec.com/en/box-pro/640497', 'https://boxrec.com/wiki/index.php?title=Human:640497', 'd-mitrius-ballard', 'D''Mitrius Ballard', '', '"Big Meech"', 'https://boxrec.com/images/thumb/2/2f/640497_2023.jpg/200px-640497_2023.jpg', 'Temple Hills, Maryland, USA', 'Temple Hills, Maryland, USA', '', 'M', 'USA', '183', '188', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2013-02-23', 'middleweight', 21, 13, 2, 2, 1, 'inactive', 26, 114, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -539,7 +539,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('d4bd8310-7b13-4ae7-a2a7-cadb1e69d79f', '472942', 'https://boxrec.com/en/box-pro/472942', 'https://boxrec.com/wiki/index.php?title=Human:472942', 'tomoki-kameda', 'Tomoki Kameda', '亀田和毅', '"El Mexicanito"', 'https://boxrec.com/images/thumb/0/07/472942.jpeg/200px-472942.jpeg', 'Osaka, Osaka, Japan', 'Osaka, Osaka, Japan', '', 'M', 'Japan', '171', '170', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2008-11-21', 'featherweight', 42, 23, 5, 0, 0, 'active', 47, 349, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('63231d71-4a61-4f67-9b19-634f925a091a', '6405', 'https://boxrec.com/en/box-pro/6405', 'https://boxrec.com/wiki/index.php?title=Human:6405', 'eric-lucas', 'Eric Lucas', '', '', 'https://boxrec.com/images/thumb/9/97/Eric_Lucas.jpg/200px-Eric_Lucas.jpg', 'Magog, Quebec, Canada', 'Montreal, Quebec, Canada', '', 'M', 'Canada', '183', '188', 'orthodox', NULL, NULL, NULL, NULL, NULL, '1991-12-17', 'supermiddleweight', 39, 15, 8, 5, 3, 'inactive', 50, 393, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -550,7 +550,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('a7dfcd8c-f641-44e3-b461-a4af782737bb', '473857', 'https://boxrec.com/en/box-pro/473857', 'https://boxrec.com/wiki/index.php?title=Human:473857', 'artur-szpilka', 'Artur Szpilka', '', '"Szpila The Pin"', 'https://boxrec.com/images/thumb/d/d5/ArturS.jpg/200px-ArturS.jpg', 'Warsaw, Poland', 'Wieliczka, Poland', '', 'M', 'Poland', '193', '196', 'southpaw', NULL, NULL, NULL, NULL, NULL, '2008-10-18', NULL, 24, 16, 5, 5, 0, 'inactive', 29, 130, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('534769df-5a66-47da-93b4-39017ae89402', '640938', 'https://boxrec.com/en/box-pro/640938', 'https://boxrec.com/wiki/index.php?title=Human:640938', 'nieky-holzken', 'Nieky Holzken', 'Nicolaas Holzken', '"The Natural"', 'https://boxrec.com/images/thumb/d/df/NiekyHolzken.jpeg/200px-NiekyHolzken.jpeg', 'Helmond, Netherlands', 'Helmond, Netherlands', '', 'M', 'Netherlands', '182', NULL, 'orthodox', NULL, NULL, NULL, NULL, NULL, '2013-03-03', 'supermiddleweight', 15, 11, 1, 0, 0, 'active', 16, 77, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -561,7 +561,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('52802b5d-775f-4af4-9b2f-8e86e5158394', '473908', 'https://boxrec.com/en/box-pro/473908', 'https://boxrec.com/wiki/index.php?title=Human:473908', 'ronny-rios', 'Ronny Rios', 'Ronny Rios Quezada', '', 'https://boxrec.com/images/thumb/2/2b/473908.jpeg/200px-473908.jpeg', 'Santa Ana, California, USA', 'Compton, California, USA', '', 'M', 'USA', '171', '170', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2008-10-24', 'featherweight', 34, 17, 5, 4, 0, 'active', 39, 244, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('8c4e2a86-7374-4ae6-82f1-ff0dcfc55d8f', '641605', 'https://boxrec.com/en/box-pro/641605', 'https://boxrec.com/wiki/index.php?title=Human:641605', 'flavius-biea', 'Flavius Biea', '', '', 'https://boxrec.com/images/thumb/0/0b/641605.jpg/200px-641605.jpg', 'Timisoara, Romania', 'Arad, Romania', '', 'M', 'Romania', '177', '183', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2013-02-22', 'superwelterweight', 24, 12, 2, 2, 0, 'active', 26, 149, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -572,7 +572,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('72ad7067-057d-476d-90a7-de67803374fc', '474', 'https://boxrec.com/en/box-pro/474', 'https://boxrec.com/wiki/index.php?title=Human:474', 'mike-tyson', 'Mike Tyson', 'Michael Gerard Tyson', '"Iron"', 'https://boxrec.com/images/thumb/9/94/MikeTysonHeadshot2.jpg/200px-MikeTysonHeadshot2.jpg', 'Henderson, Nevada, USA', 'Brooklyn, New York, USA', '', 'M', 'USA', '178', '180', 'orthodox', NULL, NULL, NULL, NULL, NULL, '1985-03-06', 'heavyweight', 50, 44, 7, 5, 0, 'active', 59, 223, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('613c9a82-de79-4e26-aaf6-416b7f67a22e', '641641', 'https://boxrec.com/en/box-pro/641641', 'https://boxrec.com/wiki/index.php?title=Human:641641', 'ed-latimore', 'Ed Latimore', '', '"Black Magic"', 'https://boxrec.com/images/thumb/0/0a/Ed_Latimore0900.jpg/200px-Ed_Latimore0900.jpg', 'Pittsburgh, Pennsylvania, USA', '', '', 'M', 'USA', '185', '193', '', NULL, NULL, NULL, NULL, NULL, '2013-01-26', 'heavyweight', 14, 8, 1, 1, 1, 'active', 16, 54, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -583,7 +583,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('528af4ba-2008-4659-9268-da6f5ee117b0', '4741', 'https://boxrec.com/en/box-pro/4741', 'https://boxrec.com/wiki/index.php?title=Human:4741', 'reggie-strickland', 'Reggie Strickland', '', '"Reggie Buse/Raglin"', 'https://boxrec.com/images/thumb/d/d0/REGGIE1.jpg/200px-REGGIE1.jpg', 'Indianapolis, Indiana, USA', 'Cincinnati, Ohio, USA', '', 'M', 'USA', NULL, NULL, 'orthodox', NULL, NULL, NULL, NULL, NULL, '1987-01-06', 'middleweight', 66, 14, 276, 26, 18, 'inactive', 363, 2036, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('36f72639-152f-4208-a1d1-08cb82ca0240', '642464', 'https://boxrec.com/en/box-pro/642464', 'https://boxrec.com/wiki/index.php?title=Human:642464', 'anthony-yigit', 'Anthony Yigit', '', '', 'https://boxrec.com/images/thumb/4/4b/AnthonyYigit.jpg/200px-AnthonyYigit.jpg', 'Stockholm, Sweden', 'Farsta, Sweden', '', 'M', 'Sweden', '173', '168', 'southpaw', NULL, NULL, NULL, NULL, NULL, '2013-04-13', 'superlightweight', 29, 10, 4, 3, 1, 'inactive', 34, 225, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -594,7 +594,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('37155721-0e55-4b8c-a7b8-8758abce4380', '474207', 'https://boxrec.com/en/box-pro/474207', 'https://boxrec.com/wiki/index.php?title=Human:474207', 'shawn-estrada', 'Shawn Estrada', '', '"Manos de Oro"', 'https://boxrec.com/images/thumb/8/8f/Estrada.Shawn2.jpg/200px-Estrada.Shawn2.jpg', 'East Los Angeles, California, USA', 'Montebello, California, USA', '', 'M', 'USA', '185', '196', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2008-11-29', 'cruiserweight', 16, 14, 0, 0, 0, 'inactive', 16, 36, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('a0471e82-9bf8-4227-bff4-ad0a2c3d0059', '642474', 'https://boxrec.com/en/box-pro/642474', 'https://boxrec.com/wiki/index.php?title=Human:642474', 'steve-geffrard', 'Steve Geffrard', 'Steve Geffrard', '', 'https://boxrec.com/images/thumb/a/aa/642474.jpeg/200px-642474.jpeg', 'Delray Beach, Florida, USA', 'Delray Beach, Florida, USA', '', 'M', 'USA', '188', '198', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2013-02-23', 'lightheavyweight', 21, 15, 3, 2, 0, 'inactive', 24, 98, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -605,7 +605,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('bf4e84b3-a6e1-4d06-8178-053fea3b2f9d', '4745', 'https://boxrec.com/en/box-pro/4745', 'https://boxrec.com/wiki/index.php?title=Human:4745', 'raul-marquez', 'Raul Marquez', '', '"El Diamante"', 'https://boxrec.com/images/thumb/4/46/RaulMarquez.jpg/200px-RaulMarquez.jpg', 'Houston, Texas, USA', 'Valle Hermoso, Tamaulipas, Mexico', '', 'M', 'USA', '179', '188', 'southpaw', NULL, NULL, NULL, NULL, NULL, '1992-10-03', 'superwelterweight', 41, 29, 4, 4, 1, 'inactive', 47, 275, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('5d7aa15b-d1ad-4ea1-81db-60caa410805a', '642596', 'https://boxrec.com/en/box-pro/642596', 'https://boxrec.com/wiki/index.php?title=Human:642596', 'prichard-colon', 'Prichard Colon', 'Prichard Colon Melendez', '"Digget"', 'https://boxrec.com/images/thumb/a/a8/642596.jpg/200px-642596.jpg', 'Orocovis, Puerto Rico', 'Maitland, Florida, USA', '', 'M', 'Puerto Rico', '183', '188', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2013-02-23', 'superwelterweight', 16, 13, 1, 0, 0, 'inactive', 17, 65, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -616,7 +616,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('87d17337-9371-4c7f-881c-88bf05291ad4', '474627', 'https://boxrec.com/en/box-pro/474627', 'https://boxrec.com/wiki/index.php?title=Human:474627', 'paul-fleming', 'Paul Fleming', 'Paul Stephen Fleming', '"Showtime"', 'https://boxrec.com/images/thumb/e/ed/474627a.jpeg/200px-474627a.jpeg', 'Sydney, New South Wales, Australia', 'Tully, Queensland, Australia', '', 'M', 'Australia', '175', '177', 'southpaw', NULL, NULL, NULL, NULL, NULL, '2008-11-29', 'superfeatherweight', 28, 18, 1, 1, 1, 'inactive', 30, 149, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('2d89c17a-c7b9-4243-ba04-ea6337bfb02e', '6428', 'https://boxrec.com/en/box-pro/6428', 'https://boxrec.com/wiki/index.php?title=Human:6428', 'peter-mcneeley', 'Peter McNeeley', 'Peter Smith McNeeley', '"Hurricane"', 'https://boxrec.com/images/thumb/2/29/Pmn.jpg/200px-Pmn.jpg', 'Medfield, Massachusetts, USA', 'Medfield, Massachusetts, USA', '', 'M', 'USA', '188', '196', 'orthodox', NULL, NULL, NULL, NULL, NULL, '1991-08-23', 'heavyweight', 47, 36, 7, 6, 0, 'inactive', 54, 143, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -627,7 +627,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('a1473448-d5a0-42ba-8183-78ced906d880', '475159', 'https://boxrec.com/en/box-pro/475159', 'https://boxrec.com/wiki/index.php?title=Human:475159', 'christian-hammer', 'Christian Hammer', 'Cristian Ciocan', '', 'https://boxrec.com/images/thumb/3/38/475159.jpeg/200px-475159.jpeg', 'Hamburg, Hamburg, Germany', 'Pechea, Romania', '', 'M', 'Germany', '190', '198', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2008-11-01', 'heavyweight', 27, 17, 12, 6, 0, 'active', 39, 222, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('618ffdab-fe7d-4401-ac3e-e8870fa7abd6', '643387', 'https://boxrec.com/en/box-pro/643387', 'https://boxrec.com/wiki/index.php?title=Human:643387', 'gervonta-davis', 'Gervonta Davis', '', '"Tank"', 'https://boxrec.com/images/thumb/e/e6/643387.jpeg/200px-643387.jpeg', 'Baltimore, Maryland, USA', 'Baltimore, Maryland, USA', '', 'M', 'USA', '166', '171', 'southpaw', NULL, NULL, NULL, NULL, NULL, '2013-02-22', 'lightweight', 30, 28, 0, 0, 1, 'active', 31, 150, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -638,7 +638,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('ad2685d3-e77c-49c7-b891-1c4b054f8907', '475465', 'https://boxrec.com/en/box-pro/475465', 'https://boxrec.com/wiki/index.php?title=Human:475465', 'joe-schilling', 'Joe Schilling', 'Joseph Francis Schilling', '', 'https://boxrec.com/build/images/main/v6-avatar.svg', 'Los Angeles, California, USA', 'Dayton, Ohio, USA', '', 'M', 'USA', '191', '192', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2008-12-20', 'supermiddleweight', 1, 1, 0, 0, 1, 'inactive', 2, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('3d786030-f1e5-4856-b241-710afc18028c', '643501', 'https://boxrec.com/en/box-pro/643501', 'https://boxrec.com/wiki/index.php?title=Human:643501', 'ewa-brodnicka', 'Ewa Brodnicka', '', '"Kleo"', 'https://boxrec.com/images/thumb/6/68/643501.jpeg/200px-643501.jpeg', 'Warsaw, Poland', 'Nowy Dwor Mazowiecki, Poland', '', 'F', 'Poland', '173', NULL, 'orthodox', NULL, NULL, NULL, NULL, NULL, '2013-02-16', 'lightweight', 20, 2, 1, 0, 0, 'inactive', 21, 167, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -649,7 +649,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('8c0ea722-6cc2-4b65-9c97-80414c8771f3', '475912', 'https://boxrec.com/en/box-pro/475912', 'https://boxrec.com/wiki/index.php?title=Human:475912', 'charles-hatley', 'Charles Hatley', '', '"The Future"', 'https://boxrec.com/images/thumb/4/42/475912.jpeg/200px-475912.jpeg', 'Frisco, Texas, USA', 'Dallas, Texas, USA', '', 'M', 'USA', '180', NULL, 'orthodox', NULL, NULL, NULL, NULL, NULL, '2008-11-06', 'welterweight', 30, 21, 3, 3, 1, 'inactive', 34, 157, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('14983f7e-bbc7-4e7a-b23e-3799637b3fb8', '643611', 'https://boxrec.com/en/box-pro/643611', 'https://boxrec.com/wiki/index.php?title=Human:643611', 'hughie-fury', 'Hughie Fury', 'Hughie Lewis Fury', '', 'https://boxrec.com/images/thumb/7/7d/643611.jpg/200px-643611.jpg', 'Manchester, Lancashire, United Kingdom', 'Stockport, Cheshire, United Kingdom', '', 'M', 'United Kingdom', '198', '203', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2013-03-22', 'heavyweight', 30, 17, 3, 0, 0, 'active', 33, 181, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -660,7 +660,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('4f41a540-ec65-4854-a92d-53721fdf3036', '4763', 'https://boxrec.com/en/box-pro/4763', 'https://boxrec.com/wiki/index.php?title=Human:4763', 'jeremy-williams', 'Jeremy Williams', 'Jeremy Allen Williams', '"Half-Man","Half-Amazing"', 'https://boxrec.com/images/thumb/a/ad/Jeremy_Williams1.jpg/200px-Jeremy_Williams1.jpg', 'Long Beach, California, USA', 'Fort Dodge, Iowa, USA', '', 'M', 'USA', '188', '198', 'orthodox', NULL, NULL, NULL, NULL, NULL, '1992-10-14', 'heavyweight', 43, 35, 5, 3, 1, 'inactive', 49, 219, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('d5ecc663-36ca-4009-bd1e-a8f8a069ed25', '64402', 'https://boxrec.com/en/box-pro/64402', 'https://boxrec.com/wiki/index.php?title=Human:64402', 'andy-bowen', 'Andy Bowen', '', '', 'https://boxrec.com/images/thumb/7/7b/Andy_Bowen.988.jpg/200px-Andy_Bowen.988.jpg', 'New Orleans, Louisiana, USA', 'New Orleans, Louisiana, USA', '', 'M', 'USA', '165', NULL, '', NULL, NULL, NULL, NULL, NULL, '1887-01-16', 'lightweight', 15, 7, 4, 3, 5, 'inactive', 26, 523, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -671,7 +671,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('df7ce3bc-7238-4c34-9be2-012cbd30262c', '4768', 'https://boxrec.com/en/box-pro/4768', 'https://boxrec.com/wiki/index.php?title=Human:4768', 'ivan-robinson', 'Ivan Robinson', '', '"Mighty"', 'https://boxrec.com/images/thumb/6/6a/4768.jpg/200px-4768.jpg', 'Philadelphia, Pennsylvania, USA', 'Philadelphia, Pennsylvania, USA', '', 'M', 'USA', '175', '178', 'orthodox', NULL, NULL, NULL, NULL, NULL, '1992-10-20', 'lightweight', 32, 12, 12, 3, 2, 'inactive', 46, 341, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('fdc16666-842b-4619-9e9f-b3de54ce39d2', '644992', 'https://boxrec.com/en/box-pro/644992', 'https://boxrec.com/wiki/index.php?title=Human:644992', 'angel-martinez', 'Angel Martinez', 'Ángel Jesse Martínez', '', 'https://boxrec.com/images/thumb/3/36/AngelMartinez644992.JPG/200px-AngelMartinez644992.JPG', 'San Antonio, Texas, USA', '', '', 'M', 'USA', '175', NULL, 'orthodox', NULL, NULL, NULL, NULL, NULL, '2013-03-08', 'superlightweight', 8, 3, 3, 1, 2, 'active', 13, 61, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -682,7 +682,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('be8f7094-d8f6-4350-998e-ac250138919d', '477129', 'https://boxrec.com/en/box-pro/477129', 'https://boxrec.com/wiki/index.php?title=Human:477129', 'michael-seals', 'Michael Seals', 'Michael Aaron Seals', '', 'https://boxrec.com/images/thumb/4/47/477129.jpeg/200px-477129.jpeg', 'Fairburn, Georgia, USA', 'Mobile, Alabama, USA', '', 'M', 'USA', '191', '203', '', NULL, NULL, NULL, NULL, NULL, '2008-11-25', 'lightheavyweight', 28, 22, 3, 2, 0, 'inactive', 31, 71, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('ad8c4be6-6aeb-48de-8e17-8aed7f3aef7d', '645', 'https://boxrec.com/en/box-pro/645', 'https://boxrec.com/wiki/index.php?title=Human:645', 'steve-collins', 'Steve Collins', '', '"Celtic Warrior"', 'https://boxrec.com/images/thumb/8/83/645.jpeg/200px-645.jpeg', 'Dublin, Ireland', 'Cabra, Ireland', '', 'M', 'Ireland', '183', '180', 'orthodox', NULL, NULL, NULL, NULL, NULL, '1986-10-24', 'supermiddleweight', 36, 21, 3, 0, 0, 'inactive', 39, 283, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -693,7 +693,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('60a2ce77-2441-4fc5-ac6a-e75f094d828f', '47807', 'https://boxrec.com/en/box-pro/47807', 'https://boxrec.com/wiki/index.php?title=Human:47807', 'james-farthing', 'James Farthing', '', '', 'https://boxrec.com/build/images/main/v6-avatar.svg', 'Mobile, Alabama, USA', '', '', 'M', 'USA', NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, '1984-09-20', 'superlightweight', 2, 1, 12, 9, 0, 'inactive', 14, 33, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('612a08dd-d267-4a5b-b8d8-5ecc48179041', '645054', 'https://boxrec.com/en/box-pro/645054', 'https://boxrec.com/wiki/index.php?title=Human:645054', 'egidijus-kavaliauskas', 'Egidijus Kavaliauskas', 'Egidijus Klavaliauskas', '"Mean Machine"', 'https://boxrec.com/images/thumb/5/5e/645054.jpg/200px-645054.jpg', 'Moorpark, California, USA', 'Kaunas, Lithuania', '', 'M', 'Lithuania', '175', '180', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2013-03-16', 'welterweight', 24, 19, 3, 2, 1, 'active', 28, 145, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -704,7 +704,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('6cb302c7-d346-4b6c-9e2e-371169e112ca', '4787', 'https://boxrec.com/en/box-pro/4787', 'https://boxrec.com/wiki/index.php?title=Human:4787', 'lamar-parks', 'Lamar Parks', '', '"Kidfire"', 'https://boxrec.com/images/thumb/c/c0/LamarParks.jpg/200px-LamarParks.jpg', 'Greenville, South Carolina, USA', '', '', 'M', 'USA', '171', NULL, '', NULL, NULL, NULL, NULL, NULL, '1988-10-04', 'middleweight', 27, 21, 1, 0, 0, 'inactive', 28, 147, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('b4b75782-599e-45f4-8c97-a8fc42279cd6', '645472', 'https://boxrec.com/en/box-pro/645472', 'https://boxrec.com/wiki/index.php?title=Human:645472', 'fidel-navarrete', 'Fidel Navarrete', '', '', 'https://boxrec.com/images/thumb/6/6f/FidelNavarrete.jpg/200px-FidelNavarrete.jpg', 'Highland, Indiana, USA', '', '', 'M', 'USA', '180', NULL, '', NULL, NULL, NULL, NULL, NULL, '2013-04-20', 'superfeatherweight', 8, 4, 2, 1, 2, 'inactive', 12, 48, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -715,7 +715,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('7e41d75e-7b6d-4a81-ae8c-4e4d3d0be628', '479', 'https://boxrec.com/en/box-pro/479', 'https://boxrec.com/wiki/index.php?title=Human:479', 'virgil-hill', 'Virgil Hill', 'Virgil Eugene Hill', '"Quicksilver"', 'https://boxrec.com/images/thumb/f/f2/479.jpeg/200px-479.jpeg', 'Williston, North Dakota, USA', 'Clinton, Missouri, USA', '', 'M', 'USA', '184', '196', 'orthodox', NULL, NULL, NULL, NULL, NULL, '1984-11-15', 'lightheavyweight', 51, 24, 7, 2, 0, 'inactive', 58, 461, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('b6ca7f7e-9322-4b08-9b0d-fa0699653fdb', '645878', 'https://boxrec.com/en/box-pro/645878', 'https://boxrec.com/wiki/index.php?title=Human:645878', 'remy-fullwood', 'Remy Fullwood', '', '', 'https://boxrec.com/build/images/main/v6-avatar.svg', 'Wilmington, North Carolina, USA', '', '', 'M', 'USA', NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, '2013-03-15', 'lightheavyweight', 1, 1, 0, 0, 0, 'inactive', 1, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -726,7 +726,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('d65aae1e-62f7-457e-9751-99062215f299', '479205', 'https://boxrec.com/en/box-pro/479205', 'https://boxrec.com/wiki/index.php?title=Human:479205', 'tyson-fury', 'Tyson Fury', 'Tyson Luke Fury', '"The Gypsy King"', 'https://boxrec.com/images/thumb/3/3a/TysonFury12.jpg/200px-TysonFury12.jpg', 'Morecambe, Lancashire, United Kingdom', 'Manchester, Lancashire, United Kingdom', '', 'M', 'United Kingdom', '206', '216', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2008-12-06', 'heavyweight', 34, 24, 2, 0, 1, 'active', 37, 254, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('dc179640-ba7d-49a2-900d-5a0bf61fd16d', '6461', 'https://boxrec.com/en/box-pro/6461', 'https://boxrec.com/wiki/index.php?title=Human:6461', 'sean-gibbons', 'Sean Gibbons', '', '', 'https://boxrec.com/images/thumb/4/45/6461.jpeg/200px-6461.jpeg', 'Las Vegas, Nevada, USA', 'Oklahoma City, Oklahoma, USA', '', 'M', 'USA', NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, '1985-11-05', 'lightheavyweight', 14, 9, 7, 3, 3, 'inactive', 25, 85, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -737,7 +737,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('d32349d3-c9f0-4ce6-b9ef-ee079eab9a80', '479775', 'https://boxrec.com/en/box-pro/479775', 'https://boxrec.com/wiki/index.php?title=Human:479775', 'gary-allen-russell-jr', 'Gary Allen Russell Jr', 'Gary Allen Russell', '"Mr."', 'https://boxrec.com/images/thumb/d/d5/GRussellJr.jpg/200px-GRussellJr.jpg', 'Capitol Heights, Maryland, USA', 'Washington, District of Columbia, USA', '', 'M', 'USA', '164', '163', 'southpaw', NULL, NULL, NULL, NULL, NULL, '2009-01-16', 'superfeatherweight', 32, 19, 2, 0, 0, 'active', 34, 182, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('a0b05129-4250-4ff1-9e17-c579a209063c', '646138', 'https://boxrec.com/en/box-pro/646138', 'https://boxrec.com/wiki/index.php?title=Human:646138', 'mohammad-ali-bayat-farid', 'Mohammad Ali Bayat Farid', '', '', 'https://boxrec.com/images/thumb/3/3b/646138.jpeg/200px-646138.jpeg', 'Dubai, United Arab Emirates', 'Iran', '', 'M', 'Iran', NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, '2012-12-28', 'cruiserweight', 17, 17, 3, 2, 1, 'inactive', 21, 47, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -748,7 +748,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('3cc25118-b257-41fe-84b6-9355dbf46e6a', '479858', 'https://boxrec.com/en/box-pro/479858', 'https://boxrec.com/wiki/index.php?title=Human:479858', 'glen-tapia', 'Glen Tapia', '', '"Jersey Boy"', 'https://boxrec.com/images/thumb/9/9f/479858.jpeg/200px-479858.jpeg', 'Mirando City, Texas, USA', 'Passaic, New Jersey, USA', '', 'M', 'USA', '180', '185', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2008-12-13', 'middleweight', 25, 17, 5, 4, 0, 'inactive', 30, 121, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('acde1b1e-5987-4c19-bb98-7922481fcf45', '646781', 'https://boxrec.com/en/box-pro/646781', 'https://boxrec.com/wiki/index.php?title=Human:646781', 'george-kambosos-jr', 'George Kambosos Jr', 'George Kambosos Jr', '"Ferocious"', 'https://boxrec.com/images/thumb/d/dc/646781.jpeg/200px-646781.jpeg', 'Sydney, New South Wales, Australia', 'Sydney, New South Wales, Australia', '', 'M', 'Australia', '175', '173', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2013-05-18', 'superlightweight', 22, 10, 4, 2, 0, 'active', 26, 197, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -759,7 +759,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('50402a4f-ddc0-449a-8e0f-cd1513ed0b47', '480', 'https://boxrec.com/en/box-pro/480', 'https://boxrec.com/wiki/index.php?title=Human:480', 'santiago-valdez', 'Santiago Valdez', '', '', 'https://boxrec.com/images/thumb/8/82/480.jpg/200px-480.jpg', 'Hamilton, Ohio, USA', 'USA', '', 'M', 'USA', NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, '1975-09-06', 'superwelterweight', 16, 12, 10, 8, 0, 'inactive', 26, 81, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('a2b3d98d-93e1-4afd-ada2-c3ad1b5d98c1', '6469', 'https://boxrec.com/en/box-pro/6469', 'https://boxrec.com/wiki/index.php?title=Human:6469', 'alfonso-sanchez', 'Alfonso Sanchez', 'Alfonso Delgado Sanchez', '"Poncho"', 'https://boxrec.com/images/thumb/8/8c/6469.jpg/200px-6469.jpg', 'Tijuana, Baja California, Mexico', 'Mexico', '', 'M', 'Mexico', '180', '170', 'orthodox', NULL, NULL, NULL, NULL, NULL, '1994-06-03', 'superlightweight', 20, 18, 6, 6, 1, 'inactive', 27, 77, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -770,7 +770,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('a51e5778-687f-42fa-9684-d79a25d499f9', '4809', 'https://boxrec.com/en/box-pro/4809', 'https://boxrec.com/wiki/index.php?title=Human:4809', 'billy-wright', 'Billy Wright', 'William Lee Wright', '"Bronco"', 'https://boxrec.com/images/thumb/f/f2/4809.jpg/200px-4809.jpg', 'Las Vegas, Nevada, USA', 'Morenci, Arizona, USA', '', 'M', 'USA', '193', NULL, 'orthodox', NULL, NULL, NULL, NULL, NULL, '1986-10-17', 'heavyweight', 43, 34, 4, 4, 0, 'inactive', 47, 121, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('36b35f9d-6aea-4547-8e99-99c04f11e8f7', '646981', 'https://boxrec.com/en/box-pro/646981', 'https://boxrec.com/wiki/index.php?title=Human:646981', 'artur-beterbiev', 'Artur Beterbiev', 'Артур Асильбекович Бетербиев', '', 'https://boxrec.com/images/thumb/2/20/Artur_Beterbiev.jpeg/200px-Artur_Beterbiev.jpeg', 'Montreal, Quebec, Canada', 'Khasavyurt, Russia', '', 'M', 'Canada', '182', '185', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2013-06-08', 'lightheavyweight', 21, 20, 1, 0, 0, 'active', 22, 122, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -781,7 +781,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('36b76c95-2694-4898-b282-3bb48b6e5962', '4818', 'https://boxrec.com/en/box-pro/4818', 'https://boxrec.com/wiki/index.php?title=Human:4818', 'kenny-ellis', 'Kenny Ellis', 'Kenneth Gene Ellis', '"Emerald City Assassin"', 'https://boxrec.com/images/thumb/1/1e/4818a.jpg/200px-4818a.jpg', 'Seattle, Washington, USA', 'Phoenix, Arizona, USA', '', 'M', 'USA', '173', '180', 'orthodox', NULL, NULL, NULL, NULL, NULL, '1990-10-21', 'middleweight', 35, 24, 7, 3, 3, 'inactive', 45, 269, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('64074db1-7fc8-4487-b90d-9319608424c7', '647067', 'https://boxrec.com/en/box-pro/647067', 'https://boxrec.com/wiki/index.php?title=Human:647067', 'sulaiman-segawa', 'Sulaiman Segawa', '', '', 'https://boxrec.com/images/thumb/6/64/Sulaiman_Segawa.jpeg/200px-Sulaiman_Segawa.jpeg', 'Silver Spring, Maryland, USA', 'Kampala, Uganda', '', 'M', 'Uganda', '173', '175', 'southpaw', NULL, NULL, NULL, NULL, NULL, '2013-04-21', 'featherweight', 17, 6, 5, 1, 1, 'active', 24, 166, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -792,7 +792,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('449ecf5b-c65d-4d27-8af2-55843615f066', '482054', 'https://boxrec.com/en/box-pro/482054', 'https://boxrec.com/wiki/index.php?title=Human:482054', 'adam-willett', 'Adam Willett', '', '', 'https://boxrec.com/build/images/main/v6-avatar.svg', 'Bellport, New York, USA', '', '', 'M', 'USA', NULL, NULL, 'southpaw', NULL, NULL, NULL, NULL, NULL, '2009-12-11', 'heavyweight', 4, 1, 2, 0, 1, 'inactive', 7, 27, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('e944f329-9476-4f78-bb54-8a36e75470d3', '6474', 'https://boxrec.com/en/box-pro/6474', 'https://boxrec.com/wiki/index.php?title=Human:6474', 'jaime-munguia', 'Jaime Munguia', '', '"El Rambo"', 'https://boxrec.com/build/images/main/v6-avatar.svg', 'Tijuana, Baja California, Mexico', '', '', 'M', 'Mexico', NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, '1989-10-30', 'heavyweight', 2, 1, 11, 7, 0, 'inactive', 13, 57, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -803,7 +803,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('6ee0c135-4a3a-48e1-bb48-648da1366596', '48243', 'https://boxrec.com/en/box-pro/48243', 'https://boxrec.com/wiki/index.php?title=Human:48243', 'nonito-donaire', 'Nonito Donaire', 'Nonito Gonzales Donaire Jr.', '"The Filipino Flash"', 'https://boxrec.com/images/thumb/c/c8/048243.jpg/200px-048243.jpg', 'Las Vegas, Nevada, USA', 'Talibon, Bohol, Philippines', '', 'M', 'Philippines', '170', '174', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2001-02-22', 'bantamweight', 43, 28, 8, 2, 0, 'active', 51, 320, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('660ea3c2-4e53-408a-961a-0c245fa3e48a', '647762', 'https://boxrec.com/en/box-pro/647762', 'https://boxrec.com/wiki/index.php?title=Human:647762', 'nicholas-asberry', 'Nicholas Asberry', 'Nicholas C Asberry', '', 'https://boxrec.com/images/thumb/2/2b/Nick_Asberry.jpg/200px-Nick_Asberry.jpg', 'Waukegan, Illinois, USA', 'Waukegan, Illinois, USA', '', 'M', 'USA', '198', NULL, 'orthodox', NULL, NULL, NULL, NULL, NULL, '2013-04-20', 'heavyweight', 10, 5, 2, 1, 0, 'inactive', 12, 42, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -814,7 +814,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('1d723dda-5270-4b37-8cc7-0716b3bb2fb6', '482498', 'https://boxrec.com/en/box-pro/482498', 'https://boxrec.com/wiki/index.php?title=Human:482498', 'james-degale', 'James DeGale', '', '"''Chunky''"', 'https://boxrec.com/images/thumb/0/01/JamesDeGale.jpg/200px-JamesDeGale.jpg', 'St Albans, Hertfordshire, United Kingdom', 'Hammersmith, London, United Kingdom', '', 'M', 'United Kingdom', '183', '188', 'southpaw', NULL, NULL, NULL, NULL, NULL, '2009-02-28', 'supermiddleweight', 25, 15, 3, 0, 1, 'inactive', 29, 210, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('68dac55d-234e-4a87-aa4a-486d23249046', '647963', 'https://boxrec.com/en/box-pro/647963', 'https://boxrec.com/wiki/index.php?title=Human:647963', 'justin-deloach', 'Justin DeLoach', '', '"The Chosen One"', 'https://boxrec.com/images/thumb/2/2e/647963.jpg/200px-647963.jpg', 'Augusta, Georgia, USA', 'Augusta, Georgia, USA', '', 'M', 'USA', '185', '185', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2013-03-09', 'welterweight', 19, 10, 6, 4, 0, 'inactive', 25, 120, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -825,7 +825,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('7b79ccc7-2f0a-4347-8f37-246ab3cf7a3e', '482499', 'https://boxrec.com/en/box-pro/482499', 'https://boxrec.com/wiki/index.php?title=Human:482499', 'billy-joe-saunders', 'Billy Joe Saunders', '', '"''Superb''"', 'https://boxrec.com/images/thumb/9/9d/BillyJS.jpg/200px-BillyJS.jpg', 'Hatfield, Hertfordshire, United Kingdom', 'Welwyn Garden City, Hertfordshire, United Kingdom', '', 'M', 'United Kingdom', '180', '180', 'southpaw', NULL, NULL, NULL, NULL, NULL, '2009-02-28', 'supermiddleweight', 30, 14, 1, 1, 0, 'inactive', 31, 222, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('ee6b7200-e3ad-494e-a9e2-e487592529c4', '648270', 'https://boxrec.com/en/box-pro/648270', 'https://boxrec.com/wiki/index.php?title=Human:648270', 'robbie-davies-jr', 'Robbie Davies Jr', 'Robert Davies', '', 'https://boxrec.com/images/thumb/1/10/RobbieDaviesJrBoxrec.jpg/200px-RobbieDaviesJrBoxrec.jpg', 'Kirkby, Merseyside, United Kingdom', 'Liverpool, Merseyside, United Kingdom', '', 'M', 'United Kingdom', '178', NULL, 'orthodox', NULL, NULL, NULL, NULL, NULL, '2013-06-07', 'superlightweight', 24, 15, 6, 3, 0, 'inactive', 30, 191, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -836,7 +836,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('b8d4ea9a-a73e-49e5-8fd0-f1bf7225a688', '482805', 'https://boxrec.com/en/box-pro/482805', 'https://boxrec.com/wiki/index.php?title=Human:482805', 'sadam-ali', 'Sadam Ali', '', '"World Kid"', 'https://boxrec.com/images/thumb/3/30/AliSadam.jpg/200px-AliSadam.jpg', 'Brooklyn, New York, USA', 'Brooklyn, New York, USA', '', 'M', 'USA', NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, '2009-01-17', 'welterweight', 27, 14, 3, 3, 0, 'inactive', 30, 169, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('9614acb9-396d-48d1-98df-d09b92588ec4', '648292', 'https://boxrec.com/en/box-pro/648292', 'https://boxrec.com/wiki/index.php?title=Human:648292', 'jonas-sultan', 'Jonas Sultan', 'Jonas Andaya Sultan', '"One Punch Zorro"', 'https://boxrec.com/images/thumb/1/15/Jonas_Sultan.jpg/200px-Jonas_Sultan.jpg', 'Tampilisan, Zamboanga del Norte, Philippines', 'Tampilisan, Zamboanga del Norte, Philippines', '', 'M', 'Philippines', '165', '161', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2013-03-17', 'bantamweight', 19, 11, 8, 1, 0, 'active', 27, 190, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -847,7 +847,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('9eafea4f-3cc7-4cbc-81bc-c059f16ddd37', '482863', 'https://boxrec.com/en/box-pro/482863', 'https://boxrec.com/wiki/index.php?title=Human:482863', 'marlon-tapales', 'Marlon Tapales', 'Marlon Tanan Tapales', '"Nightmare"', 'https://boxrec.com/images/thumb/3/30/482863.jpg/200px-482863.jpg', 'Kapatagan, Lanao del Norte, Philippines', 'Tubod, Lanao del Norte, Philippines', '', 'M', 'Philippines', '163', '165', 'southpaw', NULL, NULL, NULL, NULL, NULL, '2008-07-18', 'superbantamweight', 40, 21, 4, 3, 0, 'active', 44, 282, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('f6b86a80-7a84-4e81-bf6e-7e4924a44873', '648299', 'https://boxrec.com/en/box-pro/648299', 'https://boxrec.com/wiki/index.php?title=Human:648299', 'ryan-burnett', 'Ryan Burnett', '', '', 'https://boxrec.com/images/thumb/6/66/648299.jpeg/200px-648299.jpeg', 'Belfast, Northern Ireland, United Kingdom', 'Belfast, Northern Ireland, United Kingdom', '', 'M', 'United Kingdom', '163', '168', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2013-05-24', 'bantamweight', 20, 10, 1, 1, 0, 'inactive', 21, 127, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -858,7 +858,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('6f2a5298-4039-402a-9bd4-159b13975908', '482869', 'https://boxrec.com/en/box-pro/482869', 'https://boxrec.com/wiki/index.php?title=Human:482869', 'troy-james', 'Troy James', '', '"''Terrifying''"', 'https://boxrec.com/images/thumb/a/ac/TroyJames.jpg/200px-TroyJames.jpg', 'Coventry, West Midlands, United Kingdom', '', '', 'M', 'United Kingdom', NULL, NULL, 'orthodox', NULL, NULL, NULL, NULL, NULL, '2009-01-16', 'lightweight', 22, 5, 9, 3, 1, 'inactive', 32, 167, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('b0e1b135-8e92-4295-8cb2-c007ffb4526d', '648938', 'https://boxrec.com/en/box-pro/648938', 'https://boxrec.com/wiki/index.php?title=Human:648938', 'maurice-lee', 'Maurice Lee', 'Maurice Lemar Lee', '"Ambitious"', 'https://boxrec.com/images/thumb/6/67/648938.jpg/200px-648938.jpg', 'Woodland Hills, California, USA', 'Covina, California, USA', '', 'M', 'USA', '178', NULL, 'southpaw', NULL, NULL, NULL, NULL, NULL, '2013-04-12', 'welterweight', 15, 6, 2, 0, 2, 'active', 19, 95, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -869,7 +869,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('0c69e805-a0ab-4c9d-bfb1-4da6d6cbbdea', '482923', 'https://boxrec.com/en/box-pro/482923', 'https://boxrec.com/wiki/index.php?title=Human:482923', 'lionell-thompson', 'Lionell Thompson', 'Lionell Lamar Thompson', '"Lonnie B"', 'https://boxrec.com/images/thumb/3/36/LionellThompson.jpg/200px-LionellThompson.jpg', 'Las Vegas, Nevada, USA', 'Buffalo, New York, USA', '', 'M', 'USA', '180', '191', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2009-02-20', 'supermiddleweight', 22, 12, 5, 1, 0, 'inactive', 27, 145, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('710e77ce-23b7-4032-84f0-fbb752767f75', '649302', 'https://boxrec.com/en/box-pro/649302', 'https://boxrec.com/wiki/index.php?title=Human:649302', 'ashley-peyton', 'Ashley Peyton', '', '', 'https://boxrec.com/build/images/main/v6-avatar.svg', 'Atherton, Lancashire, United Kingdom', '', '', 'M', 'United Kingdom', NULL, NULL, 'orthodox', NULL, NULL, NULL, NULL, NULL, '2013-06-07', 'superlightweight', 10, 0, 1, 1, 0, 'inactive', 11, 60, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -880,7 +880,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('8ad5cfd6-169d-43f5-a213-811c3a366b42', '483554', 'https://boxrec.com/en/box-pro/483554', 'https://boxrec.com/wiki/index.php?title=Human:483554', 'terry-flanagan', 'Terry Flanagan', '', '"''Turbo''"', 'https://boxrec.com/images/thumb/9/95/1Flanagan.Terry12.JPG/200px-1Flanagan.Terry12.JPG', 'Manchester, Lancashire, United Kingdom', 'Crumpsall, Lancashire, United Kingdom', '', 'M', 'United Kingdom', '177', NULL, 'southpaw', NULL, NULL, NULL, NULL, NULL, '2009-01-24', 'superlightweight', 36, 14, 2, 0, 0, 'inactive', 38, 219, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('7d97387d-bea4-4538-b7b0-d075b62dfebd', '649657', 'https://boxrec.com/en/box-pro/649657', 'https://boxrec.com/wiki/index.php?title=Human:649657', 'keenan-carbajal', 'Keenan Carbajal', 'Keenan Carbajal', '"Bedo"', 'https://boxrec.com/images/thumb/9/93/649657.jpeg/200px-649657.jpeg', 'Phoenix, Arizona, USA', 'Phoenix, Arizona, USA', '', 'M', 'USA', '178', NULL, 'orthodox', NULL, NULL, NULL, NULL, NULL, '2013-05-17', 'featherweight', 25, 17, 5, 2, 1, 'active', 31, 148, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -891,7 +891,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('6c2f82dc-c847-4fac-8dd3-cc5b67fe42b4', '483657', 'https://boxrec.com/en/box-pro/483657', 'https://boxrec.com/wiki/index.php?title=Human:483657', 'jezzrel-corrales', 'Jezzrel Corrales', 'Jezzrel Corrales Gonzalez', '"El Invisible"', 'https://boxrec.com/images/thumb/1/15/Jezreel.Corrales.jpg/200px-Jezreel.Corrales.jpg', 'Panama City, Panama', 'San Miguelito, Panama', '', 'M', 'Panama', '168', '170', 'southpaw', NULL, NULL, NULL, NULL, NULL, '2009-02-13', 'lightweight', 26, 10, 8, 3, 0, 'active', 35, 223, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('b3976241-bb53-4bb7-b530-d0738093858d', '649770', 'https://boxrec.com/en/box-pro/649770', 'https://boxrec.com/wiki/index.php?title=Human:649770', 'luis-lebron', 'Luis Lebron', 'Luis Lebron-Ortiz', '"Popeye"', 'https://boxrec.com/images/thumb/b/be/649770.jpg/200px-649770.jpg', 'San Juan, Puerto Rico', 'Rio Piedras, Puerto Rico', '', 'M', 'Puerto Rico', '174', NULL, 'orthodox', NULL, NULL, NULL, NULL, NULL, '2013-04-20', 'lightweight', 20, 13, 6, 1, 1, 'inactive', 27, 158, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -902,7 +902,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('91367cb0-f397-491d-bf77-c44e0c66f994', '483668', 'https://boxrec.com/en/box-pro/483668', 'https://boxrec.com/wiki/index.php?title=Human:483668', 'zhankosh-turarov', 'Zhankosh Turarov', 'Жанкош Тураров', '"Da Kazakh Kid"', 'https://boxrec.com/images/thumb/8/80/483668_2023.jpg/200px-483668_2023.jpg', 'Pahokee, Florida, USA', 'Akkol, Kazakhstan', '', 'M', 'Kazakhstan', '175', NULL, 'orthodox', NULL, NULL, NULL, NULL, NULL, '2009-02-06', 'superlightweight', 28, 20, 0, 0, 0, 'inactive', 28, 114, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('2a06498f-9740-40b0-8cdd-b276f3d5edec', '649782', 'https://boxrec.com/en/box-pro/649782', 'https://boxrec.com/wiki/index.php?title=Human:649782', 'dannis-aguero-arias', 'Dannis Aguero Arias', '', '"Danny Aguero"', 'https://boxrec.com/images/thumb/5/52/Danyaguero.jpg/200px-Danyaguero.jpg', 'Dominican Republic', 'San Cristobal, Dominican Republic', '', 'M', 'Dominican Republic', NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, '2013-04-19', 'featherweight', 20, 17, 3, 2, 0, 'active', 23, 60, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -913,7 +913,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('ad61512b-8146-42b2-b5fe-fda319cc6a7c', '483755', 'https://boxrec.com/en/box-pro/483755', 'https://boxrec.com/wiki/index.php?title=Human:483755', 'david-price', 'David Price', '', '', 'https://boxrec.com/images/thumb/8/83/483755.jpeg/200px-483755.jpeg', 'Liverpool, Merseyside, United Kingdom', 'Liverpool, Merseyside, United Kingdom', 'Machimana 18 6 1', 'M', 'United Kingdom', '203', '208', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2009-03-28', 'heavyweight', 25, 20, 7, 7, 0, 'inactive', 32, 117, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('eca4be82-6a09-48b8-a902-bd77cf8b44bb', '649783', 'https://boxrec.com/en/box-pro/649783', 'https://boxrec.com/wiki/index.php?title=Human:649783', 'yomar-alamo', 'Yomar Alamo', 'Yomar A Alamo De Jesus', '"The Magic"', 'https://boxrec.com/images/thumb/b/b2/649783.jpg/200px-649783.jpg', 'Caguas, Puerto Rico', '', '', 'M', 'Puerto Rico', '173', NULL, 'orthodox', NULL, NULL, NULL, NULL, NULL, '2013-04-27', 'superlightweight', 22, 13, 4, 1, 1, 'active', 27, 140, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -924,7 +924,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('e0cfaaef-b92b-45c4-a572-4fe5d4ecf04f', '483786', 'https://boxrec.com/en/box-pro/483786', 'https://boxrec.com/wiki/index.php?title=Human:483786', 'kazuto-ioka', 'Kazuto Ioka', '井岡一翔', '', 'https://boxrec.com/images/thumb/1/17/Kazuto_Ioka.jpeg/200px-Kazuto_Ioka.jpeg', 'Tokyo, Japan', 'Sakai, Osaka, Japan', '', 'M', 'Japan', '164', '164', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2009-04-12', 'superflyweight', 31, 16, 4, 0, 1, 'active', 36, 343, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('c372f8d2-7b34-49bc-8652-51df83a18409', '650083', 'https://boxrec.com/en/box-pro/650083', 'https://boxrec.com/wiki/index.php?title=Human:650083', 'michal-cieslak', 'Michal Cieslak', '', '', 'https://boxrec.com/images/thumb/3/31/650083.jpeg/200px-650083.jpeg', 'Radom, Poland', 'Kozienice, Poland', '', 'M', 'Poland', '190', '201', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2013-06-29', 'cruiserweight', 28, 22, 2, 0, 0, 'active', 31, 143, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -935,7 +935,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('bb18495c-c3c4-4d27-8163-3d2a38070546', '484413', 'https://boxrec.com/en/box-pro/484413', 'https://boxrec.com/wiki/index.php?title=Human:484413', 'tony-jeffries', 'Tony Jeffries', '', '"Jaffa  The mighty Mackem"', 'https://boxrec.com/images/thumb/b/bd/484413.jpg/200px-484413.jpg', 'Sunderland, Tyne and Wear, United Kingdom', 'Sunderland, Tyne and Wear, United Kingdom', '', 'M', 'United Kingdom', '188', NULL, 'orthodox', NULL, NULL, NULL, NULL, NULL, '2009-02-27', 'lightheavyweight', 9, 6, 0, 0, 1, 'inactive', 10, 37, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('51609f8f-4d9d-4ee2-8b0e-91e5918aa907', '6505', 'https://boxrec.com/en/box-pro/6505', 'https://boxrec.com/wiki/index.php?title=Human:6505', 'reggie-green', 'Reggie Green', '', '"Showtime"', 'https://boxrec.com/images/thumb/a/af/6505.jpg/200px-6505.jpg', 'Clinton, Maryland, USA', '', '', 'M', 'USA', '171', '176', 'orthodox', NULL, NULL, NULL, NULL, NULL, '1992-01-11', 'superlightweight', 33, 15, 5, 3, 0, 'inactive', 38, 264, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -946,7 +946,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('a5b3cecb-3451-41e4-b7cd-929b5190c78c', '484797', 'https://boxrec.com/en/box-pro/484797', 'https://boxrec.com/wiki/index.php?title=Human:484797', 'zaid-malik', 'Zaid Malik', '', '', 'https://boxrec.com/build/images/main/v6-avatar.svg', 'Cleveland, Ohio, USA', '', '', 'M', 'USA', NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, '2009-02-20', 'lightheavyweight', 0, 0, 3, 3, 0, 'inactive', 3, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('ae3bf6e2-bb11-4ec7-a323-b4af60e2fdec', '6506', 'https://boxrec.com/en/box-pro/6506', 'https://boxrec.com/wiki/index.php?title=Human:6506', 'derrick-james', 'Derrick James', '', '', 'https://boxrec.com/images/thumb/a/a0/Derrick_James.jpg/200px-Derrick_James.jpg', 'Dallas, Texas, USA', '', '', 'M', 'USA', NULL, NULL, 'orthodox', NULL, NULL, NULL, NULL, NULL, '1992-09-29', 'supermiddleweight', 21, 12, 7, 4, 1, 'inactive', 30, 162, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -957,7 +957,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('6c13dad5-b4a6-4e5b-9fc4-b8086272a7e3', '484868', 'https://boxrec.com/en/box-pro/484868', 'https://boxrec.com/wiki/index.php?title=Human:484868', 'darryl-hayes', 'Darryl Hayes', '', '', 'https://boxrec.com/images/thumb/d/d0/484868.jpeg/200px-484868.jpeg', 'Houston, Texas, USA', 'Houston, Texas, USA', '', 'M', 'USA', '165', NULL, 'orthodox', NULL, NULL, NULL, NULL, NULL, '2009-02-28', 'lightweight', 7, 1, 20, 1, 0, 'inactive', 28, 145, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('1e4c37ca-0f72-469b-b4da-9cdbfe7c5213', '650649', 'https://boxrec.com/en/box-pro/650649', 'https://boxrec.com/wiki/index.php?title=Human:650649', 'brandon-adams', 'Brandon Adams', 'Brandon M. A. Adams', '', 'https://boxrec.com/images/thumb/5/5b/650649.jpeg/200px-650649.jpeg', 'Oakland, California, USA', 'Oakland, California, USA', '', 'M', 'USA', '173', '180', 'southpaw', NULL, NULL, NULL, NULL, NULL, '2013-05-02', 'superwelterweight', 4, 2, 10, 4, 1, 'inactive', 15, 64, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -968,7 +968,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('5c83f4e7-edab-4a7f-a60b-2a8aa8ead4e6', '485', 'https://boxrec.com/en/box-pro/485', 'https://boxrec.com/wiki/index.php?title=Human:485', 'roger-mayweather', 'Roger Mayweather', '', '"Black Mamba"', 'https://boxrec.com/images/thumb/9/96/R._Mayweather_1791144.jpg/200px-R._Mayweather_1791144.jpg', 'Las Vegas, Nevada, USA', 'Grand Rapids, Michigan, USA', '', 'M', 'USA', '171', '187', 'orthodox', NULL, NULL, NULL, NULL, NULL, '1981-07-29', 'superlightweight', 59, 35, 13, 6, 0, 'inactive', 72, 516, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('3c740d9d-5993-497b-abee-64ad215bdbfa', '651121', 'https://boxrec.com/en/box-pro/651121', 'https://boxrec.com/wiki/index.php?title=Human:651121', 'otto-wallin', 'Otto Wallin', 'Einar Otto Vallin', '', 'https://boxrec.com/images/thumb/5/57/651121_2023.jpg/200px-651121_2023.jpg', 'New York, New York, USA', 'Sundsvall, Sweden', 'W', 'M', 'Sweden', '197', '198', 'southpaw', NULL, NULL, NULL, NULL, NULL, '2013-06-15', 'heavyweight', 27, 15, 3, 1, 0, 'active', 31, 175, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -979,7 +979,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('4e85e61a-f5eb-4ae5-b717-cc1733068100', '486749', 'https://boxrec.com/en/box-pro/486749', 'https://boxrec.com/wiki/index.php?title=Human:486749', 'emanuel-taylor', 'Emanuel Taylor', 'Emanuel McCoy Taylor', '"Tranzformer"', 'https://boxrec.com/images/thumb/5/5d/486749.jpeg/200px-486749.jpeg', 'Ridgeley, Maryland, USA', 'Nottingham, Maryland, USA', '', 'M', 'USA', '171', '165', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2009-03-19', 'superlightweight', 20, 14, 6, 1, 0, 'inactive', 26, 139, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('c389175f-9e6c-4dda-b4f8-c67956d968f6', '651514', 'https://boxrec.com/en/box-pro/651514', 'https://boxrec.com/wiki/index.php?title=Human:651514', 'luke-campbell', 'Luke Campbell', '', '', 'https://boxrec.com/images/thumb/a/a0/LukeCampbell1.jpg/200px-LukeCampbell1.jpg', 'Hessle, Yorkshire, United Kingdom', 'Hull, Yorkshire, United Kingdom', '', 'M', 'United Kingdom', '175', '180', 'southpaw', NULL, NULL, NULL, NULL, NULL, '2013-07-13', 'lightweight', 20, 16, 4, 1, 0, 'inactive', 24, 149, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -990,7 +990,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('557146b5-0b65-4619-b91b-651ba634a32a', '487', 'https://boxrec.com/en/box-pro/487', 'https://boxrec.com/wiki/index.php?title=Human:487', 'daniel-zaragoza', 'Daniel Zaragoza', '', '"El Raton"', 'https://boxrec.com/images/thumb/c/cc/Zaragoza.Daniel.jpg/200px-Zaragoza.Daniel.jpg', 'Mexico City, Distrito Federal, Mexico', 'Mexico', '', 'M', 'Mexico', '169', '173', 'southpaw', NULL, NULL, NULL, NULL, NULL, '1980-10-17', 'superbantamweight', 55, 28, 8, 3, 3, 'inactive', 66, 579, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('c93a5a41-0f2d-4ceb-81d7-2426c00333cc', '6517', 'https://boxrec.com/en/box-pro/6517', 'https://boxrec.com/wiki/index.php?title=Human:6517', 'paul-spadafora', 'Paul Spadafora', 'Paul Ross Spadafora', '"The Pittsburgh Kid"', 'https://boxrec.com/images/thumb/1/1d/Paul_Spadafora.jpg/200px-Paul_Spadafora.jpg', 'Las Vegas, Nevada, USA', 'Pittsburgh, Pennsylvania, USA', '', 'M', 'USA', '175', '175', 'southpaw', NULL, NULL, NULL, NULL, NULL, '1995-10-18', 'lightweight', 49, 19, 1, 0, 1, 'inactive', 51, 381, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -1001,7 +1001,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('1f1cbc0d-89a1-47d5-8ff3-a7ed51d6cce4', '4873', 'https://boxrec.com/en/box-pro/4873', 'https://boxrec.com/wiki/index.php?title=Human:4873', 'rosendo-alvarez', 'Rosendo Alvarez', 'Rosendo José Álvarez Hernández', '"El Bufalo"', 'https://boxrec.com/images/thumb/6/66/RosendoAlvarez.jpg/200px-RosendoAlvarez.jpg', 'Managua, Nicaragua', 'Ciudad Sandino, Nicaragua', '', 'M', 'Nicaragua', '165', '165', 'orthodox', NULL, NULL, NULL, NULL, NULL, '1992-12-12', 'minimumweight', 37, 24, 4, 1, 2, 'inactive', 43, 290, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('dd8b210a-e24f-43fe-b5dc-3bb0061aec0a', '651715', 'https://boxrec.com/en/box-pro/651715', 'https://boxrec.com/wiki/index.php?title=Human:651715', 'antonio-magruder', 'Antonio Magruder', '', '', 'https://boxrec.com/images/thumb/9/99/Antonio_Magruder.jpeg/200px-Antonio_Magruder.jpeg', 'Washington, District of Columbia, USA', '', '', 'M', 'USA', NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, '2013-06-15', 'welterweight', 5, 4, 0, 0, 1, 'inactive', 6, 14, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -1012,7 +1012,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('5768c81b-e1e9-4a79-8c75-9234663d6eb1', '488033', 'https://boxrec.com/en/box-pro/488033', 'https://boxrec.com/wiki/index.php?title=Human:488033', 'dominic-wade', 'Dominic Wade', '', '', 'https://boxrec.com/images/thumb/e/ef/DominicWade11.jpg/200px-DominicWade11.jpg', 'Largo, Maryland, USA', '', '', 'M', 'USA', '180', '189', '', NULL, NULL, NULL, NULL, NULL, '2009-03-14', 'lightheavyweight', 20, 14, 1, 1, 0, 'inactive', 21, 68, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('4c6da5d0-54af-4691-a5ab-6a4510c5aba0', '652139', 'https://boxrec.com/en/box-pro/652139', 'https://boxrec.com/wiki/index.php?title=Human:652139', 'ryad-merhy', 'Ryad Merhy', '', '', 'https://boxrec.com/images/thumb/e/e2/652139.jpeg/200px-652139.jpeg', 'Brussels, Bruxelles-Capitale, Belgium', 'Côte D’Ivoire', '', 'M', 'Belgium', '181', NULL, 'orthodox', NULL, NULL, NULL, NULL, NULL, '2013-06-29', NULL, 34, 28, 3, 1, 0, 'active', 37, 192, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -1023,7 +1023,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('d2dd0703-cb2a-4cbc-9f6a-af65980cc364', '488496', 'https://boxrec.com/en/box-pro/488496', 'https://boxrec.com/wiki/index.php?title=Human:488496', 'pedro-guevara', 'Pedro Guevara', 'Pedro Gibran Guevara Rocha', '"Jibran  Pedrin"', 'https://boxrec.com/images/thumb/f/fe/Pedro_Guevara2.jpg/200px-Pedro_Guevara2.jpg', 'Mazatlan, Sinaloa, Mexico', 'Mazatlan, Sinaloa, Mexico', '', 'M', 'Mexico', '163', '170', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2008-03-15', 'superflyweight', 43, 22, 5, 1, 1, 'active', 49, 342, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('a13d71bc-c807-47dd-bdaf-ab2c71a1c55b', '652156', 'https://boxrec.com/en/box-pro/652156', 'https://boxrec.com/wiki/index.php?title=Human:652156', 'cristofer-rosales', 'Cristofer Rosales', 'Cristofer Jordan Rosales González', '"El Latigo"', 'https://boxrec.com/images/thumb/7/75/CristoferRosales2.jpg/200px-CristoferRosales2.jpg', 'Managua, Nicaragua', 'Managua, Nicaragua', '', 'M', 'Nicaragua', '168', '180', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2013-05-25', 'superflyweight', 37, 22, 7, 2, 0, 'active', 44, 285, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -1034,7 +1034,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('d45af97a-e381-47d1-abb9-98ae090e1cc3', '488530', 'https://boxrec.com/en/box-pro/488530', 'https://boxrec.com/wiki/index.php?title=Human:488530', 'amanda-serrano', 'Amanda Serrano', '', '"The Real Deal"', 'https://boxrec.com/images/thumb/2/20/Amanda_Serrano.jpeg/200px-Amanda_Serrano.jpeg', 'Carolina, Puerto Rico', 'Puerto Rico', '', 'F', 'Puerto Rico', '166', '166', 'southpaw', NULL, NULL, NULL, NULL, NULL, '2009-03-20', 'superlightweight', 47, 31, 4, 0, 1, 'active', 52, 256, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('9ce5a949-a795-48b9-8da5-82234e09efd3', '6522', 'https://boxrec.com/en/box-pro/6522', 'https://boxrec.com/wiki/index.php?title=Human:6522', 'danny-williams', 'Danny Williams', 'Daniel Peter Williams', '"''Brixton Bomber''"', 'https://boxrec.com/images/thumb/6/67/6522.jpeg/200px-6522.jpeg', 'Brixton, London, United Kingdom', 'Brixton, London, United Kingdom', '', 'M', 'United Kingdom', '191', '201', 'orthodox', NULL, NULL, NULL, NULL, NULL, '1995-10-21', 'heavyweight', 55, 42, 33, 17, 0, 'inactive', 89, 428, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -1045,7 +1045,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('62018f19-9ec0-44f3-8560-10441df882ad', '489046', 'https://boxrec.com/en/box-pro/489046', 'https://boxrec.com/wiki/index.php?title=Human:489046', 'lucas-browne', 'Lucas Browne', '', '"Big Daddy"', 'https://boxrec.com/images/thumb/9/9a/Lucas_Browne.jpeg/200px-Lucas_Browne.jpeg', 'Perth, Western Australia, Australia', 'Auburn, New South Wales, Australia', '', 'M', 'Australia', '196', '196', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2009-03-20', 'heavyweight', 31, 27, 6, 6, 0, 'inactive', 37, 162, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('9fdd2409-7fc8-4258-94dd-f25fa5a6cd7d', '652464', 'https://boxrec.com/en/box-pro/652464', 'https://boxrec.com/wiki/index.php?title=Human:652464', 'jeison-rosario', 'Jeison Rosario', 'Jeison Manuel Rosario Bastardo', '"Banana"', 'https://boxrec.com/images/thumb/2/25/JeisonRosarioBoxrec.jpg/200px-JeisonRosarioBoxrec.jpg', 'Miami, Florida, USA', 'Santo Domingo, Dominican Republic', '', 'M', 'Dominican Republic', '180', '178', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2013-05-18', 'middleweight', 24, 18, 5, 5, 2, 'active', 31, 138, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -1056,7 +1056,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('b107b79f-afe1-40e7-bd7d-bc7764653cca', '489762', 'https://boxrec.com/en/box-pro/489762', 'https://boxrec.com/wiki/index.php?title=Human:489762', 'andy-ruiz', 'Andy Ruiz', 'Andres Ponce Ruiz Jr', '"Destroyer"', 'https://boxrec.com/images/thumb/f/fe/489762.jpeg/200px-489762.jpeg', 'Imperial, California, USA', 'Imperial, California, USA', '', 'M', 'USA', '188', '188', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2009-03-28', 'heavyweight', 35, 22, 2, 0, 1, 'active', 38, 199, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('95304440-33c2-49ae-a946-2417a1d37b0f', '652579', 'https://boxrec.com/en/box-pro/652579', 'https://boxrec.com/wiki/index.php?title=Human:652579', 'kerman-lejarraga', 'Kerman Lejarraga', 'Kerman Lejarraga Arana', '"Revolver"', 'https://boxrec.com/images/thumb/8/84/KermanLejarraga1.jpeg/200px-KermanLejarraga1.jpeg', 'Bilbao, País Vasco, Spain', 'Bilbao, País Vasco, Spain', '', 'M', 'Spain', '175', NULL, 'orthodox', NULL, NULL, NULL, NULL, NULL, '2013-05-18', 'superwelterweight', 34, 26, 3, 2, 0, 'inactive', 37, 180, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -1067,7 +1067,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('08c239dc-4e19-41fe-af0a-b013cf9fbda8', '490', 'https://boxrec.com/en/box-pro/490', 'https://boxrec.com/wiki/index.php?title=Human:490', 'frankie-randall', 'Frankie Randall', 'Frankie Billy Randall', '"The Surgeon"', 'https://boxrec.com/images/thumb/8/8d/Randall_227760.jpg/200px-Randall_227760.jpg', 'Morristown, Tennessee, USA', 'Birmingham, Alabama, USA', '', 'M', 'USA', '173', '173', 'orthodox', NULL, NULL, NULL, NULL, NULL, '1983-02-04', 'superlightweight', 58, 42, 18, 12, 1, 'inactive', 77, 416, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('197abb8a-9ec7-47c5-95ec-9313dfcaf59c', '653034', 'https://boxrec.com/en/box-pro/653034', 'https://boxrec.com/wiki/index.php?title=Human:653034', 'mark-magsayo', 'Mark Magsayo', 'Jessel Mark Araula Magsayo', '"Magnifico"', 'https://boxrec.com/images/thumb/9/9d/MarkMagsayoBoxrec.jpeg/200px-MarkMagsayoBoxrec.jpeg', 'Las Vegas, Nevada, USA', 'Tagbilaran City, Bohol, Philippines', '', 'M', 'Philippines', '169', '171', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2013-05-25', 'superfeatherweight', 28, 18, 2, 0, 0, 'active', 30, 180, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -1078,7 +1078,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('9e33e65b-60f4-44e1-918b-956947784793', '490128', 'https://boxrec.com/en/box-pro/490128', 'https://boxrec.com/wiki/index.php?title=Human:490128', 'hugo-aguilar', 'Hugo Aguilar', 'Hugo Ramon Aguilar Ortiz', '', 'https://boxrec.com/images/thumb/e/ee/490128.jpeg/200px-490128.jpeg', 'Iztacalco, Distrito Federal, Mexico', 'Iztacalco, Distrito Federal, Mexico', '', 'M', 'Mexico', '170', NULL, 'orthodox', NULL, NULL, NULL, NULL, NULL, '2009-03-27', 'superfeatherweight', 1, 1, 8, 2, 0, 'inactive', 9, 32, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('23a49e69-6de2-402a-a218-5c7c33c67e95', '654198', 'https://boxrec.com/en/box-pro/654198', 'https://boxrec.com/wiki/index.php?title=Human:654198', 'marquis-pierce', 'Marquis Pierce', 'Marquis Whitt Pierce', '', 'https://boxrec.com/images/thumb/3/3f/Marquispierce-2016-01-29.JPG/200px-Marquispierce-2016-01-29.JPG', 'Newark, New Jersey, USA', 'USA', '', 'M', 'USA', '157', NULL, 'southpaw', NULL, NULL, NULL, NULL, NULL, '2013-06-06', 'superbantamweight', 1, 0, 16, 8, 0, 'inactive', 17, 51, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -1089,7 +1089,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('6dfaf867-32b0-4650-acc4-a9b5e0dc2dd5', '490654', 'https://boxrec.com/en/box-pro/490654', 'https://boxrec.com/wiki/index.php?title=Human:490654', 'derrick-webster', 'Derrick Webster', '', '"Take It to The Bank"', 'https://boxrec.com/images/thumb/f/f8/Derrick_Webster_cropped.jpeg/200px-Derrick_Webster_cropped.jpeg', 'Glassboro, New Jersey, USA', 'Raliegh, West Virginia, USA', '', 'M', 'USA', '193', NULL, 'southpaw', NULL, NULL, NULL, NULL, NULL, '2009-05-08', 'supermiddleweight', 29, 14, 5, 2, 1, 'inactive', 35, 188, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('2aab3306-34ee-4a3f-9286-54ceb2d788de', '654866', 'https://boxrec.com/en/box-pro/654866', 'https://boxrec.com/wiki/index.php?title=Human:654866', 'marcus-bates', 'Marcus Bates', '', '', 'https://boxrec.com/images/thumb/9/97/MarcusBates-2016-08-18.JPG/200px-MarcusBates-2016-08-18.JPG', 'Washington, District of Columbia, USA', 'USA', '', 'M', 'USA', '163', '166', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2013-06-08', 'superbantamweight', 11, 8, 2, 1, 1, 'inactive', 14, 75, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -1100,7 +1100,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('ae90815f-128e-4515-a0dd-90c33244cc7b', '4923', 'https://boxrec.com/en/box-pro/4923', 'https://boxrec.com/wiki/index.php?title=Human:4923', 'chris-byrd', 'Chris Byrd', 'Christopher Cornelius Byrd', '"Rapid Fire"', 'https://boxrec.com/images/thumb/2/26/Chris_Byrd.JPG/200px-Chris_Byrd.JPG', 'Las Vegas, Nevada, USA', 'Flint, Michigan, USA', '', 'M', 'USA', '188', '191', 'southpaw', NULL, NULL, NULL, NULL, NULL, '1993-01-28', 'heavyweight', 41, 22, 5, 4, 1, 'inactive', 47, 358, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('f2cfb56d-3304-4672-b552-59c8af94a48b', '654868', 'https://boxrec.com/en/box-pro/654868', 'https://boxrec.com/wiki/index.php?title=Human:654868', 'jordan-peters', 'Jordan Peters', '', '"Da Mann"', 'https://boxrec.com/images/thumb/0/05/Jordan_Peters.jpeg/200px-Jordan_Peters.jpeg', 'Washington, District of Columbia, USA', 'USA', '', 'M', 'USA', '170', NULL, 'orthodox', NULL, NULL, NULL, NULL, NULL, '2013-06-08', 'superfeatherweight', 4, 3, 2, 1, 1, 'active', 7, 20, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -1111,7 +1111,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('3cea32c4-f13b-443b-9745-55ec5b5b10fb', '492989', 'https://boxrec.com/en/box-pro/492989', 'https://boxrec.com/wiki/index.php?title=Human:492989', 'guillermo-rigondeaux', 'Guillermo Rigondeaux', 'Guillermo Rigondeaux Ortiz', '"El Chacal  The Jackal"', 'https://boxrec.com/images/thumb/8/80/492989.jpg/200px-492989.jpg', 'Miami, Florida, USA', 'Santiago de Cuba, Cuba', '', 'M', 'Cuba', '170', '171', 'southpaw', NULL, NULL, NULL, NULL, NULL, '2009-05-22', 'superbantamweight', 23, 16, 3, 1, 0, 'active', 27, 165, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('4e8a4e40-6418-441b-b24b-ce7825e678c5', '655301', 'https://boxrec.com/en/box-pro/655301', 'https://boxrec.com/wiki/index.php?title=Human:655301', 'arnold-barboza-jr', 'Arnold Barboza Jr', '', '', 'https://boxrec.com/images/thumb/e/e7/ArnoldBarbozaJr.jpg/200px-ArnoldBarbozaJr.jpg', 'Los Angeles, California, USA', 'Long Beach, California, USA', '', 'M', 'USA', '175', '183', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2013-06-14', 'superlightweight', 32, 11, 1, 0, 0, 'active', 33, 222, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -1122,7 +1122,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('656a3a04-bde3-4d74-b90f-7c98a99a6070', '493551', 'https://boxrec.com/en/box-pro/493551', 'https://boxrec.com/wiki/index.php?title=Human:493551', 'israel-rojas', 'Israel Rojas', 'Israel Rojas', '"Filipino  Tigre"', 'https://boxrec.com/images/thumb/f/fc/Israel_Rojas.jpeg/200px-Israel_Rojas.jpeg', 'Agua Prieta, Sonora, Mexico', 'Agua Prieta, Sonora, Mexico', '', 'M', 'Mexico', '170', NULL, 'orthodox', NULL, NULL, NULL, NULL, NULL, '2009-03-28', 'superlightweight', 16, 6, 31, 24, 0, 'active', 48, 161, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('c28bb347-01c7-438d-a992-8c2ed430a7ec', '656052', 'https://boxrec.com/en/box-pro/656052', 'https://boxrec.com/wiki/index.php?title=Human:656052', 'jack-massey', 'Jack Massey', '', '"''One Smack''"', 'https://boxrec.com/images/thumb/5/57/Jack_Massey.jpeg/200px-Jack_Massey.jpeg', 'Marple, Cheshire, United Kingdom', 'Chapel-en-le-Frith, Derbyshire, United Kingdom', '', 'M', 'United Kingdom', '193', NULL, 'orthodox', NULL, NULL, NULL, NULL, NULL, '2013-07-20', 'cruiserweight', 22, 12, 3, 1, 0, 'active', 25, 123, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -1133,7 +1133,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('df3d930c-d37e-4b22-a0ac-e76315de5f43', '494223', 'https://boxrec.com/en/box-pro/494223', 'https://boxrec.com/wiki/index.php?title=Human:494223', 'javier-fortuna', 'Javier Fortuna', 'Javier Santiago Fortuna Francisco', '"El Abejon"', 'https://boxrec.com/images/thumb/3/3d/494223.jpg/200px-494223.jpg', 'Braintree, Massachusetts, USA', 'La Romana, Dominican Republic', '', 'M', 'Dominican Republic', '169', '174', 'southpaw', NULL, NULL, NULL, NULL, NULL, '2009-03-30', 'welterweight', 39, 28, 6, 3, 1, 'active', 48, 242, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('ec7bae6e-7991-488c-ae11-02403cdaf7d9', '6563', 'https://boxrec.com/en/box-pro/6563', 'https://boxrec.com/wiki/index.php?title=Human:6563', 'acelino-freitas', 'Acelino Freitas', '', '"Popo"', 'https://boxrec.com/images/thumb/f/f0/Acelino_Freitas.jpg/200px-Acelino_Freitas.jpg', 'Salvador, Bahia, Brazil', 'Salvador, Bahia, Brazil', '', 'M', 'Brazil', '168', '175', 'orthodox', NULL, NULL, NULL, NULL, NULL, '1995-07-14', 'superfeatherweight', 41, 34, 2, 2, 0, 'inactive', 43, 205, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -1144,7 +1144,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('19db7ace-9d09-41a7-aea7-db07cfeac23f', '495', 'https://boxrec.com/en/box-pro/495', 'https://boxrec.com/wiki/index.php?title=Human:495', 'tony-tucker', 'Tony Tucker', 'Anthony Craig Tucker', '"TNT"', 'https://boxrec.com/images/thumb/f/f0/Tonytucker.jpg/200px-Tonytucker.jpg', 'Grand Rapids, Michigan, USA', 'Grand Rapids, Michigan, USA', '', 'M', 'USA', '196', '208', 'orthodox', NULL, NULL, NULL, NULL, NULL, '1980-11-01', 'heavyweight', 57, 47, 7, 3, 0, 'inactive', 65, 320, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('0b1185ae-53b6-4bc3-b5a0-f171a858f3c4', '656910', 'https://boxrec.com/en/box-pro/656910', 'https://boxrec.com/wiki/index.php?title=Human:656910', 'justin-goslee', 'Justin Goslee', 'Justin Courtney Goslee', '"Big Daddy Kane"', 'https://boxrec.com/images/thumb/2/2c/JustinGoslee.jpg/200px-JustinGoslee.jpg', 'Los Angeles, California, USA', 'Portsmouth, Virginia, USA', '', 'M', 'USA', '206', NULL, 'orthodox', NULL, NULL, NULL, NULL, NULL, '2013-06-28', 'heavyweight', 2, 2, 1, 1, 0, 'inactive', 3, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -1155,7 +1155,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('ef750c1e-338b-4a4f-b0e8-1f1ba0389048', '495046', 'https://boxrec.com/en/box-pro/495046', 'https://boxrec.com/wiki/index.php?title=Human:495046', 'nick-blackwell', 'Nick Blackwell', '', '"''Bang Bang''"', 'https://boxrec.com/images/thumb/e/e5/NBlackwell1.jpg/200px-NBlackwell1.jpg', 'Trowbridge, Wiltshire, United Kingdom', 'Trowbridge, Wiltshire, United Kingdom', '', 'M', 'United Kingdom', NULL, NULL, 'orthodox', NULL, NULL, NULL, NULL, NULL, '2009-06-26', 'middleweight', 19, 8, 4, 2, 1, 'inactive', 24, 162, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('cd2fb0a4-2d63-4fdf-9c06-a6b1b5967c52', '657045', 'https://boxrec.com/en/box-pro/657045', 'https://boxrec.com/wiki/index.php?title=Human:657045', 'rober-barrera', 'Rober Barrera', 'Rober Antonio Barrera Estrada', '"El Huracan"', 'https://boxrec.com/images/thumb/e/e7/657045.jpg/200px-657045.jpg', 'Monteria, Colombia', 'San Jose de Canalete, Colombia', '', 'M', 'Colombia', '164', '169', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2013-07-05', 'superbantamweight', 29, 19, 6, 3, 0, 'active', 36, 200, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -1166,7 +1166,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('c50e4bee-73a4-48ef-a734-d8f30984b7c5', '4952', 'https://boxrec.com/en/box-pro/4952', 'https://boxrec.com/wiki/index.php?title=Human:4952', 'shane-mosley', 'Shane Mosley', 'Shane Donte Mosley', '"Sugar"', 'https://boxrec.com/images/thumb/e/ed/Shane_Mosley1_71007313.jpg/200px-Shane_Mosley1_71007313.jpg', 'Pomona, California, USA', 'Lynwood, California, USA', '', 'M', 'USA', '174', '180', 'orthodox', NULL, NULL, NULL, NULL, NULL, '1993-02-11', 'welterweight', 49, 41, 10, 1, 1, 'inactive', 61, 445, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('b0b7179d-e45b-4bc3-858a-664b283bb465', '657067', 'https://boxrec.com/en/box-pro/657067', 'https://boxrec.com/wiki/index.php?title=Human:657067', 'karla-valenzuela-garcia', 'Karla Valenzuela Garcia', 'Karla Ivette Valenzuela García', '"La Princesa"', 'https://boxrec.com/images/thumb/d/db/657067.jpg/200px-657067.jpg', 'Gomez Palacio, Durango, Mexico', 'Durango, Mexico', '', 'F', 'Mexico', '160', NULL, 'orthodox', NULL, NULL, NULL, NULL, NULL, '2013-06-28', 'lightweight', 3, 1, 38, 11, 3, 'active', 44, 220, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -1177,7 +1177,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('fefc827e-87da-4ea2-9752-ab4bf8afdb46', '496', 'https://boxrec.com/en/box-pro/496', 'https://boxrec.com/wiki/index.php?title=Human:496', 'eddie-richardson', 'Eddie Richardson', '', '', 'https://boxrec.com/build/images/main/v6-avatar.svg', 'Tyler, Texas, USA', 'Fort Worth, Texas, USA', '', 'M', 'USA', '198', NULL, '', NULL, NULL, NULL, NULL, NULL, '1982-08-06', 'heavyweight', 14, 8, 21, 11, 0, 'inactive', 35, 192, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('7334d0f5-89c9-43fb-bf75-86f51b5fb4a9', '657422', 'https://boxrec.com/en/box-pro/657422', 'https://boxrec.com/wiki/index.php?title=Human:657422', 'ryota-murata', 'Ryota Murata', '村田諒太', '', 'https://boxrec.com/images/thumb/7/78/RMurata1.jpg/200px-RMurata1.jpg', 'Tokyo, Japan', 'Nara, Nara, Japan', '', 'M', 'Japan', '184', '190', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2013-08-25', 'middleweight', 16, 13, 3, 1, 0, 'inactive', 19, 120, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -1188,7 +1188,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('b26a73b3-6eaf-4cbe-899d-33a5188a3fda', '496312', 'https://boxrec.com/en/box-pro/496312', 'https://boxrec.com/wiki/index.php?title=Human:496312', 'delfine-persoon', 'Delfine Persoon', '', '', 'https://boxrec.com/images/thumb/1/1a/496312.jpeg/200px-496312.jpeg', 'Roeselare, West-Vlaanderen, Belgium', 'Gits, West-Vlaanderen, Belgium', '', 'F', 'Belgium', '175', NULL, 'orthodox', NULL, NULL, NULL, NULL, NULL, '2009-05-23', 'superfeatherweight', 50, 20, 3, 1, 0, 'active', 55, 367, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('ec141316-03dd-403e-a799-5e32a7bac2b1', '657434', 'https://boxrec.com/en/box-pro/657434', 'https://boxrec.com/wiki/index.php?title=Human:657434', 'samuel-teah', 'Samuel Teah', 'Samuel Joe Teah', '"Tsunami"', 'https://boxrec.com/images/thumb/7/71/Samuel_Teah.jpeg/200px-Samuel_Teah.jpeg', 'Philadelphia, Pennsylvania, USA', 'Monrovia, Liberia', '', 'M', 'USA', '173', '183', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2013-09-13', 'superlightweight', 19, 8, 5, 2, 1, 'inactive', 25, 120, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -1199,7 +1199,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('94dd09fd-d416-4fa5-bb63-bc8951efba60', '496339', 'https://boxrec.com/en/box-pro/496339', 'https://boxrec.com/wiki/index.php?title=Human:496339', 'nathan-carroll', 'Nathan Carroll', '', '"King"', 'https://boxrec.com/images/thumb/8/88/Nathan-carroll.jpg/200px-Nathan-carroll.jpg', 'Nathan, Queensland, Australia', 'Bankstown, New South Wales, Australia', '', 'M', 'Australia', '183', '185', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2009-05-27', 'middleweight', 10, 4, 3, 1, 1, 'inactive', 14, 76, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('66f4f727-e01b-4ba9-aa77-3d5613d435a8', '657756', 'https://boxrec.com/en/box-pro/657756', 'https://boxrec.com/wiki/index.php?title=Human:657756', 'justin-jones', 'Justin Jones', 'Justin Allen Jones', '"Mayweather"', 'https://boxrec.com/images/thumb/5/5a/Justin_Mayweather_Jones.jpg/200px-Justin_Mayweather_Jones.jpg', 'Las Vegas, Nevada, USA', '', '', 'M', 'USA', '175', NULL, '', NULL, NULL, NULL, NULL, NULL, '2013-07-06', 'supermiddleweight', 7, 5, 0, 0, 0, 'inactive', 7, 16, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -1210,7 +1210,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('f525ae44-4cfb-4548-b3bb-d33c05ff37dd', '496539', 'https://boxrec.com/en/box-pro/496539', 'https://boxrec.com/wiki/index.php?title=Human:496539', 'mark-flanagan', 'Mark Flanagan', 'Mark Manning Flanagan', '"Bam Bam"', 'https://boxrec.com/images/thumb/7/7b/496539.jpeg/200px-496539.jpeg', 'Brisbane, Queensland, Australia', 'Townsville, Queensland, Australia', '', 'M', 'Australia', '183', '185', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2009-05-30', 'cruiserweight', 26, 19, 9, 3, 0, 'inactive', 35, 196, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('301409bd-1497-4ed9-a659-64ed8860a91c', '657916', 'https://boxrec.com/en/box-pro/657916', 'https://boxrec.com/wiki/index.php?title=Human:657916', 'wendy-toussaint', 'Wendy Toussaint', '', '"Haitian Fire"', 'https://boxrec.com/images/thumb/9/95/Wendy_Toussaint.jpeg/200px-Wendy_Toussaint.jpeg', 'Huntington, New York, USA', 'Haiti', '', 'M', 'USA', '179', '180', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2013-07-20', 'superwelterweight', 17, 7, 3, 1, 0, 'active', 20, 103, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -1221,7 +1221,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('e833e113-3553-4971-ae76-9145b78fedfe', '496561', 'https://boxrec.com/en/box-pro/496561', 'https://boxrec.com/wiki/index.php?title=Human:496561', 'jonathan-romero', 'Jonathan Romero', 'Jonathan Eccehomo Romero Preciado', '"Momo"', 'https://boxrec.com/images/thumb/0/0e/Jhonatan_Romero1.JPG/200px-Jhonatan_Romero1.JPG', 'Henderson, Nevada, USA', 'Cali, Colombia', '', 'M', 'Colombia', '173', '174', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2009-05-15', 'superlightweight', 35, 19, 7, 6, 0, 'active', 42, 217, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('f72c3c9a-d983-4e43-964e-dbfb5095caf1', '657991', 'https://boxrec.com/en/box-pro/657991', 'https://boxrec.com/wiki/index.php?title=Human:657991', 'demond-nicholson', 'Demond Nicholson', '', '"D''Bestatit"', 'https://boxrec.com/images/thumb/3/3a/DemondNicholson_profile.jpg/200px-DemondNicholson_profile.jpg', 'Laurel, Maryland, USA', '', '', 'M', 'USA', '183', '185', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2013-07-20', 'lightheavyweight', 27, 23, 7, 4, 1, 'active', 35, 148, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -1232,7 +1232,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('54d43c6d-00f3-4570-99ed-d055f46a9217', '4966', 'https://boxrec.com/en/box-pro/4966', 'https://boxrec.com/wiki/index.php?title=Human:4966', 'montell-griffin', 'Montell Griffin', 'Montell Julian Griffin', '"Ice"', 'https://boxrec.com/images/thumb/f/f1/Griffin.jpg/200px-Griffin.jpg', 'Chicago, Illinois, USA', 'Chicago, Illinois, USA', '', 'M', 'USA', '170', '178', 'orthodox', NULL, NULL, NULL, NULL, NULL, '1993-02-16', 'lightheavyweight', 50, 30, 8, 3, 1, 'inactive', 59, 393, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('347580f8-6fa5-4738-845e-b4a7885bb1f4', '658106', 'https://boxrec.com/en/box-pro/658106', 'https://boxrec.com/wiki/index.php?title=Human:658106', 'marko-nikolic', 'Marko Nikolic', '', '', 'https://boxrec.com/images/thumb/9/9d/658106_2016.jpg/200px-658106_2016.jpg', 'Belgrade, Serbia', 'Belgrade, Serbia', '', 'M', 'Serbia', NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, '2013-07-18', 'lightheavyweight', 32, 12, 4, 3, 0, 'inactive', 36, 184, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -1243,7 +1243,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('90186a56-b555-43f8-81bf-61db9e6ec9ab', '4968', 'https://boxrec.com/en/box-pro/4968', 'https://boxrec.com/wiki/index.php?title=Human:4968', 'stevie-johnston', 'Stevie Johnston', 'Steven Earl Johnston', '"Lil'' But Bad"', 'https://boxrec.com/images/thumb/e/ec/Johnston.stevie.jpg/200px-Johnston.stevie.jpg', 'Vero Beach, Florida, USA', 'Denver, Colorado, USA', '', 'M', 'USA', '164', '174', 'southpaw', NULL, NULL, NULL, NULL, NULL, '1993-02-16', 'lightweight', 42, 18, 6, 4, 1, 'inactive', 49, 410, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('283f82de-966d-4ec3-a71e-39e209d4638e', '658226', 'https://boxrec.com/en/box-pro/658226', 'https://boxrec.com/wiki/index.php?title=Human:658226', 'rashidi-ellis', 'Rashidi Ellis', '', '"Speedy"', 'https://boxrec.com/images/thumb/7/71/Rashidi_Ellis_2024.jpeg/200px-Rashidi_Ellis_2024.jpeg', 'Lynn, Massachusetts, USA', 'USA', '', 'M', 'USA', '175', '183', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2013-07-27', 'welterweight', 27, 18, 1, 0, 0, 'active', 28, 128, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -1254,7 +1254,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('626af526-be5b-453d-adb3-c564fa0b7f49', '497268', 'https://boxrec.com/en/box-pro/497268', 'https://boxrec.com/wiki/index.php?title=Human:497268', 'badou-jack', 'Badou Jack', 'Badou Johannes Gabriel Jack', '"The Ripper"', 'https://boxrec.com/images/thumb/3/33/Badou_Jack12345.JPG/200px-Badou_Jack12345.JPG', 'Dubai, United Arab Emirates', 'Stockholm, Sweden', '', 'M', 'Sweden', '185', '185', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2009-06-06', 'cruiserweight', 29, 17, 3, 1, 3, 'active', 35, 232, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('8e10bad3-d160-4aa0-bd9a-fde4e7b4f27d', '658437', 'https://boxrec.com/en/box-pro/658437', 'https://boxrec.com/wiki/index.php?title=Human:658437', 'jay-harris', 'Jay Harris', '', '', 'https://boxrec.com/images/thumb/8/8c/Jay_Harris_2020.jpg/200px-Jay_Harris_2020.jpg', 'Swansea, Wales, United Kingdom', 'Swansea, Wales, United Kingdom', '', 'M', 'United Kingdom', '165', NULL, 'orthodox', NULL, NULL, NULL, NULL, NULL, '2013-07-27', 'flyweight', 21, 11, 3, 2, 0, 'inactive', 24, 143, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -1265,7 +1265,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('d4c34710-c958-433e-996c-b16cc7cd4d66', '497840', 'https://boxrec.com/en/box-pro/497840', 'https://boxrec.com/wiki/index.php?title=Human:497840', 'alan-sanchez', 'Alan Sanchez', 'Alan Leonardo Sanchez Rivera', '', 'https://boxrec.com/images/thumb/e/eb/497840.jpg/200px-497840.jpg', 'Fairfield, California, USA', 'Guadalajara, Jalisco, Mexico', '', 'M', 'USA', '180', '175', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2009-06-04', 'welterweight', 24, 10, 7, 3, 1, 'active', 32, 207, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('80ee0562-a770-4d8e-8e91-0a8109977afb', '658608', 'https://boxrec.com/en/box-pro/658608', 'https://boxrec.com/wiki/index.php?title=Human:658608', 'andrew-tabiti', 'Andrew Tabiti', 'Omotunde Andrew Tabiti', '"Beast"', 'https://boxrec.com/images/thumb/b/bf/AndrewTabiti.jpg/200px-AndrewTabiti.jpg', 'Las Vegas, Nevada, USA', 'Chicago, Illinois, USA', '', 'M', 'USA', '185', '194', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2013-07-19', NULL, 22, 18, 2, 1, 0, 'active', 24, 113, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -1276,7 +1276,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('6248d8a5-51f6-4b41-99f6-2424a0e8d28a', '498', 'https://boxrec.com/en/box-pro/498', 'https://boxrec.com/wiki/index.php?title=Human:498', 'lorenzo-boyd', 'Lorenzo Boyd', '', '', 'https://boxrec.com/images/thumb/e/ec/LorenzoBoyd.jpg/200px-LorenzoBoyd.jpg', 'Shawnee, Kansas, USA', 'Cushing, Oklahoma, USA', '', 'M', 'USA', NULL, NULL, 'orthodox', NULL, NULL, NULL, NULL, NULL, '1983-07-12', 'heavyweight', 30, 18, 55, 42, 1, 'inactive', 91, 356, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('33fba6d6-c928-4ccf-94c0-0083b50ed13e', '658818', 'https://boxrec.com/en/box-pro/658818', 'https://boxrec.com/wiki/index.php?title=Human:658818', 'willie-jones', 'Willie Jones', '', '', 'https://boxrec.com/images/thumb/0/01/Willie_Jones_2023.JPG/200px-Willie_Jones_2023.JPG', 'Burlington, North Carolina, USA', 'Chapel Hill, North Carolina, USA', '', 'M', 'USA', '185', NULL, 'orthodox', NULL, NULL, NULL, NULL, NULL, '2012-09-14', 'middleweight', 10, 7, 3, 1, 0, 'active', 13, 48, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -1287,7 +1287,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('7bbe3070-c905-4be8-958c-c8059b099ba1', '498261', 'https://boxrec.com/en/box-pro/498261', 'https://boxrec.com/wiki/index.php?title=Human:498261', 'george-foreman', 'George Foreman', 'George Edward Foreman III', '"Monk"', 'https://boxrec.com/images/thumb/1/1a/498261.jpeg/200px-498261.jpeg', 'Humble, Texas, USA', '', '', 'M', 'USA', '196', NULL, '', NULL, NULL, NULL, NULL, NULL, '2009-06-06', 'heavyweight', 18, 17, 0, 0, 0, 'inactive', 18, 33, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('119ba699-29cb-43d2-a208-11cac27d91ee', '658958', 'https://boxrec.com/en/box-pro/658958', 'https://boxrec.com/wiki/index.php?title=Human:658958', 'fernando-valencia', 'Fernando Valencia', 'Fernando Valencia Moreno', '"Chino"', 'https://boxrec.com/build/images/main/v6-avatar.svg', 'Gelsa, Aragón, Spain', 'Ciudad Obregon, Sonora, Mexico', '', 'M', 'Mexico', '175', NULL, 'orthodox', NULL, NULL, NULL, NULL, NULL, '2013-07-12', 'middleweight', 9, 5, 69, 7, 0, 'active', 78, 394, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -1298,7 +1298,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('ac0a7947-41fd-4c35-876d-b1127d36788f', '4985', 'https://boxrec.com/en/box-pro/4985', 'https://boxrec.com/wiki/index.php?title=Human:4985', 'wayne-mccullough', 'Wayne McCullough', 'Wayne William McCullough', '"Pocket Rocket"', 'https://boxrec.com/images/thumb/5/55/Wayne_McCullough.jpg/200px-Wayne_McCullough.jpg', 'Las Vegas, Nevada, USA', 'Belfast, Northern Ireland, United Kingdom', '', 'M', 'USA', '170', '168', 'orthodox', NULL, NULL, NULL, NULL, NULL, '1993-02-23', 'bantamweight', 27, 18, 7, 2, 0, 'inactive', 34, 243, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('838926de-5348-441b-bea8-b0aaa9cc529c', '659461', 'https://boxrec.com/en/box-pro/659461', 'https://boxrec.com/wiki/index.php?title=Human:659461', 'anthony-joshua', 'Anthony Joshua', 'Anthony Oluwafemi Olaseni Joshua', '"''AJ''"', 'https://boxrec.com/images/thumb/3/38/659461.jpeg/200px-659461.jpeg', 'Golders Green, London, United Kingdom', 'Watford, Hertfordshire, United Kingdom', '', 'M', 'United Kingdom', '198', '208', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2013-10-05', 'heavyweight', 28, 25, 4, 2, 0, 'active', 32, 167, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -1309,7 +1309,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('214c9edc-3583-449c-aa09-3774882eaced', '498590', 'https://boxrec.com/en/box-pro/498590', 'https://boxrec.com/wiki/index.php?title=Human:498590', 'thomas-valdez', 'Thomas Valdez', 'Tomas Nadid Valdez', '"Tomy"', 'https://boxrec.com/images/thumb/0/0c/498590.jpeg/200px-498590.jpeg', 'Tucson, Arizona, USA', 'Nogales, Sonora, Mexico', '', 'M', 'Mexico', '178', NULL, 'orthodox', NULL, NULL, NULL, NULL, NULL, '2009-05-30', 'superfeatherweight', 20, 8, 4, 0, 2, 'inactive', 26, 140, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('3ef0ed3a-5534-4c80-9060-fe85d2a7bc7d', '659771', 'https://boxrec.com/en/box-pro/659771', 'https://boxrec.com/wiki/index.php?title=Human:659771', 'vasyl-lomachenko', 'Vasyl Lomachenko', 'Vasyl Anatoliyovich Lomachenko', '"Loma","Hi-Tech","The Matrix"', 'https://boxrec.com/images/thumb/6/68/Vasyl_Lomachenko1.JPG/200px-Vasyl_Lomachenko1.JPG', 'Oxnard, California, USA', 'Bilhorod-Dnistrovskyi, Ukraine', '', 'M', 'Ukraine', '170', '166', 'southpaw', NULL, NULL, NULL, NULL, NULL, '2013-10-12', 'lightweight', 18, 12, 3, 0, 0, 'inactive', 21, 199, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -1320,7 +1320,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('381b7e72-3204-4f41-ae38-8d220c8c8c51', '4986', 'https://boxrec.com/en/box-pro/4986', 'https://boxrec.com/wiki/index.php?title=Human:4986', 'alfonso-zamora', 'Alfonso Zamora', '', '', 'https://boxrec.com/images/thumb/6/66/Alfonso_Zamora.jpg/200px-Alfonso_Zamora.jpg', 'Mexico City, Distrito Federal, Mexico', 'Mexico City, Distrito Federal, Mexico', '', 'M', 'Mexico', '157', '163', 'orthodox', NULL, NULL, NULL, NULL, NULL, '1973-06-02', 'bantamweight', 33, 32, 5, 4, 0, 'inactive', 38, 156, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('63937520-3f15-43a0-8a3b-0f802d8fe9f8', '659772', 'https://boxrec.com/en/box-pro/659772', 'https://boxrec.com/wiki/index.php?title=Human:659772', 'oleksandr-usyk', 'Oleksandr Usyk', 'Олександр Олександрович Усик', '', 'https://boxrec.com/images/thumb/2/26/659772.jpg/200px-659772.jpg', 'Oxnard, California, USA', 'Simferopol, Crimea, Ukraine', '', 'M', 'Ukraine', '191', '198', 'southpaw', NULL, NULL, NULL, NULL, NULL, '2013-11-09', 'heavyweight', 24, 15, 0, 0, 0, 'active', 24, 206, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -1331,7 +1331,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('0ff3d0df-d4ab-42c2-8ede-6afbceadbe3d', '498837', 'https://boxrec.com/en/box-pro/498837', 'https://boxrec.com/wiki/index.php?title=Human:498837', 'jarrell-miller', 'Jarrell Miller', 'Jarrell King Miller', '"Big Baby"', 'https://boxrec.com/images/thumb/8/86/JarrellMiller111.jpg/200px-JarrellMiller111.jpg', 'North Bellmore, New York, USA', 'Brooklyn, New York, USA', '', 'M', 'USA', '193', '198', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2009-07-18', 'heavyweight', 26, 22, 1, 1, 2, 'active', 29, 131, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('3b4a2676-ffba-4b52-8e3b-b7155d58c65f', '6598', 'https://boxrec.com/en/box-pro/6598', 'https://boxrec.com/wiki/index.php?title=Human:6598', 'john-scully', 'John Scully', '', '"The Iceman"', 'https://boxrec.com/images/thumb/1/1e/John_Scully.jpg/200px-John_Scully.jpg', 'Hartford, Connecticut, USA', 'Hartford, Connecticut, USA', '', 'M', 'USA', '178', NULL, 'orthodox', NULL, NULL, NULL, NULL, NULL, '1988-09-16', 'lightheavyweight', 38, 21, 11, 1, 0, 'inactive', 49, 318, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -1342,7 +1342,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('084c72a8-8b0a-46f0-bf33-884598f5e91e', '499', 'https://boxrec.com/en/box-pro/499', 'https://boxrec.com/wiki/index.php?title=Human:499', 'evander-holyfield', 'Evander Holyfield', '', '"The Real Deal"', 'https://boxrec.com/images/thumb/6/6e/Holyfieldface.jpg/200px-Holyfieldface.jpg', 'Atlanta, Georgia, USA', 'Atmore, Alabama, USA', '', 'M', 'USA', '189', '198', 'orthodox', NULL, NULL, NULL, NULL, NULL, '1984-11-15', 'heavyweight', 44, 29, 10, 2, 2, 'inactive', 57, 443, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('eede926f-be81-4152-9780-9b317972055a', '659924', 'https://boxrec.com/en/box-pro/659924', 'https://boxrec.com/wiki/index.php?title=Human:659924', 'jaime-munguia', 'Jaime Munguia', 'Jaime Aaron Munguia Escobedo', '', 'https://boxrec.com/images/thumb/d/d1/659924.jpeg/200px-659924.jpeg', 'Tijuana, Baja California, Mexico', 'Tijuana, Baja California, Mexico', '', 'M', 'Mexico', '183', '183', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2013-07-13', 'supermiddleweight', 45, 35, 2, 1, 0, 'active', 47, 239, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -1353,7 +1353,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('a46a2fd9-83ec-4401-bba0-35b33b7990ff', '4993', 'https://boxrec.com/en/box-pro/4993', 'https://boxrec.com/wiki/index.php?title=Human:4993', 'martin-galvan', 'Martin Galvan', 'Martin Federico Galván Jiménez', '"El Birrias"', 'https://boxrec.com/build/images/main/v6-avatar.svg', 'Santa Paula, California, USA', 'Indé, Durango, Mexico', '', 'M', 'Mexico', NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, '1979-08-03', 'superfeatherweight', 11, 5, 28, 20, 2, 'inactive', 41, 203, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('e5da682a-d15c-4a37-b497-f014f6be4477', '660735', 'https://boxrec.com/en/box-pro/660735', 'https://boxrec.com/wiki/index.php?title=Human:660735', 'daniel-valdivia', 'Daniel Valdivia', '', '', 'https://boxrec.com/images/thumb/8/87/Danny_Valdivia.jpeg/200px-Danny_Valdivia.jpeg', 'Tulare, California, USA', 'Jalpa, Zacatecas, Mexico', '', 'M', 'USA', '185', '185', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2013-08-17', 'superwelterweight', 17, 13, 4, 0, 0, 'active', 21, 79, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -1364,7 +1364,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('112cfadc-f87a-4cc2-9799-6b5c8294ad61', '499476', 'https://boxrec.com/en/box-pro/499476', 'https://boxrec.com/wiki/index.php?title=Human:499476', 'david-avanesyan', 'David Avanesyan', 'Давид Гаврушевич Аванесян', '"Ava"', 'https://boxrec.com/images/thumb/d/d9/David_Avanesyan.jpeg/200px-David_Avanesyan.jpeg', 'Newark, Nottinghamshire, United Kingdom', 'Tabynskoe, Russia', '', 'M', 'Armenia', '173', '174', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2009-06-12', 'welterweight', 31, 19, 5, 3, 1, 'active', 37, 220, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('237c499a-1c4c-4b8e-a82f-9e105a060ade', '661494', 'https://boxrec.com/en/box-pro/661494', 'https://boxrec.com/wiki/index.php?title=Human:661494', 'christopher-diaz-velez', 'Christopher Diaz-Velez', 'Christopher Diaz Velez', '"Pitufo"', 'https://boxrec.com/images/thumb/5/57/ChristopherDiazVelez.jpg/200px-ChristopherDiazVelez.jpg', 'Orlando, Florida, USA', 'Pennsylvania, USA', '', 'M', 'USA', '168', '163', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2013-09-26', 'superfeatherweight', 30, 19, 5, 1, 0, 'active', 35, 194, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -1375,7 +1375,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('e189f53e-7c7c-40e8-a26d-2afa38af0a29', '4995', 'https://boxrec.com/en/box-pro/4995', 'https://boxrec.com/wiki/index.php?title=Human:4995', 'william-joppy', 'William Joppy', 'William Torelle Joppy', '', 'https://boxrec.com/images/thumb/3/3e/William_Joppy.jpeg/200px-William_Joppy.jpeg', 'Woodbridge, Virginia, USA', 'Washington, District of Columbia, USA', '', 'M', 'USA', '175', '184', 'orthodox', NULL, NULL, NULL, NULL, NULL, '1993-02-26', 'middleweight', 40, 30, 7, 3, 2, 'inactive', 49, 281, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('81a2d859-5219-4bfa-b3d5-097c4e4b4138', '661535', 'https://boxrec.com/en/box-pro/661535', 'https://boxrec.com/wiki/index.php?title=Human:661535', 'alexis-salazar-flores', 'Alexis Salazar Flores', '', '"Laberinto"', 'https://boxrec.com/images/thumb/8/8b/661535.jpg/200px-661535.jpg', 'Norwalk, California, USA', 'Guadalajara, Jalisco, Mexico', '', 'M', 'Mexico', '180', NULL, 'orthodox', NULL, NULL, NULL, NULL, NULL, '2013-01-05', 'middleweight', 26, 11, 6, 2, 0, 'inactive', 32, 174, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -1386,7 +1386,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('87c94f85-8f90-4921-8d02-39a3f4788743', '499601', 'https://boxrec.com/en/box-pro/499601', 'https://boxrec.com/wiki/index.php?title=Human:499601', 'carl-frampton', 'Carl Frampton', '', '"The Jackal"', 'https://boxrec.com/images/thumb/1/11/499601.jpeg/200px-499601.jpeg', 'Belfast, Northern Ireland, United Kingdom', 'Belfast, Northern Ireland, United Kingdom', '', 'M', 'United Kingdom', '165', '165', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2009-06-12', 'superbantamweight', 28, 16, 3, 1, 0, 'inactive', 31, 218, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('93f6d1f0-2076-47be-8abf-482568445ccc', '661771', 'https://boxrec.com/en/box-pro/661771', 'https://boxrec.com/wiki/index.php?title=Human:661771', 'darragh-foley', 'Darragh Foley', '', '"''Super''"', 'https://boxrec.com/images/thumb/a/a1/661771.jpg/200px-661771.jpg', 'Bondi, New South Wales, Australia', 'Kent, United Kingdom', '', 'M', 'Ireland', '178', NULL, 'southpaw', NULL, NULL, NULL, NULL, NULL, '2013-08-30', 'superlightweight', 22, 11, 6, 0, 1, 'inactive', 29, 190, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -1397,7 +1397,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('db68e4b4-6929-4c88-8918-d6823d945337', '499685', 'https://boxrec.com/en/box-pro/499685', 'https://boxrec.com/wiki/index.php?title=Human:499685', 'scott-alexander', 'Scott Alexander', '', '', 'https://boxrec.com/images/thumb/4/48/499685.jpg/200px-499685.jpg', 'Los Angeles, California, USA', 'Los Angeles, California, USA', '', 'M', 'USA', '191', '191', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2009-06-11', 'heavyweight', 17, 9, 7, 3, 2, 'active', 26, 103, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('fa0910a6-4858-4c04-a548-2ace4bbe9ea3', '661887', 'https://boxrec.com/en/box-pro/661887', 'https://boxrec.com/wiki/index.php?title=Human:661887', 'david-toussaint', 'David Toussaint', '', '', 'https://boxrec.com/images/thumb/6/6a/David_Toussaint.jpg/200px-David_Toussaint.jpg', 'Canberra, Australian Capital Territory, Australia', 'Australia', '', 'M', 'Australia', '180', '188', 'southpaw', NULL, NULL, NULL, NULL, NULL, '2013-08-16', 'middleweight', 13, 8, 0, 0, 0, 'inactive', 13, 55, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -1408,7 +1408,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('313cf1fb-e25c-4f85-8616-6ef0b1b9c54c', '499698', 'https://boxrec.com/en/box-pro/499698', 'https://boxrec.com/wiki/index.php?title=Human:499698', 'king-von-nelson', 'King Von Nelson', '', '', 'https://boxrec.com/build/images/main/v6-avatar.svg', 'Metro Manila, Philippines', '', '', 'M', 'Philippines', NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, '1952-06-14', NULL, 0, 0, 2, 2, 0, 'inactive', 2, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('33090867-d4dc-447d-ac6d-2db6a1068d61', '662406', 'https://boxrec.com/en/box-pro/662406', 'https://boxrec.com/wiki/index.php?title=Human:662406', 'diego-de-la-hoya', 'Diego De La Hoya', 'Diego De La Hoya Villegas', '', 'https://boxrec.com/images/thumb/f/fa/662406.jpg/200px-662406.jpg', 'Mexicali, Baja California, Mexico', 'Mexicali, Baja California, Mexico', '', 'M', 'Mexico', '168', '173', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2013-09-12', 'featherweight', 24, 11, 2, 2, 0, 'inactive', 27, 166, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -1419,7 +1419,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('cc4dfec0-0c7c-4c77-bbf1-c12b266cf6b8', '50119', 'https://boxrec.com/en/box-pro/50119', 'https://boxrec.com/wiki/index.php?title=Human:50119', 'kelton-brown', 'Kelton Brown', '', '', 'https://boxrec.com/build/images/main/v6-avatar.svg', 'Atoka, Oklahoma, USA', '', '', 'M', 'USA', NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, '1991-06-18', 'heavyweight', 4, 3, 1, 1, 0, 'inactive', 5, 11, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('d0431038-dd53-4063-a874-e990a9ed14a7', '662912', 'https://boxrec.com/en/box-pro/662912', 'https://boxrec.com/wiki/index.php?title=Human:662912', 'jonathan-castano', 'Jonathan Castano', 'Jonathan Castaño Montesinas', '', 'https://boxrec.com/images/thumb/2/22/JonathanCastano.jpg/200px-JonathanCastano.jpg', 'Zaragoza, Aragón, Spain', 'Zaragoza, Aragón, Spain', '', 'M', 'Spain', '180', NULL, 'orthodox', NULL, NULL, NULL, NULL, NULL, '2013-08-30', 'lightheavyweight', 3, 2, 18, 9, 1, 'inactive', 22, 79, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -1430,7 +1430,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('047f4bf3-c3e6-4719-b91d-f49f921148c5', '501238', 'https://boxrec.com/en/box-pro/501238', 'https://boxrec.com/wiki/index.php?title=Human:501238', 'hye-soo-park', 'Hye Soo Park', '', '', 'https://boxrec.com/images/thumb/b/b2/Hye_Soo_Park.jpg/200px-Hye_Soo_Park.jpg', 'Incheon, South Korea', 'Seoul, South Korea', '', 'F', 'South Korea', '164', '154', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2009-05-30', 'lightflyweight', 8, 3, 10, 1, 4, 'active', 22, 140, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('249068ce-6c15-44a7-a116-c702f388874a', '662959', 'https://boxrec.com/en/box-pro/662959', 'https://boxrec.com/wiki/index.php?title=Human:662959', 'jorge-garcia-perez', 'Jorge Garcia Perez', 'Jorge Luis Garcia Perez', '"Chino"', 'https://boxrec.com/images/thumb/0/02/662959.jpeg/200px-662959.jpeg', 'Los Mochis, Sinaloa, Mexico', 'Mexico', '', 'M', 'Mexico', '183', NULL, 'orthodox', NULL, NULL, NULL, NULL, NULL, '2013-08-30', 'superwelterweight', 33, 26, 5, 0, 0, 'active', 38, 196, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -1441,7 +1441,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('1fe0fcee-80ec-429a-a588-df93134fda6d', '501289', 'https://boxrec.com/en/box-pro/501289', 'https://boxrec.com/wiki/index.php?title=Human:501289', 'miguel-marriaga', 'Miguel Marriaga', 'Miguel Ángel Tehran Marriaga', '"The Scorpion"', 'https://boxrec.com/images/thumb/a/ad/Miguel_Marriaga_2020.jpg/200px-Miguel_Marriaga_2020.jpg', 'Miami, Florida, USA', 'Arjona, Colombia', '', 'M', 'Colombia', '173', '170', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2009-06-20', 'superfeatherweight', 31, 26, 8, 2, 0, 'active', 39, 222, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('94a062ee-d1e5-4ea4-8d17-8f3939088ec3', '663077', 'https://boxrec.com/en/box-pro/663077', 'https://boxrec.com/wiki/index.php?title=Human:663077', 'cristian-araneta', 'Cristian Araneta', 'Cristian Aniadas Araneta', '"The Bomb"', 'https://boxrec.com/images/thumb/c/ca/663077.jpg/200px-663077.jpg', 'Cebu City, Cebu, Philippines', 'Mandaue City, Cebu, Philippines', '', 'M', 'Philippines', '163', '167', 'southpaw', NULL, NULL, NULL, NULL, NULL, '2013-09-07', 'lightflyweight', 25, 20, 3, 1, 0, 'active', 28, 142, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -1452,7 +1452,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('e1200009-1732-4b1d-bad0-d84f53af6f4f', '50163', 'https://boxrec.com/en/box-pro/50163', 'https://boxrec.com/wiki/index.php?title=Human:50163', 'ramon-morales', 'Ramon Morales', '', '"Kobasky"', 'https://boxrec.com/build/images/main/v6-avatar.svg', 'Mexicali, Baja California, Mexico', 'Mexicali, Baja California, Mexico', '', 'M', 'Mexico', NULL, NULL, 'orthodox', NULL, NULL, NULL, NULL, NULL, '1989-07-14', 'superlightweight', 17, 16, 6, 1, 0, 'inactive', 23, 88, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('1168aba5-73f4-45ed-a292-753224f4b417', '663098', 'https://boxrec.com/en/box-pro/663098', 'https://boxrec.com/wiki/index.php?title=Human:663098', 'julian-rodriguez', 'Julian Rodriguez', 'Julian Rodriguez Mullen', '"Hammer Hands"', 'https://boxrec.com/images/thumb/6/6f/663098.jpeg/200px-663098.jpeg', 'Hasbrouck Heights, New Jersey, USA', 'Hoboken, New Jersey, USA', '', 'M', 'USA', '175', '174', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2013-09-28', 'welterweight', 24, 15, 1, 1, 0, 'active', 25, 107, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -1463,7 +1463,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('8eb77a1c-543d-49e3-8c08-c9fead10a4ad', '5018', 'https://boxrec.com/en/box-pro/5018', 'https://boxrec.com/wiki/index.php?title=Human:5018', 'rocky-pepeli', 'Rocky Pepeli', '', '"Roger Pepel"', 'https://boxrec.com/images/thumb/4/46/5018.jpg/200px-5018.jpg', 'Los Angeles, California, USA', 'Des Moines, Iowa, USA', '', 'M', 'USA', '191', '208', 'orthodox', NULL, NULL, NULL, NULL, NULL, '1987-04-24', 'heavyweight', 19, 18, 11, 8, 1, 'inactive', 31, 126, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('a50a5b5a-2bcd-48dd-b90e-92c1f358335d', '6632', 'https://boxrec.com/en/box-pro/6632', 'https://boxrec.com/wiki/index.php?title=Human:6632', 'tony-larosa', 'Tony LaRosa', 'Anthony Gasper Larosa', '"The Rock"', 'https://boxrec.com/images/thumb/6/68/Barkley_LaRosa_IL.jpg/200px-Barkley_LaRosa_IL.jpg', 'Chicago, Illinois, USA', '', '', 'M', 'USA', '178', '183', 'orthodox', NULL, NULL, NULL, NULL, NULL, '1988-09-06', 'heavyweight', 32, 18, 23, 20, 0, 'inactive', 55, 224, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -1474,7 +1474,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('4120955c-c901-4e57-adb4-1d6a62056fdd', '501818', 'https://boxrec.com/en/box-pro/501818', 'https://boxrec.com/wiki/index.php?title=Human:501818', 'roberto-ramirez', 'Roberto Ramirez', 'Roberto Ramirez Uriarte', '"Rifle"', 'https://boxrec.com/images/thumb/2/2c/501818.jpg/200px-501818.jpg', 'San Diego, California, USA', 'Tijuana, Baja California, Mexico', '', 'M', 'Mexico', '183', '175', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2011-12-03', 'superlightweight', 26, 19, 4, 3, 1, 'active', 31, 116, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('297f68c2-8365-440d-9e47-0f304fb2530d', '663888', 'https://boxrec.com/en/box-pro/663888', 'https://boxrec.com/wiki/index.php?title=Human:663888', 'cesar-villarraga', 'Cesar Villarraga', 'Cesar Andres Villarraga', '"Ras Tas Tas"', 'https://boxrec.com/images/thumb/d/d7/Cesar_Villarraga.jpg/200px-Cesar_Villarraga.jpg', 'Bogota, Colombia', 'Bogota, Colombia', '', 'M', 'Colombia', '170', NULL, 'orthodox', NULL, NULL, NULL, NULL, NULL, '2013-09-27', 'superlightweight', 11, 5, 13, 3, 1, 'active', 25, 137, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -1485,7 +1485,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('e53fe7fe-625c-42f0-80e9-140fb463ed8a', '502699', 'https://boxrec.com/en/box-pro/502699', 'https://boxrec.com/wiki/index.php?title=Human:502699', 'felix-diaz', 'Felix Diaz', 'Felix Manuel Diaz Guzman', '', 'https://boxrec.com/images/thumb/e/ee/502699.jpeg/200px-502699.jpeg', 'Santo Domingo, Dominican Republic', 'Santo Domingo, Dominican Republic', '', 'M', 'Dominican Republic', '166', '170', 'southpaw', NULL, NULL, NULL, NULL, NULL, '2009-06-29', 'welterweight', 20, 10, 3, 1, 0, 'inactive', 23, 137, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('9f43d4d7-b315-40be-97d3-c2ab5d934572', '663953', 'https://boxrec.com/en/box-pro/663953', 'https://boxrec.com/wiki/index.php?title=Human:663953', 'erik-bazinyan', 'Erik Bazinyan', '', '"BZO"', 'https://boxrec.com/images/thumb/6/61/ErikBazinyan.jpg/200px-ErikBazinyan.jpg', 'Laval, Quebec, Canada', 'Yerevan, Armenia', '', 'M', 'Canada', '185', NULL, '', NULL, NULL, NULL, NULL, NULL, '2013-09-21', 'supermiddleweight', 32, 23, 1, 1, 1, 'active', 34, 179, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -1496,7 +1496,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('cd2d9b54-04c3-45a8-bac7-0689f60e4301', '5029', 'https://boxrec.com/en/box-pro/5029', 'https://boxrec.com/wiki/index.php?title=Human:5029', 'jimmy-thunder', 'Jimmy Thunder', 'James Senio Peau', '', 'https://boxrec.com/images/thumb/6/6d/Jimmy_Thunder1.jpg/200px-Jimmy_Thunder1.jpg', 'Auckland, New Zealand', 'Apia, Samoa', '', 'M', 'New Zealand', '188', '196', 'orthodox', NULL, NULL, NULL, NULL, NULL, '1989-04-08', 'heavyweight', 35, 28, 14, 7, 0, 'inactive', 49, 291, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('fe585e70-db19-4130-8cde-38857559bdf9', '6642', 'https://boxrec.com/en/box-pro/6642', 'https://boxrec.com/wiki/index.php?title=Human:6642', 'jorge-arce', 'Jorge Arce', 'Jorge Armando Arce Armenta', '"Travieso"', 'https://boxrec.com/images/thumb/0/03/Jorge_Arce1.jpg/200px-Jorge_Arce1.jpg', 'Los Mochis, Sinaloa, Mexico', 'Los Mochis, Sinaloa, Mexico', '', 'M', 'Mexico', '164', '168', 'orthodox', NULL, NULL, NULL, NULL, NULL, '1996-01-19', 'lightflyweight', 64, 49, 8, 5, 2, 'inactive', 75, 438, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -1507,7 +1507,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('0c3a02a5-6783-4671-b8ae-c0c42aff71c8', '503532', 'https://boxrec.com/en/box-pro/503532', 'https://boxrec.com/wiki/index.php?title=Human:503532', 'maribel-ramirez', 'Maribel Ramirez', 'Maribel Ramírez de Jesús', '"Pantera"', 'https://boxrec.com/images/thumb/7/7f/Maribel_ramirez.jpg/200px-Maribel_ramirez.jpg', 'Mexico City, Distrito Federal, Mexico', 'Mexico', '', 'F', 'Mexico', '155', NULL, 'orthodox', NULL, NULL, NULL, NULL, NULL, '2009-07-02', 'superflyweight', 15, 3, 12, 4, 4, 'active', 31, 229, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('8f714e3a-dc21-4910-8e1a-72554dcd6140', '664518', 'https://boxrec.com/en/box-pro/664518', 'https://boxrec.com/wiki/index.php?title=Human:664518', 'lerrone-richards', 'Lerrone Richards', '', '"''Sniper The Boss''"', 'https://boxrec.com/images/thumb/4/42/Lrichards.jpg/200px-Lrichards.jpg', 'New Malden, London, United Kingdom', 'Carshalton, Surrey, United Kingdom', '', 'M', 'United Kingdom', '180', '180', 'southpaw', NULL, NULL, NULL, NULL, NULL, '2013-09-29', 'supermiddleweight', 18, 4, 1, 1, 0, 'inactive', 19, 125, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -1518,7 +1518,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('e0651105-85fb-41bc-ac02-56e1f927c901', '503822', 'https://boxrec.com/en/box-pro/503822', 'https://boxrec.com/wiki/index.php?title=Human:503822', 'julius-indongo', 'Julius Indongo', 'Julius Munyelele Indongo', '"Blue Machine"', 'https://boxrec.com/images/thumb/4/40/Julius_Munyelele_Indongo.jpg/200px-Julius_Munyelele_Indongo.jpg', 'Windhoek, Namibia', 'Windhoek, Namibia', '', 'M', 'Namibia', '179', '181', 'southpaw', NULL, NULL, NULL, NULL, NULL, '2009-07-25', 'welterweight', 24, 13, 10, 7, 0, 'inactive', 34, 174, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('c9bcdb59-7cd4-4b89-a12b-77bee890ca57', '664748', 'https://boxrec.com/en/box-pro/664748', 'https://boxrec.com/wiki/index.php?title=Human:664748', 'ryan-picou', 'Ryan Picou', 'Ryan Michael Picou-Armer', '', 'https://boxrec.com/images/thumb/d/dc/664748.jpeg/200px-664748.jpeg', 'Las Vegas, Nevada, USA', 'Los Angeles, California, USA', '', 'M', 'USA', '168', NULL, '', NULL, NULL, NULL, NULL, NULL, '2013-09-21', 'lightweight', 3, 0, 16, 1, 1, 'inactive', 20, 94, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -1529,7 +1529,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('c793da9b-e649-425f-bf9b-2268b6532596', '503848', 'https://boxrec.com/en/box-pro/503848', 'https://boxrec.com/wiki/index.php?title=Human:503848', 'aleem-whitfield', 'Aleem Whitfield', '', '"Hammer"', 'https://boxrec.com/images/thumb/9/97/Aleem_Whitfield.jpg/200px-Aleem_Whitfield.jpg', 'Geneva, New York, USA', 'Geneva, New York, USA', '', 'M', 'USA', '183', NULL, 'orthodox', NULL, NULL, NULL, NULL, NULL, '2009-08-13', 'heavyweight', 9, 6, 1, 1, 0, 'active', 10, 30, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('b977ba51-bf11-4614-9898-cf7f0d44386f', '665078', 'https://boxrec.com/en/box-pro/665078', 'https://boxrec.com/wiki/index.php?title=Human:665078', 'jevgenijs-aleksejevs', 'Jevgenijs Aleksejevs', '', '"The Hurricane"', 'https://boxrec.com/images/thumb/8/88/665078_2024.jpeg/200px-665078_2024.jpeg', 'Riga, Latvia', 'Riga, Latvia', '', 'M', 'Latvia', '183', NULL, 'orthodox', NULL, NULL, NULL, NULL, NULL, '2013-09-28', 'middleweight', 18, 10, 0, 0, 0, 'active', 18, 73, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -1540,7 +1540,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('04a0d835-60f3-4df0-baee-4bf26d160343', '504563', 'https://boxrec.com/en/box-pro/504563', 'https://boxrec.com/wiki/index.php?title=Human:504563', 'julio-ceja', 'Julio Ceja', 'Julio César Ceja Pedraza', '"Pollito"', 'https://boxrec.com/images/thumb/9/90/Julio_Cesar_Ceja_Pedraza.jpg/200px-Julio_Cesar_Ceja_Pedraza.jpg', 'Palmdale, California, USA', 'Tlalnepantla, México, Mexico', '', 'M', 'Mexico', '170', '161', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2009-07-17', 'featherweight', 32, 28, 5, 4, 1, 'inactive', 38, 184, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('3168c87b-2c31-4037-8f79-2878e340d2e3', '665083', 'https://boxrec.com/en/box-pro/665083', 'https://boxrec.com/wiki/index.php?title=Human:665083', 'marquis-taylor', 'Marquis Taylor', '', '"Marvelous Marquis"', 'https://boxrec.com/images/thumb/a/ac/665083.jpg/200px-665083.jpg', 'Galena Park, Texas, USA', 'Houston, Texas, USA', '', 'M', 'USA', '185', '194', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2013-09-28', 'middleweight', 18, 3, 1, 0, 2, 'active', 22, 132, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -1551,7 +1551,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('022a4b07-395d-417a-8fba-f9fa6fcde0f6', '504894', 'https://boxrec.com/en/box-pro/504894', 'https://boxrec.com/wiki/index.php?title=Human:504894', 'miguel-flores', 'Miguel Flores', '', '', 'https://boxrec.com/images/thumb/d/d0/504894.jpeg/200px-504894.jpeg', 'Spring, Texas, USA', 'Morelia, Michoacan, Mexico', '', 'M', 'USA', '173', '175', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2009-08-14', 'superfeatherweight', 28, 12, 5, 3, 1, 'active', 34, 199, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('2a2239b6-d2e3-436c-a8e3-423ac011b1d3', '665165', 'https://boxrec.com/en/box-pro/665165', 'https://boxrec.com/wiki/index.php?title=Human:665165', 'adam-balski', 'Adam Balski', '', '', 'https://boxrec.com/images/thumb/3/36/665165.jpeg/200px-665165.jpeg', 'Warsaw, Poland', 'Kalisz, Poland', '', 'M', 'Poland', '188', '190', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2013-12-07', NULL, 20, 12, 3, 1, 0, 'active', 23, 122, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -1562,7 +1562,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('b704034e-d440-4ebd-a419-f88a621bc04d', '504958', 'https://boxrec.com/en/box-pro/504958', 'https://boxrec.com/wiki/index.php?title=Human:504958', 'danny-flores', 'Danny Flores', 'Danny Flores Cárdenas', '"Venado"', 'https://boxrec.com/images/thumb/4/43/Dannyflores.jpg/200px-Dannyflores.jpg', 'Mexico City, Distrito Federal, Mexico', 'Mexico City, Distrito Federal, Mexico', '', 'M', 'Mexico', '168', NULL, '', NULL, NULL, NULL, NULL, NULL, '2009-08-14', 'superlightweight', 15, 8, 26, 13, 1, 'inactive', 42, 225, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('272f1ece-ff05-4363-af7a-4d04f440a017', '665199', 'https://boxrec.com/en/box-pro/665199', 'https://boxrec.com/wiki/index.php?title=Human:665199', 'junior-younan', 'Junior Younan', 'Sherif Younan Jr.', '"Young God"', 'https://boxrec.com/images/thumb/8/81/665199.jpg/200px-665199.jpg', 'Brooklyn, New York, USA', '', '', 'M', 'USA', '183', '180', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2013-11-09', 'supermiddleweight', 21, 13, 0, 0, 1, 'active', 22, 80, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -1573,7 +1573,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('2d2cbe38-2480-4d52-9de0-a3bab0bd274a', '505927', 'https://boxrec.com/en/box-pro/505927', 'https://boxrec.com/wiki/index.php?title=Human:505927', 'sergey-kovalev', 'Sergey Kovalev', 'Сергей Александрович Ковалёв', '"Krusher"', 'https://boxrec.com/images/thumb/e/e8/SergeyKovalev123.jpg/200px-SergeyKovalev123.jpg', 'Fort Lauderdale, Florida, USA', 'Kopeysk, Russia', '', 'M', 'Russia', '183', '184', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2009-07-25', 'cruiserweight', 36, 30, 5, 3, 1, 'active', 42, 211, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('f5dd8842-119c-42e1-a027-c3c7e6188f34', '665387', 'https://boxrec.com/en/box-pro/665387', 'https://boxrec.com/wiki/index.php?title=Human:665387', 'matthew-mckinney', 'Matthew McKinney', 'Matthew Willson McKinney', '"El Matador"', 'https://boxrec.com/images/thumb/5/57/665387.jpeg/200px-665387.jpeg', 'Escondido, California, USA', 'Fullerton, California, USA', '', 'M', 'USA', '193', '198', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2013-10-03', 'heavyweight', 22, 18, 10, 9, 2, 'active', 34, 84, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -1584,7 +1584,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('9c18eddd-d8db-4a99-a7ca-c2b5183cdb85', '506', 'https://boxrec.com/en/box-pro/506', 'https://boxrec.com/wiki/index.php?title=Human:506', 'frankie-warren', 'Frankie Warren', '', '"Panchito"', 'https://boxrec.com/images/thumb/3/34/FrankieWarren.jpg/200px-FrankieWarren.jpg', 'Corpus Christi, Texas, USA', '', '', 'M', 'USA', '160', '173', 'orthodox', NULL, NULL, NULL, NULL, NULL, '1982-10-09', 'superlightweight', 30, 20, 2, 1, 0, 'inactive', 32, 200, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('2811789a-18d9-4d9f-a1f2-4a400b82024d', '665698', 'https://boxrec.com/en/box-pro/665698', 'https://boxrec.com/wiki/index.php?title=Human:665698', 'can-xu', 'Can Xu', '徐灿', '"Monster"', 'https://boxrec.com/images/thumb/0/0d/665698.jpeg/200px-665698.jpeg', 'Beijing, China', 'Fuzhou, China', '', 'M', 'China', '175', '175', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2013-11-16', 'superfeatherweight', 20, 5, 4, 1, 0, 'active', 24, 202, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -1595,7 +1595,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('4ca25923-a8b8-4872-b280-c2d239fe6c82', '506068', 'https://boxrec.com/en/box-pro/506068', 'https://boxrec.com/wiki/index.php?title=Human:506068', 'liam-cameron', 'Liam Cameron', '', '"''Cannonball''"', 'https://boxrec.com/images/thumb/8/8a/506068_2023.jpeg/200px-506068_2023.jpeg', 'Sheffield, Yorkshire, United Kingdom', 'Sheffield, Yorkshire, United Kingdom', '', 'M', 'United Kingdom', '183', NULL, 'orthodox', NULL, NULL, NULL, NULL, NULL, '2009-10-24', 'lightheavyweight', 23, 10, 7, 1, 1, 'active', 32, 181, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('4f857713-bf10-4c77-8219-d71dd6426fe1', '665875', 'https://boxrec.com/en/box-pro/665875', 'https://boxrec.com/wiki/index.php?title=Human:665875', 'tania-enriquez', 'Tania Enriquez', 'Tania Gissel Enriquez Rosas', '"La Chula"', 'https://boxrec.com/images/thumb/4/47/Tania_Enriquez.jpeg/200px-Tania_Enriquez.jpeg', 'Tijuana, Baja California, Mexico', 'Tijuana, Baja California, Mexico', '', 'F', 'Mexico', '168', '164', 'southpaw', NULL, NULL, NULL, NULL, NULL, '2013-10-23', 'flyweight', 21, 10, 1, 0, 0, 'inactive', 22, 112, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -1606,7 +1606,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('f1658e9d-5549-4577-a37c-3d36785ebe70', '506287', 'https://boxrec.com/en/box-pro/506287', 'https://boxrec.com/wiki/index.php?title=Human:506287', 'froilan-saludar', 'Froilan Saludar', 'Froilan Miranda Saludar', '"The Sniper"', 'https://boxrec.com/images/thumb/a/ae/506287_2023.jpeg/200px-506287_2023.jpeg', 'Polomolok, Cotabato del Sur, Philippines', 'Polomolok, Cotabato del Sur, Philippines', '', 'M', 'Philippines', '165', '170', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2009-07-27', 'bantamweight', 37, 26, 8, 5, 1, 'active', 46, 229, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('828feed6-cb5a-4501-a877-59619821e57c', '665878', 'https://boxrec.com/en/box-pro/665878', 'https://boxrec.com/wiki/index.php?title=Human:665878', 'mario-barrios', 'Mario Barrios', 'Mario Thomas Barrios', '"El Azteca"', 'https://boxrec.com/images/thumb/5/57/665878_2022-01-26.jpg/200px-665878_2022-01-26.jpg', 'San Antonio, Texas, USA', 'San Antonio, Texas, USA', '', 'M', 'USA', '183', '180', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2013-11-11', 'welterweight', 29, 18, 2, 1, 2, 'active', 33, 210, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -1617,7 +1617,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('9d0471d8-46d6-4196-a3d1-b1a1b0b66dbc', '506289', 'https://boxrec.com/en/box-pro/506289', 'https://boxrec.com/wiki/index.php?title=Human:506289', 'jerwin-ancajas', 'Jerwin Ancajas', 'Jerwin Juntilla Ancajas', '"Pretty Boy"', 'https://boxrec.com/images/thumb/3/33/Jerwin_Juntilla_Ancajas.jpg/200px-Jerwin_Juntilla_Ancajas.jpg', 'Magallanes, Cavite, Philippines', 'Panabo City, Davao del Norte, Philippines', '', 'M', 'Philippines', '168', '169', 'southpaw', NULL, NULL, NULL, NULL, NULL, '2009-07-27', 'superbantamweight', 36, 24, 4, 1, 2, 'active', 42, 264, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('7a65efe4-14c0-4667-9522-0bf1c63bbfd6', '665966', 'https://boxrec.com/en/box-pro/665966', 'https://boxrec.com/wiki/index.php?title=Human:665966', 'ryan-bourland', 'Ryan Bourland', 'Ryan Thomas Bourland', '', 'https://boxrec.com/images/thumb/b/b4/665966.jpg/200px-665966.jpg', 'Dickinson, North Dakota, USA', 'Martinez, California, USA', '', 'M', 'USA', '183', NULL, 'orthodox', NULL, NULL, NULL, NULL, NULL, '2013-10-12', 'cruiserweight', 17, 6, 3, 2, 0, 'inactive', 20, 89, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -1628,7 +1628,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('d7169c37-671d-4e1c-9de8-b4783008f9bf', '506305', 'https://boxrec.com/en/box-pro/506305', 'https://boxrec.com/wiki/index.php?title=Human:506305', 'jorge-cota', 'Jorge Cota', 'Jorge Luis Cota Lugo', '"Demonio"', 'https://boxrec.com/images/thumb/0/0b/506305.jpeg/200px-506305.jpeg', 'Los Mochis, Sinaloa, Mexico', 'Sinaloa, Mexico', '', 'M', 'Mexico', '180', '187', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2009-06-27', 'middleweight', 31, 28, 7, 5, 0, 'inactive', 38, 165, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('34edc5dc-7453-450b-a0fd-0c401d03fd45', '666339', 'https://boxrec.com/en/box-pro/666339', 'https://boxrec.com/wiki/index.php?title=Human:666339', 'kosei-tanaka', 'Kosei Tanaka', '田中恒成', '', 'https://boxrec.com/images/thumb/9/9a/666339.jpeg/200px-666339.jpeg', 'Nagoya, Aichi, Japan', 'Tajimi, Gifu, Japan', '', 'M', 'Japan', '164', '164', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2013-11-10', 'flyweight', 20, 11, 2, 1, 0, 'inactive', 22, 185, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -1639,7 +1639,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('ead149af-a256-417e-8b1e-0903f7fabcd6', '506472', 'https://boxrec.com/en/box-pro/506472', 'https://boxrec.com/wiki/index.php?title=Human:506472', 'jennifer-han', 'Jennifer Han', '', '', 'https://boxrec.com/images/thumb/b/b6/Jennifer_Han.jpeg/200px-Jennifer_Han.jpeg', 'El Paso, Texas, USA', 'El Paso, Texas, USA', '', 'F', 'USA', '168', '168', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2009-07-31', 'superfeatherweight', 18, 1, 5, 0, 1, 'inactive', 27, 186, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('29053967-9e39-4827-a17a-34fd2d30c1dc', '667449', 'https://boxrec.com/en/box-pro/667449', 'https://boxrec.com/wiki/index.php?title=Human:667449', 'eric-gamboa', 'Eric Gamboa', 'Eric Gerardo Gamboa Barrera', '"Pitbull"', 'https://boxrec.com/images/thumb/5/59/667449a.jpg/200px-667449a.jpg', 'Cancun, Quintana Roo, Mexico', 'Cancun, Quintana Roo, Mexico', '', 'M', 'Mexico', '160', '168', 'southpaw', NULL, NULL, NULL, NULL, NULL, '2013-09-13', 'bantamweight', 26, 14, 3, 0, 0, 'active', 29, 147, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -1650,7 +1650,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('6aac6359-da32-4909-a91c-74264fcc56f1', '5065', 'https://boxrec.com/en/box-pro/5065', 'https://boxrec.com/wiki/index.php?title=Human:5065', 'erik-morales', 'Erik Morales', 'Erik Isaac Morales Elvira', '"El Terrible"', 'https://boxrec.com/images/thumb/2/21/5065.jpg/200px-5065.jpg', 'Tijuana, Baja California, Mexico', 'Tijuana, Baja California, Mexico', '', 'M', 'Mexico', '170', '183', 'orthodox', NULL, NULL, NULL, NULL, NULL, '1993-03-29', 'superbantamweight', 52, 36, 9, 3, 0, 'inactive', 61, 425, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('a0025cbb-34b0-4cff-96af-379b048ab821', '667667', 'https://boxrec.com/en/box-pro/667667', 'https://boxrec.com/wiki/index.php?title=Human:667667', 'takuma-inoue', 'Takuma Inoue', '井上拓真', '', 'https://boxrec.com/images/thumb/4/4c/Takuma_Inoue.jpg/200px-Takuma_Inoue.jpg', 'Yokohama, Kanagawa, Japan', 'Zama, Kanagawa, Japan', '', 'M', 'Japan', '164', '164', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2013-12-06', 'bantamweight', 20, 5, 2, 0, 0, 'active', 22, 203, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -1661,7 +1661,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('a9b379e3-9040-429a-b7f4-62576abfef4c', '506755', 'https://boxrec.com/en/box-pro/506755', 'https://boxrec.com/wiki/index.php?title=Human:506755', 'miguel-mosqueda', 'Miguel Mosqueda', '', '', 'https://boxrec.com/build/images/main/v6-avatar.svg', 'Cuba', '', '', 'M', 'Cuba', NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, '1954-07-31', 'bantamweight', 1, 1, 0, 0, 1, 'inactive', 2, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('22bb6e81-f2a2-4887-a9cb-5e6c9058abef', '667682', 'https://boxrec.com/en/box-pro/667682', 'https://boxrec.com/wiki/index.php?title=Human:667682', 'tina-rupprecht', 'Tina Rupprecht', 'Christina Rupprecht', '"Tiny Tina"', 'https://boxrec.com/images/thumb/3/35/667682.jpg/200px-667682.jpg', 'Augsburg, Bayern, Germany', 'Augsburg, Bayern, Germany', '', 'F', 'Germany', '153', NULL, 'orthodox', NULL, NULL, NULL, NULL, NULL, '2013-12-07', NULL, 15, 3, 1, 0, 1, 'active', 17, 139, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -1672,7 +1672,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('2134b601-d4cf-4129-9243-c25d126df71b', '507', 'https://boxrec.com/en/box-pro/507', 'https://boxrec.com/wiki/index.php?title=Human:507', 'orlando-canizales', 'Orlando Canizales', 'Orlando Cañizales', '', 'https://boxrec.com/images/thumb/f/fa/Orlando_Cannizales.jpg/200px-Orlando_Cannizales.jpg', 'Laredo, Texas, USA', 'Laredo, Texas, USA', '', 'M', 'USA', '163', '165', 'orthodox', NULL, NULL, NULL, NULL, NULL, '1984-08-25', 'bantamweight', 50, 37, 5, 0, 1, 'inactive', 57, 384, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('92e3a6a6-594b-4eb9-bcc2-cfbc62ebd66c', '667712', 'https://boxrec.com/en/box-pro/667712', 'https://boxrec.com/wiki/index.php?title=Human:667712', 'jose-ocasio', 'Jose Ocasio', '', '', 'https://boxrec.com/images/thumb/a/a6/667712.jpeg/200px-667712.jpeg', 'Ocala, Florida, USA', 'Ocala, Florida, USA', '', 'M', 'USA', '168', NULL, 'orthodox', NULL, NULL, NULL, NULL, NULL, '2013-11-22', 'superflyweight', 7, 6, 1, 0, 0, 'inactive', 8, 17, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -1683,7 +1683,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('424441d8-04f8-41ce-89f4-ae5d92794838', '507154', 'https://boxrec.com/en/box-pro/507154', 'https://boxrec.com/wiki/index.php?title=Human:507154', 'yuniel-dorticos', 'Yuniel Dorticos', 'Yuniel Dorticos Pao', '"The KO Doctor"', 'https://boxrec.com/images/thumb/d/d8/Dorticos_Head.jpg/200px-Dorticos_Head.jpg', 'Miami, Florida, USA', 'Cienfuegos, Cuba', '', 'M', 'Cuba', '191', '203', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2009-08-14', 'cruiserweight', 27, 25, 3, 1, 0, 'active', 30, 124, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('a4061521-0c33-487b-a52d-84514c401a27', '667893', 'https://boxrec.com/en/box-pro/667893', 'https://boxrec.com/wiki/index.php?title=Human:667893', 'lourdes-juarez', 'Lourdes Juarez', 'Lourdes Yoana Juárez Trejo', '"La Pequena Lulu"', 'https://boxrec.com/images/thumb/7/7f/667893a.jpeg/200px-667893a.jpeg', 'Mexico City, Distrito Federal, Mexico', 'Mexico City, Distrito Federal, Mexico', '', 'F', 'Mexico', '156', '159', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2013-10-26', 'lightflyweight', 38, 5, 4, 1, 0, 'active', 43, 293, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -1694,7 +1694,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('bc7c2e78-be5f-4650-b3fc-9b0c26cd1926', '507579', 'https://boxrec.com/en/box-pro/507579', 'https://boxrec.com/wiki/index.php?title=Human:507579', 'rances-barthelemy', 'Rances Barthelemy', '', '"Kid Blast"', 'https://boxrec.com/images/thumb/2/2e/Rances.jpeg/200px-Rances.jpeg', 'Las Vegas, Nevada, USA', 'Havana, Cuba', '', 'M', 'Cuba', '178', '184', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2009-08-08', 'superlightweight', 30, 15, 3, 1, 1, 'inactive', 35, 214, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('7331f006-1007-4688-b52d-354da01b01df', '668', 'https://boxrec.com/en/box-pro/668', 'https://boxrec.com/wiki/index.php?title=Human:668', 'jacob-matlala', 'Jacob Matlala', '', '"Baby Jake"', 'https://boxrec.com/images/thumb/5/54/Jacob_Matlala1.jpg/200px-Jacob_Matlala1.jpg', 'Meadowlands, Gauteng, South Africa', 'Soweto, Gauteng, South Africa', '', 'M', 'South Africa', '148', '150', 'orthodox', NULL, NULL, NULL, NULL, NULL, '1980-02-02', 'lightflyweight', 53, 26, 13, 3, 2, 'inactive', 68, 547, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -1705,7 +1705,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('88f4097d-cc8b-482b-b7c1-f60d2460f995', '508', 'https://boxrec.com/en/box-pro/508', 'https://boxrec.com/wiki/index.php?title=Human:508', 'paul-gonzales', 'Paul Gonzales', '', '"Super Fly"', 'https://boxrec.com/images/thumb/e/e3/GonzalesPaul.jpg/200px-GonzalesPaul.jpg', 'East Los Angeles, California, USA', 'East Los Angeles, California, USA', '', 'M', 'USA', '175', NULL, 'orthodox', NULL, NULL, NULL, NULL, NULL, '1985-08-11', 'superflyweight', 16, 3, 4, 1, 0, 'inactive', 20, 184, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('c089b21d-85ae-4bd2-a3e4-938b235911b5', '668600', 'https://boxrec.com/en/box-pro/668600', 'https://boxrec.com/wiki/index.php?title=Human:668600', 'rafael-espinoza', 'Rafael Espinoza', 'Rafael Espinoza Zepeda', '"El Divino"', 'https://boxrec.com/images/thumb/c/ca/668600_2023.jpeg/200px-668600_2023.jpeg', 'Guadalajara, Jalisco, Mexico', 'Guadalajara, Jalisco, Mexico', '', 'M', 'Mexico', '185', '188', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2013-02-15', 'featherweight', 27, 23, 0, 0, 0, 'active', 27, 104, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -1716,7 +1716,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('e611f094-0116-4749-ae1e-b981d2ca3676', '508315', 'https://boxrec.com/en/box-pro/508315', 'https://boxrec.com/wiki/index.php?title=Human:508315', 'patrick-teixeira', 'Patrick Teixeira', 'Patrick Alen Teixeira', '', 'https://boxrec.com/images/thumb/0/0b/508315.jpeg/200px-508315.jpeg', 'Santana de Parnaíba, Sao Paulo, Brazil', 'Sombrio, Santa Catarina, Brazil', '', 'M', 'Brazil', '181', '189', 'southpaw', NULL, NULL, NULL, NULL, NULL, '2009-08-11', 'middleweight', 35, 26, 5, 1, 0, 'active', 40, 183, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('965f07ed-8af1-4b82-8894-14b990b73b03', '668738', 'https://boxrec.com/en/box-pro/668738', 'https://boxrec.com/wiki/index.php?title=Human:668738', 'cameron-sevilla-rivera', 'Cameron Sevilla Rivera', '', '"The Puerto Rican Bakugo"', 'https://boxrec.com/images/thumb/7/76/CameronSevillaRivera.jpg/200px-CameronSevillaRivera.jpg', 'Fife, Washington, USA', 'Fife, Washington, USA', '', 'M', 'USA', '178', '180', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2013-11-02', 'supermiddleweight', 10, 6, 8, 5, 4, 'inactive', 22, 88, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -1727,7 +1727,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('bbc743d2-4f22-4366-9b77-5ccad5fa1a97', '50863', 'https://boxrec.com/en/box-pro/50863', 'https://boxrec.com/wiki/index.php?title=Human:50863', 'joe-grier', 'Joe Grier', '', '', 'https://boxrec.com/build/images/main/v6-avatar.svg', 'Paterson, New Jersey, USA', '', '', 'M', 'USA', NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, '1972-02-12', 'welterweight', 13, 5, 9, 3, 6, 'inactive', 28, 161, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('79cff347-8b4d-4acb-9f1b-e71c32e488d4', '6688', 'https://boxrec.com/en/box-pro/6688', 'https://boxrec.com/wiki/index.php?title=Human:6688', 'oleg-maskaev', 'Oleg Maskaev', 'Олег Александрович Маскаев', '"The Big O"', 'https://boxrec.com/images/thumb/1/19/Oleg_Maskaev.jpg/200px-Oleg_Maskaev.jpg', 'Saransk, Russia', 'Abay, Kazakhstan', '', 'M', 'Russia', '191', '201', 'orthodox', NULL, NULL, NULL, NULL, NULL, '1993-04-17', 'heavyweight', 39, 28, 7, 7, 0, 'inactive', 46, 257, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -1738,7 +1738,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('6bfc9379-ae2b-4728-b826-ecf1c405dfcc', '50877', 'https://boxrec.com/en/box-pro/50877', 'https://boxrec.com/wiki/index.php?title=Human:50877', 'chauncy-welliver', 'Chauncy Welliver', 'Chauncy Kelly Welliver', '"Hillyard Hammer"', 'https://boxrec.com/images/thumb/5/59/Welliver.Chauncy.JPG/200px-Welliver.Chauncy.JPG', 'Spokane, Washington, USA', 'Spokane, Washington, USA', '', 'M', 'USA', '188', NULL, 'orthodox', NULL, NULL, NULL, NULL, NULL, '2001-06-23', 'heavyweight', 57, 23, 13, 4, 5, 'inactive', 75, 442, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('6aab2342-1343-4e0a-b33c-22f3b7b4c884', '670121', 'https://boxrec.com/en/box-pro/670121', 'https://boxrec.com/wiki/index.php?title=Human:670121', 'harold-eduardo-calderon', 'Harold Eduardo Calderon', '', '', 'https://boxrec.com/images/thumb/0/05/670121.jpeg/200px-670121.jpeg', 'Miami, Florida, USA', 'Chicago, Illinois, USA', '', 'M', 'USA', '180', NULL, 'southpaw', NULL, NULL, NULL, NULL, NULL, '2013-11-01', 'welterweight', 28, 19, 2, 0, 0, 'active', 30, 139, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -1749,7 +1749,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('b4a5e0e7-b0b9-4892-a5ed-4632bd3ee95a', '509', 'https://boxrec.com/en/box-pro/509', 'https://boxrec.com/wiki/index.php?title=Human:509', 'tony-lopez', 'Tony Lopez', '', '"The Tiger"', 'https://boxrec.com/images/thumb/6/6d/509.jpg/200px-509.jpg', 'Sacramento, California, USA', '', '', 'M', 'USA', '168', '183', 'orthodox', NULL, NULL, NULL, NULL, NULL, '1983-05-03', 'superfeatherweight', 50, 34, 8, 4, 1, 'inactive', 59, 380, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('60644fc8-94ff-41d9-ac1a-9ac0255c9e9b', '670934', 'https://boxrec.com/en/box-pro/670934', 'https://boxrec.com/wiki/index.php?title=Human:670934', 'erickson-lubin', 'Erickson Lubin', 'Erickson Nick Lubin', '"The Hammer"', 'https://boxrec.com/images/thumb/0/09/Erickson_Lubin1.JPG/200px-Erickson_Lubin1.JPG', 'Kissimmee, Florida, USA', 'Orlando, Florida, USA', '', 'M', 'USA', '180', '189', 'southpaw', NULL, NULL, NULL, NULL, NULL, '2013-11-26', 'superwelterweight', 27, 19, 2, 2, 0, 'active', 29, 147, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -1760,7 +1760,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('9da2ed80-3844-4246-a898-abe2b75524ab', '509429', 'https://boxrec.com/en/box-pro/509429', 'https://boxrec.com/wiki/index.php?title=Human:509429', 'kid-galahad', 'Kid Galahad', 'Abdul Bari Awad', '', 'https://boxrec.com/images/thumb/a/af/KidGalahad.jpg/200px-KidGalahad.jpg', 'Sheffield, Yorkshire, United Kingdom', 'Doha, Qatar', '', 'M', 'United Kingdom', '169', '170', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2009-09-05', 'lightweight', 28, 17, 3, 1, 0, 'inactive', 31, 200, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('2c8c0e6e-dabd-49b0-a8a5-901c8b0554ea', '6713', 'https://boxrec.com/en/box-pro/6713', 'https://boxrec.com/wiki/index.php?title=Human:6713', 'joe-lipsey', 'Joe Lipsey', 'Joe Ira Lipsey Jr', '"The Sledgehammer"', 'https://boxrec.com/images/thumb/8/87/6713a.jpg/200px-6713a.jpg', 'Vardaman, Mississippi, USA', '', 'W', 'M', 'USA', '175', NULL, 'southpaw', NULL, NULL, NULL, NULL, NULL, '1988-11-28', 'middleweight', 25, 20, 1, 1, 0, 'inactive', 26, 118, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -1771,7 +1771,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('bc6e2c9f-b60a-40d7-981b-01eb6dc2f609', '509666', 'https://boxrec.com/en/box-pro/509666', 'https://boxrec.com/wiki/index.php?title=Human:509666', 'gilberto-ramirez', 'Gilberto Ramirez', 'Gilberto Ramirez Sanchez', '"Zurdo"', 'https://boxrec.com/images/thumb/6/6f/GilbertoRamirezSanchez1.JPG/200px-GilbertoRamirezSanchez1.JPG', 'Mazatlan, Sinaloa, Mexico', 'Mazatlan, Sinaloa, Mexico', '', 'M', 'Mexico', '189', '191', 'southpaw', NULL, NULL, NULL, NULL, NULL, '2009-08-21', 'cruiserweight', 48, 30, 1, 0, 0, 'active', 49, 313, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('0492112f-55d7-4d0f-9039-92fd1c8af652', '671585', 'https://boxrec.com/en/box-pro/671585', 'https://boxrec.com/wiki/index.php?title=Human:671585', 'eric-walker', 'Eric Walker', 'Eric Dwayne Johnson', '"Baby Faced Assassin"', 'https://boxrec.com/images/thumb/b/b0/Ericjohnson.jpg/200px-Ericjohnson.jpg', 'Plaquemine, Louisiana, USA', '', 'W', 'M', 'USA', '178', '185', '', NULL, NULL, NULL, NULL, NULL, '2013-12-06', 'welterweight', 20, 9, 4, 0, 0, 'inactive', 24, 136, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -1782,7 +1782,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('2fa02939-aa28-4c14-a4a5-f075cf29f39d', '5097', 'https://boxrec.com/en/box-pro/5097', 'https://boxrec.com/wiki/index.php?title=Human:5097', 'terron-millett', 'Terron Millett', '', '"The Tramp"', 'https://boxrec.com/images/thumb/f/fb/Millett.jpg/200px-Millett.jpg', 'Saint Louis, Missouri, USA', 'Colorado Springs, Colorado, USA', '', 'M', 'USA', '170', '170', 'orthodox', NULL, NULL, NULL, NULL, NULL, '1993-04-20', 'superlightweight', 27, 19, 5, 4, 1, 'inactive', 33, 139, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('6fa56d00-7517-49c4-a86a-300752cc1909', '671857', 'https://boxrec.com/en/box-pro/671857', 'https://boxrec.com/wiki/index.php?title=Human:671857', 'oscar-duarte-jurado', 'Oscar Duarte Jurado', 'Oscar Duarte Jurado', '"La Migrana"', 'https://boxrec.com/images/thumb/7/7e/671857.jpg/200px-671857.jpg', 'Parral, Chihuahua, Mexico', 'Parral, Chihuahua, Mexico', '', 'M', 'Mexico', '175', '180', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2013-04-20', 'superlightweight', 29, 23, 2, 1, 1, 'active', 32, 163, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -1793,7 +1793,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('aa962cf1-a102-478d-a7f1-781a79cb4960', '509704', 'https://boxrec.com/en/box-pro/509704', 'https://boxrec.com/wiki/index.php?title=Human:509704', 'rafael-rosas-ramirez', 'Rafael Rosas Ramirez', '', '"Panadero"', 'https://boxrec.com/build/images/main/v6-avatar.svg', 'Mazatlan, Sinaloa, Mexico', '', '', 'M', 'Mexico', NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, '2009-08-21', 'lightweight', 20, 12, 8, 4, 2, 'active', 30, 138, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('2176eae5-f7c1-45d5-bd63-efe57097c648', '672064', 'https://boxrec.com/en/box-pro/672064', 'https://boxrec.com/wiki/index.php?title=Human:672064', 'stephan-shaw', 'Stephan Shaw', '', '"Big Shot"', 'https://boxrec.com/images/thumb/0/00/672064.jpeg/200px-672064.jpeg', 'Saint Louis, Missouri, USA', 'Saint Louis, Missouri, USA', '', 'M', 'USA', '193', '206', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2013-12-13', 'heavyweight', 21, 16, 2, 1, 0, 'active', 24, 88, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -1804,7 +1804,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('3d6e5914-ce3c-4af7-bc28-78264c4026f3', '510276', 'https://boxrec.com/en/box-pro/510276', 'https://boxrec.com/wiki/index.php?title=Human:510276', 'juan-heraldez', 'Juan Heraldez', 'Juan Guillermo Heraldez', '', 'https://boxrec.com/images/thumb/a/ae/Juan.heraldez.jpg/200px-Juan.heraldez.jpg', 'North Las Vegas, Nevada, USA', 'Northridge, California, USA', '', 'M', 'USA', '173', '179', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2009-08-27', 'superlightweight', 16, 10, 3, 3, 1, 'active', 20, 93, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('564adb80-8fd2-434e-84b3-87f9f248e8a4', '672119', 'https://boxrec.com/en/box-pro/672119', 'https://boxrec.com/wiki/index.php?title=Human:672119', 'andy-hiraoka', 'Andy Hiraoka', '平岡Andy Justice', '"Da Blade"', 'https://boxrec.com/images/thumb/5/51/Andy_Hiraoka.jpg/200px-Andy_Hiraoka.jpg', 'Yokohama, Kanagawa, Japan', 'Yokohama, Kanagawa, Japan', '', 'M', 'Japan', '182', '188', 'southpaw', NULL, NULL, NULL, NULL, NULL, '2013-12-03', 'superlightweight', 24, 19, 0, 0, 0, 'active', 24, 123, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -1815,7 +1815,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('6a09167f-567f-4680-940a-f629474f6014', '511', 'https://boxrec.com/en/box-pro/511', 'https://boxrec.com/wiki/index.php?title=Human:511', 'genaro-hernandez', 'Genaro Hernandez', 'Genaro Z. Hernandez', '"Chicanito"', 'https://boxrec.com/images/thumb/b/be/GenHernandez.jpg/200px-GenHernandez.jpg', 'Los Angeles, California, USA', 'Los Angeles, California, USA', '', 'M', 'USA', '180', '183', 'orthodox', NULL, NULL, NULL, NULL, NULL, '1984-09-27', 'superfeatherweight', 38, 17, 2, 2, 1, 'inactive', 41, 308, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('16025221-e039-4412-8b3c-ea2f9ac546b3', '6722', 'https://boxrec.com/en/box-pro/6722', 'https://boxrec.com/wiki/index.php?title=Human:6722', 'diego-corrales', 'Diego Corrales', '', '"Chico"', 'https://boxrec.com/images/thumb/f/f8/DiegoCorrales.jpg/200px-DiegoCorrales.jpg', 'Las Vegas, Nevada, USA', 'Columbia, South Carolina, USA', '', 'M', 'USA', '179', '178', 'orthodox', NULL, NULL, NULL, NULL, NULL, '1996-03-19', 'lightweight', 40, 33, 5, 3, 0, 'inactive', 45, 230, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -1826,7 +1826,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('c872dbd4-61d4-4478-96a7-0b8498be327a', '511100', 'https://boxrec.com/en/box-pro/511100', 'https://boxrec.com/wiki/index.php?title=Human:511100', 'christina-hammer', 'Christina Hammer', '', '', 'https://boxrec.com/images/thumb/9/94/Hammer_Christina.jpg/200px-Hammer_Christina.jpg', 'Dortmund, Nordrhein-Westfalen, Germany', 'Novodolinsky, Kazakhstan', '', 'F', 'Germany', '180', '180', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2009-09-12', 'middleweight', 28, 13, 1, 0, 0, 'inactive', 30, 202, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('5a8a203c-acf6-4b0a-b410-948a3a53bcdf', '672233', 'https://boxrec.com/en/box-pro/672233', 'https://boxrec.com/wiki/index.php?title=Human:672233', 'miguel-parra', 'Miguel Parra', 'Miguel Ángel Parra Ramírez', '"Maquina"', 'https://boxrec.com/images/thumb/8/8f/672233.jpg/200px-672233.jpg', 'Tepic, Nayarit, Mexico', 'Tepic, Nayarit, Mexico', '', 'M', 'Mexico', '178', NULL, 'orthodox', NULL, NULL, NULL, NULL, NULL, '2013-11-29', 'welterweight', 25, 17, 5, 2, 1, 'active', 31, 144, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -1837,7 +1837,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('7106b797-2758-49dd-ba46-7ae372d32437', '511399', 'https://boxrec.com/en/box-pro/511399', 'https://boxrec.com/wiki/index.php?title=Human:511399', 'patrick-nielsen', 'Patrick Nielsen', 'Patrick Reinhard Nielsen', '', 'https://boxrec.com/images/thumb/4/44/Patrick_Nielsen1.jpg/200px-Patrick_Nielsen1.jpg', 'Albertslund, Denmark', 'Copenhagen, Denmark', '', 'M', 'Denmark', '183', '185', 'southpaw', NULL, NULL, NULL, NULL, NULL, '2009-09-12', 'lightheavyweight', 30, 14, 3, 1, 0, 'inactive', 33, 223, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('0c97fd3a-2398-4d31-a311-9b9bc637e0d3', '672259', 'https://boxrec.com/en/box-pro/672259', 'https://boxrec.com/wiki/index.php?title=Human:672259', 'david-benavidez', 'David Benavidez', 'Anthony David Benavidez', '"The Monster Bandera Roja"', 'https://boxrec.com/images/thumb/3/33/David_Benavidez_2024.jpg/200px-David_Benavidez_2024.jpg', 'Las Vegas, Nevada, USA', 'Phoenix, Arizona, USA', '', 'M', 'USA', '188', '189', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2013-08-17', 'lightheavyweight', 30, 24, 0, 0, 0, 'active', 30, 160, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -1848,7 +1848,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('f7ba6922-01a3-47b6-a466-dec360a49943', '511528', 'https://boxrec.com/en/box-pro/511528', 'https://boxrec.com/wiki/index.php?title=Human:511528', 'billy-hamm', 'Billy Hamm', '', '', 'https://boxrec.com/build/images/main/v6-avatar.svg', 'New Orleans, Louisiana, USA', '', '', 'M', 'USA', NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, '1943-04-16', 'welterweight', 1, 1, 1, 1, 0, 'inactive', 2, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('52595040-567a-4e3a-9ebb-fc5a94a19a94', '672539', 'https://boxrec.com/en/box-pro/672539', 'https://boxrec.com/wiki/index.php?title=Human:672539', 'esteban-ramon-juarez', 'Esteban Ramon Juarez', '', '"Ringo"', 'https://boxrec.com/images/thumb/b/bf/Estebanjuarez.jpg/200px-Estebanjuarez.jpg', 'Del Viso, Buenos Aires, Argentina', 'Pilar, Buenos Aires, Argentina', '', 'M', 'Argentina', NULL, NULL, 'orthodox', NULL, NULL, NULL, NULL, NULL, '2013-12-07', 'heavyweight', 6, 3, 7, 4, 1, 'active', 14, 49, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -1859,7 +1859,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('534776e9-543d-48ee-8d0b-6c5b62948d63', '5116', 'https://boxrec.com/en/box-pro/5116', 'https://boxrec.com/wiki/index.php?title=Human:5116', 'melton-bowen', 'Melton Bowen', 'Melton Anthony Bowen', '"Sledge Hammer"', 'https://boxrec.com/images/thumb/a/a4/Melton_Bowen.jpeg/200px-Melton_Bowen.jpeg', 'Miami, Florida, USA', '', '', 'M', 'Jamaica', '183', NULL, '', NULL, NULL, NULL, NULL, NULL, '1987-08-28', 'heavyweight', 35, 28, 9, 7, 0, 'inactive', 44, 151, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('824d7df5-12c2-442e-8c05-cc2f82793063', '673155', 'https://boxrec.com/en/box-pro/673155', 'https://boxrec.com/wiki/index.php?title=Human:673155', 'tai-tuivasa', 'Tai Tuivasa', '', '"Bam Bam"', 'https://boxrec.com/images/thumb/8/86/Tai_Tuivasa.jpg/200px-Tai_Tuivasa.jpg', 'St Marys, New South Wales, Australia', 'Sydney, New South Wales, Australia', '', 'M', 'Australia', '188', '190', '', NULL, NULL, NULL, NULL, NULL, '2013-12-13', 'heavyweight', 5, 3, 2, 0, 0, 'inactive', 7, 16, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -1870,7 +1870,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('3e697a11-2744-4870-947d-19f02b0bb2fc', '511618', 'https://boxrec.com/en/box-pro/511618', 'https://boxrec.com/wiki/index.php?title=Human:511618', 'magali-rodriguez', 'Magali Rodriguez', 'Isela Magali Rodríguez López', '"Tormenta"', 'https://boxrec.com/images/thumb/c/c6/511618.jpeg/200px-511618.jpeg', 'Apodaca, Nuevo León, Mexico', 'San Nicolas de los Garza, Nuevo León, Mexico', '', 'F', 'Mexico', '168', '170', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2009-09-08', 'featherweight', 26, 12, 7, 2, 4, 'active', 37, 210, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('bfb5d5e4-9e2d-428f-9889-36a7837d7eac', '673483', 'https://boxrec.com/en/box-pro/673483', 'https://boxrec.com/wiki/index.php?title=Human:673483', 'francisco-fonseca', 'Francisco Fonseca', 'Francisco Hernan Fonseca Lira', '', 'https://boxrec.com/images/thumb/c/cf/FranciscoFonseca.jpg/200px-FranciscoFonseca.jpg', 'Managua, Nicaragua', 'El Rama, Nicaragua', '', 'M', 'Nicaragua', '171', '177', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2013-12-21', 'lightweight', 36, 29, 4, 2, 2, 'active', 42, 197, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -1881,7 +1881,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('fdd39420-ac05-4a9b-bea3-1776ee6b0433', '511850', 'https://boxrec.com/en/box-pro/511850', 'https://boxrec.com/wiki/index.php?title=Human:511850', 'kubrat-pulev', 'Kubrat Pulev', 'Кубрат Венков Пулев', '"The Cobra"', 'https://boxrec.com/images/thumb/a/af/Pulev_Kubrat.jpg/200px-Pulev_Kubrat.jpg', 'Sofia, Bulgaria', 'Sofia, Bulgaria', '', 'M', 'Bulgaria', '194', '202', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2009-09-19', 'heavyweight', 32, 14, 3, 2, 0, 'active', 35, 268, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('4d5c094d-197d-405a-af38-b4064406837a', '674303', 'https://boxrec.com/en/box-pro/674303', 'https://boxrec.com/wiki/index.php?title=Human:674303', 'jeremia-nakathila', 'Jeremia Nakathila', 'Jeremia Shanyengange Nakathila', '"Low Key"', 'https://boxrec.com/images/thumb/5/53/674303a.jpg/200px-674303a.jpg', 'Windhoek, Namibia', 'Uukwanangaya, Namibia', '', 'M', 'Namibia', NULL, NULL, 'orthodox', NULL, NULL, NULL, NULL, NULL, '2013-10-11', 'lightweight', 26, 21, 5, 3, 0, 'active', 31, 140, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -1892,7 +1892,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('f7304747-6a12-41fc-a2c3-ad15d02af8ac', '511874', 'https://boxrec.com/en/box-pro/511874', 'https://boxrec.com/wiki/index.php?title=Human:511874', 'ramiro-bueno-jr', 'Ramiro Bueno Jr', '', '', 'https://boxrec.com/images/commission_photos/1/19/511874_fc0574caf948aa49ccc04bbd50667c89.jpeg', 'South Bend, Indiana, USA', '', '', 'M', 'USA', '178', '182', '', NULL, NULL, NULL, NULL, NULL, '2009-09-19', 'supermiddleweight', 2, 1, 15, 11, 1, 'inactive', 18, 43, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('2161f802-878d-49cf-aa71-867398de6842', '67437', 'https://boxrec.com/en/box-pro/67437', 'https://boxrec.com/wiki/index.php?title=Human:67437', 'robert-guerrero', 'Robert Guerrero', 'Robert Joseph Martinez Guerrero', '"The Ghost"', 'https://boxrec.com/images/thumb/6/69/RobertJosephGuerreroBoxrec.jpg/200px-RobertJosephGuerreroBoxrec.jpg', 'Las Vegas, Nevada, USA', 'Gilroy, California, USA', '', 'M', 'USA', '175', '180', 'southpaw', NULL, NULL, NULL, NULL, NULL, '2001-04-22', 'welterweight', 38, 20, 6, 1, 1, 'inactive', 47, 322, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -1903,7 +1903,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('f4cf84ae-d634-4765-ba93-71c28371291d', '512050', 'https://boxrec.com/en/box-pro/512050', 'https://boxrec.com/wiki/index.php?title=Human:512050', 'peter-mcnally', 'Peter McNally', '', '', 'https://boxrec.com/build/images/main/v6-avatar.svg', 'Boston, Massachusetts, USA', '', '', 'M', 'USA', NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, '1918-09-09', NULL, 1, 1, 0, 0, 0, 'inactive', 1, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('fe1922cc-9cec-4d20-adb5-6a0123565767', '6750', 'https://boxrec.com/en/box-pro/6750', 'https://boxrec.com/wiki/index.php?title=Human:6750', 'randall-bailey', 'Randall Bailey', '', '"The Knock-Out King"', 'https://boxrec.com/build/images/main/v6-avatar.svg', 'Miami, Florida, USA', 'Opa-Locka, Florida, USA', '', 'M', 'USA', '175', '178', 'orthodox', NULL, NULL, NULL, NULL, NULL, '1996-04-06', 'welterweight', 46, 39, 9, 4, 0, 'inactive', 56, 263, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -1914,7 +1914,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('ce190877-8cca-4bd5-9834-fcc7cd6fe4cd', '512687', 'https://boxrec.com/en/box-pro/512687', 'https://boxrec.com/wiki/index.php?title=Human:512687', 'joey-dawejko', 'Joey Dawejko', 'Joseph Thomas Dawejko', '"Tank"', 'https://boxrec.com/images/thumb/c/c3/512687.jpeg/200px-512687.jpeg', 'Philadelphia, Pennsylvania, USA', 'Philadelphia, Pennsylvania, USA', '', 'M', 'USA', '178', '178', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2009-09-26', 'heavyweight', 28, 16, 13, 4, 4, 'active', 45, 224, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('acb1b1cd-c334-407f-bdad-1aa6acf1b61e', '675026', 'https://boxrec.com/en/box-pro/675026', 'https://boxrec.com/wiki/index.php?title=Human:675026', 'panya-pradabsri', 'Panya Pradabsri', 'Panya Pradabsri', '"Petchmanee CP Freshmart"', 'https://boxrec.com/images/thumb/8/85/675026a.jpg/200px-675026a.jpg', 'Bangkok, Thailand', 'Nam Yuen, Thailand', '', 'M', 'Thailand', '158', '162', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2014-01-10', 'lightflyweight', 44, 27, 2, 0, 0, 'active', 46, 290, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -1925,7 +1925,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('c7e4ef31-0d5b-44a1-abba-71aac6dfe276', '512777', 'https://boxrec.com/en/box-pro/512777', 'https://boxrec.com/wiki/index.php?title=Human:512777', 'josh-warrington', 'Josh Warrington', '', '"''The Leeds Warrior''"', 'https://boxrec.com/images/thumb/9/9a/JoshWarrington2.jpg/200px-JoshWarrington2.jpg', 'Leeds, Yorkshire, United Kingdom', 'Leeds, Yorkshire, United Kingdom', '', 'M', 'United Kingdom', '170', '170', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2009-10-31', 'superfeatherweight', 32, 8, 4, 2, 1, 'active', 37, 290, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('0b5fe7cb-f9e6-4565-a9bd-c5c328ea3488', '675297', 'https://boxrec.com/en/box-pro/675297', 'https://boxrec.com/wiki/index.php?title=Human:675297', 'esquiva-falcao', 'Esquiva Falcao', 'Esquiva Falcão Florentino', '', 'https://boxrec.com/images/thumb/a/a7/EsquivaFalcaoBoxrec.jpg/200px-EsquivaFalcaoBoxrec.jpg', 'Sorocaba, Sao Paulo, Brazil', 'Serra, Espirito Santo, Brazil', '', 'M', 'Brazil', '178', '184', 'southpaw', NULL, NULL, NULL, NULL, NULL, '2014-02-15', 'middleweight', 30, 20, 2, 0, 0, 'inactive', 32, 173, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -1936,7 +1936,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('4672e085-46e0-4949-bfae-5d9b92c47667', '512994', 'https://boxrec.com/en/box-pro/512994', 'https://boxrec.com/wiki/index.php?title=Human:512994', 'adam-kownacki', 'Adam Kownacki', '', '"Babyface"', 'https://boxrec.com/images/thumb/0/0b/AdamKownackiBoxrec.jpg/200px-AdamKownackiBoxrec.jpg', 'Brooklyn, New York, USA', 'Lomza, Poland', '', 'M', 'Poland', '191', '193', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2009-10-30', 'heavyweight', 20, 15, 4, 3, 0, 'inactive', 25, 117, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('99729af5-a5fe-48d0-9186-01a6379d575c', '675886', 'https://boxrec.com/en/box-pro/675886', 'https://boxrec.com/wiki/index.php?title=Human:675886', 'kyrone-davis', 'Kyrone Davis', '', '"Shut It Down"', 'https://boxrec.com/images/thumb/f/f5/DavisKyrone.jpg/200px-DavisKyrone.jpg', 'Wilmington, Delaware, USA', 'Monmouth County, New Jersey, USA', '', 'M', 'USA', '180', '191', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2014-02-21', 'middleweight', 19, 6, 4, 1, 1, 'active', 24, 151, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -1947,7 +1947,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('a47a6e97-4b39-4719-a80f-90ccb3fc4058', '51302', 'https://boxrec.com/en/box-pro/51302', 'https://boxrec.com/wiki/index.php?title=Human:51302', 'yoko-gushiken', 'Yoko Gushiken', '具志堅 用高', '"Kanmuriwashi","Fierce Eagle"', 'https://boxrec.com/images/thumb/1/15/051302.jpg/200px-051302.jpg', 'Tokyo, Japan', 'Ishigaki, Okinawa, Japan', '', 'M', 'Japan', '162', NULL, 'southpaw', NULL, NULL, NULL, NULL, NULL, '1974-05-28', 'lightflyweight', 23, 15, 1, 1, 0, 'inactive', 24, 204, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('510a33e3-33ff-4e08-8dd3-b410781adbe3', '676232', 'https://boxrec.com/en/box-pro/676232', 'https://boxrec.com/wiki/index.php?title=Human:676232', 'jesus-ivan-delgado', 'Jesus Ivan Delgado', 'Jesús Iván Delgado', '"Striker"', 'https://boxrec.com/images/thumb/2/24/676232.jpg/200px-676232.jpg', 'Los Angeles, California, USA', 'Los Angeles, California, USA', '', 'M', 'USA', '170', '183', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2014-01-24', 'superlightweight', 14, 6, 4, 3, 2, 'inactive', 20, 91, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -1958,7 +1958,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('bdff32e2-79af-4c95-a6b0-31c5b363cf53', '513839', 'https://boxrec.com/en/box-pro/513839', 'https://boxrec.com/wiki/index.php?title=Human:513839', 'joe-smith-jr', 'Joe Smith Jr', '', '', 'https://boxrec.com/images/thumb/7/7b/513839.jpg/200px-513839.jpg', 'Long Island, New York, USA', 'Long Island, New York, USA', '', 'M', 'USA', '183', '193', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2009-10-31', 'cruiserweight', 28, 22, 5, 2, 0, 'inactive', 33, 156, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('479ec197-f24e-4cb6-b60f-833bdc711f53', '676332', 'https://boxrec.com/en/box-pro/676332', 'https://boxrec.com/wiki/index.php?title=Human:676332', 'jamontay-clark', 'Jamontay Clark', 'Jamontay Javon Clark', '"The Quiet Assassin"', 'https://boxrec.com/images/thumb/c/cb/Jamontay_Clark.jpeg/200px-Jamontay_Clark.jpeg', 'Cincinnati, Ohio, USA', 'Cincinnati, Ohio, USA', '', 'M', 'USA', '187', '199', 'southpaw', NULL, NULL, NULL, NULL, NULL, '2014-01-25', 'superwelterweight', 16, 7, 2, 1, 1, 'inactive', 19, 110, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -1969,7 +1969,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('b3a85521-acbb-4b1b-8342-b57c3c5ff9ff', '51405', 'https://boxrec.com/en/box-pro/51405', 'https://boxrec.com/wiki/index.php?title=Human:51405', 'kendall-holt', 'Kendall Holt', '', '"Rated R"', 'https://boxrec.com/images/thumb/9/90/Kholt.jpg/200px-Kholt.jpg', 'Paterson, New Jersey, USA', 'Paterson, New Jersey, USA', '', 'M', 'USA', '175', '188', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2001-03-30', 'superlightweight', 28, 16, 6, 4, 0, 'inactive', 34, 192, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('109268aa-f257-4d25-9bec-349d8de371e2', '677409', 'https://boxrec.com/en/box-pro/677409', 'https://boxrec.com/wiki/index.php?title=Human:677409', 'oscar-barajas', 'Oscar Barajas', 'Oscar Javier Barajas Grano', '"Verdugo"', 'https://boxrec.com/images/thumb/1/13/677409_cropped.jpg/200px-677409_cropped.jpg', 'Toms River, New Jersey, USA', 'Paracho, Michoacan, Mexico', '', 'M', 'Mexico', '175', NULL, 'southpaw', NULL, NULL, NULL, NULL, NULL, '2013-12-12', 'lightweight', 7, 2, 10, 6, 1, 'active', 18, 95, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -1980,7 +1980,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('07a98f9b-832a-4124-b779-9891b4ab8adb', '514459', 'https://boxrec.com/en/box-pro/514459', 'https://boxrec.com/wiki/index.php?title=Human:514459', 'zurdo-mendoza', 'Zurdo Mendoza', '', '', 'https://boxrec.com/build/images/main/v6-avatar.svg', 'San Pedro, Coahuila de Zaragoza, Mexico', '', '', 'M', 'Mexico', NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, '1959-11-28', 'bantamweight', 3, 2, 2, 1, 0, 'inactive', 5, 12, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('970b0710-2051-4970-bf94-2716a79379bb', '677791', 'https://boxrec.com/en/box-pro/677791', 'https://boxrec.com/wiki/index.php?title=Human:677791', 'sonny-fredrickson', 'Sonny Fredrickson', 'Sonny Leonard Fredrickson', '', 'https://boxrec.com/images/thumb/b/ba/677791.jpeg/200px-677791.jpeg', 'Toledo, Ohio, USA', 'USA', 'W', 'M', 'USA', '185', '193', '', NULL, NULL, NULL, NULL, NULL, '2014-02-08', 'superlightweight', 21, 14, 6, 3, 0, 'inactive', 27, 124, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -1991,7 +1991,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('8a725e47-b377-4ed9-89df-cd1aeb5b880c', '514537', 'https://boxrec.com/en/box-pro/514537', 'https://boxrec.com/wiki/index.php?title=Human:514537', 'mairis-briedis', 'Mairis Briedis', '', '', 'https://boxrec.com/images/thumb/7/7c/MairisBriedis.jpeg/200px-MairisBriedis.jpeg', 'Riga, Latvia', 'Riga, Latvia', '', 'M', 'Latvia', '186', '190', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2009-10-11', 'cruiserweight', 28, 20, 3, 0, 0, 'inactive', 31, 179, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('101e39fc-f4d6-41d5-aff8-cabe8c17e481', '677961', 'https://boxrec.com/en/box-pro/677961', 'https://boxrec.com/wiki/index.php?title=Human:677961', 'reymart-gaballo', 'Reymart Gaballo', 'Reymart Grande Gaballo', '"Assassin"', 'https://boxrec.com/images/thumb/1/12/677961.jpeg/200px-677961.jpeg', 'General Santos City, Cotabato del Sur, Philippines', 'Polomolok, Cotabato del Sur, Philippines', '', 'M', 'Philippines', '168', '173', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2014-02-02', 'bantamweight', 29, 24, 2, 2, 0, 'active', 31, 95, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -2002,7 +2002,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('f8766071-aee4-4fcd-8382-108850287e4a', '515', 'https://boxrec.com/en/box-pro/515', 'https://boxrec.com/wiki/index.php?title=Human:515', 'orlin-norris', 'Orlin Norris', 'Orlin Levance Norris', '"Night Train  - The Juice"', 'https://boxrec.com/images/thumb/8/89/515.jpg/200px-515.jpg', 'San Diego, California, USA', 'Lubbock, Texas, USA', '', 'M', 'USA', '177', '178', 'orthodox', NULL, NULL, NULL, NULL, NULL, '1986-06-16', 'cruiserweight', 57, 30, 10, 4, 1, 'inactive', 70, 483, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('63b891f7-2f49-41dd-9618-64eb9cd4c8fc', '678', 'https://boxrec.com/en/box-pro/678', 'https://boxrec.com/wiki/index.php?title=Human:678', 'alex-ramos', 'Alex Ramos', '', '"The Bronx Bomber"', 'https://boxrec.com/images/thumb/6/6b/Ramos.Alex.jpg/200px-Ramos.Alex.jpg', 'The Bronx, New York, USA', 'Manhattan, New York, USA', '', 'M', 'USA', '178', NULL, 'orthodox', NULL, NULL, NULL, NULL, NULL, '1980-11-08', 'middleweight', 39, 24, 10, 6, 2, 'inactive', 51, 341, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -2013,7 +2013,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('44bfec21-ce25-43da-ac5f-a9dc55a73166', '5159', 'https://boxrec.com/en/box-pro/5159', 'https://boxrec.com/wiki/index.php?title=Human:5159', 'antwun-echols', 'Antwun Echols', '', '"Kid Dynamite"', 'https://boxrec.com/images/thumb/7/75/5159.jpeg/200px-5159.jpeg', 'Davenport, Iowa, USA', 'Memphis, Tennessee, USA', '', 'M', 'USA', '180', '185', 'orthodox', NULL, NULL, NULL, NULL, NULL, '1993-05-22', 'supermiddleweight', 32, 28, 22, 15, 4, 'inactive', 58, 316, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('4fa5bf29-9ea5-49e6-87ac-ef3d89092c22', '678075', 'https://boxrec.com/en/box-pro/678075', 'https://boxrec.com/wiki/index.php?title=Human:678075', 'misael-chacon', 'Misael Chacon', 'Misael Adonay Chacon', '"Chico"', 'https://boxrec.com/images/thumb/7/7b/678075.jpg/200px-678075.jpg', 'Chandler, Arizona, USA', 'Miami, Florida, USA', '', 'M', 'USA', '168', NULL, 'orthodox', NULL, NULL, NULL, NULL, NULL, '2014-02-22', 'superlightweight', 4, 3, 30, 7, 3, 'active', 37, 141, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -2024,7 +2024,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('a89f9b77-3565-45fc-a165-ff230ed756f1', '516570', 'https://boxrec.com/en/box-pro/516570', 'https://boxrec.com/wiki/index.php?title=Human:516570', 'jason-sosa', 'Jason Sosa', 'Jason Anthony Sosa', '"El Canito"', 'https://boxrec.com/images/thumb/4/4d/Jason_Sosa.jpg/200px-Jason_Sosa.jpg', 'Camden, New Jersey, USA', 'Camden, New Jersey, USA', '', 'M', 'USA', '165', '170', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2009-11-20', 'lightweight', 23, 16, 4, 3, 4, 'inactive', 31, 166, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('02254b59-d47c-4586-9a74-d5102faf9731', '678288', 'https://boxrec.com/en/box-pro/678288', 'https://boxrec.com/wiki/index.php?title=Human:678288', 'trey-lippe', 'Trey Lippe', 'Trey Derek Lippe', '"Trey Lippe Morrison"', 'https://boxrec.com/images/thumb/5/50/Trey_Lippe_Morrison.jpg/200px-Trey_Lippe_Morrison.jpg', 'Tulsa, Oklahoma, USA', 'Grove, Oklahoma, USA', '', 'M', 'USA', '191', '189', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2014-02-15', 'heavyweight', 18, 17, 1, 1, 0, 'inactive', 19, 41, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -2035,7 +2035,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('a25004f5-5581-44c2-b290-afd783a23758', '517134', 'https://boxrec.com/en/box-pro/517134', 'https://boxrec.com/wiki/index.php?title=Human:517134', 'silvana-gomez-juarez', 'Silvana Gomez Juarez', '', '"La Malvada"', 'https://boxrec.com/images/commission_photos/6/6a/517134_87e5d24f6b8710e255649e0a6694a2f6.jpg', 'San Miguel, Tucuman, Argentina', 'Tucuman, Argentina', '', 'F', 'Argentina', NULL, NULL, 'orthodox', NULL, NULL, NULL, NULL, NULL, '2009-11-13', 'featherweight', 5, 3, 0, 0, 0, 'inactive', 5, 13, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('6de74e94-4492-42bf-a255-9c90c8869f4c', '678444', 'https://boxrec.com/en/box-pro/678444', 'https://boxrec.com/wiki/index.php?title=Human:678444', 'andrey-sirotkin', 'Andrey Sirotkin', 'Андрей Витальевич Сироткин', '', 'https://boxrec.com/images/thumb/a/a3/678444.jpeg/200px-678444.jpeg', 'Nizhny Novgorod (Gorky), Russia', 'Zubovo, Russia', '', 'M', 'Russia', '176', NULL, 'southpaw', NULL, NULL, NULL, NULL, NULL, '2014-02-15', 'middleweight', 21, 7, 2, 2, 1, 'inactive', 24, 171, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -2046,7 +2046,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('21b3117a-a806-49f5-baa7-faaa6db95060', '5174', 'https://boxrec.com/en/box-pro/5174', 'https://boxrec.com/wiki/index.php?title=Human:5174', 'richard-hall', 'Richard Hall', 'Richard I. Hall', '"The Destroyer"', 'https://boxrec.com/build/images/main/v6-avatar.svg', 'West Palm Beach, Florida, USA', 'Kingston, Jamaica', '', 'M', 'Jamaica', '191', '197', 'southpaw', NULL, NULL, NULL, NULL, NULL, '1993-06-25', 'lightheavyweight', 30, 28, 14, 8, 0, 'inactive', 44, 212, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('937c1a54-6b02-46bc-9d0d-629fe6b19c7b', '678994', 'https://boxrec.com/en/box-pro/678994', 'https://boxrec.com/wiki/index.php?title=Human:678994', 'kenneth-sims-jr', 'Kenneth Sims Jr', 'Kenneth Mark Sims Jr.', '"Bossman"', 'https://boxrec.com/images/thumb/b/b3/678994.jpg/200px-678994.jpg', 'Chicago, Illinois, USA', 'Chicago, Illinois, USA', '', 'M', 'USA', '178', '175', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2014-03-07', 'welterweight', 22, 8, 2, 0, 1, 'active', 25, 143, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -2057,7 +2057,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('8306851d-8bff-46f5-a4c2-dcfa96e9d053', '517769', 'https://boxrec.com/en/box-pro/517769', 'https://boxrec.com/wiki/index.php?title=Human:517769', 'ivan-redkach', 'Ivan Redkach', '', '"El Terrible"', 'https://boxrec.com/images/thumb/c/cf/517769.jpg/200px-517769.jpg', 'Los Angeles, California, USA', 'Shostka, Ukraine', '', 'M', 'Ukraine', '177', '180', 'southpaw', NULL, NULL, NULL, NULL, NULL, '2009-11-03', 'welterweight', 24, 19, 8, 5, 1, 'active', 34, 161, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('30e568fb-25d4-4a11-b51a-07dfdd9a994f', '679269', 'https://boxrec.com/en/box-pro/679269', 'https://boxrec.com/wiki/index.php?title=Human:679269', 'hemi-ahio', 'Hemi Ahio', 'John Kevin Alipate Ahio', '"The Heat"', 'https://boxrec.com/images/thumb/5/59/679269.jpeg/200px-679269.jpeg', 'Auckland, New Zealand', 'Auckland, New Zealand', '', 'M', 'New Zealand', '183', '185', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2013-10-18', 'heavyweight', 24, 18, 1, 1, 0, 'active', 25, 84, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -2068,7 +2068,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('b3c3c920-9a30-47b0-bc1c-647438c67dc6', '5180', 'https://boxrec.com/en/box-pro/5180', 'https://boxrec.com/wiki/index.php?title=Human:5180', 'angel-manfredy', 'Angel Manfredy', '', '"Got Jesus / El Diablo"', 'https://boxrec.com/images/thumb/5/51/Angel_Manfredy.jpg/200px-Angel_Manfredy.jpg', 'Hobart, Indiana, USA', 'Gary, Indiana, USA', '', 'M', 'USA', '168', '180', 'orthodox', NULL, NULL, NULL, NULL, NULL, '1993-06-10', 'lightweight', 43, 32, 8, 4, 1, 'inactive', 53, 295, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('274d1ecd-7b1e-48ec-8471-623a51697b82', '679709', 'https://boxrec.com/en/box-pro/679709', 'https://boxrec.com/wiki/index.php?title=Human:679709', 'oleksandr-gvozdyk', 'Oleksandr Gvozdyk', 'Олександр Гвоздик', '"The Nail"', 'https://boxrec.com/images/thumb/9/90/679709_2023.jpg/200px-679709_2023.jpg', 'Oxnard, California, USA', 'Kharkiv, Ukraine', '', 'M', 'Ukraine', '188', '192', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2014-04-12', 'lightheavyweight', 21, 17, 2, 1, 0, 'active', 23, 127, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -2079,7 +2079,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('1063e405-f880-4949-aa16-b61af248fc8d', '519', 'https://boxrec.com/en/box-pro/519', 'https://boxrec.com/wiki/index.php?title=Human:519', 'marvis-frazier', 'Marvis Frazier', '', '', 'https://boxrec.com/images/thumb/5/5e/Frazier.Marvis.jpg/200px-Frazier.Marvis.jpg', 'Philadelphia, Pennsylvania, USA', 'Philadelphia, Pennsylvania, USA', '', 'M', 'USA', '184', '193', 'orthodox', NULL, NULL, NULL, NULL, NULL, '1980-09-12', 'heavyweight', 19, 8, 2, 2, 0, 'inactive', 21, 129, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('2c5a1085-9244-4206-9f09-a20aaf7300d2', '679764', 'https://boxrec.com/en/box-pro/679764', 'https://boxrec.com/wiki/index.php?title=Human:679764', 'steven-butler', 'Steven Butler', '', '"BANG BANG"', 'https://boxrec.com/images/thumb/2/25/679764.jpg/200px-679764.jpg', 'Montreal, Quebec, Canada', 'Montreal, Quebec, Canada', '', 'M', 'Canada', '182', '190', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2014-03-28', 'supermiddleweight', 36, 30, 5, 5, 1, 'active', 42, 179, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -2090,7 +2090,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('8098e1ed-443b-4ee8-99fc-a62461c8bbc5', '51905', 'https://boxrec.com/en/box-pro/51905', 'https://boxrec.com/wiki/index.php?title=Human:51905', 'shawn-townsend', 'Shawn Townsend', '', '', 'https://boxrec.com/build/images/main/v6-avatar.svg', 'San Diego, California, USA', 'Fayetteville, North Carolina, USA', '', 'M', 'USA', NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, '2000-09-27', 'heavyweight', 1, 1, 9, 7, 0, 'inactive', 10, 26, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('f8b8aa54-2217-44c5-860d-a3fe1181ccce', '680112', 'https://boxrec.com/en/box-pro/680112', 'https://boxrec.com/wiki/index.php?title=Human:680112', 'mykal-fox', 'Mykal Fox', 'Mykal Tayquon Fox', '"The Professor"', 'https://boxrec.com/images/thumb/f/fe/Mykal_fox.JPG/200px-Mykal_fox.JPG', 'Upper Marlboro, Maryland, USA', 'Washington, District of Columbia, USA', '', 'M', 'USA', NULL, '206', 'southpaw', NULL, NULL, NULL, NULL, NULL, '2014-04-18', 'superwelterweight', 25, 5, 5, 0, 0, 'active', 30, 212, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -2101,7 +2101,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('01e36afb-3a2d-4153-982e-4c866f96beb9', '521', 'https://boxrec.com/en/box-pro/521', 'https://boxrec.com/wiki/index.php?title=Human:521', 'ricardo-lopez', 'Ricardo Lopez', 'Ricardo López Nava', '"Finito"', 'https://boxrec.com/images/thumb/3/32/Viaja-finito-a-induccion-a-salon-de-la-fama.jpg/200px-Viaja-finito-a-induccion-a-salon-de-la-fama.jpg', 'Mexico City, Distrito Federal, Mexico', 'Cuernavaca, Morelos, Mexico', '', 'M', 'Mexico', '165', '165', 'orthodox', NULL, NULL, NULL, NULL, NULL, '1985-01-18', 'minimumweight', 51, 38, 0, 0, 1, 'inactive', 52, 337, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('baf23bab-5ce4-4eab-aa27-dfd40b46677f', '680284', 'https://boxrec.com/en/box-pro/680284', 'https://boxrec.com/wiki/index.php?title=Human:680284', 'ohara-davies', 'Ohara Davies', '', '"''Two Tanks''"', 'https://boxrec.com/images/thumb/5/55/680284OD.jpeg/200px-680284OD.jpeg', 'Hackney, London, United Kingdom', 'Hackney, London, United Kingdom', '', 'M', 'United Kingdom', '173', NULL, 'orthodox', NULL, NULL, NULL, NULL, NULL, '2014-04-19', 'welterweight', 26, 18, 4, 3, 0, 'active', 30, 160, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -2112,7 +2112,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('a55646c4-5a38-4e2c-b35f-33d5787aab71', '521741', 'https://boxrec.com/en/box-pro/521741', 'https://boxrec.com/wiki/index.php?title=Human:521741', 'juan-macias-montiel', 'Juan Macias Montiel', 'Juan Macias Montiel', '"Juanito Montiel"', 'https://boxrec.com/images/thumb/d/dc/521741.jpeg/200px-521741.jpeg', 'Los Mochis, Sinaloa, Mexico', 'Los Mochis, Sinaloa, Mexico', '', 'M', 'Mexico', '185', '188', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2009-11-13', 'middleweight', 23, 23, 7, 2, 2, 'active', 32, 120, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('2b96c75f-472f-41be-8b8d-ac67276163cd', '680476', 'https://boxrec.com/en/box-pro/680476', 'https://boxrec.com/wiki/index.php?title=Human:680476', 'bobby-gunn-jr', 'Bobby Gunn Jr', '', '', 'https://boxrec.com/images/thumb/4/43/Bobby_Gunn_Jr.jpg/200px-Bobby_Gunn_Jr.jpg', 'Hackensack, New Jersey, USA', 'Hollywood, Florida, USA', '', 'M', 'USA', NULL, NULL, 'orthodox', NULL, NULL, NULL, NULL, NULL, '2014-03-15', 'supermiddleweight', 9, 7, 0, 0, 0, 'inactive', 9, 22, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -2123,7 +2123,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('829bd2d9-c9ea-4ad4-9490-25c8e4ae8bb6', '5222', 'https://boxrec.com/en/box-pro/5222', 'https://boxrec.com/wiki/index.php?title=Human:5222', 'darryl-tyson', 'Darryl Tyson', 'Darryl Anthony Tyson', '', 'https://boxrec.com/images/thumb/0/06/5222.jpg/200px-5222.jpg', 'Washington, District of Columbia, USA', '', '', 'M', 'USA', '170', NULL, '', NULL, NULL, NULL, NULL, NULL, '1982-09-03', 'superlightweight', 50, 24, 14, 5, 1, 'inactive', 65, 513, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('9f37cc1c-0110-4909-a7aa-69b0043064a4', '680900', 'https://boxrec.com/en/box-pro/680900', 'https://boxrec.com/wiki/index.php?title=Human:680900', 'nordine-oubaali', 'Nordine Oubaali', '', '', 'https://boxrec.com/images/thumb/4/4f/NordineOubaali.jpg/200px-NordineOubaali.jpg', 'Bagnolet, Seine-Saint-Denis, France', 'Lens, Pas-de-Calais, France', '', 'M', 'France', '161', '170', 'southpaw', NULL, NULL, NULL, NULL, NULL, '2014-03-20', 'bantamweight', 17, 12, 2, 1, 0, 'inactive', 19, 106, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -2134,7 +2134,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('5e5a63a7-a187-4c25-be08-020ae6b07a1e', '52298', 'https://boxrec.com/en/box-pro/52298', 'https://boxrec.com/wiki/index.php?title=Human:52298', 'don-moore', 'Don Moore', 'Don Julian Moore', '"Dangerous"', 'https://boxrec.com/images/thumb/9/9f/52298.jpg/200px-52298.jpg', 'Gary, Indiana, USA', '', '', 'M', 'USA', '178', '188', 'orthodox', NULL, NULL, NULL, NULL, NULL, '1999-03-27', 'featherweight', 18, 12, 0, 0, 1, 'inactive', 19, 54, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('97633ae6-b795-47b4-9c12-a1e6b377d3fc', '681150', 'https://boxrec.com/en/box-pro/681150', 'https://boxrec.com/wiki/index.php?title=Human:681150', 'granit-stein', 'Granit Stein', 'Granit Bylygbashi', '', 'https://boxrec.com/images/thumb/6/65/681150.jpg/200px-681150.jpg', 'Ingolstadt, Bayern, Germany', 'Drenas, Kosovo', '', 'M', 'Germany', '175', NULL, 'orthodox', NULL, NULL, NULL, NULL, NULL, '2014-05-17', 'lightheavyweight', 18, 10, 1, 0, 1, 'active', 20, 83, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -2145,7 +2145,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('e30cd9a8-43f0-4058-8efb-fe4109a3e5e9', '523249', 'https://boxrec.com/en/box-pro/523249', 'https://boxrec.com/wiki/index.php?title=Human:523249', 'ivan-morales', 'Ivan Morales', 'Jose Ivan Morales Guifarro', '', 'https://boxrec.com/images/thumb/c/cb/523249_2024.jpeg/200px-523249_2024.jpeg', 'Tijuana, Baja California, Mexico', 'Tijuana, Baja California, Mexico', '', 'M', 'Mexico', '170', NULL, 'southpaw', NULL, NULL, NULL, NULL, NULL, '2009-12-19', 'featherweight', 40, 22, 6, 0, 0, 'active', 46, 244, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('89595e91-943a-44dc-9550-bec21e6bd4d3', '681602', 'https://boxrec.com/en/box-pro/681602', 'https://boxrec.com/wiki/index.php?title=Human:681602', 'martin-bakole', 'Martin Bakole', 'Martin Bakole Ilunga', '"Martin Makabu Bakole"', 'https://boxrec.com/images/thumb/7/7d/MartinBakoleBoxrec.jpg/200px-MartinBakoleBoxrec.jpg', 'Airdrie, Scotland, United Kingdom', 'Kananga, Democratic Republic Of The Congo', '', 'M', 'Democratic Republic Of The Congo', '198', NULL, 'orthodox', NULL, NULL, NULL, NULL, NULL, '2014-03-25', 'heavyweight', 21, 16, 2, 2, 1, 'active', 24, 97, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -2156,7 +2156,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('8218f5b8-7796-4340-9fa5-ba141e5309b3', '523667', 'https://boxrec.com/en/box-pro/523667', 'https://boxrec.com/wiki/index.php?title=Human:523667', 'jose-zepeda', 'Jose Zepeda', 'Jose Encarnacion Zepeda', '"Chon"', 'https://boxrec.com/images/thumb/a/ac/523667_2023.jpg/200px-523667_2023.jpg', 'La Puente, California, USA', 'Torrance, California, USA', '', 'M', 'USA', '173', '179', 'southpaw', NULL, NULL, NULL, NULL, NULL, '2009-12-25', 'welterweight', 38, 29, 5, 3, 0, 'active', 45, 199, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('4c8186ba-a2f8-4cd3-b80a-60eaee915180', '681624', 'https://boxrec.com/en/box-pro/681624', 'https://boxrec.com/wiki/index.php?title=Human:681624', 'chris-conwell', 'Chris Conwell', '', '"''Conny''"', 'https://boxrec.com/images/thumb/7/70/Chrisconwell.JPG/200px-Chrisconwell.JPG', 'Manchester, Lancashire, United Kingdom', 'Manchester, Lancashire, United Kingdom', '', 'M', 'United Kingdom', '170', NULL, 'orthodox', NULL, NULL, NULL, NULL, NULL, '2014-04-05', 'superlightweight', 11, 2, 4, 3, 0, 'inactive', 15, 63, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -2167,7 +2167,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('186c103d-ab38-4e3e-99d2-96ace8f9c98e', '524801', 'https://boxrec.com/en/box-pro/524801', 'https://boxrec.com/wiki/index.php?title=Human:524801', 'bill-natty', 'Bill Natty', '', '', 'https://boxrec.com/build/images/main/v6-avatar.svg', 'Walworth, London, United Kingdom', '', '', 'M', 'United Kingdom', '173', NULL, '', NULL, NULL, NULL, NULL, NULL, '1882-11-03', 'middleweight', 4, 0, 1, 0, 2, 'inactive', 7, 88, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('78f7ed40-7bff-41f2-890a-6a1c21c64788', '681976', 'https://boxrec.com/en/box-pro/681976', 'https://boxrec.com/wiki/index.php?title=Human:681976', 'avni-yildirim', 'Avni Yildirim', '', '"Mr Robot"', 'https://boxrec.com/images/thumb/8/83/Yildrim.jpg/200px-Yildrim.jpg', 'Istanbul, Turkiye', 'Istanbul, Turkiye', '', 'M', 'Turkiye', '182', '178', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2014-03-22', 'lightheavyweight', 27, 16, 5, 3, 0, 'active', 32, 183, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -2178,7 +2178,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('de3f2e77-f9ce-432b-8eea-7b3f17319ae7', '525227', 'https://boxrec.com/en/box-pro/525227', 'https://boxrec.com/wiki/index.php?title=Human:525227', 'jose-benavidez-jr', 'Jose Benavidez Jr', 'Jose Luis Benavidez, Jr.', '"El Phoenix"', 'https://boxrec.com/images/thumb/7/7f/Jose_Benavidez_Jr.jpg/200px-Jose_Benavidez_Jr.jpg', 'Phoenix, Arizona, USA', 'Panorama City, California, USA', '', 'M', 'USA', '179', '180', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2010-01-16', 'middleweight', 28, 19, 3, 1, 1, 'active', 33, 177, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('164dddae-6af4-4a97-91ef-9027ca91aad0', '682169', 'https://boxrec.com/en/box-pro/682169', 'https://boxrec.com/wiki/index.php?title=Human:682169', 'shane-mosley-jr', 'Shane Mosley Jr', 'Shane Donte Mosley Jr', '', 'https://boxrec.com/images/thumb/9/90/ShaneMosleyJrBoxrec.jpeg/200px-ShaneMosleyJrBoxrec.jpeg', 'Las Vegas, Nevada, USA', 'Pomona, California, USA', '', 'M', 'USA', '185', '196', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2014-04-26', 'middleweight', 22, 12, 4, 0, 0, 'inactive', 26, 145, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -2189,7 +2189,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('1b52a1e9-7db6-4342-88e2-7ca9ba5bc173', '52578', 'https://boxrec.com/en/box-pro/52578', 'https://boxrec.com/wiki/index.php?title=Human:52578', 'alberto-ochoa', 'Alberto Ochoa', '', '', 'https://boxrec.com/build/images/main/v6-avatar.svg', 'Ventura, California, USA', '', '', 'M', 'USA', NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, '2000-03-25', 'middleweight', 0, 0, 3, 1, 1, 'inactive', 4, 16, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('6ace50e8-8d49-4275-bedf-3ee8d99dca81', '682172', 'https://boxrec.com/en/box-pro/682172', 'https://boxrec.com/wiki/index.php?title=Human:682172', 'travis-demko', 'Travis Demko', '', '', 'https://boxrec.com/images/thumb/0/0d/Travisdemko.jpg/200px-Travisdemko.jpg', 'Stoughton, Massachusetts, USA', 'Stoughton, Massachusetts, USA', '', 'M', 'USA', NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, '2014-05-03', 'welterweight', 8, 1, 1, 0, 0, 'inactive', 9, 39, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -2200,7 +2200,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('a31e661f-4911-45a8-ae67-5a7ffc8d9d01', '526597', 'https://boxrec.com/en/box-pro/526597', 'https://boxrec.com/wiki/index.php?title=Human:526597', 'samuel-vargas', 'Samuel Vargas', 'Samuel Andres Vargas Ariza', '', 'https://boxrec.com/images/thumb/5/5d/Samuel_Vargas.JPG/200px-Samuel_Vargas.JPG', 'Toronto, Ontario, Canada', 'Bogota, Colombia', '', 'M', 'Colombia', '175', '183', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2010-02-06', 'welterweight', 32, 15, 8, 4, 2, 'inactive', 42, 278, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('a53aa182-092b-4b60-8f7d-15f1428757c9', '682201', 'https://boxrec.com/en/box-pro/682201', 'https://boxrec.com/wiki/index.php?title=Human:682201', 'anthony-sims-jr', 'Anthony Sims Jr', 'Anthony Sims Jr.', '"The Magician"', 'https://boxrec.com/images/thumb/d/d5/682201.jpeg/200px-682201.jpeg', 'Los Angeles, California, USA', 'Indianapolis, Indiana, USA', '', 'M', 'USA', '185', '198', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2014-04-19', 'supermiddleweight', 23, 20, 2, 0, 0, 'inactive', 25, 94, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -2211,7 +2211,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('8ec7ce95-9bd7-4703-b320-9c1a039e5ba5', '526600', 'https://boxrec.com/en/box-pro/526600', 'https://boxrec.com/wiki/index.php?title=Human:526600', 'j-leon-love', 'J''Leon Love', 'J''Leon Jamere Love', '', 'https://boxrec.com/images/thumb/6/6c/526600.jpeg/200px-526600.jpeg', 'Las Vegas, Nevada, USA', 'Detroit, Michigan, USA', '', 'M', 'USA', '183', '192', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2010-01-29', 'cruiserweight', 25, 13, 3, 2, 1, 'inactive', 30, 176, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('26f0aae0-efb4-490a-8a71-69adcefba546', '682287', 'https://boxrec.com/en/box-pro/682287', 'https://boxrec.com/wiki/index.php?title=Human:682287', 'preston-wilson', 'Preston Wilson', '', '', 'https://boxrec.com/images/thumb/d/df/682287c.jpg/200px-682287c.jpg', 'Parkersburg, West Virginia, USA', '', '', 'M', 'USA', '180', '185', 'southpaw', NULL, NULL, NULL, NULL, NULL, '2014-03-22', 'superwelterweight', 8, 6, 5, 2, 2, 'active', 15, 50, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -2222,7 +2222,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('b03a06bf-dba7-4210-934e-e58e4156df06', '526601', 'https://boxrec.com/en/box-pro/526601', 'https://boxrec.com/wiki/index.php?title=Human:526601', 'mcwilliams-arroyo', 'McWilliams Arroyo', 'McWilliams Arroyo Acevedo', '', 'https://boxrec.com/images/thumb/d/d5/526601.jpg/200px-526601.jpg', 'Fajardo, Puerto Rico', 'Ceiba, Puerto Rico', '', 'M', 'Puerto Rico', '163', '163', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2010-02-27', 'flyweight', 21, 16, 4, 0, 0, 'inactive', 26, 142, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('281c4cfc-1c12-4542-9375-f084eddae285', '682293', 'https://boxrec.com/en/box-pro/682293', 'https://boxrec.com/wiki/index.php?title=Human:682293', 'jaime-arboleda', 'Jaime Arboleda', 'Jaime Enrique Arboleda', '"Jaimito - Little James"', 'https://boxrec.com/images/thumb/8/82/682293b.jpg/200px-682293b.jpg', 'Curundu, Panama', 'Curundu, Panama', '', 'M', 'Panama', '177', '183', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2014-06-04', 'lightweight', 20, 15, 4, 4, 0, 'active', 24, 108, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -2233,7 +2233,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('bb9ec802-d461-4f19-a750-e56ec22e1a33', '528191', 'https://boxrec.com/en/box-pro/528191', 'https://boxrec.com/wiki/index.php?title=Human:528191', 'wisaksil-wangek', 'Wisaksil Wangek', 'Wisaksil Wangek', '"Srisaket Sor Rungvisai"', 'https://boxrec.com/images/thumb/d/d5/Srisaket_Sor_Rungvisai.jpg/200px-Srisaket_Sor_Rungvisai.jpg', 'Si Sa Ket, Thailand', 'Si Sa Ket, Thailand', '', 'M', 'Thailand', '160', '161', 'southpaw', NULL, NULL, NULL, NULL, NULL, '2009-03-17', 'bantamweight', 58, 47, 7, 3, 1, 'active', 66, 291, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('7b81033b-5701-44c1-9728-a9f58ca10155', '682468', 'https://boxrec.com/en/box-pro/682468', 'https://boxrec.com/wiki/index.php?title=Human:682468', 'daniel-bocianski', 'Daniel Bocianski', 'Daniel Bociański', '"Bocian"', 'https://boxrec.com/images/commission_photos/4/4a/682468_c0856ff1ad58b835c631621a3e351492.jpg', 'Nowy Sacz, Poland', 'Nowy Sacz, Poland', '', 'M', 'Poland', '190', '200', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2014-04-05', 'cruiserweight', 12, 2, 4, 1, 0, 'inactive', 16, 84, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -2244,7 +2244,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('a4934b27-86ea-40d0-a37c-81279f33a541', '528949', 'https://boxrec.com/en/box-pro/528949', 'https://boxrec.com/wiki/index.php?title=Human:528949', 'luis-ortiz', 'Luis Ortiz', '', '"King Kong"', 'https://boxrec.com/images/thumb/4/48/OrtizLuis2.jpg/200px-OrtizLuis2.jpg', 'Miami, Florida, USA', 'Camaguey, Cuba', '', 'M', 'Cuba', '193', '198', 'southpaw', NULL, NULL, NULL, NULL, NULL, '2010-02-16', 'heavyweight', 34, 29, 3, 2, 0, 'inactive', 39, 181, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('498a1182-81fb-49d2-87ba-1f5dc145c015', '682711', 'https://boxrec.com/en/box-pro/682711', 'https://boxrec.com/wiki/index.php?title=Human:682711', 'hector-valdez', 'Hector Valdez', '', '', 'https://boxrec.com/images/thumb/d/df/682711.jpeg/200px-682711.jpeg', 'Dallas, Texas, USA', 'Dallas, Texas, USA', '', 'M', 'USA', '170', NULL, 'orthodox', NULL, NULL, NULL, NULL, NULL, '2014-04-05', 'superbantamweight', 16, 8, 0, 0, 0, 'inactive', 16, 67, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -2255,7 +2255,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('aacd95b3-cb86-43f9-80ca-cf448e042e0a', '528952', 'https://boxrec.com/en/box-pro/528952', 'https://boxrec.com/wiki/index.php?title=Human:528952', 'curtis-harper', 'Curtis Harper', 'Curtis Tyrone Harper', '"The Hurt"', 'https://boxrec.com/images/thumb/9/9a/528952.jpeg/200px-528952.jpeg', 'Jacksonville, Florida, USA', 'Jacksonville, Florida, USA', 'N', 'M', 'USA', '188', '199', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2010-02-16', 'heavyweight', 19, 13, 11, 6, 0, 'active', 31, 121, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('f8887c7e-d99c-4c2b-9623-d8b2e6685216', '683920', 'https://boxrec.com/en/box-pro/683920', 'https://boxrec.com/wiki/index.php?title=Human:683920', 'lamont-roach', 'Lamont Roach', 'Lamont Roach Jr', '"The Reaper"', 'https://boxrec.com/images/thumb/5/5c/Lamont_Roach.jpg/200px-Lamont_Roach.jpg', 'Upper Marlboro, Maryland, USA', 'Washington, District of Columbia, USA', '', 'M', 'USA', '170', '173', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2014-04-19', 'lightweight', 25, 10, 1, 0, 2, 'active', 28, 184, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -2266,7 +2266,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('a60fe64e-c7d7-4f7c-ab1c-aca4089dc929', '528954', 'https://boxrec.com/en/box-pro/528954', 'https://boxrec.com/wiki/index.php?title=Human:528954', 'francisco-vargas', 'Francisco Vargas', 'Francisco Javier Vargas Peláez', '"El Bandido"', 'https://boxrec.com/images/thumb/d/d6/Francisco_Javier_Vargas_Pelaez.jpg/200px-Francisco_Javier_Vargas_Pelaez.jpg', 'Mexico City, Distrito Federal, Mexico', 'Mexico City, Distrito Federal, Mexico', '', 'M', 'Mexico', '173', '178', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2010-03-12', 'lightweight', 27, 19, 5, 3, 2, 'inactive', 34, 179, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('0bae8ff7-9e1c-4093-bcba-5203d9ad3adf', '6844', 'https://boxrec.com/en/box-pro/6844', 'https://boxrec.com/wiki/index.php?title=Human:6844', 'daniel-alicea', 'Daniel Alicea', '', '"Pipino"', 'https://boxrec.com/images/thumb/7/7e/6844b.jpg/200px-6844b.jpg', 'Camden, New Jersey, USA', 'Santurce, Puerto Rico', '', 'M', 'Puerto Rico', '173', '178', 'orthodox', NULL, NULL, NULL, NULL, NULL, '1992-05-28', 'superfeatherweight', 30, 22, 7, 6, 2, 'inactive', 39, 205, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -2277,7 +2277,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('18dea4f7-d3c2-4be7-81c2-0d96ae3d1b69', '529254', 'https://boxrec.com/en/box-pro/529254', 'https://boxrec.com/wiki/index.php?title=Human:529254', 'ty-mitchell', 'Ty Mitchell', '', '"''The Derby Banger''"', 'https://boxrec.com/images/commission_photos/e/e9/529254_f8e86617953f1fb32d5fa76d288b1382.jpg', 'Derby, Derbyshire, United Kingdom', '', '', 'M', 'United Kingdom', '193', '191', 'southpaw', NULL, NULL, NULL, NULL, NULL, '2010-03-07', 'lightheavyweight', 4, 3, 2, 1, 0, 'active', 6, 23, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('f28dd86f-3dfe-4d8a-9950-e972fbc62159', '684493', 'https://boxrec.com/en/box-pro/684493', 'https://boxrec.com/wiki/index.php?title=Human:684493', 'caleb-plant', 'Caleb Plant', 'Caleb Hunter Plant', '"Sweethands"', 'https://boxrec.com/images/thumb/f/fe/684493.jpg/200px-684493.jpg', 'Las Vegas, Nevada, USA', 'Nashville, Tennessee, USA', '', 'M', 'USA', '185', '188', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2014-05-10', 'supermiddleweight', 23, 14, 3, 1, 0, 'active', 26, 175, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -2288,7 +2288,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('b2e07510-a9b0-4673-8a17-b9c652364079', '529630', 'https://boxrec.com/en/box-pro/529630', 'https://boxrec.com/wiki/index.php?title=Human:529630', 'bryant-jennings', 'Bryant Jennings', '', '"By-By"', 'https://boxrec.com/images/thumb/a/a8/Bryant_Jennings.jpeg/200px-Bryant_Jennings.jpeg', 'Philadelphia, Pennsylvania, USA', 'Philadelphia, Pennsylvania, USA', '', 'M', 'USA', '191', '213', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2010-02-26', NULL, 25, 14, 4, 2, 0, 'active', 29, 180, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('ddea772c-5b22-4e46-a70b-a8821d3c02b8', '684792', 'https://boxrec.com/en/box-pro/684792', 'https://boxrec.com/wiki/index.php?title=Human:684792', 'sergey-lipinets', 'Sergey Lipinets', 'Сергей Алексеевич Липинец', '"Samurai"', 'https://boxrec.com/images/thumb/4/46/Sergeylipinets1.jpg/200px-Sergeylipinets1.jpg', 'Woodland Hills, California, USA', 'Martuk, Kazakhstan', '', 'M', 'Kazakhstan', '170', '170', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2014-04-25', 'superlightweight', 18, 13, 4, 2, 1, 'active', 23, 178, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -2299,7 +2299,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('da036365-1910-42c1-af2f-e707d56a8d4f', '529717', 'https://boxrec.com/en/box-pro/529717', 'https://boxrec.com/wiki/index.php?title=Human:529717', 'frankie-gomez', 'Frankie Gomez', 'Jesus Francisco Gomez', '"Pitbull"', 'https://boxrec.com/images/thumb/1/19/Frankie_Gomez.jpg/200px-Frankie_Gomez.jpg', 'East Los Angeles, California, USA', 'Los Angeles, California, USA', '', 'M', 'USA', '173', '178', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2010-04-03', 'welterweight', 21, 13, 0, 0, 0, 'inactive', 21, 96, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('42b5e2b7-691a-4072-bbb5-5e6c6e5bf2f9', '684894', 'https://boxrec.com/en/box-pro/684894', 'https://boxrec.com/wiki/index.php?title=Human:684894', 'sean-turner', 'Sean Turner', 'Sean Anthony Turner', '"''Big Sexy''"', 'https://boxrec.com/images/thumb/9/99/Sean_Turner_cropped.jpg/200px-Sean_Turner_cropped.jpg', 'Dublin, Ireland', 'Dublin, Ireland', '', 'M', 'Ireland', '180', NULL, 'orthodox', NULL, NULL, NULL, NULL, NULL, '2014-06-14', 'heavyweight', 12, 8, 5, 3, 0, 'active', 18, 65, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -2310,7 +2310,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('add7b42e-c977-460e-ad62-639eb72d093b', '52984', 'https://boxrec.com/en/box-pro/52984', 'https://boxrec.com/wiki/index.php?title=Human:52984', 'paul-malignaggi', 'Paul Malignaggi', '', '"Magic Man"', 'https://boxrec.com/images/thumb/5/5a/PaulMalignaggi.jpg/200px-PaulMalignaggi.jpg', 'Brooklyn, New York, USA', 'Brooklyn, New York, USA', '', 'M', 'USA', '173', '180', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2001-07-07', 'welterweight', 36, 7, 8, 5, 0, 'inactive', 44, 361, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('802f3f0e-29af-42ab-bf81-a3d4db515d10', '685573', 'https://boxrec.com/en/box-pro/685573', 'https://boxrec.com/wiki/index.php?title=Human:685573', 'argi-cortes', 'Argi Cortes', 'Argi Eliel Cortes Sánchez', '', 'https://boxrec.com/images/thumb/1/1e/685573a.jpg/200px-685573a.jpg', 'Mexico City, Distrito Federal, Mexico', 'Mexico', '', 'M', 'Mexico', '159', '166', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2014-04-24', 'superflyweight', 27, 11, 4, 0, 2, 'active', 33, 194, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -2321,7 +2321,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('ee2ff8d2-f950-480e-ad75-94b2ed493705', '530362', 'https://boxrec.com/en/box-pro/530362', 'https://boxrec.com/wiki/index.php?title=Human:530362', 'felix-alvarado', 'Felix Alvarado', 'Felix Pedro Alvarado Sanchez', '"El Gemelo"', 'https://boxrec.com/images/thumb/2/23/530362a.jpg/200px-530362a.jpg', 'Managua, Nicaragua', 'Managua, Nicaragua', '', 'M', 'Nicaragua', '163', '170', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2010-03-12', 'flyweight', 42, 35, 4, 0, 0, 'active', 46, 200, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('0e6db747-aec5-4ae7-80f8-06fcbd4caf34', '686766', 'https://boxrec.com/en/box-pro/686766', 'https://boxrec.com/wiki/index.php?title=Human:686766', 'brian-mendoza', 'Brian Mendoza', 'Brian Marino Mendoza', '"La Bala"', 'https://boxrec.com/images/thumb/8/8d/686766.jpeg/200px-686766.jpeg', '', '', '', 'M', '349', NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, '2014-05-10', 'superwelterweight', 23, 17, 4, 0, 0, 'active', 27, 117, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -2332,7 +2332,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('22670571-f1a5-4ebd-8a04-38f81ba6365a', '530801', 'https://boxrec.com/en/box-pro/530801', 'https://boxrec.com/wiki/index.php?title=Human:530801', 'james-vick', 'James Vick', '', '', 'https://boxrec.com/images/thumb/a/a5/530801.jpg/200px-530801.jpg', 'Mineral Wells, Texas, USA', 'Olney, Texas, USA', '', 'M', 'USA', '191', NULL, '', NULL, NULL, NULL, NULL, NULL, '2010-03-06', 'supermiddleweight', 2, 2, 2, 0, 0, 'inactive', 4, 12, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('f9e114e1-9f42-40a2-9ff7-6f1fc852d89d', '687666', 'https://boxrec.com/en/box-pro/687666', 'https://boxrec.com/wiki/index.php?title=Human:687666', 'tommy-mccarthy', 'Tommy McCarthy', 'Thomas Edward McCarthy', '"''The Mac Attack''"', 'https://boxrec.com/images/thumb/1/1a/TommyMccarthy.jpg/200px-TommyMccarthy.jpg', 'Belfast, Northern Ireland, United Kingdom', 'London, United Kingdom', '', 'M', 'Ireland', '189', '189', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2014-05-24', 'cruiserweight', 21, 10, 7, 5, 0, 'inactive', 28, 169, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -2343,7 +2343,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('2a106e78-9d7e-4c2d-babf-1fdc29070baa', '530896', 'https://boxrec.com/en/box-pro/530896', 'https://boxrec.com/wiki/index.php?title=Human:530896', 'oxandia-castillo', 'Oxandia Castillo', 'Oxandia Napoleón Castillo', '"La Loba"', 'https://boxrec.com/images/thumb/3/35/Oxandia_Castillo.jpg/200px-Oxandia_Castillo.jpg', 'Santo Domingo, Dominican Republic', 'Santo Domingo, Dominican Republic', '', 'F', 'Dominican Republic', '170', NULL, 'orthodox', NULL, NULL, NULL, NULL, NULL, '2010-02-25', 'heavyweight', 19, 15, 3, 1, 3, 'inactive', 25, 96, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('571b0d71-0fa1-41be-a1fb-22bf21bcbac3', '6887', 'https://boxrec.com/en/box-pro/6887', 'https://boxrec.com/wiki/index.php?title=Human:6887', 'emanuel-augustus', 'Emanuel Augustus', 'Emanuel Burton', '"The Outlaw"', 'https://boxrec.com/images/thumb/d/da/Emanuel_Augustus1.JPG/200px-Emanuel_Augustus1.JPG', 'Chicago, Illinois, USA', 'Chicago, Illinois, USA', '', 'M', 'USA', '170', '173', 'orthodox', NULL, NULL, NULL, NULL, NULL, '1994-07-23', 'superlightweight', 38, 20, 34, 5, 6, 'inactive', 78, 614, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -2354,7 +2354,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('4b37b120-7f13-4ec7-a1ee-19a5c7830e71', '531000', 'https://boxrec.com/en/box-pro/531000', 'https://boxrec.com/wiki/index.php?title=Human:531000', 'wilkins-santiago', 'Wilkins Santiago', '', '"Hispanic Hurricane"', 'https://boxrec.com/images/thumb/d/dc/Wilkins-Santiago.jpg/200px-Wilkins-Santiago.jpg', 'Lorain, Ohio, USA', '', '', 'M', 'USA', '178', '180', '', NULL, NULL, NULL, NULL, NULL, '2010-04-24', 'superwelterweight', 12, 2, 1, 0, 3, 'inactive', 17, 83, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('7944f2e8-c3d0-4391-9a7e-777b64adc0a1', '689457', 'https://boxrec.com/en/box-pro/689457', 'https://boxrec.com/wiki/index.php?title=Human:689457', 'miyo-yoshida', 'Miyo Yoshida', '吉田実代', '', 'https://boxrec.com/images/thumb/6/66/Miyo_Yoshida.jpg/200px-Miyo_Yoshida.jpg', 'New York, New York, USA', 'Kagoshima, Kagoshima, Japan', '', 'F', 'Japan', '161', '161', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2014-05-28', 'superbantamweight', 18, 0, 5, 0, 0, 'active', 23, 163, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -2365,7 +2365,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('bd7622f3-619d-41f9-a6fe-9dc57dec36d1', '5316', 'https://boxrec.com/en/box-pro/5316', 'https://boxrec.com/wiki/index.php?title=Human:5316', 'eric-crumble', 'Eric Crumble', 'James Eric Crumble', '', 'https://boxrec.com/build/images/main/v6-avatar.svg', 'Milwaukee, Wisconsin, USA', '', '', 'M', 'USA', NULL, NULL, 'orthodox', NULL, NULL, NULL, NULL, NULL, '1990-06-22', 'middleweight', 0, 0, 31, 31, 0, 'inactive', 32, 42, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('75fc6e55-cd2a-4a54-9cae-4009e0565c02', '689605', 'https://boxrec.com/en/box-pro/689605', 'https://boxrec.com/wiki/index.php?title=Human:689605', 'maria-de-jesus-ramos', 'Maria de Jesus Ramos', 'María de Jesús Ramos Ortiz', '', 'https://boxrec.com/build/images/main/v6-avatar.svg', 'Mexico City, Distrito Federal, Mexico', '', '', 'F', 'Mexico', NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, '2014-03-20', 'superflyweight', 0, 0, 2, 0, 0, 'inactive', 2, 8, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -2376,7 +2376,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('4bab81de-130e-4aa6-8bc6-d173e02c772a', '531832', 'https://boxrec.com/en/box-pro/531832', 'https://boxrec.com/wiki/index.php?title=Human:531832', 'daniela-romina-bermudez', 'Daniela Romina Bermudez', 'Daniela Romina Bermúdez', '"La Bonita"', 'https://boxrec.com/images/thumb/b/b7/BonitaBermudez.jpg/200px-BonitaBermudez.jpg', 'Rosario, Santa Fe, Argentina', 'Galvez, Santa Fe, Argentina', '', 'F', 'Argentina', '165', '170', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2010-03-26', 'featherweight', 32, 12, 6, 1, 3, 'active', 41, 305, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('52185606-78e3-46ac-b0fa-91cccf01a7e0', '689608', 'https://boxrec.com/en/box-pro/689608', 'https://boxrec.com/wiki/index.php?title=Human:689608', 'karla-ramos-zamora', 'Karla Ramos Zamora', '', '', 'https://boxrec.com/images/thumb/0/09/KarlaRamosZamora_profile.jpg/200px-KarlaRamosZamora_profile.jpg', 'Chimalhuacán, México, Mexico', 'Venustiano Carranza, Puebla, Mexico', '', 'F', 'Mexico', NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, '2014-03-20', 'superlightweight', 11, 4, 10, 1, 2, 'inactive', 23, 142, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -2387,7 +2387,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('f51fb9f1-bb75-439a-af0b-97f56385792f', '532', 'https://boxrec.com/en/box-pro/532', 'https://boxrec.com/wiki/index.php?title=Human:532', 'terry-norris', 'Terry Norris', 'Terry Wayne Norris', '"Terrible"', 'https://boxrec.com/images/thumb/9/92/Terry_norris_1.jpg/200px-Terry_norris_1.jpg', 'Campo, California, USA', 'Lubbock, Texas, USA', '', 'M', 'USA', '177', '174', 'orthodox', NULL, NULL, NULL, NULL, NULL, '1986-08-13', 'superwelterweight', 47, 31, 9, 4, 0, 'inactive', 56, 310, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('c67f592f-4ab6-4ec3-be52-e4773671e0a1', '689774', 'https://boxrec.com/en/box-pro/689774', 'https://boxrec.com/wiki/index.php?title=Human:689774', 'carlos-mohamed-rodriguez', 'Carlos Mohamed Rodriguez', 'Carlos Mohamed Rodríguez Gámez', '', 'https://boxrec.com/images/thumb/3/31/Mohamedrodriguez.jpg/200px-Mohamedrodriguez.jpg', 'La Paz, Baja California Sur, Mexico', 'San Luis Potosí, Mexico', '', 'M', 'Mexico', '173', NULL, 'orthodox', NULL, NULL, NULL, NULL, NULL, '2014-05-31', 'superwelterweight', 16, 7, 14, 5, 1, 'active', 31, 157, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -2398,7 +2398,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('6b458798-4986-4e11-903f-d45d49a423a3', '533776', 'https://boxrec.com/en/box-pro/533776', 'https://boxrec.com/wiki/index.php?title=Human:533776', 'luis-rosa', 'Luis Rosa', 'Luis Ángel Rosa', '"KO King"', 'https://boxrec.com/images/thumb/4/45/Luis_Rosa.JPG/200px-Luis_Rosa.JPG', 'New Haven, Connecticut, USA', 'Caguas, Puerto Rico', '', 'M', 'Puerto Rico', '165', '165', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2010-04-10', 'superbantamweight', 23, 11, 1, 0, 0, 'inactive', 26, 137, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('1c752946-53e1-418a-8628-3a4fafcea29e', '689777', 'https://boxrec.com/en/box-pro/689777', 'https://boxrec.com/wiki/index.php?title=Human:689777', 'bakhram-murtazaliev', 'Bakhram Murtazaliev', 'Бахрам Сайт-Хамзатович Муртазалиев', '', 'https://boxrec.com/images/thumb/0/00/Bakhram_Murtazaliev.jpeg/200px-Bakhram_Murtazaliev.jpeg', 'Oxnard, California, USA', 'Grozny, Russia', '', 'M', 'Russia', '182', '188', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2014-05-31', 'superwelterweight', 23, 17, 0, 0, 0, 'active', 23, 104, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -2409,7 +2409,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('45fecca1-2cf5-48bd-991e-e21f84e580b1', '534091', 'https://boxrec.com/en/box-pro/534091', 'https://boxrec.com/wiki/index.php?title=Human:534091', 'alexander-flores', 'Alexander Flores', '', '"The Great"', 'https://boxrec.com/images/thumb/e/ef/AlexanderFlores.jpg/200px-AlexanderFlores.jpg', 'Rowland Heights, California, USA', 'Los Angeles, California, USA', '', 'M', 'USA', '193', NULL, 'orthodox', NULL, NULL, NULL, NULL, NULL, '2010-03-19', 'heavyweight', 19, 17, 5, 3, 1, 'active', 25, 91, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('f7615825-0ae5-4a3d-9a4e-49fcc51c9a7a', '690235', 'https://boxrec.com/en/box-pro/690235', 'https://boxrec.com/wiki/index.php?title=Human:690235', 'khiary-gray', 'Khiary Gray', '', '"King TooSharp"', 'https://boxrec.com/images/thumb/9/9a/Khiary_Gray_Pitts.jpeg/200px-Khiary_Gray_Pitts.jpeg', 'Worcester, Massachusetts, USA', 'Worcester, Massachusetts, USA', '', 'M', 'USA', '175', '189', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2014-06-06', 'superwelterweight', 19, 14, 9, 3, 0, 'active', 28, 118, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -2420,7 +2420,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('55a96628-68f7-41a2-a306-c616c59d7687', '534798', 'https://boxrec.com/en/box-pro/534798', 'https://boxrec.com/wiki/index.php?title=Human:534798', 'jamal-james', 'Jamal James', 'Jamal A James', '"Shango"', 'https://boxrec.com/images/thumb/2/2b/534798.jpeg/200px-534798.jpeg', 'Minneapolis, Minnesota, USA', 'Minneapolis, Minnesota, USA', '', 'M', 'USA', '188', '178', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2010-05-22', 'welterweight', 28, 12, 2, 1, 0, 'inactive', 30, 192, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('4e0a7285-d861-49a1-bae9-78d2f8757e75', '690677', 'https://boxrec.com/en/box-pro/690677', 'https://boxrec.com/wiki/index.php?title=Human:690677', 'justin-pauldo', 'Justin Pauldo', 'Justin Rommell Pauldo', '"The Million Dollar Man"', 'https://boxrec.com/images/thumb/d/d8/JustinPauldo.JPG/200px-JustinPauldo.JPG', 'Houston, Texas, USA', 'Orlando, Florida, USA', '', 'M', 'USA', '170', '183', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2014-06-13', 'lightweight', 18, 9, 2, 0, 0, 'active', 21, 97, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -2431,7 +2431,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('7f6c5542-190c-4eca-9b5a-a6f610cf2673', '534852', 'https://boxrec.com/en/box-pro/534852', 'https://boxrec.com/wiki/index.php?title=Human:534852', 'luis-eduardo-paz', 'Luis Eduardo Paz', '', '"El Pollo"', 'https://boxrec.com/images/thumb/f/f5/Luispollopaz.jpg/200px-Luispollopaz.jpg', 'San Miguel, Tucuman, Argentina', 'San Miguel, Tucuman, Argentina', '', 'M', 'Argentina', NULL, NULL, 'orthodox', NULL, NULL, NULL, NULL, NULL, '2009-05-15', 'lightheavyweight', 12, 8, 7, 7, 2, 'active', 21, 59, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('d24df3bf-91d6-4c0c-b015-ecf2a4744967', '690845', 'https://boxrec.com/en/box-pro/690845', 'https://boxrec.com/wiki/index.php?title=Human:690845', 'daniel-cope', 'Daniel Cope', '', '', 'https://boxrec.com/build/images/main/v6-avatar.svg', 'Hartlepool, County Durham, United Kingdom', 'Hartlepool, County Durham, United Kingdom', '', 'M', 'United Kingdom', '178', NULL, 'orthodox', NULL, NULL, NULL, NULL, NULL, '2014-07-13', 'welterweight', 6, 1, 2, 0, 1, 'inactive', 9, 50, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -2442,7 +2442,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('80a140e5-7310-422d-b68c-313b8b8ab6de', '535211', 'https://boxrec.com/en/box-pro/535211', 'https://boxrec.com/wiki/index.php?title=Human:535211', 'erik-skoglund', 'Erik Skoglund', '', '', 'https://boxrec.com/images/thumb/4/48/ESkoglund.jpg/200px-ESkoglund.jpg', 'Nyköping, Sweden', 'Vardinge, Sweden', '', 'M', 'Sweden', '186', NULL, 'orthodox', NULL, NULL, NULL, NULL, NULL, '2010-05-01', 'supermiddleweight', 26, 12, 1, 0, 0, 'inactive', 27, 182, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('aae26169-38e0-44bf-a1cd-64a82b569cd4', '690880', 'https://boxrec.com/en/box-pro/690880', 'https://boxrec.com/wiki/index.php?title=Human:690880', 'fabian-andres-maidana', 'Fabian Andres Maidana', 'Fabián Andrés Maidana', '"TNT"', 'https://boxrec.com/images/thumb/2/2a/Descarga.jpg/200px-Descarga.jpg', 'Jose Leon Suarez, Buenos Aires, Argentina', 'Margarita, Santa Fe, Argentina', '', 'M', 'Argentina', '175', '183', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2014-06-21', 'welterweight', 24, 18, 4, 0, 0, 'active', 28, 139, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -2453,7 +2453,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('d404831b-8052-4577-a90f-7f8e0ec5684c', '535556', 'https://boxrec.com/en/box-pro/535556', 'https://boxrec.com/wiki/index.php?title=Human:535556', 'mohamed-mimoune', 'Mohamed Mimoune', '', '"The Problem"', 'https://boxrec.com/images/thumb/0/05/535556.jpg/200px-535556.jpg', 'Plant City, Florida, USA', 'Toulouse, Haute-Garonne, France', '', 'M', 'France', '178', '180', 'southpaw', NULL, NULL, NULL, NULL, NULL, '2010-04-17', 'superlightweight', 24, 5, 7, 1, 0, 'active', 31, 234, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('9412783a-d9e9-4b4a-a216-0daac39230d5', '691026', 'https://boxrec.com/en/box-pro/691026', 'https://boxrec.com/wiki/index.php?title=Human:691026', 'michael-gomez-jnr', 'Michael Gomez Jnr', '', '', 'https://boxrec.com/images/thumb/6/69/691026.jpg/200px-691026.jpg', 'Manchester, Lancashire, United Kingdom', 'Crumpsall, Lancashire, United Kingdom', '', 'M', 'United Kingdom', '175', NULL, 'orthodox', NULL, NULL, NULL, NULL, NULL, '2014-07-26', 'superfeatherweight', 21, 6, 2, 1, 0, 'active', 23, 121, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -2464,7 +2464,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('f21cc9be-d23d-439a-9e2b-f38a18278164', '535757', 'https://boxrec.com/en/box-pro/535757', 'https://boxrec.com/wiki/index.php?title=Human:535757', 'kenichi-ogawa', 'Kenichi Ogawa', '尾川堅一', '', 'https://boxrec.com/images/thumb/3/3f/Kenichi_Ogawa_01.jpg/200px-Kenichi_Ogawa_01.jpg', 'Tokyo, Japan', 'Toyohashi, Aichi, Japan', '', 'M', 'Japan', '173', NULL, 'orthodox', NULL, NULL, NULL, NULL, NULL, '2010-04-30', 'superfeatherweight', 30, 21, 2, 2, 1, 'active', 34, 189, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('30405e22-fafe-44ae-b1cd-bed5e903e989', '691028', 'https://boxrec.com/en/box-pro/691028', 'https://boxrec.com/wiki/index.php?title=Human:691028', 'young-fury', 'Young Fury', '', '', 'https://boxrec.com/images/thumb/6/64/Youngfury.jpg/200px-Youngfury.jpg', 'Manchester, Lancashire, United Kingdom', 'Cheshire, United Kingdom', '', 'M', 'United Kingdom', '191', NULL, 'orthodox', NULL, NULL, NULL, NULL, NULL, '2014-06-27', 'heavyweight', 6, 3, 1, 0, 0, 'inactive', 7, 22, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -2475,7 +2475,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('2823e9be-7cc1-434f-9885-2162c6b40561', '535915', 'https://boxrec.com/en/box-pro/535915', 'https://boxrec.com/wiki/index.php?title=Human:535915', 'javier-franco', 'Javier Franco', 'Francisco Javier Franco Villa', '"El Chivero"', 'https://boxrec.com/images/thumb/f/f9/JavierFranco.jpeg/200px-JavierFranco.jpeg', 'Nuevo Casas Grandes, Chihuahua, Mexico', 'Chihuahua, Mexico', '', 'M', 'Mexico', NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, '2010-02-13', 'superlightweight', 37, 18, 29, 17, 6, 'active', 72, 398, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('91d09259-8c52-43db-9bbe-39ac687335ac', '691230', 'https://boxrec.com/en/box-pro/691230', 'https://boxrec.com/wiki/index.php?title=Human:691230', 'ivan-golub', 'Ivan Golub', '', '"The Volk"', 'https://boxrec.com/images/thumb/6/62/Ivan-Golub.jpg/200px-Ivan-Golub.jpg', 'Brooklyn, New York, USA', 'Horlivka, Ukraine', '', 'M', 'Ukraine', '180', '173', 'southpaw', NULL, NULL, NULL, NULL, NULL, '2014-06-27', 'welterweight', 21, 16, 1, 0, 0, 'inactive', 22, 102, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -2486,7 +2486,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('9df89102-efcb-44d5-acf0-714d30bc953d', '536011', 'https://boxrec.com/en/box-pro/536011', 'https://boxrec.com/wiki/index.php?title=Human:536011', 'julian-williams', 'Julian Williams', 'Julian Taige Williams', '"J Rock"', 'https://boxrec.com/images/thumb/a/a3/JRockWilliams.jpg/200px-JRockWilliams.jpg', 'Philadelphia, Pennsylvania, USA', 'Philadelphia, Pennsylvania, USA', '', 'M', 'USA', '178', '184', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2010-05-07', 'superwelterweight', 29, 17, 5, 3, 1, 'active', 36, 217, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('0a77aa9e-4508-48a0-b5e9-d4c06ccf72d7', '691371', 'https://boxrec.com/en/box-pro/691371', 'https://boxrec.com/wiki/index.php?title=Human:691371', 'cody-crowley', 'Cody Crowley', '', '"The Crippler"', 'https://boxrec.com/images/thumb/3/31/691371.jpg/200px-691371.jpg', 'Las Vegas, Nevada, USA', 'Peterborough, Ontario, Canada', '', 'M', 'Canada', '178', '183', 'southpaw', NULL, NULL, NULL, NULL, NULL, '2014-06-28', 'welterweight', 22, 9, 0, 0, 0, 'inactive', 22, 140, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -2497,7 +2497,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('203acfc4-ad8f-442d-8f0a-f55303b85695', '53617', 'https://boxrec.com/en/box-pro/53617', 'https://boxrec.com/wiki/index.php?title=Human:53617', 'kermit-cintron', 'Kermit Cintron', '', '"The Killer / El Asesino"', 'https://boxrec.com/images/thumb/4/4f/Kermit_Cintron_2016.jpeg/200px-Kermit_Cintron_2016.jpeg', 'Reading, Pennsylvania, USA', 'Carolina, Puerto Rico', '', 'M', 'Puerto Rico', '180', '188', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2000-10-07', 'welterweight', 39, 30, 6, 4, 3, 'inactive', 49, 263, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('cf975fa3-73de-4b8c-9127-cb6fa1f0aedb', '691593', 'https://boxrec.com/en/box-pro/691593', 'https://boxrec.com/wiki/index.php?title=Human:691593', 'daigo-higa', 'Daigo Higa', '比嘉大吾', '', 'https://boxrec.com/images/thumb/c/c9/Higa_Daigo.jpg/200px-Higa_Daigo.jpg', 'Tokyo, Japan', 'Urasoe, Okinawa, Japan', '', 'M', 'Japan', '163', '163', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2014-06-17', 'bantamweight', 21, 19, 3, 1, 3, 'active', 27, 160, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -2508,7 +2508,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('03d38bf5-540e-4acf-b816-e2af944b1b9b', '5364', 'https://boxrec.com/en/box-pro/5364', 'https://boxrec.com/wiki/index.php?title=Human:5364', 'joe-calzaghe', 'Joe Calzaghe', 'Joseph Calzaghe', '"Pride of Wales","Italian Dragon"', 'https://boxrec.com/images/thumb/2/24/Joe.Calzaghe_belts.jpg/200px-Joe.Calzaghe_belts.jpg', 'Newbridge, Wales, United Kingdom', 'Hammersmith, London, United Kingdom', '', 'M', 'United Kingdom', '180', '185', 'southpaw', NULL, NULL, NULL, NULL, NULL, '1993-10-01', 'supermiddleweight', 46, 32, 0, 0, 0, 'inactive', 46, 262, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('6a225d15-7bb9-47ed-b3b3-059c6953cebf', '691996', 'https://boxrec.com/en/box-pro/691996', 'https://boxrec.com/wiki/index.php?title=Human:691996', 'sergiy-derevyanchenko', 'Sergiy Derevyanchenko', 'Сергей Вячеславович Деревянченко', '"The Technician"', 'https://boxrec.com/images/thumb/d/db/.SergiyDerevyanchenkoBoxrec.jpeg/200px-.SergiyDerevyanchenkoBoxrec.jpeg', 'Brooklyn, New York, USA', 'Feodosia, Crimea, Ukraine', '', 'M', 'Ukraine', '175', '171', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2014-07-23', 'supermiddleweight', 16, 11, 6, 0, 0, 'active', 22, 163, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -2519,7 +2519,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('3acc2bfc-b1fd-418f-b7c7-11f01ae5d3b2', '53660', 'https://boxrec.com/en/box-pro/53660', 'https://boxrec.com/wiki/index.php?title=Human:53660', 'george-duke', 'George Duke', '', '"Georgie"', 'https://boxrec.com/images/thumb/7/7b/Duke_George.jpg/200px-Duke_George.jpg', 'Petaluma, California, USA', 'San Francisco, California, USA', '', 'M', 'USA', NULL, NULL, 'orthodox', NULL, NULL, NULL, NULL, NULL, '1942-01-26', 'middleweight', 46, 9, 17, 10, 17, 'inactive', 80, 592, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('84b8dc9e-e723-40b6-adf9-3567cb4fa002', '692149', 'https://boxrec.com/en/box-pro/692149', 'https://boxrec.com/wiki/index.php?title=Human:692149', 'zhilei-zhang', 'Zhilei Zhang', '张志磊', '"Big Bang"', 'https://boxrec.com/images/thumb/c/c8/Zhilei_Zhang_2020.JPG/200px-Zhilei_Zhang_2020.JPG', 'Bloomfield, New Jersey, USA', 'Zhoukou, China', '', 'M', 'China', '198', '203', 'southpaw', NULL, NULL, NULL, NULL, NULL, '2014-08-08', 'heavyweight', 27, 22, 3, 1, 1, 'active', 31, 116, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -2530,7 +2530,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('9f7104c4-da7b-40bf-8469-242b1a00932d', '5372', 'https://boxrec.com/en/box-pro/5372', 'https://boxrec.com/wiki/index.php?title=Human:5372', 'willie-monroe', 'Willie Monroe', '', '"The Worm"', 'https://boxrec.com/images/thumb/5/52/WillieMonroe.JPG/200px-WillieMonroe.JPG', 'Philadelphia, Pennsylvania, USA', 'Alabama, USA', '', 'M', 'USA', '183', NULL, 'orthodox', NULL, NULL, NULL, NULL, NULL, '1969-11-11', 'middleweight', 40, 26, 10, 4, 1, 'inactive', 51, 320, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('4bd9a840-1715-46bd-9424-ad76ffba0fd4', '69219', 'https://boxrec.com/en/box-pro/69219', 'https://boxrec.com/wiki/index.php?title=Human:69219', 'mike-mollo', 'Mike Mollo', '', '', 'https://boxrec.com/images/thumb/5/58/Mollo-son.jpg/200px-Mollo-son.jpg', 'Oak Lawn, Illinois, USA', 'Oak Lawn, Illinois, USA', '', 'M', 'USA', '188', NULL, 'orthodox', NULL, NULL, NULL, NULL, NULL, '2000-06-25', 'heavyweight', 21, 13, 7, 4, 1, 'inactive', 29, 122, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -2541,7 +2541,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('779895f7-81f4-4287-88e0-53b272b916d6', '537358', 'https://boxrec.com/en/box-pro/537358', 'https://boxrec.com/wiki/index.php?title=Human:537358', 'andrew-hernandez', 'Andrew Hernandez', '', '"Hurricane"', 'https://boxrec.com/images/thumb/9/9a/AndrewHernandez.jpeg/200px-AndrewHernandez.jpeg', 'Phoenix, Arizona, USA', 'Phoenix, Arizona, USA', '', 'M', 'USA', '179', '183', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2010-05-20', 'supermiddleweight', 21, 9, 9, 4, 2, 'active', 34, 189, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('04037270-ddd8-4917-adc4-3b06535a51e2', '6922', 'https://boxrec.com/en/box-pro/6922', 'https://boxrec.com/wiki/index.php?title=Human:6922', 'joel-casamayor', 'Joel Casamayor', 'Joel Casamayor Johnson', '"El Cepillo"', 'https://boxrec.com/images/thumb/e/e6/JoelCasamayor.jpg/200px-JoelCasamayor.jpg', 'Miramar, Florida, USA', 'Guantanamo, Cuba', '', 'M', 'Cuba', '170', '175', 'southpaw', NULL, NULL, NULL, NULL, NULL, '1996-09-20', 'lightweight', 38, 22, 6, 2, 1, 'inactive', 45, 328, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -2552,7 +2552,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('0c5cbec9-43bc-4253-bcde-966e5310cb45', '538030', 'https://boxrec.com/en/box-pro/538030', 'https://boxrec.com/wiki/index.php?title=Human:538030', 'dorsett-barnwell', 'Dorsett Barnwell', '', '', 'https://boxrec.com/images/thumb/9/9e/DorsettBarnwell.JPG/200px-DorsettBarnwell.JPG', 'Norfolk, Virginia, USA', 'New York, New York, USA', '', 'M', 'USA', '191', NULL, 'orthodox', NULL, NULL, NULL, NULL, NULL, '2010-05-28', 'heavyweight', 12, 5, 0, 0, 0, 'inactive', 12, 50, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('aaefc590-1bb9-45ab-9763-92bb91e54e97', '692571', 'https://boxrec.com/en/box-pro/692571', 'https://boxrec.com/wiki/index.php?title=Human:692571', 'zelfa-barrett', 'Zelfa Barrett', '', '"''Brown Flash''"', 'https://boxrec.com/images/thumb/8/86/ZelfaBarrett1.jpg/200px-ZelfaBarrett1.jpg', 'Manchester, Lancashire, United Kingdom', 'Manchester, Lancashire, United Kingdom', '', 'M', 'United Kingdom', '170', '173', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2014-10-25', 'lightweight', 33, 18, 3, 1, 0, 'active', 36, 221, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -2563,7 +2563,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('222b367e-c7b0-41aa-80c9-ca7649e6e838', '538155', 'https://boxrec.com/en/box-pro/538155', 'https://boxrec.com/wiki/index.php?title=Human:538155', 'azriel-paez', 'Azriel Paez', 'Azriel Lopez Paez', '', 'https://boxrec.com/images/thumb/4/4e/AzrielPaez.jpg/200px-AzrielPaez.jpg', 'Oxnard, California, USA', 'San Bernardino, California, USA', '', 'M', 'Mexico', '183', NULL, 'orthodox', NULL, NULL, NULL, NULL, NULL, '2010-06-05', 'welterweight', 4, 1, 2, 1, 1, 'inactive', 7, 24, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('0e3c40a4-8ae6-441e-b7bd-8dc04b255182', '692641', 'https://boxrec.com/en/box-pro/692641', 'https://boxrec.com/wiki/index.php?title=Human:692641', 'carlos-canizales', 'Carlos Canizales', 'Carlos Antonio Cañizales Civira', '"CCC"', 'https://boxrec.com/images/thumb/2/22/Carlos_Antonio_Canizales_Civira.jpg/200px-Carlos_Antonio_Canizales_Civira.jpg', 'Caracas, Venezuela', 'Caracas, Venezuela', '', 'M', 'Venezuela', '160', '164', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2014-07-04', 'lightflyweight', 27, 19, 3, 1, 1, 'active', 31, 181, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -2574,7 +2574,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('14c26a68-c4bf-43f4-9b62-39f5f6bc60ae', '538527', 'https://boxrec.com/en/box-pro/538527', 'https://boxrec.com/wiki/index.php?title=Human:538527', 'brandon-quarles', 'Brandon Quarles', 'Brandon Quarles', '"Bulldog"', 'https://boxrec.com/images/commission_photos/d/d2/538527_8d3f635ea7dcacbf5435826d8ce87100.jpg', 'Alexandria, Virginia, USA', 'Alexandria, Virginia, USA', '', 'M', 'USA', '178', '188', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2010-07-10', 'supermiddleweight', 26, 11, 6, 1, 1, 'active', 33, 163, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('9bd2e06c-3dde-4b9a-872c-259c88b80ef6', '692831', 'https://boxrec.com/en/box-pro/692831', 'https://boxrec.com/wiki/index.php?title=Human:692831', 'jason-quigley', 'Jason Quigley', 'Jason Robert Quigley', '', 'https://boxrec.com/images/thumb/e/ec/692831.jpg/200px-692831.jpg', 'Ballybofey, Ireland', 'Ballybofey, Ireland', '', 'M', 'Ireland', '185', '182', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2014-07-12', 'supermiddleweight', 20, 14, 3, 2, 0, 'inactive', 23, 107, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -2585,7 +2585,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('11fda1dd-9a0f-40f7-9809-36bd0efc3b91', '538873', 'https://boxrec.com/en/box-pro/538873', 'https://boxrec.com/wiki/index.php?title=Human:538873', 'morgan-fitch', 'Morgan Fitch', '', '"Big Chief"', 'https://boxrec.com/images/thumb/6/63/Morgan_Fitch.jpg/200px-Morgan_Fitch.jpg', 'Pittsburgh, Pennsylvania, USA', 'Raceland, Louisiana, USA', '', 'M', 'USA', '185', NULL, 'orthodox', NULL, NULL, NULL, NULL, NULL, '2010-06-10', 'supermiddleweight', 19, 8, 5, 3, 1, 'inactive', 25, 119, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('232735c5-7cfa-4dee-8d2a-2656554a2207', '6929', 'https://boxrec.com/en/box-pro/6929', 'https://boxrec.com/wiki/index.php?title=Human:6929', 'leonardo-aguilar', 'Leonardo Aguilar', '', '"Macuache"', 'https://boxrec.com/build/images/main/v6-avatar.svg', 'Montebello, California, USA', 'Mexicali, Baja California, Mexico', '', 'M', 'Mexico', '175', '201', '', NULL, NULL, NULL, NULL, NULL, '1991-11-01', 'lightheavyweight', 15, 9, 2, 0, 0, 'inactive', 17, 111, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -2596,7 +2596,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('fe17b5bf-ae06-446a-b476-b42dd2f0e780', '538912', 'https://boxrec.com/en/box-pro/538912', 'https://boxrec.com/wiki/index.php?title=Human:538912', 'ivan-otero', 'Ivan Otero', '', '', 'https://boxrec.com/images/thumb/3/3e/538912.jpg/200px-538912.jpg', 'Rio Piedras, Puerto Rico', '', '', 'M', 'Puerto Rico', NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, '2010-06-04', 'superlightweight', 15, 4, 3, 0, 0, 'inactive', 18, 87, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('eac50f2e-b09d-4500-8d97-cd06846b02a7', '692967', 'https://boxrec.com/en/box-pro/692967', 'https://boxrec.com/wiki/index.php?title=Human:692967', 'kenshiro-teraji', 'Kenshiro Teraji', '寺地拳四朗', '"The Amazing Boy"', 'https://boxrec.com/images/thumb/5/59/Ken_Shiro.jpg/200px-Ken_Shiro.jpg', 'Uji, Kyoto, Japan', 'Joyo, Kyoto, Japan', '', 'M', 'Japan', '165', '164', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2014-08-03', 'flyweight', 25, 16, 2, 1, 0, 'active', 27, 209, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -2607,7 +2607,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('214bc833-1e5a-403a-9bee-b7d4a5c8955e', '539', 'https://boxrec.com/en/box-pro/539', 'https://boxrec.com/wiki/index.php?title=Human:539', 'donny-lalonde', 'Donny Lalonde', 'Donald Drew Lalonde', '"Golden Boy"', 'https://boxrec.com/images/thumb/7/7d/Donny_Lalonde1.JPG/200px-Donny_Lalonde1.JPG', 'Winnipeg, Manitoba, Canada', 'Victoria, British Columbia, Canada', '', 'M', 'Canada', '188', '196', 'orthodox', NULL, NULL, NULL, NULL, NULL, '1980-04-24', 'lightheavyweight', 41, 33, 5, 2, 1, 'inactive', 47, 238, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('6e06aaa2-639e-49c3-b0ee-aa27d9b286bf', '693056', 'https://boxrec.com/en/box-pro/693056', 'https://boxrec.com/wiki/index.php?title=Human:693056', 'jayr-raquinel', 'Jayr Raquinel', 'Jay-r Sarin Raquinel', '"The Dreamer"', 'https://boxrec.com/images/thumb/4/4a/JayR_Raquinel.jpg/200px-JayR_Raquinel.jpg', 'Cauayan, Negros Occidental, Philippines', 'Candoni, Negros Occidental, Philippines', '', 'M', 'Philippines', '165', '166', 'southpaw', NULL, NULL, NULL, NULL, NULL, '2014-03-31', 'superflyweight', 18, 14, 2, 0, 1, 'active', 21, 102, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -2618,7 +2618,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('227e22ea-7714-4cd4-9b20-361ce6304f33', '539640', 'https://boxrec.com/en/box-pro/539640', 'https://boxrec.com/wiki/index.php?title=Human:539640', 'maciej-sulecki', 'Maciej Sulecki', '', '"Striczu"', 'https://boxrec.com/images/thumb/e/e6/MaciejSulecki.jpg/200px-MaciejSulecki.jpg', 'Warsaw, Poland', 'Warsaw, Poland', '', 'M', 'Poland', '185', '173', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2010-06-19', 'supermiddleweight', 33, 13, 4, 2, 0, 'active', 37, 238, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('ae184cbd-a347-44bb-87bd-336688ef236a', '693603', 'https://boxrec.com/en/box-pro/693603', 'https://boxrec.com/wiki/index.php?title=Human:693603', 'steve-spark', 'Steve Spark', '', '"The Viking"', 'https://boxrec.com/images/thumb/6/62/Steve_Spark.jpeg/200px-Steve_Spark.jpeg', 'Toowoomba, Queensland, Australia', 'Queensland, Australia', '', 'M', 'Australia', '178', '178', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2014-10-31', 'welterweight', 16, 14, 3, 1, 0, 'inactive', 19, 76, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -2629,7 +2629,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('c52a9c1b-b290-40bf-b2d5-b841aa3e4b76', '540056', 'https://boxrec.com/en/box-pro/540056', 'https://boxrec.com/wiki/index.php?title=Human:540056', 'ivana-habazin', 'Ivana Habazin', '', '', 'https://boxrec.com/images/thumb/c/c3/IvanaHabazin2020.JPG/200px-IvanaHabazin2020.JPG', 'Zlatar, Croatia', 'Zagreb, Croatia', '', 'F', 'Croatia', '173', '169', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2010-06-25', 'welterweight', 23, 7, 6, 1, 0, 'active', 29, 198, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('4d506636-8cc5-4d26-9e59-ebf07f6d9361', '6939', 'https://boxrec.com/en/box-pro/6939', 'https://boxrec.com/wiki/index.php?title=Human:6939', 'angelo-nunez', 'Angelo Nunez', '', '"The Ice Man"', 'https://boxrec.com/images/thumb/5/5f/Angelo_Nunez.jpg/200px-Angelo_Nunez.jpg', 'San Jose, California, USA', '', '', 'M', 'USA', '170', '178', 'orthodox', NULL, NULL, NULL, NULL, NULL, '1987-06-03', 'superlightweight', 14, 4, 12, 2, 3, 'inactive', 29, 185, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -2640,7 +2640,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('59b2b1fe-5c3a-4684-b7ff-3a65417bba0f', '541561', 'https://boxrec.com/en/box-pro/541561', 'https://boxrec.com/wiki/index.php?title=Human:541561', 'walter-santibanes', 'Walter Santibanes', 'Walter Melchor Santibanes', '', 'https://boxrec.com/images/thumb/2/27/541561.jpg/200px-541561.jpg', 'Phoenix, Arizona, USA', '', '', 'M', 'USA', NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, '2010-05-14', 'bantamweight', 12, 2, 3, 0, 0, 'inactive', 16, 85, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('21c1fe2f-6a66-4fce-8ed1-5effbec5ce88', '693925', 'https://boxrec.com/en/box-pro/693925', 'https://boxrec.com/wiki/index.php?title=Human:693925', 'alicia-napoleon-espinosa', 'Alicia Napoleon Espinosa', '', '"The Empress"', 'https://boxrec.com/images/thumb/2/2e/693925_2024.jpg/200px-693925_2024.jpg', 'Lindenhurst, New York, USA', '', '', 'F', 'USA', '165', '173', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2014-08-15', 'supermiddleweight', 12, 7, 2, 0, 0, 'inactive', 14, 84, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -2651,7 +2651,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('e8286ff5-685b-4d71-ac28-9b9af238452c', '541777', 'https://boxrec.com/en/box-pro/541777', 'https://boxrec.com/wiki/index.php?title=Human:541777', 'yordenis-ugas', 'Yordenis Ugas', 'Yordenis Ugas Hernandez', '"54 Milagros"', 'https://boxrec.com/images/thumb/6/69/541777.jpeg/200px-541777.jpeg', 'Miami, Florida, USA', 'Santiago de Cuba, Cuba', '', 'M', 'Cuba', '175', '175', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2010-07-09', 'welterweight', 27, 12, 6, 1, 0, 'inactive', 33, 230, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('bf540f2d-cb49-4368-ab9c-6ae8f311f19f', '693965', 'https://boxrec.com/en/box-pro/693965', 'https://boxrec.com/wiki/index.php?title=Human:693965', 'jason-moloney', 'Jason Moloney', '', '"Mayhem"', 'https://boxrec.com/images/thumb/9/90/Jasonmoloneyboxrec.jpg/200px-Jasonmoloneyboxrec.jpg', 'New South Wales, Australia', 'Mitcham, Victoria, Australia', '', 'M', 'Australia', '165', '165', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2014-08-15', 'bantamweight', 27, 19, 4, 1, 0, 'active', 31, 196, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -2662,7 +2662,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('f9babf3a-1cf8-468e-b718-d0e1c7856b09', '541810', 'https://boxrec.com/en/box-pro/541810', 'https://boxrec.com/wiki/index.php?title=Human:541810', 'luis-solis', 'Luis Solis', 'Luis Rafael Solís Ancona', '"Muecas"', 'https://boxrec.com/images/thumb/b/b5/Luis_Rafael_Solis_Ancona.jpg/200px-Luis_Rafael_Solis_Ancona.jpg', 'Progreso, Yucatán, Mexico', 'Merida, Yucatán, Mexico', '', 'M', 'Mexico', '178', '191', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2010-07-02', 'superwelterweight', 26, 22, 21, 9, 4, 'active', 51, 276, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('ff753e9e-26f8-4f67-b816-ec7fffa561c2', '694', 'https://boxrec.com/en/box-pro/694', 'https://boxrec.com/wiki/index.php?title=Human:694', 'john-mugabi', 'John Mugabi', 'John Paul Mugabi', '"The Beast"', 'https://boxrec.com/images/thumb/e/e6/John_Magabi.jpg/200px-John_Magabi.jpg', 'Tampa, Florida, USA', 'Nsambya, Uganda', '', 'M', 'Uganda', '174', '188', 'orthodox', NULL, NULL, NULL, NULL, NULL, '1980-12-05', 'superwelterweight', 42, 39, 7, 6, 1, 'inactive', 50, 184, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -2673,7 +2673,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('5a076bde-3582-45c6-aa30-0a6a362187a2', '541879', 'https://boxrec.com/en/box-pro/541879', 'https://boxrec.com/wiki/index.php?title=Human:541879', 'joe-fournier', 'Joe Fournier', '', '', 'https://boxrec.com/build/images/main/v6-avatar.svg', 'South Hadley, Massachusetts, USA', '', '', 'M', 'USA', NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, '1925-03-27', 'bantamweight', 7, 3, 6, 3, 0, 'inactive', 13, 44, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('d00a7051-6976-4409-8071-bf8052e91cd2', '694006', 'https://boxrec.com/en/box-pro/694006', 'https://boxrec.com/wiki/index.php?title=Human:694006', 'cristian-salas', 'Cristian Salas', 'Cristian Rodrigo Salas Muñoz', '"La Cobra"', 'https://boxrec.com/images/thumb/5/5f/Cristian_Salas.jpg/200px-Cristian_Salas.jpg', 'Santiago de Chile, Chile', 'Santiago de Chile, Chile', '', 'M', 'Chile', NULL, NULL, 'orthodox', NULL, NULL, NULL, NULL, NULL, '2014-08-22', 'welterweight', 8, 4, 2, 1, 0, 'inactive', 10, 55, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -2684,7 +2684,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('c0d4281d-cb10-4551-8dea-bf02cca6a792', '542148', 'https://boxrec.com/en/box-pro/542148', 'https://boxrec.com/wiki/index.php?title=Human:542148', 'rey-vargas', 'Rey Vargas', 'Rey Geovani Vargas Roldán', '', 'https://boxrec.com/images/thumb/a/ae/Rey_Vargas_Head.jpg/200px-Rey_Vargas_Head.jpg', 'Otumba, México, Mexico', 'Mexico City, Distrito Federal, Mexico', '', 'M', 'Mexico', '178', '182', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2010-04-10', 'featherweight', 36, 22, 1, 0, 1, 'inactive', 38, 246, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('ddfe75c4-98d8-4387-86e3-e04c27531a23', '694233', 'https://boxrec.com/en/box-pro/694233', 'https://boxrec.com/wiki/index.php?title=Human:694233', 'yokasta-valle', 'Yokasta Valle', 'Yokasta Galeth Valle Alvarez', '', 'https://boxrec.com/images/thumb/b/b2/694233.jpg/200px-694233.jpg', 'San Jose, Costa Rica', 'Matagalpa, Nicaragua', '', 'F', 'Costa Rica', '163', '159', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2014-07-26', 'minimumweight', 33, 10, 3, 0, 0, 'active', 36, 267, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -2695,7 +2695,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('611d9aae-8030-4ad2-b540-4e977a47ca03', '542576', 'https://boxrec.com/en/box-pro/542576', 'https://boxrec.com/wiki/index.php?title=Human:542576', 'shemuel-pagan', 'Shemuel Pagan', 'Shemuel Israel Pagan', '"The Chosen One Shem"', 'https://boxrec.com/images/thumb/d/d8/Bongo.jpg/200px-Bongo.jpg', 'Brooklyn, New York, USA', 'USA', '', 'M', 'USA', '170', NULL, 'southpaw', NULL, NULL, NULL, NULL, NULL, '2011-03-05', 'superlightweight', 8, 4, 0, 0, 0, 'inactive', 8, 24, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('193a61cb-98ef-42d0-b846-1cfcfe12cbc1', '6945', 'https://boxrec.com/en/box-pro/6945', 'https://boxrec.com/wiki/index.php?title=Human:6945', 'zab-judah', 'Zab Judah', 'Zabdiel Judah', '"Super"', 'https://boxrec.com/images/thumb/d/dd/Zab_Judah.JPG/200px-Zab_Judah.JPG', 'Las Vegas, Nevada, USA', 'Brooklyn, New York, USA', '', 'M', 'USA', '171', '183', 'southpaw', NULL, NULL, NULL, NULL, NULL, '1996-09-20', 'superlightweight', 44, 30, 10, 4, 0, 'inactive', 56, 342, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -2706,7 +2706,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('5de3d074-c9b4-4d93-8b5f-6e74b4c72ddf', '542897', 'https://boxrec.com/en/box-pro/542897', 'https://boxrec.com/wiki/index.php?title=Human:542897', 'mark-heffron', 'Mark Heffron', '', '"''Kid Dynamite''"', 'https://boxrec.com/images/thumb/0/02/Mark_Heffron.jpeg/200px-Mark_Heffron.jpeg', 'Oldham, Lancashire, United Kingdom', 'Oldham, Lancashire, United Kingdom', '', 'M', 'United Kingdom', '180', '183', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2010-09-04', 'supermiddleweight', 30, 24, 4, 4, 1, 'inactive', 35, 122, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('017bf958-8eb5-4ede-a7b8-d481b7a1278c', '694512', 'https://boxrec.com/en/box-pro/694512', 'https://boxrec.com/wiki/index.php?title=Human:694512', 'christina-linardatou', 'Christina Linardatou', 'Christina Linardatou Duran', '"Medusa"', 'https://boxrec.com/images/thumb/7/79/Christina-Linardatou_Profile.jpg/200px-Christina-Linardatou_Profile.jpg', 'Athens, Greece', 'Santiago de los Caballeros, Dominican Republic', '', 'F', 'Greece', '163', NULL, 'orthodox', NULL, NULL, NULL, NULL, NULL, '2014-07-19', 'superfeatherweight', 14, 6, 3, 0, 0, 'inactive', 17, 108, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -2717,7 +2717,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('53038190-f34b-4c7d-91f5-4fdfc355bf64', '543', 'https://boxrec.com/en/box-pro/543', 'https://boxrec.com/wiki/index.php?title=Human:543', 'steve-little', 'Steve Little', 'Steven K. Little', '"Lightning"', 'https://boxrec.com/images/thumb/5/55/SteveLittle.jpg/200px-SteveLittle.jpg', 'Reading, Pennsylvania, USA', 'Philadelphia, Pennsylvania, USA', '', 'M', 'USA', '178', '183', 'orthodox', NULL, NULL, NULL, NULL, NULL, '1983-12-13', 'supermiddleweight', 25, 6, 17, 3, 3, 'inactive', 45, 377, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('3d68d954-f9bb-4868-8d14-9b26bd72e68d', '694533', 'https://boxrec.com/en/box-pro/694533', 'https://boxrec.com/wiki/index.php?title=Human:694533', 'diego-alberto-ruiz', 'Diego Alberto Ruiz', '', '"El Profeta"', 'https://boxrec.com/images/thumb/0/0e/ProfetaRuiz.jpg/200px-ProfetaRuiz.jpg', 'Las Talitas, Tucuman, Argentina', 'San Miguel, Tucuman, Argentina', '', 'M', 'Argentina', '169', NULL, 'orthodox', NULL, NULL, NULL, NULL, NULL, '2014-07-18', 'featherweight', 27, 13, 12, 3, 1, 'active', 40, 257, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -2728,7 +2728,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('16e7a64e-d45d-45a5-b64f-ef20f6ac3ca4', '543029', 'https://boxrec.com/en/box-pro/543029', 'https://boxrec.com/wiki/index.php?title=Human:543029', 'maxi-hughes', 'Maxi Hughes', 'Daniel Hughes', '"''Maximus''"', 'https://boxrec.com/images/thumb/5/59/MaxiHughesBoxrec.jpg/200px-MaxiHughesBoxrec.jpg', 'Rossington, Yorkshire, United Kingdom', '', '', 'M', 'United Kingdom', NULL, NULL, 'southpaw', NULL, NULL, NULL, NULL, NULL, '2010-09-17', 'lightweight', 29, 6, 7, 3, 2, 'active', 38, 275, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('c26d6ec9-67da-496a-a731-2b6c722ae2fd', '694915', 'https://boxrec.com/en/box-pro/694915', 'https://boxrec.com/wiki/index.php?title=Human:694915', 'mario-aguirre', 'Mario Aguirre', '', '', 'https://boxrec.com/images/thumb/1/13/694915.jpg/200px-694915.jpg', 'Tijuana, Baja California, Mexico', 'Chula Vista, California, USA', '', 'M', 'Mexico', '170', NULL, 'orthodox', NULL, NULL, NULL, NULL, NULL, '2014-08-01', 'welterweight', 3, 2, 26, 8, 1, 'active', 30, 113, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -2739,7 +2739,7 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('beb097c7-5ad8-4c63-b403-cde53b412c4f', '543200', 'https://boxrec.com/en/box-pro/543200', 'https://boxrec.com/wiki/index.php?title=Human:543200', 'joe-cusumano', 'Joe Cusumano', 'Juiseppe Angelo Cusumano', '', 'https://boxrec.com/images/thumb/5/54/Joe_Cusumano_2019.jpg/200px-Joe_Cusumano_2019.jpg', 'Danville, Virginia, USA', 'Danville, Virginia, USA', '', 'M', 'USA', '193', NULL, 'orthodox', NULL, NULL, NULL, NULL, NULL, '2010-08-14', 'heavyweight', 21, 19, 4, 1, 0, 'inactive', 26, 74, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('dc89161a-3d99-4b36-b518-0ae99c6435ee', '694941', 'https://boxrec.com/en/box-pro/694941', 'https://boxrec.com/wiki/index.php?title=Human:694941', 'takeshi-inoue', 'Takeshi Inoue', '井上岳志', '', 'https://boxrec.com/images/thumb/7/75/694941.jpeg/200px-694941.jpeg', 'Tokyo, Japan', 'Tokyo, Japan', '', 'M', 'Japan', '173', '173', 'orthodox', NULL, NULL, NULL, NULL, NULL, '2014-08-02', 'superwelterweight', 20, 12, 2, 0, 3, 'inactive', 25, 172, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -2750,4 +2750,4 @@ INSERT OR IGNORE INTO boxers (
   amateurDebutDate, amateurDivision, amateurWins, amateurWinsByKnockout,
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
-) VALUES ('2b74aac9-e347-4d03-98ec-2105274f69bc', '5433', 'https://boxrec.com/en/box-pro/5433', 'https://boxrec.com/wiki/index.php?title=Human:5433', 'chad-broussard', 'Chad Broussard', 'Chad Howard Broussard', '"Bad"', 'https://boxrec.com/images/thumb/6/6a/BroussardChad.jpg/200px-BroussardChad.jpg', 'Lafayette, Louisiana, USA', '', '', 'M', 'USA', '170', NULL, 'orthodox', NULL, NULL, NULL, NULL, NULL, '1989-08-10', 'superwelterweight', 56, 40, 5, 5, 0, 'inactive', 61, 230, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+) VALUES ('1245d682-4c70-48d7-9c0d-dd342a80a30b', '695318', 'https://boxrec.com/en/box-pro/695318', 'https://boxrec.com/wiki/index.php?title=Human:695318', 'yamileth-mercado', 'Yamileth Mercado', 'Almendra Yamileth Mercado Duarte', '"Yeimi"', 'https://boxrec.com/images/thumb/f/f8/Yamileth_Mercado.jpeg/200px-Yamileth_Mercado.jpeg', 'Ciudad Cuauhtemoc, Chihuahua, Mexico', '', '', 'F', 'Mexico', NULL, NULL, 'orthodox', NULL, NULL, NULL, NULL, NULL, '2014-07-19', 'superbantamweight', 24, 5, 4, 0, 0, 'active', 28, 209, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
