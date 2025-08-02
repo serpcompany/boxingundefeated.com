@@ -52,7 +52,7 @@ export default defineNuxtConfig({
     prerender: {
       routes: [],
     },
-    preset: 'cloudflare-pages',
+    preset: 'cloudflare',
     // Add cache headers to prevent stale CSS
     routeRules: {
       '/_nuxt/**': { headers: { 'cache-control': 'max-age=31536000, immutable' } },
