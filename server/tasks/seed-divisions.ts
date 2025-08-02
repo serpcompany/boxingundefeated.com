@@ -1,33 +1,23 @@
-import { useDrizzle, tables, sql } from '../utils/drizzle'
-import { divisionsData } from '../database/seeds/divisions.data'
+import { promises as fs } from 'fs'
+import { join } from 'path'
 
 export async function seedDivisions() {
   console.log('Seeding divisions table…')
 
-  const db = useDrizzle()
+  const db = useD1Database()
+  
+  // Read and execute the SQL migration file
+  const migrationPath = join(process.cwd(), 'database/migrations/0004_seed-initial-data.sql')
+  const sqlContent = await fs.readFile(migrationPath, 'utf-8')
+  
+  // Execute the SQL
+  await db.exec(sqlContent)
+  
+  // Get count of inserted divisions
+  const result = await db.prepare('SELECT COUNT(*) as count FROM divisions').first()
+  const count = result?.count || 0
 
-  let inserted = 0
-  for (const division of divisionsData) {
-    await db
-      .insert(tables.divisions)
-      .values(division)
-      .onConflictDoUpdate({
-        target: tables.divisions.id,
-        set: {
-          slug: sql`excluded.slug`,
-          name: sql`excluded.name`,
-          shortName: sql`excluded.shortName`,
-          alternativeNames: sql`excluded.alternativeNames`,
-          weightLimitPounds: sql`excluded.weightLimitPounds`,
-          weightLimitKilograms: sql`excluded.weightLimitKilograms`,
-          weightLimitStone: sql`excluded.weightLimitStone`,
-          updatedAt: sql`CURRENT_TIMESTAMP`,
-        },
-      })
-    inserted += 1
-  }
-
-  return { result: 'success', count: inserted }
+  return { result: 'success', count }
 }
 
 export default defineTask({
