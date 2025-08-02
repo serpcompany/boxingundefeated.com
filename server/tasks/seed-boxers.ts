@@ -4,7 +4,7 @@ import { join } from 'path'
 export async function seedBoxers() {
   console.log('Seeding boxers table…')
 
-  const db = useD1Database()
+  const db = hubDatabase()
   
   // Execute all boxer seed SQL files in order
   const seedFiles = [

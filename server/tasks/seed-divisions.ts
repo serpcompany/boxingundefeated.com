@@ -4,7 +4,7 @@ import { join } from 'path'
 export async function seedDivisions() {
   console.log('Seeding divisions table…')
 
-  const db = useD1Database()
+  const db = hubDatabase()
   
   // Read and execute the SQL migration file
   const migrationPath = join(process.cwd(), 'database/migrations/0004_seed-initial-data.sql')

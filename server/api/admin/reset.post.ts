@@ -1,4 +1,4 @@
-import { defineEventHandler, createError } from 'h3'
+import { defineEventHandler, createError, getHeader } from 'h3'
 import { seedDivisions } from '../../tasks/seed-divisions'
 import { seedBoxers } from '../../tasks/seed-boxers'
 import { seedBoxerBouts } from '../../tasks/seed-boxer-bouts'
@@ -19,7 +19,7 @@ export default defineEventHandler(async (event) => {
   }
 
   try {
-    const db = useD1Database()
+    const db = hubDatabase()
     
     console.log('Starting database reset...')
     

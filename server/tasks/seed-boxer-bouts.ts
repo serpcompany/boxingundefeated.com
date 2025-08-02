@@ -4,7 +4,7 @@ export async function seedBoxerBouts() {
   // For now, we don't have boxer bouts data in SQL migrations
   // This would be populated from actual data files when available
   
-  const db = useD1Database()
+  const db = hubDatabase()
   
   // Get count of boxer bouts (should be 0 for now)
   const result = await db.prepare('SELECT COUNT(*) as count FROM boxerBouts').first()
