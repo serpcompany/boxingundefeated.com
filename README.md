@@ -58,3 +58,4 @@ rm ./.data/hub/d1/miniflare-D1DatabaseObject/7b8799eb95f0bb5448e259812996a461ce4
 `npx drizzle-kit migrate`
 
 (Make sure your .env or .env.local has the correct DRIZZLE_DB_URL.)
+# Force rebuild Fri Aug  1 18:26:58 PDT 2025
