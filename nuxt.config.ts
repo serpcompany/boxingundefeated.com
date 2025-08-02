@@ -50,7 +50,7 @@ export default defineNuxtConfig({
       openAPI: true
     },
     prerender: {
-      routes: ['/sitemap_index.xml'],
+      routes: [],
     },
     preset: 'cloudflare-pages'
   },
