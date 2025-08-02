@@ -8,6 +8,23 @@ export default defineNuxtConfig({
     '~/assets/css/main.css',
   ],
   compatibilityDate: '2025-08-01',
+  vite: {
+    build: {
+      // Enable CSS code splitting and content hashing
+      cssCodeSplit: true,
+      rollupOptions: {
+        output: {
+          // Add content hash to CSS files
+          assetFileNames: (assetInfo) => {
+            if (assetInfo.name && assetInfo.name.endsWith('.css')) {
+              return 'assets/[name].[hash].css'
+            }
+            return 'assets/[name].[hash].[ext]'
+          }
+        }
+      }
+    }
+  },
   eslint: {
     config: {
       standalone: false, // Generate only Nuxt-specific rules
@@ -52,7 +69,13 @@ export default defineNuxtConfig({
     prerender: {
       routes: [],
     },
-    preset: 'cloudflare-pages'
+    preset: 'cloudflare-pages',
+    // Add cache headers to prevent stale CSS
+    routeRules: {
+      '/assets/**': { headers: { 'cache-control': 'max-age=31536000, immutable' } },
+      '/_nuxt/**': { headers: { 'cache-control': 'max-age=31536000, immutable' } },
+      '/**': { headers: { 'cache-control': 'no-cache, no-store, must-revalidate' } }
+    }
   },
   sitemap: {
     defaultSitemapsChunkSize: 25000,
