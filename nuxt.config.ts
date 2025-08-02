@@ -61,6 +61,7 @@ export default defineNuxtConfig({
   },
   sitemap: {
     defaultSitemapsChunkSize: 25000,
+    // Force rebuild - database sync
     sitemaps: {
       pages: {
         sources: ['/api/sitemap/pages'], // Static pages endpoint
