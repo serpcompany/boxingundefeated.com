@@ -203,9 +203,17 @@ async function generateMigration() {
   
   console.log(`Processed ${processedCount} boxers, skipped ${skippedCount}`)
   
-  // Create the migration file
-  const migrationContent = `-- Seed initial boxer data
--- Generated from boxrec_json directory
+  // Split into multiple smaller migration files
+  const recordsPerFile = 500 // Split into chunks of 500 records
+  const fileCount = Math.ceil(sqlStatements.length / recordsPerFile)
+  
+  for (let i = 0; i < fileCount; i++) {
+    const start = i * recordsPerFile
+    const end = Math.min((i + 1) * recordsPerFile, sqlStatements.length)
+    const chunk = sqlStatements.slice(start, end)
+    
+    const migrationContent = `-- Seed boxer data part ${i + 1} of ${fileCount}
+-- Generated from boxrec_json directory (records ${start + 1} to ${end})
 
 INSERT OR IGNORE INTO boxers (
   id, boxrecId, boxrecUrl, boxrecWikiUrl, slug, name, birthName, nicknames,
@@ -217,14 +225,17 @@ INSERT OR IGNORE INTO boxers (
   amateurLosses, amateurLossesByKnockout, amateurDraws, amateurStatus,
   amateurTotalBouts, amateurTotalRounds, createdAt, updatedAt
 ) VALUES
-${sqlStatements.join(',\n')};
+${chunk.join(',\n')};
 `
+    
+    const fileNumber = String(5 + i).padStart(4, '0')
+    const migrationPath = join(process.cwd(), 'server', 'database', 'migrations', `${fileNumber}_seed-boxers-part${i + 1}.sql`)
+    await writeFile(migrationPath, migrationContent)
+    
+    console.log(`Migration file created at: ${migrationPath} (${chunk.length} records)`)
+  }
   
-  const migrationPath = join(process.cwd(), 'server', 'database', 'migrations', '0005_seed-boxers-data.sql')
-  await writeFile(migrationPath, migrationContent)
-  
-  console.log(`Migration file created at: ${migrationPath}`)
-  console.log(`Total boxers in migration: ${processedCount}`)
+  console.log(`Total boxers in migrations: ${processedCount} across ${fileCount} files`)
 }
 
 // Run the script
