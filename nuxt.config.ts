@@ -50,7 +50,7 @@ export default defineNuxtConfig({
       openAPI: true
     },
     prerender: {
-      routes: ['/sitemap_index.xml'],
+      routes: [],
     },
     preset: 'cloudflare-pages'
   },
@@ -58,12 +58,7 @@ export default defineNuxtConfig({
     defaultSitemapsChunkSize: 25000,
     sitemaps: {
       pages: {
-        sources: [
-          '/',
-          '/about',
-          '/boxers',
-          '/divisions',
-        ],
+        sources: ['/api/sitemap/pages'], // Static pages endpoint
         defaults: {
           changefreq: 'weekly',
           priority: 0.8,
@@ -80,13 +75,11 @@ export default defineNuxtConfig({
       
       },
       legal: {
-        sources: [
-          '/legal/privacy-policy',
-          '/legal/terms-conditions',
-          '/legal/dmca',
-          '/legal/affiliate-disclosure',
-        ],
-    
+        sources: ['/api/sitemap/legal'], // Legal pages endpoint
+        defaults: {
+          changefreq: 'monthly',
+          priority: 0.5,
+        },
       },
     },
   },
