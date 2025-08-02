@@ -31,10 +31,12 @@ export default defineEventHandler(async (event) => {
     const boxer = boxerResults[0]
     
     // Get boxer's fights (ordered by date, most recent first)
+    // BoxerBouts uses padded boxrecId (e.g., '008993' for boxrecId '8993')
+    const paddedBoxrecId = boxer.boxrecId ? boxer.boxrecId.padStart(6, '0') : ''
     const fightsResults = await db
       .select()
       .from(boxerBouts)
-      .where(eq(boxerBouts.boxerId, boxer.id))
+      .where(eq(boxerBouts.boxerId, paddedBoxrecId))
       .orderBy(desc(boxerBouts.boutDate))
     
     // Use data directly without validation for now
