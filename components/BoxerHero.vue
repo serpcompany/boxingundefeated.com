@@ -8,24 +8,24 @@ interface Props {
 const props = defineProps<Props>()
 
 function getDivision(boxer: Boxer): string | undefined {
-  return boxer.pro_division || boxer.division
+  return boxer.proDivision
 }
 
 function isActive(boxer: Boxer): boolean {
-  return boxer.pro_status === 'active' || boxer.active || false
+  return boxer.proStatus === 'active'
 }
 
 function getStatus(boxer: Boxer): string {
   if (isActive(boxer)) return 'Active'
-  return boxer.pro_status || 'Retired'
+  return boxer.proStatus || 'Retired'
 }
 
 function getDisplayName(boxer: Boxer): string {
-  return boxer.full_name || boxer.name || ''
+  return boxer.name || ''
 }
 
 function getImageUrl(boxer: Boxer): string | undefined {
-  return boxer.image_url || boxer.image
+  return boxer.avatarImage || undefined
 }
 
 function getDivisionSlug(boxer: Boxer): string {
@@ -55,8 +55,8 @@ function getDivisionSlug(boxer: Boxer): string {
           <h1 class="text-2xl font-bold mb-3 text-zinc-900">
             {{ getDisplayName(boxer) }}
           </h1>
-          <p v-if="boxer.nickname" class="text-lg text-zinc-600 mb-4">
-            "{{ boxer.nickname }}"
+          <p v-if="boxer.nicknames" class="text-lg text-zinc-600 mb-4">
+            "{{ boxer.nicknames }}"
           </p>
           
           <div class="flex flex-wrap justify-center items-center gap-2">
@@ -97,8 +97,8 @@ function getDivisionSlug(boxer: Boxer): string {
         <div class="flex-1">
           <h1 class="text-3xl md:text-4xl font-bold mb-4 text-zinc-900">
             {{ getDisplayName(boxer) }}
-            <span v-if="boxer.nickname" class="text-zinc-600 font-normal">
-              "{{ boxer.nickname }}"
+            <span v-if="boxer.nicknames" class="text-zinc-600 font-normal">
+              "{{ boxer.nicknames }}"
             </span>
           </h1>
           

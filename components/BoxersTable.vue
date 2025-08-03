@@ -64,13 +64,13 @@ const tableData = computed(() => {
     id: boxer.id,
     slug: boxer.slug,
     name: boxer.name,
-    record: `${boxer.record.wins}-${boxer.record.losses}-${boxer.record.draws}`,
-    knockouts: boxer.record.knockouts,
+    record: `${boxer.proWins}-${boxer.proLosses}-${boxer.proDraws}`,
+    knockouts: boxer.proWinsByKnockout,
     nationality: boxer.nationality || '—',
-    division: boxer.division || '—',
-    status: boxer.active ? 'Active' : 'Retired',
-    active: boxer.active,
-    image: boxer.image
+    division: boxer.proDivision || '—',
+    status: boxer.proStatus === 'active' ? 'Active' : 'Retired',
+    active: boxer.proStatus === 'active',
+    image: boxer.avatarImage
   }))
 })
 
@@ -90,7 +90,7 @@ const nationalityOptions = computed(() => {
 })
 
 const divisionOptions = computed(() => {
-  const divisions = [...new Set(props.boxers.map(b => b.division).filter(Boolean))]
+  const divisions = [...new Set(props.boxers.map(b => b.proDivision).filter(Boolean))]
   return divisions.sort().map(d => ({ 
     label: d.charAt(0).toUpperCase() + d.slice(1).replace(/-/g, ' '), 
     value: d 

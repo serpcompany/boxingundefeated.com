@@ -1,6 +1,5 @@
 import { boxers, boxerBouts } from '~/server/db/schema'
 import { eq, desc } from 'drizzle-orm'
-import { transformBoxerForFrontend } from '~/server/utils/transformers'
 import { useDrizzle } from '~/server/db/drizzle'
 
 export default defineEventHandler(async (event) => {
@@ -51,7 +50,7 @@ export default defineEventHandler(async (event) => {
     const titleFights = validatedFights.filter(f => f.titleFight).length
     
     return {
-      boxer: transformBoxerForFrontend(validatedBoxer),
+      boxer: validatedBoxer,
       fights: validatedFights,
       stats: {
         totalFights,
@@ -65,7 +64,7 @@ export default defineEventHandler(async (event) => {
       }
     }
     
-  } catch (error) {
+  } catch (error: any) {
     if (error.statusCode) {
       throw error // Re-throw HTTP errors
     }

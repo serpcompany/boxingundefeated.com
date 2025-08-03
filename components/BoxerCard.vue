@@ -18,8 +18,8 @@ const props = defineProps<Props>()
         <!-- Image -->
         <div class="aspect-square bg-zinc-100 rounded-lg overflow-hidden mb-4">
           <img 
-            v-if="boxer.image" 
-            :src="boxer.image" 
+            v-if="boxer.avatarImage" 
+            :src="boxer.avatarImage" 
             :alt="boxer.name"
             class="w-full h-full object-cover"
           >
@@ -34,29 +34,29 @@ const props = defineProps<Props>()
             <h3 class="text-xl font-semibold text-zinc-900">
               {{ boxer.name }}
             </h3>
-            <p v-if="boxer.nickname" class="text-zinc-600">
-              "{{ boxer.nickname }}"
+            <p v-if="boxer.nicknames" class="text-zinc-600">
+              "{{ boxer.nicknames }}"
             </p>
           </div>
 
           <div class="flex items-center gap-2 text-sm">
-            <UBadge v-if="boxer.active" color="green" variant="subtle">
+            <UBadge v-if="boxer.proStatus === 'active'" color="green" variant="subtle">
               Active
             </UBadge>
             <UBadge v-else color="gray" variant="subtle">
               Retired
             </UBadge>
             <span class="text-zinc-600">
-              {{ boxer.division?.replace(/-/g, ' ') || 'Professional' }}
+              {{ boxer.proDivision?.replace(/-/g, ' ') || 'Professional' }}
             </span>
           </div>
 
           <div class="pt-3 mt-auto border-t border-zinc-200">
             <RecordBadge
-              :wins="boxer.pro_wins || boxer.record?.wins || 0"
-              :losses="boxer.pro_losses || boxer.record?.losses || 0" 
-              :draws="boxer.pro_draws || boxer.record?.draws || 0"
-              :knockouts="boxer.pro_wins_by_knockout || boxer.record?.knockouts || 0"
+              :wins="boxer.proWins || 0"
+              :losses="boxer.proLosses || 0" 
+              :draws="boxer.proDraws || 0"
+              :knockouts="boxer.proWinsByKnockout || 0"
               size="sm"
             />
           </div>

@@ -15,7 +15,7 @@ const boxer = computed(() => boxerResponse.value?.boxer)
 
 const divisionSlug = computed(() => {
   if (!boxer.value) return ''
-  return boxer.value.pro_division || boxer.value.division || ''
+  return boxer.value.proDivision || ''
 })
 
 const { data: divisions } = useFetch('/api/divisions')
@@ -32,7 +32,7 @@ const { site } = useAppConfig()
 useSeoMeta({
   title: computed(() => {
     if (!boxer.value) return 'Boxer Profile'
-    const nickname = boxer.value.nickname ? ` "${boxer.value.nickname}"` : ''
+    const nickname = boxer.value.nicknames ? ` "${boxer.value.nicknames}"` : ''
     return `${boxer.value.name}${nickname}`
   }),
   description: computed(() => {
@@ -49,23 +49,23 @@ useHead({
       children: computed(() => {
         if (!boxer.value) return '{}'
         
-        const wins = boxer.value.pro_wins || boxer.value.record?.wins || 0
-        const losses = boxer.value.pro_losses || boxer.value.record?.losses || 0
-        const draws = boxer.value.pro_draws || boxer.value.record?.draws || 0
+        const wins = boxer.value.proWins || 0
+        const losses = boxer.value.proLosses || 0
+        const draws = boxer.value.proDraws || 0
         
         return JSON.stringify({
           '@context': 'https://schema.org',
           '@type': 'Person',
           '@id': `${site.url}/boxers/${slug}/#person`,
           name: boxer.value.name,
-          alternateName: boxer.value.nickname,
+          alternateName: boxer.value.nicknames,
           url: `${site.url}/boxers/${slug}`,
           nationality: boxer.value.nationality,
-          birthDate: boxer.value.date_of_birth,
+          birthDate: boxer.value.dateOfBirth,
           jobTitle: 'Professional Boxer',
           sport: 'Boxing',
           description: `${boxer.value.name} Bio, Record, Fights, News & More!`,
-          image: boxer.value.image,
+          image: boxer.value.avatarImage,
           additionalProperty: [
             {
               '@type': 'PropertyValue',
@@ -80,7 +80,7 @@ useHead({
             {
               '@type': 'PropertyValue',
               name: 'Status',
-              value: boxer.value.active ? 'Active' : 'Retired',
+              value: boxer.value.proStatus === 'active' ? 'Active' : 'Retired',
             },
           ],
         })
@@ -120,7 +120,7 @@ const fights = computed(() => {
         <BreadCrumbs 
           :items="[
             { label: 'Boxers', to: '/boxers' },
-            { label: boxer.full_name || boxer.name || '' }
+            { label: boxer.name || '' }
           ]"
         />
       </div>
