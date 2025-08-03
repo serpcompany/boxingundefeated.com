@@ -16,15 +16,15 @@ function calculateKOPercentage(wins: number, kos: number): string {
 
 // Check if boxer has amateur record
 const hasAmateurRecord = computed(() => {
-  return props.boxer.amateur_total_bouts && props.boxer.amateur_total_bouts > 0
+  return props.boxer.amateurTotalBouts && props.boxer.amateurTotalBouts > 0
 })
 
 // Professional stats
 const professionalStats = computed(() => {
-  const wins = props.boxer.pro_wins || props.boxer.record?.wins || 0
-  const losses = props.boxer.pro_losses || props.boxer.record?.losses || 0
-  const draws = props.boxer.pro_draws || props.boxer.record?.draws || 0
-  const kos = props.boxer.pro_wins_by_knockout || props.boxer.record?.knockouts || 0
+  const wins = props.boxer.proWins || 0
+  const losses = props.boxer.proLosses || 0
+  const draws = props.boxer.proDraws || 0
+  const kos = props.boxer.proWinsByKnockout || 0
   
   return [
     { label: 'Wins', value: wins, color: 'green' },
@@ -36,10 +36,10 @@ const professionalStats = computed(() => {
 
 // Amateur stats
 const amateurStats = computed(() => {
-  const wins = props.boxer.amateur_wins || 0
-  const losses = props.boxer.amateur_losses || 0
-  const draws = props.boxer.amateur_draws || 0
-  const kos = props.boxer.amateur_wins_by_knockout || 0
+  const wins = props.boxer.amateurWins || 0
+  const losses = props.boxer.amateurLosses || 0
+  const draws = props.boxer.amateurDraws || 0
+  const kos = props.boxer.amateurWinsByKnockout || 0
   
   return [
     { label: 'Wins', value: wins, color: 'green' },

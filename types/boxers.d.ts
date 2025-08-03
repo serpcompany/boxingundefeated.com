@@ -4,30 +4,30 @@ export interface Boxer {
   id: string
   boxrecId: string
   boxrecUrl: string
+  boxrecWikiUrl?: string | null
   slug: string
   
-  fullName: string
+  name: string
   birthName?: string | null
-  nickname?: string | null
-  gender?: 'male' | 'female'
+  nicknames?: string | null
   
-  avatarImage?: string
+  avatarImage?: string | null
   
   residence?: string | null
   birthPlace?: string | null
   dateOfBirth?: string | null
-  nationality?: string
+  gender?: string | null
+  nationality?: string | null
   
   height?: string | null
   reach?: string | null
-  weight?: string | null
-  stance?: 'orthodox' | 'southpaw' | string
+  stance?: string | null
   
-  bio?: string
+  bio?: string | null
   
-  promoter?: string | null
-  trainer?: string | null
-  manager?: string | null
+  promoters?: string | null
+  trainers?: string | null
+  managers?: string | null
   gym?: string | null
   
   proDebutDate?: string | null
@@ -37,28 +37,27 @@ export interface Boxer {
   proLosses: number
   proLossesByKnockout: number
   proDraws: number
-  proStatus?: 'active' | 'inactive' | string
-  proTotalBouts: number
-  proTotalRounds: number
+  proStatus?: string | null
+  proTotalBouts?: number | null
+  proTotalRounds?: number | null
   
   amateurDebutDate?: string | null
   amateurDivision?: string | null
-  amateurWins: number
-  amateurWinsByKnockout: number
-  amateurLosses: number
-  amateurLossesByKnockout: number
-  amateurDraws: number
-  amateurStatus?: 'active' | 'inactive' | string
-  amateurTotalBouts: number
-  amateurTotalRounds: number
+  amateurWins?: number | null
+  amateurWinsByKnockout?: number | null
+  amateurLosses?: number | null
+  amateurLossesByKnockout?: number | null
+  amateurDraws?: number | null
+  amateurStatus?: string | null
+  amateurTotalBouts?: number | null
+  amateurTotalRounds?: number | null
   
-  fights?: BoxerBout[]
+  createdAt: string
+  updatedAt: string
   
-  isChampion?: boolean
-  ranking?: number | null
-  
-  createdAt?: string
-  updatedAt?: string
+  // Legacy fields - to be removed
+  bioSections?: any
+  weight?: string | null
 }
 
 export interface BoxerListResponse {

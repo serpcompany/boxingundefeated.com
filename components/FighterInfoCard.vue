@@ -41,15 +41,15 @@ function formatReach(reach: string | null | undefined): string {
 }
 
 function getTotalFights(boxer: Boxer): number {
-  if (boxer.pro_total_bouts !== undefined) {
-    return boxer.pro_total_bouts
+  if (boxer.proTotalBouts !== undefined && boxer.proTotalBouts !== null) {
+    return boxer.proTotalBouts
   }
-  return (boxer.record?.wins || 0) + (boxer.record?.losses || 0) + (boxer.record?.draws || 0)
+  return (boxer.proWins || 0) + (boxer.proLosses || 0) + (boxer.proDraws || 0)
 }
 
 function calculateKOPercentage(boxer: Boxer): string {
-  const wins = boxer.pro_wins || boxer.record?.wins || 0
-  const kos = boxer.pro_wins_by_knockout || boxer.record?.knockouts || 0
+  const wins = boxer.proWins || 0
+  const kos = boxer.proWinsByKnockout || 0
   if (wins === 0) return '0'
   return ((kos / wins) * 100).toFixed(1)
 }
@@ -60,17 +60,17 @@ function calculateKOPercentage(boxer: Boxer): string {
     <h3 class="text-lg font-semibold text-zinc-900 mb-4">Fighter Information</h3>
     <dl class="space-y-3">
       <!-- Basic Info -->
-      <div v-if="boxer.date_of_birth || boxer.birthDate" class="data-row">
+      <div v-if="boxer.dateOfBirth" class="data-row">
         <dt class="data-label">Born</dt>
-        <dd class="data-value">{{ formatDate(boxer.date_of_birth || boxer.birthDate) }}</dd>
+        <dd class="data-value">{{ formatDate(boxer.dateOfBirth) }}</dd>
       </div>
-      <div v-if="calculateAge(boxer.date_of_birth || boxer.birthDate)" class="data-row">
+      <div v-if="calculateAge(boxer.dateOfBirth)" class="data-row">
         <dt class="data-label">Age</dt>
-        <dd class="data-value">{{ calculateAge(boxer.date_of_birth || boxer.birthDate) }} years</dd>
+        <dd class="data-value">{{ calculateAge(boxer.dateOfBirth) }} years</dd>
       </div>
-      <div v-if="boxer.birth_place || boxer.birthPlace" class="data-row">
+      <div v-if="boxer.birthPlace" class="data-row">
         <dt class="data-label">Birthplace</dt>
-        <dd class="data-value">{{ boxer.birth_place || boxer.birthPlace }}</dd>
+        <dd class="data-value">{{ boxer.birthPlace }}</dd>
       </div>
       <div v-if="boxer.residence" class="data-row">
         <dt class="data-label">Residence</dt>
@@ -104,18 +104,18 @@ function calculateKOPercentage(boxer: Boxer): string {
       </div>
       
       <!-- Management Team -->
-      <div v-if="boxer.promoter || boxer.trainer || boxer.manager || boxer.gym" class="data-section">
-        <div v-if="boxer.promoter" class="data-row mb-2">
+      <div v-if="boxer.promoters || boxer.trainers || boxer.managers || boxer.gym" class="data-section">
+        <div v-if="boxer.promoters" class="data-row mb-2">
           <dt class="data-label">Promoter</dt>
-          <dd class="data-value">{{ boxer.promoter }}</dd>
+          <dd class="data-value">{{ boxer.promoters }}</dd>
         </div>
-        <div v-if="boxer.trainer" class="data-row mb-2">
+        <div v-if="boxer.trainers" class="data-row mb-2">
           <dt class="data-label">Trainer</dt>
-          <dd class="data-value">{{ boxer.trainer }}</dd>
+          <dd class="data-value">{{ boxer.trainers }}</dd>
         </div>
-        <div v-if="boxer.manager" class="data-row mb-2">
+        <div v-if="boxer.managers" class="data-row mb-2">
           <dt class="data-label">Manager</dt>
-          <dd class="data-value">{{ boxer.manager }}</dd>
+          <dd class="data-value">{{ boxer.managers }}</dd>
         </div>
         <div v-if="boxer.gym" class="data-row">
           <dt class="data-label">Gym</dt>
@@ -126,21 +126,21 @@ function calculateKOPercentage(boxer: Boxer): string {
       <!-- Professional Career Stats -->
       <div class="data-section">
         <div class="data-section-title">Professional Career</div>
-        <div v-if="boxer.pro_debut_date" class="data-row mb-2">
+        <div v-if="boxer.proDebutDate" class="data-row mb-2">
           <dt class="data-label">Debut</dt>
-          <dd class="data-value">{{ formatDate(boxer.pro_debut_date) }}</dd>
+          <dd class="data-value">{{ formatDate(boxer.proDebutDate) }}</dd>
         </div>
         <div class="data-row mb-2">
           <dt class="data-label">Total Fights</dt>
-          <dd class="data-value">{{ boxer.pro_total_bouts || getTotalFights(boxer) }}</dd>
+          <dd class="data-value">{{ boxer.proTotalBouts || getTotalFights(boxer) }}</dd>
         </div>
         <div class="data-row mb-2">
           <dt class="data-label">Total Rounds</dt>
-          <dd class="data-value">{{ boxer.pro_total_rounds || 'N/A' }}</dd>
+          <dd class="data-value">{{ boxer.proTotalRounds || 'N/A' }}</dd>
         </div>
         <div class="data-row mb-2">
           <dt class="data-label">Win Rate</dt>
-          <dd class="data-value">{{ boxer.pro_wins > 0 ? ((boxer.pro_wins / (boxer.pro_total_bouts || getTotalFights(boxer))) * 100).toFixed(1) : 0 }}%</dd>
+          <dd class="data-value">{{ boxer.proWins > 0 ? ((boxer.proWins / (boxer.proTotalBouts || getTotalFights(boxer))) * 100).toFixed(1) : 0 }}%</dd>
         </div>
         <div class="data-row mb-2">
           <dt class="data-label">KO Rate</dt>
@@ -148,24 +148,24 @@ function calculateKOPercentage(boxer: Boxer): string {
         </div>
         <div class="data-row">
           <dt class="data-label">Losses by KO</dt>
-          <dd class="data-value">{{ boxer.pro_losses_by_knockout || 0 }}</dd>
+          <dd class="data-value">{{ boxer.proLossesByKnockout || 0 }}</dd>
         </div>
       </div>
       
       <!-- Amateur Career Stats (if available) -->
-      <div v-if="boxer.amateur_total_bouts && boxer.amateur_total_bouts > 0" class="data-section">
+      <div v-if="boxer.amateurTotalBouts && boxer.amateurTotalBouts > 0" class="data-section">
         <div class="data-section-title">Amateur Career</div>
-        <div v-if="boxer.amateur_debut_date" class="data-row mb-2">
+        <div v-if="boxer.amateurDebutDate" class="data-row mb-2">
           <dt class="data-label">Debut</dt>
-          <dd class="data-value">{{ formatDate(boxer.amateur_debut_date) }}</dd>
+          <dd class="data-value">{{ formatDate(boxer.amateurDebutDate) }}</dd>
         </div>
         <div class="data-row mb-2">
           <dt class="data-label">Total Fights</dt>
-          <dd class="data-value">{{ boxer.amateur_total_bouts }}</dd>
+          <dd class="data-value">{{ boxer.amateurTotalBouts }}</dd>
         </div>
         <div class="data-row">
           <dt class="data-label">Record</dt>
-          <dd class="data-value">{{ boxer.amateur_wins }}-{{ boxer.amateur_losses }}-{{ boxer.amateur_draws }}</dd>
+          <dd class="data-value">{{ boxer.amateurWins }}-{{ boxer.amateurLosses }}-{{ boxer.amateurDraws }}</dd>
         </div>
       </div>
     </dl>
