@@ -1,6 +1,8 @@
+# Database configuration - these values should match your .env file
 [[d1_databases]]
 binding = "D1"
 database_name = "boxingundefeated-com"
 database_id = "6b463a07-05a9-4da1-9637-f8331d40b36c"
 preview_database_id = "9dde6ccf-fc52-41a3-9268-1a92dabaafb7"
+# preview_database_name = Wrangler doesn't actually use a separate preview_database_name field. The database_name field is used for both production and preview environments. The preview_database_id is what determines which actual database is used when deploying to preview.
 migrations_dir = "server/db/migrations"
