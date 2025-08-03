@@ -24,8 +24,8 @@ if (environment === 'local') {
 
 export default defineConfig({
   dialect: 'sqlite',
-  schema: './server/database/schema/index.ts',
-  out: './server/database/migrations',
+  schema: './server/db/schema/index.ts',
+  out: './server/db/migrations',
   ...(environment !== 'local' ? { driver: 'd1-http' } : {}),
   dbCredentials
 })

@@ -1,6 +1,6 @@
 import { drizzle } from 'drizzle-orm/d1'
 export { sql, eq, and, or, desc, asc, inArray } from 'drizzle-orm'
-import * as schema from '../database/schema'
+import * as schema from '../db/schema'
 
 export const tables = schema
 

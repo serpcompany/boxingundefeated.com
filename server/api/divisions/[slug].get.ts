@@ -1,7 +1,8 @@
-import { divisions, boxers } from '~/server/database/schema'
-import { divisionSelectSchema, boxerSelectSchema } from '~/server/database/validation'
+import { divisions, boxers } from '~/server/db/schema'
+import { divisionSelectSchema, boxerSelectSchema } from '~/server/db/validation'
 import { eq, desc, count } from 'drizzle-orm'
 import { z } from 'zod'
+import { useDrizzle } from '~/server/db/drizzle'
 
 // Query parameters validation schema
 const divisionQuerySchema = z.object({

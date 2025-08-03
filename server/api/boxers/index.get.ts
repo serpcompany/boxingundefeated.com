@@ -1,8 +1,9 @@
-import { boxers } from '~/server/database/schema'
-import { boxerSelectSchema } from '~/server/database/validation'
+import { boxers } from '~/server/db/schema'
+import { boxerSelectSchema } from '~/server/db/validation'
 import { like, eq, and, desc, asc } from 'drizzle-orm'
 import { z } from 'zod'
 import { transformBoxersForFrontend } from '~/server/utils/transformers'
+import { useDrizzle } from '~/server/db/drizzle'
 
 // Query parameters validation schema
 const boxersQuerySchema = z.object({

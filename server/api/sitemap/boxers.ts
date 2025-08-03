@@ -1,6 +1,6 @@
 import { defineEventHandler } from 'h3'
-import { useDrizzle } from '~/server/utils/drizzle'
-import { boxers } from '~/server/database/schema'
+import { useDrizzle } from '~/server/db/drizzle'
+import { boxers } from '~/server/db/schema'
 
 export default defineEventHandler(async (event) => {
   try {

@@ -1,6 +1,7 @@
-import { divisions, boxers } from '~/server/database/schema'
-import { divisionSelectSchema } from '~/server/database/validation'
+import { divisions, boxers } from '~/server/db/schema'
+import { divisionSelectSchema } from '~/server/db/validation'
 import { eq, count, asc } from 'drizzle-orm'
+import { useDrizzle } from '~/server/db/drizzle'
 
 export default defineEventHandler(async (event) => {
   try {
