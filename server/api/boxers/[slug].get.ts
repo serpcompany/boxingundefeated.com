@@ -1,6 +1,7 @@
-import { boxers, boxerBouts } from '~/server/database/schema'
+import { boxers, boxerBouts } from '~/server/db/schema'
 import { eq, desc } from 'drizzle-orm'
 import { transformBoxerForFrontend } from '~/server/utils/transformers'
+import { useDrizzle } from '~/server/db/drizzle'
 
 export default defineEventHandler(async (event) => {
   try {

@@ -16,7 +16,9 @@
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
     "db:push": "drizzle-kit push",
-    "db:studio": "drizzle-kit studio",
+    "db:studio": "drizzle-kit studio --port 4983",
+    "db:studio:preview": "DRIZZLE_ENV=preview drizzle-kit studio --port 4984",
+    "db:studio:prod": "DRIZZLE_ENV=production drizzle-kit studio --port 4985",
     "db:seed": "npx nuxi task db:seed-all",
     "db:compare": "node scripts/compare-schemas.cjs",
     "db:seed:api": "curl -X POST http://localhost:3000/api/admin/seed"

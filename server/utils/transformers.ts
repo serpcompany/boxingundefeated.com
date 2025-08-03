@@ -4,7 +4,7 @@
  * Now that we're using camelCase in the database, we only need to add
  * the computed/aliased fields that the frontend expects
  */
-import type { BoxerSelect } from '../database/validation/boxers'
+import type { BoxerSelect } from '../db/validation/boxers'
 
 export function transformBoxerForFrontend(dbBoxer: BoxerSelect) {
   return {

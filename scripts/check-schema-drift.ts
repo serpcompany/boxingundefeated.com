@@ -31,7 +31,7 @@ import { defineConfig } from 'drizzle-kit'
 
 export default defineConfig({
   dialect: 'sqlite',
-  schema: './server/database/schema/index.ts',
+  schema: './server/db/schema/index.ts',
   out: './.schema-check/production',
   dbCredentials: {
     url: 'file:./.schema-check/prod.db'
@@ -104,7 +104,7 @@ export default defineConfig({
     const tables: Record<string, any> = {};
     
     for (const file of schemaFiles) {
-      const schemaPath = join(process.cwd(), 'server/database/schema', `${file}.ts`);
+      const schemaPath = join(process.cwd(), 'server/db/schema', `${file}.ts`);
       if (existsSync(schemaPath)) {
         const content = readFileSync(schemaPath, 'utf-8');
         tables[file] = this.parseTypeScriptSchema(content);
