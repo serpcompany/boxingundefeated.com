@@ -1,106 +1,44 @@
-import { eq } from 'drizzle-orm'
-import { drizzle } from 'drizzle-orm/better-sqlite3'
-import Database from 'better-sqlite3'
-import { tables } from '../utils/drizzle'
 import { promises as fs } from 'fs'
-import { join, dirname } from 'path'
-import { fileURLToPath } from 'url'
+import { join } from 'path'
 
 export async function seedBoxers() {
   console.log('Seeding boxers table…')
 
-  const __dirname = dirname(fileURLToPath(import.meta.url))
-  const dataDir = join(__dirname, '../../data/boxrec_json')
-
-  // Use env variable for remote CF database
-  const dbPath = process.env.DRIZZLE_DB_URL || 'YOUR_CLOUDFLARE_D1_URL'
-  const sqlite = new Database(dbPath)
-  const db = drizzle(sqlite, { schema: tables })
-
-  const files = await fs.readdir(dataDir)
-  let inserted = 0
-
-  for (const file of files) {
-    if (!file.endsWith('.json')) continue
-    const content = await fs.readFile(join(dataDir, file), 'utf-8')
-    const boxer = JSON.parse(content)
-
-    let finalSlug = boxer.slug
-    const existingBoxer = await db
-      .select()
-      .from(tables.boxers)
-      .where(eq(tables.boxers.slug, finalSlug))
-      .get()
-
-    if (existingBoxer && existingBoxer.boxrecId !== boxer.boxrecId) {
-      finalSlug = `${boxer.slug}-${boxer.boxrecId}`
-    }
-
-    const record = {
-      id: boxer.boxrecId.toString().padStart(6, '0'),
-      boxrecId: boxer.boxrecId,
-      boxrecUrl: boxer.boxrecUrl,
-      boxrecWikiUrl: boxer.boxrecWikiUrl,
-      slug: finalSlug,
-      name: boxer.name,
-      birthName: boxer.birthName || undefined,
-      nicknames: boxer.nicknames || undefined,
-      avatarImage: boxer.avatarImage || undefined,
-      residence: boxer.residence || undefined,
-      birthPlace: boxer.birthPlace || undefined,
-      dateOfBirth: boxer.dateOfBirth || undefined,
-      gender: boxer.gender || undefined,
-      nationality: boxer.nationality || undefined,
-      height: boxer.height ? String(boxer.height) : undefined,
-      reach: boxer.reach ? String(boxer.reach) : undefined,
-      stance: boxer.stance || undefined,
-      bio: boxer.bio || undefined,
-      promoters: boxer.promoters || undefined,
-      trainers: boxer.trainers || undefined,
-      managers: boxer.managers || undefined,
-      gym: boxer.gym || undefined,
-      proDebutDate: boxer.proDebutDate || undefined,
-      proDivision: boxer.proDivision || undefined,
-      proWins: boxer.proWins ? Number(boxer.proWins) : undefined,
-      proWinsByKnockout: boxer.proWinsByKnockout ? Number(boxer.proWinsByKnockout) : undefined,
-      proLosses: boxer.proLosses ? Number(boxer.proLosses) : undefined,
-      proLossesByKnockout: boxer.proLossesByKnockout ? Number(boxer.proLossesByKnockout) : undefined,
-      proDraws: boxer.proDraws ? Number(boxer.proDraws) : undefined,
-      proStatus: boxer.proStatus || undefined,
-      proTotalBouts: boxer.proTotalBouts ? Number(boxer.proTotalBouts) : undefined,
-      proTotalRounds: boxer.proTotalRounds ? Number(boxer.proTotalRounds) : undefined,
-      amateurDebutDate: boxer.amateurDebutDate || undefined,
-      amateurDivision: boxer.amateurDivision || undefined,
-      amateurWins: boxer.amateurWins ? Number(boxer.amateurWins) : undefined,
-      amateurWinsByKnockout: boxer.amateurWinsByKnockout ? Number(boxer.amateurWinsByKnockout) : undefined,
-      amateurLosses: boxer.amateurLosses ? Number(boxer.amateurLosses) : undefined,
-      amateurLossesByKnockout: boxer.amateurLossesByKnockout ? Number(boxer.amateurLossesByKnockout) : undefined,
-      amateurDraws: boxer.amateurDraws ? Number(boxer.amateurDraws) : undefined,
-      amateurStatus: boxer.amateurStatus || undefined,
-      amateurTotalBouts: boxer.amateurTotalBouts ? Number(boxer.amateurTotalBouts) : undefined,
-      amateurTotalRounds: boxer.amateurTotalRounds ? Number(boxer.amateurTotalRounds) : undefined
-    }
-
-    try {
-      await db.insert(tables.boxers).values(record)
-      inserted += 1
-    } catch (e: any) {
-      console.log(`Conflict on boxrecUrl ${record.boxrecUrl}, updating existing row.`)
-      await db
-        .update(tables.boxers)
-        .set(record)
-        .where(eq(tables.boxers.boxrecUrl, record.boxrecUrl))
-      continue
-    }
+  const db = hubDatabase()
+  
+  // Execute all boxer seed SQL files in order
+  const seedFiles = [
+    '0005_seed-boxers-part1.sql',
+    '0006_seed-boxers-part2.sql',
+    '0007_seed-boxers-part3.sql',
+    '0008_seed-boxers-part4.sql',
+    '0009_seed-boxers-part5.sql',
+    '0010_seed-boxers-part6.sql',
+    '0011_seed-boxers-part7.sql',
+    '0012_seed-boxers-part8.sql',
+    '0013_seed-boxers-part9.sql',
+    '0014_seed-boxers-part10.sql',
+    '0015_seed-boxers-part11.sql'
+  ]
+  
+  for (const file of seedFiles) {
+    const migrationPath = join(process.cwd(), 'database/migrations', file)
+    const sqlContent = await fs.readFile(migrationPath, 'utf-8')
+    await db.exec(sqlContent)
+    console.log(`Executed ${file}`)
   }
+  
+  // Get count of inserted boxers
+  const result = await db.prepare('SELECT COUNT(*) as count FROM boxers').first()
+  const count = result?.count || 0
 
-  return { result: 'success', count: inserted }
+  return { result: 'success', count }
 }
 
 export default defineTask({
   meta: {
     name: 'db:seed-boxers',
-    description: 'Seed the boxers table with BoxRec JSON files'
+    description: 'Seed the boxers table with BoxRec data'
   },
   async run() {
     return seedBoxers()

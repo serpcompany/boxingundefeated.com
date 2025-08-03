@@ -1,0 +1,4 @@
+-- Migration 0016: Boxer bouts seed data
+-- This migration was already applied to production via direct import
+-- Adding this file to keep migration history synchronized between environments
+-- No actual SQL operations needed as data already exists

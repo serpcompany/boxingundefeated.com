@@ -18,6 +18,7 @@
     "db:push": "drizzle-kit push",
     "db:studio": "drizzle-kit studio",
     "db:seed": "npx nuxi task db:seed-all",
+    "db:compare": "node scripts/compare-schemas.cjs",
     "db:seed:api": "curl -X POST http://localhost:3000/api/admin/seed"
   },
   "devDependencies": {
@@ -55,6 +56,7 @@
     "@pinia/nuxt": "^0.5.1",
     "@vueuse/nuxt": "^10.5.0",
     "pinia": "^2.1.7",
+    "uuid": "^11.1.0",
     "zod": "^3.25.76"
   },
   "lint-staged": {
