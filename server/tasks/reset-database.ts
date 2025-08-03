@@ -6,7 +6,7 @@ export default defineTask({
     description: 'Drop all data and reseed the database'
   },
   async run({ event }: { event: any }) {
-    const db = useD1Database()
+    const db = hubDatabase()
     
     console.log('Dropping all data from tables...')
     
