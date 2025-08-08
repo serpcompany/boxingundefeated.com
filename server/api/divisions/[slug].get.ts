@@ -45,16 +45,36 @@ export default defineEventHandler(async (event) => {
     
     const division = divisionResults[0]
     
-    // Validate and parse division data
-    const validatedDivision = divisionSelectSchema.parse(division)
+    // Convert id to number if it's a string (SQLite issue)
+    let divisionId = division.id
+    if (typeof divisionId === 'string') {
+      divisionId = parseInt(divisionId, 10)
+    }
+    // Handle NaN, null, or undefined
+    if (isNaN(divisionId) || divisionId === null || divisionId === undefined) {
+      divisionId = 1 // Default fallback
+    }
     
-    // Parse alternativeNames JSON string if it exists
+    const divisionWithNumericId = {
+      ...division,
+      id: divisionId
+    }
+    
+    // Validate and parse division data
+    const validatedDivision = divisionSelectSchema.parse(divisionWithNumericId)
+    
+    // Parse alternativeNames - could be JSON array or plain string
     let alternativeNames: string[] | undefined
     if (validatedDivision.alternativeNames) {
-      try {
-        alternativeNames = JSON.parse(validatedDivision.alternativeNames)
-      } catch {
-        alternativeNames = undefined
+      if (Array.isArray(validatedDivision.alternativeNames)) {
+        alternativeNames = validatedDivision.alternativeNames
+      } else if (typeof validatedDivision.alternativeNames === 'string') {
+        try {
+          alternativeNames = JSON.parse(validatedDivision.alternativeNames)
+        } catch {
+          // If not JSON, treat as a single alternative name
+          alternativeNames = [validatedDivision.alternativeNames]
+        }
       }
     }
     
@@ -79,10 +99,16 @@ export default defineEventHandler(async (event) => {
         .select()
         .from(boxers)
         .where(eq(boxers.proDivision, slug))
-        .orderBy(desc(boxers.ranking), desc(boxers.proWins))
+        .orderBy(desc(boxers.proWins))
         .limit(boxer_limit)
       
-      topBoxers = boxerResults.map(boxer => boxerSelectSchema.parse(boxer))
+      topBoxers = boxerResults.map(boxer => {
+        const boxerWithNumericId = {
+          ...boxer,
+          id: typeof boxer.id === 'string' ? parseInt(boxer.id, 10) : boxer.id
+        }
+        return boxerSelectSchema.parse(boxerWithNumericId)
+      })
     }
     
     // Calculate weight in other units
@@ -103,7 +129,8 @@ export default defineEventHandler(async (event) => {
       ...(include_boxers === 'true' && { topBoxers })
     }
     
-  } catch (error) {
+  } catch (error: any) {
+    console.error('Error in /api/divisions/[slug]:', error)
     if (error.statusCode) {
       throw error // Re-throw HTTP errors
     }

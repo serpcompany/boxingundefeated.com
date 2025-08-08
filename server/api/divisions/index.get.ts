@@ -17,24 +17,56 @@ export default defineEventHandler(async (event) => {
       .from(divisions)
       .orderBy(asc(divisions.weightLimitPounds))
     
-    // Validate response data
-    const validatedDivisions = divisionResults.map(division => {
-      const validated = divisionSelectSchema.parse(division)
+    // Validate response data - handle SQLite returning string IDs
+    const validatedDivisions = divisionResults.map((division, index) => {
+      // Convert id to number if it's a string (SQLite issue)
+      let id = division.id
+      if (typeof id === 'string') {
+        id = parseInt(id, 20)
+      }
+      // If id is NaN or null, assign a default id based on index
+      if (isNaN(id) || id === null || id === undefined) {
+        id = index + 1
+      }
       
-      // Parse alternativeNames JSON string if it exists
+      const divisionWithNumericId = {
+        ...division,
+        id
+      }
+      const validated = divisionSelectSchema.parse(divisionWithNumericId)
+      
+      // Parse alternativeNames - could be JSON array or plain string
       let alternativeNames: string[] | undefined
       if (validated.alternativeNames) {
-        try {
-          alternativeNames = JSON.parse(validated.alternativeNames)
-        } catch {
-          alternativeNames = undefined
+        // Handle if it's already an array
+        if (Array.isArray(validated.alternativeNames)) {
+          alternativeNames = validated.alternativeNames
+        } else if (typeof validated.alternativeNames === 'string') {
+          // Try to parse as JSON first
+          try {
+            alternativeNames = JSON.parse(validated.alternativeNames)
+          } catch {
+            // If not JSON, treat as a single alternative name
+            alternativeNames = [validated.alternativeNames]
+          }
         }
       }
       
-      return {
+      const result = {
         ...validated,
         alternativeNames
       }
+      
+      // Debug log for first division
+      if (index === 0) {
+        console.log('First division after processing:', {
+          slug: result.slug,
+          alternativeNames: result.alternativeNames,
+          originalAlternativeNames: validated.alternativeNames
+        })
+      }
+      
+      return result
     })
     
     // If stats are requested, get boxer counts for each division

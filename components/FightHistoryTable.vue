@@ -16,18 +16,25 @@ function getOpponentLink(opponentName: string): string {
   return `/boxers/${opponentName.toLowerCase().replace(/\s+/g, '-')}`
 }
 
-// Format date consistently
+// Format date - handles "MMM YY" format like "Mar 07" for March 2007
 function formatDate(date: string | null | undefined): string {
   if (!date) return 'N/A'
-  try {
-    const d = new Date(date)
-    const month = d.getMonth() + 1
-    const day = d.getDate()
-    const year = d.getFullYear()
-    return `${month}/${day}/${year}`
-  } catch {
-    return 'N/A'
+  
+  // Check if it's in "MMM YY" format (e.g., "Mar 07")
+  const monthYearPattern = /^([A-Za-z]{3})\s+(\d{2})$/
+  const match = date.match(monthYearPattern)
+  
+  if (match) {
+    const month = match[1]
+    const year = match[2]
+    // Convert 2-digit year to 4-digit
+    // Assume 00-30 is 2000-2030, 31-99 is 1931-1999
+    const fullYear = parseInt(year) <= 30 ? `20${year}` : `19${year}`
+    return `${month} ${fullYear}`
   }
+  
+  // Return as-is if not in expected format
+  return date
 }
 
 // All available columns
@@ -58,6 +65,11 @@ const allColumns = [
     sortable: true
   },
   {
+    key: 'division',
+    label: 'Division',
+    sortable: true
+  },
+  {
     key: 'venue_name',
     label: 'Venue'
   },
@@ -67,8 +79,10 @@ const allColumns = [
   }
 ]
 
-// Use all columns
-const columns = allColumns
+// Filter out Round and Title columns, keep Division
+const columns = allColumns.filter(col => 
+  col.key !== 'result_round' && col.key !== 'title_fight'
+)
 </script>
 
 <template>
@@ -113,9 +127,9 @@ const columns = allColumns
         </template>
         
         <template #bout_date-data="{ row }">
-          <time :datetime="row.boutDate" class="text-zinc-900">
+          <span class="text-zinc-900">
             {{ formatDate(row.boutDate) }}
-          </time>
+          </span>
         </template>
         
         <template #opponent_name-data="{ row }">
@@ -147,6 +161,10 @@ const columns = allColumns
         
         <template #result_round-data="{ row }">
           <span class="text-zinc-700">{{ row.resultRound }}</span>
+        </template>
+        
+        <template #division-data="{ row }">
+          <span class="text-zinc-700">{{ row.division || 'N/A' }}</span>
         </template>
         
         <template #venue_name-data="{ row }">
