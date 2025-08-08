@@ -1,7 +1,7 @@
 import type { Boxer } from './boxers'
 
 export interface Division {
-  id: string
+  id: number
   slug: string
   name: string
   shortName?: string | null

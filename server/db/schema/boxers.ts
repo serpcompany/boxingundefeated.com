@@ -2,7 +2,7 @@ import { sqliteTable, text, integer, index } from 'drizzle-orm/sqlite-core'
 import { sql } from 'drizzle-orm'
 
 export const boxers = sqliteTable('boxers', {
-  id: text().primaryKey(),
+  id: integer('id').primaryKey({ autoIncrement: true }),
   boxrecId: text().notNull().unique(),
   boxrecUrl: text().notNull().unique(),
   boxrecWikiUrl: text(),
@@ -52,6 +52,8 @@ export const boxers = sqliteTable('boxers', {
   amateurStatus: text(), // 'active' | 'inactive'
   amateurTotalBouts: integer(),
   amateurTotalRounds: integer(),
+
+  bouts: text({mode: 'json'}),
   
   createdAt: text().notNull().default(sql`CURRENT_TIMESTAMP`),
   updatedAt: text().notNull().default(sql`CURRENT_TIMESTAMP`),

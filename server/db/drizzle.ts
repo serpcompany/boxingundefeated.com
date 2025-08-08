@@ -12,6 +12,5 @@ export function useDrizzle() {
 }
 
 export type Boxer = typeof schema.boxers.$inferSelect
-export type BoxerBout = typeof schema.boxerBouts.$inferInsert
 export type Division = typeof schema.divisions.$inferSelect
 export type NewDivision = typeof schema.divisions.$inferInsert

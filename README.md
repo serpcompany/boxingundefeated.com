@@ -28,22 +28,6 @@
 
 NuxtHub creates and manages its own local D1 database in `.data/hub/d1/`. This is the database your app uses during development.
 
-### Seed DB:
-
-**To run a single seed file individually from the CLI, use:**
-
-```
-npx tsx server/tasks/seed-boxers.ts
-```
-
-```
-npx tsx server/tasks/seed-divisions.ts
-```
-
-```
-npx tsx server/tasks/seed-boxer-bouts.ts
-```
-
 
 ### How to reset and reseed your database in your setup:
 

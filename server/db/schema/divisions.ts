@@ -1,19 +1,19 @@
-import { sqliteTable, text, real, index } from 'drizzle-orm/sqlite-core'
+import { sqliteTable, text, integer, real, index } from 'drizzle-orm/sqlite-core'
 import { sql } from 'drizzle-orm'
 
 export const divisions = sqliteTable('divisions', {
-  id: text().primaryKey(),
-  slug: text().notNull().unique(),
-  name: text().notNull(),
-  shortName: text(), // e.g., "super feather" for "Super Featherweight"
-  alternativeNames: text(), // JSON array stored as text
+  id: integer('id').primaryKey({ autoIncrement: true }),
+  slug: text('slug').notNull().unique(),
+  name: text('name').notNull(),
+  shortName: text('shortName'), // e.g., "super feather" for "Super Featherweight"
+  alternativeNames: text('alternativeNames'), // JSON array stored as text
   
-  weightLimitPounds: real().notNull(),
-  weightLimitKilograms: real().notNull(),
-  weightLimitStone: text(), // e.g., "10st 7lbs"
+  weightLimitPounds: real('weightLimitPounds').notNull(),
+  weightLimitKilograms: real('weightLimitKilograms').notNull(),
+  weightLimitStone: text('weightLimitStone'), // e.g., "10st 7lbs"
   
-  createdAt: text().notNull().default(sql`CURRENT_TIMESTAMP`),
-  updatedAt: text().notNull().default(sql`CURRENT_TIMESTAMP`),
+  createdAt: text('createdAt').notNull().default(sql`CURRENT_TIMESTAMP`),
+  updatedAt: text('updatedAt').notNull().default(sql`CURRENT_TIMESTAMP`),
 }, (table) => ({
   slugIdx: index('divisionsSlugIdx').on(table.slug),
   shortNameIdx: index('divisionsShortNameIdx').on(table.shortName),

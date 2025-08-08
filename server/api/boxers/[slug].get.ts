@@ -1,5 +1,5 @@
-import { boxers, boxerBouts } from '~/server/db/schema'
-import { eq, desc } from 'drizzle-orm'
+import { boxers } from '~/server/db/schema'
+import { eq } from 'drizzle-orm'
 import { useDrizzle } from '~/server/db/drizzle'
 
 export default defineEventHandler(async (event) => {
@@ -30,16 +30,9 @@ export default defineEventHandler(async (event) => {
     
     const boxer = boxerResults[0]
     
-    // Get boxer's fights (ordered by date, most recent first)
-    const fightsResults = await db
-      .select()
-      .from(boxerBouts)
-      .where(eq(boxerBouts.boxerId, boxer.id))
-      .orderBy(desc(boxerBouts.boutDate))
-    
-    // Use data directly without validation for now
-    const validatedBoxer = boxer
-    const validatedFights = fightsResults
+    // Extract bouts from the JSON field and separate from boxer data
+    const { bouts, ...validatedBoxer } = boxer;
+    const validatedFights = bouts || [];
     
     // Calculate additional stats
     const totalFights = validatedFights.length

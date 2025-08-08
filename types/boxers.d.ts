@@ -1,7 +1,7 @@
 import type { BoxerBout } from './boxerBouts'
 
 export interface Boxer {
-  id: string
+  id: number
   boxrecId: string
   boxrecUrl: string
   boxrecWikiUrl?: string | null
@@ -56,8 +56,9 @@ export interface Boxer {
   updatedAt: string
   
   // Legacy fields - to be removed
-  bioSections?: any
+  bio?: any
   weight?: string | null
+  bouts?: BoxerBout[]
 }
 
 export interface BoxerListResponse {

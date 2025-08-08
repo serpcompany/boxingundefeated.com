@@ -34,7 +34,7 @@ export default defineEventHandler(async (event) => {
     } = boxersQuerySchema.parse({
       ...query,
       page: query.page ? Number(query.page) : 1,
-      limit: query.limit ? Number(query.limit) : 20,
+      limit: query.limit ? Number(query.limit) : 50,
     })
     
     // Build WHERE conditions
@@ -86,8 +86,14 @@ export default defineEventHandler(async (event) => {
     const total = totalResults.length
     const totalPages = Math.ceil(total / limit)
     
-    // Validate response data
-    const validatedResults = results.map(boxer => boxerSelectSchema.parse(boxer))
+    // Validate response data - convert id to number if it's a string
+    const validatedResults = results.map(boxer => {
+      const boxerWithNumericId = {
+        ...boxer,
+        id: typeof boxer.id === 'string' ? parseInt(boxer.id, 10) : boxer.id
+      }
+      return boxerSelectSchema.parse(boxerWithNumericId)
+    })
     
     return {
       boxers: validatedResults,
@@ -110,6 +116,7 @@ export default defineEventHandler(async (event) => {
     }
     
   } catch (error) {
+    console.error('Error in /api/boxers:', error)
     throw createError({
       statusCode: 400,
       statusMessage: 'Invalid query parameters',

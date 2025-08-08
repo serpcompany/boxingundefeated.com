@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Division } from '~/types'
+import type { Division } from '../types'
 
 interface Props {
   divisions: Division[]
