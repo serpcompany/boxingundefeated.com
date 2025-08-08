@@ -22,6 +22,8 @@
 /* Base styles */
 html {
   font-family: var(--font-sans);
+  scroll-behavior: smooth;
+  scroll-padding-top: 140px; /* Offset for sticky header and nav */
 }
 
 

@@ -1,3 +1,7 @@
+# Compatibility settings
+compatibility_date = "2025-07-30"
+compatibility_flags = ["nodejs_compat"]
+
 # Database configuration - these values should match your .env file
 [[d1_databases]]
 binding = "D1"

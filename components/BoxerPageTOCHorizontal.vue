@@ -41,19 +41,9 @@ const navigationItems = computed(() => {
   return items
 })
 
-// Smooth scroll to section
-function scrollToSection(sectionId: string) {
-  const element = document.querySelector(sectionId)
-  if (element) {
-    const offset = 140 // Account for sticky header and nav (increased from 120)
-    const elementPosition = element.getBoundingClientRect().top
-    const offsetPosition = elementPosition + window.pageYOffset - offset
-    
-    window.scrollTo({
-      top: offsetPosition,
-      behavior: 'smooth'
-    })
-  }
+// Update active section when dropdown changes
+function handleDropdownChange(sectionId: string) {
+  activeSection.value = sectionId
 }
 
 // Track active section
@@ -72,12 +62,21 @@ function checkScroll() {
   canScrollRight.value = scrollLeft < scrollWidth - clientWidth - 10
 }
 
+// Use ResizeObserver instead of window resize event
+const resizeObserver = ref<ResizeObserver>()
+
 onMounted(() => {
-  // Check scroll on resize
+  // Check scroll on resize using ResizeObserver
   if (scrollContainer.value) {
     checkScroll()
-    window.addEventListener('resize', checkScroll)
+    if (import.meta.client) {
+      resizeObserver.value = new ResizeObserver(() => {
+        checkScroll()
+      })
+      resizeObserver.value.observe(scrollContainer.value)
+    }
   }
+  
   const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
@@ -101,7 +100,9 @@ onMounted(() => {
   
   onUnmounted(() => {
     observer.disconnect()
-    window.removeEventListener('resize', checkScroll)
+    if (import.meta.client && resizeObserver.value) {
+      resizeObserver.value.disconnect()
+    }
   })
 })
 </script>
@@ -116,7 +117,7 @@ onMounted(() => {
           :options="navigationItems"
           option-attribute="label"
           value-attribute="to"
-          @change="scrollToSection"
+          @change="handleDropdownChange"
           class="w-full"
         >
           <template #label>
@@ -131,10 +132,10 @@ onMounted(() => {
     <!-- Desktop Horizontal Nav -->
     <div class="hidden sm:block max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-center gap-1 overflow-x-auto scrollbar-hide py-3">
-        <button
+        <ULink
           v-for="item in navigationItems"
           :key="item.to"
-          @click="scrollToSection(item.to)"
+          :to="item.to"
           :class="[
             'px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium rounded-md whitespace-nowrap transition-all relative',
             activeSection === item.to
@@ -148,7 +149,7 @@ onMounted(() => {
             v-if="activeSection === item.to"
             class="absolute bottom-0 left-0 right-0 h-0.5 bg-zinc-900 transition-all"
           />
-        </button>
+        </ULink>
       </div>
     </div>
   </nav>
