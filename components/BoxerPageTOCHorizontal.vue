@@ -25,10 +25,10 @@ const navigationItems = computed(() => {
   })
   
   // Biography (if available)
-  if (props.boxer.bio || props.boxer.bioSections) {
+  if (props.boxer.bio || props.boxer.bio) {
     items.push({
       label: 'About',
-      to: '#biography'
+      to: '#about'
     })
   }
   

@@ -65,11 +65,6 @@ const allColumns = [
     sortable: true
   },
   {
-    key: 'division',
-    label: 'Division',
-    sortable: true
-  },
-  {
     key: 'venue_name',
     label: 'Venue'
   },
@@ -88,7 +83,7 @@ const columns = allColumns.filter(col =>
 <template>
   <div id="fight-history" class="my-24">
     <div class="mb-4">
-      <h2 class="text-lg font-semibold text-zinc-900">Fight History</h2>
+      <h2 class="text-lg font-semibold text-zinc-900">Fights</h2>
     </div>
     
     <div class="relative border border-zinc-200 rounded-lg" v-if="fights.length > 0">
@@ -161,10 +156,6 @@ const columns = allColumns.filter(col =>
         
         <template #result_round-data="{ row }">
           <span class="text-zinc-700">{{ row.resultRound }}</span>
-        </template>
-        
-        <template #division-data="{ row }">
-          <span class="text-zinc-700">{{ row.division || 'N/A' }}</span>
         </template>
         
         <template #venue_name-data="{ row }">

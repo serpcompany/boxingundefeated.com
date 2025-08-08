@@ -141,7 +141,7 @@ const fights = computed(() => {
         <!-- Fighter Information Card -->
         <FighterInfoCard :boxer="boxer" />
         
-        <!-- Biography Section -->
+        <!-- About Section -->
         <BiographySection :boxer="boxer" />
         
         <!-- Fight History Table -->
@@ -151,7 +151,3 @@ const fights = computed(() => {
     </div>
   </div>
 </template>
-
-<style scoped>
-/* Keep styles minimal and clean */
-</style>

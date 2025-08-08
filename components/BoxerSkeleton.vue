@@ -63,7 +63,7 @@
         <!-- More in division skeleton -->
         <USkeleton class="h-32" />
         
-        <!-- Biography skeleton -->
+        <!-- About skeleton -->
         <div class="space-y-4">
           <USkeleton class="h-6 w-32" />
           <USkeleton class="h-4 w-full" />
