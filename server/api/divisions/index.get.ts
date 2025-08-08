@@ -57,15 +57,6 @@ export default defineEventHandler(async (event) => {
         alternativeNames
       }
       
-      // Debug log for first division
-      if (index === 0) {
-        console.log('First division after processing:', {
-          slug: result.slug,
-          alternativeNames: result.alternativeNames,
-          originalAlternativeNames: validated.alternativeNames
-        })
-      }
-      
       return result
     })
     

@@ -7,9 +7,6 @@ const slug = route.params.slug as string
 // Fetch division data
 const { data: divisionData, error: divisionError } = await useFetch(`/api/divisions/${slug}`)
 
-console.log('Division data:', divisionData.value)
-console.log('Division error:', divisionError.value)
-
 if (divisionError.value || !divisionData.value) {
   throw createError({
     statusCode: 404,

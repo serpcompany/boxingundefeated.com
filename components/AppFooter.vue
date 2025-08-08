@@ -1,10 +1,5 @@
-<script setup lang="ts">
-// Footer component with links and attribution
-const appConfig = useAppConfig()
-</script>
-
 <template>
-  <footer class="border-t border-zinc-200 py-8 mt-auto">
+  <footer class="border-t border-zinc-200 py-20 mt-auto">
     <div class="max-w-6xl mx-auto px-5">
       <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
         <!-- About Section -->
@@ -84,10 +79,6 @@ const appConfig = useAppConfig()
             </li>
           </ul>
         </div>
-      </div>
-
-      <div class="border-t border-zinc-200 pt-8 text-center text-sm text-zinc-600">
-        <p>{{ appConfig.site.copyright }}</p>
       </div>
     </div>
   </footer>
