@@ -4,22 +4,18 @@ interface Props {
 }
 
 const props = defineProps<Props>()
-const { $sanitize } = useNuxtApp()
+// const { $sanitize } = useNuxtApp()
 
-const sanitizedContent = computed(() => {
-  if (!props.content) return ''
-  return $sanitize(props.content)
-})
+// const sanitizedContent = computed(() => {
+//   if (!props.content) return ''
+//   return $sanitize(props.content)
+// })
 </script>
 
 <template>
-  <div 
-    v-if="sanitizedContent"
-    v-html="sanitizedContent"
-    class="bio-content"
-  />
+  <div v-if="content" v-html="content" class="bio-content" />
   <div v-else class="text-zinc-500 italic">
-    
+
   </div>
 </template>
 

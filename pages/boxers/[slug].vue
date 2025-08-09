@@ -42,52 +42,52 @@ useSeoMeta({
 })
 
 // Schema.org structured data for boxer profile
-// useHead({
-//   script: [
-//     {
-//       type: 'application/ld+json',
-//       children: computed(() => {
-//         if (!boxer.value) return '{}'
+useHead({
+  script: [
+    {
+      type: 'application/ld+json',
+      children: computed(() => {
+        if (!boxer.value) return '{}'
 
-//         const wins = boxer.value.proWins || 0
-//         const losses = boxer.value.proLosses || 0
-//         const draws = boxer.value.proDraws || 0
+        const wins = boxer.value.proWins || 0
+        const losses = boxer.value.proLosses || 0
+        const draws = boxer.value.proDraws || 0
 
-//         return JSON.stringify({
-//           '@context': 'https://schema.org',
-//           '@type': 'Person',
-//           '@id': `${site.url}/boxers/${slug}/#person`,
-//           name: boxer.value.name,
-//           alternateName: boxer.value.nicknames,
-//           url: `${site.url}/boxers/${slug}`,
-//           nationality: boxer.value.nationality,
-//           birthDate: boxer.value.dateOfBirth,
-//           jobTitle: 'Professional Boxer',
-//           sport: 'Boxing',
-//           description: `${boxer.value.name} Bio, Record, Fights, News & More!`,
-//           image: boxer.value.avatarImage,
-//           additionalProperty: [
-//             {
-//               '@type': 'PropertyValue',
-//               name: 'Professional Record',
-//               value: `${wins}-${losses}-${draws}`,
-//             },
-//             {
-//               '@type': 'PropertyValue', 
-//               name: 'Weight Division',
-//               value: division.value?.name || 'Professional',
-//             },
-//             {
-//               '@type': 'PropertyValue',
-//               name: 'Status',
-//               value: boxer.value.proStatus === 'active' ? 'Active' : 'Retired',
-//             },
-//           ],
-//         })
-//       }),
-//     },
-//   ],
-// })
+        return JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'Person',
+          '@id': `${site.url}/boxers/${slug}/#person`,
+          name: boxer.value.name,
+          alternateName: boxer.value.nicknames,
+          url: `${site.url}/boxers/${slug}`,
+          nationality: boxer.value.nationality,
+          birthDate: boxer.value.dateOfBirth,
+          jobTitle: 'Professional Boxer',
+          sport: 'Boxing',
+          description: `${boxer.value.name} Bio, Record, Fights, News & More!`,
+          image: boxer.value.avatarImage,
+          additionalProperty: [
+            {
+              '@type': 'PropertyValue',
+              name: 'Professional Record',
+              value: `${wins}-${losses}-${draws}`,
+            },
+            {
+              '@type': 'PropertyValue',
+              name: 'Weight Division',
+              value: division.value?.name || 'Professional',
+            },
+            {
+              '@type': 'PropertyValue',
+              name: 'Status',
+              value: boxer.value.proStatus === 'active' ? 'Active' : 'Retired',
+            },
+          ],
+        })
+      }),
+    },
+  ],
+})
 
 
 // Use fights from API response
