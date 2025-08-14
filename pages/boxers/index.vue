@@ -52,9 +52,9 @@ useHead({
 <template>
   <div class="min-h-screen bg-white">
     <!-- Breadcrumbs -->
-    <div class="bg-white border-b border-gray-100">
+    <div class="bg-white border-b border-neutral-100">
       <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
-        <BreadCrumbs 
+        <BreadCrumbs
           :items="[
             { label: 'Boxers' }
           ]"
@@ -63,7 +63,7 @@ useHead({
     </div>
 
     <!-- Hero -->
-    <PageHero 
+    <PageHero
       title="Boxers"
       :description="`Browse profiles of ${boxers.length} professional boxers from around the world.`"
     />
@@ -71,7 +71,7 @@ useHead({
     <!-- All Boxers Table -->
     <section class="py-16 sm:py-24">
       <div class="max-w-6xl mx-auto px-6 lg:px-8">
-        
+
         <BoxersTable :boxers="boxers" :show-division="true" />
       </div>
     </section>

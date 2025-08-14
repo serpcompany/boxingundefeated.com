@@ -1,8 +1,10 @@
 export default defineAppConfig({
   ui: {
-    primary: 'black',
-    gray: 'zinc',
-    secondary: 'blue',
+    colors: {
+        primary: 'black',
+        neutral: 'zinc',
+        secondary: 'blue'
+    }
   },
   site: {
     url: 'https://boxingundefeated.com',

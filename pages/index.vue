@@ -29,22 +29,22 @@ useSeoMeta({
             Boxing Undefeated
           </h1>
           <p class="text-xl sm:text-2xl max-w-3xl mx-auto mb-8 text-zinc-300">
-            Your comprehensive guide to the sweet science. Explore fighter profiles, 
+            Your comprehensive guide to the sweet science. Explore fighter profiles,
             weight divisions, and boxing history.
           </p>
           <div class="flex gap-4 justify-center">
-            <UButton 
-              to="/boxers" 
+            <UButton
+              to="/boxers"
               size="lg"
-              color="white"
+              color="neutral"
               variant="solid"
             >
               Fighters
             </UButton>
-            <UButton 
-              to="/divisions" 
+            <UButton
+              to="/divisions"
               size="lg"
-              color="white"
+              color="neutral"
               variant="outline"
             >
               Weight Divisions
@@ -65,7 +65,7 @@ useSeoMeta({
             Browse our complete database of professional boxers
           </p>
         </div>
-        
+
         <BoxersTable :boxers="boxersData?.boxers || []" :show-division="true" />
       </div>
     </section>

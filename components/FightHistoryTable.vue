@@ -19,11 +19,11 @@ function getOpponentLink(opponentName: string): string {
 // Format date - handles "MMM YY" format like "Mar 07" for March 2007
 function formatDate(date: string | null | undefined): string {
   if (!date) return 'N/A'
-  
+
   // Check if it's in "MMM YY" format (e.g., "Mar 07")
   const monthYearPattern = /^([A-Za-z]{3})\s+(\d{2})$/
   const match = date.match(monthYearPattern)
-  
+
   if (match) {
     const month = match[1]
     const year = match[2]
@@ -32,7 +32,7 @@ function formatDate(date: string | null | undefined): string {
     const fullYear = parseInt(year) <= 30 ? `20${year}` : `19${year}`
     return `${month} ${fullYear}`
   }
-  
+
   // Return as-is if not in expected format
   return date
 }
@@ -75,7 +75,7 @@ const allColumns = [
 ]
 
 // Filter out Round and Title columns, keep Division
-const columns = allColumns.filter(col => 
+const columns = allColumns.filter(col =>
   col.key !== 'result_round' && col.key !== 'title_fight'
 )
 </script>
@@ -85,64 +85,48 @@ const columns = allColumns.filter(col =>
     <div class="mb-4">
       <h2 class="text-lg font-semibold text-zinc-900">Fights</h2>
     </div>
-    
+
     <div class="relative border border-zinc-200 rounded-lg" v-if="fights.length > 0">
-      <UTable 
-        :rows="fights" 
+      <UTable
+        :rows="fights"
         :columns="columns"
         :sort="{ column: 'bout_date', direction: 'desc' }"
         :ui="{
-          wrapper: 'relative bg-white',
+          root: 'relative bg-white',
           base: 'min-w-full table-fixed',
-          divide: 'divide-y divide-zinc-200',
           thead: 'bg-zinc-50 border-b border-zinc-200',
             tbody: 'divide-y divide-zinc-200',
-          tr: {
-            base: 'hover:bg-zinc-50 transition-colors border-b border-zinc-100',
-            selected: 'bg-zinc-50'
-          },
-          th: {
-            base: 'text-left rtl:text-right',
-            padding: 'px-4 py-3.5',
-            color: 'text-zinc-900',
-            font: 'font-semibold',
-            size: 'text-sm'
-          },
-          td: {
-            base: 'whitespace-nowrap',
-            padding: 'px-4 py-4',
-            color: 'text-zinc-600',
-            font: '',
-            size: 'text-sm'
-          }
+          tr: 'bg-zinc-50 hover:bg-zinc-100 transition-colors border-b border-zinc-100',
+          th: 'px-4 py-3.5 text-sm text-zinc-900 text-left rtl:text-right font-semibold',
+          td: 'whitespace-nowrap px-4 py-4 text-sm text-zinc-600',
         }"
       >
         <template #fight_number-data="{ row, index }">
           <span class="text-zinc-500 text-sm">{{ fights.length - index }}</span>
         </template>
-        
+
         <template #bout_date-data="{ row }">
           <span class="text-zinc-900">
             {{ formatDate(row.boutDate) }}
           </span>
         </template>
-        
+
         <template #opponent_name-data="{ row }">
           <div class="space-y-1">
-            <NuxtLink 
+            <NuxtLink
               :to="getOpponentLink(row.opponentName)"
               class="font-medium text-zinc-900 hover:text-primary-600 transition-colors"
             >
               {{ row.opponentName }}
             </NuxtLink>
-            <div class="text-gray-500 text-sm">{{ row.opponentRecord }}</div>
+            <div class="text-neutral-500 text-sm">{{ row.opponentRecord }}</div>
           </div>
         </template>
-        
+
         <template #result-data="{ row }">
           <div class="space-y-1">
-            <UBadge 
-              :color="row.result === 'win' ? 'green' : row.result === 'loss' ? 'red' : 'gray'"
+            <UBadge
+              :color="row.result === 'win' ? 'success' : row.result === 'loss' ? 'error' : 'neutral'"
               variant="subtle"
               size="xs"
             >
@@ -153,17 +137,17 @@ const columns = allColumns.filter(col =>
             </div>
           </div>
         </template>
-        
+
         <template #result_round-data="{ row }">
           <span class="text-zinc-700">{{ row.resultRound }}</span>
         </template>
-        
+
         <template #venue_name-data="{ row }">
-          <span class="text-gray-500 text-sm">{{ row.venueName || 'N/A' }}</span>
+          <span class="text-neutral-500 text-sm">{{ row.venueName || 'N/A' }}</span>
         </template>
-        
+
         <template #title_fight-data="{ row }">
-          <UBadge 
+          <UBadge
             v-if="row.titleFight"
             color="amber"
             variant="subtle"

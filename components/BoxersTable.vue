@@ -29,7 +29,7 @@ const columns = computed(() => {
       sortable: true
     }
   ]
-  
+
   // Only show division column if showDivision is true
   if (props.showDivision) {
     cols.push({
@@ -38,7 +38,7 @@ const columns = computed(() => {
       sortable: true
     })
   }
-  
+
   cols.push(
     {
       key: 'record',
@@ -54,7 +54,7 @@ const columns = computed(() => {
       label: 'Status'
     }
   )
-  
+
   return cols
 })
 
@@ -91,38 +91,38 @@ const nationalityOptions = computed(() => {
 
 const divisionOptions = computed(() => {
   const divisions = [...new Set(props.boxers.map(b => b.proDivision).filter(Boolean))]
-  return divisions.sort().map(d => ({ 
-    label: d.charAt(0).toUpperCase() + d.slice(1).replace(/-/g, ' '), 
-    value: d 
+  return divisions.sort().map(d => ({
+    label: d.charAt(0).toUpperCase() + d.slice(1).replace(/-/g, ' '),
+    value: d
   }))
 })
 
 // Apply filters to data
 const filteredData = computed(() => {
   let filtered = tableData.value
-  
+
   // Search filter
   if (searchQuery.value) {
     const search = searchQuery.value.toLowerCase()
-    filtered = filtered.filter(boxer => 
+    filtered = filtered.filter(boxer =>
       boxer.name.toLowerCase().includes(search) ||
       boxer.nationality.toLowerCase().includes(search) ||
       boxer.division.toLowerCase().includes(search)
     )
   }
-  
+
   if (statusFilter.value) {
     filtered = filtered.filter(boxer => boxer.status === statusFilter.value)
   }
-  
+
   if (nationalityFilter.value) {
     filtered = filtered.filter(boxer => boxer.nationality === nationalityFilter.value)
   }
-  
+
   if (divisionFilter.value.length > 0) {
     filtered = filtered.filter(boxer => divisionFilter.value.includes(boxer.division))
   }
-  
+
   return filtered
 })
 
@@ -143,7 +143,7 @@ const displayedData = computed(() => {
 // Load more function
 const loadMore = () => {
   if (isLoading.value || loadedCount.value >= filteredData.value.length) return
-  
+
   isLoading.value = true
   // Simulate loading delay
   setTimeout(() => {
@@ -180,26 +180,19 @@ function onRowClick(row: any) {
           icon="i-heroicons-magnifying-glass"
           size="lg"
           class="w-full"
+          color="neutral"
+          variant="outline"
           :ui="{
-            wrapper: 'relative',
+            root: 'relative ps-11 pe-10 py-2.5 rounded-lg',
             base: 'relative block w-full disabled:cursor-not-allowed disabled:opacity-75 focus:outline-none border-0',
-            padding: {
-              lg: 'ps-11 pe-10 py-2.5'
-            },
-            rounded: 'rounded-lg',
-            color: {
-              white: {
-                outline: 'shadow-sm bg-white text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-blue-500'
-              }
-            }
           }"
         />
-        
+
         <!-- Clear Search Button -->
         <button
           v-if="searchQuery"
           type="button"
-          class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+          class="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-neutral-600"
           @click="searchQuery = ''"
         >
           <UIcon name="i-heroicons-x-mark-20-solid" class="w-5 h-5" />
@@ -208,31 +201,29 @@ function onRowClick(row: any) {
 
       <USelectMenu
         v-model="statusFilter"
-        :options="statusOptions"
-        option-attribute="label"
-        value-attribute="value"
+        :items="statusOptions"
+        label-key="label"
+        value-key="value"
         placeholder="Status"
         size="lg"
         class="w-40"
       />
-      
+
       <USelectMenu
         v-model="nationalityFilter"
-        :options="nationalityOptions"
-        option-attribute="label"
-        value-attribute="value"
+        :items="nationalityOptions"
         placeholder="Nationality"
         searchable
         searchable-placeholder="Type to search..."
         size="lg"
         class="w-48"
       />
-      
+
       <USelectMenu
         v-model="divisionFilter"
-        :options="divisionOptions"
-        option-attribute="label"
-        value-attribute="value"
+        :items="divisionOptions"
+        label-key="label"
+        value-key="value"
         placeholder="Filter by division"
         multiple
         size="lg"
@@ -243,9 +234,9 @@ function onRowClick(row: any) {
           <span v-else>{{ divisionFilter.length }} {{ divisionFilter.length === 1 ? 'division' : 'divisions' }}</span>
         </template>
       </USelectMenu>
-      
+
       <!-- Results count -->
-      <div class="flex items-center text-sm text-gray-500 ml-auto whitespace-nowrap">
+      <div class="flex items-center text-sm text-neutral-500 ml-auto whitespace-nowrap">
         {{ displayedData.length }} of {{ filteredData.length }} fighters
       </div>
     </div>
@@ -253,8 +244,8 @@ function onRowClick(row: any) {
     <!-- Table wrapper for infinite scroll with border -->
     <div class="border border-zinc-200 rounded-lg overflow-hidden">
       <div ref="tableRef" class="max-h-[800px] overflow-y-auto">
-        <UTable 
-          :rows="displayedData" 
+        <UTable
+          :rows="displayedData"
           :columns="columns"
           :loading="false"
           class="cursor-pointer"
@@ -262,15 +253,15 @@ function onRowClick(row: any) {
             wrapper: 'relative',
             base: 'min-w-full table-fixed',
             thead: 'sticky top-0 z-10 bg-zinc-50 border-b border-zinc-200',
-            th: { 
+            th: {
               base: 'px-4 py-3.5 text-left text-sm font-semibold text-zinc-900'
             },
             tbody: 'bg-white divide-y divide-zinc-200',
-            tr: { 
+            tr: {
               base: 'hover:bg-zinc-50 transition-colors duration-150',
               selected: 'bg-primary-50'
             },
-            td: { 
+            td: {
               base: 'px-4 py-3 whitespace-nowrap text-sm text-zinc-900'
             }
           }"
@@ -279,16 +270,16 @@ function onRowClick(row: any) {
       <template #name-data="{ row }">
         <div class="flex items-center gap-3">
           <div class="w-8 h-8 rounded-full overflow-hidden bg-zinc-200 flex-shrink-0">
-            <img 
-              v-if="row.image" 
-              :src="row.image" 
+            <img
+              v-if="row.image"
+              :src="row.image"
               :alt="row.name"
               class="w-full h-full object-cover"
             >
             <div v-else class="w-full h-full bg-zinc-300"></div>
           </div>
           <div>
-            <NuxtLink 
+            <NuxtLink
               :to="`/boxers/${row.slug}`"
               class="text-zinc-900 hover:text-red-600"
             >

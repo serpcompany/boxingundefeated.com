@@ -49,9 +49,9 @@ function formatWeightLimit() {
 <template>
   <div class="min-h-screen bg-white">
     <!-- Breadcrumbs -->
-    <div class="bg-white border-b border-gray-100">
+    <div class="bg-white border-b border-neutral-100">
       <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
-        <BreadCrumbs 
+        <BreadCrumbs
           :items="[
             { label: 'Divisions', to: '/divisions' },
             { label: division.name }
@@ -59,9 +59,9 @@ function formatWeightLimit() {
         />
       </div>
     </div>
-    
+
     <!-- Header -->
-    <PageHero 
+    <PageHero
       :title="division.name"
     >
       <template #after>

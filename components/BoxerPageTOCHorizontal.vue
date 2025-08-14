@@ -10,19 +10,19 @@ const props = defineProps<Props>()
 // Build navigation items based on available content
 const navigationItems = computed(() => {
   const items = []
-  
+
   // Professional Record
   items.push({
     label: 'Record',
     to: '#professional-record'
   })
-  
+
   // Fighter Information
   items.push({
     label: 'Stats',
     to: '#fighter-information'
   })
-  
+
   // Biography (if available)
   if (props.boxer.bio) {
     items.push({
@@ -30,13 +30,13 @@ const navigationItems = computed(() => {
       to: '#about'
     })
   }
-  
+
   // Fight History
   items.push({
     label: 'Fights',
     to: '#fight-history'
   })
-  
+
   return items
 })
 
@@ -48,7 +48,7 @@ const navigationItems = computed(() => {
     <div class="sm:hidden">
       <div class="px-4 py-3">
         <USelectMenu
-          :options="navigationItems"
+          :items="navigationItems"
           option-attribute="label"
           value-attribute="to"
           placeholder="Jump to section"
@@ -56,7 +56,7 @@ const navigationItems = computed(() => {
         />
       </div>
     </div>
-    
+
     <!-- Desktop Horizontal Nav -->
     <div class="hidden sm:block max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-center gap-1 overflow-x-auto scrollbar-hide py-3">
