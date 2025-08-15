@@ -1,49 +1,57 @@
 <script setup lang="ts">
-import type { Division, Boxer } from '~/types'
+  import type { Division, Boxer } from '~/types'
 
-const route = useRoute()
-const slug = route.params.slug as string
+  const route = useRoute()
+  const slug = route.params.slug as string
 
-// Fetch division data
-const { data: divisionData, error: divisionError } = await useFetch(`/api/divisions/${slug}`)
+  // Fetch division data
+  const { data: divisionData, error: divisionError } = await useFetch(
+    `/api/divisions/${slug}`,
+  )
 
-if (divisionError.value || !divisionData.value) {
-  throw createError({
-    statusCode: 404,
-    statusMessage: 'Division not found',
+  if (divisionError.value || !divisionData.value) {
+    throw createError({
+      statusCode: 404,
+      statusMessage: 'Division not found',
+    })
+  }
+
+  const division = computed(() => divisionData.value!.division)
+  const weightLimits = computed(() => divisionData.value!.weightLimits)
+
+  // Fetch boxers in this division using the short name
+  const { data: boxersData } = await useFetch('/api/boxers', {
+    query: {
+      division: division.value.shortName || slug,
+      limit: 100, // Get all boxers in division
+    },
   })
-}
 
-const division = computed(() => divisionData.value!.division)
-const weightLimits = computed(() => divisionData.value!.weightLimits)
+  const boxersInDivision = computed(() => boxersData.value?.boxers || [])
 
-// Fetch boxers in this division using the short name
-const { data: boxersData } = await useFetch('/api/boxers', {
-  query: {
-    division: division.value.shortName || slug,
-    limit: 100, // Get all boxers in division
+  const { site } = useAppConfig()
+
+  useSeoMeta({
+    title: `${division.value.name} Weight Class`,
+    description: `${division.value.name} Boxing Division - Champions, Contenders & More!`,
+  })
+
+  const activeBoxers = computed(() =>
+    boxersInDivision.value.filter((b) => b.active),
+  )
+  const retiredBoxers = computed(() =>
+    boxersInDivision.value.filter((b) => !b.active),
+  )
+  const champions = computed(() =>
+    boxersInDivision.value.filter((b) => b.titles && b.titles.length > 0),
+  )
+
+  function formatWeightLimit() {
+    if (slug === 'heavyweight') {
+      return 'No limit'
+    }
+    return `${weightLimits.value.pounds} lbs / ${weightLimits.value.kilograms} kg`
   }
-})
-
-const boxersInDivision = computed(() => boxersData.value?.boxers || [])
-
-const { site } = useAppConfig()
-
-useSeoMeta({
-  title: `${division.value.name} Weight Class`,
-  description: `${division.value.name} Boxing Division - Champions, Contenders & More!`,
-})
-
-const activeBoxers = computed(() => boxersInDivision.value.filter(b => b.active))
-const retiredBoxers = computed(() => boxersInDivision.value.filter(b => !b.active))
-const champions = computed(() => boxersInDivision.value.filter(b => b.titles && b.titles.length > 0))
-
-function formatWeightLimit() {
-  if (slug === 'heavyweight') {
-    return 'No limit'
-  }
-  return `${weightLimits.value.pounds} lbs / ${weightLimits.value.kilograms} kg`
-}
 </script>
 
 <template>
@@ -54,16 +62,14 @@ function formatWeightLimit() {
         <BreadCrumbs
           :items="[
             { label: 'Divisions', to: '/divisions' },
-            { label: division.name }
+            { label: division.name },
           ]"
         />
       </div>
     </div>
 
     <!-- Header -->
-    <PageHero
-      :title="division.name"
-    >
+    <PageHero :title="division.name">
       <template #after>
         <div class="mt-4 space-y-2">
           <p class="text-lg text-zinc-600">
@@ -72,7 +78,12 @@ function formatWeightLimit() {
               ({{ weightLimits.stone }})
             </span>
           </p>
-          <p v-if="division.alternativeNames && division.alternativeNames.length > 0" class="text-zinc-500">
+          <p
+            v-if="
+              division.alternativeNames && division.alternativeNames.length > 0
+            "
+            class="text-zinc-500"
+          >
             Also known as: {{ division.alternativeNames.join(', ') }}
           </p>
         </div>
@@ -88,17 +99,23 @@ function formatWeightLimit() {
         </p>
       </div>
 
-
       <!-- All Fighters -->
       <div>
         <div v-if="boxersInDivision.length === 0" class="text-center py-12">
-          <UIcon name="i-heroicons-users" class="w-12 h-12 text-zinc-400 mx-auto mb-4" />
+          <UIcon
+            name="i-heroicons-users"
+            class="w-12 h-12 text-zinc-400 mx-auto mb-4"
+          />
           <p class="text-zinc-600">
             No fighters currently listed in this division.
           </p>
         </div>
 
-        <BoxersTable v-else :boxers="boxersInDivision" />
+        <BoxersTable
+          v-else-if="boxersData"
+          :data="boxersData.boxers"
+          :total="boxersData.pagination.total"
+        />
       </div>
 
       <!-- Back Navigation -->

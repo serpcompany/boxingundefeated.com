@@ -1,119 +1,128 @@
 <script setup lang="ts">
-interface Props {
-  division: string
-  size?: 'xs' | 'sm' | 'md' | 'lg'
-  link?: boolean
-}
+  import type { BadgeProps } from '#ui/types'
+  import { NuxtLink } from '#components'
 
-const props = withDefaults(defineProps<Props>(), {
-  size: 'sm',
-  link: true
-})
-
-// Map shortened division names to full names and slugs
-const divisionMapping: Record<string, { name: string; slug: string }> = {
-  // Short forms from database
-  'super feather': { name: 'Super Featherweight', slug: 'super-featherweight' },
-  'super light': { name: 'Super Lightweight', slug: 'super-lightweight' },
-  'super welter': { name: 'Super Welterweight', slug: 'super-welterweight' },
-  'super middle': { name: 'Super Middleweight', slug: 'super-middleweight' },
-  'super bantam': { name: 'Super Bantamweight', slug: 'super-bantamweight' },
-  'super fly': { name: 'Super Flyweight', slug: 'super-flyweight' },
-  'light heavy': { name: 'Light Heavyweight', slug: 'light-heavyweight' },
-  'light fly': { name: 'Light Flyweight', slug: 'light-flyweight' },
-  'cruiser': { name: 'Cruiserweight', slug: 'cruiserweight' },
-  'heavy': { name: 'Heavyweight', slug: 'heavyweight' },
-  'middle': { name: 'Middleweight', slug: 'middleweight' },
-  'welter': { name: 'Welterweight', slug: 'welterweight' },
-  'light': { name: 'Lightweight', slug: 'lightweight' },
-  'feather': { name: 'Featherweight', slug: 'featherweight' },
-  'bantam': { name: 'Bantamweight', slug: 'bantamweight' },
-  'fly': { name: 'Flyweight', slug: 'flyweight' },
-  'minimum': { name: 'Minimumweight', slug: 'minimumweight' },
-}
-
-const divisionInfo = computed(() => {
-  const normalized = props.division.toLowerCase().trim()
-  return divisionMapping[normalized] || { 
-    name: props.division, 
-    slug: props.division.toLowerCase().replace(/\s+/g, '-') 
+  interface DivisionBadgeProps {
+    division: string
+    size?: BadgeProps['size']
+    link?: boolean
   }
-})
 
-// Weight class color mapping - gradient from green (light) to red (heavy)
-function getDivisionColor(slug: string): string {
-  const colorMap: Record<string, string> = {
-    // Heaviest - Red spectrum
-    'heavyweight': 'red',
-    'cruiserweight': 'red',
-    'light-heavyweight': 'orange',
-    'super-middleweight': 'orange',
-    'middleweight': 'amber',
-    'light-middleweight': 'amber',
-    'super-welterweight': 'yellow',
-    'welterweight': 'yellow',
-    // Middle - Yellow/Green spectrum  
-    'super-lightweight': 'lime',
-    'lightweight': 'lime',
-    'super-featherweight': 'green',
-    'featherweight': 'green',
-    // Lightest - Green spectrum
-    'super-bantamweight': 'emerald',
-    'bantamweight': 'emerald',
-    'super-flyweight': 'green',
-    'flyweight': 'green',
-    'light-flyweight': 'green',
-    'minimumweight': 'green'
+  const props = withDefaults(defineProps<DivisionBadgeProps>(), {
+    size: 'md',
+    link: true,
+  })
+
+  // Map shortened division names to full names and slugs
+  const division = computed(() => {
+    // Short forms from database
+    const division = {
+      'super feather': {
+        name: 'Super Featherweight',
+        slug: 'super-featherweight',
+      },
+      'super light': { name: 'Super Lightweight', slug: 'super-lightweight' },
+      'super welter': {
+        name: 'Super Welterweight',
+        slug: 'super-welterweight',
+      },
+      'super middle': {
+        name: 'Super Middleweight',
+        slug: 'super-middleweight',
+      },
+      'super bantam': {
+        name: 'Super Bantamweight',
+        slug: 'super-bantamweight',
+      },
+      'super fly': { name: 'Super Flyweight', slug: 'super-flyweight' },
+      'light heavy': { name: 'Light Heavyweight', slug: 'light-heavyweight' },
+      'light fly': { name: 'Light Flyweight', slug: 'light-flyweight' },
+      cruiser: { name: 'Cruiserweight', slug: 'cruiserweight' },
+      heavy: { name: 'Heavyweight', slug: 'heavyweight' },
+      middle: { name: 'Middleweight', slug: 'middleweight' },
+      welter: { name: 'Welterweight', slug: 'welterweight' },
+      light: { name: 'Lightweight', slug: 'lightweight' },
+      feather: { name: 'Featherweight', slug: 'featherweight' },
+      bantam: { name: 'Bantamweight', slug: 'bantamweight' },
+      fly: { name: 'Flyweight', slug: 'flyweight' },
+      minimum: { name: 'Minimumweight', slug: 'minimumweight' },
+    }[props.division]
+
+    return (
+      division || {
+        name: props.division,
+        slug: props.division.toLowerCase().replace(/\s+/g, '-'),
+      }
+    )
+  })
+
+  type DivisionColor =
+    | 'red'
+    | 'orange'
+    | 'amber'
+    | 'yellow'
+    | 'lime'
+    | 'green'
+    | 'emerald'
+    | 'neutral'
+
+  // Weight class color mapping - gradient from green (light) to red (heavy)
+  function getDivisionColor(slug: string): DivisionColor {
+    const colorMap: Record<string, DivisionColor> = {
+      // Heaviest - Red spectrum
+      heavyweight: 'red',
+      cruiserweight: 'red',
+      'light-heavyweight': 'orange',
+      'super-middleweight': 'orange',
+      middleweight: 'amber',
+      'light-middleweight': 'amber',
+      'super-welterweight': 'yellow',
+      welterweight: 'yellow',
+      // Middle - Yellow/Green spectrum
+      'super-lightweight': 'lime',
+      lightweight: 'lime',
+      'super-featherweight': 'green',
+      featherweight: 'green',
+      // Lightest - Green spectrum
+      'super-bantamweight': 'emerald',
+      bantamweight: 'emerald',
+      'super-flyweight': 'green',
+      flyweight: 'green',
+      'light-flyweight': 'green',
+      minimumweight: 'green',
+    }
+
+    return colorMap[slug] || 'neutral'
   }
-  
-  return colorMap[slug] || 'gray'
-}
 
-const divisionUrl = computed(() => {
-  return `/divisions/${divisionInfo.value.slug}`
-})
+  const classes = computed(() => {
+    const colors: Record<DivisionColor, string> = {
+      red: 'bg-red-500/10 text-red-500 ring-red-500/25',
+      orange: 'bg-orange-500/10 text-orange-500 ring-orange-500/25',
+      amber: 'bg-amber-500/10 text-amber-500 ring-amber-500/25',
+      yellow: 'bg-yellow-500/10 text-yellow-500 ring-yellow-500/25',
+      lime: 'bg-lime-500/10 text-lime-500 ring-lime-500/25',
+      green: 'bg-green-500/10 text-green-500 ring-green-500/25',
+      emerald: 'bg-emerald-500/10 text-emerald-500 ring-emerald-500/25',
+      neutral: 'bg-neutral-500/10 text-neutral-500 ring-neutral-500/25',
+    }
 
-const color = computed(() => getDivisionColor(divisionInfo.value.slug))
-
-// Get border class based on color
-const borderClass = computed(() => {
-  const borderMap: Record<string, string> = {
-    'red': 'border border-red-500',
-    'orange': 'border border-orange-500',
-    'amber': 'border border-amber-500',
-    'yellow': 'border border-yellow-500',
-    'lime': 'border border-lime-500',
-    'green': 'border border-green-500',
-    'emerald': 'border border-emerald-500',
-    'gray': 'border border-gray-500'
-  }
-  return borderMap[color.value] || 'border border-gray-500'
-})
+    return colors[getDivisionColor(division.value.slug)]
+  })
 </script>
 
 <template>
-  <NuxtLink 
-    v-if="link"
-    :to="divisionUrl"
-    class="inline-block"
+  <component
+    :is="link ? NuxtLink : h('div')"
+    v-bind="{ ...(link && { to: `/divisions/${division.slug}` }) }"
   >
-    <UBadge 
-      :color="color"
-      variant="soft"
+    <UBadge
+      variant="subtle"
+      color="neutral"
+      :class="[classes, link && 'hover:opacity-80 transition-opacity']"
       :size="size"
-      :class="[borderClass, 'hover:opacity-80 transition-opacity font-medium']"
     >
-      {{ divisionInfo.name }}
+      {{ division.name }}
     </UBadge>
-  </NuxtLink>
-  
-  <UBadge 
-    v-else
-    :color="color"
-    variant="soft"
-    :size="size"
-    :class="[borderClass, 'font-medium']"
-  >
-    {{ division }}
-  </UBadge>
+  </component>
 </template>
