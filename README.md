@@ -43,3 +43,8 @@ rm ./.data/hub/d1/miniflare-D1DatabaseObject/7b8799eb95f0bb5448e259812996a461ce4
 
 (Make sure your .env or .env.local has the correct DRIZZLE_DB_URL.)
 # Force rebuild Fri Aug  1 18:26:58 PDT 2025
+
+To reseed the database, first ensure you have the variables `LIBSQL_CONNECTION_URL` and `LIBSQL_AUTH_TOKEN` in your `.env`; then run:
+```
+pnpm db:sync:staging
+```
