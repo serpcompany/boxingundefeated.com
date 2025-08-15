@@ -4,6 +4,22 @@ export default defineAppConfig({
         primary: 'black',
         neutral: 'zinc',
         secondary: 'blue'
+    },
+  },
+  uiPro: {
+    user: {
+        variants: {
+            to: {
+                true: {
+                    avatar: 'group-hover/user:scale-100'
+                }
+            }
+        }
+    },
+    pageHero: {
+        slots: {
+            container: 'py-16 sm:py-20 lg:py-24'
+        }
     }
   },
   site: {

@@ -27,6 +27,8 @@
 
   /* Container max-widths matching original */
   --container-7xl: 80rem; /* 1280px max-width */
+
+  --ui-container: var(--container-6xl)
 }
 
 /* Custom utility classes */
