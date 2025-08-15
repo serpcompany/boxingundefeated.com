@@ -1,54 +1,45 @@
 <script setup lang="ts">
-const { site } = useAppConfig()
+  import type { Division } from '~/server/db/drizzle'
 
-// Fetch divisions from API
-const { data, pending, error } = await useFetch('/api/divisions')
+  const { site } = useAppConfig()
 
-const divisions = computed(() => {
-  if (!data.value?.divisions) return []
-  // Sort by weight limit descending (heaviest first)
-  return [...data.value.divisions].sort((a, b) => b.weightLimitPounds - a.weightLimitPounds)
-})
+  const { data, pending } = await useFetch('/api/divisions', {
+    transform: (input) => {
+      // Sort by weight limit descending (heaviest first)
+      const divisions = input.divisions.toSorted(
+        (a, b) => b.weightLimitPounds - a.weightLimitPounds,
+      ) as unknown as Division[]
 
-const title = 'Professional Boxing Weight Classes'
-const description = `Explore all ${divisions.value.length} professional boxing weight divisions from minimumweight to heavyweight. Learn about weight limits and division history.`
+      return {
+        ...input,
+        divisions,
+      }
+    },
+  })
 
-useSeoMeta({
-  title,
-  description,
-})
-
-function formatWeightLimit(division: any) {
-  const kilograms = division.weightLimitPounds * 0.453592
-  return `${division.weightLimitPounds} lbs / ${kilograms.toFixed(1)} kg`
-}
-
+  useSeoMeta({
+    title: 'Professional Boxing Weight Classes',
+    description: () =>
+      `Explore all ${data.value?.divisions.length} professional boxing weight divisions from minimumweight to heavyweight. Learn about weight limits and division history.`,
+  })
 </script>
 
 <template>
-  <div class="min-h-screen bg-white">
-    <!-- Breadcrumbs -->
-    <div class="bg-white border-b border-neutral-100">
-      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
-        <BreadCrumbs
-          :items="[
-            { label: 'Divisions' }
-          ]"
-        />
-      </div>
+  <div>
+    <div class="bg-default border-b border-muted">
+      <UContainer class="py-3">
+        <BreadCrumbs :items="[{ label: 'Divisions' }]" />
+      </UContainer>
     </div>
 
-    <!-- Header -->
-    <PageHero
+    <UPageHero
       title="Weight Divisions"
+      description="Explore all professional boxing weight divisions from minimumweight to heavyweight."
+      :ui="{ wrapper: 'text-left' }"
     />
 
-    <!-- Main Content -->
-    <div class="max-w-6xl mx-auto px-6 lg:px-8 py-12">
-      <!-- Divisions Table -->
-      <div class="bg-white rounded-lg overflow-hidden border border-zinc-200">
-        <DivisionsTable v-if="divisions.length > 0" :divisions="divisions" />
-      </div>
-    </div>
+    <UPageSection v-if="data">
+      <DivisionsTable :data="data.divisions" :loading="pending" />
+    </UPageSection>
   </div>
 </template>
