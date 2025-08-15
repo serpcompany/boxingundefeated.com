@@ -9,13 +9,13 @@ const props = withDefaults(defineProps<Props>(), {
 })
 
 const label = computed(() => props.active ? 'Active' : 'Retired')
-const color = computed(() => props.active ? 'green' : 'gray')
+const color = computed(() => props.active ? 'green' : 'neutral')
 const variant = computed(() => 'soft') // Always use soft variant to avoid borders
-const borderClass = computed(() => props.active ? 'border border-green-500' : 'border border-gray-500')
+const borderClass = computed(() => props.active ? 'border border-green-500' : 'border border-neutral-500')
 </script>
 
 <template>
-  <UBadge 
+  <UBadge
     :color="color"
     :variant="variant"
     :size="size"

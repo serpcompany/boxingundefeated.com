@@ -16,18 +16,18 @@ useSeoMeta({
 <template>
   <div class="min-h-screen bg-white">
     <!-- Breadcrumbs -->
-    <div class="bg-white border-b border-gray-100">
+    <div class="bg-white border-b border-neutral-100">
       <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
-        <BreadCrumbs 
+        <BreadCrumbs
           :items="[
             { label: 'About' }
           ]"
         />
       </div>
     </div>
-    
+
     <!-- Header -->
-    <PageHero 
+    <PageHero
       title="About Boxing Undefeated"
       subtitle="Your ultimate resource for the sweet science"
     />
@@ -36,10 +36,10 @@ useSeoMeta({
     <div class="max-w-5xl mx-auto px-6 lg:px-8 py-12">
       <div class="prose prose-zinc max-w-none">
         <div class="mb-12">
-          <p class="text-xl font-medium text-gray-900 mb-4">
+          <p class="text-xl font-medium text-neutral-900 mb-4">
             People always say "you don't play boxing".
           </p>
-          
+
           <p class="text-lg leading-relaxed mb-6">
             Yet ironically that's exactly what promotion companies do everyday - play the game of "who can I match my fighter up with to give him the best chance of winning so I can rack up more wins, avoid a loss and climb the ladder easier".
           </p>
@@ -49,7 +49,7 @@ useSeoMeta({
           </p>
 
           <p class="text-lg mb-2">It's a shame.</p>
-          
+
           <p class="text-lg mb-6">It hurts the industry.</p>
 
           <p class="text-lg mb-4">
@@ -88,25 +88,25 @@ useSeoMeta({
           <p class="text-lg mb-2">It's better for the fans.</p>
           <p class="text-lg mb-6">It's better for the sport of boxing.</p>
 
-          <p class="text-xl font-bold text-gray-900">
+          <p class="text-xl font-bold text-neutral-900">
             "EVERYBODY's 'O' has got to go!"
           </p>
         </div>
 
         <h2>Why Boxing Undefeated</h2>
-        
+
         <div class="my-8 -mx-6 lg:-mx-8">
-          <img 
-            :src="alexRing1Img" 
+          <img
+            :src="alexRing1Img"
             alt="Alexander 'The Great' Enriquez in the boxing ring"
             class="w-full h-auto object-cover"
           />
         </div>
-        
+
         <p>
           Our name is Boxing Undefeated because our Founder Alexander "The Great" Enriquez retired from the sport of boxing due to an out-of-ring injury with an undefeated record (you can read his full story here).
         </p>
-        
+
         <p>
           It doesn't mean that we only celebrate boxers with undefeated records, or think that being undefeated means anything of consequence - in fact, the complete opposite.
         </p>
@@ -136,8 +136,8 @@ useSeoMeta({
         </p>
 
         <div class="my-8 -mx-6 lg:-mx-8">
-          <img 
-            :src="alexRing2Img" 
+          <img
+            :src="alexRing2Img"
             alt="Alexander 'The Great' Enriquez celebrating in the boxing ring"
             class="w-full h-auto object-cover"
           />
@@ -164,51 +164,51 @@ useSeoMeta({
         </p>
 
           <div class="grid md:grid-cols-2 gap-8">
-            
+
             <UCard>
               <div class="mb-3">
-                <img 
-                  :src="alexEnriquezImg" 
+                <img
+                  :src="alexEnriquezImg"
                   alt="Alexander 'The Great' Enriquez"
                   class="w-full h-64 object-cover rounded-lg"
                 />
               </div>
               <h4 class="text-xl font-semibold mb-2">Alexander "The Great" Enriquez</h4>
-              <p class="text-gray-600 mb-2">Founder & Professional Boxer</p>
+              <p class="text-neutral-600 mb-2">Founder & Professional Boxer</p>
               <p class="text-sm">Undefeated record: 11-0-1</p>
             </UCard>
-            
+
             <UCard>
               <div class="mb-3">
-                <img 
-                  :src="devinImg" 
+                <img
+                  :src="devinImg"
                   alt="Devin Schumacher"
                   class="w-full h-64 object-cover rounded-lg"
                 />
               </div>
               <h4 class="text-xl font-semibold mb-2">Devin Schumacher</h4>
-              <p class="text-gray-600 mb-2">Co-Founder & Entrepreneur</p>
+              <p class="text-neutral-600 mb-2">Co-Founder & Entrepreneur</p>
               <p class="text-sm">Undefeated record: 0-0</p>
             </UCard>
           </div>
-          
+
           <div class="mt-8 max-w-2xl mx-auto">
             <UCard class="overflow-hidden">
-              <img 
-                :src="devinAlexImg" 
+              <img
+                :src="devinAlexImg"
                 alt="Devin and Alex after a boxing match"
                 class="w-full h-auto object-cover"
               />
               <div class="p-4">
-                <p class="text-sm text-gray-600 text-center">Devin and Alex celebrating after a boxing match</p>
+                <p class="text-sm text-neutral-600 text-center">Devin and Alex celebrating after a boxing match</p>
               </div>
             </UCard>
           </div>
         </div>
 
-        
 
-        
+
+
       </div>
     </div>
   </div>

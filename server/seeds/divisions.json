@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "slug": "heavyweight",
+    "name": "Heavyweight",
+    "shortName": "heavy",
+    "alternativeNames": "[\"HW\"]",
+    "weightLimitPounds": 200,
+    "weightLimitKilograms": 90.7,
+    "weightLimitStone": "14st 4lbs",
+    "createdAt": "2025-08-14T22:55:00Z",
+    "updatedAt": "2025-08-14T22:55:00Z"
+  },
+  {
+    "id": 2,
+    "slug": "welterweight",
+    "name": "Welterweight",
+    "shortName": "welter",
+    "alternativeNames": "[\"WW\"]",
+    "weightLimitPounds": 147,
+    "weightLimitKilograms": 66.7,
+    "weightLimitStone": "10st 7lbs",
+    "createdAt": "2025-08-14T22:56:00Z",
+    "updatedAt": "2025-08-14T22:56:00Z"
+  },
+  {
+    "id": 3,
+    "slug": "flyweight",
+    "name": "Flyweight",
+    "shortName": "fly",
+    "alternativeNames": "[\"FW\"]",
+    "weightLimitPounds": 112,
+    "weightLimitKilograms": 50.8,
+    "weightLimitStone": "8st 0lbs",
+    "createdAt": "2025-08-14T22:57:00Z",
+    "updatedAt": "2025-08-14T22:57:00Z"
+  },
+  {
+    "id": 4,
+    "slug": "middleweight",
+    "name": "Middleweight",
+    "shortName": "middle",
+    "alternativeNames": "[\"MW\"]",
+    "weightLimitPounds": 160,
+    "weightLimitKilograms": 72.6,
+    "weightLimitStone": "11st 6lbs",
+    "createdAt": "2025-08-14T22:57:30Z",
+    "updatedAt": "2025-08-14T22:57:30Z"
+  },
+  {
+    "id": 5,
+    "slug": "featherweight",
+    "name": "Featherweight",
+    "shortName": "feather",
+    "alternativeNames": "[\"FW\"]",
+    "weightLimitPounds": 126,
+    "weightLimitKilograms": 57.2,
+    "weightLimitStone": "9st 0lbs",
+    "createdAt": "2025-08-14T22:58:00Z",
+    "updatedAt": "2025-08-14T22:58:00Z"
+  }
+]

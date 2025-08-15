@@ -1,6 +1,6 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
-  modules: ['@nuxt/ui', '@nuxt/fonts', '@nuxt/image', '@nuxt/eslint', '@nuxtjs/seo', '@nuxt/scripts', '@nuxthub/core'],
+  modules: ['@nuxt/ui-pro', '@nuxt/fonts', '@nuxt/image', '@nuxt/eslint', '@nuxtjs/seo', '@nuxt/scripts', '@nuxthub/core'],
   site: {
     url: 'https://boxingundefeated.com',
   },
@@ -38,10 +38,10 @@ export default defineNuxtConfig({
     },
   },
   hub: {
-    database: true, 
-    blob: true,     
+    database: true,
+    blob: true,
     kv: true,
-    workers: true,     
+    workers: true,
   },
   // Enable experimental tasks for database seeding and prerender sitemap.xml
   nitro: {
@@ -72,12 +72,12 @@ export default defineNuxtConfig({
       boxers: {
         sources: ['/api/sitemap/boxers'], // Dynamic endpoint for all boxer URLs
         chunks: true, // Enable automatic chunking (uses defaultSitemapsChunkSize)
-        
+
       },
       divisions: {
         sources: ['/api/sitemap/divisions'], // Dynamic endpoint for all division URLs
         chunks: true, // Enable automatic chunking (uses defaultSitemapsChunkSize)
-      
+
       },
       legal: {
         sources: ['/api/sitemap/legal'], // Legal pages endpoint

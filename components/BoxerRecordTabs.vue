@@ -25,11 +25,11 @@ const professionalStats = computed(() => {
   const losses = props.boxer.proLosses || 0
   const draws = props.boxer.proDraws || 0
   const kos = props.boxer.proWinsByKnockout || 0
-  
+
   return [
     { label: 'Wins', value: wins, color: 'green' },
     { label: 'Losses', value: losses, color: 'red' },
-    { label: 'Draws', value: draws, color: 'gray' },
+    { label: 'Draws', value: draws, color: 'neutral' },
     { label: 'KO Rate', value: `${calculateKOPercentage(wins, kos)}%` }
   ]
 })
@@ -40,11 +40,11 @@ const amateurStats = computed(() => {
   const losses = props.boxer.amateurLosses || 0
   const draws = props.boxer.amateurDraws || 0
   const kos = props.boxer.amateurWinsByKnockout || 0
-  
+
   return [
     { label: 'Wins', value: wins, color: 'green' },
     { label: 'Losses', value: losses, color: 'red' },
-    { label: 'Draws', value: draws, color: 'gray' },
+    { label: 'Draws', value: draws, color: 'neutral' },
     { label: 'KOs', value: kos }
   ]
 })
@@ -54,14 +54,14 @@ const tabs = computed(() => {
     label: 'Professional',
     stats: professionalStats.value
   }]
-  
+
   if (hasAmateurRecord.value) {
     baseTabs.push({
       label: 'Amateur',
       stats: amateurStats.value
     })
   }
-  
+
   return baseTabs
 })
 
@@ -88,13 +88,13 @@ const currentStats = computed(() => tabs.value[selectedTab.value].stats)
         </button>
       </div>
     </div>
-    
+
     <!-- Stats Grid -->
     <div class="p-6">
       <h3 class="text-lg font-semibold text-zinc-900 mb-4">
         {{ tabs[selectedTab].label }} Record
       </h3>
-      
+
       <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
         <div
           v-for="stat in currentStats"
@@ -107,7 +107,7 @@ const currentStats = computed(() => tabs.value[selectedTab.value].stats)
               {
                 'text-green-600': stat.color === 'green',
                 'text-red-600': stat.color === 'red',
-                'text-zinc-600': stat.color === 'gray',
+                'text-zinc-600': stat.color === 'neutral',
                 'text-orange-600': stat.color === 'orange',
                 'text-zinc-900': !stat.color
               }

@@ -23,9 +23,9 @@ const props = withDefaults(defineProps<Props>(), {
       <p class="text-zinc-600 mb-4">
         {{ message }}
       </p>
-      <NuxtLink 
-        :to="linkTo" 
-        class="text-red-600 hover:text-red-700"
+      <NuxtLink
+        :to="linkTo"
+        class="text-error-600 hover:text-error-700"
       >
         {{ linkText }}
       </NuxtLink>

@@ -49,7 +49,7 @@ function getDivisionSlug(boxer: Boxer): string {
             class="w-32 h-32 rounded-full object-cover"
           >
         </div>
-        
+
         <!-- Centered Info -->
         <div class="text-center">
           <h1 class="text-2xl font-bold mb-3 text-zinc-900">
@@ -58,30 +58,30 @@ function getDivisionSlug(boxer: Boxer): string {
           <p v-if="boxer.nicknames" class="text-lg text-zinc-600 mb-4">
             "{{ boxer.nicknames }}"
           </p>
-          
+
           <div class="flex flex-wrap justify-center items-center gap-2">
             <!-- Division Badge -->
-            <DivisionBadge 
+            <DivisionBadge
               v-if="getDivision(boxer)"
               :division="getDivision(boxer)"
             />
-            
+
             <!-- Nationality Badge -->
-            <UBadge 
+            <UBadge
               v-if="boxer.nationality"
-              color="gray"
+              color="neutral"
               variant="soft"
               size="sm"
             >
               {{ boxer.nationality }}
             </UBadge>
-            
+
             <!-- Status Badge -->
             <StatusBadge :active="isActive(boxer)" />
           </div>
         </div>
       </div>
-      
+
       <!-- Desktop Layout (Side by Side) -->
       <div class="hidden sm:flex items-start gap-6 md:gap-8">
         <!-- Image on the left -->
@@ -92,7 +92,7 @@ function getDivisionSlug(boxer: Boxer): string {
             class="w-36 h-36 md:w-48 md:h-48 rounded-full object-cover"
           >
         </div>
-        
+
         <!-- Main Info -->
         <div class="flex-1">
           <h1 class="text-3xl md:text-4xl font-bold mb-4 text-zinc-900">
@@ -101,25 +101,25 @@ function getDivisionSlug(boxer: Boxer): string {
               "{{ boxer.nicknames }}"
             </span>
           </h1>
-          
+
           <div class="flex flex-wrap items-center gap-3 md:gap-4">
             <!-- Division Badge -->
-            <DivisionBadge 
+            <DivisionBadge
               v-if="getDivision(boxer)"
               :division="getDivision(boxer)"
               size="md"
             />
-            
+
             <!-- Nationality Badge -->
-            <UBadge 
+            <UBadge
               v-if="boxer.nationality"
-              color="gray"
+              color="neutral"
               variant="soft"
               size="md"
             >
               {{ boxer.nationality }}
             </UBadge>
-            
+
             <!-- Status Badge -->
             <StatusBadge :active="isActive(boxer)" size="md" />
           </div>
