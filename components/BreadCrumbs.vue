@@ -1,59 +1,33 @@
 <script setup lang="ts">
-export interface BreadCrumbsItem {
-  label: string
-  to?: string
-  icon?: string
-}
+  import type { BreadcrumbItem } from '#ui/types'
 
-interface Props {
-  items: BreadCrumbsItem[]
-  includeHome?: boolean
-}
-
-const props = withDefaults(defineProps<Props>(), {
-  includeHome: true
-})
-
-// Build the full breadcrumb trail
-const breadcrumbItems = computed(() => {
-  const items = [...props.items]
-  
-  // Add home link at the beginning if requested
-  if (props.includeHome && items.length > 0) {
-    items.unshift({
-      label: 'Home',
-      to: '/'
-    })
+  interface BreadCrumbsProps {
+    items: BreadcrumbItem[]
+    includeHome?: boolean
   }
-  
-  return items
-})
+
+  const props = withDefaults(defineProps<BreadCrumbsProps>(), {
+    includeHome: true,
+  })
+
+  const items = computed<BreadcrumbItem[]>(() => {
+    const items: BreadcrumbItem[] = [...props.items]
+
+    if (props.includeHome && items.length > 0) {
+      items.unshift({
+        label: 'Home',
+        to: '/',
+      })
+    }
+
+    return items
+  })
 </script>
 
 <template>
-  <nav class="flex items-center gap-2 text-sm text-zinc-600">
-    <template v-for="(item, index) in breadcrumbItems" :key="index">
-      <!-- Link item -->
-      <NuxtLink 
-        v-if="item.to" 
-        :to="item.to"
-        class="hover:text-zinc-900 transition-colors"
-      >
-        {{ item.label }}
-      </NuxtLink>
-      
-      <!-- Text item (last item) -->
-      <span v-else class="text-zinc-900">
-        {{ item.label }}
-      </span>
-      
-      <!-- Separator -->
-      <span 
-        v-if="index < breadcrumbItems.length - 1" 
-        class="text-zinc-400"
-      >
-        /
-      </span>
+  <UBreadcrumb :items="items">
+    <template #separator>
+      <span class="mx-2 text-muted">/</span>
     </template>
-  </nav>
+  </UBreadcrumb>
 </template>
