@@ -5,15 +5,11 @@
     <lastmod>2025-08-16</lastmod>
   </sitemap>
   <sitemap>
-    <loc>https://boxingundefeated.github.io/sitemap-boxers-1.xml</loc>
+    <loc>https://boxingundefeated.github.io/sitemap-index-boxers.xml</loc>
     <lastmod>2025-08-16</lastmod>
   </sitemap>
   <sitemap>
-    <loc>https://boxingundefeated.github.io/sitemap-boxers-2.xml</loc>
-    <lastmod>2025-08-16</lastmod>
-  </sitemap>
-  <sitemap>
-    <loc>https://boxingundefeated.github.io/sitemap-boxers-3.xml</loc>
+    <loc>https://boxingundefeated.github.io/sitemap-index-shop.xml</loc>
     <lastmod>2025-08-16</lastmod>
   </sitemap>
 </sitemapindex>
