@@ -1,4 +1,3 @@
-// @ts-ignore - Large JSON file
 // Lazy load the data only when needed
 let boxersData: any = null
 
@@ -7,7 +6,29 @@ function loadBoxersData() {
     // Only load in Node.js environment (build time)
     // This prevents the data from being bundled in client-side JS
     if (typeof window === 'undefined') {
-      boxersData = require('../data/boxers.json')
+      // Dynamic imports to avoid bundling in client-side code
+      const fs = require('fs')
+      const path = require('path')
+
+      // Read all individual boxer JSON files
+      const boxersDir = path.join(process.cwd(), 'public', 'data', 'boxers')
+      const boxerFiles = fs.readdirSync(boxersDir).filter((file: string) => file.endsWith('.json'))
+
+      boxersData = []
+      for (const file of boxerFiles) {
+        try {
+          const filePath = path.join(boxersDir, file)
+          const content = fs.readFileSync(filePath, 'utf-8')
+          const data = JSON.parse(content)
+          if (data && data.name) {
+            boxersData.push(data)
+          }
+        } catch (error) {
+          console.error(`Error reading ${file}:`, error)
+        }
+      }
+
+      console.log(`Loaded ${boxersData.length} boxers from individual files`)
     } else {
       // In browser, return empty array
       // The data should already be in the static HTML
