@@ -9,6 +9,7 @@
 # next.js
 .next/
 out/
+apps/web/out/
 
 # production
 /build
@@ -64,3 +65,5 @@ out
 *.vsix
 .claude
 CLAUDE.md
+from-pipeline
+apps/web/data

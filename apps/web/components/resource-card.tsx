@@ -1,8 +1,8 @@
+import { formatDate } from '@/lib/utils'
 import { Badge } from '@boxingundefeated/design-system/badge'
 import { Card } from '@boxingundefeated/design-system/card'
 import { ExternalLink } from 'lucide-react'
 import Link from 'next/link'
-import { formatDate } from '@/lib/utils'
 
 interface ResourceCardProps {
   resource: {

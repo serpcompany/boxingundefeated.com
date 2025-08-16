@@ -1,14 +1,14 @@
 import fs from 'node:fs'
 import path from 'node:path'
+import { FightHistory } from '@/components/fight-history'
+import { OptimizedImage } from '@/components/optimized-image'
+import { type BoxerMetadata, getBoxerBouts, getBoxerStats } from '@/lib/boxers-loader'
+import { getOpponentLinksForBouts } from '@/lib/opponent-mapper'
 import { Breadcrumb } from '@boxingundefeated/design-system/breadcrumb'
 import { Card, CardContent, CardHeader, CardTitle } from '@boxingundefeated/design-system/card'
 import { getBaseUrl } from '@boxingundefeated/utils/get-base-url'
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
-import { FightHistory } from '@/components/fight-history'
-import { OptimizedImage } from '@/components/optimized-image'
-import { type BoxerMetadata, getBoxerBouts, getBoxerStats } from '@/lib/boxers-loader'
-import { getOpponentLinksForBouts } from '@/lib/opponent-mapper'
 
 // Load individual boxer data from split JSON files
 function getBoxerBySlugOptimized(slug: string): BoxerMetadata | null {

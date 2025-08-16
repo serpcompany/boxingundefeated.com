@@ -1,14 +1,14 @@
 import type { Metadata } from 'next'
 import type React from 'react'
 import '../../../packages/design-system/styles/globals.css'
+import { GTMNoscript, GoogleTagManager } from '@/components/gtm'
+import { Footer } from '@/components/layout/footer'
+import { Header } from '@/components/layout/header'
+import { ProgressBar } from '@/components/progress-bar'
 import { fontVariable } from '@boxingundefeated/design-system/lib/fonts'
 import { cn } from '@boxingundefeated/design-system/lib/utils'
 import { DesignSystemProvider } from '@boxingundefeated/design-system/theme-provider'
 import { getBaseUrl } from '@boxingundefeated/utils/get-base-url'
-import { GoogleTagManager, GTMNoscript } from '@/components/gtm'
-import { Footer } from '@/components/layout/footer'
-import { Header } from '@/components/layout/header'
-import { ProgressBar } from '@/components/progress-bar'
 
 export const metadata: Metadata = {
   title: 'Boxing Directory',

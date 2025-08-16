@@ -1,7 +1,7 @@
+import { OptimizedBoxersList } from '@/components/boxers-list-optimized'
 import { Breadcrumb } from '@boxingundefeated/design-system/breadcrumb'
 import { getBaseUrl } from '@boxingundefeated/utils/get-base-url'
 import type { Metadata } from 'next'
-import { OptimizedBoxersList } from '@/components/boxers-list-optimized'
 
 // Static export - no dynamic searchParams
 export const metadata: Metadata = {

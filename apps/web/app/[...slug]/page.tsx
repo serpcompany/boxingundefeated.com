@@ -1,9 +1,9 @@
+import { getBlogPost, getBlogSlugs } from '@/lib/blog-loader'
 import { Breadcrumb } from '@boxingundefeated/design-system/breadcrumb'
 import { getBaseUrl } from '@boxingundefeated/utils/get-base-url'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import { getBlogPost, getBlogSlugs } from '@/lib/blog-loader'
 import '../blog/blog.css'
 
 export async function generateStaticParams() {

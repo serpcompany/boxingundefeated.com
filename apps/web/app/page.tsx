@@ -1,11 +1,11 @@
+import { JsonLd } from '@/components/json-ld'
+import { getBoxersWithoutBouts } from '@/lib/boxers-loader'
 import { Button } from '@boxingundefeated/design-system/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@boxingundefeated/design-system/card'
 import { getBaseUrl } from '@boxingundefeated/utils/get-base-url'
 import { Target, TrendingUp, Trophy, Users } from 'lucide-react'
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { JsonLd } from '@/components/json-ld'
-import { getBoxersWithoutBouts } from '@/lib/boxers-loader'
 
 export const metadata: Metadata = {
   title: 'Boxing Undefeated - Professional Boxers Database',

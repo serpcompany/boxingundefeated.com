@@ -1,5 +1,11 @@
 'use client'
 
+import { BoxerCardSkeleton, BoxerListSkeleton } from '@/components/boxer-skeleton'
+import { EmptyState } from '@/components/empty-state'
+import { LazyImage } from '@/components/lazy-image'
+import { getBoxerCategories, getBoxerStats } from '@/lib/boxer-utils'
+import { getDivisionSlug, loadBoxersByDivision, sortBoxers } from '@/lib/boxers-client-loader'
+import type { BoxerMetadata } from '@/lib/boxers-loader'
 import { Button } from '@boxingundefeated/design-system/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@boxingundefeated/design-system/card'
 import { ToggleGroup, ToggleGroupItem } from '@boxingundefeated/design-system/toggle-group'
@@ -7,12 +13,6 @@ import { Grid, List, SortAsc, Trophy, Users } from 'lucide-react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { BoxerCardSkeleton, BoxerListSkeleton } from '@/components/boxer-skeleton'
-import { EmptyState } from '@/components/empty-state'
-import { LazyImage } from '@/components/lazy-image'
-import { getBoxerCategories, getBoxerStats } from '@/lib/boxer-utils'
-import { getDivisionSlug, loadBoxersByDivision, sortBoxers } from '@/lib/boxers-client-loader'
-import type { BoxerMetadata } from '@/lib/boxers-loader'
 
 export function OptimizedBoxersList() {
   const router = useRouter()

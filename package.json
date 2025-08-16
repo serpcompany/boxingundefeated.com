@@ -1,5 +1,5 @@
 {
-  "name": "llms-txt-hub",
+  "name": "boxing",
   "version": "1.0.0",
   "private": true,
   "scripts": {
@@ -25,6 +25,7 @@
     "test": "turbo test --cache-dir=.turbo",
     "test:watch": "turbo test:watch --cache-dir=.turbo",
     "typecheck": "turbo typecheck",
+    "check:all": "pnpm typecheck && pnpm lint && pnpm test",
     "update": "pnpm update -r"
   },
   "devDependencies": {
