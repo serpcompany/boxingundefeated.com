@@ -58,6 +58,8 @@
       :ui="{ wrapper: 'text-left' }"
     />
 
+    <USeparator />
+
     <UPageSection v-if="data">
       <BoxersTable
         :data="data.boxers"

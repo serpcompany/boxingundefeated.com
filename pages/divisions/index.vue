@@ -1,8 +1,6 @@
 <script setup lang="ts">
   import type { Division } from '~/server/db/drizzle'
 
-  const { site } = useAppConfig()
-
   const { data, pending } = await useFetch('/api/divisions', {
     transform: (input) => {
       // Sort by weight limit descending (heaviest first)
@@ -37,6 +35,8 @@
       description="Explore all professional boxing weight divisions from minimumweight to heavyweight."
       :ui="{ wrapper: 'text-left' }"
     />
+
+    <USeparator />
 
     <UPageSection v-if="data">
       <DivisionsTable :data="data.divisions" :loading="pending" />

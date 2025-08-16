@@ -12,7 +12,7 @@
 
   interface BoxersTableProps {
     data: Boxer[]
-    total: number
+    total?: number
     showDivision?: boolean
     loading?: boolean
   }
@@ -121,22 +121,23 @@
   const divisions = computed(() => getBoxersDivisions(props.data))
 
   onMounted(() => {
-    if (!pageSize.value) return
+    if (props.total && pageSize.value) {
+      useInfiniteScroll(
+        table.value?.tableRef,
+        () => {
+          if (!pageSize.value || !props.total) return
+          if (props.total < pageSize.value) return
 
-    useInfiniteScroll(
-      table.value?.tableRef,
-      () => {
-        if (!pageSize.value) return
-        if (props.total < pageSize.value) return
-        pageSize.value += 10
-      },
-      {
-        distance: 200,
-        canLoadMore: () => {
-          return !props.loading
+          pageSize.value += 10
         },
-      },
-    )
+        {
+          distance: 200,
+          canLoadMore: () => {
+            return !props.loading
+          },
+        },
+      )
+    }
   })
 </script>
 
