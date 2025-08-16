@@ -1,8 +1,8 @@
+import type { GitHubProject } from '@/lib/github'
+import { formatDate } from '@/lib/utils'
 import { Card } from '@boxingundefeated/design-system/card'
 import { ExternalLink, Github, Star } from 'lucide-react'
 import Link from 'next/link'
-import type { GitHubProject } from '@/lib/github'
-import { formatDate } from '@/lib/utils'
 
 interface GitHubProjectCardProps {
   project: GitHubProject

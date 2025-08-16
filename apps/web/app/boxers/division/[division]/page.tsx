@@ -1,9 +1,9 @@
+import { ClientBoxersList } from '@/components/boxers-list'
+import { getBoxerCategories, getBoxersWithoutBouts } from '@/lib/boxers-loader'
 import { Breadcrumb } from '@boxingundefeated/design-system/breadcrumb'
 import { getBaseUrl } from '@boxingundefeated/utils/get-base-url'
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
-import { ClientBoxersList } from '@/components/boxers-list'
-import { getBoxerCategories, getBoxersWithoutBouts } from '@/lib/boxers-loader'
 
 export async function generateStaticParams() {
   const categories = getBoxerCategories()

@@ -64,3 +64,4 @@ out
 *.vsix
 .claude
 CLAUDE.md
+from-pipeline

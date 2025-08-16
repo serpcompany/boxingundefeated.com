@@ -1,7 +1,7 @@
+import { env } from '@/env'
 import { baseConfig, withAnalyzer, withVercelToolbarConfig } from '@boxingundefeated/config-next'
 import withMDX from '@next/mdx'
 import type { NextConfig } from 'next'
-import { env } from '@/env'
 
 export const INTERNAL_PACKAGES = [
   '@boxingundefeated/design-system',

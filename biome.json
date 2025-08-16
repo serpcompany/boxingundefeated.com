@@ -1,5 +1,5 @@
 {
-  "$schema": "https://biomejs.dev/schemas/2.1.4/schema.json",
+  "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
   "vcs": {
     "enabled": false,
     "clientKind": "git",
@@ -7,8 +7,9 @@
   },
   "files": {
     "ignoreUnknown": false,
-    "includes": ["**/*"],
-    "experimentalScannerIgnores": [
+    "include": ["**/*"],
+    "maxSize": 110485760,
+    "ignore": [
       "**/node_modules/**",
       "dist",
       ".turbo",
@@ -22,6 +23,8 @@
       "packages/design-system/hooks/**",
       "apps/web/public/search/**",
       "apps/web/public/data/**",
+      "apps/web/data/boxers.json",
+      "apps/web/from-pipeline/**",
       "data/**",
       "apps/chatbot/public/"
     ]
@@ -62,9 +65,7 @@
         "noSvgWithoutTitle": "off",
         "useAltText": "off"
       },
-      "performance": {
-        "noImgElement": "off"
-      },
+      "performance": {},
       "complexity": {
         "noBannedTypes": "off",
         "noForEach": "off"

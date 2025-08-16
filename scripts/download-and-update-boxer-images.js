@@ -1,7 +1,7 @@
-const fs = require('fs')
-const path = require('path')
-const https = require('https')
-const http = require('http')
+const fs = require('node:fs')
+const path = require('node:path')
+const https = require('node:https')
+const http = require('node:http')
 
 // Load the full boxers data
 const boxersDataPath = path.join(__dirname, '../apps/web/data/boxers.json')

@@ -1,7 +1,7 @@
 'use client'
+import { getRoute } from '@/lib/routes'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { getRoute } from '@/lib/routes'
 
 interface NavLinkProps {
   href: string

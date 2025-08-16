@@ -1,5 +1,5 @@
-import Link from 'next/link'
 import { getRoute } from '@/lib/routes'
+import Link from 'next/link'
 import { ModeToggle } from '../mode-toggle'
 
 export function Footer() {

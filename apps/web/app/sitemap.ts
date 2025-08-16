@@ -1,6 +1,6 @@
-import type { MetadataRoute } from 'next'
 import { getBlogSlugs } from '@/lib/blog-loader'
 import { getBoxerCategories, getBoxersWithoutBouts } from '@/lib/boxers-loader'
+import type { MetadataRoute } from 'next'
 
 export const dynamic = 'force-static'
 

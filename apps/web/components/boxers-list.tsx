@@ -1,5 +1,10 @@
 'use client'
 
+import { BoxerCardSkeleton, BoxerListSkeleton } from '@/components/boxer-skeleton'
+import { EmptyState } from '@/components/empty-state'
+import { LazyImage } from '@/components/lazy-image'
+import type { BoxerMetadata } from '@/lib/boxers-loader'
+import { getBoxerCategories, getBoxerStats } from '@/lib/boxers-loader'
 import { Button } from '@boxingundefeated/design-system/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@boxingundefeated/design-system/card'
 import { ToggleGroup, ToggleGroupItem } from '@boxingundefeated/design-system/toggle-group'
@@ -7,11 +12,6 @@ import { Grid, List, SortAsc, Trophy, Users } from 'lucide-react'
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useEffect, useMemo, useState, useTransition } from 'react'
-import { BoxerCardSkeleton, BoxerListSkeleton } from '@/components/boxer-skeleton'
-import { EmptyState } from '@/components/empty-state'
-import { LazyImage } from '@/components/lazy-image'
-import type { BoxerMetadata } from '@/lib/boxers-loader'
-import { getBoxerCategories, getBoxerStats } from '@/lib/boxers-loader'
 
 interface ClientBoxersListProps {
   initialBoxers: BoxerMetadata[]

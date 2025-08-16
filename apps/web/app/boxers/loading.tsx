@@ -1,7 +1,7 @@
+import { BoxerCardSkeleton } from '@/components/boxer-skeleton'
 import { Breadcrumb } from '@boxingundefeated/design-system/breadcrumb'
 import { Button } from '@boxingundefeated/design-system/button'
 import { getBaseUrl } from '@boxingundefeated/utils/get-base-url'
-import { BoxerCardSkeleton } from '@/components/boxer-skeleton'
 
 export default function BoxersLoading() {
   const baseUrl = getBaseUrl()

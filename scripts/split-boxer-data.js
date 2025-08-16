@@ -1,5 +1,5 @@
-const fs = require('fs')
-const path = require('path')
+const fs = require('node:fs')
+const path = require('node:path')
 
 // Load the full boxers data - handle different working directories
 // In Vercel, the working directory is the monorepo root

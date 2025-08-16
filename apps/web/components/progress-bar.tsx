@@ -33,13 +33,15 @@ export function ProgressBar() {
     const originalReplaceState = history.replaceState
 
     history.pushState = (...args) => {
-      handleStart()
+      // Defer state updates to avoid React insertion effect error
+      setTimeout(() => handleStart(), 0)
       originalPushState.apply(history, args)
       setTimeout(handleComplete, 500)
     }
 
     history.replaceState = (...args) => {
-      handleStart()
+      // Defer state updates to avoid React insertion effect error
+      setTimeout(() => handleStart(), 0)
       originalReplaceState.apply(history, args)
       setTimeout(handleComplete, 500)
     }
