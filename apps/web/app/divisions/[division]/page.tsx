@@ -2,6 +2,7 @@ import { Breadcrumb } from '@boxingundefeated/design-system/breadcrumb'
 import { getBaseUrl } from '@boxingundefeated/utils/get-base-url'
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
+import { Suspense } from 'react'
 import { ClientBoxersList } from '@/components/boxers-list'
 import { getBoxerCategories, getBoxersWithoutBouts } from '@/lib/boxers-loader'
 
@@ -60,11 +61,13 @@ export default async function DivisionPage({ params }: { params: { division: str
   return (
     <div className="max-w-6xl mx-auto px-4 py-8">
       <Breadcrumb items={breadcrumbItems} baseUrl={baseUrl} />
-      <ClientBoxersList
-        initialBoxers={divisionBoxers}
-        initialDivision={division}
-        initialSort="wins"
-      />
+      <Suspense fallback={<div>Loading...</div>}>
+        <ClientBoxersList
+          initialBoxers={divisionBoxers}
+          initialDivision={division}
+          initialSort="wins"
+        />
+      </Suspense>
     </div>
   )
 }
