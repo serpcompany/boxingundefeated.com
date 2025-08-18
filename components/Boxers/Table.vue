@@ -14,10 +14,13 @@
     data: Boxer[]
     total?: number
     showDivision?: boolean
+    showDivisionFilter?: boolean
     loading?: boolean
   }
 
-  const props = defineProps<BoxersTableProps>()
+  const props = withDefaults(defineProps<BoxersTableProps>(), {
+    showDivisionFilter: true,
+  })
 
   const columns = computed<TableColumn<Boxer>[]>(() => {
     const cols: TableColumn<Boxer>[] = [
@@ -185,6 +188,7 @@
       />
 
       <USelect
+        v-if="showDivisionFilter"
         :items="divisions"
         :model-value="
           table?.tableApi.getColumn('weight')?.getFilterValue() as string

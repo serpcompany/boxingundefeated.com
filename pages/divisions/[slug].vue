@@ -84,7 +84,7 @@
           />
         </template>
         <template v-else>
-          <BoxersTable :data="boxers" />
+          <BoxersTable :data="boxers" :show-division-filter="false" />
         </template>
       </UPageSection>
 
