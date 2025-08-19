@@ -1,10 +1,15 @@
 export default defineAppConfig({
   ui: {
     colors: {
-        primary: 'black',
+        primary: 'red',
         neutral: 'zinc',
         secondary: 'blue'
     },
+    table: {
+        slots: {
+            thead: 'bg-muted'
+        }
+    }
   },
   uiPro: {
     user: {

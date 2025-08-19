@@ -1,12 +1,18 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
-  modules: ['@nuxt/ui-pro', '@nuxt/fonts', '@nuxt/image', '@nuxt/eslint', '@nuxtjs/seo', '@nuxt/scripts', '@nuxthub/core'],
+  modules: [
+    '@nuxt/ui-pro',
+    '@nuxt/fonts',
+    '@nuxt/image',
+    '@nuxt/eslint',
+    '@nuxtjs/seo',
+    '@nuxt/scripts',
+    '@nuxthub/core',
+  ],
   site: {
     url: 'https://boxingundefeated.com',
   },
-   css: [
-    '~/assets/css/main.css',
-  ],
+  css: ['~/assets/css/main.css'],
   compatibilityDate: '2025-08-01',
   eslint: {
     config: {
@@ -19,15 +25,17 @@ export default defineNuxtConfig({
       titleTemplate: '%s | Boxing Undefeated',
       meta: [
         { charset: 'utf-8' },
-        { name: 'viewport', content: 'width=device-width, initial-scale=1, maximum-scale=1' },
+        {
+          name: 'viewport',
+          content: 'width=device-width, initial-scale=1, maximum-scale=1',
+        },
         {
           name: 'description',
-          content: 'Boxing Undefeated - Your comprehensive guide to professional boxing. Fighter profiles, weight divisions, and the sweet science.',
+          content:
+            'Boxing Undefeated - Your comprehensive guide to professional boxing. Fighter profiles, weight divisions, and the sweet science.',
         },
       ],
-      link: [
-        { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      ],
+      link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
     },
   },
   scripts: {
@@ -47,7 +55,7 @@ export default defineNuxtConfig({
   nitro: {
     experimental: {
       tasks: true,
-      openAPI: true
+      openAPI: true,
     },
     prerender: {
       routes: [],
@@ -55,9 +63,13 @@ export default defineNuxtConfig({
     preset: 'cloudflare-pages',
     // Add cache headers to prevent stale CSS
     routeRules: {
-      '/_nuxt/**': { headers: { 'cache-control': 'max-age=31536000, immutable' } },
-      '/**': { headers: { 'cache-control': 'no-cache, no-store, must-revalidate' } }
-    }
+      '/_nuxt/**': {
+        headers: { 'cache-control': 'max-age=31536000, immutable' },
+      },
+      '/**': {
+        headers: { 'cache-control': 'no-cache, no-store, must-revalidate' },
+      },
+    },
   },
   sitemap: {
     defaultSitemapsChunkSize: 25000,
@@ -72,12 +84,10 @@ export default defineNuxtConfig({
       boxers: {
         sources: ['/api/sitemap/boxers'], // Dynamic endpoint for all boxer URLs
         chunks: true, // Enable automatic chunking (uses defaultSitemapsChunkSize)
-
       },
       divisions: {
         sources: ['/api/sitemap/divisions'], // Dynamic endpoint for all division URLs
         chunks: true, // Enable automatic chunking (uses defaultSitemapsChunkSize)
-
       },
       legal: {
         sources: ['/api/sitemap/legal'], // Legal pages endpoint
@@ -93,5 +103,4 @@ export default defineNuxtConfig({
     disallow: ['/admin'],
     sitemap: 'https://boxingundefeated.com/sitemap_index.xml',
   },
-
 })
