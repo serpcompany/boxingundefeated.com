@@ -19,10 +19,12 @@
     "db:push": "drizzle-kit push",
     "db:studio": "drizzle-kit studio --port 4983",
     "db:studio:prev": "DRIZZLE_ENV=preview drizzle-kit studio --port 4984",
-    "db:studio:prod": "DRIZZLE_ENV=production drizzle-kit studio --port 4985"
+    "db:studio:prod": "DRIZZLE_ENV=production drizzle-kit studio --port 4985",
+    "db:sync:staging": "node --env-file=.env --experimental-sqlite --import tsx scripts/sync-miniflare-with-staging.ts"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^4.13.2",
+    "@libsql/client": "^0.15.11",
     "@nuxt/devtools": "latest",
     "@nuxt/eslint": "1.4.1",
     "@nuxt/image": "1.10.0",
