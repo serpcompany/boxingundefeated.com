@@ -19,7 +19,7 @@ export function getBoxersNationalities(boxers: Boxer[]): SelectItem[] {
 }
 
 export function getBoxersDivisions(boxers: Boxer[]): SelectItem[] {
-    let items = Array.from(new Set(boxers.map((boxer) => boxer.proDivision).filter((v) => v != null)))
+    let items = Array.from(new Set(boxers.map((boxer) => boxer.proDivision).filter((v) => v != null).filter((v) => v !== '')))
 
     const parsedItems: SelectItem[] = [
       { label: 'All Divisions', value: 'all' },
