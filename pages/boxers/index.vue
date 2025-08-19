@@ -46,7 +46,7 @@
 
 <template>
   <div>
-    <div class="bg-default border-b border-muted">
+    <div class="bg-default border-b border-default">
       <UContainer class="py-3">
         <BreadCrumbs :items="[{ label: 'Boxers' }]" />
       </UContainer>

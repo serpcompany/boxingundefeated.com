@@ -26,7 +26,7 @@
   <UButton
     color="neutral"
     variant="ghost"
-    class="-mx-2.5"
+    class="-mx-2.5 cursor-pointer font-semibold text-highlighted"
     :icon="icon"
     :label="label"
     @click="() => column.toggleSorting(column.getIsSorted() === 'asc')"

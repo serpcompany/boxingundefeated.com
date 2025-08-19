@@ -5,9 +5,11 @@
 <template>
   <div class="min-h-screen flex flex-col bg-default">
     <AppHeader />
-    <main class="flex-1 mb-12">
+
+    <UMain>
       <slot />
-    </main>
+    </UMain>
+
     <AppFooter class="mt-auto" />
   </div>
 </template>

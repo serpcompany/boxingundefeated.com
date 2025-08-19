@@ -56,7 +56,7 @@
 </script>
 
 <template>
-  <header class="sticky top-0 z-50 w-full bg-default border-b border-muted">
+  <header class="sticky top-0 z-50 w-full bg-default border-b border-default">
     <UContainer>
       <div class="flex h-16 items-center justify-between">
         <!-- Logo -->
