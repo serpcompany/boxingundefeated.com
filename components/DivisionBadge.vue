@@ -115,6 +115,7 @@
   <component
     :is="link ? NuxtLink : h('div')"
     v-bind="{ ...(link && { to: `/divisions/${division.slug}` }) }"
+    class="flex"
   >
     <UBadge
       variant="subtle"

@@ -1,26 +1,21 @@
 <script setup lang="ts">
-interface Props {
-  active: boolean
-  size?: 'xs' | 'sm' | 'md' | 'lg'
-}
+  import type { BadgeProps } from '#ui/types'
 
-const props = withDefaults(defineProps<Props>(), {
-  size: 'sm'
-})
+  interface Props {
+    active: boolean
+    size?: BadgeProps['size']
+  }
 
-const label = computed(() => props.active ? 'Active' : 'Retired')
-const color = computed(() => props.active ? 'green' : 'neutral')
-const variant = computed(() => 'soft') // Always use soft variant to avoid borders
-const borderClass = computed(() => props.active ? 'border border-green-500' : 'border border-neutral-500')
+  const props = withDefaults(defineProps<Props>(), {
+    size: 'sm',
+  })
+
+  const label = computed(() => (props.active ? 'Active' : 'Retired'))
+  const color = computed((): BadgeProps['color'] =>
+    props.active ? 'success' : 'neutral',
+  )
 </script>
 
 <template>
-  <UBadge
-    :color="color"
-    :variant="variant"
-    :size="size"
-    :class="borderClass"
-  >
-    {{ label }}
-  </UBadge>
+  <UBadge :color="color" :size="size" :label="label" variant="soft" />
 </template>

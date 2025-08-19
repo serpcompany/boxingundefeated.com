@@ -1,18 +1,18 @@
 <script setup lang="ts">
-// Skeleton loader for boxer detail page
+  // Skeleton loader for boxer detail page
 </script>
 
 <template>
-  <div class="min-h-screen bg-white">
+  <div class="min-h-screen bg-default">
     <!-- Breadcrumbs skeleton -->
-    <div class="bg-white border-b border-neutral-100">
+    <div class="bg-default border-b border-default">
       <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
         <USkeleton class="h-5 w-48" />
       </div>
     </div>
 
     <!-- Hero skeleton -->
-    <div class="bg-zinc-50 py-12">
+    <div class="bg-default py-12">
       <div class="max-w-6xl mx-auto px-6 lg:px-8">
         <div class="flex flex-col md:flex-row gap-8">
           <!-- Image skeleton -->
@@ -32,7 +32,7 @@
     </div>
 
     <!-- TOC skeleton -->
-    <div class="sticky top-0 z-10 bg-white border-b border-zinc-200">
+    <div class="sticky top-0 z-10 bg-default border-b border-default">
       <div class="max-w-6xl mx-auto px-6 lg:px-8">
         <div class="flex gap-4 py-4">
           <USkeleton class="h-10 w-24" />
