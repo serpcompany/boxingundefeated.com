@@ -35,7 +35,7 @@
 </script>
 
 <template>
-  <UMain>
+  <div>
     <template v-if="division">
       <div class="bg-default border-b border-default">
         <UContainer class="py-3">
@@ -71,7 +71,7 @@
 
       <USeparator />
 
-      <UPageSection>
+      <UPageSection :title="`Boxers in ${division.name}`">
         <template v-if="boxers.length === 0" class="text-center py-12">
           <UPageCard
             icon="lucide:users"
@@ -88,7 +88,7 @@
         </template>
       </UPageSection>
 
-      <div class="text-center">
+      <div class="py-16 text-center">
         <UButton
           to="/divisions"
           icon="lucide:arrow-left"
@@ -100,5 +100,5 @@
         </UButton>
       </div>
     </template>
-  </UMain>
+  </div>
 </template>

@@ -12,7 +12,6 @@
 
   interface BoxersTableProps {
     data: Boxer[]
-    total?: number
     showDivision?: boolean
     showDivisionFilter?: boolean
     loading?: boolean
@@ -22,6 +21,7 @@
     showDivisionFilter: true,
   })
 
+  const boxers = ref<Boxer[]>(props.data || [])
   const columns = computed<TableColumn<Boxer>[]>(() => {
     const cols: TableColumn<Boxer>[] = [
       {
@@ -100,18 +100,8 @@
     return cols
   })
 
-  function onSelect(row: TableRow<Boxer>) {
-    return navigateTo({
-      name: 'boxers-slug',
-      params: {
-        slug: row.original.slug,
-      },
-    })
-  }
-
   const table = useTemplateRef('table')
-  const pageSize = defineModel<number>('pageSize')
-
+  const skip = defineModel<number>('skip')
   const globalFilter = ref('')
 
   const statuses = [
@@ -123,24 +113,37 @@
   const nationalities = computed(() => getBoxersNationalities(props.data))
   const divisions = computed(() => getBoxersDivisions(props.data))
 
-  onMounted(() => {
-    if (props.total && pageSize.value) {
-      useInfiniteScroll(
-        table.value?.tableRef,
-        () => {
-          if (!pageSize.value || !props.total) return
-          if (props.total < pageSize.value) return
+  function onSelect(row: TableRow<Boxer>) {
+    return navigateTo({
+      name: 'boxers-slug',
+      params: {
+        slug: row.original.slug,
+      },
+    })
+  }
 
-          pageSize.value += 10
+  watch(
+    () => props.data,
+    () => {
+      boxers.value = [...boxers.value, ...(props.data || [])]
+    },
+  )
+
+  onMounted(() => {
+    if (skip.value === undefined) return
+    useInfiniteScroll(
+      (table.value as any)?.$el,
+      () => {
+        if (skip.value === undefined) return
+        skip.value += 10
+      },
+      {
+        distance: 200,
+        canLoadMore: () => {
+          return !props.loading
         },
-        {
-          distance: 200,
-          canLoadMore: () => {
-            return !props.loading
-          },
-        },
-      )
-    }
+      },
+    )
   })
 </script>
 
@@ -211,10 +214,11 @@
       <UTable
         ref="table"
         v-model:global-filter="globalFilter"
-        :data="data"
+        :data="boxers"
         :columns="columns"
         :loading="loading"
         :ui="{ thead: 'bg-muted', td: 'cursor-pointer' }"
+        class="flex-1 h-80"
         @select="onSelect"
       />
     </UCard>

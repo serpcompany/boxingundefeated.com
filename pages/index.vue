@@ -1,10 +1,10 @@
 <script setup lang="ts">
   const { site } = useAppConfig()
 
-  const limit = ref(10)
+  const skip = ref(0)
 
   const { data, pending } = await useFetch(
-    () => `/api/boxers?limit=${limit.value}`,
+    () => `/api/boxers?skip=${skip.value}&limit=10`,
   )
 
   useSeoMeta({
@@ -56,7 +56,7 @@
       description="Browse our complete database of professional boxers"
     >
       <BoxersTable
-        v-model:page-size="limit"
+        v-model:skip="skip"
         :data="data.boxers"
         :loading="pending"
         :total="data.pagination.total"
