@@ -31,15 +31,27 @@ NuxtHub creates and manages its own local D1 database in `.data/hub/d1/`. This i
 
 ### How to reset and reseed your database in your setup:
 
-**Delete the SQLite file (you already did this):**
+1. Delete the SQLite file:
+    ```
+    rm ./.data/hub/d1/miniflare-D1DatabaseObject/7b8799eb95f0bb5448e259812996a461ce40142dacbdea254ea597e307767f45.sqlite
+    ```
 
-```
-rm ./.data/hub/d1/miniflare-D1DatabaseObject/7b8799eb95f0bb5448e259812996a461ce40142dacbdea254ea597e307767f45.sqlite
-```
+2. Run Drizzle migrations:
+    ```
+    pnpm db:migrate
+    ```
 
-**Run Drizzle migrations:**
+3. Start your development server:
+    ```
+    pnpm dev
+    ```
 
-`npx drizzle-kit migrate`
+4. Once the server is running, open your application in the browser.
+   At the bottom of the page, you’ll see the Nuxt DevTools panel.
+
+5. In Nuxt DevTools, navigate to the **Server Tasks** section.
+
+6. Find and run the `seed` task to populate your database.
 
 (Make sure your .env or .env.local has the correct DRIZZLE_DB_URL.)
 # Force rebuild Fri Aug  1 18:26:58 PDT 2025

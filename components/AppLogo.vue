@@ -1,14 +1,10 @@
 <script setup lang="ts">
-// Logo component with boxing glove icon
-// const appConfig = useAppConfig()
+  // Logo component with boxing glove icon
+  //   const appConfig = useAppConfig()
 </script>
 
 <template>
   <NuxtLink to="/" class="flex items-center space-x-2 text-lg font-bold">
-    <!-- <span class="text-zinc-900">{{ appConfig.site.name }}</span> -->
-    <span class="text-zinc-900">
-      <img src="/logo.svg" alt="boxing undefeateed logo" class="h-20 w-20" />
-    </span>
+    <SharedLogo class="w-16 h-16 fill-black dark:fill-white" />
   </NuxtLink>
 </template>
-    <!-- <span class="text-zinc-900">{{ appConfig.site.name }}</span> -->

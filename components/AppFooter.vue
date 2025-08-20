@@ -1,85 +1,77 @@
+<script setup lang="ts">
+  import type { FooterColumn } from '#ui-pro/types'
+
+  const columns: FooterColumn[] = [
+    {
+      label: 'About',
+      children: [
+        {
+          label: 'About',
+          to: '/about',
+        },
+      ],
+    },
+    {
+      label: 'Boxing',
+      children: [
+        {
+          label: 'Boxers',
+          to: '/boxers',
+        },
+        {
+          label: 'Divisions',
+          to: '/divisions',
+        },
+      ],
+    },
+    {
+      label: 'Socials',
+      children: [
+        {
+          label: 'Instagram',
+          to: 'https://serp.ly/@boxingundefeated/instagram',
+        },
+        {
+          label: 'Youtube',
+          to: 'https://serp.ly/@boxingundefeated/youtube',
+        },
+        {
+          label: 'Github',
+          to: 'https://serp.ly/@boxingundefeated/github',
+        },
+      ],
+    },
+    {
+      label: 'Legal',
+      children: [
+        {
+          label: 'Privacy Policy',
+          to: '/legal/privacy-policy',
+        },
+        {
+          label: 'Terms & Conditions',
+          to: '/legal/terms-conditions',
+        },
+        {
+          label: 'DMCA',
+          to: '/legal/dmca',
+        },
+        {
+          label: 'Affiliate Disclosure',
+          to: '/legal/affiliate-disclosure',
+        },
+      ],
+    },
+  ]
+</script>
+
 <template>
-  <footer class="border-t border-zinc-200 py-20 mt-auto">
-    <div class="max-w-6xl mx-auto px-5">
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
-        <!-- About Section -->
-        <div>
-          <h3 class="font-semibold text-zinc-900 mb-3">About</h3>
-          <ul class="space-y-2 text-sm text-zinc-600">
-            <li>
-              <NuxtLink to="/about" class="hover:text-zinc-900 transition-colors">
-                About
-              </NuxtLink>
-            </li>
-          </ul>
-        </div>
-
-        <!-- Boxing Links -->
-        <div>
-          <h3 class="font-semibold text-zinc-900 mb-3">Boxing</h3>
-          <ul class="space-y-2 text-sm text-zinc-600">
-            <li>
-              <NuxtLink to="/boxers" class="hover:text-zinc-900 transition-colors">
-                Boxers
-              </NuxtLink>
-            </li>
-            <li>
-              <NuxtLink to="/divisions" class="hover:text-zinc-900 transition-colors">
-                Divisions
-              </NuxtLink>
-            </li>
-          </ul>
-        </div>
-
-        <!-- Popular Divisions -->
-        <div>
-          <h3 class="font-semibold text-zinc-900 mb-3">Socials</h3>
-          <ul class="space-y-2 text-sm text-zinc-600">
-            <li>
-              <NuxtLink to="https://serp.ly/@boxingundefeated/instagram" class="hover:text-zinc-900 transition-colors">
-                Instagram
-              </NuxtLink>
-            </li>
-            <li>
-             <NuxtLink to="https://serp.ly/@boxingundefeated/youtube" class="hover:text-zinc-900 transition-colors">
-                Youtube
-              </NuxtLink>
-            </li>
-            <li>
-              <NuxtLink to="https://serp.ly/@boxingundefeated/github" class="hover:text-zinc-900 transition-colors">
-                Github
-              </NuxtLink>
-            </li>
-          </ul>
-        </div>
-
-        <!-- Legal -->
-        <div>
-          <h3 class="font-semibold text-zinc-900 mb-3">Legal</h3>
-          <ul class="space-y-2 text-sm text-zinc-600">
-            <li>
-              <NuxtLink to="/legal/privacy-policy" class="hover:text-zinc-900 transition-colors">
-                Privacy Policy
-              </NuxtLink>
-            </li>
-            <li>
-              <NuxtLink to="/legal/terms-conditions" class="hover:text-zinc-900 transition-colors">
-                Terms & Conditions
-              </NuxtLink>
-            </li>
-            <li>
-              <NuxtLink to="/legal/dmca" class="hover:text-zinc-900 transition-colors">
-                DMCA
-              </NuxtLink>
-            </li>
-            <li>
-              <NuxtLink to="/legal/affiliate-disclosure" class="hover:text-zinc-900 transition-colors">
-                Affiliate Disclosure
-              </NuxtLink>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </footer>
+  <USeparator class="h-px" />
+  <UFooter class="bg-default">
+    <template #top>
+      <UContainer>
+        <UFooterColumns :columns="columns" :ui="{ center: 'xl:col-span-3' }" />
+      </UContainer>
+    </template>
+  </UFooter>
 </template>

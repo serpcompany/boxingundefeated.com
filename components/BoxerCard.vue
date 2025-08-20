@@ -17,9 +17,9 @@ const props = defineProps<Props>()
       <div class="flex flex-col h-full">
         <!-- Image -->
         <div class="aspect-square bg-zinc-100 rounded-lg overflow-hidden mb-4">
-          <img 
-            v-if="boxer.avatarImage" 
-            :src="boxer.avatarImage" 
+          <img
+            v-if="boxer.avatarImage"
+            :src="boxer.avatarImage"
             :alt="boxer.name"
             class="w-full h-full object-cover"
           >
@@ -43,7 +43,7 @@ const props = defineProps<Props>()
             <UBadge v-if="boxer.proStatus === 'active'" color="green" variant="subtle">
               Active
             </UBadge>
-            <UBadge v-else color="gray" variant="subtle">
+            <UBadge v-else color="neutral" variant="subtle">
               Retired
             </UBadge>
             <span class="text-zinc-600">
@@ -54,7 +54,7 @@ const props = defineProps<Props>()
           <div class="pt-3 mt-auto border-t border-zinc-200">
             <RecordBadge
               :wins="boxer.proWins || 0"
-              :losses="boxer.proLosses || 0" 
+              :losses="boxer.proLosses || 0"
               :draws="boxer.proDraws || 0"
               :knockouts="boxer.proWinsByKnockout || 0"
               size="sm"
