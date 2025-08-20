@@ -29,7 +29,7 @@
 
             <template v-if="boxer.nicknames">
               <span class="block text-muted font-normal sm:inline">
-                "{{ boxer.nicknames.replace('""', '') }}"
+                "{{ parseBoxerNickname(boxer.nicknames) }}"
               </span>
             </template>
           </h1>

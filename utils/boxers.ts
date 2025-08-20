@@ -1,5 +1,6 @@
 import type { Boxer } from "~/server/db/drizzle";
 import type { SelectItem } from "#ui/types"
+import { format } from "date-fns";
 
 interface BoxerRecordStat {
     name: string;
@@ -66,6 +67,21 @@ export function getBoxerStats(boxer: Boxer, type: "professional" | "amateur"): B
     ];
 }
 
+export function formatBoxerDate(date: string) {
+    try {
+        return format(date, 'MMMM dd, yyyy');
+    } catch (error) {
+        return "N/A"
+    }
+}
+
 export function formatBoxerLink(name:string) {
     return `/boxers/${name.replace(/\s+/g, '-').toLowerCase()}`
+}
+
+export function parseBoxerNickname(nickname: string): string {
+    return nickname
+        .replaceAll(`"`, '')
+        .replaceAll(`'`, '')
+        .replaceAll(`,`, ', ')
 }

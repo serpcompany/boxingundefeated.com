@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "@nuxt/ui-pro";
+@plugin '@tailwindcss/typography';
 
 @theme {
     --color-black-50: #f6f6f6;

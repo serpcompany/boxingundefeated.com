@@ -37,7 +37,7 @@
           label: 'Fighters',
           to: '/boxers',
           size: 'lg',
-          color: 'neutral',
+          color: 'primary',
           variant: 'solid',
         },
         {

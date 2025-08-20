@@ -18,24 +18,20 @@
         <div class="bg-muted/25 col-span-full">
           <p class="text-sm font-bold">Information</p>
         </div>
-        <div v-if="boxer.dateOfBirth" class="sm:col-span-1">
-          <dt class="text-sm font-medium text-highlighted">Born</dt>
-          <dd class="text-sm text-muted">
-            {{ format(boxer.dateOfBirth, 'MMMM dd, yyyy') }}
-          </dd>
-        </div>
-        <div v-if="boxer.dateOfBirth" class="sm:col-span-1">
-          <dt class="text-sm font-medium text-highlighted">Age</dt>
-          <dd class="text-sm text-muted">
-            {{
-              formatDistanceToNowStrict(boxer.dateOfBirth, {
-                unit: 'year',
-                addSuffix: false,
-                roundingMethod: 'trunc',
-              })
-            }}
-          </dd>
-        </div>
+        <template v-if="boxer.dateOfBirth">
+          <div class="sm:col-span-1">
+            <dt class="text-sm font-medium text-highlighted">Born</dt>
+            <dd class="text-sm text-muted">
+              {{ formatBoxerDate(boxer.dateOfBirth) }}
+            </dd>
+          </div>
+          <div class="sm:col-span-1">
+            <dt class="text-sm font-medium text-highlighted">Age</dt>
+            <dd class="text-sm text-muted">
+              {{ calculateAge(boxer.dateOfBirth) }}
+            </dd>
+          </div>
+        </template>
         <div v-if="boxer.birthPlace" class="sm:col-span-1">
           <dt class="text-sm font-medium text-highlighted">Birthplace</dt>
           <dd class="text-sm text-muted">{{ boxer.birthPlace }}</dd>
@@ -55,21 +51,23 @@
           </dd>
         </div>
 
-        <div class="bg-muted/25 col-span-full">
-          <p class="text-sm font-bold">Stats</p>
-        </div>
-        <div>
-          <dt class="text-sm font-medium text-highlighted">Height</dt>
-          <dd class="text-sm text-muted">{{ boxer.height }} cm</dd>
-        </div>
-        <div>
-          <dt class="text-sm font-medium text-highlighted">Reach</dt>
-          <dd class="text-sm text-muted">{{ boxer.reach }} cm</dd>
-        </div>
-        <div>
-          <dt class="text-sm font-medium text-highlighted">Stance</dt>
-          <dd class="text-sm text-muted capitalize">{{ boxer.stance }}</dd>
-        </div>
+        <template v-if="boxer.height || boxer.reach || boxer.stance">
+          <div class="bg-muted/25 col-span-full">
+            <p class="text-sm font-bold">Stats</p>
+          </div>
+          <div v-if="boxer.height">
+            <dt class="text-sm font-medium text-highlighted">Height</dt>
+            <dd class="text-sm text-muted">{{ boxer.height }} cm</dd>
+          </div>
+          <div v-if="boxer.reach">
+            <dt class="text-sm font-medium text-highlighted">Reach</dt>
+            <dd class="text-sm text-muted">{{ boxer.reach }} cm</dd>
+          </div>
+          <div v-if="boxer.stance">
+            <dt class="text-sm font-medium text-highlighted">Stance</dt>
+            <dd class="text-sm text-muted capitalize">{{ boxer.stance }}</dd>
+          </div>
+        </template>
 
         <!-- Professional Career Stats -->
         <div class="bg-muted/25 col-span-full">
@@ -93,10 +91,10 @@
             {{ boxer.proTotalRounds }}
           </dd>
         </div>
-        <div>
+        <div v-if="boxer.proWins && boxer.proTotalBouts">
           <dt class="text-sm font-medium text-highlighted">Win Rate</dt>
           <dd class="text-sm text-muted capitalize">
-            {{ calculateWinRate(boxer.proWins, boxer.proTotalBouts || 0) }}
+            {{ calculateWinRate(boxer.proWins, boxer.proTotalBouts) }}
           </dd>
         </div>
         <div>
