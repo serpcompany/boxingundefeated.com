@@ -2,11 +2,11 @@
   const route = useRoute()
   const appConfig = useAppConfig()
 
-  const { data, pending } = await useFetch(
+  const { data: boxer, pending } = await useFetch(
     () => `/api/boxers/${route.params.slug}`,
   )
 
-  if (!data.value) {
+  if (!boxer.value) {
     throw createError({
       statusCode: 404,
       statusMessage: 'Boxer Not Found',
@@ -19,39 +19,37 @@
 
   useSeoMeta({
     title: () => {
-      if (!data.value) return 'Boxer Profile'
+      if (!boxer.value) return 'Boxer Profile'
 
-      const nickname = data.value.boxer.nicknames
-        ? `"${data.value.boxer.nicknames}"`
-        : ''
+      const nickname = boxer.value.nicknames ? `"${boxer.value.nicknames}"` : ''
 
-      return `${data.value.boxer.name} ${nickname}`
+      return `${boxer.value.name} ${nickname}`
     },
     description: () => {
-      if (!data.value) return appConfig.site.description
+      if (!boxer.value) return appConfig.site.description
 
-      return `${data.value.boxer.name} Bio, Record, Fights, News & More!`
+      return `${boxer.value.name} Bio, Record, Fights, News & More!`
     },
   })
 
   useSchemaOrg([
     definePerson({
-      name: data.value?.boxer.name,
-      alternateName: data.value?.boxer.nicknames,
+      name: boxer.value?.name,
+      alternateName: boxer.value?.nicknames,
       nationality: {
         '@type': 'Country',
-        name: data.value?.boxer.nationality,
+        name: boxer.value?.nationality,
       },
-      birthDate: data.value?.boxer.dateOfBirth,
+      birthDate: boxer.value?.dateOfBirth,
       birthPlace: definePlace({
-        name: data.value?.boxer.birthPlace,
+        name: boxer.value?.birthPlace,
       }),
-      gender: data.value?.boxer.gender === 'M' ? 'Male' : 'Female',
+      gender: boxer.value?.gender === 'M' ? 'Male' : 'Female',
       jobTitle: 'Professional Boxer',
       sport: 'Boxing',
-      height: `${data.value?.boxer.height} cm`,
-      description: `${data.value?.boxer.name} Bio, Record, Fights, News & More!`,
-      image: data.value?.boxer.avatarImage,
+      height: `${boxer.value?.height} cm`,
+      description: `${boxer.value?.name} Bio, Record, Fights, News & More!`,
+      image: boxer.value?.avatarImage,
       additionalProperty: [
         {
           '@type': 'PropertyValue',
@@ -61,18 +59,17 @@
         {
           '@type': 'PropertyValue',
           name: 'Professional Record',
-          value: `${data.value?.boxer.proWins}-${data.value?.boxer.proLosses}-${data.value?.boxer.proDraws}`,
+          value: `${boxer.value?.proWins}-${boxer.value?.proLosses}-${boxer.value?.proDraws}`,
         },
         {
           '@type': 'PropertyValue',
           name: 'Weight Division',
-          value: data.value?.boxer.proDivision || 'Professional',
+          value: boxer.value?.proDivision || 'Professional',
         },
         {
           '@type': 'PropertyValue',
           name: 'Status',
-          value:
-            data.value?.boxer.proStatus === 'active' ? 'Active' : 'Retired',
+          value: boxer.value?.proStatus === 'active' ? 'Active' : 'Retired',
         },
       ],
     }),
@@ -82,31 +79,28 @@
 <template>
   <div class="relative">
     <BoxerSkeleton v-if="pending" />
-    <template v-else-if="data">
+    <template v-else-if="boxer">
       <UContainer class="py-3">
         <BreadCrumbs
-          :items="[
-            { label: 'Boxers', to: '/boxers' },
-            { label: data.boxer.name },
-          ]"
+          :items="[{ label: 'Boxers', to: '/boxers' }, { label: boxer.name }]"
         />
       </UContainer>
 
       <USeparator />
 
-      <BoxersSingleHero :boxer="data.boxer" />
+      <BoxersSingleHero :boxer="boxer" />
 
       <USeparator />
 
-      <BoxersSingleToc :boxer="data.boxer" />
+      <BoxersSingleToc :boxer="boxer" />
 
-      <BoxersSingleRecord :boxer="data.boxer" />
+      <BoxersSingleRecord :boxer="boxer" />
 
-      <BoxersSingleProfile :boxer="data.boxer" />
+      <BoxersSingleProfile :boxer="boxer" />
 
-      <BoxersSingleAbout v-if="data.boxer.bio" :content="data.boxer.bio" />
+      <BoxersSingleAbout v-if="boxer.bio" :content="boxer.bio" />
 
-      <BoxersSingleHistory :data="data.fights as any[]" />
+      <BoxersSingleHistory :data="boxer.bouts" />
     </template>
   </div>
 </template>

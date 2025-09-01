@@ -28,35 +28,7 @@ export default defineEventHandler(async (event) => {
       })
     }
 
-    // Extract bouts from the JSON field and separate from boxer data
-    const { bouts } = boxer
-    const validatedFights = (bouts as any[]) || []
-
-    // Calculate additional stats
-    const totalFights = validatedFights.length
-    const wins = validatedFights.filter((f) => f.result === 'win').length
-    const losses = validatedFights.filter((f) => f.result === 'loss').length
-    const draws = validatedFights.filter((f) => f.result === 'draw').length
-    const koWins = validatedFights.filter(
-      (f) => f.result === 'win' && ['ko', 'tko'].includes(f.resultMethod || ''),
-    ).length
-    const titleFights = validatedFights.filter((f) => f.titleFight).length
-
-    return {
-      boxer: boxer,
-      fights: validatedFights,
-      stats: {
-        totalFights,
-        wins,
-        losses,
-        draws,
-        koWins,
-        titleFights,
-        winPercentage:
-          totalFights > 0 ? Math.round((wins / totalFights) * 100) : 0,
-        koPercentage: wins > 0 ? Math.round((koWins / wins) * 100) : 0,
-      },
-    }
+    return boxer
   } catch (error: any) {
     if (error.statusCode) {
       throw error // Re-throw HTTP errors
