@@ -40,7 +40,7 @@ const props = defineProps<Props>()
           </div>
 
           <div class="flex items-center gap-2 text-sm">
-            <UBadge v-if="boxer.proStatus === 'active'" color="green" variant="subtle">
+            <UBadge v-if="boxer.proStatus !== 'inactive'" color="green" variant="subtle">
               Active
             </UBadge>
             <UBadge v-else color="gray" variant="subtle">

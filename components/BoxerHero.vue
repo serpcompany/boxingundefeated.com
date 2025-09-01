@@ -12,7 +12,7 @@ function getDivision(boxer: Boxer): string | undefined {
 }
 
 function isActive(boxer: Boxer): boolean {
-  return boxer.proStatus === 'active'
+  return boxer.proStatus !== 'inactive'
 }
 
 function getStatus(boxer: Boxer): string {

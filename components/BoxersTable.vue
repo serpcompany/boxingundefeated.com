@@ -68,8 +68,8 @@ const tableData = computed(() => {
     knockouts: boxer.proWinsByKnockout,
     nationality: boxer.nationality || '—',
     division: boxer.proDivision || '—',
-    status: boxer.proStatus === 'active' ? 'Active' : 'Retired',
-    active: boxer.proStatus === 'active',
+    status: boxer.proStatus !== 'inactive' ? 'Active' : 'Retired',
+    active: boxer.proStatus !== 'inactive',
     image: boxer.avatarImage
   }))
 })
