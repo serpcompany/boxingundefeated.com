@@ -1,73 +1,67 @@
 <script setup lang="ts">
-const { site } = useAppConfig()
+  const { site } = useAppConfig()
 
-// Fetch boxers data from API using useFetch for proper SSR
-const { data: boxersData } = await useFetch('/api/boxers')
+  const skip = ref(0)
 
-useSeoMeta({
-  title: site.tagline,
-  description: site.description,
-  ogTitle: site.tagline,
-  ogDescription: site.description,
-  ogImage: `${site.url}/og-image-home.jpg`,
-  ogUrl: site.url,
-  ogType: 'website',
-  twitterCard: 'summary_large_image',
-  twitterTitle: site.tagline,
-  twitterDescription: site.description,
-  twitterImage: `${site.url}/og-image-home.jpg`,
-})
+  const { data, pending } = await useFetch(
+    () => `/api/boxers?skip=${skip.value}&limit=10`,
+  )
+
+  useSeoMeta({
+    title: site.tagline,
+    description: site.description,
+    ogTitle: site.tagline,
+    ogDescription: site.description,
+    ogImage: `${site.url}/og-image-home.jpg`,
+    ogUrl: site.url,
+    ogType: 'website',
+    twitterCard: 'summary_large_image',
+    twitterTitle: site.tagline,
+    twitterDescription: site.description,
+    twitterImage: `${site.url}/og-image-home.jpg`,
+  })
 </script>
 
 <template>
-  <div class="min-h-screen bg-white">
-    <!-- Hero Section -->
-    <section class="relative overflow-hidden bg-black text-white min-h-[300px] sm:min-h-[350px] max-h-[450px] flex items-center">
-      <div class="relative w-full max-w-6xl mx-auto px-6 lg:px-8 py-20 sm:py-24">
-        <div class="text-center">
-          <h1 class="text-4xl sm:text-6xl font-bold tracking-tight mb-6">
-            Boxing Undefeated
-          </h1>
-          <p class="text-xl sm:text-2xl max-w-3xl mx-auto mb-8 text-zinc-300">
-            Your comprehensive guide to the sweet science. Explore fighter profiles, 
-            weight divisions, and boxing history.
-          </p>
-          <div class="flex gap-4 justify-center">
-            <UButton 
-              to="/boxers" 
-              size="lg"
-              color="white"
-              variant="solid"
-            >
-              Fighters
-            </UButton>
-            <UButton 
-              to="/divisions" 
-              size="lg"
-              color="white"
-              variant="outline"
-            >
-              Weight Divisions
-            </UButton>
-          </div>
-        </div>
-      </div>
-    </section>
+  <div>
+    <UPageHero
+      title="Boxing Undefeated"
+      description="Your comprehensive guide to the sweet science. Explore fighter profiles, weight divisions, and boxing history."
+      class="bg-black"
+      :ui="{
+        title: 'text-white dark:text-highlighted',
+        description: 'max-w-3xl mx-auto text-dimmed dark:text-muted',
+      }"
+      :links="[
+        {
+          label: 'Fighters',
+          to: '/boxers',
+          size: 'lg',
+          color: 'primary',
+          variant: 'solid',
+        },
+        {
+          label: 'Weight Divisions',
+          to: '/divisions',
+          size: 'lg',
+          color: 'neutral',
+          variant: 'outline',
+        },
+      ]"
+    />
 
-    <!-- All Boxers Table -->
-    <section class="py-16 sm:py-24">
-      <div class="max-w-6xl mx-auto px-6 lg:px-8">
-        <div class="text-center mb-12">
-          <h2 class="text-3xl font-bold text-zinc-900 mb-4">
-            All Fighters
-          </h2>
-          <p class="text-lg text-zinc-600">
-            Browse our complete database of professional boxers
-          </p>
-        </div>
-        
-        <BoxersTable :boxers="boxersData?.boxers || []" :show-division="true" />
-      </div>
-    </section>
+    <UPageSection
+      v-if="data"
+      title="All Fighters"
+      description="Browse our complete database of professional boxers"
+    >
+      <BoxersTable
+        v-model:skip="skip"
+        :data="data.boxers"
+        :loading="pending"
+        :total="data.pagination.total"
+        :show-division="true"
+      />
+    </UPageSection>
   </div>
 </template>

@@ -14,13 +14,14 @@ const boxersQuerySchema = z.object({
   sortOrder: z.enum(['asc', 'desc']).default('asc'),
   page: z.number().min(1).default(1),
   limit: z.number().min(1).max(100).default(20),
+  skip: z.number().optional(),
 })
 
 export default defineEventHandler(async (event) => {
   try {
     const db = useDrizzle()
     const query = getQuery(event)
-    
+
     // Validate and parse query parameters
     const {
       search,
@@ -30,32 +31,34 @@ export default defineEventHandler(async (event) => {
       sortBy,
       sortOrder,
       page,
-      limit
+      limit,
+      skip
     } = boxersQuerySchema.parse({
       ...query,
       page: query.page ? Number(query.page) : 1,
       limit: query.limit ? Number(query.limit) : 50,
+      skip: query.skip ? Number(query.skip) : undefined,
     })
-    
+
     // Build WHERE conditions
     const conditions = []
-    
+
     if (search) {
       conditions.push(like(boxers.name, `%${search}%`))
     }
-    
+
     if (nationality) {
       conditions.push(eq(boxers.nationality, nationality))
     }
-    
+
     if (division) {
       conditions.push(eq(boxers.proDivision, division))
     }
-    
+
     if (status) {
       conditions.push(eq(boxers.proStatus, status))
     }
-    
+
     // Build ORDER BY clause
     const sortColumn = {
       name: boxers.name,
@@ -63,12 +66,16 @@ export default defineEventHandler(async (event) => {
       losses: boxers.proLosses,
       ranking: boxers.id, // Use id as fallback since ranking was removed
     }[sortBy]
-    
+
     const orderFn = sortOrder === 'desc' ? desc : asc
-    
+
     // Execute query with pagination
-    const offset = (page - 1) * limit
-    
+    let offset = (page - 1) * limit
+
+    if (skip) {
+        offset += skip
+    }
+
     const results = await db
       .select()
       .from(boxers)
@@ -76,16 +83,16 @@ export default defineEventHandler(async (event) => {
       .orderBy(orderFn(sortColumn))
       .limit(limit)
       .offset(offset)
-    
+
     // Get total count for pagination
     const totalResults = await db
       .select({ count: boxers.id })
       .from(boxers)
       .where(conditions.length > 0 ? and(...conditions) : undefined)
-    
+
     const total = totalResults.length
     const totalPages = Math.ceil(total / limit)
-    
+
     // Validate response data - convert id to number if it's a string
     const validatedResults = results.map(boxer => {
       const boxerWithNumericId = {
@@ -94,7 +101,7 @@ export default defineEventHandler(async (event) => {
       }
       return boxerSelectSchema.parse(boxerWithNumericId)
     })
-    
+
     return {
       boxers: validatedResults,
       pagination: {
@@ -114,7 +121,7 @@ export default defineEventHandler(async (event) => {
         sortOrder,
       }
     }
-    
+
   } catch (error) {
     console.error('Error in /api/boxers:', error)
     throw createError({

@@ -1,146 +1,106 @@
 <script setup lang="ts">
-import type { Boxer } from '~/types'
+  const route = useRoute()
+  const appConfig = useAppConfig()
 
-const route = useRoute()
-const slug = route.params.slug as string
+  const { data: boxer, pending } = await useFetch(
+    () => `/api/boxers/${route.params.slug}`,
+  )
 
-// Use useAsyncData for proper SSR and hydration with API
-const { data: boxerResponse, pending, error } = await useAsyncData(
-  `boxer-${slug}`,
-  () => $fetch(`/api/boxers/${slug}`)
-)
+  if (!boxer.value) {
+    throw createError({
+      statusCode: 404,
+      statusMessage: 'Boxer Not Found',
+      message: `The boxer "${route.params.slug}" could not be found.`,
+      data: {
+        redirect: '/boxers',
+      },
+    })
+  }
 
-// Extract boxer from API response
-const boxer = computed(() => boxerResponse.value?.boxer)
+  useSeoMeta({
+    title: () => {
+      if (!boxer.value) return 'Boxer Profile'
 
-const divisionSlug = computed(() => {
-  if (!boxer.value) return ''
-  return boxer.value.proDivision || ''
-})
+      const nickname = boxer.value.nicknames ? `"${boxer.value.nicknames}"` : ''
 
-const { data: divisions } = useFetch('/api/divisions')
-
-const division = computed(() => {
-  if (!divisionSlug.value || !divisions.value) return null
-  // Normalize the division slug to match divisions format
-  const normalized = divisionSlug.value.toLowerCase().replace(/\s+/g, '-')
-  return divisions.value.divisions.find(d => d.slug === normalized)
-})
-
-const { site } = useAppConfig()
-
-useSeoMeta({
-  title: computed(() => {
-    if (!boxer.value) return 'Boxer Profile'
-    const nickname = boxer.value.nicknames ? ` "${boxer.value.nicknames}"` : ''
-    return `${boxer.value.name}${nickname}`
-  }),
-  description: computed(() => {
-    if (!boxer.value) return site.description
-    return `${boxer.value.name} Bio, Record, Fights, News & More!`
-  }),
-})
-
-// Schema.org structured data for boxer profile
-useHead({
-  script: [
-    {
-      type: 'application/ld+json',
-      children: computed(() => {
-        if (!boxer.value) return '{}'
-
-        const wins = boxer.value.proWins || 0
-        const losses = boxer.value.proLosses || 0
-        const draws = boxer.value.proDraws || 0
-
-        return JSON.stringify({
-          '@context': 'https://schema.org',
-          '@type': 'Person',
-          '@id': `${site.url}/boxers/${slug}/#person`,
-          name: boxer.value.name,
-          alternateName: boxer.value.nicknames,
-          url: `${site.url}/boxers/${slug}`,
-          nationality: boxer.value.nationality,
-          birthDate: boxer.value.dateOfBirth,
-          jobTitle: 'Professional Boxer',
-          sport: 'Boxing',
-          description: `${boxer.value.name} Bio, Record, Fights, News & More!`,
-          image: boxer.value.avatarImage,
-          additionalProperty: [
-            {
-              '@type': 'PropertyValue',
-              name: 'Professional Record',
-              value: `${wins}-${losses}-${draws}`,
-            },
-            {
-              '@type': 'PropertyValue',
-              name: 'Weight Division',
-              value: division.value?.name || 'Professional',
-            },
-            {
-              '@type': 'PropertyValue',
-              name: 'Status',
-              value: boxer.value.proStatus === 'active' ? 'Active' : 'Retired',
-            },
-          ],
-        })
-      }),
+      return `${boxer.value.name} ${nickname}`
     },
-  ],
-})
+    description: () => {
+      if (!boxer.value) return appConfig.site.description
 
+      return `${boxer.value.name} Bio, Record, Fights, News & More!`
+    },
+  })
 
-// Use fights from API response
-const fights = computed(() => {
-  if (!boxerResponse.value?.fights) return []
-  return boxerResponse.value.fights
-})
+  useSchemaOrg([
+    definePerson({
+      name: boxer.value?.name,
+      alternateName: boxer.value?.nicknames,
+      nationality: {
+        '@type': 'Country',
+        name: boxer.value?.nationality,
+      },
+      birthDate: boxer.value?.dateOfBirth,
+      birthPlace: definePlace({
+        name: boxer.value?.birthPlace,
+      }),
+      gender: boxer.value?.gender === 'M' ? 'Male' : 'Female',
+      jobTitle: 'Professional Boxer',
+      sport: 'Boxing',
+      height: `${boxer.value?.height} cm`,
+      description: `${boxer.value?.name} Bio, Record, Fights, News & More!`,
+      image: boxer.value?.avatarImage,
+      additionalProperty: [
+        {
+          '@type': 'PropertyValue',
+          name: 'Sport',
+          value: 'Boxing',
+        },
+        {
+          '@type': 'PropertyValue',
+          name: 'Professional Record',
+          value: `${boxer.value?.proWins}-${boxer.value?.proLosses}-${boxer.value?.proDraws}`,
+        },
+        {
+          '@type': 'PropertyValue',
+          name: 'Weight Division',
+          value: boxer.value?.proDivision || 'Professional',
+        },
+        {
+          '@type': 'PropertyValue',
+          name: 'Status',
+          value: boxer.value?.proStatus === 'active' ? 'Active' : 'Retired',
+        },
+      ],
+    }),
+  ])
 </script>
 
 <template>
-  <div>
-    <!-- Error State -->
-    <ErrorState v-if="error" title="Boxer Not Found" :message="`The boxer &quot;${slug}&quot; could not be found.`"
-      link-text="← Back to Boxers" link-to="/boxers" />
+  <div class="relative">
+    <BoxerSkeleton v-if="pending" />
+    <template v-else-if="boxer">
+      <UContainer class="py-3">
+        <BreadCrumbs
+          :items="[{ label: 'Boxers', to: '/boxers' }, { label: boxer.name }]"
+        />
+      </UContainer>
 
-    <!-- Loading State -->
-    <BoxerSkeleton v-else-if="pending" />
+      <USeparator />
 
-    <!-- Boxer Content -->
-    <div v-else-if="boxer" class="min-h-screen bg-white">
+      <BoxersSingleHero :boxer="boxer" />
 
-      <!-- Breadcrumbs -->
-      <div class="bg-white border-b border-gray-100">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
-          <BreadCrumbs :items="[
-            { label: 'Boxers', to: '/boxers' },
-            { label: boxer.name || '' }
-          ]" />
-        </div>
-      </div>
+      <USeparator />
 
-      <!-- Hero Section -->
-      <BoxerHero :boxer="boxer" />
+      <BoxersSingleToc :boxer="boxer" />
 
-      <!-- Sticky Horizontal TOC -->
-      <BoxerPageTOCHorizontal :boxer="boxer" />
+      <BoxersSingleRecord :boxer="boxer" />
 
-      <!-- Main Content -->
-      <div class="max-w-6xl mx-auto px-6 lg:px-8 py-8 sm:py-12">
-        <div class="space-y-8">
-          <!-- Combined Record Stats -->
-          <BoxerRecordTabs :boxer="boxer" />
+      <BoxersSingleProfile :boxer="boxer" />
 
-          <!-- Fighter Information Card -->
-          <FighterInfoCard :boxer="boxer" />
+      <BoxersSingleAbout v-if="boxer.bio" :content="boxer.bio" />
 
-          <!-- About Section -->
-          <BiographySection :boxer="boxer" />
-
-          <!-- Fight History Table -->
-          <FightHistoryTable :fights="fights" />
-        </div>
-      </div>
-    </div>
+      <BoxersSingleHistory :data="boxer.bouts" />
+    </template>
   </div>
 </template>
