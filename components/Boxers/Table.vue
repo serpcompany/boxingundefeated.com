@@ -89,9 +89,9 @@
         filterFn: 'equalsString',
         cell: ({ row }) =>
           h(UBadge, {
-            label: row.original.proStatus === 'active' ? 'Active' : 'Retired',
+            label: row.original.proStatus !== 'inactive' ? 'Active' : 'Retired',
             color:
-              row.original.proStatus === 'active' ? 'secondary' : 'neutral',
+              row.original.proStatus !== 'inactive' ? 'secondary' : 'neutral',
             variant: 'subtle',
           }),
       },

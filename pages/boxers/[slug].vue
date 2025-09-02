@@ -69,7 +69,7 @@
         {
           '@type': 'PropertyValue',
           name: 'Status',
-          value: boxer.value?.proStatus === 'active' ? 'Active' : 'Retired',
+          value: boxer.value?.proStatus !== 'inactive' ? 'Active' : 'Retired',
         },
       ],
     }),
