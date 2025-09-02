@@ -218,7 +218,7 @@
         :columns="columns"
         :loading="loading"
         :ui="{ thead: 'bg-muted', td: 'cursor-pointer' }"
-        class="flex-1 h-80"
+        class="flex-1 h-full max-h-200"
         @select="onSelect"
       />
     </UCard>
