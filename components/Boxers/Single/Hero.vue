@@ -38,7 +38,7 @@
             class="flex flex-wrap justify-center items-center gap-4 sm:justify-start"
           >
             <DivisionBadge :division="boxer.proDivision!" />
-            <StatusBadge :active="boxer.proStatus === 'active'" size="md" />
+            <StatusBadge :active="boxer.proStatus !== 'inactive'" size="md" />
           </div>
         </div>
       </div>
