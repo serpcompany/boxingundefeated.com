@@ -86,7 +86,16 @@
         header: 'Status',
         accessorKey: 'proStatus',
         enableGlobalFilter: false,
-        filterFn: 'equalsString',
+        filterFn: (row, columnId, filterValue) => {
+          const proStatus = row.getValue(columnId) as string
+          if (filterValue === 'active') {
+            return proStatus !== 'inactive'
+          }
+          if (filterValue === 'inactive') {
+            return proStatus === 'inactive'
+          }
+          return true
+        },
         cell: ({ row }) =>
           h(UBadge, {
             label: row.original.proStatus !== 'inactive' ? 'Active' : 'Retired',
