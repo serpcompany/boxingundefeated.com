@@ -13,6 +13,9 @@ export default defineNuxtConfig({
     url: 'https://boxingundefeated.com',
   },
   css: ['~/assets/css/main.css'],
+  ui: {
+    colorMode: false
+  },
   compatibilityDate: '2025-08-01',
   eslint: {
     config: {
