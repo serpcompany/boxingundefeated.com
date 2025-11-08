@@ -54,10 +54,12 @@ export default defineNuxtConfig({
     },
     preset: 'cloudflare-pages',
     // Add cache headers to prevent stale CSS
-    routeRules: {
-      '/_nuxt/**': { headers: { 'cache-control': 'max-age=31536000, immutable' } },
-      '/**': { headers: { 'cache-control': 'no-cache, no-store, must-revalidate' } }
-    }
+   // nuxt.config.ts (under nitro.routeRules)
+routeRules: {
+  '/api/boxers/**':    { headers: { 'cache-control': 'public, max-age=0, s-maxage=600, stale-while-revalidate=60' } },
+  '/api/divisions/**': { headers: { 'cache-control': 'public, max-age=0, s-maxage=600, stale-while-revalidate=60' } },
+  '/api/sitemap/**':   { headers: { 'cache-control': 'public, max-age=0, s-maxage=86400, stale-while-revalidate=3600' } },
+}
   },
   sitemap: {
     defaultSitemapsChunkSize: 25000,
