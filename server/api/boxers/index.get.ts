@@ -1,8 +1,9 @@
 import { boxers } from '~/server/db/schema'
 import { boxerSelectSchema } from '~/server/db/validation'
-import { like, eq, and, desc, asc } from 'drizzle-orm'
+import { like, eq, and, desc, asc, count } from 'drizzle-orm'
 import { z } from 'zod'
 import { useDrizzle } from '~/server/db/drizzle'
+import { setHeader } from 'h3'
 
 // Query parameters validation schema
 const boxersQuerySchema = z.object({
@@ -18,9 +19,12 @@ const boxersQuerySchema = z.object({
 
 export default defineEventHandler(async (event) => {
   try {
+    // Tell Cloudflare to cache this API response at the edge
+    setHeader(event, 'Cache-Control', 'public, max-age=0, s-maxage=600, stale-while-revalidate=60')
+
     const db = useDrizzle()
     const query = getQuery(event)
-    
+
     // Validate and parse query parameters
     const {
       search,
@@ -34,41 +38,43 @@ export default defineEventHandler(async (event) => {
     } = boxersQuerySchema.parse({
       ...query,
       page: query.page ? Number(query.page) : 1,
+      // keep your existing default of 50 if you prefer; staying explicit:
       limit: query.limit ? Number(query.limit) : 50,
     })
-    
+
     // Build WHERE conditions
-    const conditions = []
-    
+    const conditions: any[] = []
+
     if (search) {
       conditions.push(like(boxers.name, `%${search}%`))
     }
-    
+
     if (nationality) {
       conditions.push(eq(boxers.nationality, nationality))
     }
-    
+
     if (division) {
       conditions.push(eq(boxers.proDivision, division))
     }
-    
+
     if (status) {
       conditions.push(eq(boxers.proStatus, status))
     }
-    
+
     // Build ORDER BY clause
     const sortColumn = {
       name: boxers.name,
       wins: boxers.proWins,
       losses: boxers.proLosses,
-      ranking: boxers.id, // Use id as fallback since ranking was removed
+      // Use id as fallback since ranking was removed
+      ranking: boxers.id,
     }[sortBy]
-    
+
     const orderFn = sortOrder === 'desc' ? desc : asc
-    
+
     // Execute query with pagination
     const offset = (page - 1) * limit
-    
+
     const results = await db
       .select()
       .from(boxers)
@@ -76,31 +82,31 @@ export default defineEventHandler(async (event) => {
       .orderBy(orderFn(sortColumn))
       .limit(limit)
       .offset(offset)
-    
-    // Get total count for pagination
-    const totalResults = await db
-      .select({ count: boxers.id })
+
+    // ✅ Proper aggregate count (was scanning ids before)
+    const [{ total }] = await db
+      .select({ total: count() })
       .from(boxers)
       .where(conditions.length > 0 ? and(...conditions) : undefined)
-    
-    const total = totalResults.length
-    const totalPages = Math.ceil(total / limit)
-    
+
+    const totalNum = Number(total)
+    const totalPages = Math.ceil(totalNum / limit)
+
     // Validate response data - convert id to number if it's a string
-    const validatedResults = results.map(boxer => {
+    const validatedResults = results.map((boxer) => {
       const boxerWithNumericId = {
         ...boxer,
         id: typeof boxer.id === 'string' ? parseInt(boxer.id, 10) : boxer.id
       }
       return boxerSelectSchema.parse(boxerWithNumericId)
     })
-    
+
     return {
       boxers: validatedResults,
       pagination: {
         page,
         limit,
-        total,
+        total: totalNum,
         totalPages,
         hasNext: page < totalPages,
         hasPrev: page > 1,
@@ -114,7 +120,7 @@ export default defineEventHandler(async (event) => {
         sortOrder,
       }
     }
-    
+
   } catch (error) {
     console.error('Error in /api/boxers:', error)
     throw createError({
