@@ -54,6 +54,7 @@ jobs:
         env:
           NODE_OPTIONS: --max-old-space-size=8192
           NEXT_PUBLIC_SITE_URL: https://boxingundefeated.com
+          NEXT_PUBLIC_GTM_ID: GTM-PP4HWLM
           TURBO_TELEMETRY_DISABLED: 1
           
       - name: Setup Pages
