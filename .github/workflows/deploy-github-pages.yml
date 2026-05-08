@@ -53,6 +53,7 @@ jobs:
           pnpm turbo run build:vercel --filter=web
         env:
           NODE_OPTIONS: --max-old-space-size=8192
+          NEXT_PUBLIC_SITE_URL: https://boxingundefeated.com
           TURBO_TELEMETRY_DISABLED: 1
           
       - name: Setup Pages

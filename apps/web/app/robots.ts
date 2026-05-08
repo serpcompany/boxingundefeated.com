@@ -6,7 +6,7 @@ export default function robots(): MetadataRoute.Robots {
   const baseUrl =
     process.env.NEXT_PUBLIC_SITE_URL ||
     (process.env.NODE_ENV === 'production'
-      ? 'https://boxingundefeated.github.io'
+      ? 'https://boxingundefeated.com'
       : 'http://localhost:3000')
 
   return {

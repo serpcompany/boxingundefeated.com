@@ -16,7 +16,7 @@ accept = ["200", "429", "403", "404"]
 scheme = ["https"]
 
 #############################  Exclusions  ##########################
-base = "https://github.com/thedaviddias/llms-txt-hub/"
+base = "https://github.com/serpcompany/boxingundefeated.com/"
 exclude = [
   "https://openphone.com/",
   "https://www.openphone.com/docs/llms.txt",

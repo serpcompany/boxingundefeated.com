@@ -2,8 +2,8 @@ User-agent: *
 Allow: /
 
 # Main sitemap index
-Sitemap: https://boxingundefeated.github.io/sitemap.xml
+Sitemap: https://boxingundefeated.com/sitemap.xml
 
 # Section-specific sitemap indexes
-Sitemap: https://boxingundefeated.github.io/sitemap-index-boxers.xml
-Sitemap: https://boxingundefeated.github.io/sitemap-index-shop.xml
+Sitemap: https://boxingundefeated.com/sitemap-index-boxers.xml
+Sitemap: https://boxingundefeated.com/sitemap-index-shop.xml

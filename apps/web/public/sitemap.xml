@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <sitemap>
-    <loc>https://boxingundefeated.github.io/sitemap-main.xml</loc>
-    <lastmod>2025-08-16</lastmod>
+    <loc>https://boxingundefeated.com/sitemap-main.xml</loc>
+    <lastmod>2026-05-08</lastmod>
   </sitemap>
   <sitemap>
-    <loc>https://boxingundefeated.github.io/sitemap-index-boxers.xml</loc>
-    <lastmod>2025-08-16</lastmod>
+    <loc>https://boxingundefeated.com/sitemap-index-boxers.xml</loc>
+    <lastmod>2026-05-08</lastmod>
   </sitemap>
   <sitemap>
-    <loc>https://boxingundefeated.github.io/sitemap-index-shop.xml</loc>
-    <lastmod>2025-08-16</lastmod>
+    <loc>https://boxingundefeated.com/sitemap-index-shop.xml</loc>
+    <lastmod>2026-05-08</lastmod>
   </sitemap>
 </sitemapindex>

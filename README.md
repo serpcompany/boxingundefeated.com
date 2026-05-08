@@ -7,7 +7,7 @@ A comprehensive boxing database and directory featuring 4,500+ professional boxe
 - **Framework**: Next.js 15 (Static Export)
 - **Styling**: Tailwind CSS 4
 - **Monorepo**: Turbo
-- **Deployment**: Vercel / GitHub Pages
+- **Deployment**: GitHub Pages via serpcompany/boxingundefeated.com
 
 ## Project Structure
 

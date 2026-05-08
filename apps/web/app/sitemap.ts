@@ -1,6 +1,6 @@
+import type { MetadataRoute } from 'next'
 import { getBlogSlugs } from '@/lib/blog-loader'
 import { getBoxerCategories, getBoxersWithoutBouts } from '@/lib/boxers-loader'
-import type { MetadataRoute } from 'next'
 
 export const dynamic = 'force-static'
 
@@ -8,7 +8,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl =
     process.env.NEXT_PUBLIC_SITE_URL ||
     (process.env.NODE_ENV === 'production'
-      ? 'https://boxingundefeated.github.io'
+      ? 'https://boxingundefeated.com'
       : 'http://localhost:3000')
 
   const boxers = await getBoxersWithoutBouts()

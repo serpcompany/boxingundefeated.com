@@ -1,7 +1,7 @@
-import { env } from '@/env'
 import { baseConfig, withAnalyzer, withVercelToolbarConfig } from '@boxingundefeated/config-next'
 import withMDX from '@next/mdx'
 import type { NextConfig } from 'next'
+import { env } from '@/env'
 
 export const INTERNAL_PACKAGES = [
   '@boxingundefeated/design-system',
@@ -20,7 +20,7 @@ let nextConfig: NextConfig = {
   // Always use static export to avoid serverless function size limits
   output: 'export',
 
-  // No basePath needed for organization GitHub Pages (*.github.io)
+  // No basePath needed for the boxingundefeated.com custom domain.
   // basePath: process.env.NODE_ENV === 'production' ? '/boxing' : '',
   // assetPrefix: process.env.NODE_ENV === 'production' ? '/boxing' : '',
 
@@ -45,55 +45,6 @@ let nextConfig: NextConfig = {
         protocol: 'https',
         hostname: 'boxrec.com',
         pathname: '/**'
-      }
-    ]
-  },
-
-  // Add headers for better caching
-  async headers() {
-    return [
-      {
-        source: '/images/boxers/:path*',
-        headers: [
-          {
-            key: 'Cache-Control',
-            value: 'public, max-age=31536000, immutable'
-          }
-        ]
-      },
-      {
-        source: '/data/boxers/:path*.json',
-        headers: [
-          {
-            key: 'Cache-Control',
-            value: 'public, max-age=86400, stale-while-revalidate'
-          }
-        ]
-      },
-      {
-        source: '/_next/static/:path*',
-        headers: [
-          {
-            key: 'Cache-Control',
-            value: 'public, max-age=31536000, immutable'
-          }
-        ]
-      }
-    ]
-  },
-
-  redirects: async () => {
-    return [
-      {
-        source: '/website/:path*',
-        destination: '/websites/:path*',
-        permanent: true
-      },
-      {
-        // Redirect old website URLs to new ones with -llms-txt suffix
-        source: '/websites/:slug((?!.*-llms-txt).*)',
-        destination: '/websites/:slug-llms-txt',
-        permanent: true
       }
     ]
   }

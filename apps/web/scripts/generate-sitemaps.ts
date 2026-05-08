@@ -8,7 +8,7 @@ import { getBoxerCategories, getBoxersWithoutBouts } from '../lib/boxers-loader'
 // Google recommends max 50,000 URLs per sitemap, but for better performance we'll use 2,000
 const MAX_URLS_PER_SITEMAP = 2000
 
-const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://boxingundefeated.github.io'
+const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://boxingundefeated.com'
 const outputDir = path.join(process.cwd(), 'public')
 
 interface SitemapURL {

@@ -1,6 +1,6 @@
-import { getRoute } from '@/lib/routes'
 import { Button } from '@boxingundefeated/design-system/button'
 import Link from 'next/link'
+import { getRoute } from '@/lib/routes'
 
 export default async function NotFound() {
   return (
@@ -17,10 +17,10 @@ export default async function NotFound() {
             The page you are looking for does not exist. <br /> But don&apos;t worry, we&apos;ve got
             you covered. You can{' '}
             <Link
-              href="https://github.com/thedaviddias/llms-txt-hub/issues/new/choose"
+              href="https://github.com/serpcompany/boxingundefeated.com/issues/new/choose"
               className="text-foreground"
             >
-              report an issue on Github
+              report an issue on GitHub
             </Link>
             .
           </p>

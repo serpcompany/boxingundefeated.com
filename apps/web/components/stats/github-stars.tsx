@@ -13,7 +13,7 @@ export const GithubStars = ({ variant = 'default' }: StarsProps) => {
   const [stars, setStars] = useState<number | null>(null)
 
   useEffect(() => {
-    fetch('https://api.github.com/repos/thedaviddias/llms-txt-hub')
+    fetch('https://api.github.com/repos/serpcompany/boxingundefeated.com')
       .then(res => res.json())
       .then(data => setStars(data.stargazers_count))
   }, [])
@@ -30,7 +30,7 @@ export const GithubStars = ({ variant = 'default' }: StarsProps) => {
   return (
     <div className="flex items-center justify-center gap-2">
       <Link
-        href="https://github.com/thedaviddias/llms-txt-hub"
+        href="https://github.com/serpcompany/boxingundefeated.com"
         target="_blank"
         className="!no-underline plausible-event-name=Star+Github inline-flex items-center gap-2 px-2 py-1 bg-white dark:bg-neutral-900 hover:bg-neutral-100 dark:hover:bg-neutral-800 text-sm font-medium text-neutral-900 dark:text-neutral-100 rounded-lg border border-neutral-400 dark:border-neutral-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-neutral-200 dark:focus:ring-neutral-700"
         aria-label="Star on GitHub"

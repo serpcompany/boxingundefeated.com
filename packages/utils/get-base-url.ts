@@ -17,9 +17,9 @@ export function getBaseUrl(): string {
     return process.env.NEXT_PUBLIC_WEB_URL
   }
 
-  // GitHub Pages URL
+  // Production URL
   if (process.env.NODE_ENV === 'production') {
-    return 'https://boxingundefeated.github.io'
+    return 'https://boxingundefeated.com'
   }
 
   // Vercel deployment URL
