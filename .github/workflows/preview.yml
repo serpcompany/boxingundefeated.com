@@ -8,7 +8,11 @@ jobs:
   deploy-preview:
     runs-on: ubuntu-latest
     permissions:
+      contents: read
+      issues: write
       pull-requests: write
+    env:
+      SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -24,11 +28,11 @@ jobs:
 
       - name: Deploy to Surge
         id: deploy
-        if: ${{ secrets.SURGE_TOKEN != '' }}
+        if: ${{ env.SURGE_TOKEN != '' }}
         run: |
           npm install -g surge
           export DEPLOY_DOMAIN=https://boxingundefeated-pr-${{ github.event.pull_request.number }}.surge.sh
-          surge ./apps/web/out $DEPLOY_DOMAIN --token ${{ secrets.SURGE_TOKEN }}
+          surge ./apps/web/out $DEPLOY_DOMAIN --token "$SURGE_TOKEN"
           echo "url=$DEPLOY_DOMAIN" >> $GITHUB_OUTPUT
 
       - name: Comment PR
