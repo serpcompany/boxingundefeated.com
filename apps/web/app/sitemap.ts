@@ -32,6 +32,24 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     })
   })
 
+  paths.shopListings.forEach(pathname => {
+    urls.push({
+      url: toAbsoluteUrl(baseUrl, pathname),
+      changeFrequency: 'weekly',
+      lastModified,
+      priority: pathname === '/shop' ? 0.8 : 0.6
+    })
+  })
+
+  paths.shopPosts.forEach(pathname => {
+    urls.push({
+      url: toAbsoluteUrl(baseUrl, pathname),
+      changeFrequency: 'monthly',
+      lastModified,
+      priority: 0.6
+    })
+  })
+
   paths.boxerListings.forEach(pathname => {
     urls.push({
       url: toAbsoluteUrl(baseUrl, pathname),

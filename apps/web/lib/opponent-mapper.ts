@@ -4,6 +4,44 @@ import path from 'node:path'
 // Cache for opponent name to slug mapping
 let opponentMap: Map<string, string> | null = null
 
+function normalizeName(name: string): string {
+  return name.toLowerCase().replace(/\s+/g, ' ').trim()
+}
+
+function stripNameSuffix(name: string): string {
+  return name.replace(/\s+(jr\.?|sr\.?|iii|ii|iv|v)$/i, '').trim()
+}
+
+function getNameLookupVariants(name: string): string[] {
+  const trimmedName = name.trim()
+  const normalizedName = normalizeName(name)
+  const suffixStrippedName = stripNameSuffix(trimmedName)
+  const normalizedSuffixStrippedName = stripNameSuffix(normalizedName)
+
+  return Array.from(
+    new Set([
+      name,
+      trimmedName,
+      normalizedName,
+      suffixStrippedName,
+      normalizeName(suffixStrippedName),
+      normalizedSuffixStrippedName
+    ])
+  ).filter(Boolean)
+}
+
+function addNameVariantsToMap(
+  map: Map<string, string>,
+  name: string | null | undefined,
+  slug: string
+) {
+  if (!name) return
+
+  for (const variant of getNameLookupVariants(name)) {
+    map.set(variant, slug)
+  }
+}
+
 /**
  * Creates a mapping of boxer names to their slugs for quick opponent lookup
  * This runs at build time only
@@ -23,21 +61,8 @@ export function getOpponentSlugMap(): Map<string, string> {
 
     // Create mappings for both regular names and birth names
     for (const boxer of boxers) {
-      if (boxer.name) {
-        // Normalize the name for better matching
-        const normalizedName = boxer.name.toLowerCase().trim()
-        opponentMap.set(normalizedName, boxer.slug)
-
-        // Also add the exact name for exact matches
-        opponentMap.set(boxer.name, boxer.slug)
-      }
-
-      // Also map birth names if different
-      if (boxer.birthName && boxer.birthName !== boxer.name) {
-        const normalizedBirthName = boxer.birthName.toLowerCase().trim()
-        opponentMap.set(normalizedBirthName, boxer.slug)
-        opponentMap.set(boxer.birthName, boxer.slug)
-      }
+      addNameVariantsToMap(opponentMap, boxer.name, boxer.slug)
+      addNameVariantsToMap(opponentMap, boxer.birthName, boxer.slug)
     }
   } catch (error) {
     console.error('Failed to create opponent map:', error)
@@ -58,16 +83,8 @@ export function getOpponentSlug(opponentName: string): string | undefined {
   let slug = map.get(opponentName)
   if (slug) return slug
 
-  // Try normalized match
-  const normalizedName = opponentName.toLowerCase().trim()
-  slug = map.get(normalizedName)
-  if (slug) return slug
-
-  // Try without common suffixes like "Jr", "Sr", "III", etc.
-  const nameWithoutSuffix = normalizedName.replace(/\s+(jr\.?|sr\.?|iii|ii|iv|v)$/i, '').trim()
-
-  if (nameWithoutSuffix !== normalizedName) {
-    slug = map.get(nameWithoutSuffix)
+  for (const variant of getNameLookupVariants(opponentName)) {
+    slug = map.get(variant)
     if (slug) return slug
   }
 

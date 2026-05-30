@@ -1,7 +1,7 @@
 'use client'
-import { getRoute } from '@/lib/routes'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { getRoute } from '@/lib/routes'
 
 interface NavLinkProps {
   href: string
@@ -35,6 +35,7 @@ export function Header() {
           </Link>
           <nav className="hidden md:flex items-center gap-4">
             <NavLink href={getRoute('website.list')}>Boxers</NavLink>
+            <NavLink href="/divisions/">Divisions</NavLink>
             <NavLink href="/blog">Blog</NavLink>
             <NavLink href={getRoute('about')}>About</NavLink>
             <NavLink href={getRoute('search')}>Search</NavLink>

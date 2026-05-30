@@ -1,9 +1,9 @@
 'use client'
 
-import type { Bout } from '@/lib/boxers-loader'
 import { Card, CardContent, CardHeader, CardTitle } from '@boxingundefeated/design-system/card'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
+import type { Bout } from '@/lib/boxers-loader'
 
 interface FightHistoryProps {
   bouts: Bout[]
@@ -45,7 +45,6 @@ export function FightHistory({ bouts, opponentLinks }: FightHistoryProps) {
                         <Link
                           href={`/boxers/${opponentSlug}`}
                           className="font-semibold hover:text-blue-600 hover:underline transition-colors"
-                          prefetch={false}
                         >
                           {bout.opponentName}
                         </Link>
