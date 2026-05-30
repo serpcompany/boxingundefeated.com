@@ -72,6 +72,17 @@ function writeGeneratedFile(fileName: string, content: string): string {
   return path.join(outputDirs[0], fileName)
 }
 
+function writeStaticExportDirectoryFallback(routeName: string): void {
+  if (!fs.existsSync(staticExportDir)) return
+
+  const sourcePath = path.join(staticExportDir, `${routeName}.html`)
+  if (!fs.existsSync(sourcePath)) return
+
+  const routeDir = path.join(staticExportDir, routeName)
+  fs.mkdirSync(routeDir, { recursive: true })
+  fs.copyFileSync(sourcePath, path.join(routeDir, 'index.html'))
+}
+
 async function generateSitemaps() {
   console.log('Generating sitemaps...')
 
@@ -216,6 +227,9 @@ Sitemap: ${baseUrl}/sitemap-index-shop.xml`
 
   writeGeneratedFile('robots.txt', robotsContent)
   console.log(`Updated robots.txt with all sitemap indexes`)
+
+  writeStaticExportDirectoryFallback('sitemap')
+  console.log(`Updated static export fallback for /sitemap/`)
 
   console.log(`\n✅ Sitemap generation complete!`)
   console.log(`   Total boxers: ${boxers.length}`)
