@@ -1,11 +1,11 @@
-import { JsonLd } from '@/components/json-ld'
-import { getBoxersWithoutBouts } from '@/lib/boxers-loader'
 import { Button } from '@boxingundefeated/design-system/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@boxingundefeated/design-system/card'
 import { getBaseUrl } from '@boxingundefeated/utils/get-base-url'
 import { Target, TrendingUp, Trophy, Users } from 'lucide-react'
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { JsonLd } from '@/components/json-ld'
+import { getBoxersWithoutBouts } from '@/lib/boxers-loader'
 
 export const metadata: Metadata = {
   title: 'Boxing Undefeated - Professional Boxers Database',
@@ -196,7 +196,7 @@ export default async function Home() {
             ].map(item => {
               const divisionBoxers = boxers.filter(b => b.proDivision === item.division)
               return (
-                <Link key={item.slug} href={`/boxers?division=${item.slug}`}>
+                <Link key={item.slug} href={`/divisions/${item.slug}`}>
                   <Card className="hover:shadow-lg transition-shadow cursor-pointer">
                     <CardContent className="p-4">
                       <div className="text-center">

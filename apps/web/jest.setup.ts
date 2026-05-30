@@ -1,6 +1,15 @@
 // Learn more: https://github.com/testing-library/jest-dom
 import '@testing-library/jest-dom'
+import { TextDecoder, TextEncoder } from 'node:util'
 import React from 'react'
+
+if (!global.TextEncoder) {
+  global.TextEncoder = TextEncoder
+}
+
+if (!global.TextDecoder) {
+  global.TextDecoder = TextDecoder as any
+}
 
 // Mock Next.js router
 jest.mock('next/router', () => ({
@@ -52,15 +61,19 @@ jest.mock('next-themes', () => ({
 }))
 
 // Mock @boxingundefeated/auth
-jest.mock('@boxingundefeated/auth', () => ({
-  AuthProviderComponent: ({ children }: { children: React.ReactNode }) => children,
-  useAuth: () => ({
-    user: null,
-    isLoading: false,
-    signIn: jest.fn(),
-    signOut: jest.fn()
-  })
-}))
+jest.mock(
+  '@boxingundefeated/auth',
+  () => ({
+    AuthProviderComponent: ({ children }: { children: React.ReactNode }) => children,
+    useAuth: () => ({
+      user: null,
+      isLoading: false,
+      signIn: jest.fn(),
+      signOut: jest.fn()
+    })
+  }),
+  { virtual: true }
+)
 
 // Mock sonner
 jest.mock('sonner', () => ({

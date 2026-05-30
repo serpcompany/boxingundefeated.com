@@ -1,6 +1,5 @@
 import type { MetadataRoute } from 'next'
-import { getBlogSlugs } from '@/lib/blog-loader'
-import { getBoxerCategories, getBoxersWithoutBouts } from '@/lib/boxers-loader'
+import { getSitemapPaths, toAbsoluteUrl } from '@/lib/sitemap-paths'
 
 export const dynamic = 'force-static'
 
@@ -11,76 +10,51 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       ? 'https://boxingundefeated.com'
       : 'http://localhost:3000')
 
-  const boxers = await getBoxersWithoutBouts()
-  const categories = getBoxerCategories()
-  const blogSlugs = await getBlogSlugs()
-
-  // Since we're using static export, we'll create a single sitemap
-  // If it grows too large, you can split it manually
+  const paths = await getSitemapPaths()
+  const lastModified = new Date()
   const urls: MetadataRoute.Sitemap = []
 
-  // Main pages
-  urls.push({
-    url: baseUrl,
-    lastModified: new Date(),
-    changeFrequency: 'daily',
-    priority: 1
-  })
-
-  urls.push({
-    url: `${baseUrl}/boxers`,
-    lastModified: new Date(),
-    changeFrequency: 'daily',
-    priority: 0.9
-  })
-
-  urls.push({
-    url: `${baseUrl}/about`,
-    lastModified: new Date(),
-    changeFrequency: 'monthly',
-    priority: 0.5
-  })
-
-  urls.push({
-    url: `${baseUrl}/search`,
-    lastModified: new Date(),
-    changeFrequency: 'weekly',
-    priority: 0.7
-  })
-
-  urls.push({
-    url: `${baseUrl}/blog`,
-    lastModified: new Date(),
-    changeFrequency: 'weekly',
-    priority: 0.8
-  })
-
-  // Blog posts
-  blogSlugs.forEach(slug => {
+  paths.main.forEach(pathname => {
     urls.push({
-      url: `${baseUrl}${slug}`,
-      lastModified: new Date(),
+      url: toAbsoluteUrl(baseUrl, pathname),
       changeFrequency: 'monthly',
+      lastModified,
+      priority: pathname === '/' ? 1 : 0.7
+    })
+  })
+
+  paths.blogPosts.forEach(pathname => {
+    urls.push({
+      url: toAbsoluteUrl(baseUrl, pathname),
+      changeFrequency: 'monthly',
+      lastModified,
       priority: 0.7
     })
   })
 
-  // Category pages
-  categories.forEach(category => {
+  paths.boxerListings.forEach(pathname => {
     urls.push({
-      url: `${baseUrl}/boxers?division=${category.slug}`,
-      lastModified: new Date(),
+      url: toAbsoluteUrl(baseUrl, pathname),
+      changeFrequency: 'daily',
+      lastModified,
+      priority: pathname === '/boxers' ? 0.9 : 0.7
+    })
+  })
+
+  paths.divisionListings.forEach(pathname => {
+    urls.push({
+      url: toAbsoluteUrl(baseUrl, pathname),
       changeFrequency: 'weekly',
+      lastModified,
       priority: 0.8
     })
   })
 
-  // Boxer pages - Next.js will automatically handle large sitemaps
-  boxers.forEach(boxer => {
+  paths.boxerDetails.forEach(pathname => {
     urls.push({
-      url: `${baseUrl}/boxers/${boxer.slug}`,
-      lastModified: new Date(),
+      url: toAbsoluteUrl(baseUrl, pathname),
       changeFrequency: 'monthly',
+      lastModified,
       priority: 0.6
     })
   })

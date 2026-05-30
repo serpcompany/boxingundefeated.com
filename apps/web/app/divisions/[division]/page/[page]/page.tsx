@@ -7,26 +7,34 @@ import { getBoxerCategories, getBoxersWithoutBouts } from '@/lib/boxers-loader'
 import {
   getDivisionPageHref,
   getPaginatedItems,
+  getPaginationPages,
   sortBoxersForDirectory
 } from '@/lib/directory-pagination'
 
 export const dynamicParams = false
 
 export async function generateStaticParams() {
-  const categories = getBoxerCategories()
-  return categories.map(category => ({
-    division: category.slug
-  }))
+  const boxers = getBoxersWithoutBouts()
+
+  return getBoxerCategories().flatMap(category => {
+    const divisionBoxers = boxers.filter(boxer => boxer.proDivision === category.division)
+    const pages = getPaginationPages(divisionBoxers.length)
+
+    return pages.slice(1).map(page => ({
+      division: category.slug,
+      page: page.toString()
+    }))
+  })
 }
 
 export async function generateMetadata({
   params
 }: {
-  params: { division: string }
+  params: { division: string; page: string }
 }): Promise<Metadata> {
-  const { division } = await params
-  const categories = getBoxerCategories()
-  const category = categories.find(c => c.slug === division)
+  const { division, page: pageParam } = await params
+  const page = Number.parseInt(pageParam, 10)
+  const category = getBoxerCategories().find(c => c.slug === division)
 
   if (!category) {
     return {
@@ -35,27 +43,31 @@ export async function generateMetadata({
   }
 
   return {
-    title: `${category.name} Boxers - Boxing Directory`,
-    description: `Browse professional ${category.name.toLowerCase()} boxers with statistics and fight records.`,
+    title: `${category.name} Boxers - Page ${page}`,
+    description: `Browse page ${page} of professional ${category.name.toLowerCase()} boxers.`,
     alternates: {
-      canonical: `${getBaseUrl()}/divisions/${division}`
+      canonical: `${getBaseUrl()}${getDivisionPageHref(division, page)}`
     }
   }
 }
 
-export default async function DivisionPage({ params }: { params: { division: string } }) {
-  const { division } = await params
-  const categories = getBoxerCategories()
-  const category = categories.find(c => c.slug === division)
+export default async function DivisionPaginatedPage({
+  params
+}: {
+  params: { division: string; page: string }
+}) {
+  const { division, page: pageParam } = await params
+  const currentPage = Number.parseInt(pageParam, 10)
+  const category = getBoxerCategories().find(c => c.slug === division)
 
-  if (!category) {
+  if (!category || currentPage === 1) {
     notFound()
   }
 
   const divisionBoxers = sortBoxersForDirectory(
     getBoxersWithoutBouts().filter(boxer => boxer.proDivision === category.division)
   )
-  const page = getPaginatedItems(divisionBoxers, 1)
+  const page = getPaginatedItems(divisionBoxers, currentPage)
 
   if (!page) {
     notFound()
@@ -64,14 +76,15 @@ export default async function DivisionPage({ params }: { params: { division: str
   const baseUrl = getBaseUrl()
   const breadcrumbItems = [
     { name: 'Boxers', href: '/boxers' },
-    { name: category.name, href: `/divisions/${division}` }
+    { name: category.name, href: `/divisions/${division}` },
+    { name: `Page ${currentPage}`, href: getDivisionPageHref(division, currentPage) }
   ]
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-8">
       <Breadcrumb items={breadcrumbItems} baseUrl={baseUrl} />
       <BoxersDirectoryList
-        title={`${category.name} Boxers`}
+        title={`${category.name} Boxers - Page ${currentPage}`}
         boxers={page.items}
         currentPage={page.currentPage}
         totalPages={page.totalPages}
