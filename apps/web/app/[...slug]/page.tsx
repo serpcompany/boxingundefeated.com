@@ -1,14 +1,15 @@
-import { getBlogPost, getBlogSlugs } from '@/lib/blog-loader'
 import { Breadcrumb } from '@boxingundefeated/design-system/breadcrumb'
 import { getBaseUrl } from '@boxingundefeated/utils/get-base-url'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
+import { getBlogPost, getBlogSlugs } from '@/lib/blog-loader'
+import { getShopSlugs } from '@/lib/shop-loader'
 import '../blog/blog.css'
 
 export async function generateStaticParams() {
-  const slugs = await getBlogSlugs()
-  return slugs.map(slug => {
+  const slugs = new Set([...(await getBlogSlugs()), ...(await getShopSlugs())])
+  return Array.from(slugs).map(slug => {
     // Remove leading/trailing slashes and split
     const cleanSlug = slug.replace(/^\/+|\/+$/g, '')
     return {
@@ -46,9 +47,10 @@ export default async function BlogPostPage({ params }: { params: { slug: string[
   }
 
   const baseUrl = getBaseUrl()
+  const isShopPost = post.slug.startsWith('/shop/')
   const breadcrumbItems = [
     { name: 'Home', href: '/' },
-    { name: 'Blog', href: '/blog' },
+    isShopPost ? { name: 'Shop', href: '/shop' } : { name: 'Blog', href: '/blog' },
     { name: post.title, href: post.slug }
   ]
 
@@ -97,8 +99,8 @@ export default async function BlogPostPage({ params }: { params: { slug: string[
       <div className="blog-content" dangerouslySetInnerHTML={{ __html: post.content || '' }} />
 
       <footer className="mt-12 pt-8 border-t">
-        <Link href="/blog" className="text-primary hover:underline">
-          ← Back to Blog
+        <Link href={isShopPost ? '/shop' : '/blog'} className="text-primary hover:underline">
+          ← Back to {isShopPost ? 'Shop' : 'Blog'}
         </Link>
       </footer>
     </article>

@@ -63,7 +63,7 @@ export default async function DivisionPage({ params }: { params: { division: str
 
   const baseUrl = getBaseUrl()
   const breadcrumbItems = [
-    { name: 'Boxers', href: '/boxers' },
+    { name: 'Divisions', href: '/divisions/' },
     { name: category.name, href: `/divisions/${division}` }
   ]
 

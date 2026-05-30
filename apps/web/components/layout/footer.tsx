@@ -27,6 +27,11 @@ export function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/divisions/" className="text-muted-foreground hover:text-foreground">
+                  Divisions
+                </Link>
+              </li>
+              <li>
                 <Link
                   href="/divisions/heavy"
                   className="text-muted-foreground hover:text-foreground"
@@ -74,6 +79,16 @@ export function Footer() {
               <li>
                 <Link href="/sitemap/" className="text-muted-foreground hover:text-foreground">
                   Sitemap
+                </Link>
+              </li>
+              <li>
+                <Link href="/shop/" className="text-muted-foreground hover:text-foreground">
+                  Shop
+                </Link>
+              </li>
+              <li>
+                <Link href="/brands/" className="text-muted-foreground hover:text-foreground">
+                  Brands
                 </Link>
               </li>
             </ul>

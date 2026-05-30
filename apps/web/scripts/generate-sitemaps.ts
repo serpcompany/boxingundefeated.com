@@ -180,15 +180,25 @@ async function generateSitemaps() {
     `\nGenerated boxers sitemap index at ${boxersSitemapIndexPath} with ${boxerSitemaps.length} sitemaps`
   )
 
-  // ===== SHOP SITEMAP INDEX (placeholder for now) =====
+  // ===== SHOP SITEMAP INDEX =====
   const shopUrls: SitemapURL[] = []
 
-  // Add shop landing page (when it exists)
-  shopUrls.push({
-    url: `${baseUrl}/shop`,
-    lastModified,
-    changeFrequency: 'weekly',
-    priority: 0.8
+  sitemapPaths.shopListings.forEach(pathname => {
+    shopUrls.push({
+      url: toAbsoluteUrl(baseUrl, pathname),
+      lastModified,
+      changeFrequency: 'weekly',
+      priority: pathname === '/shop' ? 0.8 : 0.6
+    })
+  })
+
+  sitemapPaths.shopPosts.forEach(pathname => {
+    shopUrls.push({
+      url: toAbsoluteUrl(baseUrl, pathname),
+      lastModified,
+      changeFrequency: 'monthly',
+      priority: 0.6
+    })
   })
 
   // Write shop sitemap
