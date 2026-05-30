@@ -5,7 +5,7 @@ function loadBoxersData() {
   if (!boxersData) {
     // Only load in Node.js environment (build time)
     // This prevents the data from being bundled in client-side JS
-    if (typeof window === 'undefined') {
+    if (typeof window === 'undefined' || process.env.NODE_ENV === 'test') {
       // Dynamic imports to avoid bundling in client-side code
       const fs = require('fs')
       const path = require('path')
@@ -133,12 +133,21 @@ export function getBoxerCategories() {
   return [
     { slug: 'heavy', name: 'Heavyweight', division: 'heavy' },
     { slug: 'light-heavy', name: 'Light Heavyweight', division: 'light heavy' },
+    { slug: 'cruiser', name: 'Cruiserweight', division: 'cruiser' },
+    { slug: 'super-middle', name: 'Super Middleweight', division: 'super middle' },
     { slug: 'middle', name: 'Middleweight', division: 'middle' },
+    { slug: 'super-welter', name: 'Super Welterweight', division: 'super welter' },
     { slug: 'welter', name: 'Welterweight', division: 'welter' },
+    { slug: 'super-light', name: 'Super Lightweight', division: 'super light' },
     { slug: 'light', name: 'Lightweight', division: 'light' },
+    { slug: 'super-feather', name: 'Super Featherweight', division: 'super feather' },
     { slug: 'feather', name: 'Featherweight', division: 'feather' },
+    { slug: 'super-bantam', name: 'Super Bantamweight', division: 'super bantam' },
     { slug: 'bantam', name: 'Bantamweight', division: 'bantam' },
-    { slug: 'fly', name: 'Flyweight', division: 'fly' }
+    { slug: 'super-fly', name: 'Super Flyweight', division: 'super fly' },
+    { slug: 'fly', name: 'Flyweight', division: 'fly' },
+    { slug: 'light-fly', name: 'Light Flyweight', division: 'light fly' },
+    { slug: 'minimum', name: 'Minimumweight', division: 'minimum' }
   ]
 }
 

@@ -2,14 +2,15 @@
 
 import fs from 'node:fs'
 import path from 'node:path'
-import { getBlogSlugs } from '../lib/blog-loader'
-import { getBoxerCategories, getBoxersWithoutBouts } from '../lib/boxers-loader'
+import { getBoxersWithoutBouts } from '../lib/boxers-loader'
+import { getSitemapPaths, toAbsoluteUrl } from '../lib/sitemap-paths'
 
 // Google recommends max 50,000 URLs per sitemap, but for better performance we'll use 2,000
 const MAX_URLS_PER_SITEMAP = 2000
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://boxingundefeated.com'
-const outputDir = path.join(process.cwd(), 'public')
+const publicDir = path.join(process.cwd(), 'public')
+const staticExportDir = path.join(process.cwd(), 'out')
 
 interface SitemapURL {
   url: string
@@ -57,51 +58,43 @@ ${sitemaps
 </sitemapindex>`
 }
 
+function getOutputDirs(): string[] {
+  return fs.existsSync(staticExportDir) ? [publicDir, staticExportDir] : [publicDir]
+}
+
+function writeGeneratedFile(fileName: string, content: string): string {
+  const outputDirs = getOutputDirs()
+
+  for (const outputDir of outputDirs) {
+    fs.writeFileSync(path.join(outputDir, fileName), content)
+  }
+
+  return path.join(outputDirs[0], fileName)
+}
+
 async function generateSitemaps() {
   console.log('Generating sitemaps...')
 
   const boxers = getBoxersWithoutBouts()
-  const categories = getBoxerCategories()
-  const blogSlugs = await getBlogSlugs()
+  const sitemapPaths = await getSitemapPaths()
 
   const lastModified = new Date().toISOString().split('T')[0]
 
   // ===== MAIN CONTENT SITEMAP =====
   const mainUrls: SitemapURL[] = []
 
-  // Main pages
-  mainUrls.push({
-    url: baseUrl,
-    lastModified,
-    changeFrequency: 'daily',
-    priority: 1
-  })
-
-  mainUrls.push({
-    url: `${baseUrl}/about`,
-    lastModified,
-    changeFrequency: 'monthly',
-    priority: 0.5
-  })
-
-  mainUrls.push({
-    url: `${baseUrl}/search`,
-    lastModified,
-    changeFrequency: 'weekly',
-    priority: 0.7
-  })
-
-  mainUrls.push({
-    url: `${baseUrl}/blog`,
-    lastModified,
-    changeFrequency: 'weekly',
-    priority: 0.8
-  })
-
-  // Blog posts
-  blogSlugs.forEach(slug => {
+  sitemapPaths.main.forEach(pathname => {
     mainUrls.push({
-      url: `${baseUrl}${slug}`,
+      url: toAbsoluteUrl(baseUrl, pathname),
+      lastModified,
+      changeFrequency: pathname === '/' ? 'daily' : 'monthly',
+      priority: pathname === '/' ? 1 : 0.7
+    })
+  })
+
+  sitemapPaths.blogPosts.forEach(pathname => {
+    mainUrls.push({
+      url: toAbsoluteUrl(baseUrl, pathname),
       lastModified,
       changeFrequency: 'monthly',
       priority: 0.7
@@ -109,8 +102,7 @@ async function generateSitemaps() {
   })
 
   // Write main content sitemap
-  const mainSitemapPath = path.join(outputDir, 'sitemap-main.xml')
-  fs.writeFileSync(mainSitemapPath, generateSitemapXML(mainUrls))
+  const mainSitemapPath = writeGeneratedFile('sitemap-main.xml', generateSitemapXML(mainUrls))
   console.log(`Generated ${mainSitemapPath} with ${mainUrls.length} URLs`)
 
   // ===== BOXERS SITEMAP INDEX =====
@@ -119,17 +111,18 @@ async function generateSitemaps() {
   // Add boxers landing page and divisions to first boxers sitemap
   const boxersMainUrls: SitemapURL[] = []
 
-  boxersMainUrls.push({
-    url: `${baseUrl}/boxers`,
-    lastModified,
-    changeFrequency: 'daily',
-    priority: 0.9
+  sitemapPaths.boxerListings.forEach(pathname => {
+    boxersMainUrls.push({
+      url: toAbsoluteUrl(baseUrl, pathname),
+      lastModified,
+      changeFrequency: 'daily',
+      priority: pathname === '/boxers' ? 0.9 : 0.7
+    })
   })
 
-  // Division pages (now at /divisions/*)
-  categories.forEach(category => {
+  sitemapPaths.divisionListings.forEach(pathname => {
     boxersMainUrls.push({
-      url: `${baseUrl}/divisions/${category.slug}`,
+      url: toAbsoluteUrl(baseUrl, pathname),
       lastModified,
       changeFrequency: 'weekly',
       priority: 0.8
@@ -137,8 +130,10 @@ async function generateSitemaps() {
   })
 
   // Write boxers main sitemap
-  const boxersMainSitemapPath = path.join(outputDir, 'sitemap-boxers-main.xml')
-  fs.writeFileSync(boxersMainSitemapPath, generateSitemapXML(boxersMainUrls))
+  const boxersMainSitemapPath = writeGeneratedFile(
+    'sitemap-boxers-main.xml',
+    generateSitemapXML(boxersMainUrls)
+  )
   boxerSitemaps.push(`${baseUrl}/sitemap-boxers-main.xml`)
   console.log(`Generated ${boxersMainSitemapPath} with ${boxersMainUrls.length} URLs`)
 
@@ -151,21 +146,25 @@ async function generateSitemaps() {
     const boxerBatch = boxers.slice(start, end)
 
     const boxerUrls: SitemapURL[] = boxerBatch.map(boxer => ({
-      url: `${baseUrl}/boxers/${boxer.slug}`,
+      url: toAbsoluteUrl(baseUrl, `/boxers/${boxer.slug}`),
       lastModified,
       changeFrequency: 'monthly',
       priority: 0.6
     }))
 
-    const boxerSitemapPath = path.join(outputDir, `sitemap-boxers-${i + 1}.xml`)
-    fs.writeFileSync(boxerSitemapPath, generateSitemapXML(boxerUrls))
+    const boxerSitemapPath = writeGeneratedFile(
+      `sitemap-boxers-${i + 1}.xml`,
+      generateSitemapXML(boxerUrls)
+    )
     boxerSitemaps.push(`${baseUrl}/sitemap-boxers-${i + 1}.xml`)
     console.log(`Generated ${boxerSitemapPath} with ${boxerUrls.length} URLs`)
   }
 
   // Generate boxers sitemap index
-  const boxersSitemapIndexPath = path.join(outputDir, 'sitemap-index-boxers.xml')
-  fs.writeFileSync(boxersSitemapIndexPath, generateSitemapIndex(boxerSitemaps))
+  const boxersSitemapIndexPath = writeGeneratedFile(
+    'sitemap-index-boxers.xml',
+    generateSitemapIndex(boxerSitemaps)
+  )
   console.log(
     `\nGenerated boxers sitemap index at ${boxersSitemapIndexPath} with ${boxerSitemaps.length} sitemaps`
   )
@@ -182,13 +181,14 @@ async function generateSitemaps() {
   })
 
   // Write shop sitemap
-  const shopSitemapPath = path.join(outputDir, 'sitemap-shop.xml')
-  fs.writeFileSync(shopSitemapPath, generateSitemapXML(shopUrls))
+  const shopSitemapPath = writeGeneratedFile('sitemap-shop.xml', generateSitemapXML(shopUrls))
   console.log(`Generated ${shopSitemapPath} with ${shopUrls.length} URLs`)
 
   // Generate shop sitemap index
-  const shopSitemapIndexPath = path.join(outputDir, 'sitemap-index-shop.xml')
-  fs.writeFileSync(shopSitemapIndexPath, generateSitemapIndex([`${baseUrl}/sitemap-shop.xml`]))
+  const shopSitemapIndexPath = writeGeneratedFile(
+    'sitemap-index-shop.xml',
+    generateSitemapIndex([`${baseUrl}/sitemap-shop.xml`])
+  )
   console.log(`Generated shop sitemap index at ${shopSitemapIndexPath}`)
 
   // ===== MASTER SITEMAP INDEX =====
@@ -198,14 +198,12 @@ async function generateSitemaps() {
     `${baseUrl}/sitemap-index-shop.xml`
   ]
 
-  const sitemapIndexPath = path.join(outputDir, 'sitemap.xml')
-  fs.writeFileSync(sitemapIndexPath, generateSitemapIndex(masterSitemaps))
+  const sitemapIndexPath = writeGeneratedFile('sitemap.xml', generateSitemapIndex(masterSitemaps))
   console.log(
     `\nGenerated master sitemap index at ${sitemapIndexPath} with ${masterSitemaps.length} indexes`
   )
 
   // Update robots.txt
-  const robotsPath = path.join(outputDir, 'robots.txt')
   const robotsContent = `User-agent: *
 Allow: /
 
@@ -216,7 +214,7 @@ Sitemap: ${baseUrl}/sitemap.xml
 Sitemap: ${baseUrl}/sitemap-index-boxers.xml
 Sitemap: ${baseUrl}/sitemap-index-shop.xml`
 
-  fs.writeFileSync(robotsPath, robotsContent)
+  writeGeneratedFile('robots.txt', robotsContent)
   console.log(`Updated robots.txt with all sitemap indexes`)
 
   console.log(`\n✅ Sitemap generation complete!`)

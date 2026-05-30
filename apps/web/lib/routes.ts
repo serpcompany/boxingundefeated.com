@@ -11,7 +11,7 @@ export const routes = {
     detail: '/boxers/[slug]',
     featured: '/boxers',
     latest: '/boxers?sort=latest',
-    withDivision: '/boxers?division=[division]'
+    withDivision: '/divisions/[division]'
   },
   // Keep website routes for backward compatibility but redirect to boxers
   website: {

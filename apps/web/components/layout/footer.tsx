@@ -1,5 +1,5 @@
-import { getRoute } from '@/lib/routes'
 import Link from 'next/link'
+import { getRoute } from '@/lib/routes'
 import { ModeToggle } from '../mode-toggle'
 
 export function Footer() {
@@ -28,7 +28,7 @@ export function Footer() {
               </li>
               <li>
                 <Link
-                  href="/boxers?division=heavy"
+                  href="/divisions/heavy"
                   className="text-muted-foreground hover:text-foreground"
                 >
                   Heavyweight
@@ -36,7 +36,7 @@ export function Footer() {
               </li>
               <li>
                 <Link
-                  href="/boxers?division=middle"
+                  href="/divisions/middle"
                   className="text-muted-foreground hover:text-foreground"
                 >
                   Middleweight
@@ -44,7 +44,7 @@ export function Footer() {
               </li>
               <li>
                 <Link
-                  href="/boxers?division=light"
+                  href="/divisions/light"
                   className="text-muted-foreground hover:text-foreground"
                 >
                   Lightweight
@@ -69,6 +69,11 @@ export function Footer() {
                   className="text-muted-foreground hover:text-foreground"
                 >
                   Search
+                </Link>
+              </li>
+              <li>
+                <Link href="/sitemap/" className="text-muted-foreground hover:text-foreground">
+                  Sitemap
                 </Link>
               </li>
             </ul>
