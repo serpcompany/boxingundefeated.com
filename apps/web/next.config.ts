@@ -45,6 +45,11 @@ let nextConfig: NextConfig = {
         protocol: 'https',
         hostname: 'boxrec.com',
         pathname: '/**'
+      },
+      {
+        protocol: 'https',
+        hostname: 'dr.serp.co',
+        pathname: '/badge/**'
       }
     ]
   }
