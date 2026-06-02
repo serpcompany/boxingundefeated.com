@@ -1,8 +1,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import matter from 'gray-matter'
-import { remark } from 'remark'
-import html from 'remark-html'
+import { normalizeInternalPath } from './url-utils'
 
 export interface BlogPost {
   slug: string
@@ -16,6 +15,16 @@ export interface BlogPost {
 }
 
 const postsDirectory = path.join(process.cwd(), 'content/blog')
+const shopPostsDirectory = path.join(postsDirectory, 'shop')
+
+async function renderMarkdownToHtml(content: string): Promise<string> {
+  const [{ remark }, { default: html }] = await Promise.all([
+    import('remark'),
+    import('remark-html')
+  ])
+  const processedContent = await remark().use(html).process(content)
+  return processedContent.toString()
+}
 
 // Recursively get all markdown files from a directory
 function getAllMarkdownFiles(dir: string): string[] {
@@ -32,6 +41,10 @@ function getAllMarkdownFiles(dir: string): string[] {
     const stat = fs.statSync(fullPath)
 
     if (stat.isDirectory()) {
+      if (path.resolve(fullPath) === path.resolve(shopPostsDirectory)) {
+        continue
+      }
+
       // Recursively get files from subdirectory
       files.push(...getAllMarkdownFiles(fullPath))
     } else if (item.endsWith('.md') || item.endsWith('.mdx')) {
@@ -58,10 +71,12 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
 
           // Get relative path and use as default slug
           const relativePath = path.relative(postsDirectory, filePath)
-          const fileSlug = `/${relativePath.replace(/\.mdx?$/, '').replace(/\\/g, '/')}/`
+          const fileSlug = normalizeInternalPath(
+            `/${relativePath.replace(/\.mdx?$/, '').replace(/\\/g, '/')}`
+          )
 
           // Use frontmatter slug if available, otherwise use file path
-          const slug = data.slug || fileSlug
+          const slug = normalizeInternalPath(data.slug || fileSlug)
 
           // Use excerpt if available, otherwise use description
           const description = data.excerpt || data.description || ''
@@ -108,14 +123,15 @@ export async function getBlogPost(slug: string): Promise<BlogPost | null> {
 
         // Get relative path and use as default slug
         const relativePath = path.relative(postsDirectory, filePath)
-        const fileSlug = `/${relativePath.replace(/\.mdx?$/, '').replace(/\\/g, '/')}/`
+        const fileSlug = normalizeInternalPath(
+          `/${relativePath.replace(/\.mdx?$/, '').replace(/\\/g, '/')}`
+        )
 
         // Use frontmatter slug if available, otherwise use file path
-        const postSlug = data.slug || fileSlug
+        const postSlug = normalizeInternalPath(data.slug || fileSlug)
 
-        if (postSlug === slug) {
-          const processedContent = await remark().use(html).process(content)
-          const contentHtml = processedContent.toString()
+        if (postSlug === normalizeInternalPath(slug)) {
+          const contentHtml = await renderMarkdownToHtml(content)
 
           // Use excerpt if available, otherwise use description
           const description = data.excerpt || data.description || ''
@@ -158,10 +174,12 @@ export async function getBlogSlugs(): Promise<string[]> {
 
           // Get relative path and use as default slug
           const relativePath = path.relative(postsDirectory, filePath)
-          const fileSlug = `/${relativePath.replace(/\.mdx?$/, '').replace(/\\/g, '/')}/`
+          const fileSlug = normalizeInternalPath(
+            `/${relativePath.replace(/\.mdx?$/, '').replace(/\\/g, '/')}`
+          )
 
           // Use frontmatter slug if available, otherwise use file path
-          const slug = data.slug || fileSlug
+          const slug = normalizeInternalPath(data.slug || fileSlug)
 
           return slug
         } catch (error) {

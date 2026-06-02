@@ -1,14 +1,16 @@
 import fs from 'node:fs'
 import path from 'node:path'
-import { FightHistory } from '@/components/fight-history'
-import { OptimizedImage } from '@/components/optimized-image'
-import { type BoxerMetadata, getBoxerBouts, getBoxerStats } from '@/lib/boxers-loader'
-import { getOpponentLinksForBouts } from '@/lib/opponent-mapper'
 import { Breadcrumb } from '@boxingundefeated/design-system/breadcrumb'
 import { Card, CardContent, CardHeader, CardTitle } from '@boxingundefeated/design-system/card'
 import { getBaseUrl } from '@boxingundefeated/utils/get-base-url'
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
+import { FightHistory } from '@/components/fight-history'
+import { OptimizedImage } from '@/components/optimized-image'
+import { type BoxerMetadata, getBoxerBouts, getBoxerStats } from '@/lib/boxers-loader'
+import { createBoxerMetaDescription } from '@/lib/metadata'
+import { getOpponentLinksForBouts } from '@/lib/opponent-mapper'
+import { normalizeInternalPath, toAbsoluteUrl } from '@/lib/url-utils'
 
 // Load individual boxer data from split JSON files
 function getBoxerBySlugOptimized(slug: string): BoxerMetadata | null {
@@ -91,9 +93,9 @@ export async function generateMetadata({
 
   return {
     title: `${boxer.name} - Professional Boxer`,
-    description: `Professional boxing record and statistics for ${boxer.name}. ${boxer.bio ? boxer.bio.substring(0, 160) : ''}`,
+    description: createBoxerMetaDescription(boxer),
     alternates: {
-      canonical: `${baseUrl}/boxers/${slug}`
+      canonical: toAbsoluteUrl(baseUrl, `/boxers/${slug}`)
     }
   }
 }
@@ -111,8 +113,8 @@ export default async function BoxerPage({ params }: { params: { slug: string } }
   const bouts = getBoxerBouts(boxer)
   const opponentLinks = getOpponentLinksForBouts(bouts)
   const breadcrumbItems = [
-    { name: 'Boxers', href: '/boxers' },
-    { name: boxer.name, href: `/boxers/${slug}` }
+    { name: 'Boxers', href: '/boxers/' },
+    { name: boxer.name, href: normalizeInternalPath(`/boxers/${slug}`) }
   ]
 
   return (

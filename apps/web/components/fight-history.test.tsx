@@ -26,7 +26,7 @@ describe('FightHistory opponent links', () => {
 
     expect(screen.getByRole('link', { name: 'William Lawrence Stribling' })).toHaveAttribute(
       'href',
-      '/boxers/young-stribling'
+      '/boxers/young-stribling/'
     )
     expect(screen.queryByRole('link', { name: 'Unknown Opponent' })).not.toBeInTheDocument()
   })

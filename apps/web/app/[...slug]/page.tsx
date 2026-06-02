@@ -4,18 +4,30 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { getBlogPost, getBlogSlugs } from '@/lib/blog-loader'
-import { getShopSlugs } from '@/lib/shop-loader'
+import { createMetaDescription } from '@/lib/metadata'
+import { getShopPost, getShopSlugs } from '@/lib/shop-loader'
+import { normalizeInternalPath, toAbsoluteUrl } from '@/lib/url-utils'
 import '../blog/blog.css'
 
 export async function generateStaticParams() {
   const slugs = new Set([...(await getBlogSlugs()), ...(await getShopSlugs())])
   return Array.from(slugs).map(slug => {
     // Remove leading/trailing slashes and split
-    const cleanSlug = slug.replace(/^\/+|\/+$/g, '')
+    const cleanSlug = normalizeInternalPath(slug).replace(/^\/+|\/+$/g, '')
     return {
       slug: cleanSlug.split('/')
     }
   })
+}
+
+async function getPostBySlug(slug: string) {
+  const normalizedSlug = normalizeInternalPath(slug)
+
+  if (normalizedSlug.startsWith('/shop/')) {
+    return getShopPost(normalizedSlug)
+  }
+
+  return getBlogPost(normalizedSlug)
 }
 
 export async function generateMetadata({
@@ -23,8 +35,8 @@ export async function generateMetadata({
 }: {
   params: { slug: string[] }
 }): Promise<Metadata> {
-  const slugPath = `/${params.slug.join('/')}/`
-  const post = await getBlogPost(slugPath)
+  const slugPath = normalizeInternalPath(`/${params.slug.join('/')}`)
+  const post = await getPostBySlug(slugPath)
 
   if (!post) {
     return {
@@ -34,13 +46,16 @@ export async function generateMetadata({
 
   return {
     title: `${post.title} - Boxing Directory`,
-    description: post.description
+    description: createMetaDescription(post.description),
+    alternates: {
+      canonical: toAbsoluteUrl(getBaseUrl(), post.slug)
+    }
   }
 }
 
 export default async function BlogPostPage({ params }: { params: { slug: string[] } }) {
-  const slugPath = `/${params.slug.join('/')}/`
-  const post = await getBlogPost(slugPath)
+  const slugPath = normalizeInternalPath(`/${params.slug.join('/')}`)
+  const post = await getPostBySlug(slugPath)
 
   if (!post) {
     notFound()
@@ -50,7 +65,7 @@ export default async function BlogPostPage({ params }: { params: { slug: string[
   const isShopPost = post.slug.startsWith('/shop/')
   const breadcrumbItems = [
     { name: 'Home', href: '/' },
-    isShopPost ? { name: 'Shop', href: '/shop' } : { name: 'Blog', href: '/blog' },
+    isShopPost ? { name: 'Shop', href: '/shop/' } : { name: 'Blog', href: '/blog/' },
     { name: post.title, href: post.slug }
   ]
 
@@ -99,7 +114,7 @@ export default async function BlogPostPage({ params }: { params: { slug: string[
       <div className="blog-content" dangerouslySetInnerHTML={{ __html: post.content || '' }} />
 
       <footer className="mt-12 pt-8 border-t">
-        <Link href={isShopPost ? '/shop' : '/blog'} className="text-primary hover:underline">
+        <Link href={isShopPost ? '/shop/' : '/blog/'} className="text-primary hover:underline">
           ← Back to {isShopPost ? 'Shop' : 'Blog'}
         </Link>
       </footer>

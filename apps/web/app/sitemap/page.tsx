@@ -1,7 +1,6 @@
 import { getBaseUrl } from '@boxingundefeated/utils/get-base-url'
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { getBlogSlugs } from '@/lib/blog-loader'
 import { getBoxerCategories, getBoxersWithoutBouts } from '@/lib/boxers-loader'
 import {
   getBoxersPageHref,
@@ -23,7 +22,6 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function HtmlSitemapPage() {
   const boxers = getBoxersWithoutBouts()
   const categories = getBoxerCategories()
-  const blogSlugs = await getBlogSlugs()
   const shopPosts = await getShopPosts()
   const boxerPages = getPaginationPages(boxers.length)
   const shopPages = getPaginationPages(shopPosts.length, SHOP_PAGE_SIZE)
@@ -36,14 +34,14 @@ export default async function HtmlSitemapPage() {
         title="Main pages"
         links={[
           { href: '/', label: 'Home' },
-          { href: '/about', label: 'About' },
-          { href: '/search', label: 'Search' },
-          { href: '/blog', label: 'Blog' },
+          { href: '/about/', label: 'About' },
+          { href: '/search/', label: 'Search' },
+          { href: '/blog/', label: 'Blog' },
           { href: '/divisions/', label: 'Divisions' },
-          { href: '/shop', label: 'Shop' },
+          { href: '/shop/', label: 'Shop' },
           { href: '/brands/', label: 'Brands' },
-          { href: '/privacy', label: 'Privacy Policy' },
-          { href: '/terms', label: 'Terms of Service' },
+          { href: '/privacy/', label: 'Privacy Policy' },
+          { href: '/terms/', label: 'Terms of Service' },
           { href: '/sitemap/', label: 'Sitemap' }
         ]}
       />
@@ -78,27 +76,16 @@ export default async function HtmlSitemapPage() {
       />
 
       <SitemapSection
-        title="Shop guides"
-        links={shopPosts.map(post => ({
-          href: post.slug,
-          label: post.title
-        }))}
-      />
-
-      <SitemapSection
-        title="Individual boxers"
-        links={boxers.map(boxer => ({
-          href: `/boxers/${boxer.slug}`,
-          label: boxer.name
-        }))}
-      />
-
-      <SitemapSection
-        title="Blog posts"
-        links={blogSlugs.map(slug => ({
-          href: slug,
-          label: slug
-        }))}
+        title="XML sitemaps"
+        links={[
+          { href: '/sitemap.xml', label: 'Master sitemap index' },
+          { href: '/sitemap-index.xml', label: 'Canonical sitemap index' },
+          { href: '/sitemaps/pages/1.xml', label: 'Pages sitemap' },
+          { href: '/sitemaps/blog/1.xml', label: 'Blog sitemap' },
+          { href: '/sitemaps/divisions/1.xml', label: 'Divisions sitemap' },
+          { href: '/sitemaps/shop/1.xml', label: 'Shop sitemap' },
+          { href: '/sitemaps/boxers/1.xml', label: 'Boxers sitemap' }
+        ]}
       />
     </main>
   )

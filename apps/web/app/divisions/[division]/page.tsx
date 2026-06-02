@@ -38,7 +38,7 @@ export async function generateMetadata({
     title: `${category.name} Boxers - Boxing Directory`,
     description: `Browse professional ${category.name.toLowerCase()} boxers with statistics and fight records.`,
     alternates: {
-      canonical: `${getBaseUrl()}/divisions/${division}`
+      canonical: `${getBaseUrl()}${getDivisionPageHref(division, 1)}`
     }
   }
 }
@@ -64,7 +64,7 @@ export default async function DivisionPage({ params }: { params: { division: str
   const baseUrl = getBaseUrl()
   const breadcrumbItems = [
     { name: 'Divisions', href: '/divisions/' },
-    { name: category.name, href: `/divisions/${division}` }
+    { name: category.name, href: getDivisionPageHref(division, 1) }
   ]
 
   return (

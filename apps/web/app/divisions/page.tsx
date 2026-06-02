@@ -32,7 +32,7 @@ export default async function DivisionsPage() {
             <Card key={category.slug} className="transition-shadow hover:shadow-lg">
               <CardHeader>
                 <CardTitle>
-                  <Link href={`/divisions/${category.slug}`} className="hover:underline">
+                  <Link href={`/divisions/${category.slug}/`} className="hover:underline">
                     {category.name}
                   </Link>
                 </CardTitle>

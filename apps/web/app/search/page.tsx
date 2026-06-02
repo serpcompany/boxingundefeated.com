@@ -94,7 +94,7 @@ export default function SearchPage() {
                   <Card key={boxer.slug} className="hover:shadow-lg transition-shadow">
                     <CardHeader>
                       <CardTitle>
-                        <Link href={`/boxers/${boxer.slug}`} className="hover:underline">
+                        <Link href={`/boxers/${boxer.slug}/`} className="hover:underline">
                           {boxer.name}
                         </Link>
                       </CardTitle>

@@ -52,7 +52,7 @@ export default async function ShopPaginatedPage({ params }: { params: { page: st
     <main className="mx-auto max-w-6xl px-4 py-8">
       <Breadcrumb
         items={[
-          { name: 'Shop', href: '/shop' },
+          { name: 'Shop', href: '/shop/' },
           { name: `Page ${currentPage}`, href: getShopPageHref(currentPage) }
         ]}
         baseUrl={getBaseUrl()}

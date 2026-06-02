@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@boxingundefeated/desi
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import type { Bout } from '@/lib/boxers-loader'
+import { normalizeInternalPath } from '@/lib/url-utils'
 
 interface FightHistoryProps {
   bouts: Bout[]
@@ -43,7 +44,7 @@ export function FightHistory({ bouts, opponentLinks }: FightHistoryProps) {
                     <div className="flex items-center gap-2">
                       {opponentSlug ? (
                         <Link
-                          href={`/boxers/${opponentSlug}`}
+                          href={normalizeInternalPath(`/boxers/${opponentSlug}`)}
                           className="font-semibold hover:text-blue-600 hover:underline transition-colors"
                         >
                           {bout.opponentName}

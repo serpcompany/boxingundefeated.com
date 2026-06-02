@@ -11,7 +11,8 @@ interface NavLinkProps {
 
 function NavLink({ href, children, exact = false }: NavLinkProps) {
   const pathname = usePathname()
-  const isActive = exact ? pathname === href : pathname.startsWith(href)
+  const normalizedPathname = pathname === '/' || pathname.endsWith('/') ? pathname : `${pathname}/`
+  const isActive = exact ? normalizedPathname === href : normalizedPathname.startsWith(href)
 
   return (
     <Link
@@ -36,7 +37,7 @@ export function Header() {
           <nav className="hidden md:flex items-center gap-4">
             <NavLink href={getRoute('website.list')}>Boxers</NavLink>
             <NavLink href="/divisions/">Divisions</NavLink>
-            <NavLink href="/blog">Blog</NavLink>
+            <NavLink href="/blog/">Blog</NavLink>
             <NavLink href={getRoute('about')}>About</NavLink>
             <NavLink href={getRoute('search')}>Search</NavLink>
           </nav>

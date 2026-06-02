@@ -19,6 +19,7 @@ let nextConfig: NextConfig = {
 
   // Always use static export to avoid serverless function size limits
   output: 'export',
+  trailingSlash: true,
 
   // No basePath needed for the boxingundefeated.com custom domain.
   // basePath: process.env.NODE_ENV === 'production' ? '/boxing' : '',

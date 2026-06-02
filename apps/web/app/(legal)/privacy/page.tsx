@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 }
 
 export default function PrivacyPolicyPage() {
-  const breadcrumbItems = [{ name: 'Privacy Policy', href: '/privacy' }]
+  const breadcrumbItems = [{ name: 'Privacy Policy', href: '/privacy/' }]
 
   return (
     <div className="container mx-auto px-4 py-8">

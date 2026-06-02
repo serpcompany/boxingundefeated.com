@@ -51,7 +51,7 @@ export default async function BoxersPaginatedPage({ params }: { params: { page: 
 
   const baseUrl = getBaseUrl()
   const breadcrumbItems = [
-    { name: 'Boxers', href: '/boxers' },
+    { name: 'Boxers', href: '/boxers/' },
     { name: `Page ${currentPage}`, href: getBoxersPageHref(currentPage) }
   ]
 

@@ -16,14 +16,14 @@ export async function generateMetadata(): Promise<Metadata> {
     title: 'Boxers Directory',
     description: 'Browse our comprehensive directory of professional boxers.',
     alternates: {
-      canonical: `${baseUrl}/boxers`
+      canonical: `${baseUrl}/boxers/`
     }
   }
 }
 
 export default async function BoxersPage() {
   const baseUrl = getBaseUrl()
-  const breadcrumbItems = [{ name: 'Boxers', href: '/boxers' }]
+  const breadcrumbItems = [{ name: 'Boxers', href: '/boxers/' }]
   const boxers = sortBoxersForDirectory(getBoxersWithoutBouts())
   const page = getPaginatedItems(boxers, 1)
 
