@@ -7,33 +7,33 @@ export const routes = {
   home: '/',
   llmsTxt: '/llms.txt',
   boxers: {
-    list: '/boxers',
-    detail: '/boxers/[slug]',
-    featured: '/boxers',
-    latest: '/boxers?sort=latest',
-    withDivision: '/divisions/[division]'
+    list: '/boxers/',
+    detail: '/boxers/[slug]/',
+    featured: '/boxers/',
+    latest: '/boxers/?sort=latest',
+    withDivision: '/divisions/[division]/'
   },
   // Keep website routes for backward compatibility but redirect to boxers
   website: {
-    list: '/boxers',
-    detail: '/boxers/[slug]',
-    featured: '/boxers',
-    latest: '/boxers?sort=latest',
-    withCategory: '/boxers?category=[category]'
+    list: '/boxers/',
+    detail: '/boxers/[slug]/',
+    featured: '/boxers/',
+    latest: '/boxers/?sort=latest',
+    withCategory: '/boxers/?category=[category]'
   },
-  about: '/about',
+  about: '/about/',
   guides: {
-    list: '/guides',
-    guide: '/guides/[slug]'
+    list: '/guides/',
+    guide: '/guides/[slug]/'
   },
-  faq: '/faq',
-  login: '/login',
-  news: '/news',
-  privacy: '/privacy',
-  projects: '/projects',
-  search: '/search',
-  submit: '/submit',
-  terms: '/terms',
+  faq: '/faq/',
+  login: '/login/',
+  news: '/news/',
+  privacy: '/privacy/',
+  projects: '/projects/',
+  search: '/search/',
+  submit: '/submit/',
+  terms: '/terms/',
   rss: '/rss.xml'
 } as const
 

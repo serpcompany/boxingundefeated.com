@@ -76,7 +76,7 @@ export default async function DivisionPaginatedPage({
   const baseUrl = getBaseUrl()
   const breadcrumbItems = [
     { name: 'Divisions', href: '/divisions/' },
-    { name: category.name, href: `/divisions/${division}` },
+    { name: category.name, href: getDivisionPageHref(division, 1) },
     { name: `Page ${currentPage}`, href: getDivisionPageHref(division, currentPage) }
   ]
 

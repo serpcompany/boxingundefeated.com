@@ -58,7 +58,7 @@ export function Footer() {
             <h3 className="font-semibold">Browse</h3>
             <ul className="space-y-2 text-sm">
               <li>
-                <Link href="/boxers" className="text-muted-foreground hover:text-foreground">
+                <Link href="/boxers/" className="text-muted-foreground hover:text-foreground">
                   All Boxers
                 </Link>
               </li>
@@ -69,7 +69,7 @@ export function Footer() {
               </li>
               <li>
                 <Link
-                  href="/divisions/heavy"
+                  href="/divisions/heavy/"
                   className="text-muted-foreground hover:text-foreground"
                 >
                   Heavyweight
@@ -77,7 +77,7 @@ export function Footer() {
               </li>
               <li>
                 <Link
-                  href="/divisions/middle"
+                  href="/divisions/middle/"
                   className="text-muted-foreground hover:text-foreground"
                 >
                   Middleweight
@@ -85,7 +85,7 @@ export function Footer() {
               </li>
               <li>
                 <Link
-                  href="/divisions/light"
+                  href="/divisions/light/"
                   className="text-muted-foreground hover:text-foreground"
                 >
                   Lightweight

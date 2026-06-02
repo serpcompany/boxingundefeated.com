@@ -1,11 +1,11 @@
-import { BoxerCardSkeleton } from '@/components/boxer-skeleton'
 import { Breadcrumb } from '@boxingundefeated/design-system/breadcrumb'
 import { Button } from '@boxingundefeated/design-system/button'
 import { getBaseUrl } from '@boxingundefeated/utils/get-base-url'
+import { BoxerCardSkeleton } from '@/components/boxer-skeleton'
 
 export default function BoxersLoading() {
   const baseUrl = getBaseUrl()
-  const breadcrumbItems = [{ name: 'Boxers', href: '/boxers' }]
+  const breadcrumbItems = [{ name: 'Boxers', href: '/boxers/' }]
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-8">

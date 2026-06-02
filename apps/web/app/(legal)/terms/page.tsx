@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 }
 
 export default function TermsOfServicePage() {
-  const breadcrumbItems = [{ name: 'Terms of Service', href: '/terms' }]
+  const breadcrumbItems = [{ name: 'Terms of Service', href: '/terms/' }]
 
   return (
     <div className="container mx-auto px-4 py-8">

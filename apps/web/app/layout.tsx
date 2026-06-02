@@ -1,21 +1,16 @@
 import type { Metadata } from 'next'
 import type React from 'react'
 import '../../../packages/design-system/styles/globals.css'
-import { GTMNoscript, GoogleTagManager } from '@/components/gtm'
-import { Footer } from '@/components/layout/footer'
-import { Header } from '@/components/layout/header'
-import { ProgressBar } from '@/components/progress-bar'
 import { fontVariable } from '@boxingundefeated/design-system/lib/fonts'
 import { cn } from '@boxingundefeated/design-system/lib/utils'
 import { DesignSystemProvider } from '@boxingundefeated/design-system/theme-provider'
-import { getBaseUrl } from '@boxingundefeated/utils/get-base-url'
+import { GoogleTagManager, GTMNoscript } from '@/components/gtm'
+import { Footer } from '@/components/layout/footer'
+import { Header } from '@/components/layout/header'
+import { ProgressBar } from '@/components/progress-bar'
+import { createRootMetadata } from '@/lib/metadata'
 
-export const metadata: Metadata = {
-  title: 'Boxing Directory',
-  description:
-    'Comprehensive database of professional boxers with statistics, records, and fight history',
-  metadataBase: new URL(getBaseUrl())
-}
+export const metadata: Metadata = createRootMetadata()
 
 type RootLayoutProps = {
   children: React.ReactNode

@@ -17,9 +17,9 @@ describe('directory pagination helpers', () => {
   })
 
   it('maps boxer directory page numbers to canonical hrefs', () => {
-    expect(getBoxersPageHref(1)).toBe('/boxers')
-    expect(getBoxersPageHref(2)).toBe('/boxers/page/2')
-    expect(getBoxersPageHref(117)).toBe('/boxers/page/117')
+    expect(getBoxersPageHref(1)).toBe('/boxers/')
+    expect(getBoxersPageHref(2)).toBe('/boxers/page/2/')
+    expect(getBoxersPageHref(117)).toBe('/boxers/page/117/')
   })
 
   it('returns null for invalid requested pages', () => {
@@ -35,10 +35,10 @@ describe('directory pagination helpers', () => {
       const expectedTotalPages = getTotalPages(divisionBoxers.length, BOXER_PAGE_SIZE)
 
       expect(getPaginationPages(divisionBoxers.length)).toHaveLength(expectedTotalPages)
-      expect(getDivisionPageHref(category.slug, 1)).toBe(`/divisions/${category.slug}`)
+      expect(getDivisionPageHref(category.slug, 1)).toBe(`/divisions/${category.slug}/`)
 
       if (expectedTotalPages > 1) {
-        expect(getDivisionPageHref(category.slug, 2)).toBe(`/divisions/${category.slug}/page/2`)
+        expect(getDivisionPageHref(category.slug, 2)).toBe(`/divisions/${category.slug}/page/2/`)
       }
     }
   })

@@ -2,9 +2,12 @@ import { getBlogSlugs } from './blog-loader'
 import { getBoxerCategories, getBoxersWithoutBouts } from './boxers-loader'
 import { getBoxersPageHref, getDivisionPageHref, getPaginationPages } from './directory-pagination'
 import { getShopPageHref, getShopPosts, SHOP_PAGE_SIZE } from './shop-loader'
+import { normalizeInternalPath, toAbsoluteUrl } from './url-utils'
+
+export { normalizeInternalPath, toAbsoluteUrl }
 
 export interface SitemapPaths {
-  main: string[]
+  pages: string[]
   boxerListings: string[]
   divisionListings: string[]
   boxerDetails: string[]
@@ -27,27 +30,14 @@ export async function getSitemapPaths(): Promise<SitemapPaths> {
   })
 
   return {
-    main: [
-      '/',
-      '/about',
-      '/search',
-      '/blog',
-      '/divisions/',
-      '/brands/',
-      '/privacy',
-      '/terms',
-      '/sitemap/'
-    ],
-    boxerListings,
-    divisionListings,
-    boxerDetails: boxers.map(boxer => `/boxers/${boxer.slug}`),
-    blogPosts,
-    shopListings,
-    shopPosts: shopPosts.map(post => post.slug)
+    pages: ['/', '/about/', '/search/', '/brands/', '/privacy/', '/terms/', '/sitemap/'].map(
+      normalizeInternalPath
+    ),
+    boxerListings: boxerListings.map(normalizeInternalPath),
+    divisionListings: ['/divisions/', ...divisionListings].map(normalizeInternalPath),
+    boxerDetails: boxers.map(boxer => normalizeInternalPath(`/boxers/${boxer.slug}`)),
+    blogPosts: ['/blog/', ...blogPosts].map(normalizeInternalPath),
+    shopListings: shopListings.map(normalizeInternalPath),
+    shopPosts: shopPosts.map(post => normalizeInternalPath(post.slug))
   }
-}
-
-export function toAbsoluteUrl(baseUrl: string, pathname: string): string {
-  if (pathname === '/') return baseUrl
-  return `${baseUrl}${pathname}`
 }

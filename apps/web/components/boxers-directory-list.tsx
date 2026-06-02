@@ -2,6 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@boxingundefeated/desi
 import Link from 'next/link'
 import { type BoxerMetadata, getBoxerStats } from '@/lib/boxers-loader'
 import { getVisiblePaginationPages } from '@/lib/directory-pagination'
+import { normalizeInternalPath } from '@/lib/url-utils'
 
 interface BoxersDirectoryListProps {
   title: string
@@ -104,7 +105,7 @@ function BoxerDirectoryCard({ boxer }: { boxer: BoxerMetadata }) {
             />
           )}
           <CardTitle className="flex-1">
-            <Link href={`/boxers/${boxer.slug}`} className="hover:underline">
+            <Link href={normalizeInternalPath(`/boxers/${boxer.slug}`)} className="hover:underline">
               {boxer.name}
             </Link>
             {boxer.nicknames && (

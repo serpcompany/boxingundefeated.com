@@ -10,7 +10,7 @@ export async function generateMetadata(): Promise<Metadata> {
     title: 'Shop Guides',
     description: 'Browse boxing, fitness, and training gear buying guides.',
     alternates: {
-      canonical: `${getBaseUrl()}/shop`
+      canonical: `${getBaseUrl()}/shop/`
     }
   }
 }
@@ -25,7 +25,7 @@ export default async function ShopPage() {
 
   return (
     <main className="mx-auto max-w-6xl px-4 py-8">
-      <Breadcrumb items={[{ name: 'Shop', href: '/shop' }]} baseUrl={getBaseUrl()} />
+      <Breadcrumb items={[{ name: 'Shop', href: '/shop/' }]} baseUrl={getBaseUrl()} />
       <ShopPostList
         posts={page.items}
         currentPage={page.currentPage}

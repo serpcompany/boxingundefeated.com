@@ -67,10 +67,10 @@ export default async function Home() {
             professional boxers from around the world.
           </p>
           <div className="flex gap-4 justify-center">
-            <Link href="/boxers">
+            <Link href="/boxers/">
               <Button size="lg">Browse All Boxers</Button>
             </Link>
-            <Link href="/search">
+            <Link href="/search/">
               <Button size="lg" variant="outline">
                 Search Database
               </Button>
@@ -137,7 +137,7 @@ export default async function Home() {
                       />
                     )}
                     <CardTitle>
-                      <Link href={`/boxers/${boxer.slug}`} className="hover:underline">
+                      <Link href={`/boxers/${boxer.slug}/`} className="hover:underline">
                         {boxer.name}
                       </Link>
                     </CardTitle>
@@ -169,7 +169,7 @@ export default async function Home() {
             ))}
           </div>
           <div className="text-center">
-            <Link href="/boxers">
+            <Link href="/boxers/">
               <Button variant="outline" size="lg">
                 View All Boxers →
               </Button>
@@ -196,7 +196,7 @@ export default async function Home() {
             ].map(item => {
               const divisionBoxers = boxers.filter(b => b.proDivision === item.division)
               return (
-                <Link key={item.slug} href={`/divisions/${item.slug}`}>
+                <Link key={item.slug} href={`/divisions/${item.slug}/`}>
                   <Card className="hover:shadow-lg transition-shadow cursor-pointer">
                     <CardContent className="p-4">
                       <div className="text-center">

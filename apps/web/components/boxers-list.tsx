@@ -1,10 +1,5 @@
 'use client'
 
-import { BoxerCardSkeleton, BoxerListSkeleton } from '@/components/boxer-skeleton'
-import { EmptyState } from '@/components/empty-state'
-import { LazyImage } from '@/components/lazy-image'
-import type { BoxerMetadata } from '@/lib/boxers-loader'
-import { getBoxerCategories, getBoxerStats } from '@/lib/boxers-loader'
 import { Button } from '@boxingundefeated/design-system/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@boxingundefeated/design-system/card'
 import { ToggleGroup, ToggleGroupItem } from '@boxingundefeated/design-system/toggle-group'
@@ -12,6 +7,12 @@ import { Grid, List, SortAsc, Trophy, Users } from 'lucide-react'
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useEffect, useMemo, useState, useTransition } from 'react'
+import { BoxerCardSkeleton, BoxerListSkeleton } from '@/components/boxer-skeleton'
+import { EmptyState } from '@/components/empty-state'
+import { LazyImage } from '@/components/lazy-image'
+import type { BoxerMetadata } from '@/lib/boxers-loader'
+import { getBoxerCategories, getBoxerStats } from '@/lib/boxers-loader'
+import { normalizeInternalPath } from '@/lib/url-utils'
 
 interface ClientBoxersListProps {
   initialBoxers: BoxerMetadata[]
@@ -55,7 +56,7 @@ export function ClientBoxersList({ initialBoxers }: ClientBoxersListProps) {
       if (sort && sort !== 'wins') params.set('sort', sort)
       if (page && page !== 1) params.set('page', page.toString())
       const query = params.toString()
-      router.push(`/boxers${query ? `?${query}` : ''}`)
+      router.push(`/boxers/${query ? `?${query}` : ''}`)
     })
   }
 
@@ -113,7 +114,10 @@ export function ClientBoxersList({ initialBoxers }: ClientBoxersListProps) {
               />
             )}
             <CardTitle className="flex-1 flex items-start justify-between">
-              <Link href={`/boxers/${boxer.slug}`} className="hover:underline">
+              <Link
+                href={normalizeInternalPath(`/boxers/${boxer.slug}`)}
+                className="hover:underline"
+              >
                 {boxer.name}
               </Link>
               {boxer.nicknames && (
@@ -184,7 +188,10 @@ export function ClientBoxersList({ initialBoxers }: ClientBoxersListProps) {
             )}
             <div className="flex-1">
               <h3 className="font-semibold text-lg">
-                <Link href={`/boxers/${boxer.slug}`} className="hover:underline">
+                <Link
+                  href={normalizeInternalPath(`/boxers/${boxer.slug}`)}
+                  className="hover:underline"
+                >
                   {boxer.name}
                 </Link>
                 {boxer.nicknames && (
@@ -308,7 +315,7 @@ export function ClientBoxersList({ initialBoxers }: ClientBoxersListProps) {
           title="No boxers found"
           description="There are no boxers matching your current filters."
           actionLabel="View All"
-          actionHref="/boxers"
+          actionHref="/boxers/"
         />
       ) : (
         <>

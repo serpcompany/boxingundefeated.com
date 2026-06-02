@@ -45,11 +45,11 @@ export function getPaginatedItems<T>(
 }
 
 export function getBoxersPageHref(page: number): string {
-  return page <= 1 ? '/boxers' : `/boxers/page/${page}`
+  return page <= 1 ? '/boxers/' : `/boxers/page/${page}/`
 }
 
 export function getDivisionPageHref(divisionSlug: string, page: number): string {
-  return page <= 1 ? `/divisions/${divisionSlug}` : `/divisions/${divisionSlug}/page/${page}`
+  return page <= 1 ? `/divisions/${divisionSlug}/` : `/divisions/${divisionSlug}/page/${page}/`
 }
 
 export function getVisiblePaginationPages(currentPage: number, totalPages: number): number[] {

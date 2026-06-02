@@ -3,6 +3,7 @@ import path from 'node:path'
 import matter from 'gray-matter'
 import type { BlogPost } from './blog-loader'
 import { BOXER_PAGE_SIZE } from './directory-pagination'
+import { normalizeInternalPath } from './url-utils'
 
 const shopPostsDirectory = path.join(process.cwd(), 'content/blog/shop')
 
@@ -29,7 +30,7 @@ function getAllMarkdownFiles(dir: string): string[] {
 
 function slugFromFile(filePath: string): string {
   const relativePath = path.relative(path.join(process.cwd(), 'content/blog'), filePath)
-  return `/${relativePath.replace(/\.mdx?$/, '').replace(/\\/g, '/')}/`
+  return normalizeInternalPath(`/${relativePath.replace(/\.mdx?$/, '').replace(/\\/g, '/')}`)
 }
 
 function normalizeTags(tags: unknown): string[] {
@@ -39,8 +40,7 @@ function normalizeTags(tags: unknown): string[] {
 }
 
 function normalizeSlug(slug: string): string {
-  const withLeadingSlash = slug.startsWith('/') ? slug : `/${slug}`
-  return withLeadingSlash.endsWith('/') ? withLeadingSlash : `${withLeadingSlash}/`
+  return normalizeInternalPath(slug)
 }
 
 export async function getShopPosts(): Promise<BlogPost[]> {
@@ -82,13 +82,63 @@ export async function getShopPosts(): Promise<BlogPost[]> {
   }
 }
 
+async function renderMarkdownToHtml(content: string): Promise<string> {
+  const [{ remark }, { default: html }] = await Promise.all([
+    import('remark'),
+    import('remark-html')
+  ])
+  const processedContent = await remark().use(html).process(content)
+  return processedContent.toString()
+}
+
+export async function getShopPost(slug: string): Promise<BlogPost | null> {
+  const normalizedSlug = normalizeSlug(slug)
+
+  try {
+    const allFiles = getAllMarkdownFiles(shopPostsDirectory)
+
+    for (const filePath of allFiles) {
+      try {
+        const fileContents = fs.readFileSync(filePath, 'utf8')
+        const { data, content } = matter(fileContents)
+        const fileSlug = slugFromFile(filePath)
+        const postSlug = normalizeSlug(data.slug || fileSlug)
+
+        if (postSlug !== normalizedSlug) {
+          continue
+        }
+
+        const description = data.excerpt || data.description || ''
+
+        return {
+          slug: postSlug,
+          title: data.title || path.basename(fileSlug),
+          description,
+          date: data.publishDate || data.date || new Date().toISOString(),
+          author: data.author,
+          tags: normalizeTags(data.tags),
+          image: data.image,
+          content: await renderMarkdownToHtml(content)
+        }
+      } catch (error) {
+        console.error(`Error processing shop file ${filePath}:`, error)
+      }
+    }
+
+    return null
+  } catch (error) {
+    console.error('Error in getShopPost:', error)
+    return null
+  }
+}
+
 export async function getShopSlugs(): Promise<string[]> {
   const posts = await getShopPosts()
   return posts.map(post => post.slug)
 }
 
 export function getShopPageHref(page: number): string {
-  return page <= 1 ? '/shop' : `/shop/page/${page}`
+  return page <= 1 ? '/shop/' : `/shop/page/${page}/`
 }
 
 export const SHOP_PAGE_SIZE = BOXER_PAGE_SIZE
