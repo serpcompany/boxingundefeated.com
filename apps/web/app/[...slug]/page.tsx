@@ -33,9 +33,10 @@ async function getPostBySlug(slug: string) {
 export async function generateMetadata({
   params
 }: {
-  params: { slug: string[] }
+  params: Promise<{ slug: string[] }>
 }): Promise<Metadata> {
-  const slugPath = normalizeInternalPath(`/${params.slug.join('/')}`)
+  const { slug } = await params
+  const slugPath = normalizeInternalPath(`/${slug.join('/')}`)
   const post = await getPostBySlug(slugPath)
 
   if (!post) {
@@ -53,8 +54,9 @@ export async function generateMetadata({
   }
 }
 
-export default async function BlogPostPage({ params }: { params: { slug: string[] } }) {
-  const slugPath = normalizeInternalPath(`/${params.slug.join('/')}`)
+export default async function BlogPostPage({ params }: { params: Promise<{ slug: string[] }> }) {
+  const { slug } = await params
+  const slugPath = normalizeInternalPath(`/${slug.join('/')}`)
   const post = await getPostBySlug(slugPath)
 
   if (!post) {

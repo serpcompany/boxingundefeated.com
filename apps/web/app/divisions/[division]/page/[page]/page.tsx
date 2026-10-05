@@ -30,7 +30,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({
   params
 }: {
-  params: { division: string; page: string }
+  params: Promise<{ division: string; page: string }>
 }): Promise<Metadata> {
   const { division, page: pageParam } = await params
   const page = Number.parseInt(pageParam, 10)
@@ -54,7 +54,7 @@ export async function generateMetadata({
 export default async function DivisionPaginatedPage({
   params
 }: {
-  params: { division: string; page: string }
+  params: Promise<{ division: string; page: string }>
 }) {
   const { division, page: pageParam } = await params
   const currentPage = Number.parseInt(pageParam, 10)
