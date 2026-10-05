@@ -32,8 +32,8 @@ Stage: not declared (treated as Ship). Only the owner sets the stage and any age
   `apps/web/public/data/boxers/`.
 - `from-pipeline/boxers.json`: the pipeline output (about 104 MB, gitignored). Only data
   regeneration needs it; builds read `public/data/`. To regenerate in a fresh checkout or
-  worktree, copy it there and link it: `ln -s ../../../from-pipeline/boxers.json
-  apps/web/data/boxers.json`.
+  worktree, copy it there and link it: `mkdir -p apps/web/data && ln -s
+  ../../../from-pipeline/boxers.json apps/web/data/boxers.json`.
 - `.github/workflows/`: `deploy-github-pages.yml` deploys `main` to production, `pr-review.yml`
   runs PR checks, `preview.yml` publishes PR previews.
 
@@ -49,7 +49,8 @@ Inner loop, while editing (seconds):
 
 Finish gate, once per state when the branch is finished: `pnpm check` (read-only Biome check,
 workspace check, typecheck, tests and the production build; about a minute for the build). Run it
-in the background. Don't re-run it on an unchanged tree; cite the earlier run.
+in the background. Don't re-run it on an unchanged tree; cite the earlier run. The build rewrites
+the committed sitemap files' dates, so run `git checkout -- apps/web/public` before committing.
 
 ## Workflow
 
