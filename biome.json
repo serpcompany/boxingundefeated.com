@@ -7,26 +7,24 @@
   },
   "files": {
     "ignoreUnknown": false,
-    "includes": ["**/*"],
     "maxSize": 110485760,
-    "experimentalScannerIgnores": [
-      "**/node_modules/**",
-      "dist",
-      ".turbo",
-      ".next",
-      "out",
-      "apps/web/out/**",
-      ".env",
-      ".env.local",
-      "**/shadcn/**",
-      "packages/design-system/lib/**",
-      "packages/design-system/hooks/**",
-      "apps/web/public/search/**",
-      "apps/web/public/data/**",
-      "apps/web/data/boxers.json",
-      "apps/web/from-pipeline/**",
-      "data/**",
-      "apps/chatbot/public/"
+    "includes": [
+      "**",
+      "!**/node_modules",
+      "!**/dist",
+      "!**/.turbo",
+      "!**/.next",
+      "!**/out",
+      "!**/.vscode",
+      "!**/.env",
+      "!**/.env.local",
+      "!**/shadcn",
+      "!packages/design-system/lib",
+      "!packages/design-system/hooks",
+      "!apps/web/public/search",
+      "!apps/web/public/data",
+      "!apps/web/data",
+      "!from-pipeline"
     ]
   },
   "formatter": {
@@ -72,7 +70,18 @@
       }
     }
   },
-  "overrides": [],
+  "overrides": [
+    {
+      "includes": ["**/*.css"],
+      "linter": {
+        "rules": {
+          "suspicious": {
+            "noUnknownAtRules": "off"
+          }
+        }
+      }
+    }
+  ],
   "javascript": {
     "formatter": {
       "arrowParentheses": "asNeeded",

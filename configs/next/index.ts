@@ -1,5 +1,4 @@
 import withBundleAnalyzer from '@next/bundle-analyzer'
-import withVercelToolbar from '@vercel/toolbar/plugins/next'
 import type { NextConfig } from 'next'
 
 const otelRegex = /@opentelemetry\/instrumentation/
@@ -26,6 +25,3 @@ export const baseConfig: NextConfig = {
 }
 
 export const withAnalyzer = (sourceConfig: NextConfig) => withBundleAnalyzer()(sourceConfig)
-
-export const withVercelToolbarConfig = (sourceConfig: NextConfig) =>
-  withVercelToolbar()(sourceConfig)

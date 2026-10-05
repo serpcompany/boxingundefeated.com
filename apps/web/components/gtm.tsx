@@ -8,6 +8,7 @@ export function GoogleTagManager({ gtmId }: GTMProps) {
   return (
     <>
       {/* Google Tag Manager Script */}
+      {/* biome-ignore lint/correctness/useUniqueElementIds: next/script needs a stable id for inline scripts, and this renders once per page */}
       <Script
         id="gtm-script"
         strategy="afterInteractive"
@@ -28,6 +29,7 @@ export function GoogleTagManager({ gtmId }: GTMProps) {
 export function GTMNoscript({ gtmId }: GTMProps) {
   return (
     <noscript>
+      {/* biome-ignore lint/a11y/useIframeTitle: GTM's hidden noscript iframe snippet, kept as Google ships it */}
       <iframe
         src={`https://www.googletagmanager.com/ns.html?id=${gtmId}`}
         height="0"

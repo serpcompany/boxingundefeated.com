@@ -21,7 +21,9 @@ for (const p of possiblePaths) {
 
 if (!dataPath) {
   console.error('Could not find boxers.json in any of the expected locations:')
-  possiblePaths.forEach(p => console.error(`  - ${p}`))
+  possiblePaths.forEach(p => {
+    console.error(`  - ${p}`)
+  })
   console.error('Current working directory:', process.cwd())
   console.error('Script directory:', __dirname)
   process.exit(1)

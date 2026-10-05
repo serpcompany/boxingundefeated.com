@@ -50,7 +50,6 @@ npm-debug.log*
 lychee-out.md
 .lycheecache
 .env*.local
-.content-collections
 
 # Coders in Flow
 .codersinflow

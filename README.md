@@ -24,8 +24,7 @@ Agents and contributors: start with [AGENTS.md](AGENTS.md) for the repository ma
 │       ├── lib/                  # Application utilities
 │       │   ├── blog-loader.ts   # Blog content loading
 │       │   ├── boxers-loader.ts # Boxer data loading
-│       │   ├── routes.ts        # Route definitions
-│       │   └── utils.ts         # Shared utilities
+│       │   └── routes.ts        # Route definitions
 │       ├── public/
 │       │   ├── data/boxers/     # Individual boxer JSON files (4,500+)
 │       │   └── images/boxers/   # Boxer profile images
@@ -36,10 +35,7 @@ Agents and contributors: start with [AGENTS.md](AGENTS.md) for the repository ma
 ├── packages/                     # Shared packages
 │   ├── design-system/           # UI components library
 │   │   └── lib/                 # Component utilities
-│   ├── utils/                   # Shared utility functions
-│   ├── flags/                   # Feature flags system
-│   │   └── lib/                 # Flag utilities
-│   └── hooks/                   # Shared React hooks
+│   └── utils/                   # Shared utility functions
 │
 ├── configs/                      # Shared configurations
 │   ├── next/                    # Next.js config
@@ -48,9 +44,7 @@ Agents and contributors: start with [AGENTS.md](AGENTS.md) for the repository ma
 └── scripts/                      # Root-level build & data scripts
     ├── split-boxer-data.js      # Splits main JSON into individual files
     ├── download-and-update-boxer-images.js  # Image processing
-    ├── check-frontmatter.ts     # MDX validation
-    ├── generate-websites.ts     # Static generation
-    └── search-index-generator.cjs  # Search index builder
+    └── validate-boxer-data.js   # Validates pipeline boxer data
 ```
 
 ## Development
