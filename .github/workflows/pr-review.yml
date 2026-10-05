@@ -23,7 +23,7 @@ jobs:
         run: pnpm check:frontmatter
 
       - name: Run Biome Check
-        uses: mongolyy/reviewdog-action-biome@v1
+        uses: mongolyy/reviewdog-action-biome@v2
         with:
           github_token: ${{ secrets.github_token }}
           reporter: github-pr-review
