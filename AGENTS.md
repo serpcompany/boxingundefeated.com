@@ -10,7 +10,13 @@ The SERP-wide standards in
 apply here unless this file declares an exception. Use this file as a map: read only what the task
 needs, then verify against the code.
 
-Stage: not declared (treated as Ship). Only the owner sets the stage and any agent-merge line.
+Stage: explore
+Agents may merge: yes
+
+The owner set both lines on 2026-10-06. Only the owner changes them. Agents merge once CI is green
+and a fresh review has no open blocking findings. The owner merges PRs that change these lines,
+the finish-gate command, CI or deploy workflows, or production migrations, plus every release PR.
+The owner runs the production DNS cutover.
 
 ## Where things live
 
@@ -61,8 +67,9 @@ the committed sitemap files' dates, so run `git checkout -- apps/web/public` bef
 - PR title: a Conventional Commit describing the outcome a user notices. The body starts with
   `Closes #<number>`, says what is deliberately not included, and reports evidence levels
   separately.
-- A fresh agent reviews every PR. Agents never merge unless the owner adds `Agents may merge: yes`
-  to this file; until then, the owner accepts and merges.
+- A fresh agent reviews every PR: one round, and a re-review of the fix commits when the round had
+  blocking findings. PRs that don't touch the same files merge in any order. Lockfiles, migrations,
+  `next.config.ts` and workflows count as the same files.
 
 ## Evidence a PR needs
 
