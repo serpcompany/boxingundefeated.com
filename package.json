@@ -30,7 +30,9 @@
     "@commitlint/config-conventional": "^19.8.0",
     "@manypkg/cli": "^0.23.0",
     "cross-env": "^7.0.3",
+    "gray-matter": "^4.0.3",
     "lefthook": "^1.11.6",
+    "tsx": "^4.23.15",
     "turbo": "^2.4.4",
     "typescript": "^5.8.2"
   },

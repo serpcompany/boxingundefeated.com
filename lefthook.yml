@@ -9,6 +9,9 @@ pre-commit:
       glob: "**/{package.json}"
       exclude: "node_modules/**"
       run: pnpm dlx sort-package-json {staged_files}
+    check-frontmatter:
+      glob: "apps/web/content/blog/**/*.{md,mdx}"
+      run: pnpm check:frontmatter {staged_files}
 
 # Validate commit messages against Conventional Commits (commitlint.config.mjs).
 commit-msg:
