@@ -22,13 +22,18 @@ Stage: not declared (treated as Ship). Only the owner sets the stage and any age
     helpers. Change URLs here, not in individual pages.
   - `content/`: markdown shop articles and legal MDX.
   - `public/data/boxers/`: per-boxer JSON generated from the pipeline data. Never hand-edit it.
-  - `scripts/`: post-build generators for XML sitemaps and the search index.
-- `packages/`: shared UI (`design-system`, shadcn), `hooks` and `utils`.
-- `configs/`: shared Next.js and TypeScript configuration.
+  - `scripts/`: data generators. The search index is built before `next build` (`predev`,
+    `build:with-data`); XML sitemaps are written after it and rewrite files in `public/`, so
+    revert those changes before committing.
+- `packages/`: shared UI (`design-system`, shadcn), `hooks` and `utils`. Read before adding a
+  component or helper that might already exist.
+- `configs/`: shared Next.js and TypeScript configuration. Read before changing build settings.
 - `scripts/`: data scripts. `split-boxer-data.js` turns the pipeline JSON into
   `apps/web/public/data/boxers/`.
-- `from-pipeline/boxers.json`: the pipeline output (about 104 MB, gitignored), symlinked as
-  `apps/web/data/boxers.json`. Only data regeneration needs it; builds read `public/data/`.
+- `from-pipeline/boxers.json`: the pipeline output (about 104 MB, gitignored). Only data
+  regeneration needs it; builds read `public/data/`. To regenerate in a fresh checkout or
+  worktree, copy it there and link it: `ln -s ../../../from-pipeline/boxers.json
+  apps/web/data/boxers.json`.
 - `.github/workflows/`: `deploy-github-pages.yml` deploys `main` to production, `pr-review.yml`
   runs PR checks, `preview.yml` publishes PR previews.
 
@@ -42,9 +47,9 @@ Inner loop, while editing (seconds):
 - `pnpm --filter web exec next dev --port 3003`: the dev server. `pnpm dev` first runs `predev`,
   which regenerates `public/data/` and needs `apps/web/data/boxers.json`.
 
-Finish gate, once per state when the branch is finished: `pnpm check` (lint, typecheck, tests and
-the production build; about a minute for the build). Run it in the background. Don't re-run it on
-an unchanged tree; cite the earlier run.
+Finish gate, once per state when the branch is finished: `pnpm check` (read-only Biome check,
+workspace check, typecheck, tests and the production build; about a minute for the build). Run it
+in the background. Don't re-run it on an unchanged tree; cite the earlier run.
 
 ## Workflow
 
@@ -55,7 +60,8 @@ an unchanged tree; cite the earlier run.
 - PR title: a Conventional Commit describing the outcome a user notices. The body starts with
   `Closes #<number>`, says what is deliberately not included, and reports evidence levels
   separately.
-- A fresh agent reviews every PR. Agents never merge; the owner accepts and merges.
+- A fresh agent reviews every PR. Agents never merge unless the owner adds `Agents may merge: yes`
+  to this file; until then, the owner accepts and merges.
 
 ## Evidence a PR needs
 
@@ -63,12 +69,14 @@ an unchanged tree; cite the earlier run.
 - Routes, redirects, metadata, robots, sitemaps, `next.config.ts` or data loaders: the HTML page
   count of `apps/web/out` before and after, the diff of the page list, and before/after output for
   sample URLs.
-- Visible UI: one screenshot of each changed page.
+- Visible UI: one screenshot of each changed page, from the PR preview (`preview.yml`) or a local
+  build.
 - Deploy workflows: a link to the deploy run.
 
 ## Invariants
 
-- Public URLs are an SEO contract. Never change or drop one without a permanent redirect.
+- Public URLs are an SEO contract. Never change or drop one without a permanent redirect. GitHub
+  Pages can't serve redirects, so until the Worker cutover, don't change URLs at all.
 - Pages end in a trailing slash, files never do, and the homepage canonical is the origin without
   a slash (SERP URL trailing-slash standard).
 - Never commit secrets. `.env.local` files are local only.
