@@ -25,7 +25,7 @@
     "test": "turbo test --cache-dir=.turbo",
     "test:watch": "turbo test:watch --cache-dir=.turbo",
     "typecheck": "turbo typecheck",
-    "check:all": "pnpm typecheck && pnpm lint && pnpm test",
+    "check": "pnpm lint && pnpm typecheck && pnpm test && pnpm build",
     "update": "pnpm update -r"
   },
   "devDependencies": {
