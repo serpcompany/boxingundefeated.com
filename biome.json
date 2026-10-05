@@ -24,7 +24,7 @@
       "!apps/web/public/search",
       "!apps/web/public/data",
       "!apps/web/data",
-      "!apps/web/from-pipeline"
+      "!from-pipeline"
     ]
   },
   "formatter": {
