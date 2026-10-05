@@ -4,7 +4,7 @@ A comprehensive boxing database and directory featuring 4,500+ professional boxe
 
 ## Tech Stack
 
-- **Framework**: Next.js 15 (Static Export)
+- **Framework**: Next.js 16 and React 19 (static export, built with Turbopack)
 - **Styling**: Tailwind CSS 4
 - **Monorepo**: Turbo
 - **Deployment**: GitHub Pages via serpcompany/boxingundefeated.com
