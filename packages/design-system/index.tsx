@@ -1,6 +1,3 @@
-// import { AuthProviderComponent } from '@boxingundefeated/auth' // Removed for static export
-import { IS_DEVELOPMENT } from '@boxingundefeated/utils/environment'
-import { VercelToolbar } from '@vercel/toolbar/next'
 import type { ThemeProviderProps } from 'next-themes'
 import { Toaster } from './components/shadcn/sonner'
 import { TooltipProvider } from './components/shadcn/tooltip'
@@ -16,7 +13,6 @@ export const DesignSystemProvider = ({
     <>
       <TooltipProvider>{children}</TooltipProvider>
       <Toaster />
-      {IS_DEVELOPMENT && <VercelToolbar />}
     </>
   )
 

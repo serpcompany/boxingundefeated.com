@@ -1,17 +1,13 @@
-import { baseConfig, withAnalyzer, withVercelToolbarConfig } from '@boxingundefeated/config-next'
+import { baseConfig, withAnalyzer } from '@boxingundefeated/config-next'
 import withMDX from '@next/mdx'
 import type { NextConfig } from 'next'
 import { env } from '@/env'
 
 export const INTERNAL_PACKAGES = [
   '@boxingundefeated/design-system',
-  // '@boxingundefeated/auth', // Removed - contains server actions incompatible with static export
-  // '@boxingundefeated/caching', // Removed - Redis/Upstash not needed for static site
   '@boxingundefeated/config-next',
   '@boxingundefeated/config-typescript',
-  // '@boxingundefeated/supabase', // Removed - not needed for static boxing site
-  '@boxingundefeated/utils',
-  '@boxingundefeated/content'
+  '@boxingundefeated/utils'
 ]
 
 let nextConfig: NextConfig = {
@@ -34,16 +30,6 @@ let nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'www.google.com',
-        pathname: '/s2/favicons/**'
-      },
-      {
-        protocol: 'https',
-        hostname: 'avatars.githubusercontent.com',
-        pathname: '/u/**'
-      },
-      {
-        protocol: 'https',
         hostname: 'boxrec.com',
         pathname: '/**'
       },
@@ -56,8 +42,6 @@ let nextConfig: NextConfig = {
   }
 }
 
-// Apply other plugins first
-nextConfig = withVercelToolbarConfig(nextConfig)
 nextConfig = withMDX()(nextConfig)
 
 if (env.ANALYZE === 'true') {

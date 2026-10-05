@@ -22,7 +22,6 @@ const config: Config.InitialOptions = {
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/$1',
     'lucide-react': require.resolve('lucide-react'),
-    '^@boxingundefeated/auth$': '<rootDir>/__mocks__/authMock.tsx',
     '^@boxingundefeated/([^/]+)$': [
       '<rootDir>/../../packages/$1/src',
       '<rootDir>/../../packages/$1'
@@ -47,7 +46,7 @@ const config: Config.InitialOptions = {
   },
 
   transformIgnorePatterns: [
-    'node_modules/(?!(@thedaviddias|lucide-react|next-themes|sonner|@octokit|@t3-oss|@hookform|@radix-ui)/)'
+    'node_modules/(?!(lucide-react|next-themes|sonner|@t3-oss|@radix-ui)/)'
   ],
   moduleDirectories: ['node_modules', '<rootDir>/'],
   watchPlugins: ['jest-watch-typeahead/filename', 'jest-watch-typeahead/testname']
