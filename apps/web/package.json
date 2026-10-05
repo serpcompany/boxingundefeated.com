@@ -21,7 +21,6 @@
     "@boxingundefeated/config-next": "workspace:*",
     "@boxingundefeated/config-typescript": "workspace:*",
     "@boxingundefeated/design-system": "workspace:*",
-    "@boxingundefeated/flags": "workspace:*",
     "@boxingundefeated/utils": "workspace:*",
     "@icons-pack/react-simple-icons": "^12.3.0",
     "@mdx-js/loader": "^3.1.0",

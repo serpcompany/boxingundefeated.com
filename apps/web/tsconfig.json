@@ -8,16 +8,14 @@
       }
     ],
     "paths": {
-      "@/*": ["./*"],
-      "content-collections": ["./.content-collections/generated"]
+      "@/*": ["./*"]
     }
   },
   "include": [
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    ".next/types/**/*.ts",
-    ".content-collections/generated/**/*.ts"
+    ".next/types/**/*.ts"
   ],
   "exclude": [
     "node_modules",
@@ -27,7 +25,6 @@
     "**/*.spec.ts",
     "**/*.spec.tsx",
     "jest.setup.ts",
-    "jest.setup.tsx",
     "jest.config.ts",
     "test/**/*"
   ]
