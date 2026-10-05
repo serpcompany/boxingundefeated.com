@@ -9,7 +9,6 @@
     "check:links": "lychee --config ./lychee.toml --verbose .",
     "clean": "git clean -xdf node_modules dist .next",
     "clean:workspaces": "turbo clean",
-    "commit": "cz",
     "dev": "cross-env FORCE_COLOR=1 turbo dev --parallel",
     "format": "biome check --write .",
     "postinstall": "manypkg fix",
@@ -26,9 +25,7 @@
     "update": "pnpm update -r"
   },
   "devDependencies": {
-    "@auto-it/all-contributors": "^11.3.0",
-    "@auto-it/first-time-contributor": "^11.3.0",
-    "@biomejs/biome": "1.9.4",
+    "@biomejs/biome": "2.2.0",
     "@commitlint/cli": "^19.8.0",
     "@commitlint/config-conventional": "^19.8.0",
     "@manypkg/cli": "^0.23.0",
