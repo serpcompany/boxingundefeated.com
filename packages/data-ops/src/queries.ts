@@ -1,8 +1,8 @@
 import { and, asc, count, desc, eq, getTableColumns, gt, sql } from 'drizzle-orm'
 import { alias } from 'drizzle-orm/sqlite-core'
 import type { Database } from './client'
-import { bouts, boxers, divisions } from './schema'
-import type { Bout, Boxer, Division } from './types'
+import { bouts, boxers, datasetState, divisions } from './schema'
+import type { Bout, Boxer, DatasetState, Division } from './types'
 
 /** Boxers per listing page, as on `/boxers/` and `/divisions/<division>/` today. */
 export const BOXER_PAGE_SIZE = 48
@@ -224,4 +224,19 @@ export async function getHomepageData(
     featuredBoxers,
     divisions: divisionRows
   }
+}
+
+/**
+ * Whether D1 holds a complete import (`dataset_state`): null when no import has started. One row,
+ * read by primary key.
+ */
+export async function getDatasetState(
+  db: Database
+): Promise<Pick<DatasetState, 'version' | 'importing'> | null> {
+  const [state] = await db
+    .select({ version: datasetState.version, importing: datasetState.importing })
+    .from(datasetState)
+    .where(eq(datasetState.id, 1))
+    .limit(1)
+  return state ?? null
 }

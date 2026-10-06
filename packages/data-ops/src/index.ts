@@ -1,4 +1,5 @@
 export * from './client'
+export * from './drops'
 export * from './queries'
 export * from './schema'
 export * from './types'

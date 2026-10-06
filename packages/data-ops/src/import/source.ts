@@ -67,15 +67,7 @@ export interface SourceBout {
   titleFight: boolean
 }
 
-/**
- * Records the importer skips on purpose. Each one is listed in the parity report, and its URL
- * stops resolving once pages read from D1 (#10).
- */
-export const INTENTIONAL_DROPS: Readonly<Record<string, string>> = {
-  world:
-    'Misparsed pipeline row: name "World", nationality "Usyk", no record and no bouts, and a ' +
-    'bio about Chris Staples (BoxRec 808714). Not a boxer profile.'
-}
+export { INTENTIONAL_DROPS } from '../drops'
 
 /** Kebab-case only, so no slug can end in a file extension (URL trailing-slash standard). */
 export const SLUG_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/

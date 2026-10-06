@@ -125,7 +125,7 @@ describe('queries against the migrated schema', () => {
     await test?.dispose()
   })
 
-  it('creates every table and index from the migration', async () => {
+  it('creates every table and index from the migrations', async () => {
     const { results } = await test.binding
       .prepare(
         "SELECT name FROM sqlite_master WHERE type IN ('table', 'index') AND name NOT LIKE 'sqlite_%' AND name NOT LIKE '_cf_%' ORDER BY name"
@@ -140,6 +140,7 @@ describe('queries against the migrated schema', () => {
       'boxers_directory_idx',
       'boxers_division_directory_idx',
       'boxers_slug_unique',
+      'dataset_state',
       'divisions',
       'divisions_pro_division_unique',
       'divisions_sort_order_unique'

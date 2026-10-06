@@ -158,6 +158,29 @@ export const bouts = sqliteTable(
   ]
 )
 
+/**
+ * One row (`id` 1) that says whether D1 holds a complete import. The importer sets `importing` before
+ * it writes anything and, as its very last statement, clears it and records `version`, the content
+ * checksum of what it imported. Until a first import finishes, `version` is null, and the Worker
+ * answers D1-backed pages with 503 instead of 404s or half-imported pages (#10).
+ */
+export const datasetState = sqliteTable(
+  'dataset_state',
+  {
+    id: integer('id').primaryKey(),
+    // The last complete import's content checksum; null until one finishes.
+    version: text('version'),
+    // From the start of an import until it finishes.
+    importing: integer('importing', { mode: 'boolean' }).notNull().default(false),
+    // When `version` was first completed: a re-import of the same data keeps it.
+    completedAt: text('completed_at')
+  },
+  table => [
+    check('dataset_state_single_row', sql`${table.id} = 1`),
+    check('dataset_state_importing_boolean', sql`${table.importing} IN (0, 1)`)
+  ]
+)
+
 export const divisionsRelations = relations(divisions, ({ many }) => ({
   boxers: many(boxers)
 }))
