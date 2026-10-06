@@ -1,25 +1,35 @@
 name: Deploy Production
 
-# main is production. Every push to main (a promotion from staging, or a hotfix) builds the
-# production Worker, migrates the production D1, deploys, and smoke-tests it. The `production`
-# environment admits only main, holds CLOUDFLARE_API_TOKEN and CLOUDFLARE_ACCOUNT_ID, and requires
-# the owner's approval before the job starts; only the wrangler steps receive the secrets.
+# main is production. Every push to main (a promotion from staging) builds the production Worker,
+# migrates the production D1, deploys, and smoke-tests it. The `production` environment admits
+# only main, holds CLOUDFLARE_API_TOKEN and CLOUDFLARE_ACCOUNT_ID, and requires the owner's
+# approval before the deploy job starts; only the wrangler steps receive the secrets.
+#
+# .github/scripts/verify-production-release.sh gates every release, fail-closed: main must still
+# point at this commit, and Deploy Staging must have deployed this code first. It documents the
+# bootstrap (before staging exists) and the hotfix path.
 #
 # Until the cutover (#19) the production Worker is on workers.dev only, and the smoke test runs
 # there with the smoke-test header. At the cutover, point SMOKE_ORIGIN and the environment URL at
 # https://boxingundefeated.com.
 #
-# Agents never dispatch this workflow or approve its job. The owner dispatches it from main to
-# redeploy, or with `hotfix` for a hotfix that staging never deployed.
+# Agents never dispatch this workflow, re-run it, or approve its job. Only the logins in
+# RELEASE_OWNERS may release a hotfix: a dispatch from main with `hotfix` and the typed
+# confirmation, which deploys the Worker only (no migrations). Agents act through the owner's
+# account, so AGENTS.md, not this list, keeps them out.
 on:
   push:
     branches: [main]
   workflow_dispatch:
     inputs:
       hotfix:
-        description: Deploy main although no staging deploy verified this tree (an owner-approved hotfix)
+        description: Release main without a staging deploy of its code (Worker only, owner only)
         type: boolean
         default: false
+      confirmation:
+        description: For a hotfix, type hotfix-boxingundefeated-production
+        type: string
+        default: ''
 
 permissions:
   contents: read
@@ -28,10 +38,12 @@ env:
   NEXT_TELEMETRY_DISABLED: 1
   TURBO_TELEMETRY_DISABLED: 1
   WRANGLER_SEND_METRICS: false
+  RELEASE_OWNERS: devinschumacher
+  HOTFIX: ${{ github.event_name == 'workflow_dispatch' && inputs.hotfix }}
 
 jobs:
   staging-verified:
-    name: Require a verified staging deploy
+    name: Require a fresh release that staging verified
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     timeout-minutes: 5
@@ -39,30 +51,16 @@ jobs:
       actions: read
       contents: read
     steps:
-      # A promotion fast-forwards main to a staging commit, or merges staging into main with the
-      # same tree. Either way a successful Deploy Staging run deployed and smoke-tested that tree.
-      - name: Require a successful staging deploy of this tree
+      - name: Checkout the release scripts
+        uses: actions/checkout@v7
+        with:
+          sparse-checkout: .github/scripts
+
+      - name: Require main at this commit, and a staging deploy of its code (or an owner's hotfix)
         env:
           GH_TOKEN: ${{ github.token }}
-          HOTFIX: ${{ github.event_name == 'workflow_dispatch' && inputs.hotfix }}
-        run: |
-          if [ "$HOTFIX" = "true" ]; then
-            echo "::warning title=Hotfix::Deploying $GITHUB_SHA without a staging deploy of its tree. Merge main into staging next."
-            exit 0
-          fi
-          staging="$(gh api "repos/$GITHUB_REPOSITORY/git/matching-refs/heads/staging" --jq '[.[] | select(.ref == "refs/heads/staging")] | length')"
-          if [ "$staging" = "0" ]; then
-            echo "::notice::There is no staging branch yet, so there is no staging deploy to require."
-            exit 0
-          fi
-          tree="$(gh api "repos/$GITHUB_REPOSITORY/commits/$GITHUB_SHA" --jq .commit.tree.sha)"
-          verified="$(gh api "repos/$GITHUB_REPOSITORY/actions/workflows/deploy-staging.yml/runs?branch=staging&status=success&per_page=100" --jq '.workflow_runs[].head_commit.tree_id')"
-          if grep -qx "$tree" <<<"$verified"; then
-            echo "A successful Deploy Staging run deployed tree $tree."
-            exit 0
-          fi
-          echo "::error::No successful Deploy Staging run deployed tree $tree. Promote from staging (git push origin origin/staging:main) after its deploy passes; for a hotfix, the owner dispatches this workflow with hotfix."
-          exit 1
+          CONFIRMATION: ${{ inputs.confirmation }}
+        run: .github/scripts/verify-production-release.sh
 
   deploy:
     name: Migrate, deploy and smoke-test production
@@ -104,7 +102,15 @@ jobs:
       - name: Require the build to match env.production
         run: pnpm --filter web check:build-environment production
 
+      # The approval can come long after the push; refuse if main has moved on since.
+      - name: Require main to still point at this commit
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: .github/scripts/verify-production-release.sh --fresh-only
+
+      # A hotfix deploys the Worker only: db:check-deployable then refuses pending migrations.
       - name: Migrate the production D1
+        if: env.HOTFIX != 'true'
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
@@ -123,8 +129,12 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: pnpm exec opennextjs-cloudflare deploy --env production
 
+      - name: Wait until production serves this build
+        run: .github/scripts/wait-for-build.sh "$SMOKE_ORIGIN" "$GITHUB_SHA"
+
+      # Through the e2e package, so the browser matches its @playwright/test.
       - name: Install Chromium for Playwright
-        run: pnpm exec playwright install --with-deps chromium
+        run: pnpm --filter e2e exec playwright install --with-deps chromium
 
       # Asserts production is indexable (no noindex, robots allows crawling and lists the sitemap,
       # GTM present) among the rest (#16's suite). It sends the smoke-test header to workers.dev.
