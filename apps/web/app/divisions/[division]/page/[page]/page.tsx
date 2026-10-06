@@ -2,29 +2,22 @@ import { Breadcrumb } from '@boxingundefeated/design-system/breadcrumb'
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { BoxersDirectoryList } from '@/components/boxers-directory-list'
-import { getBoxerCategories, getBoxersWithoutBouts } from '@/lib/boxers-loader'
-import {
-  getDivisionPageHref,
-  getPaginatedItems,
-  getPaginationPages,
-  sortBoxersForDirectory
-} from '@/lib/directory-pagination'
+import { divisionPageStaticParams, getDivisionPage } from '@/lib/boxer-data'
+import { getDivisionPageHref, parsePageNumber } from '@/lib/directory-pagination'
 import { getSiteOrigin } from '@/lib/site-config'
 
-export const dynamicParams = false
+// The static export prerenders every page from the committed JSON. The Worker prerenders none: it
+// renders each page on request from D1, and an unknown division or a page out of range is a 404
+// (lib/boxer-data).
+export const generateStaticParams = divisionPageStaticParams
 
-export async function generateStaticParams() {
-  const boxers = getBoxersWithoutBouts()
-
-  return getBoxerCategories().flatMap(category => {
-    const divisionBoxers = boxers.filter(boxer => boxer.proDivision === category.division)
-    const pages = getPaginationPages(divisionBoxers.length)
-
-    return pages.slice(1).map(page => ({
-      division: category.slug,
-      page: page.toString()
-    }))
-  })
+/**
+ * The listing for `/divisions/<division>/page/<n>/`, or null for page 1 (that is
+ * `/divisions/<division>/`), a page out of range or an unknown division.
+ */
+async function getListing(division: string, pageParam: string) {
+  const page = parsePageNumber(pageParam)
+  return page === null || page === 1 ? null : getDivisionPage(division, page)
 }
 
 export async function generateMetadata({
@@ -33,18 +26,20 @@ export async function generateMetadata({
   params: Promise<{ division: string; page: string }>
 }): Promise<Metadata> {
   const { division, page: pageParam } = await params
-  const page = Number.parseInt(pageParam, 10)
-  const category = getBoxerCategories().find(c => c.slug === division)
+  const listing = await getListing(division, pageParam)
 
-  if (!category) {
+  if (!listing) {
     return {
       title: 'Division Not Found'
     }
   }
 
+  const page = listing.currentPage
+  const { name } = listing.division
+
   return {
-    title: `${category.name} Boxers - Page ${page}`,
-    description: `Browse page ${page} of professional ${category.name.toLowerCase()} boxers.`,
+    title: `${name} Boxers - Page ${page}`,
+    description: `Browse page ${page} of professional ${name.toLowerCase()} boxers.`,
     alternates: {
       canonical: `${getSiteOrigin()}${getDivisionPageHref(division, page)}`
     }
@@ -57,26 +52,18 @@ export default async function DivisionPaginatedPage({
   params: Promise<{ division: string; page: string }>
 }) {
   const { division, page: pageParam } = await params
-  const currentPage = Number.parseInt(pageParam, 10)
-  const category = getBoxerCategories().find(c => c.slug === division)
-
-  if (!category || currentPage === 1) {
-    notFound()
-  }
-
-  const divisionBoxers = sortBoxersForDirectory(
-    getBoxersWithoutBouts().filter(boxer => boxer.proDivision === category.division)
-  )
-  const page = getPaginatedItems(divisionBoxers, currentPage)
+  const page = await getListing(division, pageParam)
 
   if (!page) {
     notFound()
   }
 
+  const currentPage = page.currentPage
+  const { name } = page.division
   const baseUrl = getSiteOrigin()
   const breadcrumbItems = [
     { name: 'Divisions', href: '/divisions/' },
-    { name: category.name, href: getDivisionPageHref(division, 1) },
+    { name, href: getDivisionPageHref(division, 1) },
     { name: `Page ${currentPage}`, href: getDivisionPageHref(division, currentPage) }
   ]
 
@@ -84,7 +71,7 @@ export default async function DivisionPaginatedPage({
     <div className="max-w-6xl mx-auto px-4 py-8">
       <Breadcrumb items={breadcrumbItems} baseUrl={baseUrl} />
       <BoxersDirectoryList
-        title={`${category.name} Boxers - Page ${currentPage}`}
+        title={`${name} Boxers - Page ${currentPage}`}
         boxers={page.items}
         currentPage={page.currentPage}
         totalPages={page.totalPages}

@@ -1,21 +1,22 @@
 /**
  * The Worker's edge cache for rendered pages, step 4 of lib/worker/handle-request.ts: after the
  * canonical-host redirect, inside the crawl policy, and after the D1 readiness gate, so a stored
- * page never skips any of them. Pages that render on request from D1 (boxer profiles; listings in
- * #11) need it most.
+ * page never skips any of them. Pages that render on request from D1 (the homepage, boxer listings
+ * and profiles, divisions, the HTML sitemap) need it most.
  *
  * Each data center keeps a Cache API copy of a page for `EDGE_CACHE_TTL_SECONDS`, keyed by the
- * Worker version, the D1 dataset version for D1 pages (lib/worker/dataset-gate.ts) and the URL
- * without tracking parameters. A hit is answered here, before OpenNext and D1 run, so it costs no
- * D1 query. A deploy changes the key at once, and a finished re-import within half a minute
- * (`DATASET_STATE_TTL_MS`), so new markup and data need no purge: old entries expire on their own.
+ * Worker version, the D1 import generation for D1 pages (`importGeneration` in
+ * lib/worker/dataset-gate.ts) and the URL without tracking parameters. A hit is answered here,
+ * before OpenNext and D1 run, so it costs no D1 query. A deploy changes the key at once, and every
+ * finished import within half a minute (`DATASET_STATE_TTL_MS`), even one that changed no data, so
+ * new markup and data need no purge: old entries expire on their own.
  *
  * Only pages: a GET or HEAD for a path ending in `/` (pages end in a slash, files never do), and
  * only a 200 HTML or RSC response is stored. Files from `public/` (sitemaps, ads.txt, the boxer
  * JSON, images), which `assets.run_worker_first` also sends through the Worker, pass through
  * untouched, as do redirects, 404s and errors.
  *
- * Modeled on best.serp.co's `lib/edge-cache/html-cache.ts`; the dataset version plays the part of
+ * Modeled on best.serp.co's `lib/edge-cache/html-cache.ts`; the import generation plays the part of
  * its catalog epoch. The Cache API has no effect on `*.workers.dev`, so the cache works on custom
  * domains only.
  *
@@ -88,8 +89,8 @@ export interface EdgeCacheOptions {
   openCache: () => Promise<Cache>
   /** The Worker version (`CF_VERSION_METADATA.id`). Without one, nothing is cached. */
   deploymentId: string | undefined
-  /** For a page that reads D1: the dataset version its content comes from. */
-  dataVersion?: string
+  /** For a page that reads D1: the import generation its content comes from. */
+  dataGeneration?: string
   /** False while D1 is being re-imported: stored pages are served, new ones are not stored. */
   store?: boolean
   ttlSeconds?: number
@@ -144,14 +145,14 @@ async function sha256Hex(value: string): Promise<string> {
 }
 
 /**
- * The key covers everything a page varies on: the Worker version, the dataset version, the host
+ * The key covers everything a page varies on: the Worker version, the import generation, the host
  * (staging and production differ), the path and query without tracking parameters, and for RSC
  * requests the router headers.
  */
 export async function cacheKeyFor(
   request: Request,
   deploymentId: string,
-  dataVersion = '-'
+  dataGeneration = '-'
 ): Promise<Request> {
   const url = withoutTrackingParameters(new URL(request.url))
   const variant = request.headers.has('rsc')
@@ -164,7 +165,7 @@ export async function cacheKeyFor(
   const key = [
     CACHE_KEY_ORIGIN,
     encodeURIComponent(deploymentId),
-    encodeURIComponent(dataVersion),
+    encodeURIComponent(dataGeneration),
     variant,
     encodeURIComponent(url.host)
   ].join('/')
@@ -230,7 +231,7 @@ export async function withEdgeCache(
   }
 
   const cache = await options.openCache()
-  const key = await cacheKeyFor(request, options.deploymentId, options.dataVersion)
+  const key = await cacheKeyFor(request, options.deploymentId, options.dataGeneration)
   const cached = await cache.match(key).catch(() => undefined)
   if (cached) {
     observe({ event: 'edge_cache', state: 'HIT', status: cached.status })

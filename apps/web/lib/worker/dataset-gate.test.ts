@@ -7,6 +7,7 @@ import {
   DatasetReadinessMemo,
   type DatasetState,
   datasetUnavailable,
+  importGeneration,
   readinessOf,
   readsD1
 } from './dataset-gate'
@@ -16,15 +17,54 @@ jest.mock('@boxingundefeated/data-ops', () => ({}))
 const at = (path: string) => new Request(`https://boxingundefeated.com${path}`)
 
 describe('readsD1', () => {
-  it('matches boxer profiles, with or without a query', () => {
-    expect(readsD1(at('/boxers/jesse-hart/'))).toBe(true)
-    expect(readsD1(at('/boxers/jesse-hart/?_rsc=abc'))).toBe(true)
+  it('matches every page that renders from D1, with or without a query', () => {
+    for (const path of [
+      '/',
+      '/?_rsc=abc',
+      '/boxers/',
+      '/boxers/page/2/',
+      '/boxers/page/999/',
+      '/boxers/jesse-hart/',
+      '/boxers/jesse-hart/?_rsc=abc',
+      '/divisions/',
+      '/divisions/heavy/',
+      '/divisions/no-such-division/',
+      '/divisions/heavy/page/2/',
+      '/sitemap/'
+    ]) {
+      expect([path, readsD1(at(path))]).toEqual([path, true])
+    }
   })
 
-  it('leaves out listings, other pages and files', () => {
-    for (const path of ['/boxers/', '/boxers/page/2/', '/', '/about/', '/data/boxers/x.json']) {
-      expect(readsD1(at(path))).toBe(false)
+  it('leaves out other pages and files', () => {
+    for (const path of [
+      '/about/',
+      '/search/',
+      '/shop/',
+      '/shop/page/2/',
+      '/shop/best/boxing-gloves/',
+      '/boxers/jesse-hart/fights/',
+      '/divisions/heavy/page/2/extra/',
+      '/sitemap.xml',
+      '/sitemaps/boxers/1.xml',
+      '/data/boxers/x.json',
+      '/api/search'
+    ]) {
+      expect([path, readsD1(at(path))]).toEqual([path, false])
     }
+  })
+})
+
+describe('importGeneration', () => {
+  it('changes with every finished import, a re-import of the same data included', () => {
+    const first = importGeneration('v1', '2026-10-06 04:00:21.000')
+    expect(first).toBe('v1@2026-10-06 04:00:21.000')
+    expect(importGeneration('v1', '2026-10-06 04:30:00.000')).not.toBe(first)
+    expect(importGeneration('v2', '2026-10-06 04:00:21.000')).not.toBe(first)
+  })
+
+  it('falls back to the version for a marker written before imports recorded their finish', () => {
+    expect(importGeneration('v1', null)).toBe('v1')
   })
 })
 
@@ -35,13 +75,18 @@ describe('readinessOf', () => {
     expect(readinessOf({ version: null, importing: false }).ready).toBe(false)
   })
 
-  it('is ready with the last complete version, also during a re-import', () => {
-    expect(readinessOf({ version: 'v1', importing: false })).toEqual({
+  it('is ready with the last complete import, also during a re-import', () => {
+    const completedAt = '2026-10-06 04:00:21.000'
+    expect(readinessOf({ version: 'v1', importing: false, completedAt })).toEqual({
       ready: true,
       version: 'v1',
+      generation: 'v1@2026-10-06 04:00:21.000',
       importing: false
     })
-    expect(readinessOf({ version: 'v1', importing: true })).toMatchObject({ importing: true })
+    expect(readinessOf({ version: 'v1', importing: true, completedAt })).toMatchObject({
+      generation: 'v1@2026-10-06 04:00:21.000',
+      importing: true
+    })
   })
 })
 

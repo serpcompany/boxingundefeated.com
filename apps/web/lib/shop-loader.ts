@@ -44,6 +44,10 @@ function normalizeSlug(slug: string): string {
 }
 
 export async function getShopPosts(): Promise<BlogPost[]> {
+  return readShopPosts()
+}
+
+function readShopPosts(): BlogPost[] {
   try {
     const allFiles = getAllMarkdownFiles(shopPostsDirectory)
     const posts = allFiles
@@ -80,6 +84,25 @@ export async function getShopPosts(): Promise<BlogPost[]> {
     console.error('Error in getShopPosts:', error)
     return []
   }
+}
+
+/** How many shop posts `content/` holds, read now. For the build; pages use `getShopPostCount`. */
+export function countShopPosts(): number {
+  return readShopPosts().length
+}
+
+/**
+ * How many shop posts there are. The Worker renders the HTML sitemap on request, where `content/`
+ * can't be read, so next.config.ts inlines the count its build took (`SHOP_POST_COUNT`). `next
+ * dev`, the static export and tests read the files.
+ */
+export async function getShopPostCount(): Promise<number> {
+  const counted = process.env.SHOP_POST_COUNT
+  if (counted !== undefined) return Number(counted)
+  if (process.env.SITE_BUILD_OUTPUT === 'worker') {
+    throw new Error('SHOP_POST_COUNT is not set: next.config.ts inlines it into the Worker build.')
+  }
+  return countShopPosts()
 }
 
 async function renderMarkdownToHtml(content: string): Promise<string> {

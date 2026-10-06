@@ -1,12 +1,12 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { getBoxerCategories, getBoxersWithoutBouts } from '@/lib/boxers-loader'
+import { getDirectoryCounts } from '@/lib/boxer-data'
 import {
   getBoxersPageHref,
   getDivisionPageHref,
   getPaginationPages
 } from '@/lib/directory-pagination'
-import { getShopPageHref, getShopPosts, SHOP_PAGE_SIZE } from '@/lib/shop-loader'
+import { getShopPageHref, getShopPostCount, SHOP_PAGE_SIZE } from '@/lib/shop-loader'
 import { getSiteOrigin } from '@/lib/site-config'
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -20,11 +20,9 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function HtmlSitemapPage() {
-  const boxers = getBoxersWithoutBouts()
-  const categories = getBoxerCategories()
-  const shopPosts = await getShopPosts()
-  const boxerPages = getPaginationPages(boxers.length)
-  const shopPages = getPaginationPages(shopPosts.length, SHOP_PAGE_SIZE)
+  const { totalBoxers, divisions } = await getDirectoryCounts()
+  const boxerPages = getPaginationPages(totalBoxers)
+  const shopPages = getPaginationPages(await getShopPostCount(), SHOP_PAGE_SIZE)
 
   return (
     <main className="mx-auto max-w-6xl px-4 py-8">
@@ -56,15 +54,12 @@ export default async function HtmlSitemapPage() {
 
       <SitemapSection
         title="Weight classes"
-        links={categories.flatMap(category => {
-          const divisionCount = boxers.filter(
-            boxer => boxer.proDivision === category.division
-          ).length
-          return getPaginationPages(divisionCount).map(page => ({
-            href: getDivisionPageHref(category.slug, page),
-            label: page === 1 ? category.name : `${category.name} page ${page}`
+        links={divisions.flatMap(division =>
+          getPaginationPages(division.boxerCount).map(page => ({
+            href: getDivisionPageHref(division.slug, page),
+            label: page === 1 ? division.name : `${division.name} page ${page}`
           }))
-        })}
+        )}
       />
 
       <SitemapSection

@@ -146,9 +146,27 @@ export async function countBoxers(db: Database): Promise<number> {
   return total?.value ?? 0
 }
 
-/** Every division in display order, with its boxer count (`/divisions/`, the HTML sitemap). */
+/** Every division in display order, with its boxer count (`/divisions/`). */
 export async function listDivisions(db: Database): Promise<DivisionWithCount[]> {
   return divisionsWithCounts(db)
+}
+
+export interface DirectoryCounts {
+  totalBoxers: number
+  /** In display order. */
+  divisions: DivisionWithCount[]
+}
+
+/**
+ * How many boxers there are in all and per division, which set the pagination of `/boxers/` and
+ * each division (the HTML sitemap). One round trip.
+ */
+export async function getDirectoryCounts(db: Database): Promise<DirectoryCounts> {
+  const [[total], divisionRows] = await db.batch([
+    db.select({ value: count() }).from(boxers),
+    divisionsWithCounts(db)
+  ])
+  return { totalBoxers: total?.value ?? 0, divisions: divisionRows }
 }
 
 function divisionsWithCounts(db: Database) {
@@ -228,14 +246,18 @@ export async function getHomepageData(
 }
 
 /**
- * Whether D1 holds a complete import (`dataset_state`): null when no import has started. One row,
- * read by primary key.
+ * Whether D1 holds a complete import (`dataset_state`), and when the last one finished: null when
+ * no import has started. One row, read by primary key.
  */
 export async function getDatasetState(
   db: Database
-): Promise<Pick<DatasetState, 'version' | 'importing'> | null> {
+): Promise<Pick<DatasetState, 'version' | 'importing' | 'completedAt'> | null> {
   const [state] = await db
-    .select({ version: datasetState.version, importing: datasetState.importing })
+    .select({
+      version: datasetState.version,
+      importing: datasetState.importing,
+      completedAt: datasetState.completedAt
+    })
     .from(datasetState)
     .where(eq(datasetState.id, 1))
     .limit(1)

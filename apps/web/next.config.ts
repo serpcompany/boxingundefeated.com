@@ -2,6 +2,7 @@ import { baseConfig, withAnalyzer } from '@boxingundefeated/config-next'
 import { initOpenNextCloudflareForDev } from '@opennextjs/cloudflare'
 import type { NextConfig } from 'next'
 import { slashRedirects } from './lib/routing/trailing-slash'
+import { countShopPosts } from './lib/shop-loader'
 
 export const INTERNAL_PACKAGES = [
   '@boxingundefeated/data-ops',
@@ -29,7 +30,10 @@ let nextConfig: NextConfig = {
   // is production unless SITE_ENVIRONMENT says otherwise) from the Worker, whose runtime has no
   // NEXT_BUILD_TARGET. SITE_ENVIRONMENT itself is not inlined: the Worker reads it per request.
   env: {
-    SITE_BUILD_OUTPUT: isWorkerBuild ? 'worker' : 'export'
+    SITE_BUILD_OUTPUT: isWorkerBuild ? 'worker' : 'export',
+    // The Worker renders the HTML sitemap on request, from D1, and can't read `content/` then, so
+    // its shop pagination comes from the count taken here (lib/shop-loader.ts).
+    ...(isWorkerBuild ? { SHOP_POST_COUNT: String(countShopPosts()) } : {})
   },
 
   // No basePath needed for the boxingundefeated.com custom domain.
