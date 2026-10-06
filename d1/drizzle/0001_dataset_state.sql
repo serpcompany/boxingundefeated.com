@@ -6,3 +6,5 @@ CREATE TABLE `dataset_state` (
 	CONSTRAINT "dataset_state_single_row" CHECK("dataset_state"."id" = 1),
 	CONSTRAINT "dataset_state_importing_boolean" CHECK("dataset_state"."importing" IN (0, 1))
 );
+
+-- THROWAWAY edit of a merged migration for #37. Never merge.
