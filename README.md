@@ -2,6 +2,8 @@
 
 A comprehensive boxing database and directory featuring 4,500+ professional boxers with detailed statistics and fight histories.
 
+Agents and contributors: start with [AGENTS.md](AGENTS.md) for the repository map, commands and workflow.
+
 ## Tech Stack
 
 - **Framework**: Next.js 16 and React 19 (static export, built with Turbopack)
