@@ -7,6 +7,12 @@ import { JsonLd } from '@/components/json-ld'
 import { getBoxersWithoutBouts } from '@/lib/boxers-loader'
 import { getSiteOrigin } from '@/lib/site-config'
 
+/**
+ * The homepage's canonical URL is the bare origin (`https://boxingundefeated.com`, SERP URL
+ * trailing-slash standard). With `trailingSlash` on, the metadata API would write it with a
+ * slash, so neither `alternates.canonical` nor `openGraph.url` is set here or in the root layout,
+ * and the page renders both tags itself; React hoists them into `<head>`.
+ */
 export function generateMetadata(): Metadata {
   const origin = getSiteOrigin()
 
@@ -18,7 +24,6 @@ export function generateMetadata(): Metadata {
       title: 'Boxing Undefeated - Professional Boxers Database',
       description:
         'Explore our comprehensive database of professional boxers. Find boxer statistics, records, and fight history.',
-      url: origin,
       siteName: 'Boxing Undefeated',
       images: [
         {
@@ -50,14 +55,18 @@ export default async function Home() {
     .sort((a, b) => (b.proWins || 0) - (a.proWins || 0))
     .slice(0, 6)
 
+  const origin = getSiteOrigin()
+
   return (
     <>
+      <link rel="canonical" href={origin} />
+      <meta property="og:url" content={origin} />
       <JsonLd
         data={{
           '@context': 'https://schema.org',
           '@type': 'WebSite',
           name: 'Boxing Undefeated',
-          url: getSiteOrigin(),
+          url: origin,
           description:
             'Comprehensive database of professional boxers with statistics, records, and fight history.'
         }}

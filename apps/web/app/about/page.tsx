@@ -4,7 +4,9 @@ import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'About - Boxing Directory',
-  description: 'Learn about the comprehensive boxing directory and database.'
+  description: 'Learn about the comprehensive boxing directory and database.',
+  // Resolved against the root layout's metadataBase, the environment's origin.
+  alternates: { canonical: '/about/' }
 }
 
 export default function AboutPage() {
