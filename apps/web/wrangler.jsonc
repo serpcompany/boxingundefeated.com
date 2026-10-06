@@ -75,7 +75,11 @@
     },
     "production": {
       "name": "boxingundefeated-com-production",
-      // No `routes` yet: the cutover issue attaches boxingundefeated.com.
+      // Attached at the cutover (#19, 2026-10-06). Keep both here so every deploy keeps them.
+      "routes": [
+        { "pattern": "boxingundefeated.com", "custom_domain": true },
+        { "pattern": "www.boxingundefeated.com", "custom_domain": true }
+      ],
       "workers_dev": true,
       "preview_urls": false,
       "observability": {

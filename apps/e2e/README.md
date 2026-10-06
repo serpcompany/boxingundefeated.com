@@ -26,9 +26,10 @@ Run everything from the repository root.
 - Optional for `test:e2e`: `CANONICAL_ORIGIN` (default: the environment's origin;
   `http://localhost:8787` for `local`) and `NON_CANONICAL_HOSTS` (comma-separated; default: the
   environment's `*.workers.dev` host, plus `www` for production on the apex or locally).
-- **After the cutover (#19)**, run the production smoke with `BASE_URL=https://boxingundefeated.com`
-  (or add `www.boxingundefeated.com` to `NON_CANONICAL_HOSTS`): with the workers.dev URL as
-  `BASE_URL`, `www` is not tested. Before the cutover `www` is GitHub Pages, which answers 301.
+- **CI tests each Worker on its workers.dev host** (#45): the zone's Bot Fight Mode challenges
+  GitHub's runners on `boxingundefeated.com` and its subdomains, so the deploy jobs never reach
+  the apex or `www`. To check the `www` → apex redirect, run the production smoke from your own
+  machine with `BASE_URL=https://boxingundefeated.com`.
 - `/api/search` must answer 200 with JSON, so a Worker deployed before #36 fails the smoke.
 - Playwright doesn't retry (`retries: 0`), so a flaky test fails the run. Only the host check
   retries, for up to 30 s, while a new deploy reaches every edge.
