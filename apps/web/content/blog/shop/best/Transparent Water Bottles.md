@@ -241,7 +241,7 @@ It depends on the bottle's material and construction. Some transparent water bot
 
 ### 9. What size should I choose for a transparent water bottle?
 
-[The ideal bottle size depends on your daily water intake goals and personal preferences.](universityofguns.pages.dev/best-72-oz-water-bottles/) Transparent water bottles range in size from 16 ounces (small) to 40 ounces (large) and even more. Choose a size that will allow you to carry enough water throughout the day to meet your personal needs.
+The ideal bottle size depends on your daily water intake goals and personal preferences. Transparent water bottles range in size from 16 ounces (small) to 40 ounces (large) and even more. Choose a size that will allow you to carry enough water throughout the day to meet your personal needs.
 
 ### 10. How do I know if a transparent water bottle is leak-proof?
 

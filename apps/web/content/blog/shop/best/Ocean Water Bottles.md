@@ -175,7 +175,7 @@ Ocean water bottles are typically made from recycled materials, such as recycled
 
 3. Consider purchasing a bottle with a leak-proof design to avoid any spills or accidents in your bag.
 
-[By keeping these features, considerations, and general advice in mind, you will be able to find the perfect ocean water bottle that meets your needs and preferences.](universityofguns.pages.dev/best-camelback-water-bottles/) Stay hydrated and help reduce plastic waste with an eco-friendly water bottle choice!
+By keeping these features, considerations, and general advice in mind, you will be able to find the perfect ocean water bottle that meets your needs and preferences. Stay hydrated and help reduce plastic waste with an eco-friendly water bottle choice!
 
 ## FAQ
 

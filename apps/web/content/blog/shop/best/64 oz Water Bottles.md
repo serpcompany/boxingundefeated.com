@@ -169,7 +169,7 @@ A 64 oz water bottle is useful because it can help you track and consume more wa
 
 <div><a href="https://serp.ly/@boxingundefeated/amazon/64-oz-water-bottles"><img src="https://imagedelivery.net/vy2bglCGN6hEeWOnSe2c7A/64+oz+Water+Bottles-4/w=720,h=540,fit=pad,background=black" alt="64 oz Water Bottles-4"></a></div>
 
-64 oz is equal to 8 [cups](https://best.serp.co/cups/). [This makes a 64 oz water bottle a convenient way to measure and consume water, especially if you need to drink eight 8-ounce glasses of water per day according to general health guidelines.](universityofguns.pages.dev/best-72-oz-water-bottles/)
+64 oz is equal to 8 [cups](https://best.serp.co/cups/). This makes a 64 oz water bottle a convenient way to measure and consume water, especially if you need to drink eight 8-ounce glasses of water per day according to general health guidelines.
 
 ### What materials are 64 oz water bottles typically made from?
 

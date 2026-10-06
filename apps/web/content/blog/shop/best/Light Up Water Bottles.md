@@ -72,7 +72,7 @@ In conclusion, the YuanDian light-up water bottle provides not only a stylish an
 
 <div class="image"><a href="https://serp.ly/@boxingundefeated/amazon/light-up-water-bottles"><img alt="yuandian-sea-turtle-gifts-light-up-kids-water-bottle-with-ocean-animal-pattern-14-oz-bpa-free-eco-fr-1" src="https://imagedelivery.net/vy2bglCGN6hEeWOnSe2c7A/yuandian-sea-turtle-gifts-light-up-kids-water-bottle-with-ocean-animal-pattern-14-oz-bpa-free-eco-fr-1/w=720,h=540,fit=pad,background=black"/></a></div>
 
-[As someone who loves spending time outdoors, I've always struggled to find a water bottle that's both functional and stylish.](universityofguns.pages.dev/best-camelback-water-bottles/) That is, until I came across YuanDian's light-up sea turtle gift bottle! This brilliant little accessory has become my go-to companion for hiking, camping, or even just a workout at the gym.
+As someone who loves spending time outdoors, I've always struggled to find a water bottle that's both functional and stylish. That is, until I came across YuanDian's light-up sea turtle gift bottle! This brilliant little accessory has become my go-to companion for hiking, camping, or even just a workout at the gym.
 
 One of the things that stood out to me right away is its eye-catching design. With a 3D light-up pattern of an ocean turtle, it's not only practical but also aesthetically pleasing. Plus, the one-click open flip top lid with carry lanyard makes it incredibly user-friendly.
 

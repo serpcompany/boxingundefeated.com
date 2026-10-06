@@ -56,7 +56,7 @@ I've been using the YETI Water Bottle with MagSlider Lid – Seafoam, and it's b
 
 However, there are some cons to this product. Although the magnet on the MagSlider Lid helps with easy opening and closing, it doesn't seem to prevent spills as effectively as I'd like. Additionally, the tumbler could use some texture on the surface to improve grip, especially for those with smaller hands.
 
-[In conclusion, the YETI Water Bottle with MagSlider Lid – Seafoam has been a reliable companion in keeping my drinks at the perfect temperature throughout the day.](universityofguns.pages.dev/best-seafoam-green-yeti-cups/) However, the lack of leakproof design and the slippery surface are aspects that need improvement.
+In conclusion, the YETI Water Bottle with MagSlider Lid – Seafoam has been a reliable companion in keeping my drinks at the perfect temperature throughout the day. However, the lack of leakproof design and the slippery surface are aspects that need improvement.
 
 ### [YETI 36 oz Stainless Steel Bottle with Chug Cap - Alpine Yellow](https://serp.ly/@boxingundefeated/amazon/yeti-water-bottles)
 

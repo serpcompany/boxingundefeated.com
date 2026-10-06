@@ -241,7 +241,7 @@ The highlight of this product is undoubtedly its double-wall vacuum insulation. 
 
 One feature that I initially overlooked but have come to love is the button lock. It ensures the top doesn't open accidentally, giving me peace of mind knowing that my water won't spill all over the place. And speaking of convenience, the integrated carry handle makes it a breeze to take this bottle with me wherever I go.
 
-Another pro is how easy this bottle is to clean. Both the lid and body are top-rack dishwasher-safe, so I don't have to worry about any lurking germs or bacteria. [Plus, it fits most cup holders, which is always a bonus when I'm on the road.](universityofguns.pages.dev/best-cup-holsters/)
+Another pro is how easy this bottle is to clean. Both the lid and body are top-rack dishwasher-safe, so I don't have to worry about any lurking germs or bacteria. Plus, it fits most cup holders, which is always a bonus when I'm on the road.
 
 However, there is one downside to this otherwise excellent product - the fragility of the lid. As much as I adore this bottle, I've had to replace the lid twice already due to small falls damaging it. A replacement lid option would be a welcome addition, but till then, I'm just being extra careful with my Contigo.
 

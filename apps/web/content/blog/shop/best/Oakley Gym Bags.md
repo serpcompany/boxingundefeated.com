@@ -98,7 +98,7 @@ One thing that really stood out to me was the comfort provided by the padded sho
 
 However, despite the overall great experience, there were some drawbacks. The lack of smaller pockets made it difficult to organize smaller items like [pens](https://best.serp.co/shop/pens/) or cables. Additionally, the size might be too big for those looking for something more compact.
 
-[In conclusion, the Oakley Enduro 3.0 Backpack is a reliable and stylish choice for anyone needing a practical bag.](universityofguns.pages.dev/best-oakley-enduro-20l-3-0-backpacks/) Its capacity and well-padded compartments make it perfect for daily use or longer trips. But keep in mind its size and lack of smaller pockets if that's something you're looking for in a bag.
+In conclusion, the Oakley Enduro 3.0 Backpack is a reliable and stylish choice for anyone needing a practical bag. Its capacity and well-padded compartments make it perfect for daily use or longer trips. But keep in mind its size and lack of smaller pockets if that's something you're looking for in a bag.
 
 - The Enduro 3.0 Backpack offers ample storage space with a 20L capacity and various compartments, including a padded sleeve for laptops up to 15" and a padded eyewear pocket.
 

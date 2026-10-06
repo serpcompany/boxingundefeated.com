@@ -58,7 +58,7 @@ One of the standout aspects of the NordicTrack S15i is its compatibility with st
 
 The Autobreeze workout fan is yet another exceptional feature. It keeps me cool and comfortable during even the most intense rides, ensuring that I can maintain my focus and push through to the end. And when it's time to move the bike to another room or storage area, the front-mounted transport wheels make it a cinch.
 
-However, it's not all sunshine and roses. The one major drawback that I have experienced with the S15i is the discomfort of its seat after extended periods of use. [While I appreciate the customizable ergonomics, I find myself needing to take frequent breaks to alleviate the pressure on my sensitive areas.](serpbooks.com/best-ergonomics-books/)
+However, it's not all sunshine and roses. The one major drawback that I have experienced with the S15i is the discomfort of its seat after extended periods of use. While I appreciate the customizable ergonomics, I find myself needing to take frequent breaks to alleviate the pressure on my sensitive areas.
 
 In conclusion, the NordicTrack S15i Studio Cycle Exercise Bike has been an exceptional addition to my home workout setup. Its combination of adjustable seating, compatibility with standard road [bike accessories](https://best.serp.co/shop/bike-accessories/), and built-in amenities make it an incredibly versatile and enjoyable piece of equipment. While the discomfort of its seat is a notable downside, it's not enough to deter me from using this high-quality exercise bike on a daily basis.
 

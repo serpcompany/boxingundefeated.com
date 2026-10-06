@@ -62,7 +62,7 @@ All things considered, the Hello Kitty 12 oz Ponderay water bottle provides a st
 
 <div class="image"><a href="https://serp.ly/@boxingundefeated/amazon/hello-kitty-water-bottles"><img alt="hello-kitty-rainbow-treat-and-stars-water-bottle-w-lid-1" src="https://imagedelivery.net/vy2bglCGN6hEeWOnSe2c7A/hello-kitty-rainbow-treat-and-stars-water-bottle-w-lid-1/w=720,h=540,fit=pad,background=black"/></a></div>
 
-[As someone who's always on-the-go, I've been searching for a stylish and functional water bottle to keep me hydrated throughout the day.](universityofguns.pages.dev/best-camelback-water-bottles/) That's when I stumbled upon the Sanrio Hello Kitty Rainbow Treat and Stars Water Bottle, and I must say, it's been a game-changer!
+As someone who's always on-the-go, I've been searching for a stylish and functional water bottle to keep me hydrated throughout the day. That's when I stumbled upon the Sanrio Hello Kitty Rainbow Treat and Stars Water Bottle, and I must say, it's been a game-changer!
 
 Firstly, the design is absolutely adorable with its rainbow treat and stars theme, making it perfect for not only myself but also for my little ones. I love how it adds a pop of colour and cuteness wherever it goes.
 

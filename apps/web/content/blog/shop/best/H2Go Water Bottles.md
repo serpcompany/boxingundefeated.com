@@ -48,7 +48,7 @@ Another feature I love is its lightweight and durable aluminum construction. It'
 
 However, there is one downside – the aluminum construction can make the bottle feel a bit cold to the touch when filled with ice-cold water. This isn't a deal-breaker for me, but it's worth mentioning for those who might be sensitive to temperature.
 
-[Overall, I highly recommend the H2Go Surge Aluminum Water Bottle to anyone looking for a reliable, stylish, and eco-friendly way to stay hydrated on the go.](universityofguns.pages.dev/best-camelback-water-bottles/)
+Overall, I highly recommend the H2Go Surge Aluminum Water Bottle to anyone looking for a reliable, stylish, and eco-friendly way to stay hydrated on the go.
 
 ### [Stylish BPA-free Blue 34 oz H2Go Wide 2.0 Water Bottle](https://serp.ly/@boxingundefeated/amazon/h2go-water-bottles)
 

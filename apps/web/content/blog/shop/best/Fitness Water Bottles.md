@@ -106,7 +106,7 @@ The leak-proof feature is a godsend. I've had my fair share of spillage mishaps 
 
 However, I must say that it can be a bit bulky and heavy when full. Carrying it around can be cumbersome especially during intense workout sessions. But overall, this water bottle has been a great addition to my fitness routine, helping me stay hydrated and on track with my water intake goals!
 
-[In conclusion, if you're looking for a reliable, large capacity water bottle that helps you track your daily water intake and keeps up with your active lifestyle, the HydroPal Water Bottle could be just what you need.](universityofguns.pages.dev/best-camelback-water-bottles/)
+In conclusion, if you're looking for a reliable, large capacity water bottle that helps you track your daily water intake and keeps up with your active lifestyle, the HydroPal Water Bottle could be just what you need.
 
 ## Buyer's Guide
 

@@ -112,7 +112,7 @@ Overall, I'm impressed by the quality and design of this water bottle. If you're
 
 I recently got the Owala Kids' Stainless Steel Flip bottle for my toddler, and I must say, it's a game-changer! The highlight is definitely the hideaway flip straw that securely tucks away under the locking lid. This feature not only keeps the straw clean and concealed when not in use but also ensures there are no spills when my little one is on the go. The easy one-handed open and close function is simple for her little hands, and the integrated carry loop adds extra convenience.
 
-One of my favorite features is the double-wall insulation that keeps her water cold for hours, perfect for those hot summer days at the playground. Additionally, the wide opening allows me to clean it thoroughly and add ice with ease. [Plus, it conveniently fits in most cup holders.](universityofguns.pages.dev/best-cup-holsters/)
+One of my favorite features is the double-wall insulation that keeps her water cold for hours, perfect for those hot summer days at the playground. Additionally, the wide opening allows me to clean it thoroughly and add ice with ease. Plus, it conveniently fits in most cup holders.
 
 On the downside, the bottle is hand wash only, and the silicone straw is a bit softer than I would prefer. But overall, I'm thoroughly impressed with the Owala Kids' Stainless Steel Flip bottle. Its vibrant colors and leak-proof design make it a perfect companion for my little adventurer during school and playtime.
 

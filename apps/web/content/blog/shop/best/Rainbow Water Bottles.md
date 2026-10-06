@@ -44,7 +44,7 @@ But the fun doesn't stop there. The Lund London brand is part of the 'Climate Po
 
 However, one con I experienced was that the paint on the bottle started chipping after just a few uses. It's a small issue in the grand scheme of things, but it's worth mentioning.
 
-[Overall, I highly recommend the Lund London Skittle Rainbow Water Bottle for anyone looking for a sleek, functional, and eco-friendly water bottle.](universityofguns.pages.dev/best-camelback-water-bottles/) It's perfect for hot and cold drinks and makes staying hydrated a stylish affair.
+Overall, I highly recommend the Lund London Skittle Rainbow Water Bottle for anyone looking for a sleek, functional, and eco-friendly water bottle. It's perfect for hot and cold drinks and makes staying hydrated a stylish affair.
 
 ### [Rainbow Titanium Drinking Bottle](https://serp.ly/@boxingundefeated/amazon/rainbow-water-bottles)
 
