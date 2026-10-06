@@ -11,7 +11,8 @@
  * `www.boxingundefeated.com/about` goes straight to `https://boxingundefeated.com/about/`.
  * Repeated slashes are collapsed in the same hop (`//about` -> `/about/`), which OpenNext would
  * otherwise do in a second redirect. `/api` paths keep exactly the path they asked for. The query
- * string is kept as sent.
+ * string is kept as sent. An old sitemap URL (`/sitemap.xml`, `/sitemaps/<group>/<n>.xml`) goes
+ * straight to the canonical origin's `/sitemap-index.xml` (lib/worker/sitemaps.ts).
  *
  * Requests that carry the smoke-test header are served normally, so CI can test a deployment
  * through its platform host. The header is not a secret: it only reveals the same public site on
@@ -22,6 +23,7 @@
  * has no Next.js imports, so it runs before OpenNext loads.
  */
 import { parseSiteEnvironment, siteOriginFor } from '../site-config'
+import { isLegacySitemapPath, SITEMAP_INDEX_PATH } from '../sitemaps/sitemaps'
 import { canonicalPathname } from './trailing-slash'
 
 export const SMOKE_TEST_HEADER = 'x-boxingundefeated-smoke-test'
@@ -75,10 +77,12 @@ export function canonicalHostRedirect(
     return null
   }
 
-  return new Response(null, {
-    status: 308,
-    headers: { location: `${origin}${canonicalHostPathname(url.pathname)}${url.search}` }
-  })
+  const pathname = canonicalHostPathname(url.pathname)
+  // An old sitemap URL goes straight to the index, not to the path the Worker would redirect next.
+  const location = isLegacySitemapPath(pathname)
+    ? `${origin}${SITEMAP_INDEX_PATH}`
+    : `${origin}${pathname}${url.search}`
+  return new Response(null, { status: 308, headers: { location } })
 }
 
 /**

@@ -41,6 +41,14 @@ describe('canonicalHostRedirect', () => {
     [`${WWW}/boxers/len-wickwar`, 'https://boxingundefeated.com/boxers/len-wickwar/', 'page'],
     [`${WWW}/robots.txt/`, 'https://boxingundefeated.com/robots.txt', 'file'],
     [`${WWW}/sitemap-index.xml`, 'https://boxingundefeated.com/sitemap-index.xml', 'file'],
+    // Old sitemap URLs go straight to the index, not to the path the Worker would redirect next.
+    [`${WWW}/sitemap.xml`, 'https://boxingundefeated.com/sitemap-index.xml', 'old sitemap'],
+    [`${WWW}/sitemap.xml/?x=1`, 'https://boxingundefeated.com/sitemap-index.xml', 'old sitemap'],
+    [
+      `${WWW}/sitemaps/pages/1.xml/`,
+      'https://boxingundefeated.com/sitemap-index.xml',
+      'old sitemap'
+    ],
     [`${WWW}/about?ref=x&b=1`, 'https://boxingundefeated.com/about/?ref=x&b=1', 'query'],
     // Files from public/ reach the Worker too (assets.run_worker_first).
     [`${WWW}/ads.txt`, 'https://boxingundefeated.com/ads.txt', 'file'],
