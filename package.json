@@ -10,6 +10,7 @@
     "check:links": "lychee --config ./lychee.toml --verbose .",
     "clean": "git clean -xdf node_modules dist .next",
     "clean:workspaces": "turbo clean",
+    "db:check-deployable": "tsx scripts/d1/check-deployable.ts",
     "db:generate": "drizzle-kit generate --config drizzle.config.ts",
     "db:import": "tsx scripts/d1/import-boxers.ts",
     "db:migrations:list:local": "pnpm --filter web exec wrangler d1 migrations list boxingundefeated-com-local --local",
