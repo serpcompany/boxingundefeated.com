@@ -28,9 +28,8 @@ The owner runs the production DNS cutover.
     individual pages. Pages read boxers only through `lib/boxer-data/`: D1 via the server-only,
     fail-closed `lib/data/` in the Worker, the committed JSON in the static export (until #20).
     `lib/site-config.ts` resolves the environment and its origin (Environments below); never read
-    `SITE_ENVIRONMENT` or build an origin anywhere else. Search (`lib/search/`): the Worker
-    answers `/api/search` itself (`lib/worker/search-api.ts`, data-ops `searchBoxers`); the
-    static export searches the committed `public/search/` index (until #20).
+    `SITE_ENVIRONMENT` or build an origin anywhere else. `lib/search/`: the Worker answers
+    `/api/search` (`lib/worker/search-api.ts`); the export searches `public/search/` (until #20).
   - `content/`: markdown shop articles. The legal pages are TSX in `app/(legal)/`.
   - `public/data/boxers/`: per-boxer JSON generated from the pipeline data. Never hand-edit it.
   - `scripts/`: data generators. The search index is built before `next build` (`predev`,
@@ -86,6 +85,7 @@ D1 (Drizzle schema in `packages/data-ops`, migrations in `d1/drizzle/`):
 - `pnpm --filter @boxingundefeated/data-ops test`: the query and importer tests (seconds).
 - `pnpm db:generate`: after changing `schema.ts`, write the next migration; commit it with the
   schema. Re-running it on an unchanged schema must report no changes. Never `drizzle-kit push`.
+  It mangles expression indexes: write `boxers_search_idx` from `SEARCH_*_KEY` by hand, as in 0002.
 - `pnpm db:migrate:local`, `pnpm db:migrations:list:local`: apply or list migrations on the local
   D1 in `apps/web/.wrangler/state`, which the local Worker uses. `pnpm db:reset:local` wipes it,
   migrates and seeds the fixture (`db:seed:local`), in seconds.
