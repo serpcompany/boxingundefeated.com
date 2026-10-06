@@ -2,8 +2,8 @@ name: CI
 
 # The repository's full check, on every pull request into staging (the base branch) or main
 # (promotions and hotfixes), and on every push to them. "All checks" is the one required check.
-# It passes when every job passed, or was skipped for a docs-only pull request or, for the two
-# builds, a draft. Marking a draft ready for review runs everything again.
+# It passes when every job passed, or was skipped for a docs-only pull request or, for the Worker
+# build, a draft. Marking a draft ready for review runs everything again.
 on:
   pull_request:
     branches: [staging, main]
@@ -158,46 +158,8 @@ jobs:
             exit 1
           fi
 
-  static-export:
-    name: Static export build and links
-    # The static export no longer serves the site (GitHub Pages is off since the cutover, #19). It
-    # stays only for the internal link check until #20 removes the export build.
-    needs: changes
-    if: needs.changes.outputs.code == 'true' && github.event.pull_request.draft != true
-    runs-on: ubuntu-latest
-    timeout-minutes: 30
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v7
-
-      - name: Install
-        uses: ./.github/actions/install
-
-      - name: Cache the Next.js build cache
-        uses: actions/cache@v6
-        with:
-          path: apps/web/.next/cache
-          key: next-export-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.sha }}
-          restore-keys: next-export-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-
-
-      # GITHUB_EVENT_NAME=push builds the production export, also on a pull request
-      # (lib/site-config.ts), so the links checked are the production ones.
-      - name: Build the static export
-        env:
-          NODE_OPTIONS: --max-old-space-size=8192
-          NEXT_PUBLIC_SITE_URL: https://boxingundefeated.com
-          NEXT_PUBLIC_GTM_ID: GTM-PP4HWLM
-        run: GITHUB_EVENT_NAME=push pnpm turbo run build:vercel --filter=web
-
-      # Offline: only the site's own links and assets, never a third-party site (lychee.toml).
-      - name: Check the export's internal links
-        uses: lycheeverse/lychee-action@e7477775783ea5526144ba13e8db5eec57747ce8 # v2.9.0
-        with:
-          args: --config lychee.toml --root-dir ${{ github.workspace }}/apps/web/out 'apps/web/out/**/*.html'
-          output: ${{ runner.temp }}/lychee.md
-
   worker-e2e:
-    name: Worker build and E2E smoke
+    name: Worker build, E2E smoke and links
     needs: changes
     if: needs.changes.outputs.code == 'true' && github.event.pull_request.draft != true
     runs-on: ubuntu-latest
@@ -255,6 +217,17 @@ jobs:
           EXPECT_ENV: local
         run: pnpm test:e2e
 
+      - name: List every page the sitemaps link
+        run: pnpm --silent --filter e2e sitemap-urls "$PREVIEW_ORIGIN" > "$RUNNER_TEMP/urls.txt"
+
+      # Every link and asset on those pages must answer 200 without a redirect. Only the preview's
+      # own URLs, never a third-party site (lychee.toml).
+      - name: Check the site's own links
+        uses: lycheeverse/lychee-action@e7477775783ea5526144ba13e8db5eec57747ce8 # v2.9.0
+        with:
+          args: --config lychee.toml --no-progress --files-from ${{ runner.temp }}/urls.txt
+          output: ${{ runner.temp }}/lychee.md
+
       - name: Keep the Playwright report and the preview log
         if: failure()
         uses: actions/upload-artifact@v7
@@ -264,13 +237,14 @@ jobs:
             apps/e2e/playwright-report/
             apps/e2e/test-results/
             ${{ runner.temp }}/worker-preview.log
+            ${{ runner.temp }}/lychee.md
           if-no-files-found: ignore
           retention-days: 14
 
   all-checks:
     name: All checks
     # The required check. It always reports, so a docs-only or draft run can still merge.
-    needs: [changes, lint, typecheck, test, migrations, static-export, worker-e2e]
+    needs: [changes, lint, typecheck, test, migrations, worker-e2e]
     if: always()
     runs-on: ubuntu-latest
     timeout-minutes: 5

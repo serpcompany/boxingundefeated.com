@@ -4,10 +4,9 @@
  *
  * Usage, from the repository root:
  *   [EXPECT_ENV=production|staging|local] pnpm parity -- <candidate-origin>
- *     [--reference <origin>] [--out-dir <dir>] [--concurrency <n>] [--report-dir <dir>]
+ *     [--reference <origin>] [--concurrency <n>] [--report-dir <dir>]
  *
- * - URLs: every `<loc>` in the reference's sitemaps (from `/sitemap-index.xml`), plus every page
- *   in the last static export (`apps/web/out`, when present).
+ * - URLs: every `<loc>` in the reference's sitemaps (from `/sitemap-index.xml`).
  * - Each URL is fetched from the reference (default: the live site) and the candidate without
  *   following redirects. The candidate must answer 200 at the same URL, and its title, canonical,
  *   H1 and robots meta must match the reference's. EXPECT_ENV (default `production`) is the
@@ -17,10 +16,10 @@
  * - A 429, a 5xx or a network error is retried with backoff (2, 4, 8 s, or `Retry-After`).
  * - Differences listed in parity-allowlist.ts pass. The report (Markdown and JSON, in
  *   apps/e2e/parity-report/) lists every difference; the exit code is 1 when any is not
- *   allowlisted or a URL could not be checked: the reference didn't answer 200 (a 404 or 410 is
- *   accepted only for an export page its sitemaps don't list), even after the retries.
+ *   allowlisted or a URL could not be checked: the reference didn't answer 200, even after the
+ *   retries.
  */
-import { mkdirSync, readdirSync, statSync, writeFileSync } from 'node:fs'
+import { mkdirSync, writeFileSync } from 'node:fs'
 import { join, relative, resolve } from 'node:path'
 import { isNoindex, type PageFacts, pageFacts } from './html'
 import { type AllowedDifference, PARITY_ALLOWLIST } from './parity-allowlist'
@@ -64,26 +63,19 @@ export function normalizePath(path: string): string {
   return `${url.pathname}${url.search}`
 }
 
-export function sitemapLocations(xml: string): string[] {
-  return [...xml.matchAll(/<loc>\s*([^<\s]+)\s*<\/loc>/g)].map(match =>
-    match[1].replaceAll('&amp;', '&')
-  )
+const XML_ENTITIES: Record<string, string> = {
+  amp: '&',
+  apos: "'",
+  quot: '"',
+  lt: '<',
+  gt: '>'
 }
 
-/** The page paths of a static export: every `index.html` except the not-found page's. */
-export function exportPaths(outDir: string): string[] {
-  const paths: string[] = []
-  const walk = (directory: string) => {
-    for (const entry of readdirSync(directory, { withFileTypes: true })) {
-      if (entry.isDirectory()) walk(join(directory, entry.name))
-      else if (entry.name === 'index.html') {
-        const page = relative(outDir, directory).split('\\').join('/')
-        if (page !== '404') paths.push(normalizePath(page ? `/${page}/` : '/'))
-      }
-    }
-  }
-  walk(outDir)
-  return paths
+/** Every `<loc>`, with XML's entities decoded (`men&apos;s` is `men's`). */
+export function sitemapLocations(xml: string): string[] {
+  return [...xml.matchAll(/<loc>\s*([^<\s]+)\s*<\/loc>/g)].map(match =>
+    match[1].replace(/&(amp|apos|quot|lt|gt);/g, (_, name: string) => XML_ENTITIES[name]!)
+  )
 }
 
 /** The canonical the candidate must have: the reference's, on the candidate's origin. */
@@ -142,28 +134,22 @@ export function isAllowed(difference: Difference, allowlist: AllowedDifference[]
 
 export type ReferenceOutcome =
   | { kind: 'compare'; facts: PageFacts }
-  | { kind: 'not-served'; status: number }
   | { kind: 'error'; error: string }
 
 /**
- * What the reference's answer means. Only a 200 is compared. A 404 or 410 means the reference
- * doesn't serve the URL, which is only acceptable for a page of the static export that the
- * reference's sitemaps don't list. Anything else (a 429 or 5xx left after the retries, a 403, a
- * redirect, a network error) leaves the URL unchecked, so the run fails.
+ * What the reference's answer means. Only a 200 is compared: its sitemaps list the URL, so
+ * anything else (a 404, a 429 or 5xx left after the retries, a 403, a redirect, a network error)
+ * leaves the URL unchecked, and the run fails.
  */
-export function classifyReference(reference: Fetched, inSitemaps: boolean): ReferenceOutcome {
+export function classifyReference(reference: Fetched): ReferenceOutcome {
   if (reference.status === 200 && reference.facts) {
     return { kind: 'compare', facts: reference.facts }
-  }
-  if ((reference.status === 404 || reference.status === 410) && !inSitemaps) {
-    return { kind: 'not-served', status: reference.status }
   }
   const answer = reference.error
     ? `error: ${reference.error}`
     : `${reference.status}${reference.location ? ` -> ${reference.location}` : ''}`
   const after = (reference.attempts ?? 1) > 1 ? ` after ${reference.attempts} attempts` : ''
-  const listed = inSitemaps ? ', and its sitemaps list the URL' : ''
-  return { kind: 'error', error: `reference answered ${answer}${after}${listed}` }
+  return { kind: 'error', error: `reference answered ${answer}${after}` }
 }
 
 const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
@@ -214,7 +200,7 @@ async function fetchText(url: string): Promise<string> {
 }
 
 /** Every page `<loc>` reachable from the reference's sitemap index, as paths. */
-async function sitemapPaths(reference: string): Promise<string[]> {
+export async function sitemapPaths(reference: string): Promise<string[]> {
   const visited = new Set<string>()
   const pages = new Set<string>()
   const visit = async (url: string) => {
@@ -253,7 +239,6 @@ async function forEachLimited<T>(
 interface Options {
   candidate: string
   reference: string
-  outDir: string
   concurrency: number
   reportDir: string
   environment: ExpectedEnvironment
@@ -272,7 +257,7 @@ export function parseOptions(argv: string[], env: NodeJS.ProcessEnv): Options {
     }
     const [name, inline] = arg.slice(2).split('=', 2)
     const value = inline ?? args[++index]
-    if (!['reference', 'out-dir', 'concurrency', 'report-dir'].includes(name) || !value) {
+    if (!['reference', 'concurrency', 'report-dir'].includes(name) || !value) {
       throw new Error(`Unknown option or missing value: ${arg}`)
     }
     flags.set(name, value)
@@ -293,9 +278,6 @@ export function parseOptions(argv: string[], env: NodeJS.ProcessEnv): Options {
   return {
     candidate,
     reference,
-    outDir: flags.has('out-dir')
-      ? resolve(cwd, flags.get('out-dir')!)
-      : join(REPO_ROOT, 'apps/web/out'),
     concurrency,
     reportDir: flags.has('report-dir')
       ? resolve(cwd, flags.get('report-dir')!)
@@ -329,22 +311,16 @@ async function main() {
   const log = (message: string) => console.error(message)
 
   log(`Reading ${options.reference}/sitemap-index.xml …`)
-  const fromSitemaps = await sitemapPaths(options.reference)
-  const hasExport = statSync(options.outDir, { throwIfNoEntry: false })?.isDirectory() ?? false
-  const fromExport = hasExport ? exportPaths(options.outDir) : []
-  if (!hasExport) log(`No static export at ${options.outDir}: checking the sitemap URLs only.`)
-  const paths = [...new Set([...fromSitemaps, ...fromExport])].sort()
+  const paths = [...new Set(await sitemapPaths(options.reference))].sort()
   if (paths.length === 0) throw new Error('No URLs to check.')
   log(
-    `${paths.length} URLs (${fromSitemaps.length} in sitemaps, ${fromExport.length} in the export). ` +
+    `${paths.length} URLs in the sitemaps. ` +
       `Comparing ${options.candidate} with ${options.reference}, EXPECT_ENV=${options.environment}, ` +
       `${options.concurrency} at a time …`
   )
 
   const differences: Difference[] = []
-  const notOnReference: Array<{ path: string; status: number }> = []
   const errors: Array<{ path: string; error: string }> = []
-  const listed = new Set(fromSitemaps)
   let retries = 0
   let done = 0
   await forEachLimited(paths, options.concurrency, async path => {
@@ -353,11 +329,9 @@ async function main() {
       fetchPage(`${options.candidate}${path}`)
     ])
     retries += (reference.attempts ?? 1) - 1 + (candidate.attempts ?? 1) - 1
-    const outcome = classifyReference(reference, listed.has(path))
+    const outcome = classifyReference(reference)
     if (outcome.kind === 'compare') {
       differences.push(...compare(path, outcome.facts, candidate, options.environment))
-    } else if (outcome.kind === 'not-served') {
-      notOnReference.push({ path, status: outcome.status })
     } else {
       errors.push({ path, error: outcome.error })
     }
@@ -379,15 +353,15 @@ async function main() {
   const pass = mismatches.length === 0 && errors.length === 0
   const seconds = ((performance.now() - started) / 1000).toFixed(0)
   const differentUrls = new Set(differences.map(difference => difference.path)).size
-  const compared = paths.length - notOnReference.length - errors.length
+  const compared = paths.length - errors.length
 
   const summary = [
     `- **Result: ${pass ? 'PASS' : 'FAIL'}**`,
     `- Candidate: ${options.candidate} (EXPECT_ENV=${options.environment}); reference: ${options.reference}`,
     `- Run: ${new Date().toISOString()}, ${seconds} s, ${options.concurrency} requests at a time per host`,
-    `- URLs: ${paths.length} (${fromSitemaps.length} from the reference's sitemaps, ${fromExport.length} pages in ${hasExport ? relative(REPO_ROOT, options.outDir) : 'no static export'})`,
+    `- URLs: ${paths.length}, from the reference's sitemaps`,
     `- Compared: ${compared}; identical: ${compared - differentUrls}; allowlisted differences: ${allowed.length}; **unexplained mismatches: ${mismatches.length}**`,
-    `- Not served by the reference (404/410, export only): ${notOnReference.length}; **errors: ${errors.length}**; retried requests: ${retries}; stale allowlist entries: ${staleEntries.length}`,
+    `- **Errors: ${errors.length}**; retried requests: ${retries}; stale allowlist entries: ${staleEntries.length}`,
     '- Fields: status (200 at the same URL, no redirect), title, canonical, H1, robots meta'
   ]
   const markdown = [
@@ -405,14 +379,6 @@ async function main() {
     ...(staleEntries.length
       ? ['', '## Stale allowlist entries', '', ...staleEntries.map(e => `- ${e.path} (${e.field})`)]
       : []),
-    ...(notOnReference.length
-      ? [
-          '',
-          '## Not served by the reference',
-          '',
-          ...notOnReference.map(entry => `- ${decodeURI(entry.path)}: ${entry.status}`)
-        ]
-      : []),
     ...(errors.length
       ? ['', '## Errors', '', ...errors.map(entry => `- ${entry.path}: ${entry.error}`)]
       : []),
@@ -425,7 +391,7 @@ async function main() {
   writeFileSync(markdownPath, markdown)
   writeFileSync(
     join(options.reportDir, `${name}.json`),
-    `${JSON.stringify({ ...options, pass, paths: paths.length, mismatches, allowed, staleEntries, notOnReference, errors }, null, 2)}\n`
+    `${JSON.stringify({ ...options, pass, paths: paths.length, mismatches, allowed, staleEntries, errors }, null, 2)}\n`
   )
   console.log(summary.join('\n'))
   console.log(`Report: ${relative(process.env.INIT_CWD ?? process.cwd(), markdownPath)}`)

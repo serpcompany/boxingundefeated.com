@@ -4,9 +4,9 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "check:export": "tsx src/check-export.ts",
     "clean": "git clean -xdf .turbo node_modules parity-report playwright-report test-results",
     "parity": "tsx src/parity.ts",
+    "sitemap-urls": "tsx src/sitemap-urls.ts",
     "test": "vitest run",
     "test:e2e": "playwright test",
     "test:install": "playwright install chromium",
