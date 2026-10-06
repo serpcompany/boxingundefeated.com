@@ -1,5 +1,5 @@
-// The parity check's own reading of a boxer JSON record (`from-pipeline/boxers.json`, or
-// `apps/web/public/data/boxers/<slug>.json`) against the D1 rows. It is written separately from
+// The parity check's own reading of a boxer JSON record (`from-pipeline/boxers.json`) against
+// the D1 rows. It is written separately from
 // the importer's mapping on purpose, so a mapping mistake shows up as a mismatch: never import
 // from `../import/` here (a test enforces it).
 

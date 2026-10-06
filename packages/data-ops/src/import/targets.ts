@@ -100,7 +100,7 @@ export function parseFlags(argv: readonly string[], allowed: readonly string[]) 
   return flags
 }
 
-/** A production source must hold at least this share of the boxers the site serves today. */
+/** A production source must hold at least this share of the boxers production D1 holds now. */
 export const PRODUCTION_MIN_SOURCE_SHARE = 0.95
 
 /**
@@ -120,8 +120,8 @@ export function checkProductionSourcePath(path: string | undefined, repoRoot: st
 }
 
 /**
- * Refuses a production source with under 95 % of `liveBoxers`, the boxers in
- * `apps/web/public/data/boxers/index.json`, which looks truncated, unless `--allow-small-source`.
+ * Refuses a production source with under 95 % of `liveBoxers`, the boxers in production D1 before
+ * the import, which looks truncated, unless `--allow-small-source`.
  */
 export function checkProductionSourceSize(
   boxers: number,
@@ -131,7 +131,7 @@ export function checkProductionSourceSize(
   const floor = Math.ceil(liveBoxers * PRODUCTION_MIN_SOURCE_SHARE)
   if (boxers >= floor || allowSmall) return
   throw new Error(
-    `Refusing a production import of ${boxers} boxers: the site serves ${liveBoxers} today, so ` +
+    `Refusing a production import of ${boxers} boxers: production D1 holds ${liveBoxers}, so ` +
       `fewer than ${floor} looks truncated. If it is intended, re-run with --allow-small-source.`
   )
 }

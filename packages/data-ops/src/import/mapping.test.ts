@@ -165,7 +165,7 @@ describe('mapping and normalization', () => {
   })
 })
 
-describe('opponent matching (as apps/web/lib/opponent-mapper.ts)', () => {
+describe('opponent matching (as the static site)', () => {
   const candidate = (
     slug: string,
     name: string,
@@ -524,11 +524,11 @@ describe('a production source', () => {
     expect(() => checkProductionSourcePath('/data/boxers.json', root)).not.toThrow()
   })
 
-  it('must hold 95 % of the boxers the site serves, unless --allow-small-source', () => {
+  it('must hold 95 % of the boxers production D1 holds, unless --allow-small-source', () => {
     expect(() => checkProductionSourceSize(5_570, 5_570)).not.toThrow()
     expect(() => checkProductionSourceSize(5_292, 5_570)).not.toThrow()
     expect(() => checkProductionSourceSize(5_291, 5_570)).toThrow(
-      /Refusing a production import of 5291 boxers: the site serves 5570 today, so fewer than 5292[\s\S]*--allow-small-source/
+      /Refusing a production import of 5291 boxers: production D1 holds 5570, so fewer than 5292[\s\S]*--allow-small-source/
     )
     expect(() => checkProductionSourceSize(49, 5_570)).toThrow(/looks truncated/)
     expect(() => checkProductionSourceSize(49, 5_570, true)).not.toThrow()
