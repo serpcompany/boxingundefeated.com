@@ -9,8 +9,10 @@ import {
   SEARCH_RESULT_LIMIT,
   SEARCH_TEXT_KEY,
   SQL_FOLDS,
+  searchFoldingGaps,
   searchKeyWords,
-  searchTerms
+  searchTerms,
+  unsearchableCharacters
 } from './search'
 import { createTestDatabase, explainQueryPlan, type TestDatabase } from './test-support'
 import type { NewBoxer } from './types'
@@ -307,5 +309,65 @@ describe('the search keys', () => {
       expect(searchKeyWords(row.text_key!)).toEqual(words)
       for (const word of words) expect(row.text_key).toContain(word)
     }
+  })
+
+  it('flag exactly the characters a query cannot find a name by', async () => {
+    const latin1 = [...SQL_FOLDS.keys()].join('')
+    const names = [
+      'Šarūnas Łukasz',
+      'Дмитрий Пирогов',
+      'дмитрий',
+      'бокс',
+      'Yıldırım',
+      'Ōta Kōji',
+      `Every ${latin1} Fold`,
+      'José\u0301 Ricky × Hatton',
+      'Ray \u2018Sugar\u2019 Robinson'
+    ]
+    const records = names.map((name, index) =>
+      boxer(name, { nationality: null, slug: `unsearchable-${index}` })
+    )
+    await insertBoxers(test, records)
+    const { results } = await test.binding
+      .prepare(
+        `SELECT name, ${SEARCH_TEXT_KEY} AS text_key FROM boxers WHERE id IN (${records.map(r => r.id).join(', ')})`
+      )
+      .all<{ name: string; text_key: string }>()
+    expect(results).toHaveLength(names.length)
+    const flagged = Object.fromEntries(
+      results.map(row => [row.name, unsearchableCharacters(row.name).join('')])
+    )
+    expect(flagged).toEqual({
+      'Šarūnas Łukasz': 'ŠūŁ',
+      // Lowercase Cyrillic is kept on both sides, except й, which a query folds to и.
+      'Дмитрий Пирогов': 'ДйП',
+      дмитрий: 'й',
+      бокс: '',
+      Yıldırım: 'ı',
+      'Ōta Kōji': 'Ōō',
+      [`Every ${latin1} Fold`]: '',
+      'José\u0301 Ricky × Hatton': '',
+      'Ray \u2018Sugar\u2019 Robinson': ''
+    })
+    // The property behind it: every query word is in the stored key unless a character is flagged.
+    for (const row of results) {
+      const found = searchTerms(row.name).every(term => row.text_key.includes(term))
+      expect([row.name, found]).toEqual([row.name, flagged[row.name] === ''])
+    }
+  })
+
+  it('leave no boxer in the fixture unsearchable', () => {
+    const fixture = JSON.parse(readFileSync(FIXTURE, 'utf8')) as Record<string, unknown>[]
+    const rows = fixture.map(record => ({
+      slug: record.slug,
+      name: record.name,
+      nicknames: record.nicknames,
+      nationality: record.nationality,
+      pro_division: record.proDivision
+    }))
+    expect(searchFoldingGaps(rows)).toEqual([])
+    expect(searchFoldingGaps([{ slug: 'a', name: 'Ana', nationality: 'Česko' }])).toEqual([
+      { slug: 'a', field: 'nationality', characters: ['Č'] }
+    ])
   })
 })

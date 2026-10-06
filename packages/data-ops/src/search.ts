@@ -133,3 +133,47 @@ export function searchKeyWords(text: string): string[] {
 export function searchTerms(query: string): string[] {
   return [...new Set(searchKeyWords(query))].slice(0, SEARCH_MAX_TERMS)
 }
+
+/**
+ * The characters of `text` that no query can find it by: the stored keys keep them as they are
+ * (outside Latin-1, SQLite neither folds nor lowercases), while a query folds or lowercases them,
+ * as `Š`, `ł` or `Д`. Combining marks are left out: the letters around them still match.
+ */
+export function unsearchableCharacters(text: string): string[] {
+  const found = new Set<string>()
+  for (const character of text) {
+    if (character.codePointAt(0)! < 0x80 || SQL_FOLDS.has(character)) continue
+    if (/^\p{M}$/u.test(character) || (APOSTROPHES as readonly string[]).includes(character)) {
+      continue
+    }
+    const queried = (LETTER_FOLDS[character] ?? character)
+      .normalize('NFKD')
+      .replace(COMBINING_MARKS, '')
+      .toLowerCase()
+    if (queried !== character) found.add(character)
+  }
+  return [...found]
+}
+
+/** The searched fields of a boxer row, as `SEARCH_TEXT_KEY` reads them. */
+const SEARCHED_COLUMNS = ['name', 'nicknames', 'nationality', 'pro_division'] as const
+
+/**
+ * Boxers with a searched field that `unsearchableCharacters` flags. The importer warns about each:
+ * folding more letters means a new migration of `boxers_search_idx` (D1 caps an expression's
+ * depth at 100, so not every letter fits).
+ */
+export function searchFoldingGaps(
+  boxers: readonly Record<string, unknown>[]
+): { slug: string; field: string; characters: string[] }[] {
+  const gaps: { slug: string; field: string; characters: string[] }[] = []
+  for (const boxer of boxers) {
+    for (const field of SEARCHED_COLUMNS) {
+      const value = boxer[field]
+      if (typeof value !== 'string') continue
+      const characters = unsearchableCharacters(value)
+      if (characters.length > 0) gaps.push({ slug: String(boxer.slug), field, characters })
+    }
+  }
+  return gaps
+}

@@ -46,6 +46,7 @@ import {
   resolveTarget,
   type SqlFile
 } from '../../packages/data-ops/src/import'
+import { searchFoldingGaps } from '../../packages/data-ops/src/search'
 import { d1ExecuteFile, d1Query, REPO_ROOT } from './wrangler'
 
 export function resolveSource(value: string | true | undefined): string {
@@ -148,6 +149,14 @@ function main(): void {
     checkProductionSourceSize(dataset.sourceCounts.boxers, served?.boxers ?? 0, allowSmallSource)
   }
   for (const drop of dataset.dropped) console.log(`  dropped ${drop.slug}: ${drop.reason}`)
+  // Search folds only what the stored keys fold (packages/data-ops/src/search.ts): a name with
+  // another accented or non-Latin capital letter would not be found by that letter.
+  for (const gap of searchFoldingGaps(dataset.boxers)) {
+    console.warn(
+      `  warning: ${gap.slug} ${gap.field} has ${gap.characters.join(' ')}, which search can't ` +
+        'match; folding it needs a new boxers_search_idx migration.'
+    )
+  }
 
   const files = buildImportFiles(dataset)
   const outDir = resolve(
