@@ -1,23 +1,36 @@
 /**
  * The D1 readiness gate, step 3 of lib/worker/handle-request.ts, for pages that read D1 at request
  * time. A D1 that is not migrated, empty, or in its first import would otherwise answer every
- * profile with a 404 or a page missing its bouts, and the edge cache could keep that for an hour.
+ * profile with a 404 or a page missing its bouts, and every listing with missing boxers, and the
+ * edge cache could keep that for an hour.
  *
  * The importer brackets its writes in `dataset_state` (packages/data-ops/src/import/state.ts):
  * - no finished import (no table, no row, no version) or an unreadable D1: 503 with `Retry-After`
  *   and `Cache-Control: no-store`, never a 404, and never stored;
- * - a re-import in progress: pages are served, cached copies of the last complete version too,
+ * - a re-import in progress: pages are served, cached copies of the last complete import too,
  *   but nothing new is stored, since a page rendered now may be half old, half new;
- * - a finished import: pages are cached under its version, so the next import's version takes
- *   effect without a purge.
+ * - a finished import: pages are cached under its generation (`importGeneration`), so the next
+ *   import takes effect without a purge.
  *
  * Each isolate reads `dataset_state` (one row, by primary key) at most once per
- * `DATASET_STATE_TTL_MS`, so a cached page normally costs no D1 query.
+ * `DATASET_STATE_TTL_MS`, so a cached page normally costs no D1 query. For that long after an
+ * import starts, an isolate can still believe no import is running and cache a page rendered from
+ * half-imported data. That page is stored under the generation from before the import, which every
+ * isolate has left behind within `DATASET_STATE_TTL_MS` of the import finishing, so it is never
+ * served after that, even when the import left the data, and so the version, unchanged.
  */
 import { createDatabase, getDatasetState } from '@boxingundefeated/data-ops'
 
-/** Pages whose content comes from D1 at request time. #11 adds the listings. */
-export const D1_PAGE_PATTERNS: readonly RegExp[] = [/^\/boxers\/(?!page\/)[^/]+\/$/]
+/**
+ * Pages whose content comes from D1 at request time: the homepage, `/boxers/` with its pages and
+ * the profiles, `/divisions/` with each division and its pages, and the HTML sitemap.
+ */
+export const D1_PAGE_PATTERNS: readonly RegExp[] = [
+  /^\/$/,
+  /^\/boxers\/(?:page\/[^/]+\/|[^/]+\/)?$/,
+  /^\/divisions\/(?:[^/]+\/(?:page\/[^/]+\/)?)?$/,
+  /^\/sitemap\/$/
+]
 export const DATASET_STATE_TTL_MS = 30_000
 /** How long an unreadable `dataset_state` is remembered before the next read. */
 export const DATASET_ERROR_TTL_MS = 5_000
@@ -26,10 +39,12 @@ export const DATASET_RETRY_AFTER_SECONDS = 120
 export interface DatasetState {
   version: string | null
   importing: boolean
+  /** When the last import finished; every finished import sets a new one. */
+  completedAt?: string | null
 }
 
 export type DatasetReadiness =
-  | { ready: true; version: string; importing: boolean }
+  | { ready: true; version: string; generation: string; importing: boolean }
   | { ready: false; reason: string }
 
 export function readsD1(request: Request): boolean {
@@ -37,10 +52,24 @@ export function readsD1(request: Request): boolean {
   return D1_PAGE_PATTERNS.some(pattern => pattern.test(pathname))
 }
 
+/**
+ * What D1 pages are cached under: the last finished import's version (its content checksum) and
+ * when it finished. The version alone stays the same when an import changes no data; the finish
+ * time changes with every import, so a page cached during one is never served after it.
+ */
+export function importGeneration(version: string, completedAt: string | null | undefined): string {
+  return completedAt ? `${version}@${completedAt}` : version
+}
+
 export function readinessOf(state: DatasetState | null): DatasetReadiness {
   if (!state) return { ready: false, reason: 'no import has started' }
   if (!state.version) return { ready: false, reason: 'the first import has not finished' }
-  return { ready: true, version: state.version, importing: state.importing }
+  return {
+    ready: true,
+    version: state.version,
+    generation: importGeneration(state.version, state.completedAt),
+    importing: state.importing
+  }
 }
 
 /** The answer for a D1 page while D1 can't serve it. */

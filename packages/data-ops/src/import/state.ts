@@ -13,16 +13,23 @@ export function buildImportStart(): string {
 }
 
 /**
- * The very last thing an import runs, once the row counts check out: record the version and clear
- * `importing`. `completed_at` changes only with the version, so re-importing the same data leaves
- * the row exactly as it was.
+ * When an import finishes, to the millisecond. Every finished import records a new one, a re-import
+ * of the same data included.
+ */
+const FINISHED_AT = "strftime('%Y-%m-%d %H:%M:%f', 'now')"
+
+/**
+ * The very last thing an import runs, once the row counts check out: record the version, clear
+ * `importing`, and stamp `completed_at`. The version stays the same when the data does, but
+ * `completed_at` changes with every finished import: with the version, it is the import generation
+ * that keys the Worker's edge cache (`apps/web/lib/worker/dataset-gate.ts`), so a page cached while
+ * this import ran is never served once it has finished, even if it changed no data.
  */
 export function buildImportComplete(version: string): string {
   const value = sqlLiteral(version)
   return (
-    `INSERT INTO dataset_state (id, version, importing, completed_at) VALUES (1, ${value}, 0, CURRENT_TIMESTAMP)\n` +
+    `INSERT INTO dataset_state (id, version, importing, completed_at) VALUES (1, ${value}, 0, ${FINISHED_AT})\n` +
     'ON CONFLICT (id) DO UPDATE SET importing = 0, version = excluded.version,\n' +
-    '  completed_at = CASE WHEN dataset_state.version IS excluded.version\n' +
-    '    THEN dataset_state.completed_at ELSE excluded.completed_at END;\n'
+    '  completed_at = excluded.completed_at;\n'
   )
 }

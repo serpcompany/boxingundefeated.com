@@ -140,12 +140,14 @@ describe('withEdgeCache', () => {
     expect(edge.rendered[0]?.url).toBe('https://boxingundefeated.com/boxers/jesse-hart/?page=2')
   })
 
-  it('keys by dataset version', async () => {
-    const edge = setup({ dataVersion: 'v1' })
+  it('keys by import generation', async () => {
+    const edge = setup({ dataGeneration: 'v1@2026-10-06 04:00:21.000' })
     await edge.fetch('/boxers/jesse-hart/')
 
     expect((await edge.fetch('/boxers/jesse-hart/')).headers.get(EDGE_CACHE_HEADER)).toBe('HIT')
-    const next = await edge.fetch('/boxers/jesse-hart/', { dataVersion: 'v2' })
+    const next = await edge.fetch('/boxers/jesse-hart/', {
+      dataGeneration: 'v1@2026-10-06 05:00:00.000'
+    })
     expect(next.headers.get(EDGE_CACHE_HEADER)).toBe('MISS')
   })
 
