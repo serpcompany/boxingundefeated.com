@@ -9,9 +9,10 @@
  * that serves it must use the same SITE_ENVIRONMENT. If they don't, this policy still keeps a
  * non-production runtime out of the index.
  *
- * `worker.ts` wires it in front of the OpenNext handler. It has no Next.js imports, so it runs
- * before OpenNext loads. Static files under `public/` are served from the assets binding before
- * the Worker runs and don't get the header; robots.txt still disallows them.
+ * lib/worker/handle-request.ts runs it in front of the OpenNext handler. It has no Next.js
+ * imports, so it runs before OpenNext loads. `assets.run_worker_first` sends the files from
+ * `public/` through the Worker too, so they get the header; only the hashed build output under
+ * /_next/static/ is served before the Worker runs.
  */
 import { NON_PRODUCTION_ROBOTS_TXT } from '../robots'
 import { NON_PRODUCTION_ROBOTS_TAG, parseSiteEnvironment } from '../site-config'
@@ -34,14 +35,16 @@ function nonProductionRobotsTxt(request: Request): Response {
   })
 }
 
+/**
+ * Rewraps the response with the Workers idiom, `new Response(body, response)`, which copies the
+ * status, status text and headers (into a new, mutable `Headers`) and also the Workers-only
+ * fields such as `webSocket`, `cf` and `encodeBody`, so a pre-encoded body or a WebSocket upgrade
+ * passes through intact.
+ */
 function withNoindex(response: Response): Response {
-  const headers = new Headers(response.headers)
-  headers.set('x-robots-tag', NON_PRODUCTION_ROBOTS_TAG)
-  return new Response(response.body, {
-    headers,
-    status: response.status,
-    statusText: response.statusText
-  })
+  const wrapped = new Response(response.body, response)
+  wrapped.headers.set('x-robots-tag', NON_PRODUCTION_ROBOTS_TAG)
+  return wrapped
 }
 
 export async function withEnvironmentPolicy(

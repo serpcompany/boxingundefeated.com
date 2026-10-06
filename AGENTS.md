@@ -35,7 +35,12 @@ The owner runs the production DNS cutover.
     revert those changes before committing.
   - `wrangler.jsonc`, `open-next.config.ts`, `worker.ts`: the Worker. The top level is local only;
     `env.staging` and `env.production` are the deployed Workers, each with its own D1 `DB`.
-    `worker.ts` is the entry: it applies the crawl policy (`lib/worker/`), then runs OpenNext.
+    `worker.ts` is the entry; `lib/worker/handle-request.ts` applies the canonical-host redirect
+    (`lib/routing/`) and the crawl policy (`lib/worker/`), then runs OpenNext, which applies the
+    trailing-slash `redirects()` from `next.config.ts`. `assets.run_worker_first` sends every
+    request except `/_next/static/` through the Worker, `public/` files included.
+    `env.staging` has the `staging.boxingundefeated.com` custom domain; production gets its
+    domain at the cutover.
 - `d1/`: `drizzle/` migrations (`pnpm db:generate`; never edit `meta/`), `fixtures/`, `reports/`.
 - `packages/data-ops/`: the D1 data layer: the Drizzle schema (`src/schema.ts`), types, every
   query the app runs (`src/queries.ts`; the app never writes SQL) and the pipeline importer's
@@ -69,10 +74,13 @@ Worker (OpenNext on Cloudflare; minutes, because it prerenders every page):
   environment's `SITE_ENVIRONMENT`, which the prerendered HTML needs (Environments below).
 - `pnpm --filter web serve:worker [--env staging]`: serve the last Worker build again. With
   `--env`, it uses that environment's vars and bindings, locally. Pair it with the matching build.
+  `--env staging` rewrites every `Host` header to its custom domain, so test host redirects with
+  `--env production`, which has no route yet.
   It sets `CHOKIDAR_USEPOLLING` because Wrangler's per-file watchers on about 16,000 assets exhaust
   file descriptors on macOS.
 - `pnpm --filter web cf-typegen`: regenerate `cloudflare-env.d.ts` after changing
-  `wrangler.jsonc`, and commit it.
+  `wrangler.jsonc`, and commit it. It strips the `mainModule` type that would pull `worker.ts`
+  into `tsc` (`lib/cloudflare-env-types.ts`).
 
 D1 (Drizzle schema in `packages/data-ops`, migrations in `d1/drizzle/`):
 
@@ -136,6 +144,7 @@ value is used, never at module load:
 | `<meta name="robots">`, `X-Robots-Tag` | `noindex` | `noindex` | none |
 | `/robots.txt` | `Disallow: /` | `Disallow: /` | `Allow: /` and the sitemap index |
 | Google Tag Manager | no | no | `GTM-PP4HWLM` (in code) |
+| `CANONICAL_HOST_REDIRECT` (`www`, `*.workers.dev` -> origin) | `off` | `on` | `on` |
 
 Prerendered HTML is fixed at build, so a Worker build and the environment that serves it must use
 the same value: `build:worker:staging` with `--env staging`. At runtime, `worker.ts` reads the
@@ -147,5 +156,13 @@ answers `/robots.txt` with `Disallow: /`. `app/robots.ts` is the only robots sou
 - Public URLs are an SEO contract. Never change or drop one without a permanent redirect. GitHub
   Pages can't serve redirects, so until the Worker cutover, don't change URLs at all.
 - Pages end in a trailing slash, files never do, and the homepage canonical is the origin without
-  a slash (SERP URL trailing-slash standard).
+  a slash (SERP URL trailing-slash standard). `lib/routing/trailing-slash.ts` holds the rules; the
+  Worker redirects with them, the static export can't. The homepage renders its own canonical and
+  `og:url`, so the root layout sets neither. Host redirects exempt requests with the
+  `x-boxingundefeated-smoke-test` header, and `/api` paths keep their exact path.
+- Exception to the canonical-host rule: hashed build output under `/_next/static/` is served
+  before the Worker runs (`assets.run_worker_first`), so `www` and `*.workers.dev` answer it with
+  200 instead of a 308. Crawlers don't index it, and routing it through the Worker would bill an
+  invocation for every chunk of every page view. Every other path, pages and `public/` files,
+  gets the host redirect and the crawl policy.
 - Never commit secrets. `.env.local` files are local only.

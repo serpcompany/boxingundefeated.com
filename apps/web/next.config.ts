@@ -1,6 +1,7 @@
 import { baseConfig, withAnalyzer } from '@boxingundefeated/config-next'
 import { initOpenNextCloudflareForDev } from '@opennextjs/cloudflare'
 import type { NextConfig } from 'next'
+import { slashRedirects } from './lib/routing/trailing-slash'
 
 export const INTERNAL_PACKAGES = [
   '@boxingundefeated/design-system',
@@ -16,7 +17,12 @@ let nextConfig: NextConfig = {
   ...baseConfig,
 
   output: isWorkerBuild ? undefined : 'export',
+  // Pages end in a slash and files never do (SERP URL trailing-slash standard). The built-in
+  // redirect is off (`skipTrailingSlashRedirect` in the shared base config); the Worker applies
+  // the standard's rules in `redirects()` instead. The static export can't serve redirects, so it
+  // gets none: GitHub Pages serves each page only at its slashed path.
   trailingSlash: true,
+  ...(isWorkerBuild ? { redirects: async () => [...slashRedirects] } : {}),
 
   // Inlined into the bundles at build time, so lib/site-config.ts can tell the static export (which
   // is production unless SITE_ENVIRONMENT says otherwise) from the Worker, whose runtime has no

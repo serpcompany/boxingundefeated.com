@@ -115,11 +115,12 @@ describe('environment-dependent output', () => {
     expect(createRootMetadata(getSiteConfig({})).robots).toBe('noindex')
   })
 
-  it('uses the environment origin for the root canonical and metadataBase', () => {
+  it('uses the environment origin for metadataBase, which page canonicals resolve against', () => {
     const metadata = createRootMetadata(staging)
 
     expect(metadata.metadataBase).toEqual(new URL(STAGING_ORIGIN))
-    expect(metadata.alternates?.canonical).toBe(STAGING_ORIGIN)
+    // Every page would inherit a root canonical; each page sets its own.
+    expect(metadata.alternates?.canonical).toBeUndefined()
   })
 })
 
@@ -132,5 +133,26 @@ describe('wrangler.jsonc', () => {
     expect(config.vars.SITE_ENVIRONMENT).toBe('local')
     expect(config.env.staging.vars.SITE_ENVIRONMENT).toBe('staging')
     expect(config.env.production.vars.SITE_ENVIRONMENT).toBe('production')
+  })
+
+  it('turns the canonical-host redirect on for staging and production, and off locally', () => {
+    expect(config.vars.CANONICAL_HOST_REDIRECT).toBe('off')
+    expect(config.env.staging.vars.CANONICAL_HOST_REDIRECT).toBe('on')
+    expect(config.env.production.vars.CANONICAL_HOST_REDIRECT).toBe('on')
+  })
+
+  it('runs the Worker before every file except /_next/static/, in every env', () => {
+    // Set once at the top level, which the named envs inherit and OpenNext reads at build time.
+    expect(config.assets.run_worker_first).toEqual(['/*', '!/_next/static/*'])
+    expect(config.env.staging.assets).toBeUndefined()
+    expect(config.env.production.assets).toBeUndefined()
+  })
+
+  it('attaches only the staging custom domain; the owner attaches production at cutover', () => {
+    expect(config.env.staging.routes).toEqual([
+      { pattern: 'staging.boxingundefeated.com', custom_domain: true }
+    ])
+    expect(config.env.production.routes).toBeUndefined()
+    expect(config.routes).toBeUndefined()
   })
 })
