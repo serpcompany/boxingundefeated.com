@@ -1,3 +1,5 @@
+import { isAbsolute, relative, resolve } from 'node:path'
+
 export interface ImportTarget {
   name: 'local' | 'staging'
   database: string
@@ -48,4 +50,20 @@ export function parseFlags(argv: readonly string[], allowed: readonly string[]) 
     } else flags[match[1]!] = true
   }
   return flags
+}
+
+/** The SQL files the importer writes, and the only files it ever deletes. */
+export const GENERATED_SQL_FILE = /^\d{4}(-prune)?\.sql$/
+
+/** Refuses an output directory that is, is inside or contains `d1/drizzle`, the migrations. */
+export function checkOutDir(outDir: string, repoRoot: string): void {
+  const migrations = resolve(repoRoot, 'd1/drizzle')
+  const target = resolve(outDir)
+  const within = (parent: string, child: string) => {
+    const path = relative(parent, child)
+    return path === '' || (!path.startsWith('..') && !isAbsolute(path))
+  }
+  if (within(migrations, target) || within(target, migrations)) {
+    throw new Error(`Refusing --out-dir ${outDir}: it would mix import SQL with d1/drizzle.`)
+  }
 }

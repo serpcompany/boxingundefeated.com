@@ -6,6 +6,11 @@ export const D1_MAX_STATEMENT_BYTES = 100_000
 export const DEFAULT_MAX_STATEMENT_BYTES = 90_000
 /** Each file is one `wrangler d1 execute --file` call: one transaction, rolled back on failure. */
 export const DEFAULT_MAX_FILE_BYTES = 4_000_000
+/**
+ * Rows per `VALUES` list. D1's SQLite runs out of memory (`SQLITE_NOMEM`) somewhere between
+ * 3,000 and 5,570 rows, well under the byte limit when the rows are small.
+ */
+export const MAX_VALUES_ROWS = 500
 
 export interface SqlLimits {
   maxStatementBytes?: number
@@ -31,6 +36,12 @@ export function sqlLiteral(value: SqlValue): string {
   return `'${value.replaceAll("'", "''")}'`
 }
 
+/**
+ * Marks a boxer as changed by this import. The boxer upsert sets it when the boxer row changes;
+ * the statements below set it when only the boxer's bouts or opponent links change.
+ */
+export const TOUCH_BOXERS = 'UPDATE boxers SET imported_at = CURRENT_TIMESTAMP WHERE id IN'
+
 interface UpsertSpec {
   table: string
   columns: readonly string[]
@@ -47,16 +58,23 @@ interface UpsertSpec {
    * D1) and advance the counter by its row count on every re-run.
    */
   skipUnchanged?: boolean
+  /**
+   * With `skipUnchanged`: before each upsert, `TOUCH_BOXERS` the boxers (by this column) that own
+   * an incoming row that is new or differs.
+   */
+  touchBoxersBy?: string
 }
 
 const updatedColumns = ({ columns, conflict, keep = [] }: UpsertSpec) =>
   columns.filter(column => !conflict.includes(column) && !keep.includes(column))
 
-function upsertPrefix(spec: UpsertSpec): string {
-  const columns = spec.columns.join(', ')
-  return spec.skipUnchanged
-    ? `WITH incoming (${columns}) AS (VALUES\n`
-    : `INSERT INTO ${spec.table} (${columns}) VALUES\n`
+/** `NOT EXISTS (…)`: the `incoming` row is new, or differs from the stored row. */
+function differsFromStored(spec: UpsertSpec): string {
+  const matches = [
+    ...spec.conflict.map(column => `stored.${column} = incoming.${column}`),
+    ...updatedColumns(spec).map(column => `stored.${column} IS incoming.${column}`)
+  ]
+  return `NOT EXISTS (SELECT 1 FROM ${spec.table} AS stored WHERE ${matches.join(' AND ')})`
 }
 
 /**
@@ -64,24 +82,66 @@ function upsertPrefix(spec: UpsertSpec): string {
  * not written at all, so re-running an import writes nothing. Not `INSERT OR REPLACE`, which
  * deletes the row and so cascades to its bouts and unlinks opponents. With `skipUnchanged`, the
  * rows come from a `WITH incoming (…) AS (VALUES …)` and only those that differ are inserted.
+ * Returns the statement templates, split around the `VALUES` tuples.
  */
-function upsertSuffix(spec: UpsertSpec): string {
+function upsertTemplates(spec: UpsertSpec): [prefix: string, suffix: string][] {
   const { table, columns, conflict, touch } = spec
   const updated = updatedColumns(spec)
   const assignments = updated.map(column => `${column} = excluded.${column}`)
   if (touch) assignments.push(touch)
   const changed = updated.map(column => `${table}.${column} IS NOT excluded.${column}`)
-  const select = spec.skipUnchanged
-    ? `)\nINSERT INTO ${table} (${columns.join(', ')})\nSELECT * FROM incoming WHERE NOT EXISTS ` +
-      `(SELECT 1 FROM ${table} AS stored WHERE ${[
-        ...conflict.map(column => `stored.${column} = incoming.${column}`),
-        ...updated.map(column => `stored.${column} IS incoming.${column}`)
-      ].join(' AND ')})`
-    : ''
-  return (
-    `${select}\nON CONFLICT (${conflict.join(', ')}) DO UPDATE SET ${assignments.join(', ')}` +
+  const onConflict =
+    `\nON CONFLICT (${conflict.join(', ')}) DO UPDATE SET ${assignments.join(', ')}` +
     `\nWHERE ${changed.join(' OR ')};\n`
-  )
+  if (!spec.skipUnchanged) {
+    return [[`INSERT INTO ${table} (${columns.join(', ')}) VALUES\n`, onConflict]]
+  }
+  const values = `WITH incoming (${columns.join(', ')}) AS (VALUES\n`
+  const upsert: [string, string] = [
+    values,
+    `)\nINSERT INTO ${table} (${columns.join(', ')})\n` +
+      `SELECT * FROM incoming WHERE ${differsFromStored(spec)}${onConflict}`
+  ]
+  if (!spec.touchBoxersBy) return [upsert]
+  const touchBoxers: [string, string] = [
+    values,
+    `)\n${TOUCH_BOXERS} (SELECT ${spec.touchBoxersBy} FROM incoming WHERE ${differsFromStored(spec)});\n`
+  ]
+  return [touchBoxers, upsert]
+}
+
+/**
+ * Splits items into groups whose `fixedBytes` plus items (each with a 2-byte separator) stay under
+ * `maxStatementBytes`, with at most `maxItems` per group. `describe` names an item that can't fit
+ * on its own.
+ */
+function chunk(
+  items: readonly string[],
+  fixedBytes: number,
+  maxStatementBytes: number,
+  describe: (index: number) => string,
+  maxItems = Number.POSITIVE_INFINITY
+): string[][] {
+  const groups: string[][] = []
+  let group: string[] = []
+  let size = fixedBytes
+  items.forEach((item, index) => {
+    const bytes = byteLength(item) + 2
+    if (fixedBytes + bytes > maxStatementBytes) {
+      throw new Error(
+        `${describe(index)} needs ${fixedBytes + bytes} bytes, over the ${maxStatementBytes}-byte statement limit`
+      )
+    }
+    if (group.length > 0 && (size + bytes > maxStatementBytes || group.length >= maxItems)) {
+      groups.push(group)
+      group = []
+      size = fixedBytes
+    }
+    group.push(item)
+    size += bytes
+  })
+  if (group.length > 0) groups.push(group)
+  return groups
 }
 
 /** Multi-row upserts, each statement as many rows as fit under `maxStatementBytes`. */
@@ -90,70 +150,71 @@ export function buildUpserts(
   rows: readonly Row[],
   maxStatementBytes = DEFAULT_MAX_STATEMENT_BYTES
 ): string[] {
-  const prefix = upsertPrefix(spec)
-  const suffix = upsertSuffix(spec)
-  const fixed = byteLength(prefix) + byteLength(suffix)
-  const statements: string[] = []
-  let tuples: string[] = []
-  let size = fixed
-  for (const row of rows) {
-    const tuple = `(${spec.columns.map(column => sqlLiteral(row[column] ?? null)).join(', ')})`
-    const tupleBytes = byteLength(tuple) + 2
-    if (fixed + tupleBytes > maxStatementBytes) {
-      throw new Error(
-        `A ${spec.table} row (${spec.conflict.map(column => row[column]).join('/')}) needs ` +
-          `${fixed + tupleBytes} bytes, over the ${maxStatementBytes}-byte statement limit`
-      )
-    }
-    if (size + tupleBytes > maxStatementBytes) {
-      statements.push(prefix + tuples.join(',\n') + suffix)
-      tuples = []
-      size = fixed
-    }
-    tuples.push(tuple)
-    size += tupleBytes
-  }
-  if (tuples.length > 0) statements.push(prefix + tuples.join(',\n') + suffix)
-  return statements
-}
-
-/** `<prefix> (…values…);`, split into as many statements as the statement limit needs. */
-export function buildInLists(
-  prefix: string,
-  values: readonly SqlValue[],
-  maxStatementBytes = DEFAULT_MAX_STATEMENT_BYTES
-): string[] {
-  const suffix = ');\n'
-  const fixed = byteLength(prefix) + byteLength(suffix)
-  const statements: string[] = []
-  let literals: string[] = []
-  let size = fixed
-  for (const value of values) {
-    const literal = sqlLiteral(value)
-    if (literals.length > 0 && size + byteLength(literal) + 2 > maxStatementBytes) {
-      statements.push(prefix + literals.join(', ') + suffix)
-      literals = []
-      size = fixed
-    }
-    literals.push(literal)
-    size += byteLength(literal) + 2
-  }
-  if (literals.length > 0) statements.push(prefix + literals.join(', ') + suffix)
-  return statements
-}
-
-export function buildDeletes(
-  table: string,
-  column: string,
-  values: readonly SqlValue[],
-  maxStatementBytes = DEFAULT_MAX_STATEMENT_BYTES
-): string[] {
-  return buildInLists(`DELETE FROM ${table} WHERE ${column} IN (`, values, maxStatementBytes)
+  const templates = upsertTemplates(spec)
+  const fixed = Math.max(...templates.map(([pre, post]) => byteLength(pre) + byteLength(post)))
+  const tuples = rows.map(
+    row => `(${spec.columns.map(column => sqlLiteral(row[column] ?? null)).join(', ')})`
+  )
+  const describe = (index: number) =>
+    `A ${spec.table} row (${spec.conflict.map(column => rows[index]![column]).join('/')})`
+  return chunk(tuples, fixed, maxStatementBytes, describe, MAX_VALUES_ROWS).flatMap(group =>
+    templates.map(([prefix, suffix]) => prefix + group.join(',\n') + suffix)
+  )
 }
 
 /**
- * The final pass: sets every bout's `opponent_boxer_id`, once all boxers exist. One statement per
- * boxer with links (a `CASE` on `ordinal`), and one per chunk of boxers without any. Rows that
+ * Deletes boxers the source no longer has. Their bouts cascade and other boxers' links to them
+ * become `NULL`, so those boxers are touched first.
+ */
+export function buildPrune(
+  ids: readonly number[],
+  maxStatementBytes = DEFAULT_MAX_STATEMENT_BYTES
+): string[] {
+  const touch = `${TOUCH_BOXERS} (SELECT boxer_id FROM bouts WHERE opponent_boxer_id IN (`
+  return chunk(
+    ids.map(sqlLiteral),
+    byteLength(touch) + 4,
+    maxStatementBytes,
+    index => `Boxer ${ids[index]}`
+  ).flatMap(group => [
+    `${touch}${group.join(', ')}));\n`,
+    `DELETE FROM boxers WHERE id IN (${group.join(', ')});\n`
+  ])
+}
+
+/**
+ * Deletes each boxer's bouts past the end of its source list, touching the boxers that lose any.
+ */
+export function buildTrims(
+  records: readonly { id: number; bouts: readonly unknown[] | null }[],
+  maxStatementBytes = DEFAULT_MAX_STATEMENT_BYTES
+): string[] {
+  const lengths = records.map(
+    record => `(${sqlLiteral(record.id)}, ${sqlLiteral(record.bouts?.length ?? 0)})`
+  )
+  const prefix = 'WITH lists (boxer_id, bout_count) AS (VALUES\n'
+  const suffix =
+    `)\n${TOUCH_BOXERS} (SELECT lists.boxer_id FROM lists JOIN bouts ` +
+    'ON bouts.boxer_id = lists.boxer_id AND bouts.ordinal >= lists.bout_count);\n'
+  const fixed = byteLength(prefix) + byteLength(suffix)
+  const touches = chunk(
+    lengths,
+    fixed,
+    maxStatementBytes,
+    i => `Boxer ${records[i]!.id}`,
+    MAX_VALUES_ROWS
+  ).map(group => prefix + group.join(',\n') + suffix)
+  const deletes = records.map(
+    record =>
+      `DELETE FROM bouts WHERE boxer_id = ${sqlLiteral(record.id)} AND ordinal >= ${sqlLiteral(record.bouts?.length ?? 0)};\n`
+  )
+  return [...touches, ...deletes]
+}
+
+/**
+ * The final pass: sets every bout's `opponent_boxer_id`, once all boxers exist. Per boxer with
+ * links, a `CASE` on `ordinal`; per chunk of boxers without any, a reset to `NULL`. Each is
+ * preceded by a statement that touches the boxers whose links are about to change. Rows that
  * already hold the right value are skipped, so a re-run writes nothing.
  */
 export function buildOpponentLinks(
@@ -182,36 +243,44 @@ export function buildOpponentLinks(
     }
     const cases = pairs.map(([ordinal, opponent]) => `WHEN ${ordinal} THEN ${opponent}`).join(' ')
     const value = `CASE ordinal ${cases} ELSE NULL END`
-    const statement =
-      `UPDATE bouts SET opponent_boxer_id = ${value}\n` +
-      `WHERE boxer_id = ${sqlLiteral(boxerId)} AND opponent_boxer_id IS NOT (${value});\n`
-    if (byteLength(statement) > maxStatementBytes) {
+    const stale = `boxer_id = ${sqlLiteral(boxerId)} AND opponent_boxer_id IS NOT (${value})`
+    const pair = [
+      `${TOUCH_BOXERS} (SELECT boxer_id FROM bouts WHERE ${stale});\n`,
+      `UPDATE bouts SET opponent_boxer_id = ${value}\nWHERE ${stale};\n`
+    ]
+    if (pair.some(statement => byteLength(statement) > maxStatementBytes)) {
       throw new Error(`Boxer ${boxerId}'s opponent links exceed the statement limit`)
     }
-    statements.push(statement)
+    statements.push(...pair)
   }
-  const clear = buildInLists(
-    'UPDATE bouts SET opponent_boxer_id = NULL WHERE opponent_boxer_id IS NOT NULL AND boxer_id IN (',
-    unlinked,
-    maxStatementBytes
-  )
-  return [...statements, ...clear]
+  const linked = 'opponent_boxer_id IS NOT NULL AND boxer_id IN ('
+  const touch = `${TOUCH_BOXERS} (SELECT boxer_id FROM bouts WHERE ${linked}`
+  const clears = chunk(
+    unlinked.map(sqlLiteral),
+    byteLength(touch) + 4,
+    maxStatementBytes,
+    index => `Boxer ${unlinked[index]}`
+  ).flatMap(group => [
+    `${touch}${group.join(', ')}));\n`,
+    `UPDATE bouts SET opponent_boxer_id = NULL WHERE ${linked}${group.join(', ')});\n`
+  ])
+  return [...statements, ...clears]
 }
 
 /**
  * Every statement of an import, in dependency order:
  * 1. upsert the 17 divisions (boxers reference them);
- * 2. upsert boxers on the pipeline `id`, the primary key. `boxrec_id` is never rewritten: the
- *    importer refuses a source whose `id`/`boxrec_id` pairs disagree with the target, and the
- *    unique index rejects a `boxrec_id` that arrives under a new `id`;
+ * 2. upsert boxers on the pipeline `id`, the primary key. `boxrec_id` and `slug` moves are
+ *    refused before any statement runs (`planImport`); the unique indexes are the backstop;
  * 3. replace each boxer's bouts: upsert on `(boxer_id, ordinal)`, then delete the ordinals past
  *    the end of the list. The end state matches delete-then-insert, but unchanged bouts keep
  *    their ids and are not rewritten, nor even attempted (`skipUnchanged`: `bouts.id` is
  *    `AUTOINCREMENT`), so `sqlite_sequence` stays put too;
  * 4. the final pass: resolve `opponent_boxer_id` (`buildOpponentLinks`).
  *
- * Upserts set `imported_at` explicitly whenever they change a row (the column default only
- * applies on insert); a row that already matches the source is skipped.
+ * `imported_at` is set explicitly (the column default only applies on insert) whenever the
+ * import changes what a boxer's page shows: the boxer row, its bouts, or its opponent links.
+ * Nothing that already matches the source is written.
  */
 export function buildImportStatements(
   dataset: Pick<ImportDataset, 'divisions' | 'boxers' | 'bouts' | 'records'>,
@@ -240,20 +309,17 @@ export function buildImportStatements(
       columns: BOUT_COLUMNS,
       conflict: ['boxer_id', 'ordinal'],
       keep: ['opponent_boxer_id'],
-      skipUnchanged: true
+      skipUnchanged: true,
+      touchBoxersBy: 'boxer_id'
     },
     dataset.bouts.map(bout => ({ ...bout, opponent_boxer_id: null })),
     maxStatementBytes
-  )
-  const trims = dataset.records.map(
-    record =>
-      `DELETE FROM bouts WHERE boxer_id = ${sqlLiteral(record.id)} AND ordinal >= ${sqlLiteral(record.bouts?.length ?? 0)};\n`
   )
   return [
     ...divisions,
     ...boxers,
     ...bouts,
-    ...trims,
+    ...buildTrims(dataset.records, maxStatementBytes),
     ...buildOpponentLinks(dataset.bouts, maxStatementBytes)
   ]
 }
@@ -261,31 +327,78 @@ export function buildImportStatements(
 export interface ExistingBoxer {
   id: number
   boxrec_id: string
+  slug: string
+}
+
+export interface ImportPlan {
+  /** Identity changes the importer refuses: it applies nothing while there are any. */
+  conflicts: string[]
+  /** Target boxers the source no longer has (or drops on purpose), in id order. */
+  stale: ExistingBoxer[]
 }
 
 /**
- * The pipeline `id` is the primary key and must stay paired with its `boxrec_id`. Returns a
- * problem for every target row whose `id` or `boxrec_id` the source assigns to a different
- * partner; the importer refuses to run when there are any.
+ * Checks the source against the boxers already in the target. The pipeline `id` is the primary
+ * key and must stay paired with its `boxrec_id`. A slug may change (a public URL change, so it
+ * needs a redirect), but may not move to another boxer that stays: that is refused up front,
+ * rather than failing partway through with `UNIQUE constraint failed: boxers.slug`. A stale
+ * boxer's slug is free to reuse, because the prune runs first.
  */
-export function findIdentityConflicts(
-  existing: readonly ExistingBoxer[],
-  boxers: readonly Row[]
-): string[] {
-  const boxrecById = new Map(boxers.map(row => [row.id as number, row.boxrec_id as string]))
+export function planImport(existing: readonly ExistingBoxer[], boxers: readonly Row[]): ImportPlan {
+  const byId = new Map(boxers.map(row => [row.id as number, row]))
   const idByBoxrec = new Map(boxers.map(row => [row.boxrec_id as string, row.id as number]))
-  const problems: string[] = []
+  const idBySlug = new Map(boxers.map(row => [row.slug as string, row.id as number]))
+  const conflicts: string[] = []
+  const stale: ExistingBoxer[] = []
   for (const row of existing) {
-    const boxrec = boxrecById.get(row.id)
-    if (boxrec !== undefined && boxrec !== row.boxrec_id) {
-      problems.push(`id ${row.id} is boxrec_id ${row.boxrec_id} in D1 but ${boxrec} in the source`)
+    const source = byId.get(row.id)
+    if (source === undefined) stale.push(row)
+    if (source !== undefined && source.boxrec_id !== row.boxrec_id) {
+      conflicts.push(
+        `id ${row.id} is boxrec_id ${row.boxrec_id} in D1 but ${source.boxrec_id} in the source`
+      )
     }
     const id = idByBoxrec.get(row.boxrec_id)
     if (id !== undefined && id !== row.id) {
-      problems.push(`boxrec_id ${row.boxrec_id} is id ${row.id} in D1 but ${id} in the source`)
+      conflicts.push(`boxrec_id ${row.boxrec_id} is id ${row.id} in D1 but ${id} in the source`)
+    }
+    const slugOwner = idBySlug.get(row.slug)
+    if (source !== undefined && slugOwner !== undefined && slugOwner !== row.id) {
+      conflicts.push(
+        `slug ${row.slug} moves from id ${row.id} (now ${String(source.slug)}) to id ${slugOwner}`
+      )
     }
   }
-  return problems
+  return { conflicts, stale }
+}
+
+/** A remote import prunes at most 1 % of the target, and never more than this, without `--allow-prune`. */
+export const REMOTE_PRUNE_LIMIT = 50
+
+/**
+ * Refuses a prune larger than the limit, which catches a fixture or truncated file passed to a
+ * remote target. Local targets are disposable and prune freely (`db:seed:local` relies on it).
+ */
+export function checkPrune(
+  target: 'local' | 'staging',
+  existing: number,
+  stale: readonly ExistingBoxer[],
+  allowPrune?: number
+): void {
+  if (target === 'local' || stale.length === 0) return
+  const limit = allowPrune ?? Math.min(REMOTE_PRUNE_LIMIT, Math.floor(existing / 100))
+  if (stale.length <= limit) return
+  const listed = stale.slice(0, 50).map(row => `  - ${row.slug} (id ${row.id})`)
+  const more = stale.length > 50 ? [`  … and ${stale.length - 50} more`] : []
+  throw new Error(
+    [
+      `Refusing to prune ${stale.length} of ${existing} boxers from ${target} (the limit is ` +
+        `${limit}). Their URLs would stop resolving. If that is intended, re-run with ` +
+        `--allow-prune ${stale.length}. The boxers:`,
+      ...listed,
+      ...more
+    ].join('\n')
+  )
 }
 
 /** Packs statements, in order, into files of at most `maxFileBytes`, named `0001.sql` onwards. */

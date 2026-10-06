@@ -83,7 +83,8 @@ export const boxers = sqliteTable(
     // The pipeline's own timestamps (ISO 8601 without a zone), copied verbatim.
     createdAt: text('created_at'),
     updatedAt: text('updated_at'),
-    // When the importer last wrote this row.
+    // When an import last changed what this boxer's page shows: the row, its bouts or their
+    // opponent links. Unchanged boxers keep theirs.
     importedAt: text('imported_at').notNull().default(currentTimestamp)
   },
   table => [

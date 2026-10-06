@@ -9,16 +9,20 @@ import {
   buildImportStatements,
   buildOpponentIndex,
   buildUpserts,
+  checkOutDir,
+  checkPrune,
   D1_MAX_STATEMENT_BYTES,
   DIVISIONS,
   directoryIndexOrder,
-  findIdentityConflicts,
+  GENERATED_SQL_FILE,
   nameList,
   PRODUCTION_REFUSAL,
   packFiles,
   parseFlags,
+  planImport,
   prepareDataset,
   resolveTarget,
+  type SourceBoxer,
   SourceValidationError,
   sqlLiteral,
   toBoxerRow,
@@ -282,13 +286,69 @@ describe('SQL batching', () => {
 describe('identity and targets', () => {
   it('flags an id or BoxRec id that the source pairs differently', () => {
     const boxers = prepareDataset(opponentPair()).boxers
-    expect(findIdentityConflicts([{ id: 1, boxrec_id: '10' }], boxers)).toEqual([])
-    expect(findIdentityConflicts([{ id: 1, boxrec_id: '99' }], boxers)).toEqual([
+    const row = (id: number, boxrec_id: string, slug = `boxer-${id}`) => ({ id, boxrec_id, slug })
+    expect(planImport([row(1, '10', 'ana-o-brien-jr')], boxers)).toEqual({
+      conflicts: [],
+      stale: []
+    })
+    expect(planImport([row(1, '99', 'ana-o-brien-jr')], boxers).conflicts).toEqual([
       'id 1 is boxrec_id 99 in D1 but 10 in the source'
     ])
-    expect(findIdentityConflicts([{ id: 5, boxrec_id: '20' }], boxers)).toEqual([
-      'boxrec_id 20 is id 5 in D1 but 2 in the source'
+    expect(planImport([row(5, '20')], boxers)).toEqual({
+      conflicts: ['boxrec_id 20 is id 5 in D1 but 2 in the source'],
+      stale: [row(5, '20')]
+    })
+  })
+
+  it('refuses a slug that moves to another boxer, but allows a rename or a freed slug', () => {
+    const [ana, bea] = opponentPair() as [SourceBoxer, SourceBoxer]
+    const swapped = prepareDataset([
+      { ...ana, slug: 'bea-brown' },
+      { ...bea, slug: 'ana-o-brien-jr' }
+    ]).boxers
+    const existing = [
+      { id: 1, boxrec_id: '10', slug: 'ana-o-brien-jr' },
+      { id: 2, boxrec_id: '20', slug: 'bea-brown' }
+    ]
+    expect(planImport(existing, swapped).conflicts).toEqual([
+      'slug ana-o-brien-jr moves from id 1 (now bea-brown) to id 2',
+      'slug bea-brown moves from id 2 (now ana-o-brien-jr) to id 1'
     ])
+    const renamed = prepareDataset([{ ...ana, slug: 'ana-obrien' }, bea]).boxers
+    expect(planImport(existing, renamed).conflicts).toEqual([])
+    // Bea leaves the source, and a new boxer takes her slug: the prune frees it first.
+    const replaced = prepareDataset([ana, { ...bea, id: 3, boxrecId: '30', bouts: [] }]).boxers
+    expect(planImport(existing, replaced)).toEqual({ conflicts: [], stale: [existing[1]] })
+  })
+
+  it('caps a remote prune unless --allow-prune covers it', () => {
+    const stale = Array.from({ length: 60 }, (_, i) => ({
+      id: i + 1,
+      boxrec_id: String(i),
+      slug: `b-${i}`
+    }))
+    expect(() => checkPrune('local', 100, stale)).not.toThrow()
+    expect(() => checkPrune('staging', 5_570, stale.slice(0, 50))).not.toThrow()
+    expect(() => checkPrune('staging', 5_570, stale)).toThrow(
+      /Refusing to prune 60 of 5570 boxers from staging \(the limit is 50\)[\s\S]*--allow-prune 60[\s\S]*b-0 \(id 1\)/
+    )
+    expect(() => checkPrune('staging', 300, stale.slice(0, 4))).toThrow(/the limit is 3/)
+    expect(() => checkPrune('staging', 5_570, stale, 60)).not.toThrow()
+    expect(() => checkPrune('staging', 5_570, [])).not.toThrow()
+  })
+
+  it('only ever cleans its own SQL files, and never next to the migrations', () => {
+    expect(['0001.sql', '0013.sql', '0000-prune.sql'].every(n => GENERATED_SQL_FILE.test(n))).toBe(
+      true
+    )
+    expect(
+      ['0000_boxing_schema.sql', 'seed.sql', '0001.sql.bak'].some(n => GENERATED_SQL_FILE.test(n))
+    ).toBe(false)
+    const root = '/repo'
+    expect(() => checkOutDir('/repo/d1/.import/staging', root)).not.toThrow()
+    for (const dir of ['/repo/d1/drizzle', '/repo/d1/drizzle/meta', '/repo/d1', '/repo']) {
+      expect(() => checkOutDir(dir, root)).toThrow(/d1\/drizzle/)
+    }
   })
 
   it('requires an explicit target and refuses production', () => {
