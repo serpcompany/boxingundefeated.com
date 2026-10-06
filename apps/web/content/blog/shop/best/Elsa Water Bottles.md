@@ -127,7 +127,7 @@ The one-hand operation action lid is a really nice touch, and the fact that it d
 
 The drinking straws are a nice feature, and can be removed for easy cleaning. Plus, the spout has a comfortable silicone tip, which can stay put or be removed if needed.
 
-Another big selling point is the ease of cleaning. As a dishwasher-safe water bottle, I can just pop it in the dishwasher and forget about it - no need to hand wash it after every use. And, of course, I always remember not to [microwave](https://best.serp.co/shop/microwaves/) it, given the instructions on the bottle.
+Another big selling point is the ease of cleaning. As a dishwasher-safe water bottle, I can just pop it in the dishwasher and forget about it - no need to hand wash it after every use. And, of course, I always remember not to microwave it, given the instructions on the bottle.
 
 Finally, the bottle is suitable for children ages 3 and up, which is perfect for my little one. All in all, the Zak Designs Water Bottle is a winner in my book - and in my daughter's too!
 
@@ -253,7 +253,7 @@ Yes, Elsa Water Bottles are leak-proof, thanks to their high-quality sealing mec
 
 ### How do I clean my Elsa Water Bottle?
 
-To clean your Elsa Water Bottle, follow these steps: \* Wash the bottle and its components (cap and straw, if applicable) thoroughly with soap and warm water. For tough stains, you can use a small [bottle brush](https://best.serp.co/shop/bottle-brush/) or a mixture of baking soda and water.
+To clean your Elsa Water Bottle, follow these steps: \* Wash the bottle and its components (cap and straw, if applicable) thoroughly with soap and warm water. For tough stains, you can use a small bottle brush or a mixture of baking soda and water.
 
 - rinse the bottle thoroughly with water to remove any soap residue.
 

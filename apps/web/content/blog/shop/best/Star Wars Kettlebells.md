@@ -53,7 +53,7 @@ The Marcy kettlebell is a sturdy piece of cast iron, perfect for swinging around
 
 On the downside, the size of this kettlebell could be an issue for some, and it doesn't come with a space-saving feature or a holder. But as a die-hard home gym enthusiast, these cons are easily overshadowed by the durability and effectiveness of this classic piece of exercise equipment.
 
-[The Marcy kettlebell really shines in making my home gym look like a professional space.](https://best.serp.co/shop/marcy-home-gyms/) Its Hammertone finish gives it an edge over other, more basic designs. It truly stands out and is a testament to its high-quality craftsmanship.
+The Marcy kettlebell really shines in making my home gym look like a professional space. Its Hammertone finish gives it an edge over other, more basic designs. It truly stands out and is a testament to its high-quality craftsmanship.
 
 To sum up, the Marcy 55 lb kettlebell is a robust, attractive addition to your home gym. The durability it promises, combined with its sleek design and anti-rust features, make it worthy of being a centerpiece in your fitness routine. But do keep in mind that the size may be a bit of an issue for some. Nevertheless, I wholeheartedly recommend it!
 
@@ -187,6 +187,6 @@ To clean your Star Wars Kettlebell, simply wipe it down with a damp cloth and mi
 
 ### How often should I use my Star Wars Kettlebell?
 
-[The frequency of your workouts will depend on your fitness goals and experience with kettlebells.](https://best.serp.co/shop/kettlebell-weight/) For beginners, aim for two to three sessions per week, allowing for adequate rest and recovery between workouts. As your strength and technique improve, you can gradually increase the intensity and frequency of your kettlebell workouts.
+The frequency of your workouts will depend on your fitness goals and experience with kettlebells. For beginners, aim for two to three sessions per week, allowing for adequate rest and recovery between workouts. As your strength and technique improve, you can gradually increase the intensity and frequency of your kettlebell workouts.
 
 _As an Amazon™ Associate, we earn from qualifying purchases._

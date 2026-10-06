@@ -43,7 +43,7 @@ I recently upgraded my old water bottle to the Hydrojug Arctic Glass Water Bottl
 
 One of the standout features for me is the dual-function spout. Whether I want to sip without tipping the bottle or prefer to drink traditionally without the straw, it delivers. The fixed oversized handle has made it incredibly easy to carry around, especially in my busy daily routine.
 
-The insulation is another highlight. The ultra-wide mouth makes adding [ice cubes](https://best.serp.co/shop/ice-cubes/) a breeze, keeping my water chilled for hours. But what truly impressed me was the silicone sleeve. Not only does it provide added protection, but it also makes it comfortable to hold, even when filled to capacity.
+The insulation is another highlight. The ultra-wide mouth makes adding ice cubes a breeze, keeping my water chilled for hours. But what truly impressed me was the silicone sleeve. Not only does it provide added protection, but it also makes it comfortable to hold, even when filled to capacity.
 
 However, there were a few cons as well. The lid tends to leak if not closed properly, which can be frustrating. Also, the process of filling the bottle is a bit tricky due to its wide mouth. But these issues are minor compared to the overall utility and aesthetics of this product.
 
@@ -181,7 +181,7 @@ The recommended daily intake of water is about 80 oz for women and 100 oz for me
 
 ### How do I clean an 80 oz water bottle?
 
-Cleaning an 80 oz water bottle depends on the material used in its construction. For stainless steel or Tritan plastic, soak the bottle in warm, soapy water, and use a soft-bristled brush to clean the interior thoroughly. Glass water bottles can be cleaned with a combination of hot water, soap, and a [bottle brush](https://best.serp.co/shop/bottle-brush/). It is important to dry the bottle completely after cleaning to prevent mold or mildew growth.
+Cleaning an 80 oz water bottle depends on the material used in its construction. For stainless steel or Tritan plastic, soak the bottle in warm, soapy water, and use a soft-bristled brush to clean the interior thoroughly. Glass water bottles can be cleaned with a combination of hot water, soap, and a bottle brush. It is important to dry the bottle completely after cleaning to prevent mold or mildew growth.
 
 <div><a href="https://serp.ly/@boxingundefeated/amazon/80-oz-water-bottle"><img src="https://imagedelivery.net/vy2bglCGN6hEeWOnSe2c7A/80+oz+Water+Bottle-6/w=720,h=540,fit=pad,background=black" alt="80 oz Water Bottle-6"></a></div>
 

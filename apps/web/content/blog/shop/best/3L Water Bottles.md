@@ -173,7 +173,7 @@ My experience with the 3D Hydro Reservoir has been a game-changer on my hikes an
 
 One of the standout features is the integrated QuickDry Hanger, which ensures the reservoir dries quickly after use. The Co-Molded Handle and baseplate make handling and refills effortless. The bite valve with a shut-off switch is a welcome addition, providing peace of mind by preventing accidental leaks.
 
-The twist- lock cap with a wide-mouth opening easily accommodates [ice cubes](https://best.serp.co/shop/ice-cubes/) for cool hydration on hot days. The SpeedClip attachment system effortlessly secures the reservoir to the pack, and the integrated hanger is a thoughtful touch for convenient drying.
+The twist- lock cap with a wide-mouth opening easily accommodates ice cubes for cool hydration on hot days. The SpeedClip attachment system effortlessly secures the reservoir to the pack, and the integrated hanger is a thoughtful touch for convenient drying.
 
 However, there are a few minor drawbacks. The noticeable amount of hard plastic in the reservoir's design may concern some users. Additionally, the lid-attached hose can be challenging to position as desired, requiring a bit of elbow grease.
 
@@ -245,11 +245,11 @@ When choosing a 3L water bottle, consider the following features: leak-proof des
 
 ### How should I clean and maintain a 3L water bottle?
 
-To properly clean and maintain a 3L water bottle, follow these steps: rinse the bottle thoroughly with warm water and dish soap after each use, allow it to air dry completely before storing, and occasionally deep clean the bottle using a mixture of water and white vinegar or baking soda. For bottles with difficult-to-reach areas or complex designs, consider using a [bottle brush](https://best.serp.co/shop/bottle-brush/) to ensure a thorough cleaning.
+To properly clean and maintain a 3L water bottle, follow these steps: rinse the bottle thoroughly with warm water and dish soap after each use, allow it to air dry completely before storing, and occasionally deep clean the bottle using a mixture of water and white vinegar or baking soda. For bottles with difficult-to-reach areas or complex designs, consider using a bottle brush to ensure a thorough cleaning.
 
 ### What are some ways to personalize a 3L water bottle?
 
-To personalize a 3L water bottle, consider the following options: apply custom vinyl decals or stickers, use [paint markers](https://best.serp.co/shop/paint-markers/)markers to create a design, or engrave the bottle with a personalized message or monogram. Alternatively, you can purchase a bottle with a unique design or color that reflects your personal style.
+To personalize a 3L water bottle, consider the following options: apply custom vinyl decals or stickers, use paint markersmarkers to create a design, or engrave the bottle with a personalized message or monogram. Alternatively, you can purchase a bottle with a unique design or color that reflects your personal style.
 
 ### How long does a 3L water bottle keep water cold or hot?
 

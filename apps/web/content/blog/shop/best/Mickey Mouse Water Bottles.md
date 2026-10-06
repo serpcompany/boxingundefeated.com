@@ -46,7 +46,7 @@ The screw-on lid with its built-in carrying loop has been a blessing, allowing m
 
 However, one thing that didn't quite impress me is the product's durability. It's not as tough or sturdy as some other options out there. Also, it doesn't seem to keep drinks cold for as long as advertised, which can be a bit of a letdown.
 
-All things considered, the Zak Designs Kids Water Bottle has definitely made hydration a more fun and enjoyable experience for my kids. [If you're in the market for a decent water bottle for your little ones, this one might just fit the bill!](https://best.serp.co/shop/kids-water-bottles/)
+All things considered, the Zak Designs Kids Water Bottle has definitely made hydration a more fun and enjoyable experience for my kids. If you're in the market for a decent water bottle for your little ones, this one might just fit the bill!
 
 ### [Mickey Mouse Kids Water Bottle Set 16 oz & 14 oz for Hydration On-The-Go](https://serp.ly/@boxingundefeated/amazon/mickey-mouse-water-bottles)
 

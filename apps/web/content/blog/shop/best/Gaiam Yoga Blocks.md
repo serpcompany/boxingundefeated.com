@@ -85,7 +85,7 @@ Gaiam's cork yoga brick stands out from the rest with its unique natural materia
 
 However, no product is without its flaws. I found that the cork material is a tad heavier compared to foam alternatives. While this may not be an issue for some, others may not prefer the additional weight. Additionally, some users mentioned that the cork blocks have a tendency to crumble after repeated use, which could be a potential concern over time.
 
-[In conclusion, the Gaiam Naturals Yoga Brick, Cork, is an excellent choice for those looking to integrate natural materials into their yoga practice.](https://best.serp.co/shop/gaiam-yoga-mats/) The cork material adds a unique touch to the traditional yoga brick, making it a standout option in the world of yoga props.
+In conclusion, the Gaiam Naturals Yoga Brick, Cork, is an excellent choice for those looking to integrate natural materials into their yoga practice. The cork material adds a unique touch to the traditional yoga brick, making it a standout option in the world of yoga props.
 
 Though it may not suit everyone's preferences due to its slightly heavier weight and the possibility of crumbling over time, the overall quality and performance of this product are undeniably impressive. So, if you're in search of a sturdy, eco-friendly yoga brick to support your practice, look no further than Gaiam's Naturals Yoga Brick, Cork.
 

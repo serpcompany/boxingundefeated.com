@@ -172,7 +172,7 @@ To clean your American Maid Water Bottle, follow these steps: 1. Disassemble the
 
 4. Allow all parts to air dry completely before reassembling the bottle, to prevent bacterial growth.
 
-Alternatively, you can use a [bottle brush](https://best.serp.co/shop/bottle-brush/) for a more thorough cleaning or place your bottle in the dishwasher if it is dishwasher-safe.
+Alternatively, you can use a bottle brush for a more thorough cleaning or place your bottle in the dishwasher if it is dishwasher-safe.
 
 ### Are American Maid Water Bottles suitable for cold and hot beverages?
 

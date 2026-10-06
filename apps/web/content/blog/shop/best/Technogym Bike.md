@@ -278,7 +278,7 @@ As for the sound quality, the NEW S22i comes with an advanced sound system that 
 
 The expansive views during each workout, led by experienced trainers, make my sessions enjoyable and engaging. The rotating touch screen provides the perfect view no matter which workout I'm doing.
 
-Overall, the NordicTrack S22i Studio Bike has been a game-changer for my workout routine. Its design comfort, attractive appearance, and user-friendly features make it an excellent addition to any home. The only downside I experienced was the slightly uncomfortable seat, but this could be mitigated with an upgraded [seat cushion](https://best.serp.co/shop/seat-cushion/).
+Overall, the NordicTrack S22i Studio Bike has been a game-changer for my workout routine. Its design comfort, attractive appearance, and user-friendly features make it an excellent addition to any home. The only downside I experienced was the slightly uncomfortable seat, but this could be mitigated with an upgraded seat cushion.
 
 ### [NordicTrack Commercial S27i Studio Exercise Bike: High-Tech Home Cycling Experience](https://serp.ly/@boxingundefeated/amazon/technogym-bike)
 

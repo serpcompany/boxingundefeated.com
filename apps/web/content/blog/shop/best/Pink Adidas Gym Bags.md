@@ -77,7 +77,7 @@ I recently got my hands on the Adidas Essentials Linear Bowling Bag in Pink, and
 
 The bag's durability and 100% TPE lamination make it incredibly easy to clean, which I appreciate since I don't have a lot of time to worry about maintenance. Additionally, the side water bottle pocket and front zip pocket are just what I need for keeping my essentials organized and within easy reach.
 
-However, there's one thing I feel could be improved upon - the volume, which is mentioned as 33.5 L in the product description but feels slightly smaller in reality. [Overall, I'm extremely satisfied with this bag and would highly recommend it to anyone in search of a stylish and functional gym bag.](https://best.serp.co/shop/nike-gym-bags/)
+However, there's one thing I feel could be improved upon - the volume, which is mentioned as 33.5 L in the product description but feels slightly smaller in reality. Overall, I'm extremely satisfied with this bag and would highly recommend it to anyone in search of a stylish and functional gym bag.
 
 ### [Adidas Medium Pink Duffel Bag](https://serp.ly/@boxingundefeated/amazon/pink-adidas-gym-bags)
 

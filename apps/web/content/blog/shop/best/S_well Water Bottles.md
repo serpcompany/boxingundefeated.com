@@ -34,7 +34,7 @@ _As an Amazon™ Associate, we earn from qualifying purchases._
 
 <div class="image"><a href="https://serp.ly/@boxingundefeated/amazon/swell-water-bottles"><img alt="swell-17oz-galaxy-supernova-water-bottle-1" src="https://imagedelivery.net/vy2bglCGN6hEeWOnSe2c7A/swell-17oz-galaxy-supernova-water-bottle-1/w=720,h=540,fit=pad,background=black"/></a></div>
 
-I recently came across the S'well 17oz Galaxy Supernova Water Bottle, and I must say, it has become my go-to for keeping my beverages hot or cold on the go. I love the sleek and stylish design, which not only looks great but also feels comfortable in my hand. The bottle's wide mouth allows me to easily add [ice cubes](https://best.serp.co/shop/ice-cubes/) or tea bags, making it incredibly versatile.
+I recently came across the S'well 17oz Galaxy Supernova Water Bottle, and I must say, it has become my go-to for keeping my beverages hot or cold on the go. I love the sleek and stylish design, which not only looks great but also feels comfortable in my hand. The bottle's wide mouth allows me to easily add ice cubes or tea bags, making it incredibly versatile.
 
 One of the things that stood out to me about this bottle is its excellent insulation. I've tried other insulated bottles in the past, but none of them keep my drinks as cold or hot for as long as the S'well does. I was genuinely surprised when my coffee remained steaming hot after hours in the bottle, and my water stayed ice-cold even after a long day in the sun.
 
@@ -48,7 +48,7 @@ Overall, I'm extremely satisfied with the S'well 17oz Galaxy Supernova Water Bot
 
 <div class="image"><a href="https://serp.ly/@boxingundefeated/amazon/swell-water-bottles"><img alt="swell-40-oz-onyx-stainless-steel-traveler-triple-layered-vacuum-insulated-bottle-black-1" src="https://imagedelivery.net/vy2bglCGN6hEeWOnSe2c7A/swell-40-oz-onyx-stainless-steel-traveler-triple-layered-vacuum-insulated-bottle-black-1/w=720,h=540,fit=pad,background=black"/></a></div>
 
-As an avid user of S'well's traveler, I have found it to be the perfect companion for my daily hydration needs. From long hikes in the mountains to intense workout sessions, this 40 oz bottle has never let me down. The wide-mouth opening makes it easy to fill with ice or pour [hot tea](https://best.serp.co/shop/hot-tea/), while the stainless steel cap ensures a leak-free experience.
+As an avid user of S'well's traveler, I have found it to be the perfect companion for my daily hydration needs. From long hikes in the mountains to intense workout sessions, this 40 oz bottle has never let me down. The wide-mouth opening makes it easy to fill with ice or pour hot tea, while the stainless steel cap ensures a leak-free experience.
 
 However, there are a few cons to consider. Firstly, due to its large size, it doesn't fit into standard car cup holders, which can be inconvenient during long drives. Secondly, although the handle is quite comfortable to hold, it can be difficult to place the bottle upright without any support.
 

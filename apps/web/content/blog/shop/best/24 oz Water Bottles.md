@@ -69,7 +69,7 @@ One of the things I love about this bottle is its straw lid. It's leakproof when
 
 Another standout feature is its cupholder-friendly design. I can easily fit it in my car's cupholder, making it convenient for long drives or road trips. Plus, its reusable nature helps me reduce plastic waste, making it an eco-friendly choice.
 
-Now let's talk about some downsides. The narrow opening at the top makes it a bit difficult to clean with a regular [bottle brush](https://best.serp.co/shop/bottle-brush/), but using a smaller brush does the trick. Also, the straw occasionally sucks in air along with water, which can be a bit annoying at times. But overall, these minor issues are overshadowed by the benefits of having a reliable and stylish water bottle.
+Now let's talk about some downsides. The narrow opening at the top makes it a bit difficult to clean with a regular bottle brush, but using a smaller brush does the trick. Also, the straw occasionally sucks in air along with water, which can be a bit annoying at times. But overall, these minor issues are overshadowed by the benefits of having a reliable and stylish water bottle.
 
 In conclusion, the Simple Modern Ascent Water Bottle with strawBottle with straw lid has become my go-to choice for staying hydrated throughout the day. Its impressive insulation capabilities, leakproof straw lid, and cupholder-friendly design make it a perfect companion for both indoor and outdoor adventures. So why settle for lukewarm water when you can have ice-cold refreshment on-the-go?
 

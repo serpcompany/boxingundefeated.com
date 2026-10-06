@@ -38,7 +38,7 @@ _As an Amazon™ Associate, we earn from qualifying purchases._
 
 As a mother who's always on the lookout for eco-friendly and functional products for my kids, I was excited to try the EcoVessel Frost Insulated Kids Water Bottle. Its eye-catching outer space design appealed to my children's sense of fun and adventure, promising to make hydration a joyful experience.
 
-First off, I loved how easy it was for my little ones to use. The inner silicone straw made sipping a breeze, and the TriMax Triple Insulation kept their drinks cold and fresh for hours, even on hot summer days. Plus, the bottle's size perfectly fit their small hands and [school bag](https://best.serp.co/shop/school-bag/) compartments, making it a convenient companion during their busy day.
+First off, I loved how easy it was for my little ones to use. The inner silicone straw made sipping a breeze, and the TriMax Triple Insulation kept their drinks cold and fresh for hours, even on hot summer days. Plus, the bottle's size perfectly fit their small hands and school bag compartments, making it a convenient companion during their busy day.
 
 However, there were some drawbacks to this otherwise promising product. The straw cleaner that comes with the bottle was insufficient for thorough cleaning, and the bottle's paint started chipping off after just a few months of use. Additionally, removing and reattaching the silicone bumper on the bottom could be a cumbersome process.
 
@@ -94,7 +94,7 @@ One of my favorite features is the dual opening lid. It starts with a wider mout
 
 Speaking of safety, the Reflecta lid is a genius addition to this bottle. It's insulated and lined with stainless steel, preventing your beverages from ever touching plastic. This not only enhances the bottle's overall insulation performance but also eliminates any concerns about harmful chemicals seeping into your drinks.
 
-Another feature I appreciate is the removable strainer. I can now add tea, fruits, and [ice cubes](https://best.serp.co/shop/ice-cubes/) to my water, giving it an extra kick of flavor and freshness. Plus, the fitted silicone bumper adds extra protection against everyday drops and dings.
+Another feature I appreciate is the removable strainer. I can now add tea, fruits, and ice cubes to my water, giving it an extra kick of flavor and freshness. Plus, the fitted silicone bumper adds extra protection against everyday drops and dings.
 
 I must admit that choosing a reusable water bottle over single-use plastic ones was a no-brainer for me. Ecovessel's Boulder bottle has made it easier than ever to stay hydrated while reducing my carbon footprint. I carry this bottle with me wherever I go, whether it's a hike in the mountains or a workout at the gym.
 
@@ -178,7 +178,7 @@ Cleaning EcoVessel water bottles is easy. Simply use warm, soapy water and a gen
 
 ### Can EcoVessel water bottles be used for both hot and cold beverages?
 
-Yes, EcoVessel water bottles are designed to accommodate both hot and cold beverages. The vacuum-insulated technology ensures that the bottles maintain the temperature of your beverage for an extended period. This makes them perfect for taking [hot tea](https://best.serp.co/shop/hot-tea/) or coffee on your morning commute or keeping your water ice-cold on a hot summer day.
+Yes, EcoVessel water bottles are designed to accommodate both hot and cold beverages. The vacuum-insulated technology ensures that the bottles maintain the temperature of your beverage for an extended period. This makes them perfect for taking hot tea or coffee on your morning commute or keeping your water ice-cold on a hot summer day.
 
 ### How do I ensure the bottle does not leak?
 
@@ -192,6 +192,6 @@ EcoVessel offers a range of water bottle sizes and capacities to suit various ne
 
 ### Are EcoVessel water bottles recyclable?
 
-Yes, EcoVessel water bottles are recyclable. As they are made from high-quality stainless steel, they can be recycled when you are ready to dispose of them. Additionally, using reusable water bottles like EcoVessel helps reduce the amount of disposable [plastic water bottles](https://best.serp.co/shop/plastic-water-bottles/) that end up in landfills, promoting a more sustainable approach to hydration.
+Yes, EcoVessel water bottles are recyclable. As they are made from high-quality stainless steel, they can be recycled when you are ready to dispose of them. Additionally, using reusable water bottles like EcoVessel helps reduce the amount of disposable plastic water bottles that end up in landfills, promoting a more sustainable approach to hydration.
 
 _As an Amazon™ Associate, we earn from qualifying purchases._

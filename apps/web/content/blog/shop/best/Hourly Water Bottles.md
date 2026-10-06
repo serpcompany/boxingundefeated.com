@@ -77,7 +77,7 @@ As a dedicated hydration enthusiast, I've had my fair share of water bottles. Bu
 
 The first thing that struck me about the Bink Day Bottle was its craftsmanship. It's made from the purest materials - glass and silicone - ensuring that every sip of water is pure and unadulterated. The silicone sleeve not only adds a touch of style but also provides an easy, velvety gripping surface. I chose the 'Clay' color and it perfectly complements my love for earthy tones.
 
-One aspect that sets the Bink Day Bottle apart from others I've used is its capacity. At 27oz (or 800ml), it's perfect for home use or trips to the gym. I drink a lot of water during my workouts and this bottle holds more than enough to keep me hydrated. Plus, the wide-mouth design makes it easy to drop in [ice cubes](https://best.serp.co/shop/ice-cubes/) or even throw in some fruits for a fun twist on my regular H2O.
+One aspect that sets the Bink Day Bottle apart from others I've used is its capacity. At 27oz (or 800ml), it's perfect for home use or trips to the gym. I drink a lot of water during my workouts and this bottle holds more than enough to keep me hydrated. Plus, the wide-mouth design makes it easy to drop in ice cubes or even throw in some fruits for a fun twist on my regular H2O.
 
 However, no product is perfect. Some users reported leakiness with the bottle, which can be a hassle especially when you're on the go. Additionally, the bottle isn't compatible with smaller car cup holders due to its size. Despite these minor issues, the Bink Day Bottle has become my go-to choice for hydration.
 
@@ -183,7 +183,7 @@ Hourly Water Bottles are available in various sizes, ranging from 16 oz to 40 oz
 
 ### How much water should I drink daily when using a Hourly Water Bottle?
 
-Although individual water intake needs vary based on factors like age, sex, weight, and physical activity levels, an average adults should aim to drink about 8 [cups](https://best.serp.co/cups/) of water per day, or roughly 64 ounces. Using a Hourly Water Bottle can help you achieve this goal, as it encourages you to take regular sips throughout the day.
+Although individual water intake needs vary based on factors like age, sex, weight, and physical activity levels, an average adults should aim to drink about 8 cups of water per day, or roughly 64 ounces. Using a Hourly Water Bottle can help you achieve this goal, as it encourages you to take regular sips throughout the day.
 
 ### Are Hourly Water Bottles dishwasher safe?
 

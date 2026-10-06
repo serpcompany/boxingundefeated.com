@@ -72,7 +72,7 @@ Overall, I'm extremely satisfied with the Infuse H2O fruit Infuser Tritan Water 
 
 <div class="image"><a href="https://serp.ly/@boxingundefeated/amazon/flavored-water-bottles"><img alt="clearly-canadian-sparkling-flavored-water-4-flavor-sampler-variety-1" src="https://imagedelivery.net/vy2bglCGN6hEeWOnSe2c7A/clearly-canadian-sparkling-flavored-water-4-flavor-sampler-variety-1/w=720,h=540,fit=pad,background=black"/></a></div>
 
-My friends and I were reminiscing about our favorite childhood treats when Clearly Canadian Sparkling Flavored Water came up. We all agreed it was one of the best things we'd ever tasted. The nostalgic throwback to the 90s, combined with the iconic teardrop [glass bottle](https://best.serp.co/shop/glass-bottle/), made these sparkling waters feel like a special treat.
+My friends and I were reminiscing about our favorite childhood treats when Clearly Canadian Sparkling Flavored Water came up. We all agreed it was one of the best things we'd ever tasted. The nostalgic throwback to the 90s, combined with the iconic teardrop glass bottle, made these sparkling waters feel like a special treat.
 
 What stood out to me the most about Clearly Canadian is its natural taste. Unlike other flavored waters that can feel artificial, this one truly tastes like it's made with real fruit. The wild cherry and strawberry flavors are my personal favorites. Plus, they're only 90 calories, which is great for those days when you want something sweet without feeling guilty.
 
@@ -160,7 +160,7 @@ Flavored water bottles come in various sizes, ranging from 12 ounces to 32 ounce
 
 ### Materials and Durability
 
-Flavored water bottles are made from different materials, including glass, stainless steel, and plastic. Choose a material that suits your needs and preferences. Glass is eco-friendly and doesn't affect the taste of water, but it can be heavy and prone to breaking. Stainless steel containers are lightweight, durable, and resistant to odor and bacteria, but they can affect the taste of your water. [Plastic bottles are lightweight and affordable, but some may contain BPA or other harmful chemicals.](https://best.serp.co/shop/plastic-water-bottles/) Be sure to select a BPA-free option for your health and safety.
+Flavored water bottles are made from different materials, including glass, stainless steel, and plastic. Choose a material that suits your needs and preferences. Glass is eco-friendly and doesn't affect the taste of water, but it can be heavy and prone to breaking. Stainless steel containers are lightweight, durable, and resistant to odor and bacteria, but they can affect the taste of your water. Plastic bottles are lightweight and affordable, but some may contain BPA or other harmful chemicals. Be sure to select a BPA-free option for your health and safety.
 
 <div><a href="https://serp.ly/@boxingundefeated/amazon/flavored-water-bottles"><img src="https://imagedelivery.net/vy2bglCGN6hEeWOnSe2c7A/Flavored+Water+Bottles-3/w=720,h=540,fit=pad,background=black" alt="Flavored Water Bottles-3"></a></div>
 

@@ -73,7 +73,7 @@ However, there's room for improvement. I sometimes find the shoulder strap a bit
 
 Despite this minor issue, I'm thoroughly impressed with the Medium Road Trip Duffle. Its water-resistant fabric coating adds an extra layer of protection against light rain or splashes, and the abrasion-resistant nylon material makes it incredibly durable. Furthermore, the removable padded shoulder strap with a longer shoulder pad ensures maximum carrying comfort.
 
-In conclusion, the Medium Road Trip Duffle by RTIC has become indispensable during my travels. Its large capacity, durable materials, and multitude of storage options make it a must-have for any traveler or adventurer. I highly recommend it for anyone seeking a reliable, sturdy, and comfortable [duffle bag](https://best.serp.co/shop/duffle-bag/).
+In conclusion, the Medium Road Trip Duffle by RTIC has become indispensable during my travels. Its large capacity, durable materials, and multitude of storage options make it a must-have for any traveler or adventurer. I highly recommend it for anyone seeking a reliable, sturdy, and comfortable duffle bag.
 
 ### [Spirit Airlines Underseat Foldable Travel Duffel Bag](https://serp.ly/@boxingundefeated/amazon/gym-bags-for-women)
 

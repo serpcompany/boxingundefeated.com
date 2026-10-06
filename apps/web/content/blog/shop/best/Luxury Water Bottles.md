@@ -61,7 +61,7 @@ In conclusion, the Bink Day Bottle proved to be a valuable tool in helping me ac
 
 I've been using this Starry Night Water Bottle for the past few weeks, and I must say, it's made a significant difference in my hydration journey. The moment you unbox it, the elegance of the starry night design is hard to miss. It's a sight to behold, a perfect blend of style and function.
 
-One feature that I absolutely love is the double-walled vacuum insulation. It's like having an insulated [water jug](https://best.serp.co/shop/water-jug/) but in a sleeker, more fashionable format. I filled it up in the morning with ice-cold water, and even after a couple of hours in the sun, the water stayed icy cold - a testament to its excellent insulation capabilities.
+One feature that I absolutely love is the double-walled vacuum insulation. It's like having an insulated water jug but in a sleeker, more fashionable format. I filled it up in the morning with ice-cold water, and even after a couple of hours in the sun, the water stayed icy cold - a testament to its excellent insulation capabilities.
 
 The flip-top crystal clear straw is another impressive feature. It's designed for easy drinking, and the transparent straw allows you to see what's happening inside - no nasty surprises!
 

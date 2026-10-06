@@ -194,7 +194,7 @@ Yes, it is safe to put boiling water inside the vacuum-insulated Stanley Water B
 
 ### How do I clean Stanley Water Bottles?
 
-Cleaning your Stanley Water Bottle is simple. Hand wash it with soap and warm water, using a soft [bottle brush](https://best.serp.co/shop/bottle-brush/) or sponge to reach the interior. Rinse thoroughly and let it air dry before use. Avoid using the dishwasher to maintain the quality and effectiveness of the insulation.
+Cleaning your Stanley Water Bottle is simple. Hand wash it with soap and warm water, using a soft bottle brush or sponge to reach the interior. Rinse thoroughly and let it air dry before use. Avoid using the dishwasher to maintain the quality and effectiveness of the insulation.
 
 ### What is the capacity of Stanley Water Bottles?
 

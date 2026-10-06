@@ -42,7 +42,7 @@ _As an Amazon™ Associate, we earn from qualifying purchases._
 
 As a regular gym-goer, I've always struggled with having to refill my water bottle multiple times. However, my life changed when I discovered the H2Go Surge Aluminum Water Bottle. This sleek and stylish bottle, featuring a 28 oz capacity, has been an absolute game-changer in my daily routine.
 
-The first thing that stood out to me was the bottle's double-wall construction and vacuum-sealed lid, which ensures my drinks stay cold for hours on end. No more lukewarm water halfway through my workout! Plus, the wide mouth opening not only makes it easy to add [ice cubes](https://best.serp.co/shop/ice-cubes/) or fruit slices but also makes refilling a breeze.
+The first thing that stood out to me was the bottle's double-wall construction and vacuum-sealed lid, which ensures my drinks stay cold for hours on end. No more lukewarm water halfway through my workout! Plus, the wide mouth opening not only makes it easy to add ice cubes or fruit slices but also makes refilling a breeze.
 
 Another feature I love is its lightweight and durable aluminum construction. It's perfect for taking on hikes or to the gym, as it's designed to withstand a lot of wear and tear. And, when I'm finished, the H2Go Surge fits easily into most car cup holders, so I can stay hydrated during long drives as well.
 
@@ -70,7 +70,7 @@ I've been using this 18 oz H2Go Bali bottle for a few weeks now, and I have to s
 
 Another thing that I really appreciate about this bottle is the threaded bamboo lid; it gives a nice touch of nature while being super practical. Plus, the silicone sleeve that comes with it? It's a godsend for clumsy people like me who tend to drop things!
 
-The only downside I can think of is that this bottle recommends hand washing, however, I have been microwaving it with the lid off quite often without any issues. Also, it's worth mentioning that I found the price a bit steep, but considering the quality and the long-term benefits of using a [glass bottle](https://best.serp.co/shop/glass-bottle/), I think it's a worthwhile investment for my daily hydration needs.
+The only downside I can think of is that this bottle recommends hand washing, however, I have been microwaving it with the lid off quite often without any issues. Also, it's worth mentioning that I found the price a bit steep, but considering the quality and the long-term benefits of using a glass bottle, I think it's a worthwhile investment for my daily hydration needs.
 
 ### [16.9 oz H2Go Manhattan Water Bottle - Matte White](https://serp.ly/@boxingundefeated/amazon/h2go-water-bottles)
 

@@ -71,7 +71,7 @@ The two-sided design adds a touch of personalization, allowing me to express my 
 
 However, one issue I noticed is that it does have a distinct new product smell when first opened. But, as many users have suggested, airing it out for a few days before use helps eliminate this odor quite effectively. Some users have also mentioned experiencing initial stickiness issues, which can be resolved by wiping the mat with a damp cloth and giving it time to dry before usage.
 
-[Overall, the Gaiam Reversible Mystic Sky Yoga Mat (6mm) lives up to its reputation as a high-quality and comfortable yoga mat.](https://best.serp.co/shop/gaiam-yoga-mats/) Its durable construction, non-slip surface, and appealing aesthetics make it an excellent choice for both beginners and experienced yogis alike.
+Overall, the Gaiam Reversible Mystic Sky Yoga Mat (6mm) lives up to its reputation as a high-quality and comfortable yoga mat. Its durable construction, non-slip surface, and appealing aesthetics make it an excellent choice for both beginners and experienced yogis alike.
 
 ### [Jade Mysore Yoga Rug - Natural Cotton & Plant Dyes](https://serp.ly/@boxingundefeated/amazon/jade-harmony-yoga-mats)
 

@@ -73,7 +73,7 @@ Overall, the Yoloha Cork Yoga Block has proven to be an invaluable addition to m
 
 <div class="image"><a href="https://serp.ly/@boxingundefeated/amazon/manduka-yoga-blocks"><img alt="manduka-yoga-block-1" src="https://imagedelivery.net/vy2bglCGN6hEeWOnSe2c7A/manduka-yoga-block-1/w=720,h=540,fit=pad,background=black"/></a></div>
 
-Blocks by Manduka. Details: Manduka's Recycled Foam Yoga Block is the new gold standard, it boasts a phenomenal mix of post-industrial and post-consumer recycled [EVA foam](https://best.serp.co/shop/eva-foam/) without trading off on strength or performance.
+Blocks by Manduka. Details: Manduka's Recycled Foam Yoga Block is the new gold standard, it boasts a phenomenal mix of post-industrial and post-consumer recycled EVA foam without trading off on strength or performance.
 
 During our yoga sessions, we found the Manduka Yoga Block to be incredibly versatile and supportive. Its firmness and stability made it perfect for all poses, whether we were practicing balance or enhancing our stretches. We especially appreciated the lightweight design that made it easy to carry around. And let's not forget about that lovely etching on the surface!
 

@@ -35,7 +35,7 @@ _As an Amazon™ Associate, we earn from qualifying purchases._
 
 <div class="image"><a href="https://serp.ly/@boxingundefeated/amazon/mens-leather-gym-bags"><img alt="fr-fashion-co-20-mens-distressed-leather-duffle-bag-1" src="https://imagedelivery.net/vy2bglCGN6hEeWOnSe2c7A/fr-fashion-co-20-mens-distressed-leather-duffle-bag-1/w=720,h=540,fit=pad,background=black"/></a></div>
 
-As a fashion enthusiast, I must say I've been thoroughly impressed with the FR Fashion Co. 20" Men's Distressed [Leather Duffle Bag](https://best.serp.co/shop/leather-duffle-bag/)[Duffle Bag](https://best.serp.co/shop/duffle-bag/). Right from the get-go, the rich, classy texture of the full-grain leather and the vintage-inspired design caught my eye. It's perfect for those who want to make a statement with their travel accessories.
+As a fashion enthusiast, I must say I've been thoroughly impressed with the FR Fashion Co. 20" Men's Distressed Leather Duffle BagDuffle Bag. Right from the get-go, the rich, classy texture of the full-grain leather and the vintage-inspired design caught my eye. It's perfect for those who want to make a statement with their travel accessories.
 
 One of the standout features of this bag is the detachable shoulder strap. It adds so much convenience to carrying it around, especially during long trips. The top handle is another smart feature that makes it easy to grab and go.
 
@@ -99,7 +99,7 @@ Overall, I am thoroughly impressed with my Fossil Men's Raeford Duffle Bag. It's
 
 ### Men's Leather Gym Bags
 
-A quality leather gym bag is an essential accessory for any fitness enthusiast or gentleman who values organized, stylish storage. [When shopping for a men's leather gym bag, consider the following features:](https://best.serp.co/shop/mens-gym-bags/)
+A quality leather gym bag is an essential accessory for any fitness enthusiast or gentleman who values organized, stylish storage. When shopping for a men's leather gym bag, consider the following features:
 
 - Size and Capacity:
 
@@ -157,7 +157,7 @@ The ideal size depends on your specific needs and preferences. Consider the type
 
 <div><a href="https://serp.ly/@boxingundefeated/amazon/mens-leather-gym-bags"><img src="https://imagedelivery.net/vy2bglCGN6hEeWOnSe2c7A/Mens+Leather+Gym+Bags-6/w=720,h=540,fit=pad,background=black" alt="Mens Leather Gym Bags-6"></a></div>
 
-It is generally not recommended to wash leather gym bags, as excessive moisture can damage the material. Instead, use a damp cloth to wipe down the exterior and clean any dirty spots. For more stubborn stains, use a gentle [leather cleaner](https://best.serp.co/shop/leather-cleaner/) or consult a professional leather cleaner for advice.
+It is generally not recommended to wash leather gym bags, as excessive moisture can damage the material. Instead, use a damp cloth to wipe down the exterior and clean any dirty spots. For more stubborn stains, use a gentle leather cleaner or consult a professional leather cleaner for advice.
 
 ### What is the difference between a duffle bag and a gym bag?
 

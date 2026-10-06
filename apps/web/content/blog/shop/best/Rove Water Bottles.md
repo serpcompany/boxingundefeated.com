@@ -89,7 +89,7 @@ The Roam bottle has been my daily companion for weeks now, and I couldn't be hap
 
 One feature that I find incredibly useful is the leakproof insulated lid. I have had to deal with countless spillages from other bottles before. Roam's design prevents any such accidents, which is a massive relief for someone always moving around. The four-direction pouring capability also adds a touch of convenience, allowing me to use it comfortably at any angle.
 
-Another amazing aspect is the two 12oz [mugs](https://best.serp.co/shop/mugs/) it comes with. They're double-walled as well, adding extra insulation. I've used them for my tea, and they work just as effectively.
+Another amazing aspect is the two 12oz mugs it comes with. They're double-walled as well, adding extra insulation. I've used them for my tea, and they work just as effectively.
 
 On the downside, the bottle is quite heavy. This is not necessarily a negative as it's quite durable due to the stainless steel body. However, I do wish it were slightly lighter for extended carrying.
 
@@ -105,7 +105,7 @@ I've been using this sleek and eco-friendly Vacuum Water Bottle in my daily life
 
 One of the standout features is its high-grade 18/8 stainless steel build. It's incredibly durable and withstands everyday wear and tear. Plus, the triple-wall feature ensures that my beverages stay cold for up to 24 hours and hot for up to 12 hours. It truly lives up to its promise of keeping my drinks at the ideal temperature, whether it's chilled wine for a picnic or hot coffee for a hike.
 
-Another highlight is the bottle's sleek design and versatile size. The mouth size accommodates most [ice cubes](https://best.serp.co/shop/ice-cubes/), and the base fits perfectly in standard cup holders, making it a perfect fit for any situation. It looks elegant, and I appreciate the minimal plastic use.
+Another highlight is the bottle's sleek design and versatile size. The mouth size accommodates most ice cubes, and the base fits perfectly in standard cup holders, making it a perfect fit for any situation. It looks elegant, and I appreciate the minimal plastic use.
 
 However, I must point out a few minor drawbacks. The bottle requires hand washing only, which can be a little time-consuming. Additionally, the vacuum seal can sometimes lead to spills if the bottle is filled to the top, so it's essential to leave some space for better liquid control.
 

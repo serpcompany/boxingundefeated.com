@@ -61,7 +61,7 @@ I recently purchased the Stanley 40 oz. Quencher H2.0 FlowState Tumbler in Iris,
 
 First and foremost, the construction of this tumbler is top-notch. Made from recycled 18/8 stainless steel, it not only looks great but also feels incredibly durable. I've been using it daily for the past few weeks, and there's not a single scratch or dent in sight.
 
-One thing I absolutely love about this tumbler is its capacity. At 40 oz. , it holds enough liquid to keep me hydrated throughout the day. Plus, the advanced FlowState lid ensures that my beverages stay at the perfect temperature, whether it's [hot tea](https://best.serp.co/shop/hot-tea/)tea or ice-cold water.
+One thing I absolutely love about this tumbler is its capacity. At 40 oz. , it holds enough liquid to keep me hydrated throughout the day. Plus, the advanced FlowState lid ensures that my beverages stay at the perfect temperature, whether it's hot teatea or ice-cold water.
 
 The ergonomic handle is another standout feature. It's designed with comfort-grip inserts, making it super easy to carry around with me wherever I go. And speaking of convenience, the narrow base fits perfectly in my car cup holder, which means I can enjoy sipping on my favorite drink while driving.
 
@@ -153,7 +153,7 @@ The bottle is made from stainless steel, and it has a coating that's both durabl
 
 I really appreciate how easy this bottle is to clean. The straw lid is dishwasher safe on the top rack, but the bottle itself requires hand washing. The straw occasionally whistles, but it's a soft sound that's easy to overlook.
 
-One drawback I've noticed is that the bottle can sometimes dent or scratch if subjected to rough handling, which is a little disappointing given its robust look. However, the water inside stays cold all day long, even with just a few [ice cubes](https://best.serp.co/shop/ice-cubes/), which makes this bottle a reliable companion during my long workout sessions.
+One drawback I've noticed is that the bottle can sometimes dent or scratch if subjected to rough handling, which is a little disappointing given its robust look. However, the water inside stays cold all day long, even with just a few ice cubes, which makes this bottle a reliable companion during my long workout sessions.
 
 In conclusion, the Simple Modern Water Bottle is a high-quality, leakproof bottle that's perfect for the gym or any other activity where you need to stay hydrated. The variety of colors and designs available makes it easy to find one that suits your style. If you can handle the delicate nature of the bottle and remember to hand wash it, this could be your new go-to water bottle.
 
@@ -231,7 +231,7 @@ Water filters help remove impurities and contaminants, improving the taste and q
 
 ### How do I clean my gym water bottle?
 
-Clean your gym water bottle regularly using warm, soapy water and a [bottle brush](https://best.serp.co/shop/bottle-brush/). For a deeper clean, use a mixture of white vinegar and water. Rinse thoroughly and let the bottle air dry. Avoid using harsh chemicals or abrasive cleaners, as these can damage the bottle or cause unpleasant odors.
+Clean your gym water bottle regularly using warm, soapy water and a bottle brush. For a deeper clean, use a mixture of white vinegar and water. Rinse thoroughly and let the bottle air dry. Avoid using harsh chemicals or abrasive cleaners, as these can damage the bottle or cause unpleasant odors.
 
 ### Do gym water bottles come with a warranty?
 

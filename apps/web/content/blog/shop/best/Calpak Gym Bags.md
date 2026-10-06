@@ -49,7 +49,7 @@ _As an Amazon™ Associate, we earn from qualifying purchases._
 
 <div class="image"><a href="https://serp.ly/@boxingundefeated/amazon/calpak-gym-bags"><img alt="terra-26l-laptop-backpack-duffel-calpak-white-sands-1" src="https://imagedelivery.net/vy2bglCGN6hEeWOnSe2c7A/terra-26l-laptop-backpack-duffel-calpak-white-sands-1/w=720,h=540,fit=pad,background=black"/></a></div>
 
-The Terra [Laptop Backpack](https://best.serp.co/shop/laptop-backpack/) Duffel has been an essential addition to my day-to-day life. With its unique design that easily converts between a backpack and a duffel, it's been my perfect companion for camping trips, gym sessions, and even business trips. The large capacity and attractive design make it an easy choice for anyone looking for a practical, stylish bag.
+The Terra Laptop Backpack Duffel has been an essential addition to my day-to-day life. With its unique design that easily converts between a backpack and a duffel, it's been my perfect companion for camping trips, gym sessions, and even business trips. The large capacity and attractive design make it an easy choice for anyone looking for a practical, stylish bag.
 
 One of the things I've particularly loved about this bag is its comfort. Even though I'm not a massive fan of carrying heavy loads on my back, the straps on the Terra bag are surprisingly comfortable, especially when combined with the supportive chest strap. The bag also feels incredibly light, making it easy to carry around even when it's fully packed.
 
@@ -83,7 +83,7 @@ Despite these minor inconveniences, I can safely say that the CALPAK Terra Lapto
 
 I recently picked up the Haven Laptop Tote Bag from CALPAK in their lovely Forest color, and I must say, it's quickly become my go-to bag for work and weekends. The first thing that stood out to me was the high-quality craftsmanship. The thick, durable handles and adjustable strap make carrying this tote a breeze, even when it's filled to the brim with my laptop, books, and other daily essentials.
 
-One of my favorite features is the removable [laptop sleeve](https://best.serp.co/shop/laptop-sleeve/), which keeps my computer snug and safe while providing easy access. It's the perfect size for my 15" laptop and allows me to quickly grab it when I need to. The multiple compartments and spacious interior also make it incredibly easy to stay organized on the go, with no shortage of pockets for [pens](https://best.serp.co/shop/pens/), phone chargers, and other miscellaneous items.
+One of my favorite features is the removable laptop sleeve, which keeps my computer snug and safe while providing easy access. It's the perfect size for my 15" laptop and allows me to quickly grab it when I need to. The multiple compartments and spacious interior also make it incredibly easy to stay organized on the go, with no shortage of pockets for pens, phone chargers, and other miscellaneous items.
 
 As for cons, I have to admit that I find the straps a bit short when carrying the bag over my shoulder. However, this wasn't a deal-breaker for me, as the handles provide a comfortable and secure grip. Overall, I am absolutely thrilled with my Haven Laptop Tote Bag from CALPAK and would highly recommend it to anyone in search of a stylish and functional tote that can effortlessly transition from work to play.
 
@@ -91,7 +91,7 @@ As for cons, I have to admit that I find the straps a bit short when carrying th
 
 <div class="image"><a href="https://serp.ly/@boxingundefeated/amazon/calpak-gym-bags"><img alt="luka-mini-backpack-calpak-watermelon-1" src="https://imagedelivery.net/vy2bglCGN6hEeWOnSe2c7A/luka-mini-backpack-calpak-watermelon-1/w=720,h=540,fit=pad,background=black"/></a></div>
 
-Alright, let me paint a picture for you. It's a typical summer day. I'm heading out to the beach with my Luka [Mini Backpack](https://best.serp.co/shop/mini-backpack/) draped over my shoulders. The bright watermelon hue perfectly complements my outfit. As I stride towards the shore, my hand effortlessly reaches into one of the many pockets to retrieve my sunscreen. No fumbling or fussing about. Just pure convenience! "
+Alright, let me paint a picture for you. It's a typical summer day. I'm heading out to the beach with my Luka Mini Backpack draped over my shoulders. The bright watermelon hue perfectly complements my outfit. As I stride towards the shore, my hand effortlessly reaches into one of the many pockets to retrieve my sunscreen. No fumbling or fussing about. Just pure convenience! "
 
 The Luka Mini Backpack is a stylish and practical mini bag that doesn't compromise on storage. The exterior is adorned with multiple pockets, including a spacious main compartment. Its interior is lined with water-resistant material, a feature that has saved me from numerous water-related mishaps. The luggage sleeve with a hidden pocket adds an extra layer of convenience, allowing me to fit it effortlessly onto my larger luggage when I'm traveling.
 
@@ -103,11 +103,11 @@ In summary, the Luka Mini Backpack is a stylish, well-made bag that's perfect fo
 
 <div class="image"><a href="https://serp.ly/@boxingundefeated/amazon/calpak-gym-bags"><img alt="luka-expandable-laptop-tote-calpak-watermelon-1" src="https://imagedelivery.net/vy2bglCGN6hEeWOnSe2c7A/luka-expandable-laptop-tote-calpak-watermelon-1/w=720,h=540,fit=pad,background=black"/></a></div>
 
-I recently got my hands on the Luka Expandable Laptop Tote in the vibrant Watermelon color from CALPAK - an unexpected yet refreshing addition to my daily commute. I've been using it as my primary work bag, and it's been an absolute dream. The bag is incredibly light, yet spacious enough to carry my work laptop (even when it was a bulky 17-inch model! ), chargers, [notebooks](https://best.serp.co/shop/notebooks/), planner, [pencil bag](https://best.serp.co/shop/pencil-bag/), water bottle, and even a knitting project and snacks.
+I recently got my hands on the Luka Expandable Laptop Tote in the vibrant Watermelon color from CALPAK - an unexpected yet refreshing addition to my daily commute. I've been using it as my primary work bag, and it's been an absolute dream. The bag is incredibly light, yet spacious enough to carry my work laptop (even when it was a bulky 17-inch model! ), chargers, notebooks, planner, pencil bag, water bottle, and even a knitting project and snacks.
 
 One of my favorite features is the expandable bottom, which allows me to fit more stuff without making the bag look bloated. It's super easy to expand and compress, making it perfect for those days when I feel like carrying more than just my work essentials. The side zipper is another genius addition, as it helps me keep my sunglasses and wallet close at hand.
 
-The Calpak Luka Expandable Laptop Tote also offers various compartments that help keep my stuff organized. I use the personal items pocket for my deodorant, tampons, hair ties, and other miscellaneous items. My pencil pouch and safety glasses go in one of the side pockets, while my [laptop charger](https://best.serp.co/shop/laptop-chargers/) and mouse remain safely tucked away in a medium Compakt Zippered Pouch.
+The Calpak Luka Expandable Laptop Tote also offers various compartments that help keep my stuff organized. I use the personal items pocket for my deodorant, tampons, hair ties, and other miscellaneous items. My pencil pouch and safety glasses go in one of the side pockets, while my laptop charger and mouse remain safely tucked away in a medium Compakt Zippered Pouch.
 
 Another aspect that sets this bag apart is its versatility. It's stylish enough to use for meetings with clients or upper management but functional enough for daily use. Even when loaded up with all my essentials, the bag doesn't feel too heavy or unwieldy. However, maneuvering through a turnstile while carrying coffee can be quite a challenge!
 

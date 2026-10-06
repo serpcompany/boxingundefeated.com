@@ -47,7 +47,7 @@ I recently purchased the Stanley 40 oz. Quencher H2.0 FlowState Tumbler in Iris,
 
 First and foremost, the construction of this tumbler is top-notch. Made from recycled 18/8 stainless steel, it not only looks great but also feels incredibly durable. I've been using it daily for the past few weeks, and there's not a single scratch or dent in sight.
 
-One thing I absolutely love about this tumbler is its capacity. At 40 oz. , it holds enough liquid to keep me hydrated throughout the day. Plus, the advanced FlowState lid ensures that my beverages stay at the perfect temperature, whether it's [hot tea](https://best.serp.co/shop/hot-tea/)tea or ice-cold water.
+One thing I absolutely love about this tumbler is its capacity. At 40 oz. , it holds enough liquid to keep me hydrated throughout the day. Plus, the advanced FlowState lid ensures that my beverages stay at the perfect temperature, whether it's hot teatea or ice-cold water.
 
 The ergonomic handle is another standout feature. It's designed with comfort-grip inserts, making it super easy to carry around with me wherever I go. And speaking of convenience, the narrow base fits perfectly in my car cup holder, which means I can enjoy sipping on my favorite drink while driving.
 
@@ -235,6 +235,6 @@ There are several nozzle designs available; some have push-button mechanisms, ot
 
 ### Are there any specific materials to consider when choosing a bike water bottle?
 
-Bike water bottles are typically made from plastic, stainless steel, or glass. Each material has its advantages and disadvantages in terms of durability, insulation, and weight. [Plastic bottles are lightweight and affordable but may not provide as much insulation as stainless steel or glass.](https://best.serp.co/shop/plastic-water-bottles/) Stainless steel is both durable and highly insulating but can be heavy. Glass water bottles offer great clarity and purity but are the most fragile option.
+Bike water bottles are typically made from plastic, stainless steel, or glass. Each material has its advantages and disadvantages in terms of durability, insulation, and weight. Plastic bottles are lightweight and affordable but may not provide as much insulation as stainless steel or glass. Stainless steel is both durable and highly insulating but can be heavy. Glass water bottles offer great clarity and purity but are the most fragile option.
 
 _As an Amazon™ Associate, we earn from qualifying purchases._

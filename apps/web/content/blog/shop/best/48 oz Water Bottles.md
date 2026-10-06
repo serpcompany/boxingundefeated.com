@@ -89,7 +89,7 @@ In conclusion, the Drinco Stainless Steel Water Bottle has been a fantastic addi
 
 Once upon a time, I received the Nalgene Silo Wide Mouth Water Bottle as a gift, and it has been my faithful companion ever since. This 48oz beauty is an expertly crafted combo of sturdiness and portability that makes it perfect for my on-the-go lifestyle.
 
-One of the things I notice right away is its wide mouth design, which is a game-changer for me. I've had some water bottles with narrow openings before, trying to stuff [ice cubes](https://best.serp.co/shop/ice-cubes/) or fill them up quickly would be quite the ordeal. But with this wide mouth, it's super easy to add ice or fresh fruits for a tasty infusion.
+One of the things I notice right away is its wide mouth design, which is a game-changer for me. I've had some water bottles with narrow openings before, trying to stuff ice cubes or fill them up quickly would be quite the ordeal. But with this wide mouth, it's super easy to add ice or fresh fruits for a tasty infusion.
 
 Another aspect that I absolutely love about this bottle is its capability to withstand extreme temperatures. From hot summer days to freezing winters, the Nalgene Silo has been tested and proven reliable in both types of weather. This means no matter what adventure I embark on, my trusty water bottle will always be there to keep me hydrated.
 
@@ -167,7 +167,7 @@ While many 48 oz water bottles are designed with leak-proof features, not all of
 
 ### How do I clean a 48 oz water bottle?
 
-Cleaning your 48 oz water bottle varies depending on the material. Generally, wash the bottle with warm, soapy water and a [bottle brush](https://best.serp.co/shop/bottle-brush/). For stainless steel or plastic bottles, you can also use a mixture of vinegar and water to disinfect the interior. Be sure to rinse thoroughly with water before refilling with a drink. Always refer to the manufacturer's guidelines for proper cleaning instructions.
+Cleaning your 48 oz water bottle varies depending on the material. Generally, wash the bottle with warm, soapy water and a bottle brush. For stainless steel or plastic bottles, you can also use a mixture of vinegar and water to disinfect the interior. Be sure to rinse thoroughly with water before refilling with a drink. Always refer to the manufacturer's guidelines for proper cleaning instructions.
 
 ### How long do 48 oz water bottles keep drinks cold or hot?
 

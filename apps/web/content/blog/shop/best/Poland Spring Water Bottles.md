@@ -93,7 +93,7 @@ However, there is one area where I feel the product could better - and that's it
 
 <div class="image"><a href="https://serp.ly/@boxingundefeated/amazon/poland-spring-water-bottles"><img alt="poland-spring-100-natural-spring-water-16-9-oz-plastic-bottles-1" src="https://imagedelivery.net/vy2bglCGN6hEeWOnSe2c7A/poland-spring-100-natural-spring-water-16-9-oz-plastic-bottles-1/w=720,h=540,fit=pad,background=black"/></a></div>
 
-Tasting the essence of the great state of Maine, Poland Spring's natural spring water instantly impresses with its refreshing and crisp taste. [The convenient mini bottles are perfect for on-the-go refreshment, fitting perfectly in a backpack or purse.](https://best.serp.co/shop/mini-water-bottles/) These delectable little wonders deliver a delicious burst of hydration, making them ideal for quenching thirst during workouts, kids' sporting events, or after-parties.
+Tasting the essence of the great state of Maine, Poland Spring's natural spring water instantly impresses with its refreshing and crisp taste. The convenient mini bottles are perfect for on-the-go refreshment, fitting perfectly in a backpack or purse. These delectable little wonders deliver a delicious burst of hydration, making them ideal for quenching thirst during workouts, kids' sporting events, or after-parties.
 
 The key to their enticing flavor lies in the naturally balanced minerals found in each bottle. Every sip feels like a invigorating journey to the heart of Maine's natural springs. It's a true treat for the taste buds, offering a revitalizing experience that leaves you yearning for another round.
 

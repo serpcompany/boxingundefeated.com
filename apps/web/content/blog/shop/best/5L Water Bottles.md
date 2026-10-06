@@ -61,7 +61,7 @@ I recently picked up the Nuolux 5L Pure Water Bottle Jug for my camping adventur
 
 One of the best features is the wide and convenient handle, which makes it incredibly easy to carry around. Not to mention, the high sealing performance and ease of cleaning are major plus points that make this product stand out from others. Plus, it's suitable for most types of water dispensers - a definite bonus!
 
-However, despite its numerous advantages, the Nuolux [Water Jug](https://best.serp.co/shop/water-jug/) could use a bit of improvement on its capacity marker. At the moment, it's a bit difficult to tell exactly how much water is left, especially when it's not full.
+However, despite its numerous advantages, the Nuolux Water Jug could use a bit of improvement on its capacity marker. At the moment, it's a bit difficult to tell exactly how much water is left, especially when it's not full.
 
 Nonetheless, if you're a regular camper or someone who loves spending time outdoors, this 5L Pure Water Bottle Jug is definitely worth considering. It's practical, portable, and has all the features you need for your outdoor adventures!
 

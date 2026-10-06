@@ -259,7 +259,7 @@ The Echelon Flex Bike also comes with multiple magnetic resistance levels. This 
 
 Now, let's talk about the LCD display. It's not only easy to read, but it also shows you important stats like speed, time, distance, scan, calories, and heart rate. This way, you can track your progress and see how much you're improving.
 
-The bike also comes with upper-body [resistance bands](https://best.serp.co/shop/resistance-bands/) and fixed handlebars with hand pulse sensors. This means you can get a full-body workout without hitting the gym. And the adjustable seat makes sure you're comfortable while you cycle.
+The bike also comes with upper-body resistance bands and fixed handlebars with hand pulse sensors. This means you can get a full-body workout without hitting the gym. And the adjustable seat makes sure you're comfortable while you cycle.
 
 However, the Flex Bike takes a little bit of assembly when it first arrives. But don't worry, the instructions are easy to follow, and you'll be on your bike in no time!
 

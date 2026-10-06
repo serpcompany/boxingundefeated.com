@@ -90,7 +90,7 @@ So if you're on the lookout for a reliable and efficient hydration solution, I'd
 
 I recently got my hands on a Corkcicle Rifle Paper Insulated Bottle (16 oz, Sports Girl design) and I must say, it's been a game-changer for my workouts and daily hydration. The bottle is triple-insulated with a slip-proof silicone bottom, making it perfect for keeping beverages cool for 25 hours or warm for up to 12 hours. Its soft-touch finish and flat sides make it easy to grip and carry around, a convenient feature when I'm dashing between the office and gym.
 
-One thing I particularly love about this bottle is its wide mouth which fits large [ice cubes](https://best.serp.co/shop/ice-cubes/). It's a small detail, but it makes a huge difference in the overall performance of the bottle. This bottle has become my go-to for all things hydration. However, It's worth noting that some users have expressed concern over the bottle's susceptibility to scratches.
+One thing I particularly love about this bottle is its wide mouth which fits large ice cubes. It's a small detail, but it makes a huge difference in the overall performance of the bottle. This bottle has become my go-to for all things hydration. However, It's worth noting that some users have expressed concern over the bottle's susceptibility to scratches.
 
 I would wholeheartedly recommend this bottle to anyone in search of a stylish and effective solution for keeping their beverages at the perfect temperature.
 

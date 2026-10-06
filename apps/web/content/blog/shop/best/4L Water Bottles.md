@@ -66,7 +66,7 @@ I recently upgraded my old water bottle to the Hydrojug Arctic Glass Water Bottl
 
 One of the standout features for me is the dual-function spout. Whether I want to sip without tipping the bottle or prefer to drink traditionally without the straw, it delivers. The fixed oversized handle has made it incredibly easy to carry around, especially in my busy daily routine.
 
-The insulation is another highlight. The ultra-wide mouth makes adding [ice cubes](https://best.serp.co/shop/ice-cubes/) a breeze, keeping my water chilled for hours. But what truly impressed me was the silicone sleeve. Not only does it provide added protection, but it also makes it comfortable to hold, even when filled to capacity.
+The insulation is another highlight. The ultra-wide mouth makes adding ice cubes a breeze, keeping my water chilled for hours. But what truly impressed me was the silicone sleeve. Not only does it provide added protection, but it also makes it comfortable to hold, even when filled to capacity.
 
 However, there were a few cons as well. The lid tends to leak if not closed properly, which can be frustrating. Also, the process of filling the bottle is a bit tricky due to its wide mouth. But these issues are minor compared to the overall utility and aesthetics of this product.
 
@@ -170,7 +170,7 @@ Water stored in a well-sealed 4L water bottle can stay fresh for several days, d
 
 ### Can I use a 4L water bottle for hot liquids?
 
-It depends on the material of the bottle. Stainless steel and borosilicate glass 4L water bottles are suitable for both hot and cold beverages. Tritan [plastic water bottles](https://best.serp.co/shop/plastic-water-bottles/) are designed for cold liquids only and may not withstand high temperatures.
+It depends on the material of the bottle. Stainless steel and borosilicate glass 4L water bottles are suitable for both hot and cold beverages. Tritan plastic water bottles are designed for cold liquids only and may not withstand high temperatures.
 
 ### How do I clean a 4L water bottle?
 

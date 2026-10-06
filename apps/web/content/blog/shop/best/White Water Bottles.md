@@ -75,7 +75,7 @@ I'll start with the obvious, this Elemental Bottle is a game-changer. As someone
 
 One of the standout features for me is the adjustable silicone strap. It's perfect for holding onto when I'm on a jog or climbing a mountain trail. Plus, it doubles as a convenient strap to attach to my backpack. The silicone bottom is another brilliant feature. It prevents the bottle from slipping on any surface and also adds an extra layer of insulation to keep my drinks at just the right temperature.
 
-Talking about temperature, the double-wall insulation is no joke. No matter if I'm filling it with ice-cold water or [hot tea](https://best.serp.co/shop/hot-tea/)tea, my beverages stay the same for hours. It's a game-changer for those long hikes or lazy days at the park. Speaking of hot drinks, the bamboo lid is a genius idea. It adds an organic touch while also keeping my tea hot for hours.
+Talking about temperature, the double-wall insulation is no joke. No matter if I'm filling it with ice-cold water or hot teatea, my beverages stay the same for hours. It's a game-changer for those long hikes or lazy days at the park. Speaking of hot drinks, the bamboo lid is a genius idea. It adds an organic touch while also keeping my tea hot for hours.
 
 However, there's one minor con I've noticed. The removable strap can sometimes get in the way when I'm trying to put the bottle in my car's cupholder. But hey, that's a small price to pay for a bottle that keeps my drinks cold for 24 hours.
 
@@ -147,7 +147,7 @@ Yes, white water bottles are typically made using safe and non-toxic materials s
 
 ### How do I clean a white water bottle?
 
-Cleaning a white water bottle is simple. Use warm soapy water to wash the inside and outside of the bottle thoroughly. For tougher stains, you can use a [bottle brush](https://best.serp.co/shop/bottle-brush/) or a mixture of water and baking soda. Rinse the bottle well and let it air dry completely before using it again.
+Cleaning a white water bottle is simple. Use warm soapy water to wash the inside and outside of the bottle thoroughly. For tougher stains, you can use a bottle brush or a mixture of water and baking soda. Rinse the bottle well and let it air dry completely before using it again.
 
 <div><a href="https://serp.ly/@boxingundefeated/amazon/white-water-bottles"><img src="https://imagedelivery.net/vy2bglCGN6hEeWOnSe2c7A/White+Water+Bottles-5/w=720,h=540,fit=pad,background=black" alt="White Water Bottles-5"></a></div>
 

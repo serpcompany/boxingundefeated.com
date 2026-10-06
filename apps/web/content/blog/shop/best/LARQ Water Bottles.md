@@ -62,7 +62,7 @@ In summary, if you're in the market for a high-quality, self-cleaning water bott
 
 <div class="image"><a href="https://serp.ly/@boxingundefeated/amazon/larq-water-bottles"><img alt="larq-bottle-swig-top-680ml-23oz-eucalyptus-green-1" src="https://imagedelivery.net/vy2bglCGN6hEeWOnSe2c7A/larq-bottle-swig-top-680ml-23oz-eucalyptus-green-1/w=720,h=540,fit=pad,background=black"/></a></div>
 
-I've been using the LARQ Bottle Swig Top lately, and I must say, this bottle has been a game-changer for me. With its sleek design and contoured spout, it's perfect for sipping on water on the go. I also love the wide-mouth opening, which allows me to add [ice cubes](https://best.serp.co/shop/ice-cubes/) for extra refreshment on hot days.
+I've been using the LARQ Bottle Swig Top lately, and I must say, this bottle has been a game-changer for me. With its sleek design and contoured spout, it's perfect for sipping on water on the go. I also love the wide-mouth opening, which allows me to add ice cubes for extra refreshment on hot days.
 
 One of the standout features of this bottle is its double-wall vacuum insulation, which keeps my water cold for up to 24 hours. Thanks to this, I never have to deal with lukewarm water in the middle of the day. Additionally, the built-in, soft-touch handle makes it super easy to carry around, whether I'm at the gym, office, or on a hike.
 
@@ -132,7 +132,7 @@ The LARQ Water Bottle is equipped with a built-in UV-C LED light that is activat
 
 ### How long does the battery last? "
 
-LARQ Water Bottle's battery life lasts for approximately 1-2 months, depending on usage. The bottle comes with a micro-[USB charger](https://best.serp.co/shop/usb-charger/), which allows you to easily recharge the battery when needed.
+LARQ Water Bottle's battery life lasts for approximately 1-2 months, depending on usage. The bottle comes with a micro-USB charger, which allows you to easily recharge the battery when needed.
 
 <div><a href="https://serp.ly/@boxingundefeated/amazon/larq-water-bottles"><img src="https://imagedelivery.net/vy2bglCGN6hEeWOnSe2c7A/LARQ+Water+Bottles-3/w=720,h=540,fit=pad,background=black" alt="LARQ Water Bottles-3"></a></div>
 
@@ -170,7 +170,7 @@ Yes, the LARQ Water Bottle is available in a variety of colors and designs to su
 
 ### How do I clean the LARQ Water Bottle? "
 
-Cleaning the LARQ Water Bottle is simple and can be done either by washing it by hand or using your dishwasher. For hand washing, use a soft-bristled [bottle brush](https://best.serp.co/shop/bottle-brush/) with mild detergent to remove any dirt or residue. Rinse thoroughly and let the bottle air dry before reassembling. If using a dishwasher, place the bottle and lid on the top rack and run a standard wash cycle. Avoid using harsh chemicals or abrasive scrubbers that could damage the stainless steel or silicone components of the bottle.
+Cleaning the LARQ Water Bottle is simple and can be done either by washing it by hand or using your dishwasher. For hand washing, use a soft-bristled bottle brush with mild detergent to remove any dirt or residue. Rinse thoroughly and let the bottle air dry before reassembling. If using a dishwasher, place the bottle and lid on the top rack and run a standard wash cycle. Avoid using harsh chemicals or abrasive scrubbers that could damage the stainless steel or silicone components of the bottle.
 
 ### Is the LARQ Water Bottle leak-proof? "
 

@@ -184,7 +184,7 @@ Yes, but be sure to choose a bottle with proper insulation to maintain the tempe
 
 ### 3. How do I clean my sports water bottle?
 
-To clean your sports water bottle, first, disassemble all the parts (cap, straw, infuser basket, etc. ). Rinse everything thoroughly with water. For tougher stains, you can use warm, soapy water or a gentle dish soap. Use a [bottle brush](https://best.serp.co/shop/bottle-brush/) to scrub away grime from inside the bottle. Rinse well and air dry before reassembling.
+To clean your sports water bottle, first, disassemble all the parts (cap, straw, infuser basket, etc. ). Rinse everything thoroughly with water. For tougher stains, you can use warm, soapy water or a gentle dish soap. Use a bottle brush to scrub away grime from inside the bottle. Rinse well and air dry before reassembling.
 
 ### 4. How often should I replace my sports water bottle?
 

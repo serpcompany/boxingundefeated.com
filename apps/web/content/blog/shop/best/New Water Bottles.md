@@ -341,7 +341,7 @@ BPA, or bisphenol A, is a chemical found in some plastics that has been linked t
 
 ### How should I clean and maintain my water bottle to prolong its life?
 
-Routinely clean your water bottle by washing it with warm soapy water or using a gentle cleaning solution. Allow it to air dry, or use a [bottle brush](https://best.serp.co/shop/bottle-brush/) for thorough drying. Regular maintenance and proper storage can help prevent the growth of bacteria and extend the lifespan of your water bottle. Additionally, some bottles are dishwasher-safe for added convenience and efficiency in cleaning.
+Routinely clean your water bottle by washing it with warm soapy water or using a gentle cleaning solution. Allow it to air dry, or use a bottle brush for thorough drying. Regular maintenance and proper storage can help prevent the growth of bacteria and extend the lifespan of your water bottle. Additionally, some bottles are dishwasher-safe for added convenience and efficiency in cleaning.
 
 ### Which water bottles are compatible with fruit infusers?
 

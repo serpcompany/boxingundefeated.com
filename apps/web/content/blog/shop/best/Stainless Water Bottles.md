@@ -163,7 +163,7 @@ Stainless steel water bottles are more eco-friendly since they are designed to l
 
 ### How do I clean my stainless steel water bottle?
 
-Cleaning a stainless steel water bottle is easy. Simply wash it with soap and water, using a [bottle brush](https://best.serp.co/shop/bottle-brush/) to clean the interior, or just throw it in the dishwasher. For a more thorough clean, occasionally soak your bottle in a mixture of diluted white vinegar to eliminate residual tastes and smells.
+Cleaning a stainless steel water bottle is easy. Simply wash it with soap and water, using a bottle brush to clean the interior, or just throw it in the dishwasher. For a more thorough clean, occasionally soak your bottle in a mixture of diluted white vinegar to eliminate residual tastes and smells.
 
 ### How do I know if a stainless steel water bottle is leak-proof?
 
@@ -191,6 +191,6 @@ Stainless steel water bottles are known for their excellent insulation capabilit
 
 ### What accessories can I use with my stainless steel water bottle?
 
-Many stainless steel water bottles come with accessories, such as leak-proof caps, carry straps, or carabiners for easy attachment to bags or [belts](https://best.serp.co/belts/). There are also various third-party accessories that are compatible with stainless steel water bottles, such as bottle brush cleaners or silicone sleeves to enhance grip and reduce condensation.
+Many stainless steel water bottles come with accessories, such as leak-proof caps, carry straps, or carabiners for easy attachment to bags or belts. There are also various third-party accessories that are compatible with stainless steel water bottles, such as bottle brush cleaners or silicone sleeves to enhance grip and reduce condensation.
 
 _As an Amazon™ Associate, we earn from qualifying purchases._

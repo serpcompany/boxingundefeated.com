@@ -154,7 +154,7 @@ Yes, TAL Water Bottles can be used for both hot and cold beverages. However, ple
 
 ### How easy is it to clean TAL Water Bottles?
 
-TAL Water Bottles are designed to be easy to clean. They typically feature wide-mouth openings, making it effortless to insert a [bottle brush](https://best.serp.co/shop/bottle-brush/) or sponge for thorough cleaning. Additionally, some models are dishwasher-safe for added convenience.
+TAL Water Bottles are designed to be easy to clean. They typically feature wide-mouth openings, making it effortless to insert a bottle brush or sponge for thorough cleaning. Additionally, some models are dishwasher-safe for added convenience.
 
 ### What safety features do TAL Water Bottles have?
 

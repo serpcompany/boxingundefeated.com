@@ -39,7 +39,7 @@ _As an Amazon™ Associate, we earn from qualifying purchases._
 
 Running low on water during an intense lightsaber duel can be a real disaster, which is why I've been using the Tervis Star Wars Lightsaber Water Bottle. This 24oz bottle is not only a stylish nod to my favorite sci-fi franchise, but it also keeps my drinks insulated for hours. The triple insulation technology ensures my water stays cold for up to 24 hours, which is a lifesaver in the scorching Tatooine heat.
 
-The stainless steel construction is durable and doesn't retain any tastes or odors, making it perfect for everyday use. Plus, the large bottle opening makes it easy to add [ice cubes](https://best.serp.co/shop/ice-cubes/) or clean the bottle after use. The only downside might be the size, as it's slightly wider than most Star Wars lightsabers. However, I've found that this makes it even more fun to roleplay with my fellow fan friends.
+The stainless steel construction is durable and doesn't retain any tastes or odors, making it perfect for everyday use. Plus, the large bottle opening makes it easy to add ice cubes or clean the bottle after use. The only downside might be the size, as it's slightly wider than most Star Wars lightsabers. However, I've found that this makes it even more fun to roleplay with my fellow fan friends.
 
 In conclusion, this Tervis Star Wars Lightsaber Water Bottle has become an essential companion during my daily adventures. It's a perfect blend of form and function that every Star Wars fan will appreciate. So whether you're defeating the Empire at work or just enjoying a refreshing drink at home, this bottle will never let you down. May the Force be with you and your bottle!
 

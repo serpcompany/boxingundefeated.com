@@ -185,7 +185,7 @@ Cork yoga mats can last for several years with proper care, typically outlasting
 
 ### How do I clean my cork yoga mat?
 
-To clean your cork yoga mat, mix equal parts water and white vinegar in a [spray bottle](https://best.serp.co/shop/spray-bottle/) and lightly mist the surface of the mat. Use a soft cloth or a sponge to gently wipe the mat clean, focusing on any areas with sweat or dirt. Avoid using harsh chemicals or scrubbing vigorously, as this can damage the cork surface. Finally, allow the mat to air dry completely before rolling it up for storage.
+To clean your cork yoga mat, mix equal parts water and white vinegar in a spray bottle and lightly mist the surface of the mat. Use a soft cloth or a sponge to gently wipe the mat clean, focusing on any areas with sweat or dirt. Avoid using harsh chemicals or scrubbing vigorously, as this can damage the cork surface. Finally, allow the mat to air dry completely before rolling it up for storage.
 
 <div><a href="https://serp.ly/@boxingundefeated/amazon/cork-yoga-mats"><img src="https://imagedelivery.net/vy2bglCGN6hEeWOnSe2c7A/Cork+Yoga+Mats-5/w=720,h=540,fit=pad,background=black" alt="Cork Yoga Mats-5"></a></div>
 
@@ -199,7 +199,7 @@ While cork yoga mats may be slightly heavier than some lightweight mats, they ar
 
 ### How do I store my cork yoga mat?
 
-To store your cork yoga mat, first ensure that it is completely dry. This will prevent mold or mildew growth. Next, roll up the mat with the cork side facing outwards to provide the most protection to the cork surface. Use a yoga mat strap or secure it with a [rubber band](https://best.serp.co/shop/rubber-band/) to keep it tightly rolled. Store the mat in a cool, dry place away from direct sunlight, and avoid stacking other items on top of it to prevent warping or damage.
+To store your cork yoga mat, first ensure that it is completely dry. This will prevent mold or mildew growth. Next, roll up the mat with the cork side facing outwards to provide the most protection to the cork surface. Use a yoga mat strap or secure it with a rubber band to keep it tightly rolled. Store the mat in a cool, dry place away from direct sunlight, and avoid stacking other items on top of it to prevent warping or damage.
 
 <div><a href="https://serp.ly/@boxingundefeated/amazon/cork-yoga-mats"><img src="https://imagedelivery.net/vy2bglCGN6hEeWOnSe2c7A/Cork+Yoga+Mats-6/w=720,h=540,fit=pad,background=black" alt="Cork Yoga Mats-6"></a></div>
 

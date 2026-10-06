@@ -53,7 +53,7 @@ In conclusion, the Sigg Traveller MyPlanet Path Plain water bottle is a high-qua
 
 I recently purchased a case of twelve 20.3 fl oz Purified Water bottles by Pathwater. As an avid hiker, I was excited to discover a reusable water bottle that can actually keep my water consistently clean and tasty.
 
-The highlights for me include the purified water inside and the fact that these bottles are refillable and free from harmful chemicals found in traditional [plastic water bottles](https://best.serp.co/shop/plastic-water-bottles/). The convenience of having twelve bottles at hand makes it easy for me to stay hydrated during my long hikes.
+The highlights for me include the purified water inside and the fact that these bottles are refillable and free from harmful chemicals found in traditional plastic water bottles. The convenience of having twelve bottles at hand makes it easy for me to stay hydrated during my long hikes.
 
 However, there are a couple of minor drawbacks I've noticed. Firstly, the bottles are not freezer safe and may crack when subjected to extreme temperatures. Secondly, some bottles arrived dented, which compromises their overall durability and appeal.
 
@@ -167,6 +167,6 @@ Unlike traditional water bottles, Path Water Bottles allow you to safely drink w
 
 ### How do I maintain and clean my Path Water Bottle?
 
-To maintain your Path Water Bottle, it is essential to change the filter as needed, depending on the amount of water consumed and the quality of the water source. Path Water Bottles also come with a [bottle brush](https://best.serp.co/shop/bottle-brush/) and a cleaning tool specifically designed for easy cleaning and maintenance of both the bottle and the filter. The bottle and lid are dishwasher-safe, while the filter should be hand-washed to ensure optimal performance.
+To maintain your Path Water Bottle, it is essential to change the filter as needed, depending on the amount of water consumed and the quality of the water source. Path Water Bottles also come with a bottle brush and a cleaning tool specifically designed for easy cleaning and maintenance of both the bottle and the filter. The bottle and lid are dishwasher-safe, while the filter should be hand-washed to ensure optimal performance.
 
 _As an Amazon™ Associate, we earn from qualifying purchases._

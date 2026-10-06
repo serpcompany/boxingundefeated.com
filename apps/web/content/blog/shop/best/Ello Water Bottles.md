@@ -64,7 +64,7 @@ Despite these minor setbacks, I believe that the Ello Campy Vacuum Insulated Sta
 
 <div class="image"><a href="https://serp.ly/@boxingundefeated/amazon/ello-water-bottles"><img alt="ello-64oz-hydra-stainless-steel-1-2-gallon-jug-mauve-1" src="https://imagedelivery.net/vy2bglCGN6hEeWOnSe2c7A/ello-64oz-hydra-stainless-steel-1-2-gallon-jug-mauve-1/w=720,h=540,fit=pad,background=black"/></a></div>
 
-I recently got my hands on the Ello 64oz Hydra Stainless Steel [Water Jug](https://best.serp.co/shop/water-jug/) in a lovely shade of Mauve. I've been using it for a few weeks now, and here's my honest review.
+I recently got my hands on the Ello 64oz Hydra Stainless Steel Water Jug in a lovely shade of Mauve. I've been using it for a few weeks now, and here's my honest review.
 
 First off, the size is perfect. This half-gallon jug is perfect for someone like me who's trying to stay hydrated throughout the day. I fill it up every morning and carry it around as my daily water supply. The vacuum insulation keeps my water cold all day, even when I leave it in the car on a hot sunny day.
 
@@ -82,9 +82,9 @@ Overall, I'm really happy with my Ello Hydra Water Jug. It's helped me increase 
 
 The Ello Kella Glass Sipper has been a game-changer for me. As someone who enjoys a refreshing water or smoothie on the go, I needed a bottle that was stylish, eco-friendly, and easy to use. The Kella exceeded my expectations. Its made-over mason jar look is perfect for both casual and formal occasions. Despite being glass, it's sturdy and lightweight, making it easy to carry around.
 
-The friction-fit lid with its real cork accent is not only visually appealing but also secures my beverages perfectly. Plus, its wide-mouth opening is great for adding [ice cubes](https://best.serp.co/shop/ice-cubes/), and it cleans up easily in the dishwasher. The silicone grip adds a nice touch of comfort.
+The friction-fit lid with its real cork accent is not only visually appealing but also secures my beverages perfectly. Plus, its wide-mouth opening is great for adding ice cubes, and it cleans up easily in the dishwasher. The silicone grip adds a nice touch of comfort.
 
-One of the best things about this bottle is the absence of any unpleasant aftertaste, which is often a problem with plastic bottles. It's also reassuring to know that it's BPA-free and safe for use in the [microwave](https://best.serp.co/shop/microwaves/) and dishwasher.
+One of the best things about this bottle is the absence of any unpleasant aftertaste, which is often a problem with plastic bottles. It's also reassuring to know that it's BPA-free and safe for use in the microwave and dishwasher.
 
 However, there's one small issue - the bottle tag advises hand-washing the lid, which contradicts the product description stating that all parts are dishwasher safe. Regardless, this minor inconvenience doesn't outweigh the many benefits and convenience the Kella provides.
 
@@ -162,7 +162,7 @@ Yes, Ello water bottles come with various color and design options, allowing you
 
 ### How do I clean the straw on my Ello water bottle?
 
-To clean the straw, first remove it from the bottle. Then, use a small brush or a [pipe cleaner](https://best.serp.co/shop/pipe-cleaner/) to gently clean the inside of the straw, removing any built-up residue or germs. Rinse the straw thoroughly with water and reattach it to the bottle after it has dried.
+To clean the straw, first remove it from the bottle. Then, use a small brush or a pipe cleaner to gently clean the inside of the straw, removing any built-up residue or germs. Rinse the straw thoroughly with water and reattach it to the bottle after it has dried.
 
 ### How much water do Ello water bottles hold?
 

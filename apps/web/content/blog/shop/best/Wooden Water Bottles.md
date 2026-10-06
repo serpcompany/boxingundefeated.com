@@ -64,7 +64,7 @@ Another standout feature is its design. The grey silicone exterior gives it a mo
 
 However, something you should be aware of is that this bottle requires hand washing. But considering its beautiful design and practicality, I guess that's a small price to pay.
 
-All in all, if you're looking for a stylish water bottle that combines elegance with durability, then this [glass bottle](https://best.serp.co/shop/glass-bottle/) with a bamboo lid might just be what you need.
+All in all, if you're looking for a stylish water bottle that combines elegance with durability, then this glass bottle with a bamboo lid might just be what you need.
 
 ### [Serenity Bamboo Glass Water Bottle](https://serp.ly/@boxingundefeated/amazon/wooden-water-bottles)
 
@@ -72,7 +72,7 @@ All in all, if you're looking for a stylish water bottle that combines elegance 
 
 I've been using the Serenity Bamboo Glass Water Bottle for a few weeks now, and I can tell you this bottle is a game-changer! . The extra-thick borosilicate glass not only gives me a pure, odor-free drink but also makes me feel good about not using plastic bottles. .
 
-Plus, the screw-top lid with a built-in braided carry loop is a lifesaver for my on-the-go lifestyle. . The canvas sleeve not only protects my bottle but also provides a comfortable grip when I'm trying to take a swig. . The wide opening makes adding [ice cubes](https://best.serp.co/shop/ice-cubes/) super easy. .
+Plus, the screw-top lid with a built-in braided carry loop is a lifesaver for my on-the-go lifestyle. . The canvas sleeve not only protects my bottle but also provides a comfortable grip when I'm trying to take a swig. . The wide opening makes adding ice cubes super easy. .
 
 The only downside I've noticed is that it's a bit high maintenance - I need to hand wash the lid and sleeve, and remember that the top rack of my dishwasher is safe, not the whole bottle. . Overall, this eco-friendly and customizable bottle has exceeded my expectations and is perfect for daily use or even as a gift for friends who care about the environment. .
 

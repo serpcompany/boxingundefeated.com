@@ -86,7 +86,7 @@ However, there's one minor drawback I've noticed – it can be a bit heavy when 
 
 As a reviewer who's been using the Nalgene Wide Mouth Sustain Water Bottle for quite some time, I can attest to its excellent performance and convenience in my day-to-day life. Made from 50% certified recycled content, this bottle not only contributes to a greener environment but also ensures a sturdy build that can withstand the toughest of adventures.
 
-One feature that particularly stood out for me is its wide mouth, which not only makes refilling and cleaning a breeze but also accommodates [ice cubes](https://best.serp.co/shop/ice-cubes/) to keep my drinks cool during hot summer days. Additionally, this bottle's leak-proof guarantee ensures that I never have to worry about spills in my bag.
+One feature that particularly stood out for me is its wide mouth, which not only makes refilling and cleaning a breeze but also accommodates ice cubes to keep my drinks cool during hot summer days. Additionally, this bottle's leak-proof guarantee ensures that I never have to worry about spills in my bag.
 
 Despite its robust quality, the Nalgene Wide Mouth Sustain Water Bottle remains lightweight and easy to carry around, making it an ideal companion for my daily trips to the gym or office. Its compatibility with filtration devices is an added bonus, allowing me to fill up from virtually any water source.
 
@@ -184,7 +184,7 @@ It depends on the material and design of the water bottle. Some bottles are spec
 
 <div><a href="https://serp.ly/@boxingundefeated/amazon/essential-water-bottles"><img src="https://imagedelivery.net/vy2bglCGN6hEeWOnSe2c7A/Essential+Water+Bottles-6/w=720,h=540,fit=pad,background=black" alt="Essential Water Bottles-6"></a></div>
 
-To clean your water bottle effectively, use warm soapy water and a [bottle brush](https://best.serp.co/shop/bottle-brush/) to reach all areas inside the bottle, including the cap and straw if applicable. For tougher stains or odors, you can use a mixture of baking soda and water or white vinegar and water. Rinse the bottle thoroughly and let it air dry.
+To clean your water bottle effectively, use warm soapy water and a bottle brush to reach all areas inside the bottle, including the cap and straw if applicable. For tougher stains or odors, you can use a mixture of baking soda and water or white vinegar and water. Rinse the bottle thoroughly and let it air dry.
 
 ### Are there any eco-friendly water bottle options available?
 

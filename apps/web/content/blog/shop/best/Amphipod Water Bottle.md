@@ -137,7 +137,7 @@ Amphipod water bottles are made from various materials, including BPA-free plast
 
 ### How do I clean my Amphipod water bottle?
 
-To clean your Amphipod water bottle, first, remove the cap and any removable parts, like the straw or valve. Next, fill the bottle with warm, soapy water, shake it vigorously, and let it sit for a few minutes. Then, rinse the bottle thoroughly with clean water. Finally, let the bottle air dry before reassembling it. For stubborn stains, you can use a [bottle brush](https://best.serp.co/shop/bottle-brush/) or a mixture of baking soda and water to gently scrub the interior.
+To clean your Amphipod water bottle, first, remove the cap and any removable parts, like the straw or valve. Next, fill the bottle with warm, soapy water, shake it vigorously, and let it sit for a few minutes. Then, rinse the bottle thoroughly with clean water. Finally, let the bottle air dry before reassembling it. For stubborn stains, you can use a bottle brush or a mixture of baking soda and water to gently scrub the interior.
 
 ### What size Amphipod water bottles are available?
 

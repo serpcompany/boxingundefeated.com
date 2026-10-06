@@ -38,7 +38,7 @@ _As an Amazon™ Associate, we earn from qualifying purchases._
 
 I recently incorporated a set of these premium cast iron kettlebells into my home workout routine, and I couldn't be more thrilled with my decision. . From the first swing, I noticed how solid and stable these kettlebells are, making each workout feel powerful and secure. .
 
-The variety of weights has allowed me to continually challenge myself and progress through different exercises. . [One downside is that the weight range starts a tad high for beginners, making it a little less accessible to those just starting out with kettlebells.](https://best.serp.co/shop/onnit-kettlebells/) . Overall, this set has been an amazing addition to my home gym setup! .
+The variety of weights has allowed me to continually challenge myself and progress through different exercises. . One downside is that the weight range starts a tad high for beginners, making it a little less accessible to those just starting out with kettlebells. . Overall, this set has been an amazing addition to my home gym setup! .
 
 ### [30 lbs Cast Iron Kettlebell Weight](https://serp.ly/@boxingundefeated/amazon/iron-kettlebells)
 
@@ -154,7 +154,7 @@ Iron kettlebells are fitness tools designed for strength and conditioning exerci
 
 <div><a href="https://serp.ly/@boxingundefeated/amazon/iron-kettlebells"><img src="https://imagedelivery.net/vy2bglCGN6hEeWOnSe2c7A/Iron+Kettlebells-4/w=720,h=540,fit=pad,background=black" alt="Iron Kettlebells-4"></a></div>
 
-Choose a [kettlebell weight](https://best.serp.co/shop/kettlebell-weight/) that challenges you but is still manageable. Beginners typically start with an 8-16 kg (18-35 lb) kettlebell. As you progress, you may increase the weight to maintain proper workout intensity.
+Choose a kettlebell weight that challenges you but is still manageable. Beginners typically start with an 8-16 kg (18-35 lb) kettlebell. As you progress, you may increase the weight to maintain proper workout intensity.
 
 ### What exercises can I do with iron kettlebells?
 

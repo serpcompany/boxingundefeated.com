@@ -95,7 +95,7 @@ I recently got my hands on the Polar Bottle Breakaway, and it's been a game-chan
 
 The self-sealing High Flow ZipStream cap is a genius innovation. It offers easy and consistent water flow when you squeeze the bottle, but shuts off instantly when you release it. No spills, no fuss. And the removable carry loop and drinking valve? They make cleaning a breeze.
 
-Now, for some highlights. The wide mouth of this bottle is really convenient for not just cleaning but also filling up with [ice cubes](https://best.serp.co/shop/ice-cubes/). The double-wall insulation does an amazing job of keeping my water cold for hours, even in the scorching heat. The fact that it is lightweight and easy to squeeze is just icing on the cake.
+Now, for some highlights. The wide mouth of this bottle is really convenient for not just cleaning but also filling up with ice cubes. The double-wall insulation does an amazing job of keeping my water cold for hours, even in the scorching heat. The fact that it is lightweight and easy to squeeze is just icing on the cake.
 
 However, there's one minor drawback. It tends to slip out of standard bike cages at times, which can be a hassle. But hey, no product is perfect, right?
 

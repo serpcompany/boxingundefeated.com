@@ -40,7 +40,7 @@ _As an Amazon™ Associate, we earn from qualifying purchases._
 
 <div class="image"><a href="https://serp.ly/@boxingundefeated/amazon/pink-yoga-mats"><img alt="microdry-deluxe-all-purpose-fitness-exercise-mat-with-high-impact-foam-72x26-inch-pink-size-72-x-27" src="https://imagedelivery.net/vy2bglCGN6hEeWOnSe2c7A/microdry-deluxe-all-purpose-fitness-exercise-mat-with-high-impact-foam-72x26-inch-pink-size-72-x-27/w=720,h=540,fit=pad,background=black"/></a></div>
 
-From personal experience, I can attest that the Microdry Deluxe All Purpose Fitness [Exercise Mat](https://best.serp.co/shop/exercise-mat/) is a game-changer. Not only does its three-layered design provide exceptional support and protection during workouts, but it also boasts a charcoal-infused foam that effectively neutralizes odors and maintains freshness.
+From personal experience, I can attest that the Microdry Deluxe All Purpose Fitness Exercise Mat is a game-changer. Not only does its three-layered design provide exceptional support and protection during workouts, but it also boasts a charcoal-infused foam that effectively neutralizes odors and maintains freshness.
 
 Its versatility is also worth mentioning as it's suitable for various activities including yoga, pilates, and general exercise. The inclusion of a carry strap makes it incredibly easy to transport or store, whether at home or the gym.
 
@@ -118,7 +118,7 @@ Overall, the Original Yoga Mat strikes a balance between comfort and durability,
 
 <div class="image"><a href="https://serp.ly/@boxingundefeated/amazon/pink-yoga-mats"><img alt="gaiam-essentials-thick-yoga-mat-fitness-exercise-mat-with-easy-cinch-carrier-strap-pink-72l-x-24w-x--1" src="https://imagedelivery.net/vy2bglCGN6hEeWOnSe2c7A/gaiam-essentials-thick-yoga-mat-fitness-exercise-mat-with-easy-cinch-carrier-strap-pink-72l-x-24w-x--1/w=720,h=540,fit=pad,background=black"/></a></div>
 
-[I've been using the Gaiam Essentials Yoga Fitness & Exercise Mat for a few weeks now, and it's definitely become a staple in my workout routine.](https://best.serp.co/shop/gaiam-yoga-mats/) First off, the thickness of this mat provides superior comfort and support during any type of floor work, which is a huge plus. It's also available in a variety of classic colors with an included carrying strap, making it easy to take on the go.
+I've been using the Gaiam Essentials Yoga Fitness & Exercise Mat for a few weeks now, and it's definitely become a staple in my workout routine. First off, the thickness of this mat provides superior comfort and support during any type of floor work, which is a huge plus. It's also available in a variety of classic colors with an included carrying strap, making it easy to take on the go.
 
 One feature that really stood out for me was how durable the design is. I've been using it daily for yoga, Pilates, and other types of exercises without any issues. However, I have noticed that it can get slippery when I start to sweat - not a major problem, but something to consider if you tend to get sweaty during workouts.
 

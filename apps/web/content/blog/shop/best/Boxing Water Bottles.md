@@ -107,7 +107,7 @@ Despite these minor issues, I am thoroughly pleased with my Gym Keg and I have n
 
 As an avid cyclist, I need a reliable water bottle to stay hydrated on long rides, and the Pro Impact Boxing Water Bottle has definitely exceeded my expectations. Its squeeze function allows me to increase water flow without sucking on the straw, making it incredibly useful when I'm out on the road. The spray feature has been a fantastic addition, providing a refreshing mist on my skin that helps me cool down quickly.
 
-The bottle's wide mouth makes cleaning and filling with [ice cubes](https://best.serp.co/shop/ice-cubes/) easy, while the leakproof design ensures that I don't have to worry about water spills or leaks when I'm on the go. The BPA-free construction gives me peace of mind knowing that I'm consuming water safely.
+The bottle's wide mouth makes cleaning and filling with ice cubes easy, while the leakproof design ensures that I don't have to worry about water spills or leaks when I'm on the go. The BPA-free construction gives me peace of mind knowing that I'm consuming water safely.
 
 However, there have been times when the straw can be a bit difficult to clean, and sometimes the squeeze function leads to a slightly weaker flow of water than I would prefer. Overall, this water bottle has been a great addition to my cycling gear, making it easier than ever to stay hydrated and keep my body temperature regulated during intense rides.
 
@@ -209,7 +209,7 @@ I have been using the Pullup & Dip Double-Walled Stainless Steel Sports Water Bo
 
 One of my favorite features of this sports water bottle is the leak-proof design. I often carry it in my bag alongside other gear, and I've never had any issues with spilled water or moisture. The sports cap attachment makes it easy to drink on the go, and the included carabiner allows me to clip it onto my backpack or belt loop, ensuring I always have access to hydration.
 
-Cleaning this bottle is a breeze, thanks to the generous 5.5 cm bottle mouth. It can comfortably accommodate standard cleaning brushes, making maintenance a hassle-free experience. Plus, the stainless steel construction ensures I won't have to worry about scratches or smells, unlike other [plastic water bottles](https://best.serp.co/shop/plastic-water-bottles/).
+Cleaning this bottle is a breeze, thanks to the generous 5.5 cm bottle mouth. It can comfortably accommodate standard cleaning brushes, making maintenance a hassle-free experience. Plus, the stainless steel construction ensures I won't have to worry about scratches or smells, unlike other plastic water bottles.
 
 An added bonus is the high-quality material used in its construction. This bottle is crafted from shatter-proof stainless steel and is free from BPA, providing a safe and eco-friendly option while eliminating the need for single-use plastic bottles.
 

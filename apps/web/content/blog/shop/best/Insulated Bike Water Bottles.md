@@ -43,7 +43,7 @@ _As an Amazon™ Associate, we earn from qualifying purchases._
 
 I must say, the Lekue Insulated Bottle has been an absolute game-changer for me. The moment I got my hands on it, I knew it was going to put an end to my daily struggle with lukewarm drinks. The stainless-steel construction ensures that it's not only durable but also keeps my coffee piping hot for 8 hours straight. I'm a die-hard fan of iced beverages, and this bottle has made my life a whole lot easier by keeping my drinks cold for a whole day!
 
-One feature that really stands out is the filter-stopper. I love how it allows me to infuse my drinks with fruits, herbs, or [ice cubes](https://best.serp.co/shop/ice-cubes/), and the double opening system makes it incredibly easy to clean. Not to forget, the wider mouth for drinking comfort is a thoughtful addition. This bottle truly offers a stylish and practical solution for anyone on the go.
+One feature that really stands out is the filter-stopper. I love how it allows me to infuse my drinks with fruits, herbs, or ice cubes, and the double opening system makes it incredibly easy to clean. Not to forget, the wider mouth for drinking comfort is a thoughtful addition. This bottle truly offers a stylish and practical solution for anyone on the go.
 
 However, there is one downside that I've encountered: the bottle is quite long and slightly narrower than some other options on the market. This design might make it a little difficult for some to grip tightly, especially while walking or cycling. If you're someone who prefers a wider and easier-to-handle bottle, this may not be the perfect fit for you.
 

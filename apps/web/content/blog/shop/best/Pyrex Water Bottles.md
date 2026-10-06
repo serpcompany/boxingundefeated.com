@@ -64,7 +64,7 @@ One feature that really stood out to me was the wider mouth of the bottles. It m
 
 The stainless steel cap with O-ring is another aspect of these bottles that I appreciate. The cap tightens easily and securely, providing a water-tight seal that prevents leaks even when I carry the bottle horizontally. Plus, both the bottle and the cap are dishwasher safe, making them even more convenient to use and maintain.
 
-Overall, I highly recommend the Epica 18 oz Glass Beverage Bottles for anyone looking for a healthy, eco-friendly, and convenient alternative to traditional [plastic water bottles](https://best.serp.co/shop/plastic-water-bottles/). These bottles are not only better for your health and the environment, but they also offer a more enjoyable user experience with features like the wider mouth and leak-proof cap.
+Overall, I highly recommend the Epica 18 oz Glass Beverage Bottles for anyone looking for a healthy, eco-friendly, and convenient alternative to traditional plastic water bottles. These bottles are not only better for your health and the environment, but they also offer a more enjoyable user experience with features like the wider mouth and leak-proof cap.
 
 ### [Stylish Modern Sleeper Chair with Pillow & Pocket](https://serp.ly/@boxingundefeated/amazon/pyrex-water-bottles)
 
@@ -118,7 +118,7 @@ Overall, I'm very happy with the "Bink White 27oz Day Bottle" and would recommen
 
 <div class="image"><a href="https://serp.ly/@boxingundefeated/amazon/pyrex-water-bottles"><img alt="lifefactory-glass-bottle-22-ounce-1" src="https://imagedelivery.net/vy2bglCGN6hEeWOnSe2c7A/lifefactory-glass-bottle-22-ounce-1/w=720,h=540,fit=pad,background=black"/></a></div>
 
-Meet my favorite water bottle companion, the Lifefactory [Glass Bottle](https://best.serp.co/shop/glass-bottle/). This elegant glass number offers a pure taste without any hint of plastic or metal leaching. The silicone sleeve gives it a non-slip gripping surface and acts like a protective shield, helping prevent breakage. The cap is made of polypropylene and the handle allows easy carrying and clipping onto bags. The wide-mouth design makes refilling quick and easy, and allows for adding [ice cubes](https://best.serp.co/shop/ice-cubes/), citrus slices, or even tea bags.
+Meet my favorite water bottle companion, the Lifefactory Glass Bottle. This elegant glass number offers a pure taste without any hint of plastic or metal leaching. The silicone sleeve gives it a non-slip gripping surface and acts like a protective shield, helping prevent breakage. The cap is made of polypropylene and the handle allows easy carrying and clipping onto bags. The wide-mouth design makes refilling quick and easy, and allows for adding ice cubes, citrus slices, or even tea bags.
 
 Now, onto the highlights. The bottle's high-quality soda lime glass makes it both durable and safe, offering peace of mind about the purity of your drink. The silicone sleeve isn't just for protection; it also adds a pop of color and design, making this bottle a stylish addition to your daily routine. An added bonus? It's dishwasher safe, so clean-up is a breeze after a day of hydration.
 
@@ -234,7 +234,7 @@ Pyrex water bottles can keep beverages hot or cold for several hours due to thei
 
 ### Are Pyrex water bottles microwave-safe?
 
-Yes, Pyrex water bottles are [microwave](https://best.serp.co/shop/microwaves/)-safe, making heating up hot beverages quick and easy. However, it is recommended to remove the cap and silicone seal before placing the bottle in the microwave.
+Yes, Pyrex water bottles are microwave-safe, making heating up hot beverages quick and easy. However, it is recommended to remove the cap and silicone seal before placing the bottle in the microwave.
 
 ### What size options are available for Pyrex water bottles?
 

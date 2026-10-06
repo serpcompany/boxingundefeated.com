@@ -38,7 +38,7 @@ When it came to working out, I was always on the lookout for something that coul
 
 One of the standout features of this kettlebell is its durability. Despite being made of cast iron, it has a hammertoe finish that is designed to withstand the toughest workouts and last for years to come. The only downside I've noticed is that the handle can be a little rough at times, which may be a concern for some users.
 
-Overall, the Weider Cast Iron Kettlebell has been a reliable and effective workout tool that has helped me achieve my fitness goals. While it may not be the prettiest kettlebell around, it definitely gets the job done and offers great value for money. [If you're looking for a durable and effective kettlebell to help you tone and sculpt your muscles, this is definitely worth considering.](https://best.serp.co/shop/onnit-kettlebells/)
+Overall, the Weider Cast Iron Kettlebell has been a reliable and effective workout tool that has helped me achieve my fitness goals. While it may not be the prettiest kettlebell around, it definitely gets the job done and offers great value for money. If you're looking for a durable and effective kettlebell to help you tone and sculpt your muscles, this is definitely worth considering.
 
 ### [French Fitness 50 lb Cast Iron Kettlebell](https://serp.ly/@boxingundefeated/amazon/50-lb-kettlebells)
 
@@ -72,7 +72,7 @@ One of the standout features of this product is its shock-proof design. Filled w
 
 The wider handles are an added bonus. They provide a solid, comfortable grip allowing you to perform numerous exercises with ease, promoting a full-body workout that's varied and versatile.
 
-Although the Kettlebells are highly effective, one drawback users might encounter is the [kettlebell weight](https://best.serp.co/shop/kettlebell-weight/) being a bit too dense. It might hinder speed for some specific exercises. However, with its innovative features and versatile workouts, the NZG Iron Sand Soft Kettlebell Set is undoubtedly a tool that'll enhance your home gym sessions.
+Although the Kettlebells are highly effective, one drawback users might encounter is the kettlebell weight being a bit too dense. It might hinder speed for some specific exercises. However, with its innovative features and versatile workouts, the NZG Iron Sand Soft Kettlebell Set is undoubtedly a tool that'll enhance your home gym sessions.
 
 ### [Lifeline 53lb Kettlebell - Sturdy and Durable](https://serp.ly/@boxingundefeated/amazon/50-lb-kettlebells)
 

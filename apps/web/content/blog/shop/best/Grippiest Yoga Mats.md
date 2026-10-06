@@ -34,7 +34,7 @@ _As an Amazon™ Associate, we earn from qualifying purchases._
 
 <div class="image"><a href="https://serp.ly/@boxingundefeated/amazon/grippiest-yoga-mats"><img alt="gaiam-essentials-thick-yoga-mat-fitness-exercise-mat-with-easy-cinch-yoga-mat-carrier-strap-red-72-i-1" src="https://imagedelivery.net/vy2bglCGN6hEeWOnSe2c7A/gaiam-essentials-thick-yoga-mat-fitness-exercise-mat-with-easy-cinch-yoga-mat-carrier-strap-red-72-i-1/w=720,h=540,fit=pad,background=black"/></a></div>
 
-[I was on the hunt for a new yoga mat last month when a friend recommended the Gaiam Essentials](https://best.serp.co/shop/gaiam-yoga-mats/) Thick Yoga Mat. I have to say, I've never felt more comfort and support during my yoga sessions. The extra-thick 1cm foam provides cushioning for my knees and wrists, and it's surprisingly lightweight and easy to carry around with the included carrying strap.
+I was on the hunt for a new yoga mat last month when a friend recommended the Gaiam Essentials Thick Yoga Mat. I have to say, I've never felt more comfort and support during my yoga sessions. The extra-thick 1cm foam provides cushioning for my knees and wrists, and it's surprisingly lightweight and easy to carry around with the included carrying strap.
 
 One of the things that stood out most to me about this mat is its durability. I've been using it for almost a month now, and it still looks brand new, despite being dragged to and from the gym several times a week. The non-slip ridges on the surface of the mat have also been a welcome feature; they give me extra grip during downward dogs and other challenging poses.
 
@@ -148,11 +148,11 @@ While grippy yoga mats are primarily designed for yoga practice, they can also b
 
 ### 5. Are all grippy yoga mats created equal?
 
-Not all grippy yoga mats are the same, as manufacturers use different materials and designs to create their mats. [Some might offer better grip, while others may focus on features like cushioning and portability.](https://best.serp.co/shop/hand-grip-strengthener/) It is essential to read reviews and compare features to determine which mat is the best fit for your needs.
+Not all grippy yoga mats are the same, as manufacturers use different materials and designs to create their mats. Some might offer better grip, while others may focus on features like cushioning and portability. It is essential to read reviews and compare features to determine which mat is the best fit for your needs.
 
 ### 6. How do I clean a grippy yoga mat?
 
-To clean a grippy yoga mat, wipe it using a damp cloth and mild soap after each use. You can also make a homemade cleaning solution by mixing water, white vinegar, and a few drops of tea tree or [lavender essential oil](https://best.serp.co/shop/lavender-essential-oils/). Ensure that your mat is thoroughly dried before storing it to prevent odor and mildew buildup.
+To clean a grippy yoga mat, wipe it using a damp cloth and mild soap after each use. You can also make a homemade cleaning solution by mixing water, white vinegar, and a few drops of tea tree or lavender essential oil. Ensure that your mat is thoroughly dried before storing it to prevent odor and mildew buildup.
 
 ### 7. How can I increase the grip of a yoga mat that is starting to get slippery?
 

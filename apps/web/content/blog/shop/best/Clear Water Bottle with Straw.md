@@ -37,7 +37,7 @@ _As an Amazon™ Associate, we earn from qualifying purchases._
 
 I recently purchased the Nefeeko 32 oz Glass Water Bottle with StrawWater Bottle with StrawBottle with Straw due to its eye-catching design and the promise of encouraging me to drink enough water. I must say, this bottle has been a game-changer in my daily hydration routine.
 
-The first thing that caught my attention was the beautiful glass construction. Unlike [plastic water bottles](https://best.serp.co/shop/plastic-water-bottles/) that can degrade over time or stain easily, this [glass bottle](https://best.serp.co/shop/glass-bottle/) is sleek and sturdy. Plus, it's super easy to clean, which is always a bonus.
+The first thing that caught my attention was the beautiful glass construction. Unlike plastic water bottles that can degrade over time or stain easily, this glass bottle is sleek and sturdy. Plus, it's super easy to clean, which is always a bonus.
 
 One of my favorite features is the auto flip lid with handle. This makes drinking water on-the-go so much more convenient, especially when I'm driving or running errands. The leak proof seal is also top-notch - no spills here!
 

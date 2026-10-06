@@ -75,7 +75,7 @@ However, there's one minor con that I've noticed. The bottles tend to accumulate
 
 <div class="image"><a href="https://serp.ly/@boxingundefeated/amazon/clear-water-bottles"><img alt="32oz-reusable-plastic-juice-bottles-with-caps-6-pack-clear-smoothie-drink-containers-by-stock-your-h-1" src="https://imagedelivery.net/vy2bglCGN6hEeWOnSe2c7A/32oz-reusable-plastic-juice-bottles-with-caps-6-pack-clear-smoothie-drink-containers-by-stock-your-h-1/w=720,h=540,fit=pad,background=black"/></a></div>
 
-[I was on the hunt for a reusable water bottle to carry around with me, and stumbled upon the Stock Your Home Plastic Bottles with Caps.](https://best.serp.co/shop/plastic-water-bottles/) These bottles are perfect for those who like to stay hydrated while on-the-go. I remember using it for my green smoothie during my workout sessions; it was a perfect companion.
+I was on the hunt for a reusable water bottle to carry around with me, and stumbled upon the Stock Your Home Plastic Bottles with Caps. These bottles are perfect for those who like to stay hydrated while on-the-go. I remember using it for my green smoothie during my workout sessions; it was a perfect companion.
 
 The bottle's premium quality plastic material makes it durable and reusable. Plus, being BPA-free is an added advantage, giving me peace of mind about using it for food and beverages. I even use it for storing homemade salad dressings, condiments, and even buttermilk.
 
@@ -139,7 +139,7 @@ One of the primary reasons I picked these bottles is their wide-neck design, mak
 
 I also appreciated that each bottle came with a user-friendly push/pull spout for drinking. It's simple yet effective and doesn't require much effort or time when you're thirsty in the middle of a workout or game.
 
-The build of these bottles is quite sturdy; they haven't had any issues withstanding normal wear and tear. Even the kids love them! However, the plastic does seem a bit thin, and I've had to replace a few already because they got knocked off [desks](https://best.serp.co/shop/desks/) or tables.
+The build of these bottles is quite sturdy; they haven't had any issues withstanding normal wear and tear. Even the kids love them! However, the plastic does seem a bit thin, and I've had to replace a few already because they got knocked off desks or tables.
 
 All in all, these Rolling Sands water bottles are a decent choice if you're looking for affordable, colorful, and functional hydration options. They're perfect for team sports or gatherings where you want everyone to stay hydrated and happy. Just remember to handle them gently to avoid unwanted leaks!
 

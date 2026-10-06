@@ -87,7 +87,7 @@ In conclusion, I would highly recommend the Northstar Bags Sd1224 Diamond Ripsto
 
 <div class="image"><a href="https://serp.ly/@boxingundefeated/amazon/green-gym-bags"><img alt="herschel-supply-co-heritage-duffle-bag-in-ivy-green-chicory-coffee-1" src="https://imagedelivery.net/vy2bglCGN6hEeWOnSe2c7A/herschel-supply-co-heritage-duffle-bag-in-ivy-green-chicory-coffee-1/w=720,h=540,fit=pad,background=black"/></a></div>
 
-I recently got my hands on the Herschel Supply Co. Heritage [Duffle Bag](https://best.serp.co/shop/duffle-bag/) in Ivy Green/Chicory Coffee, and it's my new go-to bag for last-minute trips and weekend getaways. Its eye-catching design, made with 100% recycled EcoSystem fabrics, is not only stylish but also eco-friendly. The bag's signature diamond detail adds a touch of class, and I'm particularly impressed with its U-shaped opening, which offers easy access for quick packing.
+I recently got my hands on the Herschel Supply Co. Heritage Duffle Bag in Ivy Green/Chicory Coffee, and it's my new go-to bag for last-minute trips and weekend getaways. Its eye-catching design, made with 100% recycled EcoSystem fabrics, is not only stylish but also eco-friendly. The bag's signature diamond detail adds a touch of class, and I'm particularly impressed with its U-shaped opening, which offers easy access for quick packing.
 
 One thing I appreciated is the bag's ample capacity. Its 40L volume can easily accommodate everything I need for a weekend away, and even more if I'm traveling light. The exterior has a single slip pocket, while the interior features a zip pocket, allowing me to keep my items organized and easily accessible.
 

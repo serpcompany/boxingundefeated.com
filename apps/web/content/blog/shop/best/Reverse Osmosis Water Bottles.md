@@ -215,7 +215,7 @@ Cleaning and maintaining a reverse osmosis water bottle are essential for ensuri
 
 ### How environmentally friendly are reverse osmosis water bottles?
 
-Reverse osmosis water bottles contribute to reducing plastic pollution, as they eliminate the need for single-use [plastic water bottles](https://best.serp.co/shop/plastic-water-bottles/). By using a reusable bottle with a built-in purification system, you can enjoy clean water while greatly reducing your ecological footprint.
+Reverse osmosis water bottles contribute to reducing plastic pollution, as they eliminate the need for single-use plastic water bottles. By using a reusable bottle with a built-in purification system, you can enjoy clean water while greatly reducing your ecological footprint.
 
 ### How much do reverse osmosis water bottles usually cost?
 

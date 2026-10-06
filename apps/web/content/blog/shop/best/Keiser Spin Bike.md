@@ -122,7 +122,7 @@ The personalized studio display is another key feature that sets this indoor bik
 
 The Keiser M3i's high-quality construction and robust adjustment knobs ensure durability and reliability, even after thousands of hours of use. The V-shaped frame caters to riders of all body shapes and sizes, ranging from 5' to 6'2" tall. Moreover, the self-tensioning Poly-V belt drive ensures low maintenance, letting me focus on my workout without worrying about upkeep.
 
-However, it's worth mentioning that some users might experience a learning curve when assembling and setting up this bike. The special tools required for assembly can be a small hurdle for those who aren't well-equipped with tools. Nonetheless, the comprehensive bundle, which includes a floorfloor mat, M3i tool kit, stretch [pads](https://best.serp.co/shop/pads/), and media tray, does provide some added convenience during the process.
+However, it's worth mentioning that some users might experience a learning curve when assembling and setting up this bike. The special tools required for assembly can be a small hurdle for those who aren't well-equipped with tools. Nonetheless, the comprehensive bundle, which includes a floorfloor mat, M3i tool kit, stretch pads, and media tray, does provide some added convenience during the process.
 
 In conclusion, the Keiser M3i Studio Indoor Bike is an excellent investment for those seeking a reliable, quiet, and personalized workout experience. Its high-quality construction, advanced display, and compatibility with fitness apps make it a top choice in the world of indoor cycling. While there may be some minor challenges in assembly and set-up, the overall benefits far outweigh any drawbacks.
 

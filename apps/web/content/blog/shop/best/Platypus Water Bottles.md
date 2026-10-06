@@ -75,7 +75,7 @@ All things considered, the Platypus Big Zip Evo has been a reliable and efficien
 
 <div class="image"><a href="https://serp.ly/@boxingundefeated/amazon/platypus-water-bottles"><img alt="platypus-platy-2-liter-ultralight-collapsible-water-bottle-1" src="https://imagedelivery.net/vy2bglCGN6hEeWOnSe2c7A/platypus-platy-2-liter-ultralight-collapsible-water-bottle-1/w=720,h=540,fit=pad,background=black"/></a></div>
 
-The Platypus Platy 2-Liter Ultralight [Collapsible Water Bottle](https://best.serp.co/shop/collapsible-water-bottle/) has been a game-changer in my outdoor adventures. It's incredibly lightweight, portable, and perfect for camping, hiking, or travel. This innovative design is not only environmentally friendly but also incredibly reliable.
+The Platypus Platy 2-Liter Ultralight Collapsible Water Bottle has been a game-changer in my outdoor adventures. It's incredibly lightweight, portable, and perfect for camping, hiking, or travel. This innovative design is not only environmentally friendly but also incredibly reliable.
 
 One of the things I love about the Platy Bottle is its collapsibility. When it's not in use, I can roll it up and st Ash it in my pocket, which is a massive plus when I'm trying to reduce weight and space. Despite its lightweight nature, it's surprisingly durable. I've had mine for several seasons now, and it's showing no signs of wear and tear.
 
@@ -157,7 +157,7 @@ But overall, I've been incredibly happy with my Platypus Platy Plus Bottle. It's
 
 <div class="image"><a href="https://serp.ly/@boxingundefeated/amazon/platypus-water-bottles"><img alt="platypus-gravityworks-6-liter-water-filter-system-1" src="https://imagedelivery.net/vy2bglCGN6hEeWOnSe2c7A/platypus-gravityworks-6-liter-water-filter-system-1/w=720,h=540,fit=pad,background=black"/></a></div>
 
-I recently got my hands on the Platypus GravityWorks 6 Liter Water Filter System, and I have to say, it's been a real game-changer for my outdoor adventures. [This innovative water filter system uses gravity to filter water, making it incredibly easy to use.](https://best.serp.co/shop/gravity-water-filter/)
+I recently got my hands on the Platypus GravityWorks 6 Liter Water Filter System, and I have to say, it's been a real game-changer for my outdoor adventures. This innovative water filter system uses gravity to filter water, making it incredibly easy to use.
 
 First off, let's talk about the capacity of the system. Its ability to hold up to 6 liters of dirty water and produce filtered water at a rate of 1.75 liters per minute is quite impressive. It's perfect for camping trips, hiking, and even emergency preparedness situations.
 

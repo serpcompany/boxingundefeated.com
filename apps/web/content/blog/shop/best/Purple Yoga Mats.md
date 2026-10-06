@@ -62,7 +62,7 @@ In conclusion, the Retrospec Solana Yoga Mat in Violet Haze is a fantastic choic
 
 <div class="image"><a href="https://serp.ly/@boxingundefeated/amazon/purple-yoga-mats"><img alt="gaiam-premium-print-yoga-mat-5mm-purple-mandala-1" src="https://imagedelivery.net/vy2bglCGN6hEeWOnSe2c7A/gaiam-premium-print-yoga-mat-5mm-purple-mandala-1/w=720,h=540,fit=pad,background=black"/></a></div>
 
-[I recently decided to take up yoga to relax and unwind after a long day in my high-stress job, so I bought the Gaiam 5mm Purple Mandala Yoga Mat.](https://best.serp.co/shop/gaiam-yoga-mats/) After weeks of using this mat, I can say it's definitely improved my practice, offering both style and comfort.
+I recently decided to take up yoga to relax and unwind after a long day in my high-stress job, so I bought the Gaiam 5mm Purple Mandala Yoga Mat. After weeks of using this mat, I can say it's definitely improved my practice, offering both style and comfort.
 
 Firstly, the design is simply stunning. The mandala pattern is aesthetically pleasing and beautifully intricate, making it a joy to use every day. It adds an element of mindfulness and tranquillity to my practice, helping me find my center during those longer, harder poses.
 

@@ -171,7 +171,7 @@ Canteen water bottles keep water cold through the use of double-walled insulatio
 
 ### Are canteen water bottles environmentally friendly?
 
-Yes, canteen water bottles are more environmentally friendly than single-use [plastic water bottles](https://best.serp.co/shop/plastic-water-bottles/). Investing in a reusable canteen bottle significantly reduces plastic waste, as it can be used repeatedly over time. These bottles also tend to be made from stainless steel or other eco-friendly materials, further reducing their environmental impact.
+Yes, canteen water bottles are more environmentally friendly than single-use plastic water bottles. Investing in a reusable canteen bottle significantly reduces plastic waste, as it can be used repeatedly over time. These bottles also tend to be made from stainless steel or other eco-friendly materials, further reducing their environmental impact.
 
 <div><a href="https://serp.ly/@boxingundefeated/amazon/canteen-water-bottles"><img src="https://imagedelivery.net/vy2bglCGN6hEeWOnSe2c7A/Canteen+Water+Bottles-6/w=720,h=540,fit=pad,background=black" alt="Canteen Water Bottles-6"></a></div>
 

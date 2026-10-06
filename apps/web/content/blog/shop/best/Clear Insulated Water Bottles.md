@@ -71,11 +71,11 @@ From the moment I laid my eyes on the Purifyou Glass Insulated Water Bottle, I k
 
 Firstly, the glass construction is a breath of fresh air. Unlike stainless steel or plastic bottles that can alter the taste of water, this bottle allows your taste buds to experience pure, unadulterated water. Plus, it's 100% leak-proof and kid-proof, making it an ideal choice for families on-the-go.
 
-The twist-off cap is another highlight. It provides quick access to your water source, even when you're mid-trek or scrambling up a steep hill. The wide mouth opening is a brilliant feature too. It's narrow enough for easy drinking but wide enough to accommodate [ice cubes](https://best.serp.co/shop/ice-cubes/) or slices of fresh fruit.
+The twist-off cap is another highlight. It provides quick access to your water source, even when you're mid-trek or scrambling up a steep hill. The wide mouth opening is a brilliant feature too. It's narrow enough for easy drinking but wide enough to accommodate ice cubes or slices of fresh fruit.
 
 The high-impact-resistant silicone sleeve is another standout feature. It protects the bottle from accidental drops and provides a non-slip grip, making it easy to carry around. I also appreciate the markings on the sleeve, which help me track my daily water intake.
 
-In terms of practicality, this bottle is [microwave](https://best.serp.co/shop/microwaves/)-safe (without the cap) and dishwasher-safe. The glass canteen is also designed to fit comfortably in most bags, including lunchboxes for kids.
+In terms of practicality, this bottle is microwave-safe (without the cap) and dishwasher-safe. The glass canteen is also designed to fit comfortably in most bags, including lunchboxes for kids.
 
 However, it's worth mentioning that the bottle is quite tall and may not fit into some car cup holders. Additionally, the narrow mouth might make it challenging to clean thoroughly.
 

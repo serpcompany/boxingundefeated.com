@@ -87,7 +87,7 @@ A notable downside, however, is that the mat tends to curl at the edges, which c
 
 <div class="image"><a href="https://serp.ly/@boxingundefeated/amazon/washable-yoga-mats"><img alt="gaiam-5mm-yoga-mat-longer-wider-navy-blue-1" src="https://imagedelivery.net/vy2bglCGN6hEeWOnSe2c7A/gaiam-5mm-yoga-mat-longer-wider-navy-blue-1/w=720,h=540,fit=pad,background=black"/></a></div>
 
-[My foray into yoga started off quite smoothly with the Gaiam 5mm Yoga Mat.](https://best.serp.co/shop/gaiam-yoga-mats/) The first thing that caught my eye was its vibrant navy and blue colors, making it quite a standout in the sea of mats. The longer and wider dimensions provided ample space for my yoga poses, giving me the feeling of having a personalized studio right at home.
+My foray into yoga started off quite smoothly with the Gaiam 5mm Yoga Mat. The first thing that caught my eye was its vibrant navy and blue colors, making it quite a standout in the sea of mats. The longer and wider dimensions provided ample space for my yoga poses, giving me the feeling of having a personalized studio right at home.
 
 The mat's non-slip surface proved to be quite reliable during my sessions, keeping me grounded even during sessions that involved intense sweating. Its thickness provided just the right amount of cushioning for my knees and joints, alleviating any discomfort during intense poses.
 

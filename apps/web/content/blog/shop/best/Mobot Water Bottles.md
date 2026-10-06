@@ -136,7 +136,7 @@ Yes, most Mobot water bottles come with a lifetime warranty. This warranty cover
 
 ### How do I clean my Mobot water bottle?
 
-Cleaning your Mobot water bottle is easy and essential to maintain its performance. To clean the interior, fill the bottle with warm water and a few drops of dish soap. Shake the bottle gently, then rinse thoroughly with water. For a deep clean, you can also use a soft-bristled [bottle brush](https://best.serp.co/shop/bottle-brush/) to scrub the interior. To clean the exterior and the cap, use a damp cloth and mild detergent. Make sure to dry your bottle completely before reusing it to prevent the growth of mold and bacteria.
+Cleaning your Mobot water bottle is easy and essential to maintain its performance. To clean the interior, fill the bottle with warm water and a few drops of dish soap. Shake the bottle gently, then rinse thoroughly with water. For a deep clean, you can also use a soft-bristled bottle brush to scrub the interior. To clean the exterior and the cap, use a damp cloth and mild detergent. Make sure to dry your bottle completely before reusing it to prevent the growth of mold and bacteria.
 
 ### How do I know which size of Mobot water bottle is right for me?
 

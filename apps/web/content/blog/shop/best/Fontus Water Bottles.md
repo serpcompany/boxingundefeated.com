@@ -105,7 +105,7 @@ I've recently been using the Yeti - 25 oz Yonder Water Bottle in charcoal and I 
 
 The first thing that stood out to me was the sleek design and the smooth chug cap, which is a real pleasure to drink from. The controlled spout prevents spills and leaks, making it my go-to bottle for meetings, workouts, and everything in between. The cap's two-part system is incredibly user-friendly, allowing me to twist off the top for drinking and twist off the bottom for refilling or washing - no more fumbling with twist or flip caps!
 
-Another highlight is the bottle's 100% leak-proof performance. No more soggy purse linings or damp [office desks](https://best.serp.co/shop/office-desks/)[desks](https://best.serp.co/shop/desks/)! Plus, the non-insulated design ensures that my water stays at room temperature, which is perfect for those hot summer days when I need a refreshing chill but don't want to deal with condensation on the outside of the bottle.
+Another highlight is the bottle's 100% leak-proof performance. No more soggy purse linings or damp office desksdesks! Plus, the non-insulated design ensures that my water stays at room temperature, which is perfect for those hot summer days when I need a refreshing chill but don't want to deal with condensation on the outside of the bottle.
 
 However, there are a couple of drawbacks to this bottle. Firstly, it's not insulated and isn't suitable for hot or carbonated beverages. Secondly, the wider width of the bottle means that it doesn't fit in all cup holders, so you might need to keep it in a cupholder-friendly location.
 
@@ -151,7 +151,7 @@ Here are some tips to ensure you get the most out of your Fontus water bottle:
 
 ### What are Fontus water bottles?
 
-Fontus water bottles are innovative, eco-friendly, and reusable drink containers. They are designed to keep your beverages hot or cold for hours, reducing waste from disposable bottles and [cups](https://best.serp.co/cups/).
+Fontus water bottles are innovative, eco-friendly, and reusable drink containers. They are designed to keep your beverages hot or cold for hours, reducing waste from disposable bottles and cups.
 
 ### How do Fontus water bottles maintain the temperature of my drink?
 

@@ -62,7 +62,7 @@ As for drawbacks, the only one I can think of is that the container does have a 
 
 <div class="image"><a href="https://serp.ly/@boxingundefeated/amazon/5-gallon-bpa-free-water-bottles"><img alt="coleman-chiller-water-carrier-5-gal-5620-ocean-1" src="https://imagedelivery.net/vy2bglCGN6hEeWOnSe2c7A/coleman-chiller-water-carrier-5-gal-5620-ocean-1/w=720,h=540,fit=pad,background=black"/></a></div>
 
-I've been using the Coleman Chiller [Water Jug](https://best.serp.co/shop/water-jug/) for quite some time now, and it's become an essential part of my summertime adventures. From barbecues in the backyard to camping trips in the mountains, this water jug has been keeping me and my family hydrated and chilled. The large-grip bail handle is a game-changer - it makes carrying this cooler a breeze, especially when my hands are full with other things. I also appreciate how easy it is to clean the EZ-Clean top. A quick wipe down, and it looks as good as new.
+I've been using the Coleman Chiller Water Jug for quite some time now, and it's become an essential part of my summertime adventures. From barbecues in the backyard to camping trips in the mountains, this water jug has been keeping me and my family hydrated and chilled. The large-grip bail handle is a game-changer - it makes carrying this cooler a breeze, especially when my hands are full with other things. I also appreciate how easy it is to clean the EZ-Clean top. A quick wipe down, and it looks as good as new.
 
 However, one small drawback I've noticed is that it can be difficult to pour water into smaller containers, like sports bottles, due to its size and design. Despite this minor inconvenience, the Coleman Chiller Water Jug has been a reliable and efficient companion in all my outdoor endeavors.
 
