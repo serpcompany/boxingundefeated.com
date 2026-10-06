@@ -3,6 +3,7 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest'
 import {
   countBoxers,
   getBoxerProfile,
+  getDirectoryCounts,
   getDivisionBySlug,
   getHomepageData,
   listBoxers,
@@ -236,6 +237,18 @@ describe('queries against the migrated schema', () => {
     it('lists every division in sort order with its boxer count', async () => {
       const rows = await listDivisions(test.db)
       expect(rows.map(({ slug, boxerCount }) => [slug, boxerCount])).toEqual([
+        ['heavy', 2],
+        ['light-heavy', 1],
+        ['welter', 2],
+        ['minimum', 0]
+      ])
+    })
+
+    it('counts the boxers in all and per division', async () => {
+      const counts = await getDirectoryCounts(test.db)
+
+      expect(counts.totalBoxers).toBe(boxerRows.length)
+      expect(counts.divisions.map(({ slug, boxerCount }) => [slug, boxerCount])).toEqual([
         ['heavy', 2],
         ['light-heavy', 1],
         ['welter', 2],

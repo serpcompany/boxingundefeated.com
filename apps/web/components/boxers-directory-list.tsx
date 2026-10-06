@@ -1,12 +1,13 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@boxingundefeated/design-system/card'
 import Link from 'next/link'
-import { type BoxerMetadata, getBoxerStats } from '@/lib/boxers-loader'
+import type { ListedBoxer } from '@/lib/boxer-data'
+import { getBoxerStats } from '@/lib/boxers-loader'
 import { getVisiblePaginationPages } from '@/lib/directory-pagination'
 import { normalizeInternalPath } from '@/lib/url-utils'
 
 interface BoxersDirectoryListProps {
   title: string
-  boxers: BoxerMetadata[]
+  boxers: ListedBoxer[]
   currentPage: number
   totalPages: number
   totalItems: number
@@ -89,7 +90,7 @@ export function BoxersDirectoryList({
   )
 }
 
-function BoxerDirectoryCard({ boxer }: { boxer: BoxerMetadata }) {
+function BoxerDirectoryCard({ boxer }: { boxer: ListedBoxer }) {
   const stats = getBoxerStats(boxer)
 
   return (

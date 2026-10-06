@@ -44,6 +44,14 @@ export function getPaginatedItems<T>(
   }
 }
 
+/**
+ * The page number in a `/page/<n>/` URL: digits without a leading zero, so `/page/02/` or
+ * `/page/2abc/` is not another URL for page 2. Null for anything else.
+ */
+export function parsePageNumber(segment: string): number | null {
+  return /^[1-9]\d{0,5}$/.test(segment) ? Number(segment) : null
+}
+
 export function getBoxersPageHref(page: number): string {
   return page <= 1 ? '/boxers/' : `/boxers/page/${page}/`
 }

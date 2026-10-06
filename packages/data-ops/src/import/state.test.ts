@@ -25,10 +25,14 @@ describe('dataset_state', () => {
 
   it('has no version during a first import, then the version once it finishes', async () => {
     await run(buildImportStart())
-    expect(await getDatasetState(test.db)).toEqual({ version: null, importing: true })
+    expect(await getDatasetState(test.db)).toEqual({
+      version: null,
+      importing: true,
+      completedAt: null
+    })
 
     await run(buildImportComplete('abc123'))
-    expect(await getDatasetState(test.db)).toEqual({ version: 'abc123', importing: false })
+    expect(await getDatasetState(test.db)).toMatchObject({ version: 'abc123', importing: false })
   })
 
   it('keeps the last complete version during a re-import', async () => {
@@ -36,24 +40,29 @@ describe('dataset_state', () => {
     await run(buildImportComplete('v1'))
     await run(buildImportStart())
 
-    expect(await getDatasetState(test.db)).toEqual({ version: 'v1', importing: true })
+    expect(await getDatasetState(test.db)).toMatchObject({ version: 'v1', importing: true })
     await run(buildImportComplete('v2'))
-    expect(await getDatasetState(test.db)).toEqual({ version: 'v2', importing: false })
+    expect(await getDatasetState(test.db)).toMatchObject({ version: 'v2', importing: false })
   })
 
-  it('is left exactly as it was by a re-import of the same data', async () => {
+  it('records when each import finished, a re-import of the same data included', async () => {
     await run(buildImportStart())
     await run(buildImportComplete('v1'))
-    await run("UPDATE dataset_state SET completed_at = '2000-01-01 00:00:00'")
-    const before = await row()
+    await run("UPDATE dataset_state SET completed_at = '2000-01-01 00:00:00.000'")
 
     await run(buildImportStart())
+    expect(await getDatasetState(test.db)).toEqual({
+      version: 'v1',
+      importing: true,
+      completedAt: '2000-01-01 00:00:00.000'
+    })
+
     await run(buildImportComplete('v1'))
-    expect(await row()).toEqual(before)
-
-    await run(buildImportStart())
-    await run(buildImportComplete('v2'))
-    expect((await row())[0]?.completed_at).not.toBe('2000-01-01 00:00:00')
+    const state = await getDatasetState(test.db)
+    expect(state).toMatchObject({ version: 'v1', importing: false })
+    expect(state?.completedAt).toMatch(/^\d{4}-\d\d-\d\d \d\d:\d\d:\d\d\.\d{3}$/)
+    expect(state?.completedAt).not.toBe('2000-01-01 00:00:00.000')
+    expect(await row()).toHaveLength(1)
   })
 
   it('holds one row only', async () => {
