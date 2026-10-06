@@ -58,7 +58,7 @@ const RENDER_REQUEST_HEADERS = ['accept', 'user-agent', ...RSC_VARIANT_HEADERS] 
  * Query parameters that only attribute a visit. Pages never read them, so a cacheable page is
  * rendered and keyed without them: a campaign click shares the page everyone else gets, and no
  * stored copy carries one visitor's parameters in its RSC payload. The browser keeps the full URL,
- * so analytics still sees them; the static export likewise serves one page for every query.
+ * so analytics still sees them.
  */
 const TRACKING_PARAMETER = /^(?:utm_.+|gclid|fbclid|msclkid|ref)$/u
 

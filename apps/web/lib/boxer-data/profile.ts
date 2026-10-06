@@ -1,9 +1,6 @@
 import type { BoxerProfile } from '@boxingundefeated/data-ops'
 
-/**
- * What a boxer profile page renders, whichever source it comes from. The static export's JSON
- * records fit it as they are; D1 rows go through `fromD1Profile`.
- */
+/** What a boxer profile page renders: D1 rows go through `fromD1Profile`. */
 export interface ProfileBoxer {
   slug: string
   name: string
@@ -57,8 +54,7 @@ export interface BoxerProfileView {
 
 /**
  * D1 keeps `promoters`, `trainers` and `managers` as a `string[]`, split from the source's
- * newline-separated text. Joining them again renders what the static pages render: the same text,
- * and nothing for `[]`.
+ * newline-separated text. Joining them again renders the source's text, and nothing for `[]`.
  */
 function joinNames(names: readonly string[] | null | undefined): string | null {
   return names && names.length > 0 ? names.join('\n') : null

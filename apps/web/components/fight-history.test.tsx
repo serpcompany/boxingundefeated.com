@@ -1,11 +1,9 @@
 import { render, screen, waitFor } from '@testing-library/react'
-import type { Bout } from '@/lib/boxers-loader'
-import { getOpponentLinksForBouts } from '@/lib/opponent-mapper'
+import type { ProfileBout } from '@/lib/boxer-data'
 import { FightHistory } from './fight-history'
 
-function makeBout(opponentName: string): Bout {
+function makeBout(opponentName: string): ProfileBout {
   return {
-    boxerId: 'boxer-1',
     boxrecId: `bout-${opponentName}`,
     boutDate: '2024-01-01',
     opponentName,
@@ -16,9 +14,10 @@ function makeBout(opponentName: string): Bout {
 }
 
 describe('FightHistory opponent links', () => {
-  it('links known opponents using normalized name lookup and leaves unknown opponents unlinked', async () => {
+  it('links opponents with a profile and leaves the others unlinked', async () => {
     const bouts = [makeBout('William Lawrence Stribling'), makeBout('Unknown Opponent')]
-    const opponentLinks = getOpponentLinksForBouts(bouts)
+    // Opponent slugs come from D1 (bouts.opponent_boxer_id), matched by the importer.
+    const opponentLinks = new Map([['William Lawrence Stribling', 'young-stribling']])
 
     render(<FightHistory bouts={bouts} opponentLinks={opponentLinks} />)
 

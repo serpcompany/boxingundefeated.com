@@ -2,13 +2,9 @@ import { Breadcrumb } from '@boxingundefeated/design-system/breadcrumb'
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { BoxersDirectoryList } from '@/components/boxers-directory-list'
-import { boxersPageStaticParams, getBoxersPage } from '@/lib/boxer-data'
+import { getBoxersPage } from '@/lib/boxer-data'
 import { getBoxersPageHref, parsePageNumber } from '@/lib/directory-pagination'
 import { getSiteOrigin } from '@/lib/site-config'
-
-// The static export prerenders every page from the committed JSON. The Worker prerenders none: it
-// renders each page on request from D1, and a page out of range is a 404 (lib/boxer-data).
-export const generateStaticParams = boxersPageStaticParams
 
 /** The listing for `/boxers/page/<n>/`, or null for page 1 (that is `/boxers/`) or out of range. */
 async function getListing(pageParam: string) {

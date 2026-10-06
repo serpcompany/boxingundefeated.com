@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import type { BoxerMetadata } from './boxers-loader'
+import type { ProfileBoxer } from './boxer-data'
 import { getSiteConfig, NON_PRODUCTION_ROBOTS_TAG, type SiteConfig } from './site-config'
 
 export const MAX_META_DESCRIPTION_LENGTH = 160
@@ -19,7 +19,7 @@ export function createMetaDescription(description?: string | null): string {
   return `${normalized.slice(0, MAX_META_DESCRIPTION_LENGTH - 3).trimEnd()}...`
 }
 
-export function createBoxerMetaDescription(boxer: Pick<BoxerMetadata, 'name' | 'bio'>): string {
+export function createBoxerMetaDescription(boxer: Pick<ProfileBoxer, 'name' | 'bio'>): string {
   return createMetaDescription(
     `Professional boxing record and statistics for ${boxer.name}. ${boxer.bio || ''}`
   )

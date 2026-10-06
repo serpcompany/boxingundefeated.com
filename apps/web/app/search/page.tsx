@@ -5,22 +5,15 @@ import { Card, CardContent, CardHeader, CardTitle } from '@boxingundefeated/desi
 import { Input } from '@boxingundefeated/design-system/input'
 import { Search } from 'lucide-react'
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { type SearchResult, searchResultHref } from '@/lib/search/contract'
-import { loadStaticIndex, searchApi, searchesApi, searchStaticIndex } from '@/lib/search/sources'
+import { searchApi } from '@/lib/search/sources'
 import { type BoxerSearchState, useBoxerSearch } from '@/lib/search/use-boxer-search'
 
 export default function SearchPage() {
-  // The Worker searches D1 through /api/search; the static export searches its committed index.
-  // SITE_BUILD_OUTPUT is inlined at build time, so each build only ever takes one branch.
-  const usesApi = searchesApi()
+  // Searches D1 through /api/search.
   const [searchQuery, setSearchQuery] = useState('')
-  const search = useBoxerSearch(searchQuery, usesApi ? searchApi : searchStaticIndex)
-
-  useEffect(() => {
-    // The static index is a megabyte: start loading it before the first search needs it.
-    if (!usesApi) loadStaticIndex().catch(() => {})
-  }, [usesApi])
+  const search = useBoxerSearch(searchQuery, searchApi)
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-8">
@@ -35,11 +28,7 @@ export default function SearchPage() {
           <Input
             type="search"
             aria-label="Search boxers"
-            placeholder={
-              usesApi
-                ? 'Search by name, nickname, country, or division...'
-                : 'Search by name, country, or division...'
-            }
+            placeholder="Search by name, nickname, country, or division..."
             value={searchQuery}
             maxLength={SEARCH_QUERY_MAX_LENGTH}
             onChange={e => setSearchQuery(e.target.value)}

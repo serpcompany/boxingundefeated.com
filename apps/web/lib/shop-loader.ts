@@ -93,16 +93,15 @@ export function countShopPosts(): number {
 
 /**
  * How many shop posts there are. The Worker renders the HTML sitemap on request, where `content/`
- * can't be read, so next.config.ts inlines the count its build took (`SHOP_POST_COUNT`). `next
- * dev`, the static export and tests read the files.
+ * can't be read, so next.config.ts inlines the count its build took (`SHOP_POST_COUNT`). It fails
+ * closed without one rather than read `content/` at request time.
  */
 export async function getShopPostCount(): Promise<number> {
   const counted = process.env.SHOP_POST_COUNT
-  if (counted !== undefined) return Number(counted)
-  if (process.env.SITE_BUILD_OUTPUT === 'worker') {
-    throw new Error('SHOP_POST_COUNT is not set: next.config.ts inlines it into the Worker build.')
+  if (counted === undefined) {
+    throw new Error('SHOP_POST_COUNT is not set: next.config.ts inlines it into every build.')
   }
-  return countShopPosts()
+  return Number(counted)
 }
 
 async function renderMarkdownToHtml(content: string): Promise<string> {

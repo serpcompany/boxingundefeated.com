@@ -2,6 +2,18 @@ import { render } from '@testing-library/react'
 import { getSiteOrigin } from '@/lib/site-config'
 import Home, { generateMetadata } from './page'
 
+// The homepage reads D1 on request (lib/boxer-data); listing-pages.test.tsx covers its content.
+jest.mock('@/lib/boxer-data', () => ({
+  getHomepage: async () => ({
+    totalBoxers: 0,
+    activeBoxers: 0,
+    totalBouts: 0,
+    eliteBoxers: 0,
+    featuredBoxers: [],
+    divisions: []
+  })
+}))
+
 describe('homepage', () => {
   it('leaves the canonical and og:url to the page, so the metadata API cannot add a slash', () => {
     const metadata = generateMetadata()

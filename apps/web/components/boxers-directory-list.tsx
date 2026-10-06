@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@boxingundefeated/design-system/card'
 import Link from 'next/link'
 import type { ListedBoxer } from '@/lib/boxer-data'
-import { getBoxerStats } from '@/lib/boxers-loader'
+import { getBoxerStats } from '@/lib/boxer-stats'
 import { getVisiblePaginationPages } from '@/lib/directory-pagination'
 import { normalizeInternalPath } from '@/lib/url-utils'
 
