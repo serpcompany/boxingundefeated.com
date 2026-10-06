@@ -3,13 +3,13 @@
   "globalDependencies": ["**/.env.*local"],
   "tasks": {
     "build": {
+      "env": ["NEXT_BUILD_TARGET", "SITE_ENVIRONMENT", "NEXT_PUBLIC_*", "GITHUB_EVENT_NAME"],
       "dependsOn": ["^build"],
-      "env": ["SITE_ENVIRONMENT", "GITHUB_EVENT_NAME"],
       "outputs": [".next/**", "!.next/cache/**", "out/**"]
     },
     "build:vercel": {
+      "env": ["NEXT_BUILD_TARGET", "SITE_ENVIRONMENT", "NEXT_PUBLIC_*", "GITHUB_EVENT_NAME"],
       "dependsOn": ["^build"],
-      "env": ["SITE_ENVIRONMENT", "GITHUB_EVENT_NAME"],
       "outputs": [".next/**", "!.next/cache/**", "out/**"]
     },
     "clean": {
