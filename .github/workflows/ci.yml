@@ -160,7 +160,8 @@ jobs:
 
   static-export:
     name: Static export build and links
-    # The GitHub Pages site, live until the cutover (#19); remove this job with that workflow.
+    # The static export no longer serves the site (GitHub Pages is off since the cutover, #19). It
+    # stays only for the internal link check until #20 removes the export build.
     needs: changes
     if: needs.changes.outputs.code == 'true' && github.event.pull_request.draft != true
     runs-on: ubuntu-latest
@@ -179,9 +180,9 @@ jobs:
           key: next-export-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.sha }}
           restore-keys: next-export-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-
 
-      # The command and environment of deploy-github-pages.yml. GITHUB_EVENT_NAME=push builds the
-      # production export that main deploys, also on a pull request (lib/site-config.ts).
-      - name: Build the static export as deploy-github-pages.yml does
+      # GITHUB_EVENT_NAME=push builds the production export, also on a pull request
+      # (lib/site-config.ts), so the links checked are the production ones.
+      - name: Build the static export
         env:
           NODE_OPTIONS: --max-old-space-size=8192
           NEXT_PUBLIC_SITE_URL: https://boxingundefeated.com

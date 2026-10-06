@@ -8,8 +8,8 @@ Smoke tests and URL checks for every environment of boxingundefeated.com:
   [environment configuration](https://github.com/serpcompany/serp/blob/main/docs/engineering/standards/environment-configuration.md#verification)
   standards.
 - **URL parity** (`src/parity.ts`): every URL the live site serves, on a candidate.
-- **Export check** (`src/check-export.ts`): the static export GitHub Pages deploys is the production
-  site. The cutover to the Worker (#19) is done; keep running it until GitHub Pages is turned off.
+- **Export check** (`src/check-export.ts`): retired. It checked the static export GitHub Pages
+  served, and Pages is off since the cutover (#19); #20 removes it with the export build.
 
 Run everything from the repository root.
 
@@ -51,7 +51,6 @@ BASE_URL=https://staging.boxingundefeated.com EXPECT_ENV=staging pnpm test:e2e
 BASE_URL=https://boxingundefeated-com-production.serpcompany.workers.dev EXPECT_ENV=production pnpm test:e2e
 pnpm parity -- https://boxingundefeated-com-production.serpcompany.workers.dev
 EXPECT_ENV=staging pnpm parity -- https://staging.boxingundefeated.com
-env -u SITE_ENVIRONMENT GITHUB_EVENT_NAME=push pnpm --filter web build:vercel && pnpm check:export
 ```
 
 ## The local preview
