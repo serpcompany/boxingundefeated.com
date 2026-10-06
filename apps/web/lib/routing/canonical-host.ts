@@ -1,14 +1,17 @@
 /**
  * The canonical-host redirect (serpcompany/serp `docs/engineering/standards/
- * environment-configuration.md`, "Canonical hosts"), applied by `worker.ts` to every request
- * before the crawl policy and OpenNext.
+ * environment-configuration.md`, "Canonical hosts"), applied by lib/worker/handle-request.ts to
+ * every request that reaches the Worker, pages and files from `public/` alike, before the crawl
+ * policy and OpenNext.
  *
  * When the Worker's `CANONICAL_HOST_REDIRECT` var is exactly `on` and its `SITE_ENVIRONMENT` is a
  * deployed one (`staging` or `production`), a request for `www.boxingundefeated.com` or any
  * `*.workers.dev` host (the workers.dev URL and preview URLs) gets one 308 to that environment's
  * origin. The path is already in canonical form (`lib/routing/trailing-slash.ts`), so
- * `www.boxingundefeated.com/about` goes straight to `https://boxingundefeated.com/about/`, and
- * `/api` paths keep exactly the path they asked for. The query string is kept as sent.
+ * `www.boxingundefeated.com/about` goes straight to `https://boxingundefeated.com/about/`.
+ * Repeated slashes are collapsed in the same hop (`//about` -> `/about/`), which OpenNext would
+ * otherwise do in a second redirect. `/api` paths keep exactly the path they asked for. The query
+ * string is kept as sent.
  *
  * Requests that carry the smoke-test header are served normally, so CI can test a deployment
  * through its platform host. The header is not a secret: it only reveals the same public site on
@@ -25,6 +28,8 @@ export const SMOKE_TEST_HEADER = 'x-boxingundefeated-smoke-test'
 
 const WWW_HOST = 'www.boxingundefeated.com'
 const PLATFORM_HOST_SUFFIX = '.workers.dev'
+// `/api` and everything under it, in any case, as the slash rules treat it.
+const API_PATH = /^\/api(?:\/|$)/i
 
 export interface CanonicalHostEnvironment {
   CANONICAL_HOST_REDIRECT?: string
@@ -72,6 +77,18 @@ export function canonicalHostRedirect(
 
   return new Response(null, {
     status: 308,
-    headers: { location: `${origin}${canonicalPathname(url.pathname)}${url.search}` }
+    headers: { location: `${origin}${canonicalHostPathname(url.pathname)}${url.search}` }
   })
+}
+
+/**
+ * The path a non-canonical host redirects to: `/api` paths exactly as requested, and every other
+ * path with repeated slashes collapsed and in canonical slash form. The collapse is not part of
+ * `canonicalPathname`, which must keep agreeing with `slashRedirects`.
+ */
+export function canonicalHostPathname(pathname: string): string {
+  if (API_PATH.test(pathname)) {
+    return pathname
+  }
+  return canonicalPathname(pathname.replace(/\/{2,}/g, '/'))
 }
