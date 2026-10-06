@@ -26,11 +26,14 @@ The owner runs the production DNS cutover.
     renders shop articles at `/shop/best/<slug>/`.
   - `lib/`: build-time data loaders (boxers, shop, blog), URL, metadata, route and sitemap-path
     helpers. Change URLs here, not in individual pages.
-  - `content/`: markdown shop articles and legal MDX.
+  - `content/`: markdown shop articles. The legal pages are TSX in `app/(legal)/`.
   - `public/data/boxers/`: per-boxer JSON generated from the pipeline data. Never hand-edit it.
   - `scripts/`: data generators. The search index is built before `next build` (`predev`,
     `build:with-data`); XML sitemaps are written after it and rewrite files in `public/`, so
     revert those changes before committing.
+  - `wrangler.jsonc`, `open-next.config.ts`: the Worker. The top level is local only;
+    `env.staging` and `env.production` are the deployed Workers, each with its own D1 `DB`.
+- `d1/drizzle/`: D1 migrations, shared by every environment.
 - `packages/`: shared UI (`design-system`, shadcn), `hooks` and `utils`. Read before adding a
   component or helper that might already exist.
 - `configs/`: shared Next.js and TypeScript configuration. Read before changing build settings.
@@ -52,6 +55,17 @@ Inner loop, while editing (seconds):
 - `pnpm exec biome lint <paths>`
 - `pnpm --filter web exec next dev --port 3003`: the dev server. `pnpm dev` first runs `predev`,
   which regenerates `public/data/` and needs `apps/web/data/boxers.json`.
+
+Worker (OpenNext on Cloudflare; minutes, because it prerenders every page):
+
+- `pnpm preview:worker`: `build:worker` (`opennextjs-cloudflare build` with
+  `NEXT_BUILD_TARGET=worker`, which turns off `output: 'export'`), then serves the local Worker on
+  http://localhost:8787 with the local top level of `apps/web/wrangler.jsonc`.
+- `pnpm --filter web serve:worker [--env staging]`: serve the last Worker build again. With
+  `--env`, it uses that environment's vars and bindings, locally. It sets `CHOKIDAR_USEPOLLING`
+  because Wrangler's per-file watchers on about 16,000 assets exhaust file descriptors on macOS.
+- `pnpm --filter web cf-typegen`: regenerate `cloudflare-env.d.ts` after changing
+  `wrangler.jsonc`, and commit it.
 
 Finish gate, once per state when the branch is finished: `pnpm check` (read-only Biome check,
 workspace check, typecheck, tests and the production build; about a minute for the build). Run it
