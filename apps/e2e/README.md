@@ -26,10 +26,18 @@ Run everything from the repository root.
 - Optional for `test:e2e`: `CANONICAL_ORIGIN` (default: the environment's origin;
   `http://localhost:8787` for `local`) and `NON_CANONICAL_HOSTS` (comma-separated; default: the
   environment's `*.workers.dev` host, plus `www` for production on the apex or locally).
+- **After the cutover (#19)**, run the production smoke with `BASE_URL=https://boxingundefeated.com`
+  (or add `www.boxingundefeated.com` to `NON_CANONICAL_HOSTS`): with the workers.dev URL as
+  `BASE_URL`, `www` is not tested. Before the cutover `www` is GitHub Pages, which answers 301.
+- `/api/search` must answer 200 with JSON, so a Worker deployed before #36 fails the smoke.
+- Playwright doesn't retry (`retries: 0`), so a flaky test fails the run. Only the host check
+  retries, for up to 30 s, while a new deploy reaches every edge.
 - Parity writes `parity-report/parity-<host>.md` and `.json` here. Its options: `--reference
   <origin>` (default `https://boxingundefeated.com`), `--out-dir <dir>` (default `apps/web/out`;
   without one it checks the sitemap URLs only), `--concurrency <n>` (default and maximum 8 for
-  remote hosts), `--report-dir <dir>`.
+  remote hosts), `--report-dir <dir>`. It retries a 429, a 5xx or a network error with backoff
+  (2, 4, 8 s, or `Retry-After`). A URL the reference still doesn't answer with 200 is an error, and
+  the run fails; only a 404 or 410 for an export page that the sitemaps don't list is skipped.
 - `test:e2e` writes `playwright-report/` and `test-results/` here. Keep both as CI artifacts.
 - CI installs the browser once: `pnpm --filter e2e test:install`.
 
@@ -76,7 +84,5 @@ pnpm parity -- http://localhost:8805
 
 ## Pending
 
-- `/api/search` answering 200 with JSON is `test.fixme` until #36 merges. Until then the suite
-  holds it to "never 3xx".
 - "Sitemaps list only canonical URLs" is `test.fixme`, owned by #15, which publishes the sitemaps
   per environment.
