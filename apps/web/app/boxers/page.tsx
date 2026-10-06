@@ -1,12 +1,8 @@
 import { Breadcrumb } from '@boxingundefeated/design-system/breadcrumb'
 import type { Metadata } from 'next'
 import { BoxersDirectoryList } from '@/components/boxers-directory-list'
-import { getBoxersWithoutBouts } from '@/lib/boxers-loader'
-import {
-  getBoxersPageHref,
-  getPaginatedItems,
-  sortBoxersForDirectory
-} from '@/lib/directory-pagination'
+import { getBoxersPage } from '@/lib/boxer-data'
+import { getBoxersPageHref } from '@/lib/directory-pagination'
 import { getSiteOrigin } from '@/lib/site-config'
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -24,8 +20,7 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function BoxersPage() {
   const baseUrl = getSiteOrigin()
   const breadcrumbItems = [{ name: 'Boxers', href: '/boxers/' }]
-  const boxers = sortBoxersForDirectory(getBoxersWithoutBouts())
-  const page = getPaginatedItems(boxers, 1)
+  const page = await getBoxersPage(1)
 
   if (!page) {
     throw new Error('Failed to paginate boxers')
