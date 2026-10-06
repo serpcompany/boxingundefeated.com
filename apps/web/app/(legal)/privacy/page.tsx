@@ -4,7 +4,9 @@ import { getSiteOrigin } from '@/lib/site-config'
 
 export const metadata: Metadata = {
   title: 'Privacy Policy - Boxing Directory',
-  description: 'Privacy policy for the Boxing Directory website.'
+  description: 'Privacy policy for the Boxing Directory website.',
+  // Resolved against the root layout's metadataBase, the environment's origin.
+  alternates: { canonical: '/privacy/' }
 }
 
 export default function PrivacyPolicyPage() {

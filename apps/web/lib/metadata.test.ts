@@ -20,10 +20,12 @@ describe('metadata helpers', () => {
         title: metadata.title,
         description,
         siteName: 'Boxing Undefeated',
-        type: 'website',
-        url: getSiteOrigin()
+        type: 'website'
       })
     )
+    // Inherited by every page, so the root sets neither: the homepage renders its own.
+    expect(metadata.alternates?.canonical).toBeUndefined()
+    expect(metadata.openGraph).not.toHaveProperty('url')
     expect(metadata.openGraph?.images).toEqual([
       expect.objectContaining({
         url: '/opengraph-image.png',

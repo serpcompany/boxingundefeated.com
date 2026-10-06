@@ -70,7 +70,8 @@ export function Breadcrumb({ items, homeHref = '/', baseUrl }: BreadcrumbProps) 
                 '@type': 'ListItem',
                 position: 1,
                 name: 'Home',
-                item: `${baseUrl || ''}${homeHref}`
+                // The homepage is written as the bare origin (SERP URL trailing-slash standard).
+                item: baseUrl && homeHref === '/' ? baseUrl : `${baseUrl || ''}${homeHref}`
               },
               ...items.map((item, index) => ({
                 '@type': 'ListItem',

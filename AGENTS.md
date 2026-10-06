@@ -35,7 +35,9 @@ The owner runs the production DNS cutover.
     revert those changes before committing.
   - `wrangler.jsonc`, `open-next.config.ts`, `worker.ts`: the Worker. The top level is local only;
     `env.staging` and `env.production` are the deployed Workers, each with its own D1 `DB`.
-    `worker.ts` is the entry: it applies the crawl policy (`lib/worker/`), then runs OpenNext.
+    `worker.ts` is the entry: it applies the canonical-host redirect (`lib/routing/`) and the
+    crawl policy (`lib/worker/`), then runs OpenNext, which applies the trailing-slash
+    `redirects()` from `next.config.ts`.
 - `d1/drizzle/`: D1 migrations, shared by every environment.
 - `packages/`: shared UI (`design-system`, shadcn) and `hooks`. Read before adding a
   component or helper that might already exist.
@@ -120,6 +122,7 @@ value is used, never at module load:
 | `<meta name="robots">`, `X-Robots-Tag` | `noindex` | `noindex` | none |
 | `/robots.txt` | `Disallow: /` | `Disallow: /` | `Allow: /` and the sitemap index |
 | Google Tag Manager | no | no | `GTM-PP4HWLM` (in code) |
+| `CANONICAL_HOST_REDIRECT` (`www`, `*.workers.dev` -> origin) | `off` | `on` | `on` |
 
 Prerendered HTML is fixed at build, so a Worker build and the environment that serves it must use
 the same value: `build:worker:staging` with `--env staging`. At runtime, `worker.ts` reads the
@@ -131,5 +134,8 @@ answers `/robots.txt` with `Disallow: /`. `app/robots.ts` is the only robots sou
 - Public URLs are an SEO contract. Never change or drop one without a permanent redirect. GitHub
   Pages can't serve redirects, so until the Worker cutover, don't change URLs at all.
 - Pages end in a trailing slash, files never do, and the homepage canonical is the origin without
-  a slash (SERP URL trailing-slash standard).
+  a slash (SERP URL trailing-slash standard). `lib/routing/trailing-slash.ts` holds the rules; the
+  Worker redirects with them, the static export can't. The homepage renders its own canonical and
+  `og:url`, so the root layout sets neither. Host redirects exempt requests with the
+  `x-boxingundefeated-smoke-test` header, and `/api` paths keep their exact path.
 - Never commit secrets. `.env.local` files are local only.
