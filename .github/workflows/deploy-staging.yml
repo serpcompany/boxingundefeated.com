@@ -31,7 +31,9 @@ jobs:
       name: staging
       url: https://staging.boxingundefeated.com
     env:
-      SMOKE_ORIGIN: https://staging.boxingundefeated.com
+      # The Worker's own workers.dev host, with the smoke-test header. The zone's Bot Fight Mode
+      # challenges GitHub's runners on staging.boxingundefeated.com, and the free plan can't skip it.
+      SMOKE_ORIGIN: https://boxingundefeated-com-staging.serpcompany.workers.dev
     steps:
       - name: Require Cloudflare credentials
         env:

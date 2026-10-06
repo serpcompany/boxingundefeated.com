@@ -9,9 +9,9 @@ name: Deploy Production
 # point at this commit, and Deploy Staging must have deployed this code first. It documents the
 # bootstrap (before staging exists) and the hotfix path.
 #
-# Until the cutover (#19) the production Worker is on workers.dev only, and the smoke test runs
-# there with the smoke-test header. At the cutover, point SMOKE_ORIGIN and the environment URL at
-# https://boxingundefeated.com.
+# The smoke test runs on the Worker's workers.dev host with the smoke-test header, before and after
+# the cutover (#19): the zone's Bot Fight Mode challenges GitHub's runners on the zone's own
+# hostnames. At the cutover, only the environment URL moves to https://boxingundefeated.com.
 #
 # Agents never dispatch this workflow, re-run it, or approve its job. Only the logins in
 # RELEASE_OWNERS may release a hotfix: a dispatch from main with `hotfix` and the typed
