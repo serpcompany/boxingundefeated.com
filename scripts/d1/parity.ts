@@ -1,32 +1,36 @@
 /**
- * Proves a D1 import lost nothing: row counts, slug coverage, every row field by field against
- * the source, a seeded sample against today's per-boxer JSON, and opponent links against today's
- * matching. Writes a Markdown report and exits 1 on any mismatch.
+ * Proves a D1 import lost nothing, independently of the importer's mapping: every boxer and bout
+ * in D1 is compared field by field with the source JSON and with today's per-boxer JSON
+ * (`apps/web/public/data/boxers/<slug>.json`, what the live site renders), using the parity
+ * rules in `packages/data-ops/src/parity/rules.ts`. Opponent links are checked against today's
+ * `getOpponentSlug` and divisions against today's `getBoxerCategories`. Writes a Markdown report
+ * and exits 1 on any mismatch.
  *
  * Usage:
- *   pnpm db:parity -- --target local|staging [--source <boxers.json>] [--sample 200] [--seed 9]
+ *   pnpm db:parity -- --target local|staging [--source <boxers.json>]
  *                     [--out d1/reports/parity-<target>.md]
  */
 import { createHash } from 'node:crypto'
-import { mkdirSync, readFileSync, statSync, writeFileSync } from 'node:fs'
+import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from 'node:fs'
 import { dirname, join, relative, resolve } from 'node:path'
+import { getBoxerCategories } from '../../apps/web/lib/boxers-loader'
 import { getOpponentSlug } from '../../apps/web/lib/opponent-mapper'
 import {
   BOUT_COLUMNS,
   BOXER_COLUMNS,
-  CONTENT_COLUMNS,
   DIVISION_COLUMNS,
   type ImportDataset,
   type ImportTarget,
   parseFlags,
-  type Row,
   resolveTarget,
-  rowsChecksum,
-  type SourceBoxer,
-  type TableName,
-  toBoutRow,
-  toBoxerRow
+  rowsChecksum
 } from '../../packages/data-ops/src/import'
+import {
+  compareBoxerRecord,
+  type D1Row,
+  type Mismatch,
+  unaccountedColumns
+} from '../../packages/data-ops/src/parity/rules'
 import { loadDataset, resolveSource } from './import-boxers'
 import { APP_DIR, d1Query, REPO_ROOT } from './wrangler'
 
@@ -35,25 +39,18 @@ const BOXER_PAGE = 1_000
 const BOUT_PAGE = 10_000
 const number = (value: number) => value.toLocaleString('en-US')
 
-interface Mismatch {
-  where: string
-  column: string
-  expected: unknown
-  actual: unknown
-}
-
 interface Snapshot {
-  divisions: Row[]
-  boxers: Row[]
-  bouts: Row[]
+  divisions: D1Row[]
+  boxers: D1Row[]
+  bouts: D1Row[]
 }
 
 /** Every row, in key order, paged so no single D1 response is large. */
 function readSnapshot(target: ImportTarget): Snapshot {
-  const divisions = d1Query<Row>(target, 'SELECT * FROM divisions ORDER BY sort_order')
-  const boxers: Row[] = []
+  const divisions = d1Query<D1Row>(target, 'SELECT * FROM divisions ORDER BY sort_order')
+  const boxers: D1Row[] = []
   for (let last = 0; ; ) {
-    const page = d1Query<Row>(
+    const page = d1Query<D1Row>(
       target,
       `SELECT * FROM boxers WHERE id > ${last} ORDER BY id LIMIT ${BOXER_PAGE}`
     )
@@ -61,9 +58,9 @@ function readSnapshot(target: ImportTarget): Snapshot {
     if (page.length < BOXER_PAGE) break
     last = page.at(-1)!.id as number
   }
-  const bouts: Row[] = []
+  const bouts: D1Row[] = []
   for (let boxer = 0, ordinal = -1; ; ) {
-    const page = d1Query<Row>(
+    const page = d1Query<D1Row>(
       target,
       `SELECT * FROM bouts WHERE (boxer_id, ordinal) > (${boxer}, ${ordinal})
         ORDER BY boxer_id, ordinal LIMIT ${BOUT_PAGE}`
@@ -76,62 +73,59 @@ function readSnapshot(target: ImportTarget): Snapshot {
   return { divisions, boxers, bouts }
 }
 
-const keyOf: Record<TableName, (row: Row) => string> = {
-  divisions: row => String(row.slug),
-  boxers: row => `boxer ${row.id} (${row.slug})`,
-  bouts: row => `bout ${row.boxer_id}#${row.ordinal}`
-}
-
-function compareRows(
-  table: TableName,
-  expected: readonly Row[],
-  actual: readonly Row[],
+interface Comparison {
+  boxers: number
+  bouts: number
+  fields: number
   mismatches: Mismatch[]
-): number {
-  const key = keyOf[table]
-  const actualByKey = new Map(actual.map(row => [key(row), row]))
-  let fields = 0
-  for (const row of expected) {
-    const found = actualByKey.get(key(row))
-    actualByKey.delete(key(row))
-    if (!found) {
-      mismatches.push({ where: key(row), column: '(row)', expected: 'present', actual: 'missing' })
-      continue
-    }
-    for (const column of CONTENT_COLUMNS[table]) {
-      fields++
-      if ((row[column] ?? null) !== (found[column] ?? null)) {
-        mismatches.push({ where: key(row), column, expected: row[column], actual: found[column] })
-      }
-    }
-  }
-  for (const extra of actualByKey.keys()) {
-    mismatches.push({ where: extra, column: '(row)', expected: 'absent', actual: 'present' })
-  }
-  return fields
 }
 
-/** mulberry32: a small seeded PRNG, so the sample is reproducible. */
-function seededRandom(seed: number): () => number {
-  let state = seed >>> 0
-  return () => {
-    state = (state + 0x6d2b79f5) >>> 0
-    let t = state
-    t = Math.imul(t ^ (t >>> 15), t | 1)
-    t ^= t + Math.imul(t ^ (t >>> 7), t | 61)
-    return ((t ^ (t >>> 14)) >>> 0) / 4_294_967_296
+/** Compares each JSON record with its D1 rows (found by slug), plus D1 rows no record claims. */
+function compareRecords(
+  records: readonly Record<string, unknown>[],
+  snapshot: Snapshot,
+  opponentId: (name: string) => number | null
+): Comparison {
+  const boxerBySlug = new Map(snapshot.boxers.map(row => [row.slug as string, row]))
+  const boutsByBoxer = new Map<number, D1Row[]>()
+  for (const bout of snapshot.bouts) {
+    const list = boutsByBoxer.get(bout.boxer_id as number) ?? []
+    list.push(bout)
+    boutsByBoxer.set(bout.boxer_id as number, list)
   }
-}
-
-export function sampleSlugs(slugs: readonly string[], size: number, seed: number): string[] {
-  const pool = [...slugs]
-  const random = seededRandom(seed)
-  const count = Math.min(size, pool.length)
-  for (let index = 0; index < count; index++) {
-    const pick = index + Math.floor(random() * (pool.length - index))
-    ;[pool[index], pool[pick]] = [pool[pick]!, pool[index]!]
+  const result: Comparison = { boxers: 0, bouts: 0, fields: 0, mismatches: [] }
+  const claimed = new Set<number>()
+  for (const record of records) {
+    const boxer = boxerBySlug.get(record.slug as string)
+    if (boxer) claimed.add(boxer.id as number)
+    const own = boxer ? (boutsByBoxer.get(boxer.id as number) ?? []) : []
+    const compared = compareBoxerRecord(record, boxer, own, opponentId)
+    result.boxers++
+    result.bouts += compared.bouts
+    result.fields += compared.fields
+    result.mismatches.push(...compared.mismatches)
   }
-  return pool.slice(0, count)
+  for (const boxer of snapshot.boxers) {
+    if (!claimed.has(boxer.id as number)) {
+      result.mismatches.push({
+        where: `boxer ${boxer.id} (${boxer.slug})`,
+        field: '(row)',
+        expected: 'absent',
+        actual: 'present'
+      })
+    }
+  }
+  for (const [boxerId, bouts] of boutsByBoxer) {
+    if (!claimed.has(boxerId) && !snapshot.boxers.some(row => row.id === boxerId)) {
+      result.mismatches.push({
+        where: `bouts of boxer ${boxerId}`,
+        field: '(row)',
+        expected: 'absent',
+        actual: `${bouts.length} orphan rows`
+      })
+    }
+  }
+  return result
 }
 
 function table(headers: string[], rows: (string | number)[][]): string {
@@ -142,23 +136,29 @@ function table(headers: string[], rows: (string | number)[][]): string {
 
 const check = (ok: boolean) => (ok ? 'yes' : '**NO**')
 
-function formatMismatches(mismatches: Mismatch[]): string {
+function formatMismatches(mismatches: readonly Mismatch[]): string {
   if (mismatches.length === 0) return ''
   const shown = mismatches
     .slice(0, 25)
     .map(
       m =>
-        `- ${m.where} \`${m.column}\`: expected ${JSON.stringify(m.expected)}, got ${JSON.stringify(m.actual)}`
+        `- ${m.where} \`${m.field}\`: expected ${JSON.stringify(m.expected)}, got ${JSON.stringify(m.actual)}`
     )
   return `\n\n${shown.join('\n')}${mismatches.length > 25 ? `\n- … ${mismatches.length - 25} more` : ''}`
 }
 
+function summary(name: string, comparison: Comparison): string {
+  return (
+    `${number(comparison.boxers)} ${name} and ${number(comparison.bouts)} bouts, ` +
+    `${number(comparison.fields)} fields compared: ` +
+    `**${number(comparison.mismatches.length)} mismatches**.${formatMismatches(comparison.mismatches)}`
+  )
+}
+
 function main(): void {
-  const flags = parseFlags(process.argv.slice(2), ['target', 'source', 'sample', 'seed', 'out'])
+  const flags = parseFlags(process.argv.slice(2), ['target', 'source', 'out'])
   const target = resolveTarget(typeof flags.target === 'string' ? flags.target : undefined)
   const sourcePath = resolveSource(flags.source)
-  const sampleSize = Number(typeof flags.sample === 'string' ? flags.sample : 200)
-  const seed = Number(typeof flags.seed === 'string' ? flags.seed : 9)
   const outPath = resolve(
     process.cwd(),
     typeof flags.out === 'string'
@@ -169,28 +169,41 @@ function main(): void {
 
   const sourceText = readFileSync(sourcePath, 'utf8')
   const sourceSha = createHash('sha256').update(sourceText).digest('hex')
+  const source = JSON.parse(sourceText) as Record<string, unknown>[]
+  // The importer's dataset only supplies the intentional drops and the quirk counts.
   const dataset: ImportDataset = loadDataset(sourcePath)
   const droppedSlugs = new Set(dataset.dropped.map(drop => drop.slug))
+  const records = source.filter(record => !droppedSlugs.has(record.slug as string))
   console.log(`Reading every row from ${target.database}…`)
   const snapshot = readSnapshot(target)
 
-  // 1. Row counts.
-  const droppedBouts = dataset.dropped.reduce((total, drop) => total + drop.bouts, 0)
+  // 1. Row counts, straight from the source JSON.
+  const boutCount = (list: readonly Record<string, unknown>[]) =>
+    list.reduce((total, record) => total + ((record.bouts as unknown[] | null)?.length ?? 0), 0)
+  const categories = getBoxerCategories()
   const counts = [
-    ['divisions', dataset.divisions.length, 0, dataset.divisions.length, snapshot.divisions.length],
+    ['divisions', categories.length, 0, categories.length, snapshot.divisions.length],
     [
       'boxers',
-      dataset.sourceCounts.boxers,
-      dataset.dropped.length,
-      dataset.boxers.length,
+      source.length,
+      source.length - records.length,
+      records.length,
       snapshot.boxers.length
     ],
-    ['bouts', dataset.sourceCounts.bouts, droppedBouts, dataset.bouts.length, snapshot.bouts.length]
+    [
+      'bouts',
+      boutCount(source),
+      boutCount(source) - boutCount(records),
+      boutCount(records),
+      snapshot.bouts.length
+    ]
   ] as const
   const countsOk = counts.every(([, , , expected, actual]) => expected === actual)
 
   // 2. Slug coverage against today's index.
-  const index = JSON.parse(readFileSync(join(PUBLIC_BOXERS, 'index.json'), 'utf8')) as SourceBoxer[]
+  const index = JSON.parse(readFileSync(join(PUBLIC_BOXERS, 'index.json'), 'utf8')) as {
+    slug: string
+  }[]
   const d1Slugs = new Set(snapshot.boxers.map(row => row.slug as string))
   const indexSlugs = new Set(index.map(boxer => boxer.slug))
   const missing = [...indexSlugs].filter(slug => !d1Slugs.has(slug) && !droppedSlugs.has(slug))
@@ -198,85 +211,83 @@ function main(): void {
   const extra = [...d1Slugs].filter(slug => !indexSlugs.has(slug))
   const slugsOk = missing.length === 0 && droppedPresent.length === 0 && extra.length === 0
 
-  // 3. Every row against the mapped source.
-  const fullMismatches: Mismatch[] = []
-  let fullFields = 0
-  for (const name of ['divisions', 'boxers', 'bouts'] as const) {
-    fullFields += compareRows(name, dataset[name], snapshot[name], fullMismatches)
+  // 3. Divisions against today's `getBoxerCategories()`, and every source division among them.
+  const divisionMismatches: Mismatch[] = []
+  categories.forEach((category, sortOrder) => {
+    const row = snapshot.divisions.find(division => division.slug === category.slug)
+    const expected = { name: category.name, pro_division: category.division, sort_order: sortOrder }
+    for (const [field, value] of Object.entries(expected)) {
+      if (row?.[field] !== value) {
+        divisionMismatches.push({
+          where: category.slug,
+          field,
+          expected: value,
+          actual: row?.[field]
+        })
+      }
+    }
+  })
+  const divisionValues = new Set(categories.map(category => category.division))
+  for (const record of records) {
+    const division = record.proDivision as string | null
+    if (division && !divisionValues.has(division)) {
+      divisionMismatches.push({
+        where: `boxer ${record.id} (${record.slug})`,
+        field: 'proDivision',
+        expected: 'one of the 17 divisions',
+        actual: division
+      })
+    }
   }
-  const checksums = (['divisions', 'boxers', 'bouts'] as const).map(name => [
-    name,
-    rowsChecksum(CONTENT_COLUMNS[name], dataset[name]),
-    rowsChecksum(CONTENT_COLUMNS[name], snapshot[name])
-  ])
 
-  // 4. Opponent links against today's matching (`getOpponentSlug` reads public/data from cwd).
+  // 4 and 5. Every boxer and bout, against the source and against today's per-boxer JSON.
+  // Opponents are expected where today's `getOpponentSlug` (reading public/data from the cwd)
+  // links them, unless that boxer was dropped.
   process.chdir(APP_DIR)
   const idBySlug = new Map(snapshot.boxers.map(row => [row.slug as string, row.id as number]))
   const todaysOpponent = (name: string) => {
     const slug = getOpponentSlug(name)
     return slug === undefined || droppedSlugs.has(slug) ? null : (idBySlug.get(slug) ?? null)
   }
-  const opponentMismatches: Mismatch[] = []
-  for (const bout of snapshot.bouts) {
-    const expected = todaysOpponent(bout.opponent_name as string)
-    if (expected !== bout.opponent_boxer_id) {
-      opponentMismatches.push({
-        where: keyOf.bouts(bout),
-        column: 'opponent_boxer_id',
-        expected,
-        actual: bout.opponent_boxer_id
+  const againstSource = compareRecords(records, snapshot, todaysOpponent)
+  const siteRecords: Record<string, unknown>[] = []
+  const missingFiles: Mismatch[] = []
+  for (const record of records) {
+    const file = join(PUBLIC_BOXERS, `${record.slug as string}.json`)
+    if (existsSync(file)) siteRecords.push(JSON.parse(readFileSync(file, 'utf8')))
+    else
+      missingFiles.push({
+        where: String(record.slug),
+        field: '(file)',
+        expected: file,
+        actual: 'missing'
       })
-    }
   }
-  const linked = snapshot.bouts.filter(bout => bout.opponent_boxer_id !== null).length
+  const againstSite = compareRecords(siteRecords, snapshot, todaysOpponent)
+  againstSite.mismatches.unshift(...missingFiles)
 
-  // 5. A seeded sample against today's per-boxer JSON files.
-  const eligible = index.map(boxer => boxer.slug).filter(slug => !droppedSlugs.has(slug))
-  const sample = sampleSlugs(eligible, sampleSize, seed)
-  const boxerBySlug = new Map(snapshot.boxers.map(row => [row.slug as string, row]))
-  const boutsByBoxer = new Map<number, Row[]>()
-  for (const bout of snapshot.bouts) {
-    const list = boutsByBoxer.get(bout.boxer_id as number) ?? []
-    list.push(bout)
-    boutsByBoxer.set(bout.boxer_id as number, list)
-  }
-  const sampleMismatches: Mismatch[] = []
-  let sampleFields = 0
-  let sampleBouts = 0
-  for (const slug of sample) {
-    const record = JSON.parse(
-      readFileSync(join(PUBLIC_BOXERS, `${slug}.json`), 'utf8')
-    ) as SourceBoxer
-    const expectedBoxer = toBoxerRow(record)
-    const expectedBouts = (record.bouts ?? []).map((bout, ordinal) =>
-      toBoutRow(record.id, ordinal, bout, todaysOpponent(bout.opponentName))
-    )
-    sampleBouts += expectedBouts.length
-    const actualBoxer = boxerBySlug.get(slug)
-    sampleFields += compareRows(
-      'boxers',
-      [expectedBoxer],
-      actualBoxer ? [actualBoxer] : [],
-      sampleMismatches
-    )
-    sampleFields += compareRows(
-      'bouts',
-      expectedBouts,
-      boutsByBoxer.get(record.id) ?? [],
-      sampleMismatches
-    )
-  }
+  // 6. Every D1 column is accounted for by a JSON key or a derived column.
+  const unaccounted = [
+    ...(snapshot.boxers[0] ? unaccountedColumns('boxers', snapshot.boxers[0]) : []),
+    ...(snapshot.bouts[0] ? unaccountedColumns('bouts', snapshot.bouts[0]) : [])
+  ]
+  const linked = snapshot.bouts.filter(bout => bout.opponent_boxer_id !== null).length
+  const selfLinked = snapshot.bouts.filter(bout => bout.opponent_boxer_id === bout.boxer_id).length
 
   const ok =
     countsOk &&
     slugsOk &&
-    fullMismatches.length === 0 &&
-    opponentMismatches.length === 0 &&
-    sampleMismatches.length === 0 &&
-    sample.length >= Math.min(200, eligible.length)
+    divisionMismatches.length === 0 &&
+    againstSource.mismatches.length === 0 &&
+    againstSite.mismatches.length === 0 &&
+    unaccounted.length === 0
 
-  // 6. The state checksum, every column including ids and `imported_at`: unchanged by a re-run.
+  // 7. Checksums of what D1 holds, to compare environments and runs.
+  const content = [
+    ['divisions', rowsChecksum(DIVISION_COLUMNS, snapshot.divisions)],
+    ['boxers', rowsChecksum(BOXER_COLUMNS, snapshot.boxers)],
+    ['bouts', rowsChecksum(BOUT_COLUMNS, snapshot.bouts)]
+  ]
   const state = [
     ['divisions', rowsChecksum(DIVISION_COLUMNS, snapshot.divisions)],
     ['boxers', rowsChecksum([...BOXER_COLUMNS, 'imported_at'], snapshot.boxers)],
@@ -289,21 +300,26 @@ function main(): void {
     `- **Result: ${ok ? 'PASS' : 'FAIL'}**`,
     `- Target: \`${target.database}\` (\`${target.flags.join(' ')}\`)`,
     `- Source: \`${relative(REPO_ROOT, sourcePath)}\`, ${number(statSync(sourcePath).size)} bytes, sha256 \`${sourceSha.slice(0, 16)}\``,
-    `- Generated: ${new Date().toISOString()} by \`pnpm db:parity -- --target ${target.name}\` (sample seed ${seed})`,
+    `- Generated: ${new Date().toISOString()} by \`pnpm db:parity -- --target ${target.name}\``,
+    '- Method: D1 rows are read back and compared with the JSON by the parity rules ' +
+      '(`packages/data-ops/src/parity/rules.ts`), which are written separately from the ' +
+      "importer's mapping, so a mapping mistake shows up here.",
     '',
     '## Row counts',
     '',
     table(
       ['Table', 'Source', 'Intentional drops', 'Expected', 'D1', 'Match'],
-      counts.map(([name, source, drops, expected, actual]) => [
+      counts.map(([name, sourceCount, drops, expected, actual]) => [
         name,
-        source,
+        sourceCount,
         drops,
         expected,
         actual,
         check(expected === actual)
       ])
     ),
+    '',
+    'Divisions are expected from `getBoxerCategories()` (`apps/web/lib/boxers-loader.ts`).',
     '',
     '## Intentional removals',
     '',
@@ -339,52 +355,41 @@ function main(): void {
       ? `\nMissing: ${missing.slice(0, 50).join(', ')}\nExtra: ${extra.slice(0, 50).join(', ')}`
       : '',
     '',
-    '## Every row, field by field, against the mapped source',
+    '## Divisions against `getBoxerCategories()`',
     '',
-    `${number(dataset.divisions.length + dataset.boxers.length + dataset.bouts.length)} rows and ${number(fullFields)} fields compared: **${number(fullMismatches.length)} mismatches**.${formatMismatches(fullMismatches)}`,
+    `${number(snapshot.divisions.length)} divisions: slug, name, \`pro_division\` and order, and every source \`proDivision\` among them: **${number(divisionMismatches.length)} mismatches**.${formatMismatches(divisionMismatches)}`,
     '',
-    table(
-      ['Table', 'Expected content sha256', 'D1 content sha256', 'Match'],
-      checksums.map(([name, expected, actual]) => [
-        name!,
-        `\`${expected!.slice(0, 16)}\``,
-        `\`${actual!.slice(0, 16)}\``,
-        check(expected === actual)
-      ])
-    ),
+    '## Every boxer and bout against the source JSON',
     '',
-    'Content checksums cover every column except the database-assigned `boxers.imported_at` and `bouts.id`.',
+    summary('boxers', againstSource),
     '',
-    `## Seeded sample against \`public/data/boxers/<slug>.json\``,
+    `## Every boxer and bout against \`public/data/boxers/<slug>.json\``,
     '',
-    `${number(sample.length)} boxers (seed ${seed}) with ${number(sampleBouts)} bouts, ${number(sampleFields)} fields compared: **${number(sampleMismatches.length)} mismatches**. Bout opponents are expected from today's \`getOpponentSlug\`.${formatMismatches(sampleMismatches)}`,
+    `What the live site renders today. ${summary('boxers', againstSite)}`,
     '',
-    '<details><summary>Sampled slugs</summary>',
+    'Both comparisons check every JSON key: each mapped key against its column by its rule ' +
+      '(the same value; `""` or `null` as `NULL`; newline-separated names as a JSON array; ' +
+      '`true`/`false` as `1`/`0`), and each unstored key against the documented drops ' +
+      "(`boxrecWikiUrl`, the ten `amateur*` fields, a bout's `boxerId`, checked against the " +
+      "boxer's `boxrecId`). A key in neither list is a mismatch. Each bout is matched by its " +
+      'position in the list (`ordinal`), and its `opponent_boxer_id` must be the profile that ' +
+      "today's `getOpponentSlug` links." +
+      (unaccounted.length > 0
+        ? `\n\n**D1 columns that no JSON key accounts for: ${unaccounted.join(', ')}.**`
+        : ' Every D1 column is accounted for.'),
     '',
-    sample.join(', '),
+    '## Opponent links',
     '',
-    '</details>',
+    `${number(linked)} of ${number(snapshot.bouts.length)} bouts link to a profile (${number(selfLinked)} to the boxer themselves, as today). Mismatches against \`getOpponentSlug\` are counted above, under \`opponent_boxer_id\`.`,
     '',
-    "## Opponent links against today's `getOpponentSlug`",
+    '## Checksums',
     '',
-    `${number(snapshot.bouts.length)} bouts checked, ${number(linked)} linked to a profile (${number(q.selfLinks)} to the boxer themselves, as today): **${number(opponentMismatches.length)} mismatches**.${formatMismatches(opponentMismatches)}`,
-    '',
-    '## State checksum',
-    '',
-    'Every column, including `bouts.id` and `boxers.imported_at`. A second import of the same source must leave it unchanged.',
+    'Content: every column except the database-assigned `boxers.imported_at` and `bouts.id`, to compare environments. State: every column, including those two. A re-import of the same source must leave the state unchanged.',
     '',
     table(
-      ['Table', 'sha256'],
-      state.map(([name, sha]) => [name!, `\`${sha}\``])
+      ['Table', 'Content sha256', 'State sha256'],
+      content.map(([name, sha], i) => [name!, `\`${sha!.slice(0, 16)}\``, `\`${state[i]![1]}\``])
     ),
-    '',
-    '## Normalization applied',
-    '',
-    '- An empty string in a nullable text column is `NULL`.',
-    '- `promoters`, `trainers` and `managers` are split on newlines into a JSON `string[]` (`[]` when empty).',
-    "- `titleFight` is `0`/`1`; each bout's `ordinal` is its position in the source array; `boxerId` becomes the `boxer_id` foreign key.",
-    '- `dateOfBirth`, `nicknames`, bout dates and the pipeline timestamps are copied verbatim, not parsed.',
-    "- Dropped fields (always `null`, `''` or misparsed in the source): `boxrecWikiUrl` and the ten `amateur*` fields.",
     '',
     '## Source data quirks',
     '',

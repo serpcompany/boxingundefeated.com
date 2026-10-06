@@ -167,13 +167,6 @@ const BOUT_RULES: Record<string, Rule> = {
   titleFight: 'bool'
 }
 
-/** The source fields that have no column (#29 field map). `boxerId` becomes `bouts.boxer_id`. */
-export const DROPPED_BOXER_FIELDS = [
-  'boxrecWikiUrl',
-  ...Object.keys(BOXER_RULES).filter(key => BOXER_RULES[key] === 'dropped')
-]
-export const DROPPED_BOUT_FIELDS = ['boxerId']
-
 function checkValue(rule: Rule, value: unknown): string | null {
   if (Array.isArray(rule)) {
     return rule.includes(value as string) ? null : `must be one of ${JSON.stringify(rule)}`
