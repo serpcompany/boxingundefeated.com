@@ -3,6 +3,9 @@ pre-commit:
   commands:
     check:
       glob: "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}"
+      # drizzle-kit's generated snapshots stay as it writes them (Biome ignores them too).
+      exclude:
+        - "d1/drizzle/meta/**"
       run: pnpm biome check --write --no-errors-on-unmatched --files-ignore-unknown=true --colors=off {staged_files}
       stage_fixed: true
     sort-package-json:
