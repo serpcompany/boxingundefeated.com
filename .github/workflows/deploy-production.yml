@@ -102,8 +102,9 @@ jobs:
       - name: Require the build to match env.production
         run: pnpm --filter web check:build-environment production
 
-      # The approval can come long after the push; refuse if main has moved on since.
-      - name: Require main to still point at this commit
+      # The approval can come long after the push; refuse if main has moved on since. A re-run of
+      # this job alone still needs a hotfix owner.
+      - name: Require main to still point at this commit, and a hotfix owner
         env:
           GH_TOKEN: ${{ github.token }}
         run: .github/scripts/verify-production-release.sh --fresh-only

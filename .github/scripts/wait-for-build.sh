@@ -13,7 +13,7 @@ attempts="${3:-30}"
 
 served=""
 for attempt in $(seq 1 "$attempts"); do
-  served="$(curl -sS -o /dev/null -D - -H 'x-boxingundefeated-smoke-test: 1' "$origin/" 2>/dev/null |
+  served="$(curl -sS --connect-timeout 5 --max-time 15 -o /dev/null -D - -H 'x-boxingundefeated-smoke-test: 1' "$origin/" 2>/dev/null |
     tr -d '\r' | awk -F': ' 'tolower($1) == "x-boxingundefeated-build" { print $2 }' || true)"
   if [ "$served" = "$commit" ]; then
     echo "$origin serves build $commit (attempt $attempt)."

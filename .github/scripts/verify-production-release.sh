@@ -17,7 +17,7 @@
 # fails. Create staging from main, let Deploy Staging pass, then re-run the failed job: main's
 # tree now has a verified staging deploy.
 #
-# Usage: verify-production-release.sh [--fresh-only]   (--fresh-only runs step 1 alone)
+# Usage: verify-production-release.sh [--fresh-only]   (--fresh-only: step 1 and the hotfix owner check)
 # Env: GH_TOKEN, GITHUB_REPOSITORY, GITHUB_SHA; for a dispatch also HOTFIX, CONFIRMATION,
 # GITHUB_ACTOR, GITHUB_TRIGGERING_ACTOR and RELEASE_OWNERS (space-separated logins).
 set -euo pipefail
@@ -31,16 +31,21 @@ if [ "$main_head" != "$sha" ]; then
   exit 1
 fi
 echo "main still points at $sha."
-if [ "${1:-}" = "--fresh-only" ]; then
-  exit 0
-fi
 
+# Here and in the deploy job (--fresh-only), so re-running only the deploy job of a hotfix run
+# still needs an owner.
 if [ "${HOTFIX:-false}" = "true" ]; then
   is_owner() { [[ " $RELEASE_OWNERS " == *" $1 "* ]]; }
   if ! is_owner "$GITHUB_ACTOR" || ! is_owner "$GITHUB_TRIGGERING_ACTOR"; then
     echo "::error::Only $RELEASE_OWNERS may release a hotfix (dispatched by $GITHUB_ACTOR, run by $GITHUB_TRIGGERING_ACTOR)."
     exit 1
   fi
+fi
+if [ "${1:-}" = "--fresh-only" ]; then
+  exit 0
+fi
+
+if [ "${HOTFIX:-false}" = "true" ]; then
   if [ "${CONFIRMATION:-}" != "hotfix-boxingundefeated-production" ]; then
     echo "::error::Type hotfix-boxingundefeated-production as the confirmation to release a hotfix."
     exit 1
