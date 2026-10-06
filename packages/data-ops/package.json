@@ -1,0 +1,26 @@
+{
+  "name": "@boxingundefeated/data-ops",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./schema": "./src/schema.ts"
+  },
+  "scripts": {
+    "clean": "git clean -xdf .turbo node_modules",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit --emitDeclarationOnly false"
+  },
+  "dependencies": {
+    "drizzle-orm": "0.45.3"
+  },
+  "devDependencies": {
+    "@boxingundefeated/config-typescript": "workspace:*",
+    "@cloudflare/workers-types": "^5.20261001.1",
+    "@types/node": "^22.13.17",
+    "miniflare": "5.20261001.0-alpha",
+    "typescript": "^5.8.2",
+    "vitest": "4.1.11"
+  }
+}
