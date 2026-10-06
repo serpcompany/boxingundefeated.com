@@ -1,6 +1,6 @@
 /**
- * Refuses a deploy of a D1-reading Worker build (boxer profiles read D1 since #10) unless the
- * target D1 is migrated and holds a complete import. Read-only: it only runs SELECTs.
+ * Refuses a deploy of a D1-reading Worker build (every boxer page reads D1, since #10 and #11)
+ * unless the target D1 is migrated and holds a complete import. Read-only: it only runs SELECTs.
  *
  * Usage: pnpm db:check-deployable -- --target local|staging|production
  *
