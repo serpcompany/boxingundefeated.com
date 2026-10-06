@@ -84,6 +84,7 @@ D1 (Drizzle schema in `packages/data-ops`, migrations in `d1/drizzle/`):
   migrates and seeds the fixture (`db:seed:local`), in seconds.
 - `pnpm db:import -- --target local|staging [--source <json>]`: an idempotent import, then
   `pnpm db:parity -- --target <t>` to prove it. Production imports run via the owner or CI.
+  A remote import won't prune over 1 % of boxers (at most 50) unless `--allow-prune <n>`.
 - `db:migrate:{staging,production}` and `db:migrations:list:{staging,production}` target the
   remote databases with `--remote --env <env>`. Never use `--preview`. Only the owner, or a
   protected workflow, migrates production.

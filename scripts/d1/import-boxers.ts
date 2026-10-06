@@ -2,25 +2,30 @@
  * Imports the pipeline's boxers into D1, idempotently.
  *
  * Usage:
- *   pnpm db:import -- --target local|staging [--source <boxers.json>] [--out-dir <dir>] [--dry-run]
+ *   pnpm db:import -- --target local|staging [--source <boxers.json>] [--out-dir <dir>]
+ *                     [--allow-prune <n>] [--dry-run]
  *   pnpm db:seed:local    # the committed fixture, d1/fixtures/boxers.sample.json
  *
  * The source defaults to $BOXERS_SOURCE, then from-pipeline/boxers.json in the repo root. The SQL
  * files land in d1/.import/<target>/ (gitignored). Production is refused: it runs via the
- * owner/CI.
+ * owner/CI. A remote import refuses to prune more than 1 % of the boxers (at most 50) unless
+ * `--allow-prune <n>` allows that many.
  */
 import { createHash } from 'node:crypto'
 import { mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
 import { join, relative, resolve } from 'node:path'
 import {
-  buildDeletes,
   buildImportFiles,
+  buildPrune,
+  checkOutDir,
+  checkPrune,
   type ExistingBoxer,
-  findIdentityConflicts,
+  GENERATED_SQL_FILE,
   type ImportDataset,
   type ImportTarget,
   packFiles,
   parseFlags,
+  planImport,
   prepareDataset,
   resolveTarget,
   type SqlFile
@@ -40,31 +45,50 @@ const seconds = (start: number) => `${((performance.now() - start) / 1000).toFix
 const number = (value: number) => value.toLocaleString('en-US')
 
 function writeFiles(directory: string, files: SqlFile[]): void {
+  checkOutDir(directory, REPO_ROOT)
   mkdirSync(directory, { recursive: true })
   for (const name of readdirSync(directory)) {
-    if (name.endsWith('.sql')) rmSync(join(directory, name))
+    if (GENERATED_SQL_FILE.test(name)) rmSync(join(directory, name))
   }
   for (const file of files) writeFileSync(join(directory, file.name), file.sql)
 }
 
 /**
- * Refuses a source whose `id`/`boxrec_id` pairs disagree with the target, then returns the ids
- * of target boxers the source no longer has (or drops on purpose).
+ * Refuses a source whose `id`/`boxrec_id` pairs or slugs conflict with the target, or that would
+ * prune more boxers than allowed, then returns the target boxers the source no longer has (or
+ * drops on purpose).
  */
-function staleBoxerIds(target: ImportTarget, dataset: ImportDataset): number[] {
-  const existing = d1Query<ExistingBoxer>(target, 'SELECT id, boxrec_id FROM boxers ORDER BY id')
-  const conflicts = findIdentityConflicts(existing, dataset.boxers)
+function staleBoxers(
+  target: ImportTarget,
+  dataset: ImportDataset,
+  allowPrune: number | undefined
+): ExistingBoxer[] {
+  const existing = d1Query<ExistingBoxer>(
+    target,
+    'SELECT id, boxrec_id, slug FROM boxers ORDER BY id'
+  )
+  const { conflicts, stale } = planImport(existing, dataset.boxers)
   if (conflicts.length > 0) {
     throw new Error(
-      `Refusing to import: the pipeline id is the primary key and must keep its boxrec_id.\n` +
+      `Refusing to import: the pipeline id is the primary key and keeps its boxrec_id, and a ` +
+        `slug may not move to another boxer. Nothing was applied.\n` +
         conflicts
           .slice(0, 20)
           .map(problem => `  - ${problem}`)
           .join('\n')
     )
   }
-  const kept = new Set(dataset.boxers.map(row => row.id))
-  return existing.map(row => row.id).filter(id => !kept.has(id))
+  checkPrune(target.name, existing.length, stale, allowPrune)
+  return stale
+}
+
+function parseAllowPrune(value: string | true | undefined): number | undefined {
+  if (value === undefined) return undefined
+  const count = Number(value)
+  if (typeof value !== 'string' || !Number.isSafeInteger(count) || count < 0) {
+    throw new Error('--allow-prune takes the number of boxers the import may prune.')
+  }
+  return count
 }
 
 function verifyCounts(target: ImportTarget, dataset: ImportDataset): void {
@@ -88,8 +112,15 @@ function verifyCounts(target: ImportTarget, dataset: ImportDataset): void {
 }
 
 function main(): void {
-  const flags = parseFlags(process.argv.slice(2), ['target', 'source', 'out-dir', 'dry-run'])
+  const flags = parseFlags(process.argv.slice(2), [
+    'target',
+    'source',
+    'out-dir',
+    'allow-prune',
+    'dry-run'
+  ])
   const target = resolveTarget(typeof flags.target === 'string' ? flags.target : undefined)
+  const allowPrune = parseAllowPrune(flags['allow-prune'])
   const sourcePath = resolveSource(flags.source)
   const started = performance.now()
 
@@ -119,15 +150,20 @@ function main(): void {
   if (flags['dry-run']) return
 
   console.log(`Importing into ${target.database} (${target.flags.join(' ')}).`)
-  const stale = staleBoxerIds(target, dataset)
+  const stale = staleBoxers(target, dataset, allowPrune)
   const toApply = files.map(file => ({ ...file, path: join(outDir, file.name) }))
   if (stale.length > 0) {
     // Runs first: it frees slugs and ids, cascades the stale boxers' bouts and unlinks them.
-    const [prune] = packFiles(buildDeletes('boxers', 'id', stale), Infinity, 'prune')
+    const ids = stale.map(row => row.id)
+    const [prune] = packFiles(buildPrune(ids), Infinity, 'prune')
     const path = join(outDir, '0000-prune.sql')
     writeFileSync(path, prune!.sql)
     toApply.unshift({ ...prune!, name: '0000-prune.sql', path })
-    console.log(`  pruning ${stale.length} boxer(s) the source no longer has`)
+    const shown = stale.slice(0, 50).map(row => row.slug)
+    const more = stale.length > 50 ? `, … and ${stale.length - 50} more` : ''
+    console.log(
+      `  pruning ${stale.length} boxer(s) the source no longer has: ${shown.join(', ')}${more}`
+    )
   }
 
   let rowsWritten = 0
