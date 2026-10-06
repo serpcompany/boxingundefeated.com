@@ -8,9 +8,6 @@ interface __BaseEnv_CloudflareEnv {
 	CANONICAL_HOST_REDIRECT: "on" | "off";
 }
 declare namespace Cloudflare {
-	interface GlobalProps {
-		mainModule: typeof import("./worker");
-	}
 	interface StagingEnv {
 		DB: D1Database;
 		ASSETS: Fetcher;
