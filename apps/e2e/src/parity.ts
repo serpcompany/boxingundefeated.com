@@ -14,9 +14,11 @@
  *   candidate's configuration: outside production, canonicals use that environment's origin and
  *   every page must be noindex.
  * - Requests to a `*.workers.dev` host carry the smoke-test header.
+ * - A 429, a 5xx or a network error is retried with backoff (2, 4, 8 s, or `Retry-After`).
  * - Differences listed in parity-allowlist.ts pass. The report (Markdown and JSON, in
  *   apps/e2e/parity-report/) lists every difference; the exit code is 1 when any is not
- *   allowlisted or a URL could not be checked.
+ *   allowlisted or a URL could not be checked: the reference didn't answer 200 (a 404 or 410 is
+ *   accepted only for an export page its sitemaps don't list), even after the retries.
  */
 import { mkdirSync, readdirSync, statSync, writeFileSync } from 'node:fs'
 import { join, relative, resolve } from 'node:path'
@@ -52,6 +54,8 @@ export interface Fetched {
   location: string | null
   facts: PageFacts | null
   error?: string
+  /** Requests made, including retries after a 429, a 5xx or a network error. */
+  attempts?: number
 }
 
 /** A URL's path and query, percent-encoded the way `fetch` sends it. */
@@ -129,11 +133,47 @@ export function compare(
 
 export function isAllowed(difference: Difference, allowlist: AllowedDifference[]): boolean {
   return allowlist.some(
-    entry => entry.field === difference.field && normalizePath(entry.path) === difference.path
+    entry =>
+      entry.field === difference.field &&
+      normalizePath(entry.path) === difference.path &&
+      (entry.actual === undefined || entry.actual === difference.actual)
   )
 }
 
+export type ReferenceOutcome =
+  | { kind: 'compare'; facts: PageFacts }
+  | { kind: 'not-served'; status: number }
+  | { kind: 'error'; error: string }
+
+/**
+ * What the reference's answer means. Only a 200 is compared. A 404 or 410 means the reference
+ * doesn't serve the URL, which is only acceptable for a page of the static export that the
+ * reference's sitemaps don't list. Anything else (a 429 or 5xx left after the retries, a 403, a
+ * redirect, a network error) leaves the URL unchecked, so the run fails.
+ */
+export function classifyReference(reference: Fetched, inSitemaps: boolean): ReferenceOutcome {
+  if (reference.status === 200 && reference.facts) {
+    return { kind: 'compare', facts: reference.facts }
+  }
+  if ((reference.status === 404 || reference.status === 410) && !inSitemaps) {
+    return { kind: 'not-served', status: reference.status }
+  }
+  const answer = reference.error
+    ? `error: ${reference.error}`
+    : `${reference.status}${reference.location ? ` -> ${reference.location}` : ''}`
+  const after = (reference.attempts ?? 1) > 1 ? ` after ${reference.attempts} attempts` : ''
+  const listed = inSitemaps ? ', and its sitemaps list the URL' : ''
+  return { kind: 'error', error: `reference answered ${answer}${after}${listed}` }
+}
+
 const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
+
+/** Exponential backoff (2, 4, 8 s), or the server's `Retry-After` seconds, up to a minute. */
+export function retryDelay(retryAfter: string | null, attempt: number): number {
+  const seconds = Number(retryAfter)
+  if (retryAfter && Number.isFinite(seconds) && seconds >= 0) return Math.min(seconds, 60) * 1_000
+  return 1_000 * 2 ** attempt
+}
 
 async function fetchPage(url: string): Promise<Fetched> {
   let lastError = ''
@@ -147,20 +187,21 @@ async function fetchPage(url: string): Promise<Fetched> {
       const body = await response.text()
       // A busy or rate-limiting host gets a few more polite tries.
       if ((response.status >= 500 || response.status === 429) && attempt < ATTEMPTS) {
-        await sleep(1_000 * 2 ** attempt)
+        await sleep(retryDelay(response.headers.get('retry-after'), attempt))
         continue
       }
       return {
         status: response.status,
         location: response.headers.get('location'),
-        facts: response.status === 200 ? pageFacts(body) : null
+        facts: response.status === 200 ? pageFacts(body) : null,
+        attempts: attempt
       }
     } catch (error) {
       lastError = error instanceof Error ? error.message : String(error)
-      if (attempt < ATTEMPTS) await sleep(1_000 * 2 ** attempt)
+      if (attempt < ATTEMPTS) await sleep(retryDelay(null, attempt))
     }
   }
-  return { status: 0, location: null, facts: null, error: lastError }
+  return { status: 0, location: null, facts: null, error: lastError, attempts: ATTEMPTS }
 }
 
 async function fetchText(url: string): Promise<string> {
@@ -303,18 +344,22 @@ async function main() {
   const differences: Difference[] = []
   const notOnReference: Array<{ path: string; status: number }> = []
   const errors: Array<{ path: string; error: string }> = []
+  const listed = new Set(fromSitemaps)
+  let retries = 0
   let done = 0
   await forEachLimited(paths, options.concurrency, async path => {
     const [reference, candidate] = await Promise.all([
       fetchPage(`${options.reference}${path}`),
       fetchPage(`${options.candidate}${path}`)
     ])
-    if (reference.status === 200 && reference.facts) {
-      differences.push(...compare(path, reference.facts, candidate, options.environment))
-    } else if (reference.status === 0 || reference.status >= 500) {
-      errors.push({ path, error: `reference: ${reference.error ?? reference.status}` })
+    retries += (reference.attempts ?? 1) - 1 + (candidate.attempts ?? 1) - 1
+    const outcome = classifyReference(reference, listed.has(path))
+    if (outcome.kind === 'compare') {
+      differences.push(...compare(path, outcome.facts, candidate, options.environment))
+    } else if (outcome.kind === 'not-served') {
+      notOnReference.push({ path, status: outcome.status })
     } else {
-      notOnReference.push({ path, status: reference.status })
+      errors.push({ path, error: outcome.error })
     }
     if (++done % 500 === 0) log(`  ${done} / ${paths.length}`)
   })
@@ -342,7 +387,7 @@ async function main() {
     `- Run: ${new Date().toISOString()}, ${seconds} s, ${options.concurrency} requests at a time per host`,
     `- URLs: ${paths.length} (${fromSitemaps.length} from the reference's sitemaps, ${fromExport.length} pages in ${hasExport ? relative(REPO_ROOT, options.outDir) : 'no static export'})`,
     `- Compared: ${compared}; identical: ${compared - differentUrls}; allowlisted differences: ${allowed.length}; **unexplained mismatches: ${mismatches.length}**`,
-    `- Not served by the reference: ${notOnReference.length}; errors: ${errors.length}; stale allowlist entries: ${staleEntries.length}`,
+    `- Not served by the reference (404/410, export only): ${notOnReference.length}; **errors: ${errors.length}**; retried requests: ${retries}; stale allowlist entries: ${staleEntries.length}`,
     '- Fields: status (200 at the same URL, no redirect), title, canonical, H1, robots meta'
   ]
   const markdown = [

@@ -4,6 +4,7 @@ import { join } from 'node:path'
 import { describe, expect, it } from 'vitest'
 import type { PageFacts } from './html'
 import {
+  classifyReference,
   compare,
   expectedCanonical,
   exportPaths,
@@ -11,6 +12,7 @@ import {
   isAllowed,
   normalizePath,
   parseOptions,
+  retryDelay,
   sitemapLocations
 } from './parity'
 
@@ -116,6 +118,50 @@ describe('URLs', () => {
   })
 })
 
+describe('classifyReference', () => {
+  const answer = (status: number, extra: Partial<Fetched> = {}): Fetched => ({
+    status,
+    location: null,
+    facts: null,
+    ...extra
+  })
+
+  it('compares a 200', () => {
+    expect(classifyReference(ok(), true)).toEqual({ kind: 'compare', facts: facts() })
+  })
+
+  it('accepts a 404 or 410 only for an export page the sitemaps do not list', () => {
+    expect(classifyReference(answer(404), false)).toEqual({ kind: 'not-served', status: 404 })
+    expect(classifyReference(answer(410), false).kind).toBe('not-served')
+    expect(classifyReference(answer(404), true)).toEqual({
+      kind: 'error',
+      error: 'reference answered 404, and its sitemaps list the URL'
+    })
+  })
+
+  it('fails on a 429 left after the retries, a 403, a redirect or a network error', () => {
+    expect(classifyReference(answer(429, { attempts: 4 }), false)).toEqual({
+      kind: 'error',
+      error: 'reference answered 429 after 4 attempts'
+    })
+    expect(classifyReference(answer(403), false).kind).toBe('error')
+    expect(classifyReference(answer(301, { location: '/a/' }), true)).toEqual({
+      kind: 'error',
+      error: 'reference answered 301 -> /a/, and its sitemaps list the URL'
+    })
+    expect(classifyReference(answer(0, { error: 'timeout' }), false).kind).toBe('error')
+  })
+})
+
+describe('retryDelay', () => {
+  it('backs off exponentially, or waits for Retry-After up to a minute', () => {
+    expect([1, 2, 3].map(attempt => retryDelay(null, attempt))).toEqual([2_000, 4_000, 8_000])
+    expect(retryDelay('5', 1)).toBe(5_000)
+    expect(retryDelay('600', 1)).toBe(60_000)
+    expect(retryDelay('Wed, 21 Oct 2026 07:28:00 GMT', 2)).toBe(4_000)
+  })
+})
+
 describe('isAllowed', () => {
   it('matches the path and the field', () => {
     const allowlist = [
@@ -130,6 +176,16 @@ describe('isAllowed', () => {
     expect(isAllowed(difference, allowlist)).toBe(true)
     expect(isAllowed({ ...difference, field: 'title' }, allowlist)).toBe(false)
     expect(isAllowed({ ...difference, path: '/boxers/world/' }, allowlist)).toBe(false)
+  })
+
+  it('matches the actual value when the entry pins one', () => {
+    const allowlist = [
+      { path: '/boxers/world/', field: 'status' as const, actual: '404', reason: 'x' }
+    ]
+    const difference = { path: '/boxers/world/', field: 'status' as const, expected: '200' }
+    expect(isAllowed({ ...difference, actual: '404' }, allowlist)).toBe(true)
+    expect(isAllowed({ ...difference, actual: '500' }, allowlist)).toBe(false)
+    expect(isAllowed({ ...difference, actual: '308 -> /boxers/' }, allowlist)).toBe(false)
   })
 })
 

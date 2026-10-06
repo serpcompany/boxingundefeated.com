@@ -4,6 +4,8 @@ export interface AllowedDifference {
   /** The URL path as the site serves it, for example `/boxers/world/`. */
   path: string
   field: ParityField
+  /** The candidate's value it allows, for example `404`; any value when unset. */
+  actual?: string
   /** Why the candidate may differ from the reference here. */
   reason: string
 }
@@ -16,6 +18,7 @@ export const PARITY_ALLOWLIST: AllowedDifference[] = [
   {
     path: '/boxers/world/',
     field: 'status',
+    actual: '404',
     reason:
       'Intentional: the importer drops the `world` placeholder record, so the Worker answers 404 ' +
       '(#9, #33). The static sitemaps still list it until #15 replaces them.'
@@ -23,6 +26,7 @@ export const PARITY_ALLOWLIST: AllowedDifference[] = [
   ...['/shop/best/brümate-water-bottles/', '/shop/best/nestlé-water-bottles/'].map(path => ({
     path,
     field: 'status' as const,
+    actual: '404',
     reason:
       'Broken on the live site too: the static export renders the not-found page for these ' +
       'non-ASCII slugs, which GitHub Pages serves as a 200 with noindex and no content. The ' +
