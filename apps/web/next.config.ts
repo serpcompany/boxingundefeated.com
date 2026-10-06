@@ -3,6 +3,7 @@ import { initOpenNextCloudflareForDev } from '@opennextjs/cloudflare'
 import type { NextConfig } from 'next'
 
 export const INTERNAL_PACKAGES = [
+  '@boxingundefeated/data-ops',
   '@boxingundefeated/design-system',
   '@boxingundefeated/config-next',
   '@boxingundefeated/config-typescript'

@@ -28,6 +28,7 @@
   "dependencies": {
     "@boxingundefeated/config-next": "workspace:*",
     "@boxingundefeated/config-typescript": "workspace:*",
+    "@boxingundefeated/data-ops": "workspace:*",
     "@boxingundefeated/design-system": "workspace:*",
     "@icons-pack/react-simple-icons": "^12.3.0",
     "gray-matter": "^4.0.3",

@@ -50,6 +50,9 @@ importers:
       '@boxingundefeated/config-typescript':
         specifier: workspace:*
         version: link:../../configs/typescript
+      '@boxingundefeated/data-ops':
+        specifier: workspace:*
+        version: link:../../packages/data-ops
       '@boxingundefeated/design-system':
         specifier: workspace:*
         version: link:../../packages/design-system
