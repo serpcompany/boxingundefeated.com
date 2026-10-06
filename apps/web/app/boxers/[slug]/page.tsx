@@ -69,6 +69,10 @@ function getBoxerSlugs(): string[] {
   }
 }
 
+// Boxer data is read with `fs` at build time, which the Worker can't do at request time. Every
+// boxer page is prerendered, and an unknown slug is a 404, until boxer pages render from D1 (#10).
+export const dynamicParams = false
+
 export async function generateStaticParams() {
   const slugs = getBoxerSlugs()
   return slugs.map(slug => ({

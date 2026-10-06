@@ -1,0 +1,69 @@
+{
+  "$schema": "../../node_modules/wrangler/config-schema.json",
+  // The top level is local only: `wrangler dev` and `opennextjs-cloudflare preview` use it, it is
+  // never deployed, and named envs don't inherit its bindings. Every deploy passes `--env`.
+  "name": "boxingundefeated-com-local",
+  "main": ".open-next/worker.js",
+  "compatibility_date": "2026-10-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS"
+  },
+  "vars": {
+    "SITE_ENVIRONMENT": "local"
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "boxingundefeated-com-local",
+      "database_id": "00000000-0000-0000-0000-000000000001",
+      "migrations_dir": "../../d1/drizzle",
+      "migrations_table": "d1_migrations"
+    }
+  ],
+  "env": {
+    "staging": {
+      "name": "boxingundefeated-com-staging",
+      // No `routes` yet: the cutover issue attaches the domains.
+      "workers_dev": true,
+      "preview_urls": false,
+      "observability": {
+        "enabled": true
+      },
+      "vars": {
+        "SITE_ENVIRONMENT": "staging"
+      },
+      "d1_databases": [
+        {
+          "binding": "DB",
+          "database_name": "boxingundefeated-com-staging",
+          "database_id": "b623b536-620c-4c3c-8de7-7c0ca1599ee1",
+          "migrations_dir": "../../d1/drizzle",
+          "migrations_table": "d1_migrations"
+        }
+      ]
+    },
+    "production": {
+      "name": "boxingundefeated-com-production",
+      // No `routes` yet: the cutover issue attaches boxingundefeated.com.
+      "workers_dev": true,
+      "preview_urls": false,
+      "observability": {
+        "enabled": true
+      },
+      "vars": {
+        "SITE_ENVIRONMENT": "production"
+      },
+      "d1_databases": [
+        {
+          "binding": "DB",
+          "database_name": "boxingundefeated-com-production",
+          "database_id": "fb87aa80-babd-4962-8525-a65a36773144",
+          "migrations_dir": "../../d1/drizzle",
+          "migrations_table": "d1_migrations"
+        }
+      ]
+    }
+  }
+}

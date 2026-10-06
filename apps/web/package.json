@@ -7,12 +7,16 @@
     "build": "NODE_NO_WARNINGS=1 next build --debug && pnpm prune:export && npx tsx scripts/generate-sitemaps.ts",
     "build:vercel": "NODE_NO_WARNINGS=1 next build && pnpm prune:export && npx tsx scripts/generate-sitemaps.ts",
     "build:with-data": "node ../../scripts/split-boxer-data.js && npx tsx scripts/generate-boxer-search.ts && NODE_NO_WARNINGS=1 next build --debug && pnpm prune:export && npx tsx scripts/generate-sitemaps.ts",
+    "build:worker": "NEXT_BUILD_TARGET=worker NODE_NO_WARNINGS=1 opennextjs-cloudflare build",
+    "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts",
     "clean": "git clean -xdf .cache .turbo .next coverage node_modules",
     "predev": "node ../../scripts/split-boxer-data.js && npx tsx scripts/generate-boxer-search.ts",
     "dev": "NODE_OPTIONS='--inspect' next dev --port 3003",
     "lint": "biome check",
     "lint:fix": "biome check --write",
+    "preview:worker": "pnpm build:worker && pnpm serve:worker",
     "prune:export": "rm -rf out/_not-found",
+    "serve:worker": "CHOKIDAR_USEPOLLING=1 CHOKIDAR_INTERVAL=60000 opennextjs-cloudflare preview --port 8787",
     "start": "next start",
     "test": "jest",
     "test:coverage": "jest --coverage",
@@ -25,9 +29,6 @@
     "@boxingundefeated/design-system": "workspace:*",
     "@boxingundefeated/utils": "workspace:*",
     "@icons-pack/react-simple-icons": "^12.3.0",
-    "@mdx-js/loader": "^3.1.0",
-    "@mdx-js/react": "^3.1.0",
-    "@next/mdx": "^16.3.8",
     "gray-matter": "^4.0.3",
     "lucide-react": "^0.486.0",
     "next": "16.3.8",
@@ -39,6 +40,7 @@
     "sonner": "^2.0.3"
   },
   "devDependencies": {
+    "@opennextjs/cloudflare": "1.20.8",
     "@tailwindcss/postcss": "^4.1.0",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.2.0",
@@ -51,6 +53,7 @@
     "jest-watch-typeahead": "^2.2.2",
     "postcss": "^8.5.3",
     "tailwindcss": "^4.1.0",
-    "typescript": "^5.8.2"
+    "typescript": "^5.8.2",
+    "wrangler": "4.147.0"
   }
 }

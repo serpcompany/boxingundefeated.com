@@ -34,6 +34,11 @@ npm-debug.log*
 # vercel
 .vercel
 
+# OpenNext and Wrangler (local Worker build output and local D1/miniflare state)
+.open-next/
+.wrangler/
+.dev.vars*
+
 # typescript
 *.tsbuildinfo
 

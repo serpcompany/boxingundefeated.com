@@ -9,6 +9,10 @@ import { getShopPost, getShopSlugs } from '@/lib/shop-loader'
 import { normalizeInternalPath, toAbsoluteUrl } from '@/lib/url-utils'
 import '../blog/blog.css'
 
+// Articles are read from markdown with `fs` at build time, which the Worker can't do at request
+// time: every article is prerendered, and any other path is a 404.
+export const dynamicParams = false
+
 export async function generateStaticParams() {
   const slugs = new Set([...(await getBlogSlugs()), ...(await getShopSlugs())])
   return Array.from(slugs).map(slug => {
