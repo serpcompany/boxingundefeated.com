@@ -21,7 +21,7 @@ export const PARITY_ALLOWLIST: AllowedDifference[] = [
     actual: '404',
     reason:
       'Intentional: the importer drops the `world` placeholder record, so the Worker answers 404 ' +
-      '(#9, #33). The static sitemaps still list it until #15 replaces them.'
+      '(#9, #33), and the sitemaps no longer list it (#15).'
   },
   ...['/shop/best/brümate-water-bottles/', '/shop/best/nestlé-water-bottles/'].map(path => ({
     path,
