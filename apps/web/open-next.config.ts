@@ -11,7 +11,7 @@ export default {
     incrementalCache: staticAssetsIncrementalCache,
     enableCacheInterception: true
   }),
-  // The package `build` script is the GitHub Pages export (it also rewrites the sitemaps), so
+  // The package `build` script is the static export (kept for CI's link check until #20), so
   // OpenNext runs `next build` directly. `build:worker` sets NEXT_BUILD_TARGET=worker, which turns
   // off `output: 'export'` in next.config.ts.
   buildCommand: 'pnpm exec next build'

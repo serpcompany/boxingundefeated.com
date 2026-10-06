@@ -15,7 +15,7 @@
   "assets": {
     "directory": ".open-next/assets",
     "binding": "ASSETS",
-    // The Worker runs before the files from `public/` (sitemaps, ads.txt, data/ JSON, images), so
+    // The Worker runs before the files from `public/` (ads.txt, data/ JSON, images), so
     // the canonical-host redirect and the crawl policy apply to them as well; OpenNext's asset
     // resolver then serves them from ASSETS. Each such request is a billed Worker invocation.
     // Hashed build output under /_next/static/ stays assets-first and free: crawlers don't index

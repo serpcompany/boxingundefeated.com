@@ -8,6 +8,14 @@ import {
 } from '@/lib/directory-pagination'
 import { getShopPageHref, getShopPostCount, SHOP_PAGE_SIZE } from '@/lib/shop-loader'
 import { getSiteOrigin } from '@/lib/site-config'
+import { SITEMAP_GROUPS, SITEMAP_INDEX_PATH, sitemapFilePath } from '@/lib/sitemaps/sitemaps'
+
+const SITEMAP_LABELS = {
+  pages: 'Pages sitemap',
+  boxers: 'Boxers sitemap',
+  divisions: 'Divisions sitemap',
+  shop: 'Shop sitemap'
+} as const
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
@@ -73,13 +81,11 @@ export default async function HtmlSitemapPage() {
       <SitemapSection
         title="XML sitemaps"
         links={[
-          { href: '/sitemap.xml', label: 'Master sitemap index' },
-          { href: '/sitemap-index.xml', label: 'Canonical sitemap index' },
-          { href: '/sitemaps/pages/1.xml', label: 'Pages sitemap' },
-          { href: '/sitemaps/blog/1.xml', label: 'Blog sitemap' },
-          { href: '/sitemaps/divisions/1.xml', label: 'Divisions sitemap' },
-          { href: '/sitemaps/shop/1.xml', label: 'Shop sitemap' },
-          { href: '/sitemaps/boxers/1.xml', label: 'Boxers sitemap' }
+          { href: SITEMAP_INDEX_PATH, label: 'Sitemap index' },
+          ...SITEMAP_GROUPS.map(group => ({
+            href: sitemapFilePath(group, 1),
+            label: SITEMAP_LABELS[group]
+          }))
         ]}
       />
     </main>
