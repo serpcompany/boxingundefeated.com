@@ -88,14 +88,14 @@ D1 (Drizzle schema in `packages/data-ops`, migrations in `d1/drizzle/`):
   D1 in `apps/web/.wrangler/state`, which the local Worker uses. `pnpm db:reset:local` wipes it,
   migrates and seeds the fixture (`db:seed:local`), in seconds.
 - `pnpm db:import -- --target local|staging [--source <json>]`: an idempotent import, then
-  `pnpm db:parity -- --target <t>` to prove it. Production imports run via the owner or CI.
-  A remote import won't prune over 1 % of boxers (at most 50) unless `--allow-prune <n>`.
-- **Deploy gate:** the Worker reads profiles from D1 (503 until an import finishes). Never deploy
-  a Worker build to an env unless `pnpm db:check-deployable -- --target <env>` passes (migrated,
-  a finished import) and `db:parity` is clean there.
-- `db:migrate:{staging,production}` and `db:migrations:list:{staging,production}` target the
-  remote databases with `--remote --env <env>`. Never use `--preview`. Only the owner, or a
-  protected workflow, migrates production.
+  `pnpm db:parity -- --target <t>` to prove it. Remote imports cap prunes (`--allow-prune <n>`).
+- **Deploy gate:** the Worker reads profiles from D1 (503 until an import finishes). Deploy to an
+  env only once `pnpm db:check-deployable -- --target <env>` passes and `db:parity` is clean there.
+- `db:{migrate,migrations:list}:{staging,production}` use `--remote --env <env>`; never `--preview`.
+  Production writes (migrate, import) need a protected workflow or the owner's written approval in
+  the current task, for that one run, cited in the PR or issue recording it; never your own
+  initiative. Run `db:migrate:production`, then `db:import --source <json>`, `db:parity` and
+  `db:check-deployable` with `--target production --confirm-production`, then deploy.
 
 Finish gate, once per state when the branch is finished: `pnpm check` (read-only Biome check,
 workspace check, typecheck, tests and the production build; about a minute for the build). Run it

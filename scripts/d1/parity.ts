@@ -9,6 +9,7 @@
  * Usage:
  *   pnpm db:parity -- --target local|staging [--source <boxers.json>]
  *                     [--out d1/reports/parity-<target>.md]
+ *   pnpm db:parity -- --target production --confirm-production [...]   # owner-approved runs only
  */
 import { createHash } from 'node:crypto'
 import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from 'node:fs'
@@ -23,7 +24,8 @@ import {
   type ImportTarget,
   parseFlags,
   resolveTarget,
-  rowsChecksum
+  rowsChecksum,
+  TARGET_FLAGS
 } from '../../packages/data-ops/src/import'
 import {
   compareBoxerRecord,
@@ -156,8 +158,8 @@ function summary(name: string, comparison: Comparison): string {
 }
 
 function main(): void {
-  const flags = parseFlags(process.argv.slice(2), ['target', 'source', 'out'])
-  const target = resolveTarget(typeof flags.target === 'string' ? flags.target : undefined)
+  const flags = parseFlags(process.argv.slice(2), [...TARGET_FLAGS, 'source', 'out'])
+  const target = resolveTarget(flags)
   const sourcePath = resolveSource(flags.source)
   const outPath = resolve(
     process.cwd(),
@@ -300,7 +302,8 @@ function main(): void {
     `- **Result: ${ok ? 'PASS' : 'FAIL'}**`,
     `- Target: \`${target.database}\` (\`${target.flags.join(' ')}\`)`,
     `- Source: \`${relative(REPO_ROOT, sourcePath)}\`, ${number(statSync(sourcePath).size)} bytes, sha256 \`${sourceSha.slice(0, 16)}\``,
-    `- Generated: ${new Date().toISOString()} by \`pnpm db:parity -- --target ${target.name}\``,
+    `- Generated: ${new Date().toISOString()} by \`pnpm db:parity -- --target ${target.name}` +
+      `${target.name === 'production' ? ' --confirm-production' : ''}\``,
     '- Method: D1 rows are read back and compared with the JSON by the parity rules ' +
       '(`packages/data-ops/src/parity/rules.ts`), which are written separately from the ' +
       "importer's mapping, so a mapping mistake shows up here.",
