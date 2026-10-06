@@ -57,18 +57,34 @@ const expected: Array<[string, string | null]> = [
   ['/docs/api', '/docs/api/'],
   ['/apis', '/apis/'],
   ['/About', '/About/'],
+  // A dotted segment is a page unless it ends in a file extension.
+  ['/shop/best/2.7-l-water-bottles', '/shop/best/2.7-l-water-bottles/'],
+  ['/shop/best/16.9-oz-water-bottles', '/shop/best/16.9-oz-water-bottles/'],
+  ['/boxers/x.y', '/boxers/x.y/'],
+  ['/foo.', '/foo./'],
+  ['/a.json5', '/a.json5/'],
   // Files lose it.
   ['/robots.txt/', '/robots.txt'],
   ['/sitemap-index.xml/', '/sitemap-index.xml'],
   ['/sitemaps/pages/1.xml/', '/sitemaps/pages/1.xml'],
   ['/search/boxer-search-index.json/', '/search/boxer-search-index.json'],
   ['/api.json/', '/api.json'],
+  ['/favicon.ico/', '/favicon.ico'],
+  ['/data/boxers/x.json/', '/data/boxers/x.json'],
+  ['/images/boxers/a.b.jpg/', '/images/boxers/a.b.jpg'],
+  ['/ROBOTS.TXT/', '/ROBOTS.TXT'],
   // Canonical already.
   ['/', null],
   ['/about/', null],
   ['/boxers/x/', null],
   ['/robots.txt', null],
   ['/sitemaps/pages/1.xml', null],
+  ['/sitemap-index.xml', null],
+  ['/favicon.ico', null],
+  ['/data/boxers/x.json', null],
+  ['/ROBOTS.TXT', null],
+  ['/shop/best/2.7-l-water-bottles/', null],
+  ['/shop/best/16.9-oz-water-bottles/', null],
   // Exempt.
   ['/_next/static/chunks/main.js', null],
   ['/_next/static/chunks/main.js/', null],
@@ -77,9 +93,9 @@ const expected: Array<[string, string | null]> = [
   ['/.well-known/security.txt/', null],
   ['/.WELL-KNOWN/foo', null],
   ['/.well-known/', null],
-  // Neither a page nor a file.
-  ['/foo.', null],
-  ['/boxers/x.y', null],
+  // Neither a page nor a file: an extension with no name.
+  ['/.json', null],
+  ['/.json/', null],
   ['/.env/', null]
 ]
 
@@ -124,7 +140,20 @@ describe('canonicalPathname', () => {
   )
 
   it('agrees with slashRedirects on every combination of segment shapes', () => {
-    const segments = ['a', 'api', 'API', '_n', '.well-known', 'x.txt', 'a.b', 'foo.', '.env']
+    const segments = [
+      'a',
+      'api',
+      'API',
+      '_n',
+      '.well-known',
+      'x.txt',
+      'X.JSON',
+      'a.b',
+      '2.7-l',
+      'foo.',
+      '.env',
+      '.json'
+    ]
     const paths: string[] = []
     for (const first of segments) {
       paths.push(`/${first}`, `/${first}/`)
