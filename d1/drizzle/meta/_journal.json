@@ -15,6 +15,13 @@
       "when": 1791256646655,
       "tag": "0001_dataset_state",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1791262696490,
+      "tag": "0002_boxer_search",
+      "breakpoints": true
     }
   ]
 }

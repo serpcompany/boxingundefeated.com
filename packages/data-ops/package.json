@@ -6,7 +6,8 @@
   "exports": {
     ".": "./src/index.ts",
     "./drops": "./src/drops.ts",
-    "./schema": "./src/schema.ts"
+    "./schema": "./src/schema.ts",
+    "./search": "./src/search.ts"
   },
   "scripts": {
     "clean": "git clean -xdf .turbo node_modules",

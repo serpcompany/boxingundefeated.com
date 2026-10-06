@@ -140,6 +140,7 @@ describe('queries against the migrated schema', () => {
       'boxers_boxrec_id_unique',
       'boxers_directory_idx',
       'boxers_division_directory_idx',
+      'boxers_search_idx',
       'boxers_slug_unique',
       'dataset_state',
       'divisions',
