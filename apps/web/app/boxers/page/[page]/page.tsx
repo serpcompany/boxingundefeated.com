@@ -1,5 +1,4 @@
 import { Breadcrumb } from '@boxingundefeated/design-system/breadcrumb'
-import { getBaseUrl } from '@boxingundefeated/utils/get-base-url'
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { BoxersDirectoryList } from '@/components/boxers-directory-list'
@@ -10,6 +9,7 @@ import {
   getPaginationPages,
   sortBoxersForDirectory
 } from '@/lib/directory-pagination'
+import { getSiteOrigin } from '@/lib/site-config'
 
 export const dynamicParams = false
 
@@ -28,7 +28,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { page: pageParam } = await params
   const page = Number.parseInt(pageParam, 10)
-  const baseUrl = getBaseUrl()
+  const baseUrl = getSiteOrigin()
 
   return {
     title: `Boxers Directory - Page ${page}`,
@@ -53,7 +53,7 @@ export default async function BoxersPaginatedPage({
     notFound()
   }
 
-  const baseUrl = getBaseUrl()
+  const baseUrl = getSiteOrigin()
   const breadcrumbItems = [
     { name: 'Boxers', href: '/boxers/' },
     { name: `Page ${currentPage}`, href: getBoxersPageHref(currentPage) }

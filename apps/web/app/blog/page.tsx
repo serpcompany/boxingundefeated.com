@@ -1,9 +1,9 @@
 import { Breadcrumb } from '@boxingundefeated/design-system/breadcrumb'
 import { Card, CardContent, CardHeader, CardTitle } from '@boxingundefeated/design-system/card'
-import { getBaseUrl } from '@boxingundefeated/utils/get-base-url'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { getBlogPosts } from '@/lib/blog-loader'
+import { getSiteOrigin } from '@/lib/site-config'
 
 export const metadata: Metadata = {
   title: 'Blog - Boxing Directory',
@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 export default async function BlogPage() {
   const posts = await getBlogPosts()
-  const baseUrl = getBaseUrl()
+  const baseUrl = getSiteOrigin()
 
   const breadcrumbItems = [{ name: 'Blog', href: '/blog/' }]
 

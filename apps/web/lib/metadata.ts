@@ -1,6 +1,6 @@
-import { getBaseUrl } from '@boxingundefeated/utils/get-base-url'
 import type { Metadata } from 'next'
 import type { BoxerMetadata } from './boxers-loader'
+import { getSiteConfig, NON_PRODUCTION_ROBOTS_TAG, type SiteConfig } from './site-config'
 
 export const MAX_META_DESCRIPTION_LENGTH = 160
 
@@ -25,11 +25,16 @@ export function createBoxerMetaDescription(boxer: BoxerMetadata): string {
   )
 }
 
-export function createRootMetadata(): Metadata {
-  const baseUrl = getBaseUrl()
+/**
+ * The root layout's metadata. Outside production it adds `<meta name="robots" content="noindex">`;
+ * no page sets its own `robots`, so every page inherits it.
+ */
+export function createRootMetadata(config: SiteConfig = getSiteConfig()): Metadata {
+  const baseUrl = config.origin
   const description = createMetaDescription(rootDescription)
 
   return {
+    ...(config.isProduction ? {} : { robots: NON_PRODUCTION_ROBOTS_TAG }),
     title: rootTitle,
     description,
     metadataBase: new URL(baseUrl),

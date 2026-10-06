@@ -106,12 +106,16 @@ function createMockPointerEvent(type: string, props: PointerEventInit = {}): Poi
   return event
 }
 
-// Assign the mock function to the global window object
-window.PointerEvent = createMockPointerEvent as any
+// DOM mocks, for the default jsdom environment. Tests of Worker code run in
+// `@jest-environment node`, which has fetch's Request and Response but no window.
+if (typeof window !== 'undefined') {
+  // Assign the mock function to the global window object
+  window.PointerEvent = createMockPointerEvent as any
 
-// Mock HTMLElement methods needed for Radix UI
-Object.assign(window.HTMLElement.prototype, {
-  scrollIntoView: jest.fn(),
-  releasePointerCapture: jest.fn(),
-  hasPointerCapture: jest.fn()
-})
+  // Mock HTMLElement methods needed for Radix UI
+  Object.assign(window.HTMLElement.prototype, {
+    scrollIntoView: jest.fn(),
+    releasePointerCapture: jest.fn(),
+    hasPointerCapture: jest.fn()
+  })
+}
