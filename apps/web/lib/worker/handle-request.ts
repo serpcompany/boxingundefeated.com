@@ -3,7 +3,8 @@
  * that `opennextjs-cloudflare build` generates. In order:
  *
  * 0. The build guard (lib/worker/build-environment.ts): a 503 for every request when the Worker
- *    was built for another environment than its runtime `SITE_ENVIRONMENT`.
+ *    was built for another environment than its runtime `SITE_ENVIRONMENT`. Every answer to a
+ *    smoke-test request names the build's commit (`BUILD_COMMIT_HEADER`).
  * 1. Canonical host: with `CANONICAL_HOST_REDIRECT=on`, `www.boxingundefeated.com` and
  *    `*.workers.dev` get one 308 to the environment's origin, already in canonical slash form
  *    (lib/routing/canonical-host.ts). Requests with the smoke-test header are exempt.
@@ -22,8 +23,13 @@
  * `assets.run_worker_first` in wrangler.jsonc sends every request except /_next/static/ here
  * first, so files from `public/` go through the same pipeline as pages.
  */
-import { type CanonicalHostEnvironment, canonicalHostRedirect } from '../routing/canonical-host'
 import {
+  type CanonicalHostEnvironment,
+  canonicalHostRedirect,
+  SMOKE_TEST_HEADER
+} from '../routing/canonical-host'
+import {
+  BUILD_COMMIT_HEADER,
   type BuildEnvironmentMismatch,
   type BuildEnvironmentRecord,
   buildEnvironmentMismatch,
@@ -71,6 +77,23 @@ export function handleWorkerRequest(
   env: WorkerRequestEnvironment,
   serve: (request: Request) => Promise<Response>,
   runtime: WorkerRuntime = {}
+): Promise<Response> {
+  const response = handle(request, env, serve, runtime)
+  const commit = runtime.buildEnvironment?.commit
+  if (!commit || !request.headers.has(SMOKE_TEST_HEADER)) return response
+  return response.then(answer => {
+    // The Workers idiom: copies status, headers and Workers-only fields into a mutable response.
+    const tagged = new Response(answer.body, answer)
+    tagged.headers.set(BUILD_COMMIT_HEADER, commit)
+    return tagged
+  })
+}
+
+function handle(
+  request: Request,
+  env: WorkerRequestEnvironment,
+  serve: (request: Request) => Promise<Response>,
+  runtime: WorkerRuntime
 ): Promise<Response> {
   if (runtime.buildEnvironment) {
     const mismatch = buildEnvironmentMismatch(runtime.buildEnvironment.siteEnvironment, env)

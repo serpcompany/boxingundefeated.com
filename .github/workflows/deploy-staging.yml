@@ -76,8 +76,14 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: pnpm exec opennextjs-cloudflare deploy --env staging
 
+      # Deploy Production trusts this run as "staging served this code", so the smoke test must
+      # reach the new version, not the one live before the deploy.
+      - name: Wait until staging serves this build
+        run: .github/scripts/wait-for-build.sh "$SMOKE_ORIGIN" "$GITHUB_SHA"
+
+      # Through the e2e package, so the browser matches its @playwright/test.
       - name: Install Chromium for Playwright
-        run: pnpm exec playwright install --with-deps chromium
+        run: pnpm --filter e2e exec playwright install --with-deps chromium
 
       # Asserts staging's noindex and Disallow among the rest (#16's suite).
       - name: Smoke-test staging

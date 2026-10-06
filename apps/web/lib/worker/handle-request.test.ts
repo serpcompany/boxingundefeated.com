@@ -2,6 +2,7 @@
  * @jest-environment node
  */
 import { SMOKE_TEST_HEADER } from '../routing/canonical-host'
+import { BUILD_COMMIT_HEADER } from './build-environment'
 import { type DatasetReadiness, importGeneration } from './dataset-gate'
 import { EDGE_CACHE_HEADER } from './edge-cache'
 import { handleWorkerRequest, type WorkerRuntime } from './handle-request'
@@ -458,7 +459,7 @@ describe('handleWorkerRequest with the build guard', () => {
         new Request('https://boxingundefeated.com/'),
         production,
         serve,
-        { buildEnvironment: record as { siteEnvironment?: 'production' } }
+        { buildEnvironment: record as { siteEnvironment?: 'production'; commit?: string } }
       )
 
       expect(response.status).toBe(503)
@@ -489,5 +490,48 @@ describe('handleWorkerRequest with the build guard', () => {
 
     expect(response.status).toBe(200)
     expect(serve).toHaveBeenCalledTimes(1)
+  })
+})
+
+describe('handleWorkerRequest build commit header', () => {
+  const buildEnvironment = { siteEnvironment: 'production' as const, commit: 'abc123' }
+  const smoke = { [SMOKE_TEST_HEADER]: '1' }
+
+  it.each([
+    ['a page', 'https://boxingundefeated.com/boxers/', 200],
+    ['a workers.dev page', `${WORKERS_DEV}/boxers/`, 200],
+    ['a slashless page', 'https://boxingundefeated.com/boxers', 200]
+  ])('names the commit on a smoke-test request for %s', async (_, url, status) => {
+    const response = await handleWorkerRequest(
+      new Request(url, { headers: smoke }),
+      production,
+      serveSpy(),
+      { buildEnvironment }
+    )
+
+    expect(response.status).toBe(status)
+    expect(response.headers.get(BUILD_COMMIT_HEADER)).toBe('abc123')
+  })
+
+  it('names the commit on the build guard 503 too', async () => {
+    const response = await handleWorkerRequest(
+      new Request('https://boxingundefeated.com/', { headers: smoke }),
+      staging,
+      serveSpy(),
+      { buildEnvironment }
+    )
+
+    expect(response.status).toBe(503)
+    expect(response.headers.get(BUILD_COMMIT_HEADER)).toBe('abc123')
+  })
+
+  it('leaves it off requests without the smoke-test header', async () => {
+    for (const url of ['https://boxingundefeated.com/boxers/', `${WWW}/`]) {
+      const response = await handleWorkerRequest(new Request(url), production, serveSpy(), {
+        buildEnvironment
+      })
+
+      expect(response.headers.get(BUILD_COMMIT_HEADER)).toBeNull()
+    }
   })
 })

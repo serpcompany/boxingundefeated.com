@@ -22,7 +22,15 @@ import type { WorkerEnvironment } from './environment-policy'
 /** The file `build:worker` writes next to the OpenNext output. */
 export interface BuildEnvironmentRecord {
   siteEnvironment: SiteEnvironment
+  /** The commit the Worker was built from (`GITHUB_SHA` in CI). */
+  commit: string
 }
+
+/**
+ * The response header that names the build's commit. Only requests with the smoke-test header get
+ * it, so a deploy job can wait until the Worker that answers is the one it just deployed.
+ */
+export const BUILD_COMMIT_HEADER = 'x-boxingundefeated-build'
 
 export interface BuildEnvironmentMismatch {
   event: 'build_environment_mismatch'
