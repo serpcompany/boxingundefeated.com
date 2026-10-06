@@ -245,6 +245,44 @@ export async function getHomepageData(
   }
 }
 
+/** A boxer as the XML sitemaps list it: the profile URL, its division and its last change. */
+export interface SitemapBoxer {
+  slug: string
+  /** The pipeline's `updated_at` (ISO 8601 without a zone), or null. */
+  updatedAt: string | null
+  /** The slug of the division page that lists the boxer, or null when none does. */
+  divisionSlug: string | null
+}
+
+export interface SitemapData {
+  /** Every boxer, by slug. */
+  boxers: SitemapBoxer[]
+  /** Every division in display order, with its boxer count, which sets its pagination. */
+  divisions: DivisionWithCount[]
+}
+
+/**
+ * What the XML sitemaps list from D1: every boxer profile with its division and `updated_at`, and
+ * every division with its count, so the listing pages paginate as `/boxers/` and the divisions do.
+ * One round trip.
+ */
+export async function getSitemapData(db: Database): Promise<SitemapData> {
+  const [boxerRows, divisionRows] = await db.batch([
+    db
+      .select({
+        slug: boxers.slug,
+        updatedAt: boxers.updatedAt,
+        // Aliased: both tables have a `slug` column, and D1 returns rows keyed by column name.
+        divisionSlug: sql<string | null>`${divisions.slug}`.as('division_slug')
+      })
+      .from(boxers)
+      .leftJoin(divisions, eq(divisions.proDivision, boxers.proDivision))
+      .orderBy(asc(boxers.slug)),
+    divisionsWithCounts(db)
+  ])
+  return { boxers: boxerRows, divisions: divisionRows }
+}
+
 /**
  * Whether D1 holds a complete import (`dataset_state`), and when the last one finished: null when
  * no import has started. One row, read by primary key.

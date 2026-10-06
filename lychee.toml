@@ -6,3 +6,8 @@ offline = true
 index_files = ["index.html"]
 # apps/web/out is gitignored.
 no_ignore = true
+
+# The XML sitemaps the HTML sitemap (/sitemap/) links to: the Worker generates them from D1 on
+# request (apps/web/lib/worker/sitemaps.ts), so the export has no file for them, and the E2E
+# suite checks them on the Worker (apps/e2e/tests/sitemaps.spec.ts). #20 removes the export.
+exclude = ['/sitemap-[a-z0-9-]+\.xml$']

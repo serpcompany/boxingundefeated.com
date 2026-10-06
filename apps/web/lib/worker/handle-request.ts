@@ -11,7 +11,9 @@
  * 2. The environment's crawl policy (lib/worker/environment-policy.ts). It wraps the steps below,
  *    so a 503 or a page from the edge cache gets the same noindex header as a rendered page.
  *    `/api/search` and `/api/search/` are answered here, by `runtime.searchApi`
- *    (lib/worker/search-api.ts), which applies the readiness gate and its own cache.
+ *    (lib/worker/search-api.ts), and the XML sitemaps (`/sitemap-index.xml`, `/sitemap-*.xml`,
+ *    and the old `/sitemap.xml` and `/sitemaps/*` URLs) by `runtime.sitemaps`
+ *    (lib/worker/sitemaps.ts); each applies the readiness gate and its own cache.
  * 3. For pages that read D1, the readiness gate (lib/worker/dataset-gate.ts): 503 with
  *    `Retry-After` until D1 holds a finished import, and the import generation for the cache key.
  * 4. The edge cache (lib/worker/edge-cache.ts), for pages only: a stored copy, or `serve` and then
@@ -44,6 +46,7 @@ import {
 } from './edge-cache'
 import { type WorkerEnvironment, withEnvironmentPolicy } from './environment-policy'
 import { isSearchApiRequest } from './search-api'
+import { isSitemapRequest } from './sitemaps'
 
 export type WorkerRequestEnvironment = WorkerEnvironment &
   CanonicalHostEnvironment &
@@ -61,6 +64,8 @@ export interface WorkerRuntime {
   log?: (event: EdgeCacheEvent | DatasetUnavailableEvent | BuildEnvironmentMismatch) => void
   /** `GET /api/search` on D1 (`d1SearchApi`). Without it, the request goes to OpenNext. */
   searchApi?: (request: Request) => Promise<Response>
+  /** The XML sitemaps on D1 (`d1Sitemaps`). Without it, the request goes to OpenNext. */
+  sitemaps?: (request: Request) => Promise<Response>
 }
 
 export interface DatasetUnavailableEvent {
@@ -108,6 +113,7 @@ function handle(
   }
   return withEnvironmentPolicy(request, env, async () => {
     if (runtime.searchApi && isSearchApiRequest(request)) return runtime.searchApi(request)
+    if (runtime.sitemaps && isSitemapRequest(request)) return runtime.sitemaps(request)
     let dataGeneration: string | undefined
     let store = true
     if (runtime.datasetReadiness && readsD1(request)) {

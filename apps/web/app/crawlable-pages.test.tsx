@@ -2,7 +2,6 @@ import { render } from '@testing-library/react'
 import { getBoxersWithoutBouts } from '@/lib/boxers-loader'
 import { getBoxersPageHref } from '@/lib/directory-pagination'
 import { getShopPosts } from '@/lib/shop-loader'
-import { getSitemapPaths } from '@/lib/sitemap-paths'
 import BoxersPage from './boxers/page'
 import BrandsPage from './brands/page'
 import DivisionPage from './divisions/[division]/page'
@@ -10,10 +9,6 @@ import DivisionsPage from './divisions/page'
 import ShopPage from './shop/page'
 import ShopPaginatedPage from './shop/page/[page]/page'
 import HtmlSitemapPage from './sitemap/page'
-
-jest.mock('@/lib/blog-loader', () => ({
-  getBlogSlugs: jest.fn(async () => ['/blog/test-post/'])
-}))
 
 describe('crawlable directory pages', () => {
   it('/boxers contains boxer detail links and crawlable pagination anchors', async () => {
@@ -88,26 +83,18 @@ describe('crawlable directory pages', () => {
     expect(document.querySelector(`a[href="${getBoxersPageHref(2)}"]`)).toBeInTheDocument()
     expect(document.querySelector('a[href="/divisions/heavy/page/2/"]')).toBeInTheDocument()
     expect(document.querySelector('a[href="/shop/page/2/"]')).toBeInTheDocument()
-    expect(document.querySelector('a[href="/sitemap.xml"]')).toBeInTheDocument()
-    expect(document.querySelector('a[href="/sitemap-index.xml"]')).toBeInTheDocument()
-    expect(document.querySelector('a[href="/sitemaps/pages/1.xml"]')).toBeInTheDocument()
-    expect(document.querySelector('a[href="/sitemaps/blog/1.xml"]')).toBeInTheDocument()
-    expect(document.querySelector('a[href="/sitemaps/divisions/1.xml"]')).toBeInTheDocument()
-    expect(document.querySelector('a[href="/sitemaps/shop/1.xml"]')).toBeInTheDocument()
-    expect(document.querySelector('a[href="/sitemaps/boxers/1.xml"]')).toBeInTheDocument()
+    const xmlLinks = [...document.querySelectorAll('a[href$=".xml"]')].map(link =>
+      link.getAttribute('href')
+    )
+    expect(xmlLinks).toEqual([
+      '/sitemap-index.xml',
+      '/sitemap-pages.xml',
+      '/sitemap-boxers.xml',
+      '/sitemap-divisions.xml',
+      '/sitemap-shop.xml'
+    ])
     expect(document.querySelector(`a[href="/boxers/${firstBoxer.slug}/"]`)).not.toBeInTheDocument()
     expect(document.querySelector(`a[href="${firstShopPost.slug}"]`)).not.toBeInTheDocument()
-  })
-
-  it('getSitemapPaths includes division, shop, shop detail, and brand URLs', async () => {
-    const paths = await getSitemapPaths()
-
-    expect(paths.pages).toEqual(expect.arrayContaining(['/', '/brands/', '/sitemap/']))
-    expect(paths.pages).not.toContain('/shop/')
-    expect(paths.pages).not.toContain('/divisions/')
-    expect(paths.divisionListings).toEqual(expect.arrayContaining(['/divisions/']))
-    expect(paths.shopListings).toEqual(expect.arrayContaining(['/shop/', '/shop/page/2/']))
-    expect(paths.shopPosts).toEqual(expect.arrayContaining(['/shop/best/boxing-resistance-bands/']))
   })
 
   it('footer exposes sitemap and canonical division links', async () => {
