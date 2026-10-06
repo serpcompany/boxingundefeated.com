@@ -31,9 +31,8 @@ The owner runs the production DNS cutover.
     `SITE_ENVIRONMENT` or build an origin anywhere else.
   - `content/`: markdown shop articles. The legal pages are TSX in `app/(legal)/`.
   - `public/data/boxers/`: per-boxer JSON generated from the pipeline data. Never hand-edit it.
-  - `scripts/`: data generators. The search index is built before `next build` (`predev`,
-    `build:with-data`); XML sitemaps are written after it and rewrite files in `public/`, so
-    revert those changes before committing.
+  - `scripts/`: data generators: the search index before `next build` (`predev`,
+    `build:with-data`), the XML sitemaps after it, which rewrite files in `public/`.
   - `wrangler.jsonc`, `open-next.config.ts`, `worker.ts`: the Worker. The top level is local only;
     `env.staging` and `env.production` are the deployed Workers, each with its own D1 `DB`.
     `worker.ts` is the entry; `lib/worker/handle-request.ts` applies the canonical-host redirect
@@ -73,10 +72,12 @@ Worker (OpenNext on Cloudflare, about a minute; boxer pages read the local D1, s
   http://localhost:8787 with the local top level of `apps/web/wrangler.jsonc`.
 - `pnpm --filter web build:worker:staging` / `build:worker:production`: the Worker build with that
   environment's `SITE_ENVIRONMENT`, which the prerendered HTML needs (Environments below).
-- `pnpm --filter web serve:worker [--env staging]`: serve the last Worker build again. With
-  `--env`, it uses that environment's vars and bindings, locally. Pair it with the matching build.
-  `--env staging` rewrites every `Host` header to its custom domain, so test host redirects with
-  `--env production`, which has no route yet. It sets `CHOKIDAR_USEPOLLING` (file descriptors).
+- `pnpm --filter web serve:worker [--env staging]`: serve the last Worker build again, with that
+  environment's vars and bindings, locally. Pair it with the matching build.
+- `pnpm test:e2e`: the Playwright smoke suite (`apps/e2e/`, whose README has the CI interface) on
+  the local preview: `pnpm db:reset:local && pnpm build:worker && pnpm test:e2e`. Deployed:
+  `BASE_URL=<origin> EXPECT_ENV=staging|production pnpm test:e2e`. `pnpm parity -- <origin>`
+  checks every live URL on a candidate; `pnpm check:export`, that the Pages export is production.
 - `pnpm --filter web cf-typegen`: regenerate and commit `cloudflare-env.d.ts` after changing
   `wrangler.jsonc`; it strips the `mainModule` type (`lib/cloudflare-env-types.ts`).
 
@@ -123,8 +124,7 @@ the committed sitemap files' dates, so run `git checkout -- apps/web/public` bef
 - Routes, redirects, metadata, robots, sitemaps, `next.config.ts` or data loaders: the HTML page
   count of `apps/web/out` before and after, the diff of the page list, and before/after output for
   sample URLs.
-- Visible UI: one screenshot of each changed page, from the PR preview (`preview.yml`) or a local
-  build.
+- Visible UI: one screenshot of each changed page, from the PR preview or a local build.
 - Deploy workflows: a link to the deploy run.
 
 ## Environments
