@@ -33,21 +33,17 @@ The owner runs the production DNS cutover.
     revert those changes before committing.
   - `wrangler.jsonc`, `open-next.config.ts`: the Worker. The top level is local only;
     `env.staging` and `env.production` are the deployed Workers, each with its own D1 `DB`.
-- `d1/drizzle/`: D1 migrations, shared by every environment. Generated from the schema by
-  `pnpm db:generate` (root `drizzle.config.ts`) and reviewed; never hand-edit the `meta/` folder.
-- `packages/data-ops/`: `@boxingundefeated/data-ops`, the D1 data layer: the Drizzle schema
-  (`src/schema.ts`), inferred types, and every query the app runs (`src/queries.ts`). The app
-  never writes SQL. Its Vitest tests run the queries on an in-memory D1 (Miniflare) with the
-  checked-in migrations applied.
+- `d1/`: `drizzle/` migrations (`pnpm db:generate`; never edit `meta/`), `fixtures/`, `reports/`.
+- `packages/data-ops/`: the D1 data layer: the Drizzle schema (`src/schema.ts`), types, every
+  query the app runs (`src/queries.ts`; the app never writes SQL) and the pipeline importer's
+  mapping (`src/import/`). Vitest runs them on an in-memory D1 (Miniflare), migrations applied.
 - `packages/`: shared UI (`design-system`, shadcn), `hooks` and `utils`. Read before adding a
   component or helper that might already exist.
 - `configs/`: shared Next.js and TypeScript configuration. Read before changing build settings.
-- `scripts/`: data scripts. `split-boxer-data.js` turns the pipeline JSON into
-  `apps/web/public/data/boxers/`.
-- `from-pipeline/boxers.json`: the pipeline output (about 104 MB, gitignored). Only data
-  regeneration needs it; builds read `public/data/`. To regenerate in a fresh checkout or
-  worktree, copy it there and link it: `mkdir -p apps/web/data && ln -s
-  ../../../from-pipeline/boxers.json apps/web/data/boxers.json`.
+- `scripts/`: `split-boxer-data.js` writes `apps/web/public/data/boxers/`; `d1/` is the D1 import.
+- `from-pipeline/boxers.json`: the pipeline output (about 104 MB, gitignored), read only by data
+  regeneration and `db:import`; builds read `public/data/`. In a fresh worktree, copy it there,
+  then `mkdir -p apps/web/data && ln -s ../../../from-pipeline/boxers.json apps/web/data/`.
 - `.github/workflows/`: `deploy-github-pages.yml` deploys `main` to production, `pr-review.yml`
   runs PR checks, `preview.yml` publishes PR previews.
 
@@ -74,11 +70,14 @@ Worker (OpenNext on Cloudflare; minutes, because it prerenders every page):
 
 D1 (Drizzle schema in `packages/data-ops`, migrations in `d1/drizzle/`):
 
-- `pnpm --filter @boxingundefeated/data-ops test`: the query tests (seconds).
+- `pnpm --filter @boxingundefeated/data-ops test`: the query and importer tests (seconds).
 - `pnpm db:generate`: after changing `schema.ts`, write the next migration; commit it with the
   schema. Re-running it on an unchanged schema must report no changes. Never `drizzle-kit push`.
 - `pnpm db:migrate:local`, `pnpm db:migrations:list:local`: apply or list migrations on the local
-  D1 in `apps/web/.wrangler/state`, which the local Worker uses.
+  D1 in `apps/web/.wrangler/state`, which the local Worker uses. `pnpm db:reset:local` wipes it,
+  migrates and seeds the fixture (`db:seed:local`), in seconds.
+- `pnpm db:import -- --target local|staging [--source <json>]`: an idempotent import, then
+  `pnpm db:parity -- --target <t>` to prove it. Production imports run via the owner or CI.
 - `db:migrate:{staging,production}` and `db:migrations:list:{staging,production}` target the
   remote databases with `--remote --env <env>`. Never use `--preview`. Only the owner, or a
   protected workflow, migrates production.
