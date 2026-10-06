@@ -24,10 +24,11 @@ The owner runs the production DNS cutover.
   before changing pages.
   - `app/`: boxers, divisions, shop, search, brands, legal and HTML sitemap pages. `[...slug]`
     renders shop articles at `/shop/best/<slug>/`.
-  - `lib/`: build-time data loaders (boxers, shop, blog), URL, metadata, route and sitemap-path
-    helpers. Change URLs here, not in individual pages. `lib/site-config.ts` resolves the
-    environment and its origin (see Environments below); never read `SITE_ENVIRONMENT` or build
-    an origin anywhere else.
+  - `lib/`: data loaders, URL, metadata, route and sitemap-path helpers. Change URLs here, not in
+    individual pages. Pages read boxers only through `lib/boxer-data/`: D1 via the server-only,
+    fail-closed `lib/data/` in the Worker, the committed JSON in the static export (until #20).
+    `lib/site-config.ts` resolves the environment and its origin (Environments below); never read
+    `SITE_ENVIRONMENT` or build an origin anywhere else.
   - `content/`: markdown shop articles. The legal pages are TSX in `app/(legal)/`.
   - `public/data/boxers/`: per-boxer JSON generated from the pipeline data. Never hand-edit it.
   - `scripts/`: data generators. The search index is built before `next build` (`predev`,
@@ -35,13 +36,13 @@ The owner runs the production DNS cutover.
     revert those changes before committing.
   - `wrangler.jsonc`, `open-next.config.ts`, `worker.ts`: the Worker. The top level is local only;
     `env.staging` and `env.production` are the deployed Workers, each with its own D1 `DB`.
-    `worker.ts` is the entry: it applies the crawl policy (`lib/worker/`), then runs OpenNext.
+    `worker.ts` is the entry: the crawl policy, the edge cache, then OpenNext (`lib/worker/`).
+    Caching decision: `lib/worker/edge-cache.ts` (per data center, Worker version, one-hour TTL).
 - `d1/`: `drizzle/` migrations (`pnpm db:generate`; never edit `meta/`), `fixtures/`, `reports/`.
 - `packages/data-ops/`: the D1 data layer: the Drizzle schema (`src/schema.ts`), types, every
   query the app runs (`src/queries.ts`; the app never writes SQL) and the pipeline importer's
   mapping (`src/import/`). Vitest runs them on an in-memory D1 (Miniflare), migrations applied.
-- `packages/design-system/`: shared UI (shadcn). Read before adding a
-  component or helper that might already exist.
+- `packages/design-system/`: shared UI (shadcn). Read before adding a component or helper.
 - `configs/`: shared Next.js and TypeScript configuration. Read before changing build settings.
 - `scripts/`: `split-boxer-data.js` writes `apps/web/public/data/boxers/`; `d1/` is the D1 import.
 - `from-pipeline/boxers.json`: the pipeline output (about 104 MB, gitignored), read only by data
@@ -60,7 +61,7 @@ Inner loop, while editing (seconds):
 - `pnpm --filter web exec next dev --port 3003`: the dev server. `pnpm dev` first runs `predev`,
   which regenerates `public/data/` and needs `apps/web/data/boxers.json`.
 
-Worker (OpenNext on Cloudflare; minutes, because it prerenders every page):
+Worker (OpenNext on Cloudflare, about a minute; profiles read the local D1, so seed it first):
 
 - `pnpm preview:worker`: `build:worker` (`opennextjs-cloudflare build` with
   `NEXT_BUILD_TARGET=worker`, which turns off `output: 'export'`), then serves the local Worker on
@@ -69,8 +70,7 @@ Worker (OpenNext on Cloudflare; minutes, because it prerenders every page):
   environment's `SITE_ENVIRONMENT`, which the prerendered HTML needs (Environments below).
 - `pnpm --filter web serve:worker [--env staging]`: serve the last Worker build again. With
   `--env`, it uses that environment's vars and bindings, locally. Pair it with the matching build.
-  It sets `CHOKIDAR_USEPOLLING` because Wrangler's per-file watchers on about 16,000 assets exhaust
-  file descriptors on macOS.
+  It sets `CHOKIDAR_USEPOLLING`: Wrangler's per-file watchers exhaust macOS file descriptors.
 - `pnpm --filter web cf-typegen`: regenerate `cloudflare-env.d.ts` after changing
   `wrangler.jsonc`, and commit it.
 
