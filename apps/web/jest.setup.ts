@@ -60,21 +60,6 @@ jest.mock('next-themes', () => ({
   useTheme: () => ({ theme: 'light', setTheme: jest.fn() })
 }))
 
-// Mock @boxingundefeated/auth
-jest.mock(
-  '@boxingundefeated/auth',
-  () => ({
-    AuthProviderComponent: ({ children }: { children: React.ReactNode }) => children,
-    useAuth: () => ({
-      user: null,
-      isLoading: false,
-      signIn: jest.fn(),
-      signOut: jest.fn()
-    })
-  }),
-  { virtual: true }
-)
-
 // Mock sonner
 jest.mock('sonner', () => ({
   Toaster: () => null,

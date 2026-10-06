@@ -148,7 +148,9 @@ async function validateFile(filePath) {
       log.header('Sample Errors')
       stats.errors.forEach(item => {
         console.log(`\nRecord ${item.index} (${item.name}):`)
-        item.errors.forEach(e => log.error(`  ${e}`))
+        item.errors.forEach(e => {
+          log.error(`  ${e}`)
+        })
       })
     }
 
@@ -246,12 +248,16 @@ async function compareFiles(file1, file2) {
 
     if (onlyIn1.length > 0) {
       console.log('\nFields only in first file:')
-      onlyIn1.forEach(f => console.log(`  - ${f}`))
+      onlyIn1.forEach(f => {
+        console.log(`  - ${f}`)
+      })
     }
 
     if (onlyIn2.length > 0) {
       console.log('\nFields only in second file:')
-      onlyIn2.forEach(f => console.log(`  + ${f}`))
+      onlyIn2.forEach(f => {
+        console.log(`  + ${f}`)
+      })
     }
 
     console.log('\nCommon fields with different types:')

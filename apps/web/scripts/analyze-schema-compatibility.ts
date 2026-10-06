@@ -97,7 +97,9 @@ const fieldAnalysis: Record<
 // Get all unique fields from JSON
 const allJsonFields = new Set<string>()
 jsonData.slice(0, 100).forEach((boxer: any) => {
-  Object.keys(boxer).forEach(key => allJsonFields.add(key))
+  Object.keys(boxer).forEach(key => {
+    allJsonFields.add(key)
+  })
 })
 
 // Initialize analysis for all fields
@@ -230,7 +232,9 @@ dateFields.forEach(field => {
 
 if (issues.length > 0) {
   console.log('Issues found:')
-  issues.forEach(issue => console.log(`  ⚠️ ${issue}`))
+  issues.forEach(issue => {
+    console.log(`  ⚠️ ${issue}`)
+  })
 } else {
   console.log('  ✅ No critical data quality issues found')
 }
