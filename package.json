@@ -27,6 +27,7 @@
     "postinstall": "manypkg fix",
     "lint": "turbo lint && manypkg check",
     "lint:fix": "turbo lint:fix && manypkg fix && pnpm biome lint --write .",
+    "parity": "pnpm --filter e2e parity",
     "preview:worker": "pnpm --filter web preview:worker",
     "shadcn": "cd packages/design-system && pnpm dlx shadcn@canary add",
     "start": "turbo run start",

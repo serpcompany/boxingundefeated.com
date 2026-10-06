@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "clean": "git clean -xdf .turbo node_modules parity-report playwright-report test-results",
+    "parity": "tsx src/parity.ts",
     "test": "vitest run",
     "test:e2e": "playwright test",
     "test:install": "playwright install chromium",
