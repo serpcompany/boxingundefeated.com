@@ -1,84 +1,18 @@
-import fs from 'node:fs'
-import path from 'node:path'
 import { Breadcrumb } from '@boxingundefeated/design-system/breadcrumb'
 import { Card, CardContent, CardHeader, CardTitle } from '@boxingundefeated/design-system/card'
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { FightHistory } from '@/components/fight-history'
 import { OptimizedImage } from '@/components/optimized-image'
-import { type BoxerMetadata, getBoxerBouts, getBoxerStats } from '@/lib/boxers-loader'
+import { boxerProfileStaticParams, getBoxerProfile } from '@/lib/boxer-data'
+import { getBoxerStats } from '@/lib/boxers-loader'
 import { createBoxerMetaDescription } from '@/lib/metadata'
-import { getOpponentLinksForBouts } from '@/lib/opponent-mapper'
 import { getSiteOrigin } from '@/lib/site-config'
 import { normalizeInternalPath, toAbsoluteUrl } from '@/lib/url-utils'
 
-// Load individual boxer data from split JSON files
-function getBoxerBySlugOptimized(slug: string): BoxerMetadata | null {
-  try {
-    // Try multiple possible paths to handle different working directories
-    const possiblePaths = [
-      path.join(process.cwd(), 'public/data/boxers', `${slug}.json`),
-      path.join(process.cwd(), 'apps/web/public/data/boxers', `${slug}.json`),
-      path.join(__dirname, '../../../public/data/boxers', `${slug}.json`)
-    ]
-
-    for (const filePath of possiblePaths) {
-      try {
-        const data = fs.readFileSync(filePath, 'utf-8')
-        return JSON.parse(data)
-      } catch {
-        // Try next path
-      }
-    }
-    return null
-  } catch {
-    return null
-  }
-}
-
-// Load index for generating static params
-function getBoxerSlugs(): string[] {
-  try {
-    // Try multiple possible paths to handle different working directories
-    const possiblePaths = [
-      path.join(process.cwd(), 'public/data/boxers/index.json'),
-      path.join(process.cwd(), 'apps/web/public/data/boxers/index.json'),
-      path.join(__dirname, '../../../public/data/boxers/index.json')
-    ]
-
-    let data: string | null = null
-    for (const indexPath of possiblePaths) {
-      try {
-        data = fs.readFileSync(indexPath, 'utf-8')
-        break
-      } catch {
-        // Try next path
-      }
-    }
-
-    if (!data) {
-      console.error('Failed to load boxer index from any path')
-      return []
-    }
-
-    const index = JSON.parse(data)
-    return index.map((boxer: any) => boxer.slug)
-  } catch (error) {
-    console.error('Failed to load boxer index:', error)
-    return []
-  }
-}
-
-// Boxer data is read with `fs` at build time, which the Worker can't do at request time. Every
-// boxer page is prerendered, and an unknown slug is a 404, until boxer pages render from D1 (#10).
-export const dynamicParams = false
-
-export async function generateStaticParams() {
-  const slugs = getBoxerSlugs()
-  return slugs.map(slug => ({
-    slug
-  }))
-}
+// The static export prerenders every profile from the committed JSON. The Worker prerenders none:
+// it renders each profile on request from D1, and an unknown slug is a 404 (lib/boxer-data).
+export const generateStaticParams = boxerProfileStaticParams
 
 export async function generateMetadata({
   params
@@ -86,14 +20,15 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>
 }): Promise<Metadata> {
   const { slug } = await params
-  const boxer = getBoxerBySlugOptimized(slug)
+  const profile = await getBoxerProfile(slug)
   const baseUrl = getSiteOrigin()
 
-  if (!boxer) {
+  if (!profile) {
     return {
       title: 'Boxer Not Found'
     }
   }
+  const { boxer } = profile
 
   return {
     title: `${boxer.name} - Professional Boxer`,
@@ -106,16 +41,15 @@ export async function generateMetadata({
 
 export default async function BoxerPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
-  const boxer = getBoxerBySlugOptimized(slug)
+  const profile = await getBoxerProfile(slug)
 
-  if (!boxer) {
+  if (!profile) {
     notFound()
   }
 
+  const { boxer, bouts, opponentLinks } = profile
   const baseUrl = getSiteOrigin()
   const stats = getBoxerStats(boxer)
-  const bouts = getBoxerBouts(boxer)
-  const opponentLinks = getOpponentLinksForBouts(bouts)
   const breadcrumbItems = [
     { name: 'Boxers', href: '/boxers/' },
     { name: boxer.name, href: normalizeInternalPath(`/boxers/${slug}`) }

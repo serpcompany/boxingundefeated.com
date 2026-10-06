@@ -156,7 +156,12 @@ export function getBoxersByDivision(division: string): BoxerMetadata[] {
   return boxers.filter(boxer => boxer.proDivision === division)
 }
 
-export function getBoxerStats(boxer: BoxerMetadata) {
+export function getBoxerStats(
+  boxer: Pick<
+    BoxerMetadata,
+    'proWins' | 'proWinsByKnockout' | 'proLosses' | 'proDraws' | 'proTotalBouts'
+  >
+) {
   const winRate =
     boxer.proTotalBouts && boxer.proTotalBouts > 0
       ? (((boxer.proWins || 0) / boxer.proTotalBouts) * 100).toFixed(1)

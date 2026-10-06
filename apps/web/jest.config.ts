@@ -29,6 +29,7 @@ const config: Config.InitialOptions = {
     ],
     '^@boxingundefeated/design-system/breadcrumb$':
       '<rootDir>/../../packages/design-system/components/custom/breadcrumb.tsx',
+    '^@boxingundefeated/design-system/lib/(.*)$': '<rootDir>/../../packages/design-system/lib/$1',
     '^@boxingundefeated/design-system/(.*)$':
       '<rootDir>/../../packages/design-system/components/shadcn/$1.tsx',
     '^@boxingundefeated/([^/]+)/(.*)$': [

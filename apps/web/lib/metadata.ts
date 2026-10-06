@@ -19,7 +19,7 @@ export function createMetaDescription(description?: string | null): string {
   return `${normalized.slice(0, MAX_META_DESCRIPTION_LENGTH - 3).trimEnd()}...`
 }
 
-export function createBoxerMetaDescription(boxer: BoxerMetadata): string {
+export function createBoxerMetaDescription(boxer: Pick<BoxerMetadata, 'name' | 'bio'>): string {
   return createMetaDescription(
     `Professional boxing record and statistics for ${boxer.name}. ${boxer.bio || ''}`
   )
