@@ -63,8 +63,7 @@ Inner loop, while editing (seconds):
 - `pnpm --filter web typecheck`
 - `pnpm --filter web exec jest <paths>`: the tests for the code you changed.
 - `pnpm exec biome lint <paths>`
-- `pnpm --filter web exec next dev --port 3003`: the dev server. `pnpm dev` first runs `predev`,
-  which regenerates `public/data/` and needs `apps/web/data/boxers.json`.
+- `pnpm --filter web exec next dev --port 3003`: the dev server (`pnpm dev` regenerates data first).
 
 Worker (OpenNext on Cloudflare, about a minute; profiles read the local D1, so seed it first):
 
@@ -76,11 +75,9 @@ Worker (OpenNext on Cloudflare, about a minute; profiles read the local D1, so s
 - `pnpm --filter web serve:worker [--env staging]`: serve the last Worker build again. With
   `--env`, it uses that environment's vars and bindings, locally. Pair it with the matching build.
   `--env staging` rewrites every `Host` header to its custom domain, so test host redirects with
-  `--env production`, which has no route yet.
-  It sets `CHOKIDAR_USEPOLLING`: Wrangler's per-file watchers exhaust macOS file descriptors.
-- `pnpm --filter web cf-typegen`: regenerate `cloudflare-env.d.ts` after changing
-  `wrangler.jsonc`, and commit it. It strips the `mainModule` type that would pull `worker.ts`
-  into `tsc` (`lib/cloudflare-env-types.ts`).
+  `--env production`, which has no route yet. It sets `CHOKIDAR_USEPOLLING` (file descriptors).
+- `pnpm --filter web cf-typegen`: regenerate and commit `cloudflare-env.d.ts` after changing
+  `wrangler.jsonc`; it strips the `mainModule` type (`lib/cloudflare-env-types.ts`).
 
 D1 (Drizzle schema in `packages/data-ops`, migrations in `d1/drizzle/`):
 
@@ -93,6 +90,9 @@ D1 (Drizzle schema in `packages/data-ops`, migrations in `d1/drizzle/`):
 - `pnpm db:import -- --target local|staging [--source <json>]`: an idempotent import, then
   `pnpm db:parity -- --target <t>` to prove it. Production imports run via the owner or CI.
   A remote import won't prune over 1 % of boxers (at most 50) unless `--allow-prune <n>`.
+- **Deploy gate:** the Worker reads profiles from D1 (503 until an import finishes). Never deploy
+  a Worker build to an env unless `pnpm db:check-deployable -- --target <env>` passes (migrated,
+  a finished import) and `db:parity` is clean there.
 - `db:migrate:{staging,production}` and `db:migrations:list:{staging,production}` target the
   remote databases with `--remote --env <env>`. Never use `--preview`. Only the owner, or a
   protected workflow, migrates production.
