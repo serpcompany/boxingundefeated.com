@@ -49,7 +49,7 @@ The best part about the Kaka Travel Backpack, however, is its ability to withsta
 
 However, one drawback I encountered was the lack of ventilation on the back panel. While the shoulder straps are well-padded and comfortable, the lack of breathability on warmer days can lead to excessive sweating.
 
-[Despite this minor inconvenience, I would highly recommend the Kaka Travel Backpack to anyone in search of a high-quality, versatile backpack that can handle anything life throws at you.](https://best.serp.co/big-backpacks-for-travel/)
+Despite this minor inconvenience, I would highly recommend the Kaka Travel Backpack to anyone in search of a high-quality, versatile backpack that can handle anything life throws at you.
 
 ### [Eastsport Unisex Commuter Tech Backpack](https://serp.ly/@boxingundefeated/amazon/gym-bags-rucksack)
 

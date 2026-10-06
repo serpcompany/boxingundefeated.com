@@ -213,7 +213,7 @@ Many manufacturers offer a warranty for their products. The coverage varies from
 
 ### How do I clean a lavender gym bag?
 
-Clean your bag with a soft brush or sponge, mild detergent, and cold water. Avoid harsh chemicals or high-heat drying. For stubborn stains, use a mixture of water and white vinegar, but test on an inconspicuous area first. Follow up with a fabric [conditioner](https://best.serp.co/conditioners/) or leather conditioner (for leather bags), depending on the material.
+Clean your bag with a soft brush or sponge, mild detergent, and cold water. Avoid harsh chemicals or high-heat drying. For stubborn stains, use a mixture of water and white vinegar, but test on an inconspicuous area first. Follow up with a fabric conditioner or leather conditioner (for leather bags), depending on the material.
 
 ### Can I wash a lavender gym bag in a washing machine?
 

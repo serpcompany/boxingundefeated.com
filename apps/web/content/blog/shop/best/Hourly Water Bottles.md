@@ -183,7 +183,7 @@ Hourly Water Bottles are available in various sizes, ranging from 16 oz to 40 oz
 
 ### How much water should I drink daily when using a Hourly Water Bottle?
 
-Although individual water intake needs vary based on factors like age, sex, weight, and physical activity levels, an average adults should aim to drink about 8 [cups](https://best.serp.co/cups/) of water per day, or roughly 64 ounces. Using a Hourly Water Bottle can help you achieve this goal, as it encourages you to take regular sips throughout the day.
+Although individual water intake needs vary based on factors like age, sex, weight, and physical activity levels, an average adults should aim to drink about 8 cups of water per day, or roughly 64 ounces. Using a Hourly Water Bottle can help you achieve this goal, as it encourages you to take regular sips throughout the day.
 
 ### Are Hourly Water Bottles dishwasher safe?
 

@@ -122,7 +122,7 @@ Swimming is an invigorating workout, but it requires a lot of gear, from goggles
 
 ### Size and Weight Considerations
 
-Gym bags for swimmers can vary in size, so consider the types of swim gear you typically carry and your intended use for the bag. Larger sizes may be more appropriate for competition or training, while a smaller bag might suffice for casual swimmers or travel purposes. The weight and capacity of the bag should also be taken into account, particularly if you're carrying heavier items like weight [belts](https://best.serp.co/belts/) or diving tools.
+Gym bags for swimmers can vary in size, so consider the types of swim gear you typically carry and your intended use for the bag. Larger sizes may be more appropriate for competition or training, while a smaller bag might suffice for casual swimmers or travel purposes. The weight and capacity of the bag should also be taken into account, particularly if you're carrying heavier items like weight belts or diving tools.
 
 ### Material Durability
 

@@ -140,7 +140,7 @@ By keeping these features, considerations, and advice in mind when choosing a 64
 
 ### How large is the 64 oz water bottle with straw?
 
-The 64 oz water bottle with straw has a 64-ounce capacity, which is equivalent to about 8 [cups](https://best.serp.co/cups/) or 1.8 liters of water. The bottle is designed to hold plenty of water for a full day of hydration.
+The 64 oz water bottle with straw has a 64-ounce capacity, which is equivalent to about 8 cups or 1.8 liters of water. The bottle is designed to hold plenty of water for a full day of hydration.
 
 ### What materials are the 64 oz water bottle with straw made of?
 

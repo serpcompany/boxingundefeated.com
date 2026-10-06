@@ -163,7 +163,7 @@ Yes, Hydracy water bottles feature leak-proof lids to prevent any spills or leak
 
 ### How do I clean my Hydracy water bottle?
 
-To clean your Hydracy water bottle, wash the removable components (lid, strap, etc. ) with warm, soapy water and use a bottle brush to clean the interior of the bottle. Rinse thoroughly and let it air dry. Avoid using abrasive [cleansers](https://best.serp.co/cleansers/) or dishwashers, as this may damage the insulation or surface.
+To clean your Hydracy water bottle, wash the removable components (lid, strap, etc. ) with warm, soapy water and use a bottle brush to clean the interior of the bottle. Rinse thoroughly and let it air dry. Avoid using abrasive cleansers or dishwashers, as this may damage the insulation or surface.
 
 ### How much liquid can a Hydracy water bottle hold?
 

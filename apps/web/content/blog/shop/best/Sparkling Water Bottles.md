@@ -353,7 +353,7 @@ A sparkling water bottle is specifically designed for carbonated water, featurin
 
 <div><a href="https://serp.ly/@boxingundefeated/amazon/sparkling-water-bottles"><img src="https://imagedelivery.net/vy2bglCGN6hEeWOnSe2c7A/Sparkling+Water+Bottles-4/w=720,h=540,fit=pad,background=black" alt="Sparkling Water Bottles-4"></a></div>
 
-Sparkling water bottles contain airtight seals and pressure-resistant materials to prevent the carbonation from escaping. This allows the water to remain fizzy for an extended period of time compared to regular water bottles or [cups](https://best.serp.co/cups/).
+Sparkling water bottles contain airtight seals and pressure-resistant materials to prevent the carbonation from escaping. This allows the water to remain fizzy for an extended period of time compared to regular water bottles or cups.
 
 ### What types of materials are used to make sparkling water bottles?
 

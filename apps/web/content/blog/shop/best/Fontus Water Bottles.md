@@ -151,7 +151,7 @@ Here are some tips to ensure you get the most out of your Fontus water bottle:
 
 ### What are Fontus water bottles?
 
-Fontus water bottles are innovative, eco-friendly, and reusable drink containers. They are designed to keep your beverages hot or cold for hours, reducing waste from disposable bottles and [cups](https://best.serp.co/cups/).
+Fontus water bottles are innovative, eco-friendly, and reusable drink containers. They are designed to keep your beverages hot or cold for hours, reducing waste from disposable bottles and cups.
 
 ### How do Fontus water bottles maintain the temperature of my drink?
 

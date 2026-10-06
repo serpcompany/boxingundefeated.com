@@ -186,7 +186,7 @@ The Air Water Bottle uses condensation to collect moisture from the air, similar
 
 ### How long does the Air Water Bottle take to produce water?
 
-The time it takes for the Air Water Bottle to produce water depends on factors such as humidity, temperature, and air circulation. In general, it takes 4-6 hours to collect enough moisture to generate 1-2 [cups](https://best.serp.co/cups/) of water, depending on the specific model and conditions. However, some models may take longer or shorter times depending on their design and efficiency.
+The time it takes for the Air Water Bottle to produce water depends on factors such as humidity, temperature, and air circulation. In general, it takes 4-6 hours to collect enough moisture to generate 1-2 cups of water, depending on the specific model and conditions. However, some models may take longer or shorter times depending on their design and efficiency.
 
 <div><a href="https://serp.ly/@boxingundefeated/amazon/air-water-bottle"><img src="https://imagedelivery.net/vy2bglCGN6hEeWOnSe2c7A/Air+Water+Bottle-6/w=720,h=540,fit=pad,background=black" alt="Air Water Bottle-6"></a></div>
 

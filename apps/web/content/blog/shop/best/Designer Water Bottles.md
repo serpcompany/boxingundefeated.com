@@ -147,7 +147,7 @@ Overall, I've had a positive experience with the Simple Modern NFL New York Jets
 
 Staying hydrated never looked so fancy! [Paris Hilton](https://serp.media/movies/all-paris-hilton-movies-in-order/)'s rhinestone-covered, 25-ounce stainless steel water bottle has been my go-to companion for both daily use and music festivals. The built-in handle and removable carry chain make it incredibly easy to bring along anywhere, while the double-walled vacuum insulation keeps my hot coffee hot for hours and iced tea cold all day long.
 
-It's not just a water bottle, but an accessory that complements any outfit. The leak-proof lid ensures no messy surprises in your bag, and the rhinestones have yet to show any signs of wear, despite rough usage. Plus, it's way more eco-friendly than single-use [cups](https://best.serp.co/cups/) and plastic strawsstraws.
+It's not just a water bottle, but an accessory that complements any outfit. The leak-proof lid ensures no messy surprises in your bag, and the rhinestones have yet to show any signs of wear, despite rough usage. Plus, it's way more eco-friendly than single-use cups and plastic strawsstraws.
 
 However, there are some cons to consider. The heavy-duty chain could be a bit too much for some, and there's no mention of how to maintain the sparkle of those thousands of rhinestones. But overall, this bedazzled bottle is a must-have for the shining star in any life.
 

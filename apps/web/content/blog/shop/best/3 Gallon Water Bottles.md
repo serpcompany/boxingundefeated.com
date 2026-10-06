@@ -111,7 +111,7 @@ I recently got myself this Gatorade 3 gallon cooler and boy, is it a game-change
 
 The first thing that caught my eye was its bright orange color with the classic Gatorade logo on the front and back. It's a good reminder of some of my favorite childhood memories, watching sports games and seeing these coolers on the sidelines. This cooler perfectly combines nostalgia with practicality.
 
-One of the best features, in my opinion, is the easy-to-clean liner. It makes cleaning a snap, especially after a long day at the beach or the lake. Plus, the recessed faucet design ensures that filling [cups](https://best.serp.co/cups/) and bottles is a simple task.
+One of the best features, in my opinion, is the easy-to-clean liner. It makes cleaning a snap, especially after a long day at the beach or the lake. Plus, the recessed faucet design ensures that filling cups and bottles is a simple task.
 
 The bail handle is another highlight for me. It allows for easy transportation and I can carry it even when it's full. And speaking of full, the 3-gallon capacity is ample for my family of four at the lake or during a summer baseball game.
 

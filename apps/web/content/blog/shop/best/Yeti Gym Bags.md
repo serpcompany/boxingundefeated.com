@@ -67,7 +67,7 @@ Despite these minor drawbacks, I can't recommend the Yeti Panga Submersible Duff
 
 I had the chance to put the Yeti Hopper M20 Backpack Cooler to the test on a hot summer day at the beach. The moment I took it out of the box, I was impressed by the sturdy construction and sleek design. It's truly a beauty! The charcoal color adds to its cool factor, and the thick, waterproof outer shell definitely looks up to the challenge of keeping my snacks and drinks cold.
 
-The Hopper M20 impressed me right off the bat with its capacity. After loading in 36 cans and 22 pounds of ice (as promised), it was surprisingly lightweight and easy to carry on my back. The conveniently-padded shoulder straps helped distribute the weight evenly, leaving my hands free to carry beach chairs[chairs](https://best.serp.co/chairs/) and umbrellas.
+The Hopper M20 impressed me right off the bat with its capacity. After loading in 36 cans and 22 pounds of ice (as promised), it was surprisingly lightweight and easy to carry on my back. The conveniently-padded shoulder straps helped distribute the weight evenly, leaving my hands free to carry beach chairschairs and umbrellas.
 
 One of the features I absolutely loved was the MagShield Access. This magnetic closure system might take some getting used to, but once you figure it out, it's a lifesaver! The ultra-strong magnets keep the cold locked in, and even after leaving the cooler in the hot sun for a few hours, my ice cubes were still intact. The wide opening made it a breeze to load ice, sandwiches, and drinks - no more struggling with a tight cooler lid.
 

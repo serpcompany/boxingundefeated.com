@@ -43,7 +43,7 @@ _As an Amazon™ Associate, we earn from qualifying purchases._
 
 As a reviewer who's been using the BUZIO Rock Series Insulated 128oz Water Bottle growler in my daily life, I must say it has really met my expectations. The one-gallon capacity ensures I stay sufficiently hydrated during hot summer days. This isn't your average water bottle; it's crafted from durable, food-grade 18/8 stainless steel resistant to puncture, oxidation, and even flavor transfer. Its Double-Wall Vacuum Insulation technology keeps beverages chilled for up to 48 hours, allowing me to enjoy a cold sip of my favorite drink without worrying about it getting warm.
 
-One amazing feature is the screw cap and cap butt lock design, which make drinking on-the-go incredibly handy. Plus, the widened handle strap offers a comfortable grip. The BUZIO water bottle also comes with two stainless steel [cups](https://best.serp.co/cups/), perfect for sharing your drink with friends and family.
+One amazing feature is the screw cap and cap butt lock design, which make drinking on-the-go incredibly handy. Plus, the widened handle strap offers a comfortable grip. The BUZIO water bottle also comes with two stainless steel cups, perfect for sharing your drink with friends and family.
 
 Though this bottle is pricey, the quality justifies the cost. Its sleek design and the classic powder finish make it not only functional but also aesthetically appealing. The insulated jug has a sweat-free handle, ensuring a non-slip grip whether it's icy cold or scorching hot outside.
 

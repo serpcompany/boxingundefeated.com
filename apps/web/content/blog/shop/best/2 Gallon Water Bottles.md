@@ -225,7 +225,7 @@ A 2-gallon water bottle, also known as a 2-gallon jug or a 2-gallon container, i
 
 <div><a href="https://serp.ly/@boxingundefeated/amazon/2-gallon-water-bottles"><img src="https://imagedelivery.net/vy2bglCGN6hEeWOnSe2c7A/2+Gallon+Water+Bottles-4/w=720,h=540,fit=pad,background=black" alt="2 Gallon Water Bottles-4"></a></div>
 
-There are 16 [cups](https://best.serp.co/cups/) in a 2-gallon water bottle, considering that one gallon equals 8 cups.
+There are 16 cups in a 2-gallon water bottle, considering that one gallon equals 8 cups.
 
 ### What are the benefits of using a 2 gallon water bottle?
 

@@ -95,7 +95,7 @@ Overall, I highly recommend the Simple Modern 12 fl oz Reusable Tritan Summit Wa
 
 <div class="image"><a href="https://serp.ly/@boxingundefeated/amazon/unicorn-water-bottles"><img alt="unicorns-rainbows-water-bottle-1" src="https://imagedelivery.net/vy2bglCGN6hEeWOnSe2c7A/unicorns-rainbows-water-bottle-1/w=720,h=540,fit=pad,background=black"/></a></div>
 
-So there I was, struggling to keep my little one hydrated throughout the day. The constant barrage of plastic cups[cups](https://best.serp.co/cups/) and water bottles seemed like a never-ending battle. That's when I stumbled upon the Unicorns & Rainbows Water Bottle.
+So there I was, struggling to keep my little one hydrated throughout the day. The constant barrage of plastic cupscups and water bottles seemed like a never-ending battle. That's when I stumbled upon the Unicorns & Rainbows Water Bottle.
 
 Right off the bat, this water bottle caught my eye. Its vibrant colors and whimsical design were hard to resist. But what really sold me was its insulated, durable design. It kept water cold for hours, which is a godsend during those hot summer days. Plus, it's super easy to clean and dishwasher safe.
 

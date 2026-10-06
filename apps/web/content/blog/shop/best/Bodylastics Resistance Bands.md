@@ -151,7 +151,7 @@ In conclusion, the Philosophy Gym Pull Up Assist Band is a solid option for thos
 
 I recently got my hands on the Bodylastics Collapsible Resistance Bands Bar with Rubber Grip and Carrying Bag, and it's safe to say that I've been thoroughly impressed. The first thing I noticed was its innovative design - it's lightweight yet sturdy enough to handle even my most intense workouts. The 45-degree angle bend provides a better grip and allows for more tension without causing discomfort.
 
-One of my favorite features is the collapsible design. It fits easily in my gym bag or the car trunk when I'm traveling or heading to the office, and it doesn't take up much space when stored at home. [Plus, the custom-designed rubber grip ensures a comfortable yet secure hold during each workout session.](https://best.serp.co/rubber-weight-sets/)
+One of my favorite features is the collapsible design. It fits easily in my gym bag or the car trunk when I'm traveling or heading to the office, and it doesn't take up much space when stored at home. Plus, the custom-designed rubber grip ensures a comfortable yet secure hold during each workout session.
 
 However, using this bar has had its challenges. The O-rings are slightly tricky to navigate and sometimes get caught on the resistance bands, which can be a bit frustrating. Additionally, the resistance bands are sold separately, so if you're looking for a complete package, be prepared to make an extra purchase.
 

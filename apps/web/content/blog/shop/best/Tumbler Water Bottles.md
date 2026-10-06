@@ -125,7 +125,7 @@ Despite these minor cons, I find myself reaching for the RTIC Road Trip Tumbler 
 
 As an avid traveler, I've been a long-time user of Quencher H2.0 FlowState Tumbler 40 oz. It's my go-to companion on all my adventures, keeping my favorite beverages fresh and cold throughout the day.
 
-One of the standout features is its spill-resistance. Not many [cups](https://best.serp.co/cups/) can boast of this, but the Quencher H2.0 truly delivers. Its seal is strong and durable, making it perfect for tossing in a bag or cupholder without worrying about spills.
+One of the standout features is its spill-resistance. Not many cups can boast of this, but the Quencher H2.0 truly delivers. Its seal is strong and durable, making it perfect for tossing in a bag or cupholder without worrying about spills.
 
 However, one minor drawback that I've noticed is the straw. While it's quite sturdy, it could be a tad longer for certain drinks. But this is just a minor inconvenience, it hasn't dampened my overall satisfaction with the tumbler.
 

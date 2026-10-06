@@ -171,7 +171,7 @@ Many gyms have water fountains and swimming poolspools, so having a water-resist
 
 #### 5. Comfort and Portability
 
-A good Popflex gym bag should be comfortable to carry around and easy to transport. Look for features like padded shoulder straps, adjustable waist [belts](https://best.serp.co/belts/), and handles designed to reduce strain on your hands and shoulders. Additionally, try to find a bag with a compact design that can be stored away easily when not in use.
+A good Popflex gym bag should be comfortable to carry around and easy to transport. Look for features like padded shoulder straps, adjustable waist belts, and handles designed to reduce strain on your hands and shoulders. Additionally, try to find a bag with a compact design that can be stored away easily when not in use.
 
 ### General Advice
 

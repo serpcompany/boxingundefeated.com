@@ -357,6 +357,6 @@ When choosing a reusable water bottle, look for those made from stainless steel,
 
 ### How do I carry my reusable water bottle?
 
-Reusable water bottles can be carried using a variety of accessories such as carabiners, bottle holders, or sleeves that can be attached to bags or [belts](https://best.serp.co/belts/). Some bottles also come with built-in clips or handles for easy carrying.
+Reusable water bottles can be carried using a variety of accessories such as carabiners, bottle holders, or sleeves that can be attached to bags or belts. Some bottles also come with built-in clips or handles for easy carrying.
 
 _As an Amazon™ Associate, we earn from qualifying purchases._

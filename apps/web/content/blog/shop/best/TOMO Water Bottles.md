@@ -64,7 +64,7 @@ The highlights of this product definitely include its bite-resistant spout, whic
 
 However, on the downside, I did notice that the valve can be a bit tricky to assemble at first. Additionally, the bite-resistant spout may not be ideal for all toddlers, as some may require a softer spout for their comfort.
 
-Overall, I would highly recommend the Tommee Tippee Sporty Water Bottle for its spill-proof and easy-to-hold features. It has made a significant difference in our daily life, making it easier for my toddler to stay hydrated and reducing the messes caused by leaky [cups](https://best.serp.co/cups/).
+Overall, I would highly recommend the Tommee Tippee Sporty Water Bottle for its spill-proof and easy-to-hold features. It has made a significant difference in our daily life, making it easier for my toddler to stay hydrated and reducing the messes caused by leaky cups.
 
 ### [Tumbler Cup for Little Hands](https://serp.ly/@boxingundefeated/amazon/tomo-water-bottles)
 

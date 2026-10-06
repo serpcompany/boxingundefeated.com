@@ -49,7 +49,7 @@ One feature that stands out is the wide grip design, which provides a comfortabl
 
 However, there have been a few hiccups. The labeling on the weights is not as secure as I'd like. Some stickers have peeled off or lost their adhesion over time, making it difficult to tell which weight I'm using at a glance. Additionally, the packaging was a bit lackluster, with no cushioning or support for the weights, making them vulnerable to damage during transit.
 
-In conclusion, while the Balancefrom Wide Grip Kettlebell Exercise Fitness Weight Set has some minor flaws, the overall experience has been quite positive. [The variety of weights, combined with the comfortable grip and durable vinyl coating, makes this set a valuable addition to any home fitness routine.](https://best.serp.co/rubber-weight-sets/)
+In conclusion, while the Balancefrom Wide Grip Kettlebell Exercise Fitness Weight Set has some minor flaws, the overall experience has been quite positive. The variety of weights, combined with the comfortable grip and durable vinyl coating, makes this set a valuable addition to any home fitness routine.
 
 ### [20lb Weider Performance Kettlebell](https://serp.ly/@boxingundefeated/amazon/rogue-kettlebells)
 

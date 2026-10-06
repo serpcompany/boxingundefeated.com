@@ -57,7 +57,7 @@ Overall, I'd recommend the TABEKE Pedal Exerciser to anyone looking for an easy,
 
 When I received the Exerpeutic Bike, I was excited to try it out. The set-up was a breeze, and it only took me about 15 minutes to have it ready for use. As someone who spends a lot of time at a desk, I was interested to see how well this little machine would fit into my daily routine.
 
-One of the best features of the Exerpeutic Bike is its adjustable chair holder, which allowed me to comfortably use the bike with any of my office chairs[chairs](https://best.serp.co/chairs/). Even as a taller user, I was able to extend the holder to accommodate my height, making it perfect for my needs. The 14-level magnetic tension proved to be challenging without being too strenuous, and I appreciated being able to track my progress using the free My Cloud Fitness app.
+One of the best features of the Exerpeutic Bike is its adjustable chair holder, which allowed me to comfortably use the bike with any of my office chairschairs. Even as a taller user, I was able to extend the holder to accommodate my height, making it perfect for my needs. The 14-level magnetic tension proved to be challenging without being too strenuous, and I appreciated being able to track my progress using the free My Cloud Fitness app.
 
 However, one downside I experienced was the 10-inch pedal height, which made it slightly cramped for me, especially when using taller office chairs. This made it difficult for me to maintain a consistent rhythm while using the bike. While the build quality is solid overall, I could see the pedals wearing out over time with regular use.
 

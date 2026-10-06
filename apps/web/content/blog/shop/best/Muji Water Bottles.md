@@ -104,7 +104,7 @@ The folding straw lid makes drinking on-the-go a breeze, but I have to admit tha
 
 <div class="image"><a href="https://serp.ly/@boxingundefeated/amazon/muji-water-bottles"><img alt="moma-muji-pe-cylinder-bottle-with-snap-cap-100ml-1" src="https://imagedelivery.net/vy2bglCGN6hEeWOnSe2c7A/moma-muji-pe-cylinder-bottle-with-snap-cap-100ml-1/w=720,h=540,fit=pad,background=black"/></a></div>
 
-I have been using the MUJI PE Cylinder Bottle with Snap Cap for about a month now, and I am thoroughly impressed by its performance. This 100ml bottle is perfect for my daily toiletries when I am on the go, and its sleek design complements my minimalistic aesthetics. It does an excellent job of keeping all my liquids and creams securely locked in, thanks to its Snap Cap with a precise twist mechanism. I have used this bottle to carry moisturizers, face [cleansers](https://best.serp.co/cleansers/), and even some hair conditioners, and it has never leaked, even when knocked around in my carry-on bag.
+I have been using the MUJI PE Cylinder Bottle with Snap Cap for about a month now, and I am thoroughly impressed by its performance. This 100ml bottle is perfect for my daily toiletries when I am on the go, and its sleek design complements my minimalistic aesthetics. It does an excellent job of keeping all my liquids and creams securely locked in, thanks to its Snap Cap with a precise twist mechanism. I have used this bottle to carry moisturizers, face cleansers, and even some hair conditioners, and it has never leaked, even when knocked around in my carry-on bag.
 
 The heat resistance of 90 degrees Celsius allows me to store hot liquids without any issues, and its cold resistance capability of -20 degrees Celsius lets me take it on my winter trips with confidence. The high rating, backed by numerous positive reviews, attests to the excellent build and functionality of this bottle. The only drawback I have noticed is that the cap doesn't feel as secure as I would like when I am closing it. However, this is a minor inconvenience that doesn't significantly affect the performance of the bottle.
 
@@ -114,7 +114,7 @@ Incorporating this MUJI bottle into my travel routine has been a game-changer, a
 
 <div class="image"><a href="https://serp.ly/@boxingundefeated/amazon/muji-water-bottles"><img alt="moma-muji-pet-cylinder-pump-bottle-100ml-1" src="https://imagedelivery.net/vy2bglCGN6hEeWOnSe2c7A/moma-muji-pet-cylinder-pump-bottle-100ml-1/w=720,h=540,fit=pad,background=black"/></a></div>
 
-I've been using the MUJI Pet Cylinder Pump Bottle and it's perfect for my on-the-go lifestyle. I love how I can easily refill my favorite shampoo and [conditioner](https://best.serp.co/conditioners/) into this convenient bottle. The high-quality materials make it durable and the cold resistance of -20 degrees Celsius means my products stay fresh even when I travel.
+I've been using the MUJI Pet Cylinder Pump Bottle and it's perfect for my on-the-go lifestyle. I love how I can easily refill my favorite shampoo and conditioner into this convenient bottle. The high-quality materials make it durable and the cold resistance of -20 degrees Celsius means my products stay fresh even when I travel.
 
 One thing I appreciated was the soft resin separating bottle that makes it easy to squeeze out the contents. However, I must say, the pump could be smoother and a locking mechanism would be great for added security. Despite these minor concerns, overall, this bottle is a game-changer for travel-sized products.
 

@@ -262,7 +262,7 @@ I recently got the Contigo Kids Autoseal Trekker Water Bottle for my little one,
 
 However, there are some cons to the bottle as well. One of the issues I've encountered is that the button to release the water can be a bit tough for small hands. Additionally, the top part of the lid can be tricky to clean thoroughly due to its design.
 
-In conclusion, the Contigo Kids Autoseal Trekker Water Bottle has some great features like its leak-proof technology and easy-to-use push button, but there are also areas where it could use some improvement such as the button's difficulty for small hands and the lid's cleanliness. Overall, it's a good choice for kids who have outgrown sippy [cups](https://best.serp.co/cups/) but still need help with spills and leaks.
+In conclusion, the Contigo Kids Autoseal Trekker Water Bottle has some great features like its leak-proof technology and easy-to-use push button, but there are also areas where it could use some improvement such as the button's difficulty for small hands and the lid's cleanliness. Overall, it's a good choice for kids who have outgrown sippy cups but still need help with spills and leaks.
 
 ### [Contigo Ashland Chill Water Bottle with Straw Cap](https://serp.ly/@boxingundefeated/amazon/contigo-water-bottle-with-straws)
 

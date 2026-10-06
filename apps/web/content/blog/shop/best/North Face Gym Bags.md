@@ -105,7 +105,7 @@ Looking for a reliable and stylish backpack? The North Face Vault Black has been
 
 The FlexVent suspension system provides all-day comfort with its padded mesh back panel and flexible shoulder straps. The main compartment is spacious enough to carry my booksbooks, laptop, and even a change of clothes for overnight stays. The front compartment features a padded tablet sleeve and zipped storage - perfect for pens and other school supplies. Plus, the external mesh pockets are ideal for water bottles.
 
-[One of my favorite features is the strategically-placed reflectors and bike-light loop, ensuring safe cycling at night.](https://best.serp.co/bike-reflectors/) Overall, the Vault Backpack offers durability, functionality, and style - making it a must-have for students and anyone who needs a reliable daypack.
+One of my favorite features is the strategically-placed reflectors and bike-light loop, ensuring safe cycling at night. Overall, the Vault Backpack offers durability, functionality, and style - making it a must-have for students and anyone who needs a reliable daypack.
 
 ### [42L Recycled Black North Face Voyager Duffel](https://serp.ly/@boxingundefeated/amazon/north-face-gym-bags)
 

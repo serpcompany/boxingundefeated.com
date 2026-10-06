@@ -64,7 +64,7 @@ As a mom of a toddler, I can attest to the importance of finding leak-proof, eas
 
 One highlight of this product is its leak-proof quality. I've personally tested it by shaking it upside down in the car, and not a drop came out! The vacuum insulation is an added bonus that keeps my son's water cold for hours, even on hot summer days.
 
-However, there have been a few minor issues with some of the [cups](https://best.serp.co/cups/) I've purchased. A couple of them had paint chipping off within just a week or two of use. Additionally, one cup arrived with a broken lid, which was disappointing.
+However, there have been a few minor issues with some of the cups I've purchased. A couple of them had paint chipping off within just a week or two of use. Additionally, one cup arrived with a broken lid, which was disappointing.
 
 Overall, I would recommend the Zak Vacuum Kelso Portable Sonic Tumbler (12 oz) to other parents looking for an easy-to-clean, leak-proof water bottle for their kids. Just be prepared to keep an eye out for potential manufacturing defects.
 

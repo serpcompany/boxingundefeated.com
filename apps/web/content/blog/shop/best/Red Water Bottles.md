@@ -108,7 +108,7 @@ In conclusion, the Fifty/Fifty 34oz Red Bottle has made a great addition to my e
 
 I recently purchased a Thermos Water Bottle Cold Carbonated Drink Bottle 500ml Red from Want. jp, and I couldn't be happier with my decision! This sturdy and sleek bottle is perfect for keeping my caffeinated beverages cold during extended periods of use. The screw-type lid is easy to open, even without a twist, which is something I particularly love about it.
 
-One feature that's made my day-to-day life so much easier is the stopper gasket. It securely locks the lid into place, preventing unnecessary spills when I'm on-the-go. Not to mention, the high-quality stainless steel construction ensures that this bottle will last me through many more [cups](https://best.serp.co/cups/) of iced coffee.
+One feature that's made my day-to-day life so much easier is the stopper gasket. It securely locks the lid into place, preventing unnecessary spills when I'm on-the-go. Not to mention, the high-quality stainless steel construction ensures that this bottle will last me through many more cups of iced coffee.
 
 Although it's suitable for cold retention below 20°F for 6 hours, I wish it could maintain its chill for longer, especially during hot summer days. While this might not be an issue for everyone, it's worth considering if you're looking for a colder beverage for extended periods of time.
 

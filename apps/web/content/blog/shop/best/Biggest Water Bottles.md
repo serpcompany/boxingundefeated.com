@@ -164,7 +164,7 @@ Cleaning your big water bottle regularly is crucial to prevent bacteria growth. 
 
 <div><a href="https://serp.ly/@boxingundefeated/amazon/biggest-water-bottles"><img src="https://imagedelivery.net/vy2bglCGN6hEeWOnSe2c7A/Biggest+Water+Bottles-4/w=720,h=540,fit=pad,background=black" alt="Biggest Water Bottles-4"></a></div>
 
-One common concern with [large water bottles](https://best.serp.co/large-water-bottles/) is weight. However, lightweight models and advanced insulation technologies have lessened this issue. Another concern may be leakage, but well-sealed lids and sturdy construction can prevent this problem.
+One common concern with large water bottles is weight. However, lightweight models and advanced insulation technologies have lessened this issue. Another concern may be leakage, but well-sealed lids and sturdy construction can prevent this problem.
 
 ## FAQ
 

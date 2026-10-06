@@ -191,6 +191,6 @@ Stainless steel water bottles are known for their excellent insulation capabilit
 
 ### What accessories can I use with my stainless steel water bottle?
 
-Many stainless steel water bottles come with accessories, such as leak-proof caps, carry straps, or carabiners for easy attachment to bags or [belts](https://best.serp.co/belts/). There are also various third-party accessories that are compatible with stainless steel water bottles, such as bottle brush cleaners or silicone sleeves to enhance grip and reduce condensation.
+Many stainless steel water bottles come with accessories, such as leak-proof caps, carry straps, or carabiners for easy attachment to bags or belts. There are also various third-party accessories that are compatible with stainless steel water bottles, such as bottle brush cleaners or silicone sleeves to enhance grip and reduce condensation.
 
 _As an Amazon™ Associate, we earn from qualifying purchases._

@@ -189,7 +189,7 @@ What's truly impressive is their Lifetime Product Guarantee. I've been using the
 
 However, there's one thing I'd like to see improved. While the bands are easy to use, I believe some instructions on specific exercises could be helpful. This way, even beginners like me can make the most out of these resistance bands.
 
-Overall, I'm extremely satisfied with Undersun's Exercise Resistance Band Set of 3, Orange. [It's perfect for anyone looking to build a home gym on a tight budget.](https://best.serp.co/complete-home-gyms/) The variety of resistance levels, great online support, and a lifetime product guarantee make it a worthwhile investment for anyone serious about fitness.
+Overall, I'm extremely satisfied with Undersun's Exercise Resistance Band Set of 3, Orange. It's perfect for anyone looking to build a home gym on a tight budget. The variety of resistance levels, great online support, and a lifetime product guarantee make it a worthwhile investment for anyone serious about fitness.
 
 ## Buyer's Guide
 

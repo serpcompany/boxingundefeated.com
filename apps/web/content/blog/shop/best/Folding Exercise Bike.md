@@ -74,7 +74,7 @@ In conclusion, despite its minor flaws, the Soozier Folding Upright Training Sta
 
 Sure, I'm happy to help!
 
-[Just a few days back, I was really struggling to find the right exercise equipment that could fit in my small apartment.](https://best.serp.co/portable-gyms/) I wanted something that wouldn't take up much space, but still give me a good workout. That's when I came across the BetaFlex HomePhysio Malibu Exercise Dual Bike, and let me tell you, it's been a game-changer for me.
+Just a few days back, I was really struggling to find the right exercise equipment that could fit in my small apartment. I wanted something that wouldn't take up much space, but still give me a good workout. That's when I came across the BetaFlex HomePhysio Malibu Exercise Dual Bike, and let me tell you, it's been a game-changer for me.
 
 First of all, the size is perfect. It's compact, and the streamlined design makes it easy to move around and store when I'm not using it. The adjustable height mechanism is also a big plus for me, as I can exercise from my chair, couch, or bed side. This is especially great for a rainy day when I don't feel like leaving the house.
 

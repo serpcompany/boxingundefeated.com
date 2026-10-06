@@ -13,7 +13,7 @@ category: Reviews
 tags: Water Bottles
 ---
 
-Stay hydrated and reduce your plastic consumption with our top picks for [Brita water bottles](https://best.serp.co/brita-water-bottles/). These innovative and eco-friendly options provide clean, great-tasting water wherever you go. Say goodbye to single-use plastic bottles and hello to a healthier and more sustainable lifestyle. Keep reading for our handpicked selection of the best Brita water bottles available today.
+Stay hydrated and reduce your plastic consumption with our top picks for Brita water bottles. These innovative and eco-friendly options provide clean, great-tasting water wherever you go. Say goodbye to single-use plastic bottles and hello to a healthier and more sustainable lifestyle. Keep reading for our handpicked selection of the best Brita water bottles available today.
 
 ## The Top 9 Best Brita Water Bottles
 
