@@ -4,12 +4,14 @@
  * Usage:
  *   pnpm db:import -- --target local|staging [--source <boxers.json>] [--out-dir <dir>]
  *                     [--allow-prune <n>] [--dry-run]
+ *   pnpm db:import -- --target production --confirm-production [...]   # owner-approved runs only
  *   pnpm db:seed:local    # the committed fixture, d1/fixtures/boxers.sample.json
  *
  * The source defaults to $BOXERS_SOURCE, then from-pipeline/boxers.json in the repo root. The SQL
- * files land in d1/.import/<target>/ (gitignored). Production is refused: it runs via the
- * owner/CI. A remote import refuses to prune more than 1 % of the boxers (at most 50) unless
- * `--allow-prune <n>` allows that many.
+ * files land in d1/.import/<target>/ (gitignored). Production needs `--confirm-production`, passed
+ * only for a run the owner has approved. A staging import refuses to prune more than 1 % of the
+ * boxers (at most 50), and a production import any boxer, unless `--allow-prune <n>` allows that
+ * many.
  *
  * `dataset_state` brackets the writes: it is marked importing before the first one and records
  * the dataset's version as the very last statement, after the row counts check out. Until a first
@@ -36,7 +38,8 @@ import {
   planImport,
   prepareDataset,
   resolveTarget,
-  type SqlFile
+  type SqlFile,
+  TARGET_FLAGS
 } from '../../packages/data-ops/src/import'
 import { d1ExecuteFile, d1Query, REPO_ROOT } from './wrangler'
 
@@ -121,13 +124,13 @@ function verifyCounts(target: ImportTarget, dataset: ImportDataset): void {
 
 function main(): void {
   const flags = parseFlags(process.argv.slice(2), [
-    'target',
+    ...TARGET_FLAGS,
     'source',
     'out-dir',
     'allow-prune',
     'dry-run'
   ])
-  const target = resolveTarget(typeof flags.target === 'string' ? flags.target : undefined)
+  const target = resolveTarget(flags)
   const allowPrune = parseAllowPrune(flags['allow-prune'])
   const sourcePath = resolveSource(flags.source)
   const started = performance.now()

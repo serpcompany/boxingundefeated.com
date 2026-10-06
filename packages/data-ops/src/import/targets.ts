@@ -1,33 +1,57 @@
 import { isAbsolute, relative, resolve } from 'node:path'
 
 export interface ImportTarget {
-  name: 'local' | 'staging'
+  name: 'local' | 'staging' | 'production'
   database: string
   /** Wrangler flags, run from `apps/web` so they use its `wrangler.jsonc` and local state. */
   flags: string[]
 }
 
+/** The databases and flags of `apps/web/wrangler.jsonc` and the `db:migrate:*` scripts. */
 export const TARGETS: Record<ImportTarget['name'], ImportTarget> = {
   local: { name: 'local', database: 'boxingundefeated-com-local', flags: ['--local'] },
   staging: {
     name: 'staging',
     database: 'boxingundefeated-com-staging',
     flags: ['--remote', '--env', 'staging']
+  },
+  production: {
+    name: 'production',
+    database: 'boxingundefeated-com-production',
+    flags: ['--remote', '--env', 'production']
   }
 }
 
-export const PRODUCTION_REFUSAL = 'production import runs via the owner/CI'
+/** The flags `resolveTarget` reads, which `db:import` and `db:parity` accept. */
+export const TARGET_FLAGS = ['target', 'confirm-production'] as const
 
-/** The target must be explicit; production is refused outright. */
-export function resolveTarget(value: string | undefined): ImportTarget {
-  if (value === 'production')
-    throw new Error(`Refusing --target production: ${PRODUCTION_REFUSAL}.`)
-  if (value === 'local' || value === 'staging') return TARGETS[value]
-  throw new Error(
-    value === undefined
-      ? 'Missing --target. Pass --target local or --target staging.'
-      : `Unknown --target ${JSON.stringify(value)}. Use local or staging.`
-  )
+/**
+ * The target must be explicit. Production also needs `--confirm-production`, which is passed only
+ * for a production run the owner has approved (AGENTS.md, D1).
+ */
+export function resolveTarget(flags: Readonly<Record<string, string | true>>): ImportTarget {
+  const value = flags.target
+  const confirmed = flags['confirm-production']
+  if (confirmed !== undefined && confirmed !== true) {
+    throw new Error('--confirm-production takes no value.')
+  }
+  if (typeof value !== 'string') {
+    throw new Error('Missing --target. Pass --target local, staging or production.')
+  }
+  if (!Object.hasOwn(TARGETS, value)) {
+    throw new Error(`Unknown --target ${JSON.stringify(value)}. Use local, staging or production.`)
+  }
+  const target = TARGETS[value as ImportTarget['name']]
+  if (target.name === 'production' && !confirmed) {
+    throw new Error(
+      'Refusing --target production without --confirm-production. Pass it only for a ' +
+        'production run the owner has approved.'
+    )
+  }
+  if (target.name !== 'production' && confirmed) {
+    throw new Error('--confirm-production only goes with --target production.')
+  }
+  return target
 }
 
 /** `--name value` and `--name=value` flags; a bare `--` (from `pnpm run x -- …`) is ignored. */

@@ -16,7 +16,6 @@ import {
   directoryIndexOrder,
   GENERATED_SQL_FILE,
   nameList,
-  PRODUCTION_REFUSAL,
   packFiles,
   parseFlags,
   planImport,
@@ -25,6 +24,8 @@ import {
   type SourceBoxer,
   SourceValidationError,
   sqlLiteral,
+  TARGET_FLAGS,
+  TARGETS,
   toBoxerRow,
   validateSource
 } from '.'
@@ -337,6 +338,16 @@ describe('identity and targets', () => {
     expect(() => checkPrune('staging', 5_570, [])).not.toThrow()
   })
 
+  it('prunes nothing from production without --allow-prune', () => {
+    const stale = [{ id: 7, boxrec_id: '70', slug: 'gone' }]
+    expect(() => checkPrune('production', 5_570, stale)).toThrow(
+      /Refusing to prune 1 of 5570 boxers from production \(the limit is 0\)[\s\S]*--allow-prune 1[\s\S]*gone \(id 7\)/
+    )
+    expect(() => checkPrune('production', 5_570, stale, 0)).toThrow(/the limit is 0/)
+    expect(() => checkPrune('production', 5_570, stale, 1)).not.toThrow()
+    expect(() => checkPrune('production', 0, [])).not.toThrow()
+  })
+
   it('only ever cleans its own SQL files, and never next to the migrations', () => {
     expect(['0001.sql', '0013.sql', '0000-prune.sql'].every(n => GENERATED_SQL_FILE.test(n))).toBe(
       true
@@ -351,14 +362,6 @@ describe('identity and targets', () => {
     }
   })
 
-  it('requires an explicit target and refuses production', () => {
-    expect(resolveTarget('local').flags).toEqual(['--local'])
-    expect(resolveTarget('staging').flags).toEqual(['--remote', '--env', 'staging'])
-    expect(() => resolveTarget(undefined)).toThrow(/Missing --target/)
-    expect(() => resolveTarget('production')).toThrow(PRODUCTION_REFUSAL)
-    expect(() => resolveTarget('prod')).toThrow(/Unknown --target/)
-  })
-
   it('parses flags after a bare `--`', () => {
     expect(
       parseFlags(
@@ -371,6 +374,95 @@ describe('identity and targets', () => {
       seed: '3'
     })
     expect(() => parseFlags(['--env', 'production'], ['target'])).toThrow(/Unknown argument/)
+  })
+})
+
+// Target resolution only: nothing here runs Wrangler.
+describe('resolveTarget', () => {
+  // The flags `db:import` accepts (scripts/d1/import-boxers.ts).
+  const IMPORT_FLAGS = [...TARGET_FLAGS, 'source', 'out-dir', 'allow-prune', 'dry-run']
+  const resolveArgs = (...argv: string[]) => resolveTarget(parseFlags(argv, IMPORT_FLAGS))
+  const production = {
+    name: 'production',
+    database: 'boxingundefeated-com-production',
+    flags: ['--remote', '--env', 'production']
+  }
+
+  it('requires an explicit, known target and keeps local and staging as they were', () => {
+    expect(resolveArgs('--target', 'local')).toEqual({
+      name: 'local',
+      database: 'boxingundefeated-com-local',
+      flags: ['--local']
+    })
+    expect(resolveArgs('--', '--target', 'staging', '--source', 'boxers.json')).toEqual({
+      name: 'staging',
+      database: 'boxingundefeated-com-staging',
+      flags: ['--remote', '--env', 'staging']
+    })
+    expect(() => resolveArgs()).toThrow(/Missing --target/)
+    expect(() => resolveArgs('--target')).toThrow(/Missing --target/)
+    for (const name of ['prod', 'Production', 'production ', 'constructor', '__proto__']) {
+      expect(() => resolveArgs('--target', name)).toThrow(/Unknown --target/)
+    }
+  })
+
+  it('refuses production without --confirm-production', () => {
+    for (const argv of [
+      ['--target', 'production'],
+      ['--target=production', '--dry-run'],
+      ['--target', 'production', '--allow-prune', '3']
+    ]) {
+      expect(() => resolveArgs(...argv)).toThrow(
+        /Refusing --target production without --confirm-production/
+      )
+    }
+  })
+
+  it('resolves production with --confirm-production, before or after the target', () => {
+    expect(resolveArgs('--target', 'production', '--confirm-production')).toEqual(production)
+    expect(resolveArgs('--', '--confirm-production', '--target=production')).toEqual(production)
+    expect(
+      resolveArgs('--target', 'production', '--confirm-production', '--source', 'boxers.json')
+    ).toEqual(production)
+  })
+
+  it('refuses a misspelt, valued or misplaced confirmation', () => {
+    for (const typo of [
+      '--confirm-prod',
+      '--confirm_production',
+      '--confirmProduction',
+      '--Confirm-production',
+      '--confirm',
+      '--production',
+      '--yes'
+    ]) {
+      expect(() => resolveArgs('--target', 'production', typo)).toThrow(/Unknown argument/)
+    }
+    expect(() => resolveArgs('--target', 'production', '--confirm-production=yes')).toThrow(
+      /takes no value/
+    )
+    expect(() =>
+      resolveArgs('--confirm-production', 'production', '--target', 'production')
+    ).toThrow(/takes no value/)
+    for (const name of ['local', 'staging']) {
+      expect(() => resolveArgs('--target', name, '--confirm-production')).toThrow(
+        /only goes with --target production/
+      )
+    }
+  })
+
+  it("reaches the databases of wrangler.jsonc, with the db:migrate scripts' flags", () => {
+    const root = resolve(import.meta.dirname, '../../../..')
+    const { scripts } = JSON.parse(readFileSync(resolve(root, 'package.json'), 'utf8'))
+    const source = readFileSync(resolve(root, 'apps/web/wrangler.jsonc'), 'utf8')
+    const wrangler = JSON.parse(source.replace(/^\s*\/\/.*$/gm, ''))
+    for (const target of Object.values(TARGETS)) {
+      expect(scripts[`db:migrate:${target.name}`]).toBe(
+        `pnpm --filter web exec wrangler d1 migrations apply ${target.database} ${target.flags.join(' ')}`
+      )
+      const config = target.name === 'local' ? wrangler : wrangler.env[target.name]
+      expect(config.d1_databases[0].database_name).toBe(target.database)
+    }
   })
 })
 
