@@ -1,5 +1,4 @@
 import { Breadcrumb } from '@boxingundefeated/design-system/breadcrumb'
-import { getBaseUrl } from '@boxingundefeated/utils/get-base-url'
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { BoxersDirectoryList } from '@/components/boxers-directory-list'
@@ -9,6 +8,7 @@ import {
   getPaginatedItems,
   sortBoxersForDirectory
 } from '@/lib/directory-pagination'
+import { getSiteOrigin } from '@/lib/site-config'
 
 export const dynamicParams = false
 
@@ -38,7 +38,7 @@ export async function generateMetadata({
     title: `${category.name} Boxers - Boxing Directory`,
     description: `Browse professional ${category.name.toLowerCase()} boxers with statistics and fight records.`,
     alternates: {
-      canonical: `${getBaseUrl()}${getDivisionPageHref(division, 1)}`
+      canonical: `${getSiteOrigin()}${getDivisionPageHref(division, 1)}`
     }
   }
 }
@@ -61,7 +61,7 @@ export default async function DivisionPage({ params }: { params: Promise<{ divis
     notFound()
   }
 
-  const baseUrl = getBaseUrl()
+  const baseUrl = getSiteOrigin()
   const breadcrumbItems = [
     { name: 'Divisions', href: '/divisions/' },
     { name: category.name, href: getDivisionPageHref(division, 1) }

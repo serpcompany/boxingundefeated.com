@@ -1,8 +1,0 @@
-{
-  "name": "@boxingundefeated/utils",
-  "version": "1.0.0",
-  "private": true,
-  "exports": {
-    "./get-base-url": "./get-base-url.ts"
-  }
-}

@@ -4,10 +4,12 @@
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
+      "env": ["SITE_ENVIRONMENT", "GITHUB_EVENT_NAME"],
       "outputs": [".next/**", "!.next/cache/**", "out/**"]
     },
     "build:vercel": {
       "dependsOn": ["^build"],
+      "env": ["SITE_ENVIRONMENT", "GITHUB_EVENT_NAME"],
       "outputs": [".next/**", "!.next/cache/**", "out/**"]
     },
     "clean": {

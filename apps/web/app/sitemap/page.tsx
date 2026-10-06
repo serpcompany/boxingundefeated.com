@@ -1,4 +1,3 @@
-import { getBaseUrl } from '@boxingundefeated/utils/get-base-url'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { getBoxerCategories, getBoxersWithoutBouts } from '@/lib/boxers-loader'
@@ -8,13 +7,14 @@ import {
   getPaginationPages
 } from '@/lib/directory-pagination'
 import { getShopPageHref, getShopPosts, SHOP_PAGE_SIZE } from '@/lib/shop-loader'
+import { getSiteOrigin } from '@/lib/site-config'
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
     title: 'HTML Sitemap',
     description: 'Browse all crawlable pages on Boxing Undefeated.',
     alternates: {
-      canonical: `${getBaseUrl()}/sitemap/`
+      canonical: `${getSiteOrigin()}/sitemap/`
     }
   }
 }
@@ -98,7 +98,7 @@ function SitemapSection({
   title: string
   links: Array<{ href: string; label: string }>
 }) {
-  const baseUrl = getBaseUrl()
+  const baseUrl = getSiteOrigin()
 
   return (
     <section className="mb-8">

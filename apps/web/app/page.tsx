@@ -1,31 +1,35 @@
 import { Button } from '@boxingundefeated/design-system/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@boxingundefeated/design-system/card'
-import { getBaseUrl } from '@boxingundefeated/utils/get-base-url'
 import { Target, TrendingUp, Trophy, Users } from 'lucide-react'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { JsonLd } from '@/components/json-ld'
 import { getBoxersWithoutBouts } from '@/lib/boxers-loader'
+import { getSiteOrigin } from '@/lib/site-config'
 
-export const metadata: Metadata = {
-  title: 'Boxing Undefeated - Professional Boxers Database',
-  description:
-    'Explore our comprehensive database of professional boxers. Find boxer statistics, records, and fight history.',
-  openGraph: {
+export function generateMetadata(): Metadata {
+  const origin = getSiteOrigin()
+
+  return {
     title: 'Boxing Undefeated - Professional Boxers Database',
     description:
       'Explore our comprehensive database of professional boxers. Find boxer statistics, records, and fight history.',
-    url: getBaseUrl(),
-    siteName: 'Boxing Undefeated',
-    images: [
-      {
-        url: `${getBaseUrl()}/opengraph-image.png`,
-        width: 1200,
-        height: 630
-      }
-    ],
-    locale: 'en_US',
-    type: 'website'
+    openGraph: {
+      title: 'Boxing Undefeated - Professional Boxers Database',
+      description:
+        'Explore our comprehensive database of professional boxers. Find boxer statistics, records, and fight history.',
+      url: origin,
+      siteName: 'Boxing Undefeated',
+      images: [
+        {
+          url: `${origin}/opengraph-image.png`,
+          width: 1200,
+          height: 630
+        }
+      ],
+      locale: 'en_US',
+      type: 'website'
+    }
   }
 }
 
@@ -53,7 +57,7 @@ export default async function Home() {
           '@context': 'https://schema.org',
           '@type': 'WebSite',
           name: 'Boxing Undefeated',
-          url: getBaseUrl(),
+          url: getSiteOrigin(),
           description:
             'Comprehensive database of professional boxers with statistics, records, and fight history.'
         }}

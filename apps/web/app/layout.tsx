@@ -9,24 +9,25 @@ import { Footer } from '@/components/layout/footer'
 import { Header } from '@/components/layout/header'
 import { ProgressBar } from '@/components/progress-bar'
 import { createRootMetadata } from '@/lib/metadata'
+import { getSiteConfig } from '@/lib/site-config'
 
-export const metadata: Metadata = createRootMetadata()
+export function generateMetadata(): Metadata {
+  return createRootMetadata(getSiteConfig())
+}
 
 type RootLayoutProps = {
   children: React.ReactNode
 }
 
 export default function RootLayout({ children }: RootLayoutProps) {
-  // TODO: Replace with your actual GTM ID
-  const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID || 'GTM-XXXXXXX'
+  // Google Tag Manager loads only in production (lib/site-config.ts).
+  const { gtmId } = getSiteConfig()
 
   return (
     <html lang="en" suppressHydrationWarning className={fontVariable}>
-      <head>
-        <GoogleTagManager gtmId={GTM_ID} />
-      </head>
+      <head>{gtmId && <GoogleTagManager gtmId={gtmId} />}</head>
       <body className={cn('touch-manipulation font-sans antialiased')}>
-        <GTMNoscript gtmId={GTM_ID} />
+        {gtmId && <GTMNoscript gtmId={gtmId} />}
         <DesignSystemProvider>
           <ProgressBar />
           <div className="flex min-h-screen flex-col">

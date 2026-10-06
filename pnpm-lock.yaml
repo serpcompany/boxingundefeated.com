@@ -50,9 +50,6 @@ importers:
       '@boxingundefeated/design-system':
         specifier: workspace:*
         version: link:../../packages/design-system
-      '@boxingundefeated/utils':
-        specifier: workspace:*
-        version: link:../../packages/utils
       '@icons-pack/react-simple-icons':
         specifier: ^12.3.0
         version: 12.9.0(react@19.3.0)
@@ -298,8 +295,6 @@ importers:
       typescript:
         specifier: ^5.8.2
         version: 5.9.2
-
-  packages/utils: {}
 
 packages:
 

@@ -1,11 +1,11 @@
 import { Breadcrumb } from '@boxingundefeated/design-system/breadcrumb'
-import { getBaseUrl } from '@boxingundefeated/utils/get-base-url'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { getBlogPost, getBlogSlugs } from '@/lib/blog-loader'
 import { createMetaDescription } from '@/lib/metadata'
 import { getShopPost, getShopSlugs } from '@/lib/shop-loader'
+import { getSiteOrigin } from '@/lib/site-config'
 import { normalizeInternalPath, toAbsoluteUrl } from '@/lib/url-utils'
 import '../blog/blog.css'
 
@@ -53,7 +53,7 @@ export async function generateMetadata({
     title: `${post.title} - Boxing Directory`,
     description: createMetaDescription(post.description),
     alternates: {
-      canonical: toAbsoluteUrl(getBaseUrl(), post.slug)
+      canonical: toAbsoluteUrl(getSiteOrigin(), post.slug)
     }
   }
 }
@@ -67,7 +67,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     notFound()
   }
 
-  const baseUrl = getBaseUrl()
+  const baseUrl = getSiteOrigin()
   const isShopPost = post.slug.startsWith('/shop/')
   const breadcrumbItems = [
     { name: 'Home', href: '/' },
