@@ -97,3 +97,4 @@ Removed redundancies from template conversion:
 - Removed duplicate root `/images` folder
 - Cleaned up unused scripts
 - Added `.swc` cache to gitignore
+<!-- THROWAWAY docs-only change for #17. Never merge. -->
