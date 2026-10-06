@@ -74,7 +74,7 @@ Worker (OpenNext on Cloudflare, about a minute; boxer pages read the local D1, s
   environment's vars and bindings, locally. Pair it with the matching build.
 - `pnpm test:e2e`: the smoke suite (`apps/e2e/`; its README has the CI interface) on the local
   preview after `db:reset:local` and `build:worker`; deployed: `BASE_URL=<origin> EXPECT_ENV=<env>`.
-  `pnpm parity -- <origin>`: every live URL on a candidate; `pnpm check:export`: the Pages export.
+  `pnpm parity -- <origin>`: every live URL on a candidate; `pnpm check:export`: retired with Pages (#20).
 - `pnpm --filter web cf-typegen`: regenerate and commit `cloudflare-env.d.ts` after changing
   `wrangler.jsonc`; it strips the `mainModule` type (`lib/cloudflare-env-types.ts`).
 
@@ -156,8 +156,8 @@ answers `/robots.txt` with `Disallow: /`. `app/robots.ts` is the only robots sou
 
 ## Invariants
 
-- Public URLs are an SEO contract. Never change or drop one without a permanent redirect. GitHub
-  Pages can't serve redirects, so until the Worker cutover, don't change URLs at all.
+- Public URLs are an SEO contract. Never change or drop one without a permanent redirect, which
+  the Worker serves (`lib/routing/`, `next.config.ts` redirects).
 - Pages end in a trailing slash, files never do, and the homepage canonical is the origin without
   a slash (SERP URL trailing-slash standard). `lib/routing/trailing-slash.ts` holds the rules; the
   Worker redirects with them, the static export can't. The homepage renders its own canonical and

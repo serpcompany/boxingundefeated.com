@@ -19,7 +19,7 @@ Run everything from the repository root.
 | --- | --- | --- |
 | `BASE_URL=<origin> EXPECT_ENV=<env> pnpm test:e2e` | `BASE_URL`: the origin under test. `EXPECT_ENV`: `local`, `staging` or `production`, required with `BASE_URL` | Every smoke test passes |
 | `EXPECT_ENV=<env> pnpm parity -- <origin>` | The candidate origin. `EXPECT_ENV` defaults to `production` | 0 mismatches outside `src/parity-allowlist.ts`, 0 errors |
-| `pnpm check:export` | `apps/web/out`, built with the Pages workflow's env (below) | Robots, noindex, GTM and canonicals are production |
+| `pnpm check:export` | Retired with GitHub Pages (#20 removes it) | — |
 
 - Requests to a `*.workers.dev` host carry `x-boxingundefeated-smoke-test: 1`, which exempts them
   from the canonical-host redirect. The host test sends the same host without it and expects 308.
