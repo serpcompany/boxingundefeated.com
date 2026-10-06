@@ -22,23 +22,28 @@ or deploy workflows, or production migrations, plus every release PR, and runs t
 - `apps/web/`: the Next.js app (App Router). Read the parts below before changing pages.
   - `app/`: boxers, divisions, shop, search, brands, legal and HTML sitemap pages. `[...slug]`
     renders shop articles at `/shop/best/<slug>/`.
-  - `lib/`: data loaders, URL, metadata, route and sitemap-path helpers. Change URLs here, not in
-    individual pages. Pages read boxers only through `lib/boxer-data/`: D1 via the server-only,
-    fail-closed `lib/data/` in the Worker, the committed JSON in the static export (until #20).
+  - `lib/`: data loaders, URL, metadata, route and XML sitemap (`sitemaps/`) helpers. Change URLs
+    here, not in individual pages. Pages read boxers only through `lib/boxer-data/`: D1 via the
+    server-only, fail-closed `lib/data/` in the Worker, the committed JSON in the static export
+    (until #20).
     `lib/site-config.ts` resolves the environment and its origin (Environments below); never read
     `SITE_ENVIRONMENT` or build an origin anywhere else.
   - `content/`: markdown shop articles. The legal pages are TSX in `app/(legal)/`.
   - `public/data/boxers/`: per-boxer JSON generated from the pipeline data. Never hand-edit it.
   - `scripts/`: data generators. The export's search index (`lib/search/`; the Worker answers
-    `/api/search` from D1) is built before `next build` (`predev`, `build:with-data`); XML
-    sitemaps are written into `public/` after it (finish gate below).
+    `/api/search` from D1) is built before `next build` (`predev`, `build:with-data`).
+    `build:worker` records the shop's sitemap entries from `content/` for the Worker
+    (`write-sitemap-content.ts`).
   - `wrangler.jsonc`, `open-next.config.ts`, `worker.ts`: the Worker. The top level is local only;
     `env.staging` and `env.production` are the deployed Workers, each with its own D1 `DB`.
     `worker.ts` is the entry; `lib/worker/handle-request.ts` applies the canonical-host redirect
     (`lib/routing/`), the crawl policy, then the edge cache in front of OpenNext, which applies
     the trailing-slash `redirects()` from `next.config.ts`. Caching decision: `edge-cache.ts`
     (pages only, per data center, Worker version and D1 import generation, one-hour TTL).
-    `assets.run_worker_first` sends
+    The Worker itself answers `/api/search` (`search-api.ts`) and the XML sitemaps
+    (`sitemaps.ts`: `/sitemap-index.xml` and root `/sitemap-<group>.xml` files from D1 and the
+    build's content entries, per the SERP sitemap index pattern; `/sitemap.xml` and the old
+    `/sitemaps/<group>/<n>.xml` 308 to the index). `assets.run_worker_first` sends
     every request except `/_next/static/` through the Worker, `public/` files included.
     `env.staging` has the `staging.boxingundefeated.com` custom domain; production gets its
     domain at the cutover.
@@ -100,8 +105,7 @@ D1 (Drizzle schema in `packages/data-ops`, migrations in `d1/drizzle/`):
 Finish gate: `pnpm check` (read-only Biome check, workspace check, typecheck, tests and the static
 export build). CI (`ci.yml`) runs it on every PR, plus migration validation, the Worker build and
 the E2E smoke suite; CI on the final commit is the record, so don't repeat it locally. Run it only
-to reproduce a CI failure, in the background. The build rewrites the committed sitemap files'
-dates, so run `git checkout -- apps/web/public` before committing.
+to reproduce a CI failure, in the background.
 
 ## Workflow
 
