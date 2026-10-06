@@ -66,6 +66,30 @@ export interface SitemapFile {
   entries: SitemapEntry[]
 }
 
+/**
+ * The names a sitemap can have: the index, or a group's file with an optional part number from 2
+ * on. Anything else is unknown, so it can be answered 404 without reading any data.
+ */
+const KNOWN_SITEMAP_PATH = new RegExp(
+  `^/sitemap-(?:index|(?:${SITEMAP_GROUPS.join('|')})(?:-(?:[2-9]|[1-9]\\d+))?)\\.xml$`
+)
+
+/**
+ * URLs search engines know from before the index pattern: the `/sitemap.xml` alias and the nested
+ * `/sitemaps/<group>/<n>.xml` files, with or without a trailing slash. Each redirects to the
+ * index in one hop, from any host (lib/routing/canonical-host.ts, lib/worker/sitemaps.ts).
+ */
+const LEGACY_SITEMAP_PATH = /^\/(?:sitemap\.xml|sitemaps\/[a-z]+\/\d+\.xml)\/?$/
+
+/** True for the index or a group's file name, whether or not the data has that many parts. */
+export function isKnownSitemapPath(path: string): boolean {
+  return KNOWN_SITEMAP_PATH.test(path)
+}
+
+export function isLegacySitemapPath(path: string): boolean {
+  return LEGACY_SITEMAP_PATH.test(path)
+}
+
 export function sitemapFilePath(group: SitemapGroup, part: number): string {
   return part <= 1 ? `/sitemap-${group}.xml` : `/sitemap-${group}-${part}.xml`
 }

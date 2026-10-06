@@ -84,6 +84,9 @@ describe('isSitemapRequest', () => {
     ['/sitemap.xml', true],
     ['/sitemaps/boxers/3.xml', true],
     ['/sitemaps/pages/1.xml', true],
+    ['/sitemaps/pages/1.xml/', true],
+    ['/sitemap.xml/', true],
+    ['/sitemap-zzz.xml', true],
     ['/sitemap/', false],
     ['/sitemap-index.xml/', false],
     ['/sitemaps/', false],
@@ -141,7 +144,9 @@ describe('handleSitemapRequest', () => {
 
   it.each([
     '/sitemap.xml',
+    '/sitemap.xml/',
     '/sitemaps/pages/1.xml',
+    '/sitemaps/pages/1.xml/',
     '/sitemaps/boxers/3.xml',
     '/sitemaps/blog/1.xml'
   ])('redirects the old %s to the index with a 308, without reading D1', async path => {
@@ -154,14 +159,29 @@ describe('handleSitemapRequest', () => {
     expect(site.options.readiness).not.toHaveBeenCalled()
   })
 
-  it('answers 404 for a sitemap the index does not list', async () => {
+  it('answers 404 for a group part the data does not have', async () => {
     const site = setup()
-    for (const path of ['/sitemap-blog.xml', '/sitemap-boxers-2.xml']) {
-      const response = await site.fetch(path)
-      expect(response.status).toBe(404)
-      expect(response.headers.get('cache-control')).toBe('no-store')
-    }
+    const response = await site.fetch('/sitemap-boxers-2.xml')
+    expect(response.status).toBe(404)
+    expect(response.headers.get('cache-control')).toBe('no-store')
     expect(site.cache.stored.size).toBe(0)
+  })
+
+  it.each([
+    '/sitemap-zzz.xml',
+    '/sitemap-blog.xml',
+    '/sitemap-foo-99.xml',
+    '/sitemap-index-2.xml',
+    '/sitemap-pages-1.xml',
+    '/sitemap-pages-02.xml'
+  ])('answers 404 for the unknown name %s before any D1 read', async path => {
+    const site = setup()
+    const response = await site.fetch(path)
+
+    expect(response.status).toBe(404)
+    expect(response.headers.get('cache-control')).toBe('no-store')
+    expect(site.load).not.toHaveBeenCalled()
+    expect(site.options.readiness).not.toHaveBeenCalled()
   })
 
   it('answers 503 until D1 holds a finished import, and never stores it', async () => {
@@ -273,17 +293,20 @@ describe('the sitemaps through the Worker pipeline', () => {
     expect(await response.text()).toContain('https://staging.boxingundefeated.com/about/')
   })
 
-  it('sends www to the canonical host first, in one hop', async () => {
-    const { serve, runtime } = pipeline()
-    const response = await handleWorkerRequest(
-      new Request('https://www.boxingundefeated.com/sitemaps/boxers/1.xml'),
-      production,
-      serve,
-      runtime
-    )
+  it.each([
+    'https://www.boxingundefeated.com/sitemap.xml',
+    'https://www.boxingundefeated.com/sitemaps/boxers/1.xml/',
+    'https://boxingundefeated-com-production.serpcompany.workers.dev/sitemap.xml?x=1',
+    `${ORIGIN}/sitemaps/pages/1.xml/`,
+    `${ORIGIN}/sitemap.xml`
+  ])('sends the old %s to the canonical index in one hop', async url => {
+    const { site, serve, runtime } = pipeline()
+    const response = await handleWorkerRequest(new Request(url), production, serve, runtime)
 
     expect(response.status).toBe(308)
-    expect(response.headers.get('location')).toBe(`${ORIGIN}/sitemaps/boxers/1.xml`)
+    expect(response.headers.get('location')).toBe(`${ORIGIN}/sitemap-index.xml`)
+    expect(serve).not.toHaveBeenCalled()
+    expect(site.load).not.toHaveBeenCalled()
   })
 
   it('leaves a slashed sitemap URL to the trailing-slash redirect in OpenNext', async () => {
