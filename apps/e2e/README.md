@@ -9,7 +9,7 @@ Smoke tests and URL checks for every environment of boxingundefeated.com:
   standards.
 - **URL parity** (`src/parity.ts`): every URL the live site serves, on a candidate.
 - **Export check** (`src/check-export.ts`): the static export GitHub Pages deploys is the production
-  site. Run it until the cutover to the Worker (#19).
+  site. The cutover to the Worker (#19) is done; keep running it until GitHub Pages is turned off.
 
 Run everything from the repository root.
 
@@ -34,7 +34,9 @@ Run everything from the repository root.
 - Playwright doesn't retry (`retries: 0`), so a flaky test fails the run. Only the host check
   retries, for up to 30 s, while a new deploy reaches every edge.
 - Parity writes `parity-report/parity-<host>.md` and `.json` here. Its options: `--reference
-  <origin>` (default `https://boxingundefeated.com`), `--out-dir <dir>` (default `apps/web/out`;
+  <origin>` (default `https://boxingundefeated.com`, which since the cutover is the production
+  Worker itself, so comparing the production Worker to it proves nothing; to compare against the
+  old static site, serve `apps/web/out` locally and pass it as the reference), `--out-dir <dir>` (default `apps/web/out`;
   without one it checks the sitemap URLs only), `--concurrency <n>` (default and maximum 8 for
   remote hosts), `--report-dir <dir>`. It retries a 429, a 5xx or a network error with backoff
   (2, 4, 8 s, or `Retry-After`). A URL the reference still doesn't answer with 200 is an error, and
@@ -66,7 +68,8 @@ pnpm test:e2e
 
 To test production behavior locally, including the host redirects, serve a production build with the
 production vars on the local top level of `wrangler.jsonc`. `--env production` would read an empty
-local production D1, and `--env staging` rewrites every `Host` header:
+local production D1, and `--env staging` or `--env production` rewrites every `Host` header to
+that environment's first route:
 
 ```bash
 pnpm --filter web build:worker:production

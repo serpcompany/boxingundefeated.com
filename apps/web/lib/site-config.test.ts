@@ -148,11 +148,16 @@ describe('wrangler.jsonc', () => {
     expect(config.env.production.assets).toBeUndefined()
   })
 
-  it('attaches only the staging custom domain; the owner attaches production at cutover', () => {
+  it('attaches the custom domains of each environment, the apex first for production', () => {
     expect(config.env.staging.routes).toEqual([
       { pattern: 'staging.boxingundefeated.com', custom_domain: true }
     ])
-    expect(config.env.production.routes).toBeUndefined()
+    // The first route is the host `wrangler dev` infers, and every deploy replaces the Worker's
+    // custom domains with this list.
+    expect(config.env.production.routes).toEqual([
+      { pattern: 'boxingundefeated.com', custom_domain: true },
+      { pattern: 'www.boxingundefeated.com', custom_domain: true }
+    ])
     expect(config.routes).toBeUndefined()
   })
 })
