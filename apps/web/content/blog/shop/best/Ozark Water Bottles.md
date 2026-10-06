@@ -103,7 +103,7 @@ One of the standout features of this water bottle is its ability to collapse. Wh
 
 However, there are also some drawbacks worth mentioning. The silicone material doesn't seem to be insulated as well as other bottles I've used. This means that my water tends to warm up faster than I would like, especially during hot summer days. Another issue I've encountered is condensation forming on the outside of the bottle when filled with cold water. While this isn't a major problem, it can be a little inconvenient when trying to grab a quick sip.
 
-Despite these minor cons, I am overall happy with the Ozark Trail bottle. Its unique collapsible design and vibrant color make it stand out from other water bottles on the market. [If you're looking for a convenient and space-saving solution for your hydration needs while exploring the great outdoors, this bottle might just be what you're looking for.](universityofguns.pages.dev/best-camelback-water-bottles/)
+Despite these minor cons, I am overall happy with the Ozark Trail bottle. Its unique collapsible design and vibrant color make it stand out from other water bottles on the market. If you're looking for a convenient and space-saving solution for your hydration needs while exploring the great outdoors, this bottle might just be what you're looking for.
 
 ### [Ozark Trail 32 oz Double Wall Vacuum Sealed Water Bottle](https://serp.ly/@boxingundefeated/amazon/ozark-water-bottles)
 

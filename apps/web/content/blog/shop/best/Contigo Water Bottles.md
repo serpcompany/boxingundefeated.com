@@ -103,7 +103,7 @@ I recently purchased the Contigo 32oz Ashland Chill Autospout Stainless Steel Wa
 
 In terms of pros, it's hard not to love its sleek design and vibrant color - the Blue Corn variant is truly striking. The double wall vacuum insulation is quite impressive: it kept my water cold for hours, even during hot summer days.
 
-Additionally, the push-button auto spout technology makes drinking easy and mess-free. [The integrated carry handle is a great feature that comes in handy when you're on the go, whether it's at the gym or running errands.](universityofguns.pages.dev/best-a2-carry-handles/)
+Additionally, the push-button auto spout technology makes drinking easy and mess-free. The integrated carry handle is a great feature that comes in handy when you're on the go, whether it's at the gym or running errands.
 
 However, there are some cons worth mentioning. The lid could use a better design - it's a bit difficult to clean properly, which might lead to unpleasant odors over time. And while the bottle fits most car cup holders, it doesn't fit perfectly in all of them, which can be inconvenient.
 

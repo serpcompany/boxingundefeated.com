@@ -69,7 +69,7 @@ As a mom always on-the-go, I've tried numerous water bottles for my little ones 
 
 Serious superhero stuff right there. . Plus, the array of vibrant colors appeals to kids of all ages. .
 
-I've come to rely on this trusted friend whenever we're out and about, ensuring that my kids never go thirsty and keeping my mind at ease knowing no spills will happen. . [If you're looking for a water bottle that's not just functional but also loads of fun, the](universityofguns.pages.dev/best-camelback-water-bottles/) Owala free sip bottle is definitely worth a try! .
+I've come to rely on this trusted friend whenever we're out and about, ensuring that my kids never go thirsty and keeping my mind at ease knowing no spills will happen. . If you're looking for a water bottle that's not just functional but also loads of fun, the Owala free sip bottle is definitely worth a try! .
 
 ### [Owala Kid's Flip Water Bottle - Pink](https://serp.ly/@boxingundefeated/amazon/owala-water-bottles)
 

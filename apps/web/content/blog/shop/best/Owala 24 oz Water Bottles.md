@@ -152,7 +152,7 @@ Despite these cons, the majority of reviewers loved the Owala 24oz Stainless Ste
 
 I recently got my hands on the Owala Water in the Desert FreeSip Water Bottle and it's quickly become my go-to for keeping hydrated during my daily adventures. The innovative FreeSip spout is such a game-changer - I can sip upright through the straw or tilt back to swig from the wide-mouth spout opening, making it perfect for different drinking styles.
 
-One of the standout features is the push-to-open lid that ensures a clean spout every time. It also comes with a handy carry loop that doubles as a lock, making it an ideal companion for sports and on-the-go adventures. [Plus, it conveniently fits most cup holders, enhancing its portability.](universityofguns.pages.dev/best-cup-holsters/)
+One of the standout features is the push-to-open lid that ensures a clean spout every time. It also comes with a handy carry loop that doubles as a lock, making it an ideal companion for sports and on-the-go adventures. Plus, it conveniently fits most cup holders, enhancing its portability.
 
 The Owala Water Bottle does not disappoint when it comes to keeping my drinks cold. Made with double-wall insulated stainless steel, this baby keeps my drinks refreshingly cold for up to 24 hours. The wide mouth design also makes it incredibly easy to fill with ice and clean.
 

@@ -164,7 +164,7 @@ One feature that really stands out is the leak-proof lid. I've taken this bottle
 
 However, there are some cons to consider as well. The bottle is made of pure copper, which means it can develop dark spots over time. While this is normal and doesn't affect the quality of the water, it may take some getting used to. Additionally, the twist top lid can be a bit difficult to open at first, but once you get the hang of it, it's smooth sailing.
 
-Overall, I'm very happy with my Otiem Pure Copper Water Bottle. It has made it easier for me to stay hydrated throughout the day while also reducing my plastic waste. [If you're looking for a high-quality, environmentally friendly water bottle that looks great and keeps your water cold, I highly recommend giving this one a try!](universityofguns.pages.dev/best-camelback-water-bottles/)
+Overall, I'm very happy with my Otiem Pure Copper Water Bottle. It has made it easier for me to stay hydrated throughout the day while also reducing my plastic waste. If you're looking for a high-quality, environmentally friendly water bottle that looks great and keeps your water cold, I highly recommend giving this one a try!
 
 ### [Luxurious Hammered Copper Water Bottles for Ayurvedic Wellness](https://serp.ly/@boxingundefeated/amazon/pure-copper-water-bottles)
 

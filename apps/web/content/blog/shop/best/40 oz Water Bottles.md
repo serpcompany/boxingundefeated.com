@@ -154,7 +154,7 @@ I'm not usually one to get caught up in trends, but when I saw the Stanley Tie D
 
 First off, the color! The tie-dye design is vibrant and eye-catching. It's definitely a conversation starter when I'm out and about. But what truly impressed me is how well this tumbler keeps my drinks cold. I've filled it with ice water and left it sitting on my desk all day, and it's still freezing cold by the end of the day.
 
-The rotating lid is a game-changer too. I love the straw opening for when I need a quick sip and the full cover top to prevent spills. The handle is comfortable and makes it easy to carry around. [Plus, it fits perfectly in most cup holders, which is super convenient.](universityofguns.pages.dev/best-cup-holsters/)
+The rotating lid is a game-changer too. I love the straw opening for when I need a quick sip and the full cover top to prevent spills. The handle is comfortable and makes it easy to carry around. Plus, it fits perfectly in most cup holders, which is super convenient.
 
 However, there are a few minor downsides. For one, the tumbler is quite heavy when it's full of liquid. This isn't an issue if you're using it at home or in the car, but if you're planning on taking it with you on a hike or to the gym, be prepared for a little extra weight.
 

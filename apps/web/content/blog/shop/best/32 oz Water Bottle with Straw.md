@@ -187,7 +187,7 @@ As a reviewer who's been using the Hydro Flask Dining bottle for my daily hydrat
 
 On the downside, I wish the bottle had a little more curve to it - it sometimes feels a bit bulky in my hands. And though it's dishwasher safe, I've found hand washing works best to prevent scratches on that sleek cool grey exterior.
 
-[In the grand scheme of my outdoor adventures and mundane daily life, the Hydro Flask Dining bottle has proven to be a trusty companion.](universityofguns.pages.dev/best-national-park-hydro-flasks/) Whether you're a fellow adventurer or just someone who loves sipping on [hot tea](https://best.serp.co/shop/hot-tea/) or iced coffee all day, I can confidently say this bottle will be there for you.
+In the grand scheme of my outdoor adventures and mundane daily life, the Hydro Flask Dining bottle has proven to be a trusty companion. Whether you're a fellow adventurer or just someone who loves sipping on [hot tea](https://best.serp.co/shop/hot-tea/) or iced coffee all day, I can confidently say this bottle will be there for you.
 
 ### [32oz Large Double Walled Insulated Vacuum Water Bottle](https://serp.ly/@boxingundefeated/amazon/32-oz-water-bottle-with-straw)
 

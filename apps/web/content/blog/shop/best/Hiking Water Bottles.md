@@ -201,7 +201,7 @@ Using a hiking water bottle allows you to carry a sufficient amount of water on 
 
 ### Do I need a specialized water bottle for backpacking?
 
-While a specialized water bottle is not necessarily required for backpacking, features such as excellent insulation, leak-proof designs, and lightweight materials can greatly enhance your overall hiking experience. [Backpacking water bottles are typically more durable and capable of withstanding rough terrain and usage.](universityofguns.pages.dev/best-backpack-water-bottle-holders/)
+While a specialized water bottle is not necessarily required for backpacking, features such as excellent insulation, leak-proof designs, and lightweight materials can greatly enhance your overall hiking experience. Backpacking water bottles are typically more durable and capable of withstanding rough terrain and usage.
 
 ### How can I avoid leaks in my hiking water bottle?
 

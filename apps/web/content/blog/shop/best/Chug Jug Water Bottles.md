@@ -112,7 +112,7 @@ Overall, the ThermoFlask Stainless Steel Water Bottle with Chug Lid has been a r
 
 <div class="image"><a href="https://serp.ly/@boxingundefeated/amazon/chug-jug-water-bottles"><img alt="the-iceflow-flip-straw-jug-96-oz-insulated-water-jug-stanley-fog-1" src="https://imagedelivery.net/vy2bglCGN6hEeWOnSe2c7A/the-iceflow-flip-straw-jug-96-oz-insulated-water-jug-stanley-fog-1/w=720,h=540,fit=pad,background=black"/></a></div>
 
-[As an avid sports enthusiast and nature-lover, I've had my fair share of water jugs.](universityofguns.pages.dev/best-stanley-adventure-2-gallon-water-jugs/) When I tried out the IceFlow Flip Straw Jug, I was pleasantly surprised by the quality and performance.
+As an avid sports enthusiast and nature-lover, I've had my fair share of water jugs. When I tried out the IceFlow Flip Straw Jug, I was pleasantly surprised by the quality and performance.
 
 The first thing that caught my attention was its size - a whopping 64 ounces! This may seem intimidating at first, but the built-in straw straw makes it incredibly easy to drink from. I would often fill it up before heading out on long hikes or cross-country runs, and it kept me hydrated without any issues.
 

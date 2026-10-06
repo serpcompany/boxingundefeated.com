@@ -57,7 +57,7 @@ One feature that truly stands out is its leak-resistant lid. It not only keeps s
 
 However, there's a minor downside - the bottle is a bit bulky compared to others I've used. It might be a tad challenging to fit it into some cup holders or tight spaces, but that's a small price to pay for its excellent performance.
 
-All in all, the Under Armour Pride 18 oz. Water Bottle has been a great addition to my hydration arsenal. It's well-made, easy to clean, and keeps my beverages cold for hours on end. [If you're on the hunt for a reliable water bottle that can keep up with your active lifestyle, this might just be the perfect choice.](universityofguns.pages.dev/best-camelback-water-bottles/)
+All in all, the Under Armour Pride 18 oz. Water Bottle has been a great addition to my hydration arsenal. It's well-made, easy to clean, and keeps my beverages cold for hours on end. If you're on the hunt for a reliable water bottle that can keep up with your active lifestyle, this might just be the perfect choice.
 
 ### [Thermos 18oz Insulated Water Bottle](https://serp.ly/@boxingundefeated/amazon/18-oz-water-bottles)
 
