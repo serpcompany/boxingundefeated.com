@@ -73,10 +73,11 @@ Worker (OpenNext on Cloudflare, about a minute; boxer pages read the local D1, s
   http://localhost:8787 with the local top level of `apps/web/wrangler.jsonc`.
 - `pnpm --filter web build:worker:staging` / `build:worker:production`: the Worker build with that
   environment's `SITE_ENVIRONMENT`, which the prerendered HTML needs (Environments below).
-- `pnpm --filter web serve:worker [--env staging]`: serve the last Worker build again. With
-  `--env`, it uses that environment's vars and bindings, locally. Pair it with the matching build.
-  `--env staging` rewrites every `Host` header to its custom domain, so test host redirects with
-  `--env production`, which has no route yet. It sets `CHOKIDAR_USEPOLLING` (file descriptors).
+- `pnpm --filter web serve:worker [--env staging]`: serve the last Worker build again, with that
+  environment's vars and bindings, locally. Pair it with the matching build.
+- `pnpm test:e2e`: the smoke suite (`apps/e2e/`; its README has the CI interface) on the local
+  preview after `db:reset:local` and `build:worker`; deployed: `BASE_URL=<origin> EXPECT_ENV=<env>`.
+  `pnpm parity -- <origin>`: every live URL on a candidate; `pnpm check:export`: the Pages export.
 - `pnpm --filter web cf-typegen`: regenerate and commit `cloudflare-env.d.ts` after changing
   `wrangler.jsonc`; it strips the `mainModule` type (`lib/cloudflare-env-types.ts`).
 
@@ -123,8 +124,7 @@ the committed sitemap files' dates, so run `git checkout -- apps/web/public` bef
 - Routes, redirects, metadata, robots, sitemaps, `next.config.ts` or data loaders: the HTML page
   count of `apps/web/out` before and after, the diff of the page list, and before/after output for
   sample URLs.
-- Visible UI: one screenshot of each changed page, from the PR preview (`preview.yml`) or a local
-  build.
+- Visible UI: one screenshot of each changed page, from the PR preview or a local build.
 - Deploy workflows: a link to the deploy run.
 
 ## Environments
