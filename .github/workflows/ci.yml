@@ -6,7 +6,8 @@ name: CI
 # builds, a draft. Marking a draft ready for review runs everything again.
 on:
   pull_request:
-    branches: [staging, main]
+    # THROWAWAY: lets the #17 failure-mode PRs target this branch. Never merge.
+    branches: [staging, main, throwaway-17-base]
     types: [opened, synchronize, reopened, ready_for_review]
   push:
     branches: [staging, main]
