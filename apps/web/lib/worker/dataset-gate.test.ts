@@ -47,7 +47,7 @@ describe('readsD1', () => {
       '/divisions/heavy/page/2/extra/',
       '/sitemap.xml',
       '/sitemaps/boxers/1.xml',
-      '/data/boxers/x.json',
+      '/feeds/x.json',
       '/api/search'
     ]) {
       expect([path, readsD1(at(path))]).toEqual([path, false])
@@ -138,5 +138,36 @@ describe('DatasetReadinessMemo', () => {
     advance(DATASET_ERROR_TTL_MS)
     await instance.current()
     expect(load).toHaveBeenCalledTimes(2)
+  })
+
+  it('remembers the last finished import while dataset_state is unreadable', async () => {
+    let state: DatasetState | Error = {
+      version: 'v1',
+      importing: false,
+      completedAt: '2026-10-06 04:00:21.000'
+    }
+    const { instance, advance } = memo(async () => {
+      if (state instanceof Error) throw state
+      return state
+    })
+    await instance.current()
+
+    state = new Error('D1 is down')
+    advance(DATASET_STATE_TTL_MS)
+    expect(await instance.current()).toEqual({
+      ready: false,
+      reason: 'dataset_state is unreadable: D1 is down',
+      lastGeneration: 'v1@2026-10-06 04:00:21.000'
+    })
+    advance(DATASET_ERROR_TTL_MS)
+    expect(await instance.current()).toMatchObject({ lastGeneration: 'v1@2026-10-06 04:00:21.000' })
+
+    // A real state replaces it: with no finished import, there is nothing to fall back on.
+    state = { version: null, importing: true }
+    advance(DATASET_ERROR_TTL_MS)
+    await instance.current()
+    state = new Error('D1 is down')
+    advance(DATASET_STATE_TTL_MS)
+    expect(await instance.current()).not.toHaveProperty('lastGeneration')
   })
 })

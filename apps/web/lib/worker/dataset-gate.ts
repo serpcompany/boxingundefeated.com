@@ -10,7 +10,10 @@
  * - a re-import in progress: pages are served, cached copies of the last complete import too,
  *   but nothing new is stored, since a page rendered now may be half old, half new;
  * - a finished import: pages are cached under its generation (`importGeneration`), so the next
- *   import takes effect without a purge.
+ *   import takes effect without a purge. Every finished import is a new generation, even one that
+ *   changed no data, so any re-import, of the same data too, empties the whole page cache.
+ * - an unreadable D1 after a finished import: copies cached under the last generation this isolate
+ *   read are still served (`lastGeneration`); a page without one is a 503.
  *
  * Each isolate reads `dataset_state` (one row, by primary key) at most once per
  * `DATASET_STATE_TTL_MS`, so a cached page normally costs no D1 query. For that long after an
@@ -45,7 +48,15 @@ export interface DatasetState {
 
 export type DatasetReadiness =
   | { ready: true; version: string; generation: string; importing: boolean }
-  | { ready: false; reason: string }
+  | {
+      ready: false
+      reason: string
+      /**
+       * When `dataset_state` is unreadable: the generation this isolate last read from a finished
+       * import, whose cached pages may still be served.
+       */
+      lastGeneration?: string
+    }
 
 export function readsD1(request: Request): boolean {
   const { pathname } = new URL(request.url)
@@ -89,6 +100,7 @@ export function datasetUnavailable(request: Request): Response {
 export class DatasetReadinessMemo {
   private inflight: Promise<DatasetReadiness> | undefined
   private value: { readiness: DatasetReadiness; expiresAt: number } | undefined
+  private lastGeneration: string | undefined
 
   constructor(
     private readonly load: () => Promise<DatasetState | null>,
@@ -104,12 +116,15 @@ export class DatasetReadinessMemo {
       .catch((error: unknown) => ({
         readiness: {
           ready: false as const,
-          reason: `dataset_state is unreadable: ${error instanceof Error ? error.message : String(error)}`
+          reason: `dataset_state is unreadable: ${error instanceof Error ? error.message : String(error)}`,
+          ...(this.lastGeneration ? { lastGeneration: this.lastGeneration } : {})
         },
         ttl: DATASET_ERROR_TTL_MS
       }))
       .then(({ readiness, ttl }) => {
         this.value = { readiness, expiresAt: this.now() + ttl }
+        if (readiness.ready) this.lastGeneration = readiness.generation
+        else if (!readiness.lastGeneration) this.lastGeneration = undefined
         return readiness
       })
       .finally(() => {
