@@ -9,7 +9,7 @@ Smoke tests and URL checks for every environment of boxingundefeated.com:
   standards.
 - **URL parity** (`src/parity.ts`): every URL the live site serves, on a candidate.
 - **Export check** (`src/check-export.ts`): the static export GitHub Pages deploys is the production
-  site. Run it until the cutover to the Worker (#19).
+  site. The cutover to the Worker (#19) is done; keep running it until GitHub Pages is turned off.
 
 Run everything from the repository root.
 
@@ -26,14 +26,17 @@ Run everything from the repository root.
 - Optional for `test:e2e`: `CANONICAL_ORIGIN` (default: the environment's origin;
   `http://localhost:8787` for `local`) and `NON_CANONICAL_HOSTS` (comma-separated; default: the
   environment's `*.workers.dev` host, plus `www` for production on the apex or locally).
-- **After the cutover (#19)**, run the production smoke with `BASE_URL=https://boxingundefeated.com`
-  (or add `www.boxingundefeated.com` to `NON_CANONICAL_HOSTS`): with the workers.dev URL as
-  `BASE_URL`, `www` is not tested. Before the cutover `www` is GitHub Pages, which answers 301.
+- **CI tests each Worker on its workers.dev host** (#45): the zone's Bot Fight Mode challenges
+  GitHub's runners on `boxingundefeated.com` and its subdomains, so the deploy jobs never reach
+  the apex or `www`. To check the `www` → apex redirect, run the production smoke from your own
+  machine with `BASE_URL=https://boxingundefeated.com`.
 - `/api/search` must answer 200 with JSON, so a Worker deployed before #36 fails the smoke.
 - Playwright doesn't retry (`retries: 0`), so a flaky test fails the run. Only the host check
   retries, for up to 30 s, while a new deploy reaches every edge.
 - Parity writes `parity-report/parity-<host>.md` and `.json` here. Its options: `--reference
-  <origin>` (default `https://boxingundefeated.com`), `--out-dir <dir>` (default `apps/web/out`;
+  <origin>` (default `https://boxingundefeated.com`, which since the cutover is the production
+  Worker itself, so comparing the production Worker to it proves nothing; to compare against the
+  old static site, serve `apps/web/out` locally and pass it as the reference), `--out-dir <dir>` (default `apps/web/out`;
   without one it checks the sitemap URLs only), `--concurrency <n>` (default and maximum 8 for
   remote hosts), `--report-dir <dir>`. It retries a 429, a 5xx or a network error with backoff
   (2, 4, 8 s, or `Retry-After`). A URL the reference still doesn't answer with 200 is an error, and
@@ -65,7 +68,8 @@ pnpm test:e2e
 
 To test production behavior locally, including the host redirects, serve a production build with the
 production vars on the local top level of `wrangler.jsonc`. `--env production` would read an empty
-local production D1, and `--env staging` rewrites every `Host` header:
+local production D1, and `--env staging` or `--env production` rewrites every `Host` header to
+that environment's first route:
 
 ```bash
 pnpm --filter web build:worker:production

@@ -1,7 +1,7 @@
 name: Deploy Staging
 
 # Every push to staging (the base branch that pull requests squash into) builds the staging
-# Worker, migrates the staging D1, deploys, and smoke-tests https://staging.boxingundefeated.com.
+# Worker, migrates the staging D1, deploys, and smoke-tests the staging Worker on its workers.dev host.
 # The `staging` environment holds CLOUDFLARE_API_TOKEN and CLOUDFLARE_ACCOUNT_ID; only the
 # wrangler steps receive them, never the build or the smoke test. Deploy Production releases only
 # a tree that a successful run of this workflow deployed.

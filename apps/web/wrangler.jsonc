@@ -46,8 +46,8 @@
     "staging": {
       "name": "boxingundefeated-com-staging",
       // Staging's canonical host. Wrangler attaches the custom domain and creates its DNS record
-      // on deploy. With this route, `wrangler dev --env staging` rewrites every Host header to it,
-      // so test the host redirect locally with `--env production`.
+      // on deploy. With a route, `wrangler dev --env <env>` rewrites every Host header to the first
+      // one, so test the host redirect locally on the top level with `--var` (apps/e2e/README.md).
       "routes": [{ "pattern": "staging.boxingundefeated.com", "custom_domain": true }],
       "workers_dev": true,
       "preview_urls": false,
@@ -75,7 +75,12 @@
     },
     "production": {
       "name": "boxingundefeated-com-production",
-      // No `routes` yet: the cutover issue attaches boxingundefeated.com.
+      // Attached at the cutover (#19, 2026-10-06). Every deploy replaces the Worker's custom domains
+      // with this list, so it must list every domain; removing an entry detaches that host.
+      "routes": [
+        { "pattern": "boxingundefeated.com", "custom_domain": true },
+        { "pattern": "www.boxingundefeated.com", "custom_domain": true }
+      ],
       "workers_dev": true,
       "preview_urls": false,
       "observability": {
