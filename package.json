@@ -6,6 +6,7 @@
     "build": "turbo build",
     "build:worker": "pnpm --filter web build:worker",
     "export": "cd apps/web && next build",
+    "check:export": "pnpm --filter e2e check:export",
     "check:frontmatter": "tsx scripts/check-frontmatter.ts",
     "check:links": "lychee --config ./lychee.toml --verbose .",
     "clean": "git clean -xdf node_modules dist .next",
