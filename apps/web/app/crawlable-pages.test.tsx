@@ -26,7 +26,7 @@ describe('crawlable directory pages', () => {
   })
 
   it('/divisions/heavy contains crawlable pagination anchors', async () => {
-    render(await DivisionPage({ params: { division: 'heavy' } }))
+    render(await DivisionPage({ params: Promise.resolve({ division: 'heavy' }) }))
 
     expect(document.querySelector('a[href="/divisions/heavy/page/2/"]')).toBeInTheDocument()
   })
@@ -47,7 +47,7 @@ describe('crawlable directory pages', () => {
   })
 
   it('/shop/page/2 renders the second shop page with canonical pagination links', async () => {
-    render(await ShopPaginatedPage({ params: { page: '2' } }))
+    render(await ShopPaginatedPage({ params: Promise.resolve({ page: '2' }) }))
 
     expect(document.querySelector('a[href="/shop/"]')).toBeInTheDocument()
     expect(document.querySelector('a[href="/shop/page/3/"]')).toBeInTheDocument()

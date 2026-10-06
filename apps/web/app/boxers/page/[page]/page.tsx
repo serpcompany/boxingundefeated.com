@@ -24,7 +24,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({
   params
 }: {
-  params: { page: string }
+  params: Promise<{ page: string }>
 }): Promise<Metadata> {
   const { page: pageParam } = await params
   const page = Number.parseInt(pageParam, 10)
@@ -39,7 +39,11 @@ export async function generateMetadata({
   }
 }
 
-export default async function BoxersPaginatedPage({ params }: { params: { page: string } }) {
+export default async function BoxersPaginatedPage({
+  params
+}: {
+  params: Promise<{ page: string }>
+}) {
   const { page: pageParam } = await params
   const currentPage = Number.parseInt(pageParam, 10)
   const boxers = sortBoxersForDirectory(getBoxersWithoutBouts())

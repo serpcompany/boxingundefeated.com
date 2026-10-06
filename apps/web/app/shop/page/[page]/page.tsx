@@ -21,9 +21,10 @@ export async function generateStaticParams() {
 export async function generateMetadata({
   params
 }: {
-  params: { page: string }
+  params: Promise<{ page: string }>
 }): Promise<Metadata> {
-  const page = Number.parseInt(params.page, 10)
+  const { page: pageParam } = await params
+  const page = Number.parseInt(pageParam, 10)
 
   return {
     title: `Shop Guides - Page ${page}`,
@@ -34,8 +35,9 @@ export async function generateMetadata({
   }
 }
 
-export default async function ShopPaginatedPage({ params }: { params: { page: string } }) {
-  const currentPage = Number.parseInt(params.page, 10)
+export default async function ShopPaginatedPage({ params }: { params: Promise<{ page: string }> }) {
+  const { page: pageParam } = await params
+  const currentPage = Number.parseInt(pageParam, 10)
 
   if (currentPage === 1) {
     notFound()

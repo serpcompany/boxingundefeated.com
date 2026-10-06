@@ -22,7 +22,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({
   params
 }: {
-  params: { division: string }
+  params: Promise<{ division: string }>
 }): Promise<Metadata> {
   const { division } = await params
   const categories = getBoxerCategories()
@@ -43,7 +43,7 @@ export async function generateMetadata({
   }
 }
 
-export default async function DivisionPage({ params }: { params: { division: string } }) {
+export default async function DivisionPage({ params }: { params: Promise<{ division: string }> }) {
   const { division } = await params
   const categories = getBoxerCategories()
   const category = categories.find(c => c.slug === division)

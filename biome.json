@@ -14,6 +14,7 @@
       "!**/dist",
       "!**/.turbo",
       "!**/.next",
+      "!**/next-env.d.ts",
       "!**/out",
       "!**/.vscode",
       "!**/.env",
