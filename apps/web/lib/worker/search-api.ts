@@ -6,8 +6,9 @@
  * - Paths: `/api/search` and `/api/search/` both answer 200, never a redirect (SERP URL standard:
  *   `/api` paths are served exactly as requested). Other `/api` paths fall through to OpenNext.
  * - Input: `q` longer than `SEARCH_QUERY_MAX_LENGTH` is a 400. The query is reduced to at most
- *   `SEARCH_MAX_TERMS` letter-and-digit terms (`searchTerms`), so no SQL `LIKE` wildcard or other
- *   syntax ever reaches D1, and at most `SEARCH_RESULT_LIMIT` boxers come back.
+ *   `SEARCH_MAX_TERMS` letter-and-digit terms (`searchTerms`), bound as values of `instr()`
+ *   substring tests, and at most `SEARCH_RESULT_LIMIT` boxers come back. A failed search is a
+ *   generic 500 JSON; the log gets the root cause only (`errorSummary`), never SQL or the query.
  * - Readiness: the import marker (lib/worker/dataset-gate.ts). Until a first import finishes, or
  *   while D1 is unreadable, a 503 with `Retry-After`, never an empty result.
  * - Edge cache: per data center, keyed by the Worker version, the dataset version, the host and
@@ -110,6 +111,24 @@ export function searchCacheKey(
   return new Request(`${key}?q=${encodeURIComponent(query)}`, { method: 'GET' })
 }
 
+/** The longest error summary a log line carries. */
+const ERROR_SUMMARY_LENGTH = 200
+
+/**
+ * The root cause of a failed search, for the log: its name and message, capped. Never the SQL or
+ * the visitor's terms: Drizzle's `DrizzleQueryError` message is `Failed query: <sql>\nparams:
+ * <params>`, so it is replaced by its cause (D1's error, such as `D1_ERROR: no such table`).
+ */
+export function errorSummary(error: unknown): string {
+  let root = error
+  while (root instanceof Error && root.cause instanceof Error) root = root.cause
+  if (!(root instanceof Error)) return 'unknown error'
+  if (root.name === 'DrizzleQueryError' || root.message.startsWith('Failed query:')) {
+    return root.name
+  }
+  return `${root.name}: ${root.message}`.slice(0, ERROR_SUMMARY_LENGTH)
+}
+
 export async function handleSearchApi(
   request: Request,
   options: SearchApiOptions
@@ -162,13 +181,12 @@ export async function handleSearchApi(
   try {
     body = toSearchResponse(await options.search(query))
   } catch (error) {
-    const message = error instanceof Error ? error.message : String(error)
     observe({
       event: 'search_api',
       state: 'BYPASS',
       status: 500,
       terms: terms.length,
-      error: message
+      error: errorSummary(error)
     })
     return json(request, { error: 'Search failed. Please try again.' }, 500)
   }

@@ -8,6 +8,7 @@ import { handleWorkerRequest } from './handle-request'
 import { MemoryCache } from './memory-cache'
 import {
   d1SearchApi,
+  errorSummary,
   handleSearchApi,
   isSearchApiRequest,
   type SearchApiOptions,
@@ -34,6 +35,18 @@ const floyd: BoxerSearch = {
     }
   ],
   truncated: false
+}
+
+/** What drizzle-orm throws for a failed D1 query: the SQL and its values, with D1's error as the cause. */
+function drizzleError(query: string): Error {
+  const error = new Error(
+    `Failed query: select "slug" from "boxers" where instr(?)\nparams: ${query}`,
+    {
+      cause: new Error('D1_ERROR: LIKE or GLOB pattern too complex: SQLITE_ERROR')
+    }
+  )
+  error.name = 'DrizzleQueryError'
+  return error
 }
 
 function setup(overrides: Partial<SearchApiOptions> = {}) {
@@ -281,20 +294,30 @@ describe('handleSearchApi', () => {
     expect(api.cache.stored.size).toBe(1)
   })
 
-  it('never caches a failed search', async () => {
+  it('answers a failed search with a generic 500, logs only its root cause, and never caches it', async () => {
     const api = setup()
-    api.search.mockRejectedValueOnce(new Error('D1_ERROR: no such table: boxers'))
-    const failed = await api.fetch('/api/search?q=ali')
+    api.search.mockRejectedValueOnce(drizzleError('philippines luisito'))
+    const failed = await api.fetch('/api/search?q=philippines%20luisito')
 
     expect(failed.status).toBe(500)
     expect(failed.headers.get('cache-control')).toBe('no-store')
-    expect(await failed.json()).toEqual({ error: 'Search failed. Please try again.' })
+    const body = await failed.text()
+    expect(JSON.parse(body)).toEqual({ error: 'Search failed. Please try again.' })
     expect(api.cache.stored.size).toBe(0)
-    expect(api.observe).toHaveBeenCalledWith(
-      expect.objectContaining({ event: 'search_api', status: 500, error: expect.any(String) })
-    )
+    expect(api.observe).toHaveBeenCalledWith({
+      event: 'search_api',
+      state: 'BYPASS',
+      status: 500,
+      terms: 2,
+      error: 'Error: D1_ERROR: LIKE or GLOB pattern too complex: SQLITE_ERROR'
+    })
+    const logged = JSON.stringify(api.observe.mock.calls)
+    for (const leak of ['select', 'philippines', 'params']) {
+      expect(logged).not.toContain(leak)
+      expect(body).not.toContain(leak)
+    }
 
-    const retried = await api.fetch('/api/search?q=ali')
+    const retried = await api.fetch('/api/search?q=philippines%20luisito')
     expect(retried.status).toBe(200)
     expect(retried.headers.get(EDGE_CACHE_HEADER)).toBe('MISS')
   })
@@ -315,6 +338,19 @@ describe('handleSearchApi', () => {
     expect(response.status).toBe(200)
     expect(response.headers.has(EDGE_CACHE_HEADER)).toBe(false)
     expect(api.cache.stored.size).toBe(0)
+  })
+})
+
+describe('errorSummary', () => {
+  it('names the root cause, never the SQL or its values', () => {
+    expect(errorSummary(drizzleError('ali'))).toBe(
+      'Error: D1_ERROR: LIKE or GLOB pattern too complex: SQLITE_ERROR'
+    )
+    const bare = new Error('Failed query: select 1\nparams: ali')
+    bare.name = 'DrizzleQueryError'
+    expect(errorSummary(bare)).toBe('DrizzleQueryError')
+    expect(errorSummary(new Error('x'.repeat(500)))).toHaveLength(200)
+    expect(errorSummary('a string')).toBe('unknown error')
   })
 })
 
