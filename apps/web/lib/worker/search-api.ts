@@ -11,9 +11,10 @@
  *   generic 500 JSON; the log gets the root cause only (`errorSummary`), never SQL or the query.
  * - Readiness: the import marker (lib/worker/dataset-gate.ts). Until a first import finishes, or
  *   while D1 is unreadable, a 503 with `Retry-After`, never an empty result.
- * - Edge cache: per data center, keyed by the Worker version, the dataset version, the host and
- *   the normalized query, so `Ali`, ` ali ` and `ali&utm_source=x` share one entry and a key never
- *   holds more than the terms. Only a 200 is stored, and nothing during a re-import.
+ * - Edge cache: per data center, keyed by the Worker version, the import generation (as pages are,
+ *   lib/worker/dataset-gate.ts), the host and the normalized query, so `Ali`, ` ali ` and
+ *   `ali&utm_source=x` share one entry and a key never holds more than the terms. Only a 200 is
+ *   stored, and nothing during a re-import.
  *
  * No Next.js imports: this runs before OpenNext loads, and every dependency is injected.
  */
@@ -101,11 +102,11 @@ export function toSearchResponse(search: BoxerSearch): SearchResponse {
 export function searchCacheKey(
   request: Request,
   deploymentId: string,
-  dataVersion: string,
+  dataGeneration: string,
   query: string
 ): Request {
   const { host } = new URL(request.url)
-  const key = [CACHE_KEY_ORIGIN, deploymentId, dataVersion, 'api-search', host]
+  const key = [CACHE_KEY_ORIGIN, deploymentId, dataGeneration, 'api-search', host]
     .map((part, index) => (index === 0 ? part : encodeURIComponent(part)))
     .join('/')
   return new Request(`${key}?q=${encodeURIComponent(query)}`, { method: 'GET' })
@@ -165,7 +166,7 @@ export async function handleSearchApi(
       ? {
           runtime: edgeCache,
           store: await edgeCache.openCache(),
-          key: searchCacheKey(request, deploymentId, readiness.version, query)
+          key: searchCacheKey(request, deploymentId, readiness.generation, query)
         }
       : undefined
   const cached = cache && (await cache.store.match(cache.key).catch(() => undefined))

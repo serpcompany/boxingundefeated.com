@@ -17,7 +17,12 @@ import {
 
 const ORIGIN = 'https://boxingundefeated.com'
 const production = { SITE_ENVIRONMENT: 'production', CANONICAL_HOST_REDIRECT: 'on' }
-const ready: DatasetReadiness = { ready: true, version: 'v1', importing: false }
+const ready: DatasetReadiness = {
+  ready: true,
+  version: 'v1',
+  generation: 'v1@t1',
+  importing: false
+}
 const notReady: DatasetReadiness = { ready: false, reason: 'the first import has not finished' }
 
 const floyd: BoxerSearch = {
@@ -253,7 +258,7 @@ describe('handleSearchApi', () => {
     expect(await second.json()).toEqual(await first.json())
     expect(api.search).toHaveBeenCalledTimes(1)
     expect([...api.cache.stored.keys()]).toEqual([
-      'https://edge-cache.invalid/version-1/v1/api-search/boxingundefeated.com?q=floyd%20mayweather'
+      'https://edge-cache.invalid/version-1/v1%40t1/api-search/boxingundefeated.com?q=floyd%20mayweather'
     ])
   })
 
@@ -272,10 +277,11 @@ describe('handleSearchApi', () => {
     expect(api.search).toHaveBeenCalledWith('a b c d e f')
   })
 
-  it('keys the cache by dataset version, so a finished re-import is searched afresh', async () => {
+  it('keys the cache by import generation, so every finished import is searched afresh', async () => {
     const api = setup()
     await api.fetch('/api/search?q=ali')
-    api.become({ ready: true, version: 'v2', importing: false })
+    // Same data, so the same version, but a later import.
+    api.become({ ready: true, version: 'v1', generation: 'v1@t2', importing: false })
     const response = await api.fetch('/api/search?q=ali')
 
     expect(response.headers.get(EDGE_CACHE_HEADER)).toBe('MISS')
@@ -285,7 +291,7 @@ describe('handleSearchApi', () => {
   it('stores nothing during a re-import, but serves results stored before it', async () => {
     const api = setup()
     await api.fetch('/api/search?q=ali')
-    api.become({ ready: true, version: 'v1', importing: true })
+    api.become({ ready: true, version: 'v1', generation: 'v1@t1', importing: true })
 
     expect((await api.fetch('/api/search?q=ali')).headers.get(EDGE_CACHE_HEADER)).toBe('HIT')
     await api.fetch('/api/search?q=bob')
