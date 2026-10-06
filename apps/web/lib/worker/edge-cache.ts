@@ -53,10 +53,20 @@ const RSC_VARIANT_HEADERS = [
 const RENDER_REQUEST_HEADERS = ['accept', 'user-agent', ...RSC_VARIANT_HEADERS] as const
 
 /**
- * Query parameters that only attribute a visit. Pages never read them, so they are left out of the
- * key: a campaign click shares the page everyone else gets instead of rendering its own copy.
+ * Query parameters that only attribute a visit. Pages never read them, so a cacheable page is
+ * rendered and keyed without them: a campaign click shares the page everyone else gets, and no
+ * stored copy carries one visitor's parameters in its RSC payload. The browser keeps the full URL,
+ * so analytics still sees them; the static export likewise serves one page for every query.
  */
 const TRACKING_PARAMETER = /^(?:utm_.+|gclid|fbclid|msclkid|ref)$/u
+
+export function withoutTrackingParameters(url: URL): URL {
+  const clean = new URL(url)
+  for (const name of [...clean.searchParams.keys()]) {
+    if (TRACKING_PARAMETER.test(name)) clean.searchParams.delete(name)
+  }
+  return clean
+}
 
 /** A page as HTML, or as the RSC payload of a client-side navigation. */
 const PAGE_CONTENT_TYPE = /^(?:text\/html|text\/x-component)\b/u
@@ -116,15 +126,16 @@ export function isCacheableResponse(response: Response): boolean {
   )
 }
 
-/** The same URL, method and signal, with only the allowlisted headers. */
+/** The URL without tracking parameters, the same method and signal, and allowlisted headers. */
 export function renderRequestFor(request: Request): Request {
   const headers = new Headers()
   for (const name of RENDER_REQUEST_HEADERS) {
     const value = request.headers.get(name)
     if (value !== null) headers.set(name, value)
   }
-  headers.set('host', new URL(request.url).host)
-  return new Request(request, { headers })
+  const url = withoutTrackingParameters(new URL(request.url))
+  headers.set('host', url.host)
+  return new Request(url.toString(), new Request(request, { headers }))
 }
 
 async function sha256Hex(value: string): Promise<string> {
@@ -142,10 +153,7 @@ export async function cacheKeyFor(
   deploymentId: string,
   dataVersion = '-'
 ): Promise<Request> {
-  const url = new URL(request.url)
-  for (const name of [...url.searchParams.keys()]) {
-    if (TRACKING_PARAMETER.test(name)) url.searchParams.delete(name)
-  }
+  const url = withoutTrackingParameters(new URL(request.url))
   const variant = request.headers.has('rsc')
     ? `rsc-${(
         await sha256Hex(

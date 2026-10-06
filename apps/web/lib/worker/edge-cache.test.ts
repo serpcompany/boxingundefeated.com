@@ -133,6 +133,13 @@ describe('withEdgeCache', () => {
     ).toBe('HIT')
   })
 
+  it('renders a page without tracking parameters, keeping the rest of the query', async () => {
+    const edge = setup()
+    await edge.fetch('/boxers/jesse-hart/?utm_source=x&page=2&gclid=1')
+
+    expect(edge.rendered[0]?.url).toBe('https://boxingundefeated.com/boxers/jesse-hart/?page=2')
+  })
+
   it('keys by dataset version', async () => {
     const edge = setup({ dataVersion: 'v1' })
     await edge.fetch('/boxers/jesse-hart/')
