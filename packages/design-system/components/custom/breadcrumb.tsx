@@ -33,6 +33,11 @@ export interface BreadcrumbProps {
  * @returns React component with breadcrumb navigation and structured data
  */
 export function Breadcrumb({ items, homeHref = '/', baseUrl }: BreadcrumbProps) {
+  // The homepage is written as the bare origin (SERP URL trailing-slash standard), whichever item
+  // links to it.
+  const absoluteUrl = (href: string) =>
+    baseUrl && href === '/' ? baseUrl : `${baseUrl || ''}${href}`
+
   return (
     <div className="mb-4">
       <ShadcnBreadcrumb>
@@ -70,14 +75,13 @@ export function Breadcrumb({ items, homeHref = '/', baseUrl }: BreadcrumbProps) 
                 '@type': 'ListItem',
                 position: 1,
                 name: 'Home',
-                // The homepage is written as the bare origin (SERP URL trailing-slash standard).
-                item: baseUrl && homeHref === '/' ? baseUrl : `${baseUrl || ''}${homeHref}`
+                item: absoluteUrl(homeHref)
               },
               ...items.map((item, index) => ({
                 '@type': 'ListItem',
                 position: index + 2,
                 name: item.name,
-                item: `${baseUrl || ''}${item.href}`
+                item: absoluteUrl(item.href)
               }))
             ]
           })
