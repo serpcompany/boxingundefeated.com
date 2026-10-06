@@ -73,3 +73,7 @@ out
 CLAUDE.md
 from-pipeline
 apps/web/data
+
+# D1 import SQL (scripts/d1/import-boxers.ts)
+d1/.import
+d1/reports/parity-local.md
