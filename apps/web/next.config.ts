@@ -1,5 +1,4 @@
 import { baseConfig, withAnalyzer } from '@boxingundefeated/config-next'
-import withMDX from '@next/mdx'
 import { initOpenNextCloudflareForDev } from '@opennextjs/cloudflare'
 import type { NextConfig } from 'next'
 import { env } from '@/env'
@@ -27,7 +26,7 @@ let nextConfig: NextConfig = {
 
   transpilePackages: INTERNAL_PACKAGES,
 
-  pageExtensions: ['mdx', 'ts', 'tsx'],
+  pageExtensions: ['ts', 'tsx'],
 
   images: {
     unoptimized: true, // Required for static export
@@ -45,8 +44,6 @@ let nextConfig: NextConfig = {
     ]
   }
 }
-
-nextConfig = withMDX()(nextConfig)
 
 if (env.ANALYZE === 'true') {
   nextConfig = withAnalyzer(nextConfig)
