@@ -1,0 +1,98 @@
+name: Deploy Staging
+
+# Every push to staging (the base branch that pull requests squash into) builds the staging
+# Worker, migrates the staging D1, deploys, and smoke-tests https://staging.boxingundefeated.com.
+# The `staging` environment holds CLOUDFLARE_API_TOKEN and CLOUDFLARE_ACCOUNT_ID; only the
+# wrangler steps receive them, never the build or the smoke test. Deploy Production releases only
+# a tree that a successful run of this workflow deployed.
+on:
+  push:
+    branches: [staging]
+
+permissions:
+  contents: read
+
+env:
+  NEXT_TELEMETRY_DISABLED: 1
+  TURBO_TELEMETRY_DISABLED: 1
+  WRANGLER_SEND_METRICS: false
+
+jobs:
+  deploy:
+    name: Migrate, deploy and smoke-test staging
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    # Migrate, deploy and smoke test stay in this one job. Deploys never overlap; a newer push
+    # replaces a queued one, never a running one.
+    concurrency:
+      group: deploy-web-staging
+      cancel-in-progress: false
+    environment:
+      name: staging
+      url: https://staging.boxingundefeated.com
+    env:
+      SMOKE_ORIGIN: https://staging.boxingundefeated.com
+    steps:
+      - name: Require Cloudflare credentials
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          if [ -z "$CLOUDFLARE_API_TOKEN" ] || [ -z "$CLOUDFLARE_ACCOUNT_ID" ]; then
+            echo "::error::The staging environment needs the CLOUDFLARE_API_TOKEN and CLOUDFLARE_ACCOUNT_ID secrets."
+            exit 1
+          fi
+
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Install
+        uses: ./.github/actions/install
+
+      # Built before anything touches Cloudflare, so a failed build never leaves a migrated D1
+      # behind the old Worker.
+      - name: Build the staging Worker
+        run: pnpm --filter web build:worker:staging
+
+      - name: Require the build to match env.staging
+        run: pnpm --filter web check:build-environment staging
+
+      - name: Migrate the staging D1
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: pnpm db:migrate:staging
+
+      - name: Require the staging D1 to be deployable
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: pnpm db:check-deployable -- --target staging
+
+      - name: Deploy the staging Worker
+        working-directory: apps/web
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: pnpm exec opennextjs-cloudflare deploy --env staging
+
+      - name: Install Chromium for Playwright
+        run: pnpm exec playwright install --with-deps chromium
+
+      # Asserts staging's noindex and Disallow among the rest (#16's suite).
+      - name: Smoke-test staging
+        env:
+          BASE_URL: ${{ env.SMOKE_ORIGIN }}
+          EXPECT_ENV: staging
+        run: pnpm test:e2e
+
+      - name: Keep the Playwright report
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: e2e-staging-${{ github.run_attempt }}
+          path: |
+            apps/e2e/playwright-report/
+            apps/e2e/test-results/
+          if-no-files-found: ignore
+          retention-days: 14
