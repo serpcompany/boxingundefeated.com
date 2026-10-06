@@ -2,7 +2,7 @@
  * @jest-environment node
  */
 import { SMOKE_TEST_HEADER } from '../routing/canonical-host'
-import type { DatasetReadiness } from './dataset-gate'
+import { type DatasetReadiness, importGeneration } from './dataset-gate'
 import { EDGE_CACHE_HEADER } from './edge-cache'
 import { handleWorkerRequest, type WorkerRuntime } from './handle-request'
 import { MemoryCache } from './memory-cache'
@@ -300,7 +300,11 @@ describe('handleWorkerRequest with the D1 readiness gate', () => {
   }
 
   const notReady: DatasetReadiness = { ready: false, reason: 'the first import has not finished' }
-  const v1: DatasetReadiness = { ready: true, version: 'v1', importing: false }
+  /** A finished import of version `version`, finished at `completedAt`. */
+  function imported(version: string, completedAt: string, importing = false): DatasetReadiness {
+    return { ready: true, version, generation: importGeneration(version, completedAt), importing }
+  }
+  const v1 = imported('v1', '2026-10-06 04:00:21.000')
 
   it('answers a profile with 503, never 404, until a first import finishes', async () => {
     const gate = setup(notReady)
@@ -325,9 +329,17 @@ describe('handleWorkerRequest with the D1 readiness gate', () => {
     expect(response.headers.get('x-robots-tag')).toBe('noindex')
   })
 
+  it('answers listings, divisions, the homepage and the HTML sitemap with 503 as well', async () => {
+    const gate = setup(notReady)
+    for (const path of ['/', '/boxers/', '/boxers/page/2/', '/divisions/heavy/', '/sitemap/']) {
+      expect((await gate.fetch(`https://boxingundefeated.com${path}`)).status).toBe(503)
+    }
+    expect(gate.serve).not.toHaveBeenCalled()
+  })
+
   it('leaves pages that do not read D1 alone', async () => {
     const gate = setup(notReady)
-    for (const path of ['/boxers/page/2/', '/about/', '/ads.txt']) {
+    for (const path of ['/shop/page/2/', '/about/', '/ads.txt']) {
       expect((await gate.fetch(`https://boxingundefeated.com${path}`)).status).toBe(200)
     }
     expect(gate.runtime.datasetReadiness).not.toHaveBeenCalled()
@@ -346,7 +358,7 @@ describe('handleWorkerRequest with the D1 readiness gate', () => {
   it('stores nothing new during a re-import, but serves pages stored before it', async () => {
     const gate = setup(v1)
     await gate.fetch()
-    gate.become({ ready: true, version: 'v1', importing: true })
+    gate.become(imported('v1', '2026-10-06 04:00:21.000', true))
 
     const stored = await gate.fetch()
     expect(stored.headers.get(EDGE_CACHE_HEADER)).toBe('HIT')
@@ -361,11 +373,37 @@ describe('handleWorkerRequest with the D1 readiness gate', () => {
   it('renders afresh under the new version once a re-import finishes', async () => {
     const gate = setup(v1)
     await gate.fetch()
-    gate.become({ ready: true, version: 'v2', importing: false })
+    gate.become(imported('v2', '2026-10-06 05:00:00.000'))
 
     const response = await gate.fetch()
     expect(response.headers.get(EDGE_CACHE_HEADER)).toBe('MISS')
     expect(await response.text()).toBe('render 2 of /boxers/len-wickwar/')
+  })
+
+  it('never serves a page cached during a re-import once it finishes, even with the same version', async () => {
+    // The importer has started, but this isolate's readiness is up to DATASET_STATE_TTL_MS old:
+    // it still sees v1 as finished, so it stores a page rendered from half-imported data.
+    const gate = setup(v1)
+    const halfImported = await gate.fetch()
+    expect(halfImported.headers.get(EDGE_CACHE_HEADER)).toBe('MISS')
+    expect(gate.cache.stored.size).toBe(1)
+
+    // The import finishes with the same data, so the same version, but a new generation.
+    gate.become(imported('v1', '2026-10-06 04:30:00.000'))
+    const response = await gate.fetch()
+    expect(response.headers.get(EDGE_CACHE_HEADER)).toBe('MISS')
+    expect(await response.text()).toBe('render 2 of /boxers/len-wickwar/')
+    expect((await gate.fetch()).headers.get(EDGE_CACHE_HEADER)).toBe('HIT')
+  })
+
+  it('keys listings by the import generation too', async () => {
+    const listing = 'https://boxingundefeated.com/divisions/heavy/page/2/'
+    const gate = setup(v1)
+    await gate.fetch(listing)
+    expect((await gate.fetch(listing)).headers.get(EDGE_CACHE_HEADER)).toBe('HIT')
+
+    gate.become(imported('v1', '2026-10-06 04:30:00.000'))
+    expect((await gate.fetch(listing)).headers.get(EDGE_CACHE_HEADER)).toBe('MISS')
   })
 
   it('redirects a non-canonical host before reading D1', async () => {

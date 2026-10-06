@@ -36,7 +36,8 @@ or deploy workflows, or production migrations, plus every release PR, and runs t
     `worker.ts` is the entry; `lib/worker/handle-request.ts` applies the canonical-host redirect
     (`lib/routing/`), the crawl policy, then the edge cache in front of OpenNext, which applies
     the trailing-slash `redirects()` from `next.config.ts`. Caching decision: `edge-cache.ts`
-    (pages only, per data center, Worker version, one-hour TTL). `assets.run_worker_first` sends
+    (pages only, per data center, Worker version and D1 import generation, one-hour TTL).
+    `assets.run_worker_first` sends
     every request except `/_next/static/` through the Worker, `public/` files included.
     `env.staging` has the `staging.boxingundefeated.com` custom domain; production gets its
     domain at the cutover.
@@ -62,7 +63,7 @@ Inner loop, while editing (seconds):
 - `pnpm exec biome lint <paths>`
 - `pnpm --filter web exec next dev --port 3003`: the dev server (`pnpm dev` regenerates data first).
 
-Worker (OpenNext on Cloudflare, about a minute; profiles read the local D1, so seed it first):
+Worker (OpenNext on Cloudflare, about a minute; boxer pages read the local D1, so seed it first):
 
 - `pnpm preview:worker`: `build:worker` (`NEXT_BUILD_TARGET=worker` turns off `output: 'export'`),
   then serves the local top level of `apps/web/wrangler.jsonc` on http://localhost:8787.
@@ -85,8 +86,9 @@ D1 (Drizzle schema in `packages/data-ops`, migrations in `d1/drizzle/`):
   migrates and seeds the fixture (`db:seed:local`), in seconds.
 - `pnpm db:import -- --target local|staging [--source <json>]`: an idempotent import, then
   `pnpm db:parity -- --target <t>` to prove it. Remote imports cap prunes (`--allow-prune <n>`).
-- **Deploy gate:** the Worker reads profiles from D1 (503 until an import finishes). Deploy to an
-  env only once `pnpm db:check-deployable -- --target <env>` passes and `db:parity` is clean there.
+- **Deploy gate:** the Worker reads every boxer page from D1: profiles, listings, divisions, the
+  homepage and the HTML sitemap (503 until an import finishes). Deploy to an env only once
+  `pnpm db:check-deployable -- --target <env>` passes and `db:parity` is clean there.
 - `db:{migrate,migrations:list}:{staging,production}` use `--remote --env <env>`; never `--preview`.
   Production writes (migrate, import) need a protected workflow or the owner's written approval in
   the current task, for that one run, cited in the PR or issue recording it; never your own

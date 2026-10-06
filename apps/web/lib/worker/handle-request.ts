@@ -10,7 +10,7 @@
  * 2. The environment's crawl policy (lib/worker/environment-policy.ts). It wraps the steps below,
  *    so a 503 or a page from the edge cache gets the same noindex header as a rendered page.
  * 3. For pages that read D1, the readiness gate (lib/worker/dataset-gate.ts): 503 with
- *    `Retry-After` until D1 holds a finished import, and the dataset version for the cache key.
+ *    `Retry-After` until D1 holds a finished import, and the import generation for the cache key.
  * 4. The edge cache (lib/worker/edge-cache.ts), for pages only: a stored copy, or `serve` and then
  *    store a 200 page. Files, redirects, 404s and errors pass through untouched.
  * 5. `serve`: OpenNext applies the trailing-slash `redirects()` from next.config.ts
@@ -79,7 +79,7 @@ export function handleWorkerRequest(
     return Promise.resolve(redirect)
   }
   return withEnvironmentPolicy(request, env, async () => {
-    let dataVersion: string | undefined
+    let dataGeneration: string | undefined
     let store = true
     if (runtime.datasetReadiness && readsD1(request)) {
       const readiness = await runtime.datasetReadiness()
@@ -87,7 +87,7 @@ export function handleWorkerRequest(
         runtime.log?.({ event: 'dataset_unavailable', reason: readiness.reason })
         return datasetUnavailable(request)
       }
-      dataVersion = readiness.version
+      dataGeneration = readiness.generation
       store = !readiness.importing
     }
     if (!runtime.edgeCache) return serve(request)
@@ -97,7 +97,7 @@ export function handleWorkerRequest(
       {
         openCache: runtime.edgeCache.openCache,
         deploymentId: env.CF_VERSION_METADATA?.id,
-        dataVersion,
+        dataGeneration,
         store,
         observe: runtime.log
       },

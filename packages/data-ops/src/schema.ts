@@ -172,7 +172,8 @@ export const datasetState = sqliteTable(
     version: text('version'),
     // From the start of an import until it finishes.
     importing: integer('importing', { mode: 'boolean' }).notNull().default(false),
-    // When `version` was first completed: a re-import of the same data keeps it.
+    // When the last import finished. Every finished import sets it, a re-import of the same data
+    // included, so with `version` it identifies the import generation the Worker caches pages by.
     completedAt: text('completed_at')
   },
   table => [

@@ -1,12 +1,30 @@
 /**
  * The static export's boxer data: the committed per-boxer JSON in `public/data/boxers/`, read with
  * `fs` while `next build` prerenders. GitHub Pages serves that export until the cutover (#19);
- * #20 deletes this file. Moved unchanged from `app/boxers/[slug]/page.tsx`.
+ * #20 deletes this file. The profile reads are moved unchanged from `app/boxers/[slug]/page.tsx`,
+ * the listing reads from the listing pages, the homepage and the HTML sitemap.
  */
 import fs from 'node:fs'
 import path from 'node:path'
-import { type BoxerMetadata, getBoxerBouts } from '../boxers-loader'
+import {
+  type BoxerMetadata,
+  getBoxerBouts,
+  getBoxerCategories,
+  getBoxersWithoutBouts
+} from '../boxers-loader'
+import {
+  getPaginatedItems,
+  getPaginationPages,
+  sortBoxersForDirectory
+} from '../directory-pagination'
 import { getOpponentLinksForBouts } from '../opponent-mapper'
+import type {
+  BoxerListingPage,
+  DirectoryCounts,
+  DivisionListingPage,
+  DivisionSummary,
+  HomepageView
+} from './listing'
 import type { BoxerProfileView } from './profile'
 
 // Load individual boxer data from split JSON files
@@ -72,4 +90,75 @@ export function readBoxerProfile(slug: string): BoxerProfileView | null {
 
   const bouts = getBoxerBouts(boxer)
   return { boxer, bouts, opponentLinks: getOpponentLinksForBouts(bouts) }
+}
+
+export function readBoxersPage(page: number): BoxerListingPage | null {
+  return getPaginatedItems(sortBoxersForDirectory(getBoxersWithoutBouts()), page)
+}
+
+function countByDivision(boxers: BoxerMetadata[]): DivisionSummary[] {
+  return getBoxerCategories().map(category => ({
+    slug: category.slug,
+    name: category.name,
+    boxerCount: boxers.filter(boxer => boxer.proDivision === category.division).length
+  }))
+}
+
+export function readDivisions(): DivisionSummary[] {
+  return countByDivision(getBoxersWithoutBouts())
+}
+
+export function readDivisionPage(slug: string, page: number): DivisionListingPage | null {
+  const category = getBoxerCategories().find(c => c.slug === slug)
+  if (!category) return null
+
+  const divisionBoxers = sortBoxersForDirectory(
+    getBoxersWithoutBouts().filter(boxer => boxer.proDivision === category.division)
+  )
+  const listing = getPaginatedItems(divisionBoxers, page)
+  return listing && { ...listing, division: { slug: category.slug, name: category.name } }
+}
+
+export function readHomepage(): HomepageView {
+  const boxers = getBoxersWithoutBouts()
+
+  return {
+    totalBoxers: boxers.length,
+    activeBoxers: boxers.filter(b => !b.proStatus || b.proStatus !== 'inactive').length,
+    totalBouts: boxers.reduce((sum, b) => sum + (b.proTotalBouts || 0), 0),
+    eliteBoxers: boxers.filter(
+      b => b.proWins && b.proWins > 30 && (!b.proLosses || b.proLosses < 5)
+    ).length,
+    // The highest win counts.
+    featuredBoxers: boxers
+      .filter(b => b.proWins && b.proTotalBouts)
+      .sort((a, b) => (b.proWins || 0) - (a.proWins || 0))
+      .slice(0, 6),
+    divisions: countByDivision(boxers)
+  }
+}
+
+export function readDirectoryCounts(): DirectoryCounts {
+  const boxers = getBoxersWithoutBouts()
+  return { totalBoxers: boxers.length, divisions: countByDivision(boxers) }
+}
+
+/** `/boxers/page/<n>/` from 2 on: page 1 is `/boxers/`. */
+export function getBoxersPageParams(): { page: string }[] {
+  return getPaginationPages(getBoxersWithoutBouts().length)
+    .slice(1)
+    .map(page => ({ page: page.toString() }))
+}
+
+export function getDivisionParams(): { division: string }[] {
+  return getBoxerCategories().map(category => ({ division: category.slug }))
+}
+
+/** `/divisions/<division>/page/<n>/` from 2 on: page 1 is `/divisions/<division>/`. */
+export function getDivisionPageParams(): { division: string; page: string }[] {
+  return readDivisions().flatMap(division =>
+    getPaginationPages(division.boxerCount)
+      .slice(1)
+      .map(page => ({ division: division.slug, page: page.toString() }))
+  )
 }
