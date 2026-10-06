@@ -1,14 +1,8 @@
-import { and, asc, count, desc, eq, getTableColumns, gt, type SQLWrapper, sql } from 'drizzle-orm'
+import { and, asc, count, desc, eq, getTableColumns, gt, sql } from 'drizzle-orm'
 import { alias } from 'drizzle-orm/sqlite-core'
 import type { Database } from './client'
 import { bouts, boxers, datasetState, divisions } from './schema'
-import {
-  escapeLike,
-  SEARCH_NAME_KEY,
-  SEARCH_RESULT_LIMIT,
-  SEARCH_TEXT_KEY,
-  searchTerms
-} from './search'
+import { SEARCH_NAME_KEY, SEARCH_RESULT_LIMIT, SEARCH_TEXT_KEY, searchTerms } from './search'
 import type { Bout, Boxer, DatasetState, Division } from './types'
 
 /** Boxers per listing page, as on `/boxers/` and `/divisions/<division>/` today. */
@@ -277,9 +271,11 @@ export interface BoxerSearch {
  * starts with it, then contains it, then everything else (a nickname, the nationality or the
  * division); within each, the directory order.
  *
- * One statement: the `hits` CTE filters and ranks on `boxers_search_idx` alone (a covering index
- * scan of about 5,600 short entries), and only the returned rows are read from the table. Terms
- * hold only letters and digits; `LIKE` wildcards are escaped anyway.
+ * One statement. `keys` names the two key expressions once, as `boxers_search_idx` declares them,
+ * so SQLite reads them from the index; `hits` filters and ranks on that covering index alone
+ * (about 5,600 short entries), and only the returned rows are read from the table. Terms hold
+ * only letters and digits, and the tests are `instr()` substring tests: no pattern syntax, and no
+ * pattern length limit (D1 caps `LIKE` patterns at 50 bytes).
  */
 export async function searchBoxers(
   db: Database,
@@ -291,27 +287,40 @@ export async function searchBoxers(
     return { query: terms.join(' '), results: [], truncated: false }
   }
   const phrase = terms.join(' ')
-  const escaped = escapeLike(phrase)
-  const like = (key: SQLWrapper, pattern: string) => sql`${key} LIKE ${pattern} ESCAPE '\\'`
-  // Verbatim, so SQLite reads both keys from `boxers_search_idx` instead of computing them.
-  const name = sql.raw(SEARCH_NAME_KEY)
-  const text = sql.raw(SEARCH_TEXT_KEY)
+  const keys = db.$with('keys').as(
+    db
+      .select({
+        id: boxers.id,
+        textKey: sql<string>`${sql.raw(SEARCH_TEXT_KEY)}`.as('text_key'),
+        nameKey: sql<string>`${sql.raw(SEARCH_NAME_KEY)}`.as('name_key'),
+        proWins: boxers.proWins,
+        proTotalBouts: boxers.proTotalBouts,
+        name: boxers.name
+      })
+      .from(boxers)
+  )
+  const name = sql`${keys.nameKey}`
   const tier = sql<number>`CASE
     WHEN ${name} = ${phrase} THEN 0
-    WHEN ${like(name, `${escaped}%`)} THEN 1
-    WHEN ${like(sql`' ' || ${name}`, `% ${escaped}%`)} THEN 2
-    WHEN ${like(name, `%${escaped}%`)} THEN 3
+    WHEN instr(${name}, ${phrase}) = 1 THEN 1
+    WHEN instr(' ' || ${name}, ${` ${phrase}`}) > 0 THEN 2
+    WHEN instr(${name}, ${phrase}) > 0 THEN 3
     ELSE 4 END`.as('tier')
   const hits = db.$with('hits').as(
     db
-      .select({ id: boxers.id, tier })
-      .from(boxers)
-      .where(and(...terms.map(term => like(text, `%${escapeLike(term)}%`))))
-      .orderBy(sql`tier`, ...directoryOrder)
+      .select({ id: keys.id, tier })
+      .from(keys)
+      .where(and(...terms.map(term => sql`instr(${keys.textKey}, ${term}) > 0`)))
+      .orderBy(
+        sql`tier`,
+        desc(keys.proWins),
+        desc(keys.proTotalBouts),
+        sql`${keys.name} COLLATE NOCASE`
+      )
       .limit(limit + 1)
   )
   const rows = await db
-    .with(hits)
+    .with(keys, hits)
     .select(boxerSearchColumns)
     .from(hits)
     .innerJoin(boxers, eq(boxers.id, hits.id))

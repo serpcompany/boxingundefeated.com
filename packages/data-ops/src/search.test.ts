@@ -4,11 +4,11 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest'
 import { searchBoxers } from './queries'
 import { boxers, divisions } from './schema'
 import {
-  escapeLike,
   SEARCH_MAX_TERMS,
   SEARCH_NAME_KEY,
   SEARCH_RESULT_LIMIT,
   SEARCH_TEXT_KEY,
+  SQL_FOLDS,
   searchKeyWords,
   searchTerms
 } from './search'
@@ -47,8 +47,12 @@ describe('searchTerms', () => {
     expect(searchTerms('a b c d e f g h')).toEqual(['a', 'b', 'c', 'd', 'e', 'f'])
   })
 
-  it('escapes LIKE wildcards and the escape character', () => {
-    expect(escapeLike('50%_off\\')).toBe('50\\%\\_off\\\\')
+  it('folds accented letters both ways, as the stored keys do', () => {
+    expect(searchTerms('Curaçao Côte D’Ivoire')).toEqual(['curacao', 'cote', 'divoire'])
+    expect(searchTerms('Łukasz Straße Ærø İzmir')).toEqual(['lukasz', 'strasse', 'aero', 'izmir'])
+    expect(SQL_FOLDS.get('Ç')).toBe('c')
+    expect(SQL_FOLDS.size).toBe(62)
+    expect(searchTerms('Chávez')).toEqual(searchTerms('Cha\u0301vez'))
   })
 })
 
@@ -93,7 +97,16 @@ const rows: NewBoxer[] = [
     proWins: 20
   }),
   boxer('Jean-Pierre Dupont', { nationality: 'France', proWins: 3 }),
-  boxer('Percy Underscore', { nicknames: '"100%_Pure"', proWins: 4 })
+  boxer('Percy Underscore', { nicknames: '"100%_Pure"', proWins: 4 }),
+  boxer('Wilson Godett', { nationality: 'Curaçao', proWins: 5 }),
+  boxer('Mustafa Ali', { nationality: 'Côte D’Ivoire', proWins: 6 }),
+  boxer('Brendan Fitzpatrick', {
+    nicknames: '"Firecracker from Finglas"',
+    nationality: 'Ireland',
+    proDivision: 'middle',
+    proWins: 7
+  }),
+  boxer('Aleksandrovichkonstantinopolskiyvladimirovichsonov', { proWins: 8 })
 ]
 
 describe('searchBoxers', () => {
@@ -110,7 +123,8 @@ describe('searchBoxers', () => {
         name: 'Super Featherweight',
         proDivision: 'super feather',
         sortOrder: 10
-      }
+      },
+      { slug: 'middle', name: 'Middleweight', proDivision: 'middle', sortOrder: 5 }
     ])
     await insertBoxers(test, rows)
   })
@@ -152,6 +166,36 @@ describe('searchBoxers', () => {
     expect(await names('Muñoz')).toEqual(['Gabriel Munoz'])
     expect(await names('jean pierre')).toEqual(['Jean-Pierre Dupont'])
     expect(await names('Jean-Pierre')).toEqual(['Jean-Pierre Dupont'])
+  })
+
+  it('folds accents on stored nationalities as on the query', async () => {
+    for (const query of ['Curaçao', 'curacao', 'CURAÇAO']) {
+      expect(await names(query)).toEqual(['Wilson Godett'])
+    }
+    for (const query of ['Côte', 'cote', 'Côte D’Ivoire', "cote d'ivoire"]) {
+      expect(await names(query)).toEqual(['Mustafa Ali'])
+    }
+  })
+
+  it('answers queries longer than D1 allows in a LIKE pattern (50 bytes)', async () => {
+    // The limit this guards against, as D1 and Miniflare enforce it.
+    await expect(
+      test.binding
+        .prepare("SELECT 'x' LIKE ?")
+        .bind(`%${'a'.repeat(50)}%`)
+        .first()
+    ).rejects.toThrow(/LIKE or GLOB pattern too complex/)
+
+    // Six terms, 54 bytes, for a boxer they all match.
+    const long = 'brendan fitzpatrick firecracker finglas ireland middle'
+    expect(await names(long)).toEqual(['Brendan Fitzpatrick'])
+    expect(await names(`${long} zzz`)).toEqual(['Brendan Fitzpatrick'])
+    expect(await names('fitzpatrick brendan zzz')).toEqual([])
+    // One 50-byte term, and 25 two-byte letters (50 bytes).
+    expect(await names('aleksandrovichkonstantinopolskiyvladimirovichsonov')).toEqual([
+      'Aleksandrovichkonstantinopolskiyvladimirovichsonov'
+    ])
+    expect(await names('д'.repeat(25))).toEqual([])
   })
 
   it('treats LIKE wildcards as text, never as patterns', async () => {
@@ -226,14 +270,16 @@ describe('the search keys', () => {
 
   it("hold the same words as searchKeyWords for every fixture boxer's fields", async () => {
     const fixture = JSON.parse(readFileSync(FIXTURE, 'utf8')) as Record<string, string | null>[]
+    const latin1 = [...SQL_FOLDS.keys()].join('')
     const tricky = [
       boxer("Dave 'Boy' Green", { nicknames: `"'The Sensation'"` }),
       boxer('Miguel Sanchez  Avila', { nicknames: '"Joe / Panterita"' }),
       boxer('Angel L. Acosta Gomez', { nicknames: '"Jack Rau?"' }),
-      boxer('Bill Brennan', { nicknames: '"Bill Shanks,KO Bill"' }),
-      boxer('Kid (Iron) Man: Jr.', { nicknames: '"Kid/Iron Man\\Joe; A|B & C+D"' }),
+      boxer('Bill Brennan', { nicknames: '"Bill Shanks,KO Bill"', nationality: 'Côte D’Ivoire' }),
+      boxer('Kid (Iron) Man, Jr.', { nicknames: '"Kid/Iron Man\\Joe; A|B & C+D: E"' }),
       boxer('Ray \u2018Sugar\u2019 Robinson', { nicknames: '\u201CSugar\u201D' }),
-      boxer('Ricky `Hitman` Hatton', { proDivision: 'light heavy' })
+      boxer('Ricky `Hitman` Hatton', { proDivision: 'light heavy', nationality: 'Curaçao' }),
+      boxer(`Every ${latin1} Fold`, { nicknames: latin1, nationality: latin1.toUpperCase() })
     ]
     const records = [
       ...fixture.map(record =>
@@ -253,11 +299,13 @@ describe('the search keys', () => {
       .all<Record<string, string | null>>()
     expect(results).toHaveLength(records.length)
     for (const row of results) {
-      const fields = [row.name, row.nicknames, row.nationality, row.pro_division]
-      expect(row.name_key).toBe(searchKeyWords(row.name!).join(' '))
-      expect(row.text_key!.split(' ').filter(Boolean)).toEqual(
-        searchKeyWords(fields.filter(Boolean).join(' '))
+      const words = searchKeyWords(
+        [row.name, row.nicknames, row.nationality, row.pro_division].filter(Boolean).join(' ')
       )
+      // The name key is the name's words; the text key contains every word of every field.
+      expect(row.name_key).toBe(searchKeyWords(row.name!).join(' '))
+      expect(searchKeyWords(row.text_key!)).toEqual(words)
+      for (const word of words) expect(row.text_key).toContain(word)
     }
   })
 })
