@@ -2,8 +2,9 @@
  * @jest-environment node
  */
 import { SMOKE_TEST_HEADER } from '../routing/canonical-host'
+import type { DatasetReadiness } from './dataset-gate'
 import { EDGE_CACHE_HEADER } from './edge-cache'
-import { handleWorkerRequest } from './handle-request'
+import { handleWorkerRequest, type WorkerRuntime } from './handle-request'
 import { MemoryCache } from './memory-cache'
 
 const production = { SITE_ENVIRONMENT: 'production', CANONICAL_HOST_REDIRECT: 'on' }
@@ -98,14 +99,19 @@ describe('handleWorkerRequest', () => {
 describe('handleWorkerRequest with the edge cache', () => {
   const version = { CF_VERSION_METADATA: { id: 'version-1' } }
 
-  function edgeCache() {
+  function edgeCache(runtime: Omit<WorkerRuntime, 'edgeCache'> = {}) {
     const cache = new MemoryCache()
     const pending: Promise<unknown>[] = []
+    const openCache = jest.fn(async () => cache as unknown as Cache)
     return {
       cache,
+      openCache,
       runtime: {
-        context: { waitUntil: (promise: Promise<unknown>) => void pending.push(promise) },
-        openCache: jest.fn(async () => cache as unknown as Cache)
+        ...runtime,
+        edgeCache: {
+          context: { waitUntil: (promise: Promise<unknown>) => void pending.push(promise) },
+          openCache
+        }
       },
       settle: () => Promise.all(pending.splice(0))
     }
@@ -175,7 +181,7 @@ describe('handleWorkerRequest with the edge cache', () => {
     const page = 'https://boxingundefeated.com/boxers/len-wickwar/'
     await handleWorkerRequest(new Request(page), { ...production, ...version }, serve, edge.runtime)
     await edge.settle()
-    edge.runtime.openCache.mockClear()
+    edge.openCache.mockClear()
 
     for (const host of [WWW, WORKERS_DEV]) {
       const response = await handleWorkerRequest(
@@ -188,7 +194,7 @@ describe('handleWorkerRequest with the edge cache', () => {
       expect(response.headers.get('location')).toBe(page)
       expect(response.headers.has(EDGE_CACHE_HEADER)).toBe(false)
     }
-    expect(edge.runtime.openCache).not.toHaveBeenCalled()
+    expect(edge.openCache).not.toHaveBeenCalled()
     expect(serve).toHaveBeenCalledTimes(1)
   })
 
@@ -203,7 +209,7 @@ describe('handleWorkerRequest with the edge cache', () => {
     )
 
     expect(await response.text()).toMatch(/^Disallow: \/$/m)
-    expect(edge.runtime.openCache).not.toHaveBeenCalled()
+    expect(edge.openCache).not.toHaveBeenCalled()
     expect(serve).not.toHaveBeenCalled()
   })
 
@@ -226,7 +232,7 @@ describe('handleWorkerRequest with the edge cache', () => {
 
       expect(response).toBe(file)
       expect(serve).toHaveBeenCalledWith(request)
-      expect(edge.runtime.openCache).not.toHaveBeenCalled()
+      expect(edge.openCache).not.toHaveBeenCalled()
     }
   )
 
@@ -241,5 +247,132 @@ describe('handleWorkerRequest with the edge cache', () => {
     expect(second.status).toBe(status)
     expect(serve).toHaveBeenCalledTimes(2)
     expect(edge.cache.stored.size).toBe(0)
+  })
+})
+
+describe('handleWorkerRequest with the D1 readiness gate', () => {
+  const version = { CF_VERSION_METADATA: { id: 'version-1' } }
+  const PROFILE = 'https://boxingundefeated.com/boxers/len-wickwar/'
+
+  function setup(initial: DatasetReadiness) {
+    let readiness = initial
+    const cache = new MemoryCache()
+    const pending: Promise<unknown>[] = []
+    const openCache = jest.fn(async () => cache as unknown as Cache)
+    const log = jest.fn()
+    const runtime: WorkerRuntime = {
+      edgeCache: {
+        context: { waitUntil: (promise: Promise<unknown>) => void pending.push(promise) },
+        openCache
+      },
+      datasetReadiness: jest.fn(async () => readiness),
+      log
+    }
+    let renders = 0
+    const serve = jest.fn((request: Request) =>
+      Promise.resolve(
+        new Response(`render ${++renders} of ${new URL(request.url).pathname}`, {
+          status: 200,
+          headers: { 'content-type': 'text/html; charset=utf-8' }
+        })
+      )
+    )
+    return {
+      cache,
+      openCache,
+      log,
+      runtime,
+      serve,
+      become(next: DatasetReadiness) {
+        readiness = next
+      },
+      async fetch(url = PROFILE, env: object = production) {
+        const response = await handleWorkerRequest(
+          new Request(url),
+          { ...env, ...version } as never,
+          serve,
+          runtime
+        )
+        await Promise.all(pending.splice(0))
+        return response
+      }
+    }
+  }
+
+  const notReady: DatasetReadiness = { ready: false, reason: 'the first import has not finished' }
+  const v1: DatasetReadiness = { ready: true, version: 'v1', importing: false }
+
+  it('answers a profile with 503, never 404, until a first import finishes', async () => {
+    const gate = setup(notReady)
+    const response = await gate.fetch()
+
+    expect(response.status).toBe(503)
+    expect(response.headers.get('retry-after')).toBe('120')
+    expect(response.headers.get('cache-control')).toBe('no-store')
+    expect(gate.serve).not.toHaveBeenCalled()
+    expect(gate.openCache).not.toHaveBeenCalled()
+    expect(gate.log).toHaveBeenCalledWith({
+      event: 'dataset_unavailable',
+      reason: 'the first import has not finished'
+    })
+  })
+
+  it('keeps noindex on the 503 outside production', async () => {
+    const gate = setup(notReady)
+    const response = await gate.fetch('https://staging.boxingundefeated.com/boxers/x/', staging)
+
+    expect(response.status).toBe(503)
+    expect(response.headers.get('x-robots-tag')).toBe('noindex')
+  })
+
+  it('leaves pages that do not read D1 alone', async () => {
+    const gate = setup(notReady)
+    for (const path of ['/boxers/page/2/', '/about/', '/ads.txt']) {
+      expect((await gate.fetch(`https://boxingundefeated.com${path}`)).status).toBe(200)
+    }
+    expect(gate.runtime.datasetReadiness).not.toHaveBeenCalled()
+  })
+
+  it('serves and stores profiles once the import has finished', async () => {
+    const gate = setup(notReady)
+    await gate.fetch()
+    gate.become(v1)
+
+    expect((await gate.fetch()).headers.get(EDGE_CACHE_HEADER)).toBe('MISS')
+    expect((await gate.fetch()).headers.get(EDGE_CACHE_HEADER)).toBe('HIT')
+    expect(gate.serve).toHaveBeenCalledTimes(1)
+  })
+
+  it('stores nothing new during a re-import, but serves pages stored before it', async () => {
+    const gate = setup(v1)
+    await gate.fetch()
+    gate.become({ ready: true, version: 'v1', importing: true })
+
+    const stored = await gate.fetch()
+    expect(stored.headers.get(EDGE_CACHE_HEADER)).toBe('HIT')
+    expect(await stored.text()).toBe('render 1 of /boxers/len-wickwar/')
+
+    const other = 'https://boxingundefeated.com/boxers/jesse-hart/'
+    await gate.fetch(other)
+    expect((await gate.fetch(other)).headers.get(EDGE_CACHE_HEADER)).toBe('MISS')
+    expect(gate.cache.stored.size).toBe(1)
+  })
+
+  it('renders afresh under the new version once a re-import finishes', async () => {
+    const gate = setup(v1)
+    await gate.fetch()
+    gate.become({ ready: true, version: 'v2', importing: false })
+
+    const response = await gate.fetch()
+    expect(response.headers.get(EDGE_CACHE_HEADER)).toBe('MISS')
+    expect(await response.text()).toBe('render 2 of /boxers/len-wickwar/')
+  })
+
+  it('redirects a non-canonical host before reading D1', async () => {
+    const gate = setup(notReady)
+    const response = await gate.fetch(`${WWW}/boxers/len-wickwar/`)
+
+    expect(response.status).toBe(308)
+    expect(gate.runtime.datasetReadiness).not.toHaveBeenCalled()
   })
 })

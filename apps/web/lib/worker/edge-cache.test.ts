@@ -117,6 +117,56 @@ describe('withEdgeCache', () => {
     expect(edge.render).toHaveBeenCalledTimes(1 + others.length)
   })
 
+  it('shares one copy across tracking parameters, but not other query parameters', async () => {
+    const edge = setup()
+    await edge.fetch('/boxers/jesse-hart/?utm_source=x&utm_campaign=y')
+
+    for (const query of ['', '?gclid=1', '?fbclid=2', '?msclkid=3', '?ref=4', '?utm_medium=z']) {
+      const response = await edge.fetch(`/boxers/jesse-hart/${query}`)
+      expect(response.headers.get(EDGE_CACHE_HEADER)).toBe('HIT')
+    }
+    expect((await edge.fetch('/boxers/jesse-hart/?page=2')).headers.get(EDGE_CACHE_HEADER)).toBe(
+      'MISS'
+    )
+    expect(
+      (await edge.fetch('/boxers/jesse-hart/?page=2&utm_source=x')).headers.get(EDGE_CACHE_HEADER)
+    ).toBe('HIT')
+  })
+
+  it('keys by dataset version', async () => {
+    const edge = setup({ dataVersion: 'v1' })
+    await edge.fetch('/boxers/jesse-hart/')
+
+    expect((await edge.fetch('/boxers/jesse-hart/')).headers.get(EDGE_CACHE_HEADER)).toBe('HIT')
+    const next = await edge.fetch('/boxers/jesse-hart/', { dataVersion: 'v2' })
+    expect(next.headers.get(EDGE_CACHE_HEADER)).toBe('MISS')
+  })
+
+  it('serves stored pages but stores nothing new when told not to', async () => {
+    const edge = setup()
+    await edge.fetch('/boxers/jesse-hart/')
+
+    const hit = await edge.fetch('/boxers/jesse-hart/', { store: false })
+    expect(hit.headers.get(EDGE_CACHE_HEADER)).toBe('HIT')
+    await edge.fetch('/boxers/ema-kozin/', { store: false })
+    expect(edge.cache.stored.size).toBe(1)
+  })
+
+  it('logs one event per page request and none for files', async () => {
+    const observe = jest.fn()
+    const edge = setup({ observe })
+    await edge.fetch('/boxers/jesse-hart/')
+    await edge.fetch('/boxers/jesse-hart/')
+    await edge.fetch('/ads.txt')
+    await edge.fetch('/boxers/jesse-hart/', { deploymentId: undefined })
+
+    expect(observe.mock.calls.map(([event]) => event)).toEqual([
+      { event: 'edge_cache', state: 'MISS', status: 200, stored: true },
+      { event: 'edge_cache', state: 'HIT', status: 200 },
+      { event: 'edge_cache', state: 'BYPASS', status: 200 }
+    ])
+  })
+
   it.each([
     ['a redirect', 308, { location: 'https://boxingundefeated.com/about/' }],
     ['a 404', 404, HTML],

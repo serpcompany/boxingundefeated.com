@@ -1,22 +1,23 @@
 /**
- * The Worker's edge cache for rendered pages, step 3 of lib/worker/handle-request.ts: after the
- * canonical-host redirect and inside the crawl policy, so a stored page never skips either.
- * Pages that render on request from D1 (boxer profiles; listings in #11) need it most.
+ * The Worker's edge cache for rendered pages, step 4 of lib/worker/handle-request.ts: after the
+ * canonical-host redirect, inside the crawl policy, and after the D1 readiness gate, so a stored
+ * page never skips any of them. Pages that render on request from D1 (boxer profiles; listings in
+ * #11) need it most.
  *
  * Each data center keeps a Cache API copy of a page for `EDGE_CACHE_TTL_SECONDS`, keyed by the
- * Worker version and the URL. A hit is answered here, before OpenNext and D1 run, so it costs no
- * D1 query. A deploy changes the version, so new markup is served at once; a data refresh (a
- * re-import into D1) shows up when the stored copy expires, within the TTL. Nothing needs purging:
- * new keys stop matching old entries, which expire on their own.
+ * Worker version, the D1 dataset version for D1 pages (lib/worker/dataset-gate.ts) and the URL
+ * without tracking parameters. A hit is answered here, before OpenNext and D1 run, so it costs no
+ * D1 query. A deploy changes the key at once, and a finished re-import within half a minute
+ * (`DATASET_STATE_TTL_MS`), so new markup and data need no purge: old entries expire on their own.
  *
  * Only pages: a GET or HEAD for a path ending in `/` (pages end in a slash, files never do), and
  * only a 200 HTML or RSC response is stored. Files from `public/` (sitemaps, ads.txt, the boxer
  * JSON, images), which `assets.run_worker_first` also sends through the Worker, pass through
  * untouched, as do redirects, 404s and errors.
  *
- * Modeled on best.serp.co's `lib/edge-cache/html-cache.ts`, without its D1 data epoch: boxer data
- * changes only on an occasional import, so a TTL bounds staleness without a D1 read per request.
- * The Cache API has no effect on `*.workers.dev`, so the cache works on custom domains only.
+ * Modeled on best.serp.co's `lib/edge-cache/html-cache.ts`; the dataset version plays the part of
+ * its catalog epoch. The Cache API has no effect on `*.workers.dev`, so the cache works on custom
+ * domains only.
  *
  * No Next.js imports: this runs before OpenNext loads, and every dependency is injected.
  */
@@ -51,6 +52,12 @@ const RSC_VARIANT_HEADERS = [
  */
 const RENDER_REQUEST_HEADERS = ['accept', 'user-agent', ...RSC_VARIANT_HEADERS] as const
 
+/**
+ * Query parameters that only attribute a visit. Pages never read them, so they are left out of the
+ * key: a campaign click shares the page everyone else gets instead of rendering its own copy.
+ */
+const TRACKING_PARAMETER = /^(?:utm_.+|gclid|fbclid|msclkid|ref)$/u
+
 /** A page as HTML, or as the RSC payload of a client-side navigation. */
 const PAGE_CONTENT_TYPE = /^(?:text\/html|text\/x-component)\b/u
 
@@ -71,7 +78,20 @@ export interface EdgeCacheOptions {
   openCache: () => Promise<Cache>
   /** The Worker version (`CF_VERSION_METADATA.id`). Without one, nothing is cached. */
   deploymentId: string | undefined
+  /** For a page that reads D1: the dataset version its content comes from. */
+  dataVersion?: string
+  /** False while D1 is being re-imported: stored pages are served, new ones are not stored. */
+  store?: boolean
   ttlSeconds?: number
+  observe?: (event: EdgeCacheEvent) => void
+}
+
+/** One structured log line per page request (files and other pass-through requests log nothing). */
+export interface EdgeCacheEvent {
+  event: 'edge_cache'
+  state: EdgeCacheState | 'BYPASS'
+  status: number
+  stored?: boolean
 }
 
 /** The Worker bindings the cache reads (`wrangler.jsonc` `version_metadata`). */
@@ -113,11 +133,19 @@ async function sha256Hex(value: string): Promise<string> {
 }
 
 /**
- * The key covers everything a page varies on: the Worker version, the host (staging and
- * production differ), the path and query, and for RSC requests the router headers.
+ * The key covers everything a page varies on: the Worker version, the dataset version, the host
+ * (staging and production differ), the path and query without tracking parameters, and for RSC
+ * requests the router headers.
  */
-export async function cacheKeyFor(request: Request, deploymentId: string): Promise<Request> {
+export async function cacheKeyFor(
+  request: Request,
+  deploymentId: string,
+  dataVersion = '-'
+): Promise<Request> {
   const url = new URL(request.url)
+  for (const name of [...url.searchParams.keys()]) {
+    if (TRACKING_PARAMETER.test(name)) url.searchParams.delete(name)
+  }
   const variant = request.headers.has('rsc')
     ? `rsc-${(
         await sha256Hex(
@@ -128,6 +156,7 @@ export async function cacheKeyFor(request: Request, deploymentId: string): Promi
   const key = [
     CACHE_KEY_ORIGIN,
     encodeURIComponent(deploymentId),
+    encodeURIComponent(dataVersion),
     variant,
     encodeURIComponent(url.host)
   ].join('/')
@@ -184,17 +213,29 @@ export async function withEdgeCache(
   options: EdgeCacheOptions,
   render: (request: Request) => Promise<Response>
 ): Promise<Response> {
-  if (!isCacheableRequest(request) || !options.deploymentId) return render(request)
+  if (!isCacheableRequest(request)) return render(request)
+  const observe = options.observe ?? (() => {})
+  if (!options.deploymentId) {
+    const response = await render(request)
+    observe({ event: 'edge_cache', state: 'BYPASS', status: response.status })
+    return response
+  }
 
   const cache = await options.openCache()
-  const key = await cacheKeyFor(request, options.deploymentId)
+  const key = await cacheKeyFor(request, options.deploymentId, options.dataVersion)
   const cached = await cache.match(key).catch(() => undefined)
-  if (cached) return servedCopy(cached, request.method)
+  if (cached) {
+    observe({ event: 'edge_cache', state: 'HIT', status: cached.status })
+    return servedCopy(cached, request.method)
+  }
 
   const response = await render(renderRequestFor(request))
-  if (request.method === 'GET' && isCacheableResponse(response)) {
-    const stored = storedCopy(response.clone(), options.ttlSeconds ?? EDGE_CACHE_TTL_SECONDS)
-    context.waitUntil(cache.put(key, stored).catch(() => undefined))
+  const stored =
+    options.store !== false && request.method === 'GET' && isCacheableResponse(response)
+  if (stored) {
+    const copy = storedCopy(response.clone(), options.ttlSeconds ?? EDGE_CACHE_TTL_SECONDS)
+    context.waitUntil(cache.put(key, copy).catch(() => undefined))
   }
+  observe({ event: 'edge_cache', state: 'MISS', status: response.status, stored })
   return withState(response, 'MISS')
 }
