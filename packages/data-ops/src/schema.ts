@@ -173,7 +173,9 @@ export const datasetState = sqliteTable(
     // From the start of an import until it finishes.
     importing: integer('importing', { mode: 'boolean' }).notNull().default(false),
     // When `version` was first completed: a re-import of the same data keeps it.
-    completedAt: text('completed_at')
+    completedAt: text('completed_at'),
+    // THROWAWAY: a schema change without a migration, for #17. Never merge.
+    note: text('note')
   },
   table => [
     check('dataset_state_single_row', sql`${table.id} = 1`),
