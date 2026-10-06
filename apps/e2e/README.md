@@ -7,9 +7,9 @@ Smoke tests and URL checks for every environment of boxingundefeated.com:
   and
   [environment configuration](https://github.com/serpcompany/serp/blob/main/docs/engineering/standards/environment-configuration.md#verification)
   standards.
-- **URL parity** (`src/parity.ts`): every URL the live site serves, on a candidate.
-- **Export check** (`src/check-export.ts`): retired. It checked the static export GitHub Pages
-  served, and Pages is off since the cutover (#19); #20 removes it with the export build.
+- **URL parity** (`src/parity.ts`): every URL a reference's sitemaps list, on a candidate.
+- **Sitemap URLs** (`src/sitemap-urls.ts`): every page URL an origin's sitemaps list, for the link
+  check (`lychee.toml` at the repository root).
 
 Run everything from the repository root.
 
@@ -19,7 +19,7 @@ Run everything from the repository root.
 | --- | --- | --- |
 | `BASE_URL=<origin> EXPECT_ENV=<env> pnpm test:e2e` | `BASE_URL`: the origin under test. `EXPECT_ENV`: `local`, `staging` or `production`, required with `BASE_URL` | Every smoke test passes |
 | `EXPECT_ENV=<env> pnpm parity -- <origin>` | The candidate origin. `EXPECT_ENV` defaults to `production` | 0 mismatches outside `src/parity-allowlist.ts`, 0 errors |
-| `pnpm check:export` | Retired with GitHub Pages (#20 removes it) | — |
+| `pnpm --silent --filter e2e sitemap-urls <origin> > urls.txt`, then `lychee --config lychee.toml --files-from urls.txt` | The origin under test, a local preview | Every link and asset on every page answers 200 without a redirect |
 
 - Requests to a `*.workers.dev` host carry `x-boxingundefeated-smoke-test: 1`, which exempts them
   from the canonical-host redirect. The host test sends the same host without it and expects 308.
@@ -37,13 +37,13 @@ Run everything from the repository root.
 - Playwright doesn't retry (`retries: 0`), so a flaky test fails the run. Only the host check
   retries, for up to 30 s, while a new deploy reaches every edge.
 - Parity writes `parity-report/parity-<host>.md` and `.json` here. Its options: `--reference
-  <origin>` (default `https://boxingundefeated.com`, which since the cutover is the production
-  Worker itself, so comparing the production Worker to it proves nothing; to compare against the
-  old static site, serve `apps/web/out` locally and pass it as the reference), `--out-dir <dir>` (default `apps/web/out`;
-  without one it checks the sitemap URLs only), `--concurrency <n>` (default and maximum 8 for
-  remote hosts), `--report-dir <dir>`. It retries a 429, a 5xx or a network error with backoff
-  (2, 4, 8 s, or `Retry-After`). A URL the reference still doesn't answer with 200 is an error, and
-  the run fails; only a 404 or 410 for an export page that the sitemaps don't list is skipped.
+  <origin>` (default `https://boxingundefeated.com`, the production Worker: compare a candidate
+  that isn't production, such as staging or a local preview, against it), `--concurrency <n>`
+  (default and maximum 8 for remote hosts), `--report-dir <dir>`. It retries a 429, a 5xx or a
+  network error with backoff (2, 4, 8 s, or `Retry-After`). A URL the reference still doesn't
+  answer with 200 is an error, and the run fails.
+- The link check is offline in effect: `lychee.toml` checks only `http://localhost:<port>/` URLs,
+  so it never requests a third-party site or the production origin that canonicals name.
 - `test:e2e` writes `playwright-report/` and `test-results/` here. Keep both as CI artifacts.
 - CI installs the browser once: `pnpm --filter e2e test:install`.
 
@@ -52,7 +52,6 @@ Examples:
 ```bash
 BASE_URL=https://staging.boxingundefeated.com EXPECT_ENV=staging pnpm test:e2e
 BASE_URL=https://boxingundefeated-com-production.serpcompany.workers.dev EXPECT_ENV=production pnpm test:e2e
-pnpm parity -- https://boxingundefeated-com-production.serpcompany.workers.dev
 EXPECT_ENV=staging pnpm parity -- https://staging.boxingundefeated.com
 ```
 
@@ -80,9 +79,8 @@ CHOKIDAR_USEPOLLING=1 pnpm --filter web exec opennextjs-cloudflare preview --por
 BASE_URL=http://localhost:8805 EXPECT_ENV=production pnpm test:e2e
 ```
 
-A local preview reaches the non-canonical hosts with a `Host` header. Parity needs the full import
-(`pnpm db:import -- --target local --source <boxers.json>`) and the static export in
-`apps/web/out` (`pnpm export`):
+A local preview reaches the non-canonical hosts with a `Host` header. Parity against production
+needs the full import (`pnpm db:import -- --target local --source <boxers.json>`):
 
 ```bash
 pnpm parity -- http://localhost:8805

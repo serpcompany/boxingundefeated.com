@@ -23,40 +23,31 @@ or deploy workflows, or production migrations, plus every release PR, and runs t
   - `app/`: boxers, divisions, shop, search, brands, legal and HTML sitemap pages. `[...slug]`
     renders shop articles at `/shop/best/<slug>/`.
   - `lib/`: data loaders, URL, metadata, route and XML sitemap (`sitemaps/`) helpers. Change URLs
-    here, not in individual pages. Pages read boxers only through `lib/boxer-data/`: D1 via the
-    server-only, fail-closed `lib/data/` in the Worker, the committed JSON in the static export
-    (until #20).
+    here, not in individual pages. Pages read boxers only through `lib/boxer-data/`, which reads
+    D1 on request via the server-only, fail-closed `lib/data/`; search calls `/api/search`.
     `lib/site-config.ts` resolves the environment and its origin (Environments below); never read
     `SITE_ENVIRONMENT` or build an origin anywhere else.
   - `content/`: markdown shop articles. The legal pages are TSX in `app/(legal)/`.
-  - `public/data/boxers/`: per-boxer JSON generated from the pipeline data. Never hand-edit it.
-  - `scripts/`: data generators. The export's search index (`lib/search/`; the Worker answers
-    `/api/search` from D1) is built before `next build` (`predev`, `build:with-data`).
-    `build:worker` records the shop's sitemap entries from `content/` for the Worker
+  - `public/`: files served at the same path; each needs an extension in
+    `lib/routing/file-extensions.ts` (a test checks).
+  - `scripts/`: `build:worker` steps: the build's environment and commit
+    (`write-build-environment.ts`) and the shop's sitemap entries from `content/`
     (`write-sitemap-content.ts`).
-  - `wrangler.jsonc`, `open-next.config.ts`, `worker.ts`: the Worker. The top level is local only;
-    `env.staging` and `env.production` are the deployed Workers, each with its own D1 `DB`.
-    `worker.ts` is the entry; `lib/worker/handle-request.ts` applies the canonical-host redirect
-    (`lib/routing/`), the crawl policy, then the edge cache in front of OpenNext, which applies
-    the trailing-slash `redirects()` from `next.config.ts`. Caching decision: `edge-cache.ts`
-    (pages only, per data center, Worker version and D1 import generation, one-hour TTL).
-    The Worker itself answers `/api/search` (`search-api.ts`) and the XML sitemaps
-    (`sitemaps.ts`: `/sitemap-index.xml` and root `/sitemap-<group>.xml` files from D1 and the
-    build's content entries, per the SERP sitemap index pattern; `/sitemap.xml` and the old
-    `/sitemaps/<group>/<n>.xml` 308 to the index). `assets.run_worker_first` sends
-    every request except `/_next/static/` through the Worker, `public/` files included.
-    `env.staging` has the `staging.boxingundefeated.com` custom domain; production gets its
-    domain at the cutover.
+  - `wrangler.jsonc`, `open-next.config.ts`, `worker.ts`: the Worker. The top level is local
+    only; `env.staging` (`staging.boxingundefeated.com`) and `env.production` (the apex and `www`)
+    are the deployed Workers, each with its own D1 `DB`. `lib/worker/handle-request.ts` maps the
+    request pipeline: canonical host, crawl policy, `/api/search` and the XML sitemaps (from D1,
+    per the SERP sitemap index pattern), the D1 readiness gate, the edge cache, then OpenNext.
 - `d1/`: `drizzle/` migrations (`pnpm db:generate`; never edit `meta/`), `fixtures/`, `reports/`.
 - `packages/data-ops/`: the D1 data layer: the Drizzle schema (`src/schema.ts`), types, every
   query the app runs (`src/queries.ts`; the app never writes SQL) and the pipeline importer's
   mapping (`src/import/`). Vitest runs them on an in-memory D1 (Miniflare), migrations applied.
 - `packages/design-system/`: shared UI (shadcn). Read before adding a component or helper.
 - `configs/`: shared Next.js and TypeScript configuration. Read before changing build settings.
-- `scripts/`: `split-boxer-data.js` writes `apps/web/public/data/boxers/`; `d1/` is the D1 import.
-- `from-pipeline/boxers.json`: the pipeline output (about 104 MB, gitignored), read only by data
-  regeneration and `db:import`; builds read `public/data/`. In a fresh worktree, copy it there,
-  then `mkdir -p apps/web/data && ln -s ../../../from-pipeline/boxers.json apps/web/data/`.
+- `scripts/`: `d1/` is the D1 import, parity and deploy checks; `check-frontmatter.ts`.
+- `from-pipeline/boxers.json`: the pipeline output (about 104 MB, gitignored), the only boxer
+  data source, read only by `db:import` and `db:parity` (in a fresh worktree, pass `--source`).
+  Builds read no boxer data.
 - `.github/workflows/`: `ci.yml` (the PR check; its `All checks` job is the required check),
   `deploy-staging.yml` and `deploy-production.yml`.
 
@@ -67,19 +58,22 @@ Inner loop, while editing (seconds):
 - `pnpm --filter web typecheck`
 - `pnpm --filter web exec jest <paths>`: the tests for the code you changed.
 - `pnpm exec biome lint <paths>`
-- `pnpm --filter web exec next dev --port 3003`: the dev server (`pnpm dev` regenerates data first).
+- `pnpm --filter web exec next dev --port 3003`: the dev server, on the local D1.
 
 Worker (OpenNext on Cloudflare, about a minute; boxer pages read the local D1, so seed it first):
 
-- `pnpm preview:worker`: `build:worker` (`NEXT_BUILD_TARGET=worker` turns off `output: 'export'`),
-  then serves the local top level of `apps/web/wrangler.jsonc` on http://localhost:8787.
+- `pnpm preview:worker`: `build:worker`, then serves the local top level of
+  `apps/web/wrangler.jsonc` on http://localhost:8787.
 - `pnpm --filter web build:worker:staging` / `build:worker:production`: the Worker build with that
   environment's `SITE_ENVIRONMENT`, which the prerendered HTML needs (Environments below).
 - `pnpm --filter web serve:worker [--env staging]`: serve the last Worker build again, with that
   environment's vars and bindings, locally. Pair it with the matching build.
 - `pnpm test:e2e`: the smoke suite (`apps/e2e/`; its README has the CI interface) on the local
   preview after `db:reset:local` and `build:worker`; deployed: `BASE_URL=<origin> EXPECT_ENV=<env>`.
-  `pnpm parity -- <origin>`: every live URL on a candidate; `pnpm check:export`: retired with Pages (#20).
+- `pnpm parity -- <origin> [--reference <origin>]`: every sitemap URL of the reference (default:
+  production) on a candidate, compared.
+- Links (CI runs them on the local preview): `pnpm --silent --filter e2e sitemap-urls <origin>`
+  into `urls.txt`, then `lychee --config lychee.toml --files-from urls.txt`.
 - `pnpm --filter web cf-typegen`: regenerate and commit `cloudflare-env.d.ts` after changing
   `wrangler.jsonc`; it strips the `mainModule` type (`lib/cloudflare-env-types.ts`).
 
@@ -102,10 +96,10 @@ D1 (Drizzle schema in `packages/data-ops`, migrations in `d1/drizzle/`):
   initiative. Run `db:migrate:production`, then `db:import --source <json>`, `db:parity` and
   `db:check-deployable` with `--target production --confirm-production`, then promote.
 
-Finish gate: `pnpm check` (read-only Biome check, workspace check, typecheck, tests and the static
-export build). CI (`ci.yml`) runs it on every PR, plus migration validation, the Worker build and
-the E2E smoke suite; CI on the final commit is the record, so don't repeat it locally. Run it only
-to reproduce a CI failure, in the background.
+Finish gate: `pnpm check` (read-only Biome check, workspace check, typecheck, tests and
+`next build`). CI (`ci.yml`) runs it on every PR, plus migration validation, the Worker build, the
+E2E smoke suite and the link check; CI on the final commit is the record, so don't repeat it
+locally. Run it only to reproduce a CI failure, in the background.
 
 ## Workflow
 
@@ -126,9 +120,9 @@ to reproduce a CI failure, in the background.
 ## Evidence a PR needs
 
 - Every change: the finish-gate result.
-- Routes, redirects, metadata, robots, sitemaps, `next.config.ts` or data loaders: the HTML page
-  count of `apps/web/out` before and after, the diff of the page list, and before/after output for
-  sample URLs.
+- Routes, redirects, metadata, robots, sitemaps, `next.config.ts` or data loaders: the sitemap
+  URL count of a local preview with a full import before and after (`sitemap-urls`), the diff of
+  that list, and before/after output for sample URLs.
 - Visible UI: one screenshot of each changed page, from a local build or staging.
 - Deploy workflows: a link to the deploy run.
 
@@ -136,13 +130,7 @@ to reproduce a CI failure, in the background.
 
 `SITE_ENVIRONMENT` is `local`, `staging` or `production`, and only `production` is indexable and
 loads Google Tag Manager. `apps/web/lib/site-config.ts` resolves it, reading `process.env` when a
-value is used, never at module load:
-
-1. An explicit `SITE_ENVIRONMENT` wins; an unknown value is `local`.
-2. Without one, the static export is production unless built for a pull request
-   (`GITHUB_EVENT_NAME`); the export only feeds CI's link check now (#20 removes it).
-3. Everything else is `local`: `next dev`, tests, a Worker build without the variable, and a
-   Worker whose runtime var is missing.
+value is used, never at module load. A missing or unknown value is `local`.
 
 | | local | staging | production |
 | --- | --- | --- | --- |
@@ -164,8 +152,8 @@ answers `/robots.txt` with `Disallow: /`. `app/robots.ts` is the only robots sou
   the Worker serves (`lib/routing/`, `next.config.ts` redirects).
 - Pages end in a trailing slash, files never do, and the homepage canonical is the origin without
   a slash (SERP URL trailing-slash standard). `lib/routing/trailing-slash.ts` holds the rules; the
-  Worker redirects with them, the static export can't. The homepage renders its own canonical and
-  `og:url`, so the root layout sets neither. Host redirects exempt requests with the
+  Worker redirects with them. The homepage renders its own canonical and `og:url`, so the root
+  layout sets neither. Host redirects exempt requests with the
   `x-boxingundefeated-smoke-test` header, and `/api` paths keep their exact path.
 - Exception to the canonical-host rule: hashed build output under `/_next/static/` is served
   before the Worker runs (`assets.run_worker_first`), so `www` and `*.workers.dev` answer it with
