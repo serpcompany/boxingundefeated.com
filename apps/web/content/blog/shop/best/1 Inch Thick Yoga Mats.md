@@ -40,7 +40,7 @@ _As an Amazon™ Associate, we earn from qualifying purchases._
 
 <div class="image"><a href="https://serp.ly/@boxingundefeated/amazon/1-inch-thick-yoga-mats"><img alt="gaiam-essentials-thick-yoga-mat-fitness-exercise-mat-with-easy-cinch-yoga-mat-carrier-strap-red-72-i-1" src="https://imagedelivery.net/vy2bglCGN6hEeWOnSe2c7A/gaiam-essentials-thick-yoga-mat-fitness-exercise-mat-with-easy-cinch-yoga-mat-carrier-strap-red-72-i-1/w=720,h=540,fit=pad,background=black"/></a></div>
 
-[I was on the hunt for a new yoga mat last month when a friend recommended the Gaiam Essentials Thick Yoga Mat.](https://best.serp.co/shop/gaiam-yoga-mats/) I have to say, I've never felt more comfort and support during my yoga sessions. The extra-thick 1cm foam provides cushioning for my knees and wrists, and it's surprisingly lightweight and easy to carry around with the included carrying strap.
+I was on the hunt for a new yoga mat last month when a friend recommended the Gaiam Essentials Thick Yoga Mat. I have to say, I've never felt more comfort and support during my yoga sessions. The extra-thick 1cm foam provides cushioning for my knees and wrists, and it's surprisingly lightweight and easy to carry around with the included carrying strap.
 
 One of the things that stood out most to me about this mat is its durability. I've been using it for almost a month now, and it still looks brand new, despite being dragged to and from the gym several times a week. The non-slip ridges on the surface of the mat have also been a welcome feature; they give me extra grip during downward dogs and other challenging poses.
 
@@ -62,7 +62,7 @@ The only minor inconvenience I've faced is the chemical-like odor that the mat e
 
 <div class="image"><a href="https://serp.ly/@boxingundefeated/amazon/1-inch-thick-yoga-mats"><img alt="balancefrom-1-extra-thick-puzzle-exercise-mat-with-eva-foam-interlocking-tiles-1" src="https://imagedelivery.net/vy2bglCGN6hEeWOnSe2c7A/balancefrom-1-extra-thick-puzzle-exercise-mat-with-eva-foam-interlocking-tiles-1/w=720,h=540,fit=pad,background=black"/></a></div>
 
-I recently discovered the BalanceFrom's 1" Extra Thick Puzzle [Exercise Mat](https://best.serp.co/shop/exercise-mat/) and let me tell you, it's been a game-changer for my workout routine. I've been doing yoga and Pilates at home, and the hard flooring was making it quite uncomfortable. This [EVA foam](https://best.serp.co/shop/eva-foam/) interlocking mat has made all the difference.
+I recently discovered the BalanceFrom's 1" Extra Thick Puzzle Exercise Mat and let me tell you, it's been a game-changer for my workout routine. I've been doing yoga and Pilates at home, and the hard flooring was making it quite uncomfortable. This EVA foam interlocking mat has made all the difference.
 
 The mat provides a generous 72 square feet of coverage, which is perfect for my home gym. Each tile measures 24"x24"x1" and fits together seamlessly, making setup a breeze. What I love most about this product is the 1-inch thickness. It provides ample cushioning, protecting my spine, hips, knees, and elbows from the hard floor.
 

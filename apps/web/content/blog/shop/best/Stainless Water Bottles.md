@@ -163,7 +163,7 @@ Stainless steel water bottles are more eco-friendly since they are designed to l
 
 ### How do I clean my stainless steel water bottle?
 
-Cleaning a stainless steel water bottle is easy. Simply wash it with soap and water, using a [bottle brush](https://best.serp.co/shop/bottle-brush/) to clean the interior, or just throw it in the dishwasher. For a more thorough clean, occasionally soak your bottle in a mixture of diluted white vinegar to eliminate residual tastes and smells.
+Cleaning a stainless steel water bottle is easy. Simply wash it with soap and water, using a bottle brush to clean the interior, or just throw it in the dishwasher. For a more thorough clean, occasionally soak your bottle in a mixture of diluted white vinegar to eliminate residual tastes and smells.
 
 ### How do I know if a stainless steel water bottle is leak-proof?
 

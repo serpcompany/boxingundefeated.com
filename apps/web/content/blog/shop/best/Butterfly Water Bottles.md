@@ -45,7 +45,7 @@ _As an Amazon™ Associate, we earn from qualifying purchases._
 
 <div class="image"><a href="https://serp.ly/@boxingundefeated/amazon/butterfly-water-bottles"><img alt="12-pc-butterfly-bpa-free-plastic-water-bottles-1" src="https://imagedelivery.net/vy2bglCGN6hEeWOnSe2c7A/12-pc-butterfly-bpa-free-plastic-water-bottles-1/w=720,h=540,fit=pad,background=black"/></a></div>
 
-I recently got these 12 PC Butterfly BPA-Free [Plastic Water Bottles](https://best.serp.co/shop/plastic-water-bottles/) for my kid's summer camp, and they've been a total game-changer. Not only do these bottles help keep them hydrated during the hot summer days, but the cute butterfly design also makes them a hit with their friends.
+I recently got these 12 PC Butterfly BPA-Free Plastic Water Bottles for my kid's summer camp, and they've been a total game-changer. Not only do these bottles help keep them hydrated during the hot summer days, but the cute butterfly design also makes them a hit with their friends.
 
 One of the things that really stood out to me was how lightweight these bottles are. They're super easy for my kids to carry around, whether we're heading to the beach or going on a nature walk. Plus, they're BPA-free, which gives me peace of mind knowing I'm not exposing my kids to any harmful chemicals.
 
@@ -127,7 +127,7 @@ However, one downside to this product is that it's not suitable for hot liquids,
 
 <div class="image"><a href="https://serp.ly/@boxingundefeated/amazon/butterfly-water-bottles"><img alt="butterfly-blossoms-glass-water-bottle-with-bamboo-lid-1" src="https://imagedelivery.net/vy2bglCGN6hEeWOnSe2c7A/butterfly-blossoms-glass-water-bottle-with-bamboo-lid-1/w=720,h=540,fit=pad,background=black"/></a></div>
 
-I never thought I would love a water bottle as much as I loved the Butterfly Blossoms Glass Water Bottle with Bamboo Lid. The elegant design featuring soft-to-the-touch silicone perfectly complements my home office decor[office decor](https://best.serp.co/shop/office-decor/). The high-capacity 21-ounce size means I'm never left parched when I'm on a roll with work.
+I never thought I would love a water bottle as much as I loved the Butterfly Blossoms Glass Water Bottle with Bamboo Lid. The elegant design featuring soft-to-the-touch silicone perfectly complements my home office decoroffice decor. The high-capacity 21-ounce size means I'm never left parched when I'm on a roll with work.
 
 What really stood out for me was the sturdy, shatter-resistant borosilicate glass, which I can trust not to break if accidentally knocked over. The natural bamboo lid adds a touch of eco-friendliness that I truly appreciate.
 

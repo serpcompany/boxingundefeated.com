@@ -98,7 +98,7 @@ First off, it's brilliant how this bottle caters to both younger kids with its e
 
 However, the bottle isn't without its downsides. Some of the reviews mentioned issues with the cap, which tends to pop off quite easily. Also, one reviewer pointed out that the coverings on the bottle can wear out quickly, especially if you're not gentle with them.
 
-Despite these minor drawbacks, I believe this is a solid investment. The durability of the stainless steel makes it easy to carry around, and its leak-proof design ensures no mess in your bag. Plus, it's [microwave](https://best.serp.co/shop/microwaves/) and dishwasher safe for added convenience.
+Despite these minor drawbacks, I believe this is a solid investment. The durability of the stainless steel makes it easy to carry around, and its leak-proof design ensures no mess in your bag. Plus, it's microwave and dishwasher safe for added convenience.
 
 In summary, the Skater 2way Stainless Steel Water Bottle offers a fun, safe, and efficient way to stay hydrated on the go. While it may have a few small issues, its overall quality and design make it worth the investment.
 
@@ -176,7 +176,7 @@ Some Mario water bottle models have double-walled vacuum insulation, which can k
 
 ### How do I clean a Mario water bottle?
 
-Mario water bottles can be cleaned with warm, soapy water and a [bottle brush](https://best.serp.co/shop/bottle-brush/) or sponge. Some bottles may also be dishwasher-safe, but be sure to check the specific product instructions to ensure proper care.
+Mario water bottles can be cleaned with warm, soapy water and a bottle brush or sponge. Some bottles may also be dishwasher-safe, but be sure to check the specific product instructions to ensure proper care.
 
 ### Are Mario water bottles leak-proof?
 

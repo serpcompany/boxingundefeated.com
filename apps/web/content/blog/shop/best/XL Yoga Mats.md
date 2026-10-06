@@ -66,7 +66,7 @@ While initial use did bring out a mild plastic scent, leaving it outside for air
 
 <div class="image"><a href="https://serp.ly/@boxingundefeated/amazon/xl-yoga-mats"><img alt="gaiam-sol-dry-grip-yoga-mat-black-5mm-longer-wider-1" src="https://imagedelivery.net/vy2bglCGN6hEeWOnSe2c7A/gaiam-sol-dry-grip-yoga-mat-black-5mm-longer-wider-1/w=720,h=540,fit=pad,background=black"/></a></div>
 
-[Nurture your body and inner peace with the Gaiam Dry-Grip Yoga Mat.](https://best.serp.co/shop/gaiam-yoga-mats/) This mat is designed to provide added cushioning and support for your joints during those hot yoga sessions. The stay-dry top coat wicks away moisture and enhances grip the hotter you get, keeping you focused on your practice and not worrying about slipping. I've been using this mat for quite some time now, and it still performs as well as it did on day one.
+Nurture your body and inner peace with the Gaiam Dry-Grip Yoga Mat. This mat is designed to provide added cushioning and support for your joints during those hot yoga sessions. The stay-dry top coat wicks away moisture and enhances grip the hotter you get, keeping you focused on your practice and not worrying about slipping. I've been using this mat for quite some time now, and it still performs as well as it did on day one.
 
 However, there are a few things that could be improved. The mat is a little on the heavy side, which can make it inconvenient for some yogis to carry around. Additionally, some users have reported the top layer of the mat wearing off over time. Overall, the Gaiam Dry-Grip Yoga Mat is a reliable and supportive mat that will help you enjoy a deeper and more fulfilling practice.
 

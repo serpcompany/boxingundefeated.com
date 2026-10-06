@@ -65,7 +65,7 @@ Overall, I'm extremely satisfied with the Simple Modern NFL Washington Commander
 
 I recently started using the Simple Modern 50 oz Mug Tumbler, and let me tell you, it has become my go-to companion for my daily adventures. The first thing that caught my eye was its large capacity, which helps me stay hydrated with fewer refills. I usually struggle with remembering to drink water, but with this tumbler, I find myself sipping throughout the day without even realizing it.
 
-One of the features I absolutely love is the leak-resistant straw lid. It keeps my beverages from spilling all over my car or bag, making it perfect for on-the-go use. Plus, the double wall insulation ensures that my [hot tea](https://best.serp.co/shop/hot-tea/)tea stays hot for hours, and my iced coffee stays cold even on the hottest days.
+One of the features I absolutely love is the leak-resistant straw lid. It keeps my beverages from spilling all over my car or bag, making it perfect for on-the-go use. Plus, the double wall insulation ensures that my hot teatea stays hot for hours, and my iced coffee stays cold even on the hottest days.
 
 Now, let's talk about durability. This tumbler is made of premium 18/8 stainless steel, which means it can withstand my clumsy moments without denting or scratching. It's also available in a wide range of colors, so I can easily find one that matches my style or outfit.
 
@@ -161,7 +161,7 @@ Simple Modern Water Bottles primarily use 18/8 stainless steel, which is a high-
 
 ### 6. How do I clean my Simple Modern Water Bottle?
 
-To clean your Simple Modern Water Bottle, wash it thoroughly with warm soapy water. You can also use a [bottle brush](https://best.serp.co/shop/bottle-brush/) to reach the bottom and interior sides. For tough stains or odors, consider using a mixture of water and baking soda or white vinegar to disinfect and deodorize the bottle. Always refer to the individual product manual for specific care instructions.
+To clean your Simple Modern Water Bottle, wash it thoroughly with warm soapy water. You can also use a bottle brush to reach the bottom and interior sides. For tough stains or odors, consider using a mixture of water and baking soda or white vinegar to disinfect and deodorize the bottle. Always refer to the individual product manual for specific care instructions.
 
 ### 7. What is the difference between a leak-proof and a non-leak-proof bottle?
 

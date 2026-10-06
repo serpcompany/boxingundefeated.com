@@ -46,7 +46,7 @@ One of my favorite features is the time markings on the bottle sleeve. They make
 
 The other day, I was running late for work and didn't have time to fill up my bottle. But fear not! Its large 800ml capacity meant I didn't need to refill it till mid-afternoon. Perfect for both home and gym use.
 
-However, I must admit that the weight of the [glass bottle](https://best.serp.co/shop/glass-bottle/) can be a little cumbersome at times. It doesn't fit in standard car cup holders either, which might be an inconvenience for some users. And while the straw cap is super convenient, it is a separate purchase.
+However, I must admit that the weight of the glass bottle can be a little cumbersome at times. It doesn't fit in standard car cup holders either, which might be an inconvenience for some users. And while the straw cap is super convenient, it is a separate purchase.
 
 All things considered, I would highly recommend the Bink Shell Water Bottle to anyone looking to increase their water intake and stay hydrated throughout the day. It's a stylish, functional accessory that has become a daily essential in my life!
 
@@ -56,7 +56,7 @@ All things considered, I would highly recommend the Bink Shell Water Bottle to a
 
 I've been using the Nike Fuel Jug for my daily workout sessions, and it's been a game-changer. When I'm in the middle of an intense workout, the one-handed flip-top lid makes it super easy to stay hydrated without interrupting my flow. The lightweight insulation ensures my beverages remain cold during even the hottest workouts. Plus, the handle doubles as a convenient fence hook, which is perfect for storing the jug when it's not in use.
 
-The craftmanship of this [water jug](https://best.serp.co/shop/water-jug/) is top-notch, and its durability has me thrilled for years of use. Although it's not dishwasher safe, I appreciate that the lid is dishwasher safe—and it's worth the extra effort to hand wash the container to maintain its pristine condition.
+The craftmanship of this water jug is top-notch, and its durability has me thrilled for years of use. Although it's not dishwasher safe, I appreciate that the lid is dishwasher safe—and it's worth the extra effort to hand wash the container to maintain its pristine condition.
 
 Overall, the Nike Fuel Jug has become an essential part of my fitness routine. Its robust design, effective insulation, and convenient handle make it a reliable companion on my workout journey. While it may not completely eliminate the need for other water bottles, it has certainly become my go-to choice for sports and outdoor activities.
 
@@ -210,7 +210,7 @@ Yes, all Chug Jug Water Bottles are made from BPA-free materials, ensuring a saf
 
 ### How do I clean a Chug Jug Water Bottle?
 
-Cleaning your Chug Jug Water Bottle is a breeze. To disassemble the bottle, unscrew the lid and remove the straw. Wash all parts with warm soapy water, rinse thoroughly, and allow to air dry. For a deeper clean, you may use a [bottle brush](https://best.serp.co/shop/bottle-brush/) and dish soap to reach the bottom of the bottle and the straw.
+Cleaning your Chug Jug Water Bottle is a breeze. To disassemble the bottle, unscrew the lid and remove the straw. Wash all parts with warm soapy water, rinse thoroughly, and allow to air dry. For a deeper clean, you may use a bottle brush and dish soap to reach the bottom of the bottle and the straw.
 
 ### Do Chug Jug Water Bottles come with a warranty?
 

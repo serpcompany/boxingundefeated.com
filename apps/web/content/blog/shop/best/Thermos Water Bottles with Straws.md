@@ -194,7 +194,7 @@ Thermos water bottles with straws come in a variety of colors and designs, from 
 
 ### How do I clean my Thermos water bottle with a straw?
 
-Cleaning your Thermos water bottle with a straw is easy and essential for maintaining the bottle's quality and performance. To clean, simply remove the straw and twist the lid off the bottle. Then, use warm, soapy water and a [bottle brush](https://best.serp.co/shop/bottle-brush/) to thoroughly clean the interior. Rinse with clean water and let air dry. For best results, clean your bottle after each use.
+Cleaning your Thermos water bottle with a straw is easy and essential for maintaining the bottle's quality and performance. To clean, simply remove the straw and twist the lid off the bottle. Then, use warm, soapy water and a bottle brush to thoroughly clean the interior. Rinse with clean water and let air dry. For best results, clean your bottle after each use.
 
 ### Are Thermos water bottles with straws dishwasher-safe?
 

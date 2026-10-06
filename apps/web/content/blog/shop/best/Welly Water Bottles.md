@@ -72,7 +72,7 @@ One of the standout features of this bottle is its size. The 32 oz capacity mean
 
 The TempShield insulation is truly impressive. This bottle keeps my water ice cold for hours, even on hot summer days. It's also great for hot beverages, as it can maintain the temperature of my coffee or tea for up to 12 hours. The vacuum insulation prevents condensation, making it safe to throw into my bag without fear of soaking everything else.
 
-[The construction of the Hydro Flask is top-notch.](https://best.serp.co/shop/hydro-flask-backpacks/) It's made from 18/8 Pro-Grade Stainless Steel, which is both incredibly durable and free from BPA and Phthalates. The powder-coated finish adds a pop of color and provides a slip-resistant grip.
+The construction of the Hydro Flask is top-notch. It's made from 18/8 Pro-Grade Stainless Steel, which is both incredibly durable and free from BPA and Phthalates. The powder-coated finish adds a pop of color and provides a slip-resistant grip.
 
 The only downside to this bottle is that the straw lid isn't intended for use with hot liquids. Additionally, while the bottle is easy to clean, the narrow straw can be a bit difficult to reach with a brush. However, these minor issues don't detract from the overall performance and appeal of this insulated water bottle.
 
@@ -160,7 +160,7 @@ Welly Water Bottles are manufactured using high-quality, food-grade stainless st
 
 <div><a href="https://serp.ly/@boxingundefeated/amazon/welly-water-bottles"><img src="https://imagedelivery.net/vy2bglCGN6hEeWOnSe2c7A/Welly+Water+Bottles-6/w=720,h=540,fit=pad,background=black" alt="Welly Water Bottles-6"></a></div>
 
-Cleaning your Welly Water Bottle is quite simple. Rinse the inside of the bottle with warm, soapy water, using a gentle dish soap. Next, use a [bottle brush](https://best.serp.co/shop/bottle-brush/) or a soft cloth to reach all nooks and crannies, especially around the cap and seal. Rinse thoroughly with clean water and allow the bottle to air dry upside down on a [dish rack](https://best.serp.co/shop/dish-rack/). For more detailed cleaning instructions, please refer to the Welly Water Bottle's user manual.
+Cleaning your Welly Water Bottle is quite simple. Rinse the inside of the bottle with warm, soapy water, using a gentle dish soap. Next, use a bottle brush or a soft cloth to reach all nooks and crannies, especially around the cap and seal. Rinse thoroughly with clean water and allow the bottle to air dry upside down on a dish rack. For more detailed cleaning instructions, please refer to the Welly Water Bottle's user manual.
 
 ### Are Welly Water Bottles leak-proof?
 

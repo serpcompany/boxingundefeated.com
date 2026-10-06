@@ -158,7 +158,7 @@ However, one con is the difficulty in seeing the water level inside the bottle, 
 
 <div class="image"><a href="https://serp.ly/@boxingundefeated/amazon/8-oz-water-bottle"><img alt="bkr-elle-glass-water-bottle-teeny-8-oz-250-ml-1" src="https://imagedelivery.net/vy2bglCGN6hEeWOnSe2c7A/bkr-elle-glass-water-bottle-teeny-8-oz-250-ml-1/w=720,h=540,fit=pad,background=black"/></a></div>
 
-I'm a big fan of the BKR Teeny glass water bottle in neon coral. As a reviewer who actually uses the product, I can tell you that it's a stylish and eco-friendly choice for staying hydrated on the go. The [glass bottle](https://best.serp.co/shop/glass-bottle/) is BPA and phthalate-free, which is a plus for those conscious about the materials they use for their drinking needs.
+I'm a big fan of the BKR Teeny glass water bottle in neon coral. As a reviewer who actually uses the product, I can tell you that it's a stylish and eco-friendly choice for staying hydrated on the go. The glass bottle is BPA and phthalate-free, which is a plus for those conscious about the materials they use for their drinking needs.
 
 One thing that really stands out about this water bottle is its durability. Despite being made of glass, it's protected by a neon coral silicone sleeve that not only looks great but also adds an extra layer of protection against accidental drops. And even if there are a few dinks or scratches, the bottle keeps its sleek appearance.
 
@@ -178,7 +178,7 @@ Overall, I would highly recommend the BKR Teeny glass water bottle to anyone loo
 
 I recently got my hands on the Active Water Bottle 8oz in Grey Coral. As someone who's always on-the-go, I was excited to try out its vacuum insulation and leakproof seal features. The first thing that struck me was its chic design - it's definitely a conversation starter!
 
-One of the highlights was how easy it was to hold and carry around, even when filled to the brim. Its capacity to fit standard [ice cubes](https://best.serp.co/shop/ice-cubes/) came in handy during those hot summer days. However, I was a bit disappointed that it wasn't dishwasher safe as per the instructions; I had to wash it manually.
+One of the highlights was how easy it was to hold and carry around, even when filled to the brim. Its capacity to fit standard ice cubes came in handy during those hot summer days. However, I was a bit disappointed that it wasn't dishwasher safe as per the instructions; I had to wash it manually.
 
 Another con was its durability. While it doesn't leak or spill, I noticed some minor dents after a few weeks of usage. But overall, this bottle has been a great companion for my daily hydration needs. Plus, knowing that I'm reducing single-use plastic makes me feel good about my choice.
 
@@ -288,7 +288,7 @@ It depends on the type of water bottle. Some stainless steel water bottles are d
 
 ### How do I clean an 8 oz water bottle?
 
-Cleaning your 8 oz water bottle regularly is essential to maintain its hygiene and prolong its lifespan. You can wash it by hand using warm soapy water and a [bottle brush](https://best.serp.co/shop/bottle-brush/), or put it in the dishwasher if it's dishwasher-safe. Make sure to thoroughly rinse and dry the bottle before refilling it with water. For stainless steel water bottles, you can use a mixture of white vinegar and water to remove any mineral deposits or stains.
+Cleaning your 8 oz water bottle regularly is essential to maintain its hygiene and prolong its lifespan. You can wash it by hand using warm soapy water and a bottle brush, or put it in the dishwasher if it's dishwasher-safe. Make sure to thoroughly rinse and dry the bottle before refilling it with water. For stainless steel water bottles, you can use a mixture of white vinegar and water to remove any mineral deposits or stains.
 
 ### How long can an 8 oz water bottle keep my water cold or hot?
 
@@ -310,6 +310,6 @@ These brands offer a variety of 8 oz water bottle designs and materials, ranging
 
 ### How much do 8 oz water bottles typically cost?
 
-The cost of an 8 oz water bottle varies depending on the material, design, and brand. [Plastic water bottles](https://best.serp.co/shop/plastic-water-bottles/) tend to be more affordable, with prices starting around $5. Glass and stainless steel bottles may cost more, ranging from $10 to $25 or more, depending on the quality and features of the bottle.
+The cost of an 8 oz water bottle varies depending on the material, design, and brand. Plastic water bottles tend to be more affordable, with prices starting around $5. Glass and stainless steel bottles may cost more, ranging from $10 to $25 or more, depending on the quality and features of the bottle.
 
 _As an Amazon™ Associate, we earn from qualifying purchases._

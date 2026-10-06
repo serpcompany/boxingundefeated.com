@@ -165,7 +165,7 @@ Once you have your Live Infinitely water bottle, keep these tips in mind:
 
 <div><a href="https://serp.ly/@boxingundefeated/amazon/live-infinitely-water-bottles"><img src="https://imagedelivery.net/vy2bglCGN6hEeWOnSe2c7A/Live+Infinitely+Water+Bottles-4/w=720,h=540,fit=pad,background=black" alt="Live Infinitely Water Bottles-4"></a></div>
 
-To clean the Live Infinitely Water Bottle, you can use warm soapy water and a soft [bottle brush](https://best.serp.co/shop/bottle-brush/). Make sure to rinse thoroughly and dry completely before reusing.
+To clean the Live Infinitely Water Bottle, you can use warm soapy water and a soft bottle brush. Make sure to rinse thoroughly and dry completely before reusing.
 
 ### How much water can the Live Infinitely Water Bottle hold?
 

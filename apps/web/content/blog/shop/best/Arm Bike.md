@@ -89,7 +89,7 @@ So while the Body Rider Upright Fan Exercise Bike isn't perfect, its ability to 
 
 Using the GOREDI Pedal Exerciser Stationary Under Desk Mini Exercise Bike has been a real game-changer in my daily routine. I like how it allows me to multitask while getting some low-impact exercise in. Every time I use it, I can feel the resistance knob working its magic, helping me strengthen my muscles and improve blood circulation.
 
-The LCD display is a nifty feature that keeps me informed about my progress, showing time, distance, count, total counts, and calories burned. Plus, the non-slip rubber [pads](https://best.serp.co/shop/pads/) ensure the exerciser stays in place on any surface.
+The LCD display is a nifty feature that keeps me informed about my progress, showing time, distance, count, total counts, and calories burned. Plus, the non-slip rubber pads ensure the exerciser stays in place on any surface.
 
 One thing that deserves a mention is the assembly process, which is super easy and hassle-free. I remember being a little surprised at how smooth it was despite not having any prior experience.
 

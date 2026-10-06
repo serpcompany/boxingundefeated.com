@@ -80,7 +80,7 @@ Now, let's talk about the straps. This duffel has two webbing handles and one ad
 
 Overall, the Protege Duffel has been a game-changer for me. It's spacious enough for all my gym essentials, and its lightweight design makes it easy to carry around. The quality of the material and construction is evident, and I believe this bag will serve me well for a long time. Some users mentioned that the bag might be too small for certain needs, so that's something to consider before purchasing.
 
-In conclusion, the Protege Duffel - Blue is a well-made, compact bag that's perfect for daily use or travel. [If you're in the market for a reliable gym bag or a personal item for air travel, this duffel should definitely be on your radar.](https://best.serp.co/shop/duffle-bag/)
+In conclusion, the Protege Duffel - Blue is a well-made, compact bag that's perfect for daily use or travel. If you're in the market for a reliable gym bag or a personal item for air travel, this duffel should definitely be on your radar.
 
 ### [Versatile Large Cotton Canvas Backpack for Men and Women](https://serp.ly/@boxingundefeated/amazon/organized-gym-bags)
 

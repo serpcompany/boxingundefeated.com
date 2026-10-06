@@ -62,7 +62,7 @@ Overall, the Zerowater 10-Cup Water Filter Pitcher has made a significant differ
 
 I've been using the W&PW&P Porter Insulated Ceramic 16 oz Bottle - Terrazzo Charcoal for a few weeks now, and my experience has been pretty positive overall. It's not perfect, but it does its job exceptionally well, keeping my coffee hot for hours and providing a pure, clean taste with each sip.
 
-The [ceramic coating](https://best.serp.co/shop/ceramic-coating/) is the standout feature for me. Unlike many other similar products that use metal linings, this bottle ensures no metallic taste contaminates my beverages, which is a major plus. Plus, the edge-to-edge ceramic coating makes cleanup super easy - I just rinse it out and occasionally use a [bottle brush](https://best.serp.co/shop/bottle-brush/) for a deeper clean.
+The ceramic coating is the standout feature for me. Unlike many other similar products that use metal linings, this bottle ensures no metallic taste contaminates my beverages, which is a major plus. Plus, the edge-to-edge ceramic coating makes cleanup super easy - I just rinse it out and occasionally use a bottle brush for a deeper clean.
 
 One issue I've encountered is that my coffee sticks more to the ceramic than it did with my metal-lined bottle. This can lead to some residual buildup, so I make sure to give it a thorough scrubbing occasionally.
 
@@ -182,7 +182,7 @@ ZeroWater includes a TDS (Total Dissolved Solids) meter with each bottle. You ca
 
 ### Can I use a ZeroWater Bottle with tap water or do I need to purchase bottled water?
 
-ZeroWater Bottles are designed to be used with tap water. [Their filtration system removes impurities and dissolved solids from your tap water, making it taste better and potentially healthier than regular tap water.](https://best.serp.co/shop/pur-water-filters/)
+ZeroWater Bottles are designed to be used with tap water. Their filtration system removes impurities and dissolved solids from your tap water, making it taste better and potentially healthier than regular tap water.
 
 ### How do I clean a ZeroWater Bottle?
 

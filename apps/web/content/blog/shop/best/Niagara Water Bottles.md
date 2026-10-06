@@ -78,7 +78,7 @@ As a reviewer who's used the New Wave Enviro bottle, I have to say it's been a g
 
 What I really appreciate about this bottle is its stainless steel cap and nylon strap, which is a much-needed upgrade from the often lost or misplaced plastic caps on other bottles. The bottle's construction from Eastar Resin also ensures that it's lightweight and easy to carry, even when filled to the brim.
 
-Another standout feature is its wide opening, making it a breeze to add [ice cubes](https://best.serp.co/shop/ice-cubes/) or even clean the bottle thoroughly. The fact that it's BPA-free is an added bonus, helping me avoid any potential harmful chemicals while quenching my thirst.
+Another standout feature is its wide opening, making it a breeze to add ice cubes or even clean the bottle thoroughly. The fact that it's BPA-free is an added bonus, helping me avoid any potential harmful chemicals while quenching my thirst.
 
 However, there are some minor drawbacks to consider. The bottle may take a few uses to get rid of any plastic taste or odour, and it's not quite as insulated as some might like, meaning that its contents may not stay cool for extended periods.
 
@@ -90,7 +90,7 @@ In conclusion, the New Wave Enviro bottle offers a practical and convenient solu
 
 I recently got the Mira Stainless Steel Vacuum Insulated Water bottle in the lovely aqua color. This bottle has been a game-changer for me, especially when it comes to staying hydrated during my daily walks. The double-walled cola-shape design makes it easy to hold and carry, while also adding a stylish touch.
 
-One thing I particularly love about this water bottle is its ability to keep my water cold for a full 24 hours. Even in the sweltering heat, I take a sip and it's just as refreshing as it was when I filled it up in the morning. And when winter comes around, I can look forward to [hot tea](https://best.serp.co/shop/hot-tea/)tea or coffee staying piping hot for up to 12 hours.
+One thing I particularly love about this water bottle is its ability to keep my water cold for a full 24 hours. Even in the sweltering heat, I take a sip and it's just as refreshing as it was when I filled it up in the morning. And when winter comes around, I can look forward to hot teatea or coffee staying piping hot for up to 12 hours.
 
 However, there are some drawbacks. The stainless steel material can get quite cold to the touch when filled with ice-cold water, so it's always a good idea to have a sleeve or case on hand if you plan on taking it outdoors. Additionally, the wide-mouth design can make pouring water a little messy at times, but overall, I find myself reaching for this bottle more often than not when I need a drink.
 
@@ -156,7 +156,7 @@ It depends on the bottle's construction materials. Tritan plastic or stainless s
 
 ### How do I clean a Niagara water bottle?
 
-For a thorough cleaning, disassemble your water bottle and hand-wash its components using warm, soapy water. You can also use a [bottle brush](https://best.serp.co/shop/bottle-brush/) to reach the bottom and any hard-to-reach areas. Rinse well and air-dry before reassembling.
+For a thorough cleaning, disassemble your water bottle and hand-wash its components using warm, soapy water. You can also use a bottle brush to reach the bottom and any hard-to-reach areas. Rinse well and air-dry before reassembling.
 
 ### What is the warranty period for Niagara water bottles?
 

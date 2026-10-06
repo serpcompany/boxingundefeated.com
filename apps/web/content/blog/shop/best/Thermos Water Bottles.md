@@ -92,9 +92,9 @@ Despite these minor cons, I have no hesitation in recommending the Thermos Stain
 
 I recently purchased the Thermos Water Bottle in Cranberry color to keep myself hydrated throughout the day. The first thing that struck me was its sleek design and vibrant color, making it a stylish accessory to carry around.
 
-One of the standout features of this bottle is its vacuum insulation, which truly delivers on its promise. It has kept my [hot tea](https://best.serp.co/shop/hot-tea/)tea hot for hours, even after I've occasionally forgotten about it. Its cooling effect, on the other hand, ensures that my cold water stays refreshingly chilled all day long.
+One of the standout features of this bottle is its vacuum insulation, which truly delivers on its promise. It has kept my hot teatea hot for hours, even after I've occasionally forgotten about it. Its cooling effect, on the other hand, ensures that my cold water stays refreshingly chilled all day long.
 
-However, I did find the opening a bit narrow, making it slightly difficult to fill with [ice cubes](https://best.serp.co/shop/ice-cubes/). But once the ice is in, it fits perfectly. Another minor inconvenience was that the bottle can't be put in the dishwasher, but a quick hand wash isn't too much of a chore.
+However, I did find the opening a bit narrow, making it slightly difficult to fill with ice cubes. But once the ice is in, it fits perfectly. Another minor inconvenience was that the bottle can't be put in the dishwasher, but a quick hand wash isn't too much of a chore.
 
 All in all, this Thermos Water Bottle has become an indispensable part of my daily routine. Its lightweight and compact design is a boon for us always on the go. Not to forget the added joy of drinking from a beautifully designed bottle!
 

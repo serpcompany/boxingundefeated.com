@@ -178,7 +178,7 @@ Eddie Bauer water bottles can be purchased online through their official website
 
 ### 8. Are there any additional features or accessories available for Eddie Bauer water bottles?
 
-Yes, Eddie Bauer offers a variety of water bottle accessories such as carrying cases, [bottle brush](https://best.serp.co/shop/bottle-brush/), and carabiner clips to enhance your hydration experience.
+Yes, Eddie Bauer offers a variety of water bottle accessories such as carrying cases, bottle brush, and carabiner clips to enhance your hydration experience.
 
 ### 9. How do I clean Eddie Bauer water bottles?
 

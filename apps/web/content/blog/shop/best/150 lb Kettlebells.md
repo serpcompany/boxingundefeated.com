@@ -78,7 +78,7 @@ One feature I really appreciate is the uncoated handle. It's smooth and doesn't 
 
 However, it's worth mentioning that some users have reported issues with the bottom coming off. While I haven't personally experienced this problem, it's something to keep in mind when considering purchasing these kettlebells.
 
-Overall, the Bintiva Kettlebells have been a great addition to my exercise routine. They're well-made, durable, and perfect for full-body workouts. [If you're looking to up your fitness game, these kettlebells are definitely worth checking out!](https://best.serp.co/shop/onnit-kettlebells/)
+Overall, the Bintiva Kettlebells have been a great addition to my exercise routine. They're well-made, durable, and perfect for full-body workouts. If you're looking to up your fitness game, these kettlebells are definitely worth checking out!
 
 ### [Durable and Rust-Proof 100 lbs Kettlebell](https://serp.ly/@boxingundefeated/amazon/150-lb-kettlebells)
 
@@ -166,7 +166,7 @@ One thing that really stood out to me was the reinforcement of the handle. It's 
 
 One thing to note, however, is that the larger kettlebells have extra large handles. While this does make it easier for people with larger hands to grip the kettlebell, it might be a bit unwieldy for those with smaller hands. Despite this minor inconvenience, the benefits far outweigh any negatives.
 
-[In terms of benefits, the kettlebell can really enhance your workout routine.](https://best.serp.co/shop/kettlebell-weight/) You can perform a wide variety of exercises, from squats to overhead throws, that will help develop strength, power, endurance, and balance. Kettlebell workouts have been popular among throwers, jumpers, sprinters, and hurdlers, and the Body Solid kettlebells are a great addition to any fitness regimen.
+In terms of benefits, the kettlebell can really enhance your workout routine. You can perform a wide variety of exercises, from squats to overhead throws, that will help develop strength, power, endurance, and balance. Kettlebell workouts have been popular among throwers, jumpers, sprinters, and hurdlers, and the Body Solid kettlebells are a great addition to any fitness regimen.
 
 These kettlebells come in various weights, from 5 lbs up to 75 lbs, allowing for a steady progression in your workouts. The cast iron construction combined with a black enamel finish gives the kettlebell a sleek, professional appearance. Plus, they offer a 2-year guarantee, which is always a reassuring thing to have.
 

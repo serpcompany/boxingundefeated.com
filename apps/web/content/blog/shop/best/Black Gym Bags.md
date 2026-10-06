@@ -48,7 +48,7 @@ Overall, I'm thrilled with my Wilson NBA Forge duffel bag. It's made my basketba
 
 <div class="image"><a href="https://serp.ly/@boxingundefeated/amazon/black-gym-bags"><img alt="wire2wire-tournament-duffle-bag-black-adult-unisex-size-large-1" src="https://imagedelivery.net/vy2bglCGN6hEeWOnSe2c7A/wire2wire-tournament-duffle-bag-black-adult-unisex-size-large-1/w=720,h=540,fit=pad,background=black"/></a></div>
 
-As a reviewer who has personally used the Wire2Wire Tournament [Duffle Bag](https://best.serp.co/shop/duffle-bag/), I can confidently say that this is a game-changer for any athlete or coach dealing with heaps of sports gear.
+As a reviewer who has personally used the Wire2Wire Tournament Duffle Bag, I can confidently say that this is a game-changer for any athlete or coach dealing with heaps of sports gear.
 
 From experience, I was particularly impressed with the large main compartment, which comfortably accommodated all my baseball essentials - a helmet, multiple gloves – and then some. The thoughtfully designed exterior neoprene handles allow for a comfortable grip while carrying the bag full of heavy gear, making it convenient for long hauls.
 

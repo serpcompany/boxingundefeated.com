@@ -66,7 +66,7 @@ In conclusion, Srutirbo's Crystal Glass Water Bottle has quickly become a staple
 
 I recently got my hands on the Pachys Crystal-Infused Water Bottle, and I must say, it has been a game-changer. The unique combination of natural gemstone crystals and high-quality borosilicate glass not only looks stylish but also provides a sense of well-being.
 
-Using this bottle daily has made me feel more energized and focused. The crystal I chose, the clear quartz, is believed to amplify energy and stimulate the immune system - something that has been especially useful during these trying times. The stainless steel cap and base are durable and provide extra protection for the [glass bottle](https://best.serp.co/shop/glass-bottle/).
+Using this bottle daily has made me feel more energized and focused. The crystal I chose, the clear quartz, is believed to amplify energy and stimulate the immune system - something that has been especially useful during these trying times. The stainless steel cap and base are durable and provide extra protection for the glass bottle.
 
 However, one downside is that the neoprene sleeve feels a bit bulky and tends to trap moisture. I wish there was a slimmer option available.
 
@@ -94,7 +94,7 @@ I recently got the chance to test out Doyzee's Complete Crystal Water Bottle, an
 
 The bottle itself is not only stylish, but incredibly practical as well. Its generous 550mL capacity means I can carry enough water for a lengthy workout or a day out in the sun without needing to refill it constantly. Plus, the leak-proof seal ensures that my bag and belongings stay dry even if I accidentally knock the bottle over.
 
-One feature that really stood out was the [loose leaf tea](https://best.serp.co/shop/loose-leaf-tea/)tea[tea infuser](https://best.serp.co/shop/tea-infuser/). It's so easy to use - just add your tea leaves, screw on the lid, and let it steep for a few minutes while you carry on with your daily activities. The wide mouth opening also makes it super easy to refill and clean, which is always a plus in my book.
+One feature that really stood out was the loose leaf teateatea infuser. It's so easy to use - just add your tea leaves, screw on the lid, and let it steep for a few minutes while you carry on with your daily activities. The wide mouth opening also makes it super easy to refill and clean, which is always a plus in my book.
 
 However, there is one minor drawback. The glass construction makes the bottle a bit heavier than your average plastic bottle, so it's not the best choice for backpacking trips or intense workouts where weight is a significant factor.
 
@@ -108,7 +108,7 @@ I've been using the Crystals Galore 4U Pink Rose Quartz Crystal Water Bottle for
 
 One of my favorite features is the detachable base and glass divider for holding crystals. It's so unique! I love how the bottle infuses my water with the healing energy of rose quartz, known as the stone of unconditional love. It's like carrying a little piece of serenity with me wherever I go.
 
-The removable [tea strainer](https://best.serp.co/shop/tea-strainer/) and infuser that come with the bottle are an added bonus. They allow me to enjoy loose leaf tea, coffee, and more on the go. And the protective sleeve? It's a lifesaver, keeping my bottle safe from scratches and making it easy to carry.
+The removable tea strainer and infuser that come with the bottle are an added bonus. They allow me to enjoy loose leaf tea, coffee, and more on the go. And the protective sleeve? It's a lifesaver, keeping my bottle safe from scratches and making it easy to carry.
 
 Overall, I'm really happy with this crystal healing water bottle. It combines hydration and the healing properties of crystals into one sleek and elegant package. If you're looking for a way to integrate healing crystals into your daily routine, look no further than the Crystals Galore 4U Pink Rose Quartz Crystal Water Bottle.
 

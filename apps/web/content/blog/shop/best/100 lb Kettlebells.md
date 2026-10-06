@@ -84,7 +84,7 @@ All in all, the Body-Solid KBR Powder Coated Iron Kettlebells have been a fantas
 
 <div class="image"><a href="https://serp.ly/@boxingundefeated/amazon/100-lb-kettlebells"><img alt="french-fitness-cast-iron-kettlebell-100-lbs-new-1" src="https://imagedelivery.net/vy2bglCGN6hEeWOnSe2c7A/french-fitness-cast-iron-kettlebell-100-lbs-new-1/w=720,h=540,fit=pad,background=black"/></a></div>
 
-I've been using this French Fitness Cast Iron Kettlebell for a few weeks now, and I must say, it has become my go-to workout companion. The 100 lbs weight provides a perfect blend of challenge and comfort that keeps me motivated every day. [The kettlebell design is excellent, offering great stability while ensuring a smooth, ergonomic grip for all my exercises.](https://best.serp.co/shop/onnit-kettlebells/) [Whether it's cardio workout or strength training, this kettlebell has become an essential part of my fitness routine.](https://best.serp.co/shop/kettlebell-weight/)
+I've been using this French Fitness Cast Iron Kettlebell for a few weeks now, and I must say, it has become my go-to workout companion. The 100 lbs weight provides a perfect blend of challenge and comfort that keeps me motivated every day. The kettlebell design is excellent, offering great stability while ensuring a smooth, ergonomic grip for all my exercises. Whether it's cardio workout or strength training, this kettlebell has become an essential part of my fitness routine.
 
 One of the best features of this kettlebell is its construction. The cast iron is robust and resilient, which means it won't chip or crack even with consistent, heavy use. The paint job is also durable, keeping the kettlebell looking brand new no matter how much I've been swinging it around!
 

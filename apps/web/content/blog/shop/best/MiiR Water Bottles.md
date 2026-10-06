@@ -54,7 +54,7 @@ Overall, I've had a great experience with the MiiR Wide Mouth Water Bottle. Its 
 
 As a reviewer who's been using the MiiR 20-oz. Black Wide-Mouth Water Bottle, I can confidently say it's been a game-changer in my daily routine. The first thing that stood out for me was the sleek, elegant design. It looks good with any outfit and can easily be clipped onto my bag or belt loop without worrying about it leaking.
 
-One of the most impressive features of this bottle is how well it keeps my drinks hot or cold. The insulation does an outstanding job, making it perfect for long hikes or days spent in various temperature conditions. Plus, the wide mouth makes it easy to clean and add [ice cubes](https://best.serp.co/shop/ice-cubes/).
+One of the most impressive features of this bottle is how well it keeps my drinks hot or cold. The insulation does an outstanding job, making it perfect for long hikes or days spent in various temperature conditions. Plus, the wide mouth makes it easy to clean and add ice cubes.
 
 However, there's one minor drawback - the lid isn't the most user-friendly. It requires a bit of maneuvering to twist on and off properly, but over time, you get used to it. Another pro about this product is knowing that every purchase contributes to nonprofit organizations working on empowering communities and protecting the environment.
 
@@ -82,7 +82,7 @@ MiiR Insulated Narrow Mouth Bottle - My Experience
 
 I recently got my hands on the MiiR Insulated Narrow Mouth Bottle, and I must say, it has been a game-changer in my daily life. This sleek and stylish bottle boasts a perfect seal that ensures my drinks stay fresh and leak-free no matter how clumsy I am.
 
-One feature that I absolutely love about this bottle is its ability to keep my beverages cold for 24+ hours or hot for up to 12 hours. [This has made it a go-to choice for both my morning coffee and the after-work refreshing iced](https://best.serp.co/shop/iced-coffee-maker/) tea. Plus, the double-wall vacuum insulation prevents any condensation or "sweating" on the exterior, making it perfect for placing in cup holders without causing a mess.
+One feature that I absolutely love about this bottle is its ability to keep my beverages cold for 24+ hours or hot for up to 12 hours. This has made it a go-to choice for both my morning coffee and the after-work refreshing iced tea. Plus, the double-wall vacuum insulation prevents any condensation or "sweating" on the exterior, making it perfect for placing in cup holders without causing a mess.
 
 Another highlight is the easy-to-handle leakproof handle, which makes it incredibly convenient to carry around, whether I'm on a bike ride or just running errands. Additionally, the optimal size opening ensures that I don't end up with face splashes while drinking and fits standard ice cubes effortlessly.
 

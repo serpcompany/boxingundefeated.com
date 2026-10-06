@@ -140,7 +140,7 @@ You know when you're on the go and your favorite beverage is just not keeping it
 
 I've been using this mug for a few weeks now and I can't get enough of its sleek stainless steel design and vacuum insulation. It's got a spacious 480ml capacity, perfect for keeping me hydrated throughout the day. Plus, it's got a wide opening that makes filling up and cleaning out a breeze.
 
-Now, let's talk about what really sets this mug apart - its thermal capabilities. Whether I'm sipping on [hot tea](https://best.serp.co/shop/hot-tea/)tea in the morning or enjoying an iced coffee during my afternoon break, the Zojirushi keeps my drinks at their optimal temperature for hours on end. And speaking of cleanliness, the mug's non-stick inner coating ensures that no stubborn stains or residue ever linger.
+Now, let's talk about what really sets this mug apart - its thermal capabilities. Whether I'm sipping on hot teatea in the morning or enjoying an iced coffee during my afternoon break, the Zojirushi keeps my drinks at their optimal temperature for hours on end. And speaking of cleanliness, the mug's non-stick inner coating ensures that no stubborn stains or residue ever linger.
 
 One small downside is that the mug might be a tad too bulky for some people's taste, but I personally love the added insulation it provides. All in all, I would definitely recommend giving the Zojirushi Stainless Steel Mug Bottle a try if you're on the hunt for a reliable and stylish companion for all your hydration needs.
 
@@ -184,7 +184,7 @@ Muji water bottles come in various sizes, ranging from 500ml to 1000ml. Determin
 
 ### Cleaning and Maintenance
 
-Proper cleaning and maintenance are essential for keeping your Muji water bottle in top condition. Make sure to follow the manufacturer's instructions and wash your bottle regularly with warm soapy water. For a thorough clean, use a [bottle brush](https://best.serp.co/shop/bottle-brush/) and air-dry to prevent mold growth.
+Proper cleaning and maintenance are essential for keeping your Muji water bottle in top condition. Make sure to follow the manufacturer's instructions and wash your bottle regularly with warm soapy water. For a thorough clean, use a bottle brush and air-dry to prevent mold growth.
 
 <div><a href="https://serp.ly/@boxingundefeated/amazon/muji-water-bottles"><img src="https://imagedelivery.net/vy2bglCGN6hEeWOnSe2c7A/Muji+Water+Bottles-3/w=720,h=540,fit=pad,background=black" alt="Muji Water Bottles-3"></a></div>
 

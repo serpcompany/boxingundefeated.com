@@ -145,7 +145,7 @@ The thickness of Lululemon yoga mats can vary depending on the specific model. G
 
 ### What types of yoga are Lululemon mats suitable for?
 
-Lululemon yoga mats are designed to accommodate various types of yoga, such as Vinyasa, Ashtanga, Hatha, and Yin yoga. [The mats are available in different designs and materials, each catering to specific preferences and needs of practitioners, including grip, cushion, and moisture resistance.](https://best.serp.co/shop/chair-mat/)
+Lululemon yoga mats are designed to accommodate various types of yoga, such as Vinyasa, Ashtanga, Hatha, and Yin yoga. The mats are available in different designs and materials, each catering to specific preferences and needs of practitioners, including grip, cushion, and moisture resistance.
 
 <div><a href="https://serp.ly/@boxingundefeated/amazon/lululemon-yoga-mats"><img src="https://imagedelivery.net/vy2bglCGN6hEeWOnSe2c7A/Lululemon+Yoga+Mats-5/w=720,h=540,fit=pad,background=black" alt="Lululemon Yoga Mats-5"></a></div>
 

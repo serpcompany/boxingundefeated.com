@@ -189,6 +189,6 @@ The cost of infuse water bottles can vary depending on factors such as brand, si
 
 ### Are infuse water bottles environmentally friendly?
 
-Infuse water bottles can be an environmentally friendly alternative to disposable [plastic water bottles](https://best.serp.co/shop/plastic-water-bottles/), as they allow you to reuse the same bottle over and over again. However, it's essential to choose a bottle made from BPA-free, recyclable materials, such as stainless steel or BPA-free plastic, to minimize your impact on the environment. Additionally, proper maintenance and cleaning will help ensure your infuse water bottle lasts for years to come, reducing the need for frequent replacements.
+Infuse water bottles can be an environmentally friendly alternative to disposable plastic water bottles, as they allow you to reuse the same bottle over and over again. However, it's essential to choose a bottle made from BPA-free, recyclable materials, such as stainless steel or BPA-free plastic, to minimize your impact on the environment. Additionally, proper maintenance and cleaning will help ensure your infuse water bottle lasts for years to come, reducing the need for frequent replacements.
 
 _As an Amazon™ Associate, we earn from qualifying purchases._

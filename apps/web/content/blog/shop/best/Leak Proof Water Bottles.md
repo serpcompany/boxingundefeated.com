@@ -51,7 +51,7 @@ I recently purchased the Stanley 40 oz. Quencher H2.0 FlowState Tumbler in Iris,
 
 First and foremost, the construction of this tumbler is top-notch. Made from recycled 18/8 stainless steel, it not only looks great but also feels incredibly durable. I've been using it daily for the past few weeks, and there's not a single scratch or dent in sight.
 
-One thing I absolutely love about this tumbler is its capacity. At 40 oz. , it holds enough liquid to keep me hydrated throughout the day. Plus, the advanced FlowState lid ensures that my beverages stay at the perfect temperature, whether it's [hot tea](https://best.serp.co/shop/hot-tea/) or ice-cold water.
+One thing I absolutely love about this tumbler is its capacity. At 40 oz. , it holds enough liquid to keep me hydrated throughout the day. Plus, the advanced FlowState lid ensures that my beverages stay at the perfect temperature, whether it's hot tea or ice-cold water.
 
 The ergonomic handle is another standout feature. It's designed with comfort-grip inserts, making it super easy to carry around with me wherever I go. And speaking of convenience, the narrow base fits perfectly in my car cup holder, which means I can enjoy sipping on my favorite drink while driving.
 
@@ -111,7 +111,7 @@ Despite these minor drawbacks, I am extremely satisfied with the Lululemon Train
 
 <div><a href="https://serp.ly/@boxingundefeated/amazon/leak-proof-water-bottles"><img src="https://imagedelivery.net/vy2bglCGN6hEeWOnSe2c7A/Leak+Proof+Water+Bottles-2/w=720,h=540,fit=pad,background=black" alt="Leak Proof Water Bottles-2"></a></div>
 
-[When choosing a leak proof water bottle, there are several features to consider that will ensure your bottle is reliable and durable:](https://best.serp.co/shop/hydro-flask-water-bottles/)
+When choosing a leak proof water bottle, there are several features to consider that will ensure your bottle is reliable and durable:
 
 - Leak Proof Lid: Look for a water bottle with a leak proof cap or cover that secures tightly onto the bottle. This will prevent any spills or leaks when you carry your bottle around with you.
 

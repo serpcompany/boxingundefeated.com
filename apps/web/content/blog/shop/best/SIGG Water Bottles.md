@@ -99,7 +99,7 @@ As an avid hiker and outdoor enthusiast, I was excited to get my hands on the Si
 
 One standout feature is the vacuum insulation, which works exceptionally well, keeping my hot beverages steamy for hours and my cold drinks icy cold for an impressive 24 hours. It's the perfect companion for long road trips, where I often rely on the Hot Cold One to keep my favorite drinks at the perfect temperature. The cap can be adjusted for right or left-handed users, and there's even a loop cap for easy attachment to a carabiner.
 
-Of course, not everything is perfect. The bottle's capacity is on the smaller side, at just 500ml, which means I have to refill it more often than I'd like. Additionally, the [tea infuser](https://best.serp.co/shop/tea-infuser/) included isn't quite large enough for my taste, but it still gets the job done.
+Of course, not everything is perfect. The bottle's capacity is on the smaller side, at just 500ml, which means I have to refill it more often than I'd like. Additionally, the tea infuser included isn't quite large enough for my taste, but it still gets the job done.
 
 Overall, I am thoroughly impressed with the Sigg Hot Cold One Stainless Steel Bottle. It's durably built, easy to use, and keeps my drinks at the ideal temperature for hours on end. If you're in the market for a reliable, high-quality travel thermos, look no further than the Hot Cold One.
 
@@ -133,7 +133,7 @@ Despite these minor drawbacks, I am thoroughly impressed with the Sigg Gemstone 
 
 I recently purchased the Sigg Shield One Black Water Bottle to replace my old, leaky water bottle, and I couldn't be happier with my choice. This bottle is not only sleek and stylish, but it's also incredibly reliable. The one-hand opening and closing mechanism is a game-changer for me, as I'm always on-the-go and need to stay hydrated.
 
-The high-quality stainless steel construction ensures that my water stays fresh and free of any unwanted odors or tastes. I also appreciate the fact that this bottle is BPA-free, making it a safe choice for myself and my family. Additionally, the large opening makes it easy to clean and fill with [ice cubes](https://best.serp.co/shop/ice-cubes/) on hot days.
+The high-quality stainless steel construction ensures that my water stays fresh and free of any unwanted odors or tastes. I also appreciate the fact that this bottle is BPA-free, making it a safe choice for myself and my family. Additionally, the large opening makes it easy to clean and fill with ice cubes on hot days.
 
 However, there are a few minor drawbacks to this bottle. First, it is slightly heavier compared to some other water bottles I've used in the past, but I'm willing to overlook this as it's made from such durable materials. Second, the lid doesn't seem to be as secure as I would like, but I haven't had any issues with leaking so far.
 

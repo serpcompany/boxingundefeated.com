@@ -157,7 +157,7 @@ I recently got my hands on the Grosche Chicago Saturn Fruit Infuser Water Bottle
 
 One of the standout features of this bottle is its double-walled vacuum insulation. This makes it perfect for those who enjoy their tea hot or their water icy cold while on the go. Additionally, the stainless steel construction ensures that the bottle won't absorb any flavors, ensuring that each drink tastes just as fresh as the last.
 
-Another feature that sets this bottle apart from others is its versatility. The infuser basket allows you to infuse your water with fruits or herbs, making it easy to enjoy flavored water without any added sugars or preservatives. Plus, it can also be used as a [tea infuser](https://best.serp.co/shop/tea-infuser/), giving you the freedom to enjoy your favorite loose leaf teas on the go.
+Another feature that sets this bottle apart from others is its versatility. The infuser basket allows you to infuse your water with fruits or herbs, making it easy to enjoy flavored water without any added sugars or preservatives. Plus, it can also be used as a tea infuser, giving you the freedom to enjoy your favorite loose leaf teas on the go.
 
 However, one minor con of this bottle is that it is hand wash only. While this might be a small inconvenience for some, I believe it's worth the extra effort to keep my bottle looking pristine and functioning its best.
 
@@ -195,7 +195,7 @@ In the heat of summer, I found myself in desperate need of hydration to quench m
 
 From the moment I unboxed this sleek infuser bottle, I was impressed by its sturdy construction and clever design. Its capacity of 24 ounces was perfect for my needs, allowing me to carry enough water for an hours-long workout session or a hike in the mountains. The heavy-duty Tritan plastic material not only ensures the bottle's durability but also contributes to its leakproof top, making it a perfect companion for my daily life.
 
-One of my favorite aspects of this fruit infusion water bottle is how easy it is to clean. The removable infuser is a breeze to wash, and I simply toss the whole thing in the top rack of my dishwasher for thorough cleaning. With infusion bottles being reusable, I feel good knowing that I'm helping reduce the use of single-use [plastic water bottles](https://best.serp.co/shop/plastic-water-bottles/)—and saving money in the process!
+One of my favorite aspects of this fruit infusion water bottle is how easy it is to clean. The removable infuser is a breeze to wash, and I simply toss the whole thing in the top rack of my dishwasher for thorough cleaning. With infusion bottles being reusable, I feel good knowing that I'm helping reduce the use of single-use plastic water bottles—and saving money in the process!
 
 Another highlight of this fruit infused water bottle is its versatility. I've used it during intense gym workouts, leisurely strolls along the beach, and even while practicing yoga. Its compact size easily fits into cup holders in my car or on my office desk, ensuring that I always have access to deliciously flavored water made with fresh fruits.
 

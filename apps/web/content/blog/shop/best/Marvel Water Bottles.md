@@ -37,7 +37,7 @@ _As an Amazon™ Associate, we earn from qualifying purchases._
 
 I recently purchased the Simple Modern Marvel Avengers Water Bottle with StrawBottle with Straw Lid for my 7-year-old. As a busy mom, I wanted a reliable and leak-proof bottle that could keep his drinks cold while we're on-the-go. The bottle's vacuum insulation and stainless steel material have exceeded my expectations in ensuring his drinks stay cold throughout the day.
 
-The Marvel Avengers design adds a fun and exciting touch that my son loves, making it more appealing to him. The straw lid has been great for minimizing messes, especially as he transitions from a [sippy cup](https://best.serp.co/shop/sippy-cup/) to a regular water bottle.
+The Marvel Avengers design adds a fun and exciting touch that my son loves, making it more appealing to him. The straw lid has been great for minimizing messes, especially as he transitions from a sippy cup to a regular water bottle.
 
 One issue I've encountered is that the bottle may not fit perfectly in standard cup holders, making it difficult to transport in some cases. Additionally, the bottle isn't intended for hot liquids, so it's not the most versatile option.
 

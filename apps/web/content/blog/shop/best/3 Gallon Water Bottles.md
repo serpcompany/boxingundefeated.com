@@ -123,7 +123,7 @@ Overall, this Gatorade 3 gallon cooler has been a well-received addition to our 
 
 <div class="image"><a href="https://serp.ly/@boxingundefeated/amazon/3-gallon-water-bottles"><img alt="stanley-adventure-fast-flow-water-jug-2-gallons-cream-1" src="https://imagedelivery.net/vy2bglCGN6hEeWOnSe2c7A/stanley-adventure-fast-flow-water-jug-2-gallons-cream-1/w=720,h=540,fit=pad,background=black"/></a></div>
 
-I recently purchased the Stanley Adventure Fast Flow [Water Jug](https://best.serp.co/shop/water-jug/) for my camping trips and outdoor activities. I was drawn by its large capacity of 2 gallons, which could easily quench the thirst of my whole group. The first thing that caught my eye was the cream color, giving it an attractive and modern look.
+I recently purchased the Stanley Adventure Fast Flow Water Jug for my camping trips and outdoor activities. I was drawn by its large capacity of 2 gallons, which could easily quench the thirst of my whole group. The first thing that caught my eye was the cream color, giving it an attractive and modern look.
 
 The high-flow spigot was quite impressive; it made pouring a no-brainer even when the jug was full. I also liked how easy it was to remove the spigot for cleaning purposes since it prevents last night's "margarita party" residue from sneaking into your water.
 

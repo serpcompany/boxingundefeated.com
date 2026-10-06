@@ -49,7 +49,7 @@ Another plus is the inclusion of a free downloadable yoga workout, perfect for b
 
 <div class="image"><a href="https://serp.ly/@boxingundefeated/amazon/nike-yoga-mats"><img alt="gaiam-premium-here-and-now-yoga-mat-6mm-1" src="https://imagedelivery.net/vy2bglCGN6hEeWOnSe2c7A/gaiam-premium-here-and-now-yoga-mat-6mm-1/w=720,h=540,fit=pad,background=black"/></a></div>
 
-[I recently purchased the Gaiam Premium Here and Now Yoga Mat, and I'm beyond thrilled with my choice.](https://best.serp.co/shop/gaiam-yoga-mats/) When I unrolled it for the first time, I was instantly drawn to its calming colors and the intricate design that added an extra layer of zen to my practice. The 6mm thickness provides excellent cushioning, making it incredibly comfortable to use on hard floors. I also appreciate the slip-resistant texture, which ensures I maintain a steady balance during my yoga sessions.
+I recently purchased the Gaiam Premium Here and Now Yoga Mat, and I'm beyond thrilled with my choice. When I unrolled it for the first time, I was instantly drawn to its calming colors and the intricate design that added an extra layer of zen to my practice. The 6mm thickness provides excellent cushioning, making it incredibly comfortable to use on hard floors. I also appreciate the slip-resistant texture, which ensures I maintain a steady balance during my yoga sessions.
 
 However, there are a few things to consider before making your purchase. Firstly, the mat does release a strong odor when first unrolled. I followed the care instructions and let it air out for a few days, and the smell dissipated completely. It's also worth mentioning that the product description claims the mat to be latex-free, but I noticed it contains latex in the care instructions and on the warning label. If you have a latex allergy, it's best to skip this mat.
 
@@ -183,7 +183,7 @@ While some Nike yoga mats are made of TPE (Thermoplastic Elastomer), which is mo
 
 <div><a href="https://serp.ly/@boxingundefeated/amazon/nike-yoga-mats"><img src="https://imagedelivery.net/vy2bglCGN6hEeWOnSe2c7A/Nike+Yoga+Mats-6/w=720,h=540,fit=pad,background=black" alt="Nike Yoga Mats-6"></a></div>
 
-To clean your Nike yoga mat, mix one part water with a few drops of mild dish soap in a [spray bottle](https://best.serp.co/shop/spray-bottle/). Gently spray the solution onto the mat and wipe with a soft cloth or sponge. Then, use a clean damp cloth to wipe away any residue and dry the mat with a clean towel. Avoid immersing the entire mat in water, as this may damage the material.
+To clean your Nike yoga mat, mix one part water with a few drops of mild dish soap in a spray bottle. Gently spray the solution onto the mat and wipe with a soft cloth or sponge. Then, use a clean damp cloth to wipe away any residue and dry the mat with a clean towel. Avoid immersing the entire mat in water, as this may damage the material.
 
 ### Do Nike yoga mats come with a warranty?
 

@@ -211,6 +211,6 @@ While most A5 water bottles are designed to fit standard holder sizes, some wide
 
 ### How can I personalize an A5 water bottle?
 
-Many A5 water bottles come with customizable options, like engraving, stickers, or silicone sleeves. You can also use vinyl labels or [paint pens](https://best.serp.co/shop/paint-pens/)[pens](https://best.serp.co/shop/pens/) to add your own design. Be sure to check the manufacturer's recommendations for personalizing your bottle to ensure the process doesn't interfere with its function or integrity.
+Many A5 water bottles come with customizable options, like engraving, stickers, or silicone sleeves. You can also use vinyl labels or paint penspens to add your own design. Be sure to check the manufacturer's recommendations for personalizing your bottle to ensure the process doesn't interfere with its function or integrity.
 
 _As an Amazon™ Associate, we earn from qualifying purchases._

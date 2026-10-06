@@ -36,7 +36,7 @@ _As an Amazon™ Associate, we earn from qualifying purchases._
 
 <div class="image"><a href="https://serp.ly/@boxingundefeated/amazon/5mm-yoga-mats"><img alt="gaiam-printed-marrakesh-yoga-mat-5mm-1" src="https://imagedelivery.net/vy2bglCGN6hEeWOnSe2c7A/gaiam-printed-marrakesh-yoga-mat-5mm-1/w=720,h=540,fit=pad,background=black"/></a></div>
 
-[Get ready to strike a pose with Gaiam's Printed Marrakesh Yoga Mat!](https://best.serp.co/shop/gaiam-yoga-mats/) This vibrant 5mm mat features a delicate printed medallion pattern that adds a touch of zen to your practice. The medium thickness provides ample cushioning for your joints while maintaining stability during even the most intense flows.
+Get ready to strike a pose with Gaiam's Printed Marrakesh Yoga Mat! This vibrant 5mm mat features a delicate printed medallion pattern that adds a touch of zen to your practice. The medium thickness provides ample cushioning for your joints while maintaining stability during even the most intense flows.
 
 I personally love the Marrakesh Yoga Mat for its comfortable feel and beautiful design. The colors are vibrant and really help set the mood for a calming yoga session. The non-slip surface has been a game-changer in my practice, keeping me stable and secure during those tricky balancing poses.
 

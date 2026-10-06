@@ -176,7 +176,7 @@ Wrist Buddy Yoga Blocks are specially designed blocks that provide support and s
 
 ### What materials are Wrist Buddy Yoga Blocks made of?
 
-Wrist Buddy Yoga Blocks are made of high-quality cork and recycled [EVA foam](https://best.serp.co/shop/eva-foam/). These materials are eco-friendly, non-toxic, and provide excellent grip, making them safe and comfortable to use during yoga sessions.
+Wrist Buddy Yoga Blocks are made of high-quality cork and recycled EVA foam. These materials are eco-friendly, non-toxic, and provide excellent grip, making them safe and comfortable to use during yoga sessions.
 
 <div><a href="https://serp.ly/@boxingundefeated/amazon/wrist-buddy-yoga-blocks"><img src="https://imagedelivery.net/vy2bglCGN6hEeWOnSe2c7A/Wrist+Buddy+Yoga+Blocks-5/w=720,h=540,fit=pad,background=black" alt="Wrist Buddy Yoga Blocks-5"></a></div>
 

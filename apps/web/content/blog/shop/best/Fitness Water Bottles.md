@@ -62,7 +62,7 @@ In conclusion, the Venum Contender Water Bottle – Black is a fantastic choice 
 
 <div class="image"><a href="https://serp.ly/@boxingundefeated/amazon/fitness-water-bottles"><img alt="bink-day-bottle-rose-the-hydration-tracking-bottle-800ml-27oz-1" src="https://imagedelivery.net/vy2bglCGN6hEeWOnSe2c7A/bink-day-bottle-rose-the-hydration-tracking-bottle-800ml-27oz-1/w=720,h=540,fit=pad,background=black"/></a></div>
 
-I recently got my hands on the Bink Day Bottle - Rose, and I must say, it has made a significant difference in my daily water intake. This reusable [glass bottle](https://best.serp.co/shop/glass-bottle/) comes with a silicone sleeve for better grip and protection, as well as time markings on the bottle sleeve, making it super easy to track my water intake throughout the day.
+I recently got my hands on the Bink Day Bottle - Rose, and I must say, it has made a significant difference in my daily water intake. This reusable glass bottle comes with a silicone sleeve for better grip and protection, as well as time markings on the bottle sleeve, making it super easy to track my water intake throughout the day.
 
 The glass material ensures that there's no unpleasant aftertaste, and the wide-mouth opening makes it easy to clean and refill with ice or fruits for a nice twist on hydration. The bottle is also leak-proof, so I can take it anywhere without worrying about spills.
 
@@ -178,7 +178,7 @@ Many fitness water bottles are designed to fit into standard cup holders found o
 
 ### How can I prevent my fitness water bottle from smelling?
 
-To minimize odor, avoid leaving your bottle filled with water overnight or for extended periods. Rinse your bottle thoroughly with warm water and mild dish soap after each use, and occasionally sanitize it with a solution of white vinegar and water (1-part vinegar to 3-parts water) or using water with a few drops of [lemon juice](https://best.serp.co/shop/lemon-juice/). Also, avoid using hot beverages, as this can encourage bacterial growth. Finally, allow the bottle to air dry before storing it.
+To minimize odor, avoid leaving your bottle filled with water overnight or for extended periods. Rinse your bottle thoroughly with warm water and mild dish soap after each use, and occasionally sanitize it with a solution of white vinegar and water (1-part vinegar to 3-parts water) or using water with a few drops of lemon juice. Also, avoid using hot beverages, as this can encourage bacterial growth. Finally, allow the bottle to air dry before storing it.
 
 ### Do fitness water bottles come with filters or infusers?
 

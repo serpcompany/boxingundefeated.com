@@ -108,7 +108,7 @@ I recently got the opportunity to try out the LifeFitness C1 Upright Lifecycle E
 
 One of my favorite features of this bike is its durability and effective biomechanics, which provide a comfortable and effective workout that feels just like the gym-quality Lifecycle bikes. The self-balancing pedals with ratcheting straps are another huge plus, ensuring a secure and stable ride every time.
 
-However, there are a few minor drawbacks worth mentioning. The user profile setup can be a bit challenging, and a few of the programs require a chest heart rate monitor, which is not included with the bike. Additionally, the right pedal's strap tends to slip out of the lower clip, but I was able to remedy this with some [duct tape](https://best.serp.co/shop/duct-tape/).
+However, there are a few minor drawbacks worth mentioning. The user profile setup can be a bit challenging, and a few of the programs require a chest heart rate monitor, which is not included with the bike. Additionally, the right pedal's strap tends to slip out of the lower clip, but I was able to remedy this with some duct tape.
 
 Overall, the LifeFitness C1 Upright Lifecycle Exercise Bike Go Connect is a solid choice for anyone looking to incorporate a high-quality exercise bike into their home workout routine. Its natural upright riding position, comfortable seat, and easy-to-use console make it a reliable and enjoyable workout companion.
 

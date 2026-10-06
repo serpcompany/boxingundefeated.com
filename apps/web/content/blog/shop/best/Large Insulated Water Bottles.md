@@ -94,7 +94,7 @@ I recently purchased the Mira 24 oz Stainless Steel Water Bottle to enhance my d
 
 One of the things that truly stood out to me is the MiraGuard Technology, which prevents any unwanted flavors from lingering within the bottle. This made it incredibly easy for me to switch between my favorite flavored beverages without worrying about unwanted taste mix-ups.
 
-The leak-proof and sweat-proof design of the bottle provides peace of mind when packing it in my gym bag, school backpack, or travel luggage. The wide-mouth opening not only allows for easy refilling and cleaning but also enables me to add [ice cubes](https://best.serp.co/shop/ice-cubes/) for the coldest drink possible.
+The leak-proof and sweat-proof design of the bottle provides peace of mind when packing it in my gym bag, school backpack, or travel luggage. The wide-mouth opening not only allows for easy refilling and cleaning but also enables me to add ice cubes for the coldest drink possible.
 
 However, there were a few minor downsides worth mentioning. One issue I encountered was the placement of the silicone ring inside the lid, which made it quite difficult to clean thoroughly and maintain optimal hygiene. Additionally, the slightly wider base of the new model made it challenging to fit in my car's cup holder, which was an inconvenience during long drives.
 

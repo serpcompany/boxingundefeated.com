@@ -49,7 +49,7 @@ Overall, the All in Motion Sky Blue Yoga Block has been an excellent addition to
 
 <div class="image"><a href="https://serp.ly/@boxingundefeated/amazon/lululemon-yoga-blocks"><img alt="peloton-yoga-block-premium-eva-foam-yoga-blocks-available-in-set-of-two-with-curved-edges-and-corner-1" src="https://imagedelivery.net/vy2bglCGN6hEeWOnSe2c7A/peloton-yoga-block-premium-eva-foam-yoga-blocks-available-in-set-of-two-with-curved-edges-and-corner-1/w=720,h=540,fit=pad,background=black"/></a></div>
 
-As a yoga enthusiast, I've tried numerous yoga blocks over the years, but these yoga blocks by Peloton have truly caught my eye. The Premium [Eva Foam](https://best.serp.co/shop/eva-foam/) and curved edges/corners make them incredibly comfortable to grip from any angle. I appreciate their versatility, offering three different height options depending on the particular pose. The lightweight design is a bonus, allowing me to take them anywhere I practice.
+As a yoga enthusiast, I've tried numerous yoga blocks over the years, but these yoga blocks by Peloton have truly caught my eye. The Premium Eva Foam and curved edges/corners make them incredibly comfortable to grip from any angle. I appreciate their versatility, offering three different height options depending on the particular pose. The lightweight design is a bonus, allowing me to take them anywhere I practice.
 
 Performance-wise, these yoga blocks provide just the right amount of support, enhancing my practice and helping me maintain proper alignment. The sturdy and firm construction is another standout feature, instilling a sense of confidence when using them. However, one potential drawback is that they can feel slightly stiff for some users, making certain poses slightly challenging.
 

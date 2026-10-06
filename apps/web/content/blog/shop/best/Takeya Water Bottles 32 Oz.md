@@ -48,7 +48,7 @@ Despite these cons, this bottle has become an essential part of my daily life. I
 
 As an avid user of the Takeya Sport Water Bottle, I can't help but share how this product has changed my hydration game. I'm constantly on the move, from workout sessions to hiking trips, and this bottle has been my loyal companion through these adventures.
 
-The triple insulated stainless steel body is a lifesaver in keeping my drinks ice-cold for hours on end, even under the scorching sun. With a capacity of 32 oz. , it's perfect for those long outings where I need to stay hydrated without constantly refilling. Plus, the included ice blocker ensures that your [ice cubes](https://best.serp.co/shop/ice-cubes/) don't get jammed, providing you with an uninterrupted flow of chilled refreshment.
+The triple insulated stainless steel body is a lifesaver in keeping my drinks ice-cold for hours on end, even under the scorching sun. With a capacity of 32 oz. , it's perfect for those long outings where I need to stay hydrated without constantly refilling. Plus, the included ice blocker ensures that your ice cubes don't get jammed, providing you with an uninterrupted flow of chilled refreshment.
 
 One of my favorite features of this bottle is the leak-proof lid. It not only prevents any spills or messes in your bag but also adds an extra layer of protection against dust and dirt. The powder-coated surface provides a sure grip, making it easy to carry around even during intense workouts.
 
@@ -160,7 +160,7 @@ Yes, Takeya Water Bottles 32 Oz come with a limited lifetime warranty that cover
 
 <div><a href="https://serp.ly/@boxingundefeated/amazon/takeya-water-bottles-32-oz"><img src="https://imagedelivery.net/vy2bglCGN6hEeWOnSe2c7A/Takeya+Water+Bottles+32+Oz-6/w=720,h=540,fit=pad,background=black" alt="Takeya Water Bottles 32 Oz-6"></a></div>
 
-Takeya Water Bottles 32 Oz are easy to clean, with a wide mouth opening for easy access. Simply wash with warm, soapy water and a soft [bottle brush](https://best.serp.co/shop/bottle-brush/), ensuring there are no leftover residues or lingering odors. You can also occasionally clean your bottle with a mixture of baking soda and water to keep it fresh and odor-free.
+Takeya Water Bottles 32 Oz are easy to clean, with a wide mouth opening for easy access. Simply wash with warm, soapy water and a soft bottle brush, ensuring there are no leftover residues or lingering odors. You can also occasionally clean your bottle with a mixture of baking soda and water to keep it fresh and odor-free.
 
 ### How do I remove stains from my Takeya Water Bottle 32 Oz?
 

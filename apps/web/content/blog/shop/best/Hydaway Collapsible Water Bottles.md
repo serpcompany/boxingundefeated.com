@@ -44,7 +44,7 @@ However, there is a downside to this bottle, as some users have reported an unpl
 
 <div class="image"><a href="https://serp.ly/@boxingundefeated/amazon/hydaway-collapsible-water-bottles"><img alt="hydrapak-stash-collapsible-water-bottle-mammoth-grey-32-oz-1" src="https://imagedelivery.net/vy2bglCGN6hEeWOnSe2c7A/hydrapak-stash-collapsible-water-bottle-mammoth-grey-32-oz-1/w=720,h=540,fit=pad,background=black"/></a></div>
 
-My first encounter with the Hydrapak Stash [Collapsible Water Bottle](https://best.serp.co/shop/collapsible-water-bottle/) was during a long hike. I was so thrilled with its design and size; it felt like a game-changing solution for carrying water without adding extra bulk to my bag.
+My first encounter with the Hydrapak Stash Collapsible Water Bottle was during a long hike. I was so thrilled with its design and size; it felt like a game-changing solution for carrying water without adding extra bulk to my bag.
 
 For starters, this bottle's collapsibility is its most remarkable feature. When full, it can comfortably hold 32 ounces of water, but once emptied, it flattens out to a quarter of its size - making it extremely space-efficient. Its lightweight nature also made it ideal for my backpacking trips where every ounce counts.
 
@@ -164,7 +164,7 @@ Hydaway offers two sizes: a 17-ounce (500ml) bottle and a 21-ounce (600ml) bottl
 
 ### How do I clean my Hydaway Collapsible Water Bottle?
 
-You can clean your Hydaway bottle by hand using warm soapy water and a [bottle brush](https://best.serp.co/shop/bottle-brush/) or sponge. The bottle and cap are also dishwasher-safe for added convenience.
+You can clean your Hydaway bottle by hand using warm soapy water and a bottle brush or sponge. The bottle and cap are also dishwasher-safe for added convenience.
 
 ### How do I prevent leaks with my Hydaway Collapsible Water Bottle?
 

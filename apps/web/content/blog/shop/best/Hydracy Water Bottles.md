@@ -163,7 +163,7 @@ Yes, Hydracy water bottles feature leak-proof lids to prevent any spills or leak
 
 ### How do I clean my Hydracy water bottle?
 
-To clean your Hydracy water bottle, wash the removable components (lid, strap, etc. ) with warm, soapy water and use a [bottle brush](https://best.serp.co/shop/bottle-brush/) to clean the interior of the bottle. Rinse thoroughly and let it air dry. Avoid using abrasive [cleansers](https://best.serp.co/cleansers/) or dishwashers, as this may damage the insulation or surface.
+To clean your Hydracy water bottle, wash the removable components (lid, strap, etc. ) with warm, soapy water and use a bottle brush to clean the interior of the bottle. Rinse thoroughly and let it air dry. Avoid using abrasive [cleansers](https://best.serp.co/cleansers/) or dishwashers, as this may damage the insulation or surface.
 
 ### How much liquid can a Hydracy water bottle hold?
 
@@ -185,7 +185,7 @@ While Hydracy water bottles are designed to handle a variety of beverages, it is
 
 ### Is it safe to freeze a Hydracy water bottle?
 
-No, it is not recommended to freeze a Hydracy water bottle, as it may damage the vacuum insulation or cause the bottle to crack. Instead, use cold water or [ice cubes](https://best.serp.co/shop/ice-cubes/) to keep your drink cold for extended periods.
+No, it is not recommended to freeze a Hydracy water bottle, as it may damage the vacuum insulation or cause the bottle to crack. Instead, use cold water or ice cubes to keep your drink cold for extended periods.
 
 ### Can I put hot liquids in a Hydracy water bottle?
 

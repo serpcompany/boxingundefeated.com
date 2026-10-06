@@ -83,7 +83,7 @@ I recently received the Pure Enrichment PureRelief Pro Far Infrared XL Heating P
 
 The highlight of this heating pad is undoubtedly its InfraWave Technology. The built-in layer of ceramic beads emits far infrared wavelengths, which penetrate deep into the muscles, providing targeted pain relief and relaxation. The ultra-soft micromink material also adds to the overall comfort of the product.
 
-One of the aspects that truly sets this heating pad apart from others is its ability to stay warm for an extended period. Unlike traditional heating [pads](https://best.serp.co/shop/pads/), the PureEnrichment XL Heating Pad can maintain its warmth even after I fall asleep while using it. This extra-large specialty heating pad has been incredibly accommodating, covering my entire back for optimal comfort.
+One of the aspects that truly sets this heating pad apart from others is its ability to stay warm for an extended period. Unlike traditional heating pads, the PureEnrichment XL Heating Pad can maintain its warmth even after I fall asleep while using it. This extra-large specialty heating pad has been incredibly accommodating, covering my entire back for optimal comfort.
 
 However, the one issue I have experienced with this product is the placement of the cord, which can be a bit uncomfortable when lying down. If it were wireless, it would provide even more freedom and comfort while using it.
 

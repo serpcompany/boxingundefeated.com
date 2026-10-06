@@ -115,7 +115,7 @@ In conclusion, the Gray XL Chugger Water Bottle from Manna provides convenience 
 
 As a content writer, I've been using the Manna Retro Cross Shining water bottle for quite some time now and trust me, it's been a game-changer! The sleek design with retro crosses shining in the light adds a touch of elegance to my everyday routine.
 
-A standout feature for me is its excellent insulation capabilities. It keeps my [hot tea](https://best.serp.co/shop/hot-tea/) warm for up to 12 hours, which means no more lukewarm sips in the middle of a workday! And when it comes to keeping cold drinks chilled, this baby outshines all others - it lasts 24 hours.
+A standout feature for me is its excellent insulation capabilities. It keeps my hot tea warm for up to 12 hours, which means no more lukewarm sips in the middle of a workday! And when it comes to keeping cold drinks chilled, this baby outshines all others - it lasts 24 hours.
 
 However, there's one small issue I should mention. Due to its double-walled vacuum insulation, the bottle can get quite heavy when filled up. But hey, who doesn't love a tough workout while staying hydrated?
 

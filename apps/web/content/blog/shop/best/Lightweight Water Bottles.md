@@ -325,7 +325,7 @@ Lightweight water bottles are reusable, which reduces plastic waste compared to 
 
 ### How do I clean a lightweight water bottle?
 
-Lightweight water bottles can typically be cleaned using warm, soapy water and a [bottle brush](https://best.serp.co/shop/bottle-brush/), but it's best to check the manufacturer's recommendations for cleaning instructions. Some bottles are dishwasher-safe, while others may require hand-washing only. Regular cleaning will help maintain hygiene and prolong the bottle's lifespan.
+Lightweight water bottles can typically be cleaned using warm, soapy water and a bottle brush, but it's best to check the manufacturer's recommendations for cleaning instructions. Some bottles are dishwasher-safe, while others may require hand-washing only. Regular cleaning will help maintain hygiene and prolong the bottle's lifespan.
 
 <div><a href="https://serp.ly/@boxingundefeated/amazon/lightweight-water-bottles"><img src="https://imagedelivery.net/vy2bglCGN6hEeWOnSe2c7A/Lightweight+Water+Bottles-6/w=720,h=540,fit=pad,background=black" alt="Lightweight Water Bottles-6"></a></div>
 

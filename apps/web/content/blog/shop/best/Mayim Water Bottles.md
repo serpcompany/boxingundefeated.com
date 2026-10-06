@@ -54,7 +54,7 @@ _As an Amazon™ Associate, we earn from qualifying purchases._
 
 <div class="image"><a href="https://serp.ly/@boxingundefeated/amazon/mayim-water-bottles"><img alt="mayim-collapsible-water-bottle-womens-red-pink-purple-multicolor-size-one-size-drinkware-1" src="https://imagedelivery.net/vy2bglCGN6hEeWOnSe2c7A/mayim-collapsible-water-bottle-womens-red-pink-purple-multicolor-size-one-size-drinkware-1/w=720,h=540,fit=pad,background=black"/></a></div>
 
-I recently got the chance to try out Mayim's [Collapsible Water Bottle](https://best.serp.co/shop/collapsible-water-bottle/) and boy, am I impressed! This little gem has been my go-to accessory for all my outdoor adventures.
+I recently got the chance to try out Mayim's Collapsible Water Bottle and boy, am I impressed! This little gem has been my go-to accessory for all my outdoor adventures.
 
 The first thing that caught my eye was its vibrant colors - I opted for the lovely red/pink/purple variant. It's not only eye-catching but also makes it easy to spot in my bag amidst other stuff. And speaking of my bag, the best part about this water bottle is how compact it becomes when collapsed. Whether I'm going hiking or just running errands around town, I don't have to worry about space in my bag anymore!
 
@@ -80,7 +80,7 @@ In term of functionality and usability, I'd rate this bottle a solid 4.5 out of 
 
 <div class="image"><a href="https://serp.ly/@boxingundefeated/amazon/mayim-water-bottles"><img alt="mayim-quencher-40oz-water-bottle-womens-lilac-purple-size-one-size-drinkware-1" src="https://imagedelivery.net/vy2bglCGN6hEeWOnSe2c7A/mayim-quencher-40oz-water-bottle-womens-lilac-purple-size-one-size-drinkware-1/w=720,h=540,fit=pad,background=black"/></a></div>
 
-I've been using the Mayim Quencher Water Bottle for about a month now, and I must say, it's been a game-changer when it comes to keeping my beverages at the perfect temperature. The stainless steel construction not only looks sleek but also ensures that my [hot tea](https://best.serp.co/shop/hot-tea/)tea stays hot for hours on end. It's perfect for long days at work or when I'm out and about running errands.
+I've been using the Mayim Quencher Water Bottle for about a month now, and I must say, it's been a game-changer when it comes to keeping my beverages at the perfect temperature. The stainless steel construction not only looks sleek but also ensures that my hot teatea stays hot for hours on end. It's perfect for long days at work or when I'm out and about running errands.
 
 One feature that really stood out for me was its excellent insulation. I've tried other bottles in the past, but none have managed to keep my drinks as cold as the Quencher does. It's like having an icebox in your bag! Plus, the wide-mouth design makes it easy to refill and clean.
 
@@ -114,7 +114,7 @@ The bottle has been a hit among my friends, who now want one of their own. The c
 
 I recently got my hands on the Mayim 64oz. Motivational Water Bottle, and I must say, it's been a game-changer for me. This large bottle holds enough water for the whole day, making it easier than ever to stay hydrated. The most appealing feature is definitely the encouraging phrases and time guidelines printed on the bottle - they help keep me on track and motivated to drink all 64 ounces.
 
-One potential downside is that the bottle doesn't seem to be very well insulated. It doesn't keep my water cold for very long, especially if I'm outside on a hot day. However, I've gotten used to it by filling up the bottle with [ice cubes](https://best.serp.co/shop/ice-cubes/) every now and then.
+One potential downside is that the bottle doesn't seem to be very well insulated. It doesn't keep my water cold for very long, especially if I'm outside on a hot day. However, I've gotten used to it by filling up the bottle with ice cubes every now and then.
 
 Also, let's talk about the straw; it's one of my favorite features. It makes drinking from the bottle super easy and comfortable, not to mention that it's leak-proof, which is a big bonus in my book.
 

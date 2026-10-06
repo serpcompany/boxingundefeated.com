@@ -74,7 +74,7 @@ Overall, I've been extremely satisfied with this bottle. Its sleek design, easy-
 
 I've been using the Mizu V8 Bottle White for a while now, and it's been an absolute game-changer when it comes to hydration on those long, adventurous days. This bottle is a perfect companion for winter backcountry missions or surf sessions, and surprisingly, you can even sneak in a few beers (2 ½ to be exact) or mix up a cocktail for outdoors.
 
-One of the standout features of this bottle is its double-walled insulation, which keeps my drinks ice-cold or piping-hot for hours on end. I remember one time when I filled it with [hot tea](https://best.serp.co/shop/hot-tea/)tea before a 4-5 hour cycling session, and by the end of it, I had to be careful not to burn my tongue!
+One of the standout features of this bottle is its double-walled insulation, which keeps my drinks ice-cold or piping-hot for hours on end. I remember one time when I filled it with hot teatea before a 4-5 hour cycling session, and by the end of it, I had to be careful not to burn my tongue!
 
 The V8's 800ml capacity is also quite handy, allowing me to carry enough hydration for even the most strenuous of expeditions. Additionally, its sleek design allows it to fit in most bike bottle holders, which is always a plus.
 
@@ -156,7 +156,7 @@ Mizu water bottles are highly competitive compared to other insulated bottles in
 
 ### How do I clean a Mizu water bottle?
 
-Cleaning a Mizu water bottle is simple and easy. First, remove the cap and any other removable parts. Next, hand wash the bottle and its components with warm, soapy water, using a gentle dish soap. For thorough cleaning, use a [bottle brush](https://best.serp.co/shop/bottle-brush/) to reach the bottom and crevices. Rinse well, and air dry before reassembling the bottle.
+Cleaning a Mizu water bottle is simple and easy. First, remove the cap and any other removable parts. Next, hand wash the bottle and its components with warm, soapy water, using a gentle dish soap. For thorough cleaning, use a bottle brush to reach the bottom and crevices. Rinse well, and air dry before reassembling the bottle.
 
 ### Can I use a dishwasher to clean a Mizu water bottle?
 

@@ -183,7 +183,7 @@ Ideally, use a bottle designed for both hot and cold beverages. Stainless steel 
 
 ### How often should I replace my large water bottle?
 
-The frequency largely depends on the bottle's material and usage. Glass and stainless steel bottles can last for years if properly maintained. However, [plastic water bottles](https://best.serp.co/shop/plastic-water-bottles/) may require more frequent replacements due to odor retention, discoloration, or potential chemical leaching.
+The frequency largely depends on the bottle's material and usage. Glass and stainless steel bottles can last for years if properly maintained. However, plastic water bottles may require more frequent replacements due to odor retention, discoloration, or potential chemical leaching.
 
 ### How do I choose the best large water bottle?
 

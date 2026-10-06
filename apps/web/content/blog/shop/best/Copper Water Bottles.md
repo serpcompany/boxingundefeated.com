@@ -95,7 +95,7 @@ In conclusion, if you're looking for a fashionable yet reliable travel bottle, t
 
 ### Important Features To Consider in Copper Water Bottles
 
-Copper water bottles offer more than just a stylish alternative to traditional [plastic water bottles](https://best.serp.co/shop/plastic-water-bottles/). They are well-known for their health benefits, including improving digestion, aiding weight loss, and preventing dehydration. When shopping for a copper water bottle, consider these important features:
+Copper water bottles offer more than just a stylish alternative to traditional plastic water bottles. They are well-known for their health benefits, including improving digestion, aiding weight loss, and preventing dehydration. When shopping for a copper water bottle, consider these important features:
 
 <div><a href="https://serp.ly/@boxingundefeated/amazon/copper-water-bottles"><img src="https://imagedelivery.net/vy2bglCGN6hEeWOnSe2c7A/Copper+Water+Bottles-2/w=720,h=540,fit=pad,background=black" alt="Copper Water Bottles-2"></a></div>
 
@@ -149,7 +149,7 @@ The recommended time to store water in a copper water bottle is around 8 hours. 
 
 ### How do I clean a copper water bottle?
 
-To clean a copper water bottle, mix equal parts of [lemon juice](https://best.serp.co/shop/lemon-juice/) and water, and use it as a cleaning solution. Gently scrub the inside of the bottle with a soft-bristled brush, then rinse thoroughly with water.
+To clean a copper water bottle, mix equal parts of lemon juice and water, and use it as a cleaning solution. Gently scrub the inside of the bottle with a soft-bristled brush, then rinse thoroughly with water.
 
 ### How much does a copper water bottle cost?
 

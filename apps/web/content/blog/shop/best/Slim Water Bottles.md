@@ -156,7 +156,7 @@ Slim water bottles are typically made from high-quality, safe materials such as 
 
 ### How do I clean a slim water bottle?
 
-Cleaning methods may vary depending on the material of the bottle. For stainless steel and BPA-free plastic bottles, regular washing with warm soapy water and a [bottle brush](https://best.serp.co/shop/bottle-brush/) should suffice. Glass bottles can be cleaned in a dishwasher, but be sure to check the manufacturer's instructions first. Always rinse the bottle thoroughly and check for hidden deposits before use.
+Cleaning methods may vary depending on the material of the bottle. For stainless steel and BPA-free plastic bottles, regular washing with warm soapy water and a bottle brush should suffice. Glass bottles can be cleaned in a dishwasher, but be sure to check the manufacturer's instructions first. Always rinse the bottle thoroughly and check for hidden deposits before use.
 
 ### What are some of the top features to look for in a slim water bottle?
 

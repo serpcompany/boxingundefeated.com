@@ -49,7 +49,7 @@ _As an Amazon™ Associate, we earn from qualifying purchases._
 
 <div class="image"><a href="https://serp.ly/@boxingundefeated/amazon/dinosaur-water-bottles"><img alt="hot-focus-pop-open-water-bottle-writing-fun-dinosaur-1" src="https://imagedelivery.net/vy2bglCGN6hEeWOnSe2c7A/hot-focus-pop-open-water-bottle-writing-fun-dinosaur-1/w=720,h=540,fit=pad,background=black"/></a></div>
 
-As a reviewer who's been using the Hot Focus Pop-Open Dinosaur Water Bottle Writing Fun, I can't help but rave about it. . It's like opening up a [treasure chest](https://best.serp.co/shop/treasure-chest/) for my kids every time they need to refill their water bottle! .
+As a reviewer who's been using the Hot Focus Pop-Open Dinosaur Water Bottle Writing Fun, I can't help but rave about it. . It's like opening up a treasure chest for my kids every time they need to refill their water bottle! .
 
 The vibrant dinosaur design on the Pop-Open Water Bottle never fails to captivate their attention and makes hydration more fun for them. . The accompanying gel pen and stickers are like a playful bonus that encourages creativity, with my kids constantly coming up with new designs and decorations for their bottle. .
 
@@ -85,7 +85,7 @@ Overall, while there may be some drawbacks to the Cheeky Kids Go 14oz Insulated 
 
 <div class="image"><a href="https://serp.ly/@boxingundefeated/amazon/dinosaur-water-bottles"><img alt="light-up-dinosaur-water-bottle-with-color-changing-night-light-14-oz-tritan-bpa-free-eco-friendly-cu-1" src="https://imagedelivery.net/vy2bglCGN6hEeWOnSe2c7A/light-up-dinosaur-water-bottle-with-color-changing-night-light-14-oz-tritan-bpa-free-eco-friendly-cu-1/w=720,h=540,fit=pad,background=black"/></a></div>
 
-I'm not just a water bottle, I'm a 3D light-up dinosaur water bottle that can be used as a [night light](https://best.serp.co/shop/night-light/), making me the perfect companion for late-night hydration. . I'm made from eco-friendly, BPA-free Tritan material, and I come with eight color modes to match your outfit or mood. . Plus, my 30-minute auto shut-off timer ensures you won't wake up with a dead battery in the morning. .
+I'm not just a water bottle, I'm a 3D light-up dinosaur water bottle that can be used as a night light, making me the perfect companion for late-night hydration. . I'm made from eco-friendly, BPA-free Tritan material, and I come with eight color modes to match your outfit or mood. . Plus, my 30-minute auto shut-off timer ensures you won't wake up with a dead battery in the morning. .
 
 I am 14 oz of pure fun and practicality, making me the perfect gift for kids, teens, and dinosaur lovers alike! .
 
@@ -141,7 +141,7 @@ I recently got my hands on the Lightzz Kids Water Bottle, and I must say it's ma
 
 The 3D glow illusion image on the bottle body is not only visually appealing but also a great conversation starter. Plus, the integrated rubber ring on the cap ensures leak-proof safety, giving me peace of mind in all situations.
 
-One of my favorite features has to be its wide-mouth design that accommodates [ice cubes](https://best.serp.co/shop/ice-cubes/) as well as most filters. It's so convenient for those long, hot summer days when you need a refreshing drink to beat the heat. The bottle is also easy to clean with a brush and is top-rack dishwasher safe, although it's essential to remove the LED light base before washing to protect it.
+One of my favorite features has to be its wide-mouth design that accommodates ice cubes as well as most filters. It's so convenient for those long, hot summer days when you need a refreshing drink to beat the heat. The bottle is also easy to clean with a brush and is top-rack dishwasher safe, although it's essential to remove the LED light base before washing to protect it.
 
 I've taken this water bottle with me on various trips, including school, hiking, camping, bike riding, traveling, and beach visits. It's a versatile companion for all sorts of adventures. Plus, it makes a great gift for kids, boys, girls, teens, and toddlers, especially during holiday seasons, like Xmas or back-to-school shopping.
 
@@ -271,7 +271,7 @@ First, soak a cloth in warm, soapy water and cover the sticker label for a few m
 
 ### What should I do if the water bottle starts to smell?
 
-Clean the water bottle thoroughly with warm, soapy water, and use a [bottle brush](https://best.serp.co/shop/bottle-brush/) to reach the bottom and sides. Rinse it well and let it air dry. For stubborn smells, use a mixture of baking soda, vinegar, and warm water to clean the bottle, then rinse well and let it dry.
+Clean the water bottle thoroughly with warm, soapy water, and use a bottle brush to reach the bottom and sides. Rinse it well and let it air dry. For stubborn smells, use a mixture of baking soda, vinegar, and warm water to clean the bottle, then rinse well and let it dry.
 
 ### Can I personalize my dinosaur water bottle?
 

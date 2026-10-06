@@ -37,7 +37,7 @@ _As an Amazon™ Associate, we earn from qualifying purchases._
 
 <div class="image"><a href="https://serp.ly/@boxingundefeated/amazon/healthiest-water-bottles"><img alt="32-oz-glass-water-bottle-with-straw-lid-time-marker-sleeve-extra-lid-water-bottle-holder-with-strap--1" src="https://imagedelivery.net/vy2bglCGN6hEeWOnSe2c7A/32-oz-glass-water-bottle-with-straw-lid-time-marker-sleeve-extra-lid-water-bottle-holder-with-strap--1/w=720,h=540,fit=pad,background=black"/></a></div>
 
-I have been using this 32 oz borosilicate glass water bottle with strawwater bottle with strawbottle with straw lid and sleeve for a few weeks now and it has quickly become my go-to hydration companion! The [glass bottle](https://best.serp.co/shop/glass-bottle/) is incredibly sturdy and provides a clean, neutral taste to my water, unlike some [plastic water bottles](https://best.serp.co/shop/plastic-water-bottles/).
+I have been using this 32 oz borosilicate glass water bottle with strawwater bottle with strawbottle with straw lid and sleeve for a few weeks now and it has quickly become my go-to hydration companion! The glass bottle is incredibly sturdy and provides a clean, neutral taste to my water, unlike some plastic water bottles.
 
 One of the best features of this bottle is the built-in time marker on one side and oz/ml measurements on the other, which helps me keep track of my water intake throughout the day. The extra lid included provides a nice backup option and the removable sleeve not only adds protection but also enhances grip and insulation.
 
@@ -155,7 +155,7 @@ Yes, all the water bottles included in our Healthiest Water Bottles roundup are 
 
 <div><a href="https://serp.ly/@boxingundefeated/amazon/healthiest-water-bottles"><img src="https://imagedelivery.net/vy2bglCGN6hEeWOnSe2c7A/Healthiest+Water+Bottles-4/w=720,h=540,fit=pad,background=black" alt="Healthiest Water Bottles-4"></a></div>
 
-These bottles are designed with features that conserve the water's freshness. They're leak-proof, airtight, and insulated to keep your water cool and prevent bacteria and contaminants from entering. [Some also come with filters that remove impurities, guaranteeing you clean, healthy water every time you take a sip.](https://best.serp.co/shop/pur-water-filters/)
+These bottles are designed with features that conserve the water's freshness. They're leak-proof, airtight, and insulated to keep your water cool and prevent bacteria and contaminants from entering. Some also come with filters that remove impurities, guaranteeing you clean, healthy water every time you take a sip.
 
 ### 3. Can these bottles help me reduce my plastic consumption?
 
@@ -183,7 +183,7 @@ The right bottle size for you depends on how much water you consume daily and yo
 
 ### 8. Do all the bottles in this roundup have a good grip?
 
-Yes, we've made sure to include water bottles that offer a comfortable grip. These bottles may come with textured or silicone grips, or they might feature a slim, easy-to-hold design. Some also include carrying handles or [lanyards](https://best.serp.co/shop/lanyards/), making them even more convenient to carry around.
+Yes, we've made sure to include water bottles that offer a comfortable grip. These bottles may come with textured or silicone grips, or they might feature a slim, easy-to-hold design. Some also include carrying handles or lanyards, making them even more convenient to carry around.
 
 ### 9. How long will the water bottle's insulation keep my drinks cold or hot?
 

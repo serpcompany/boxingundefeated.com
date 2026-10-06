@@ -148,7 +148,7 @@ LoL Water Bottles are available from official League of Legends merchandise stor
 
 ### How do I clean my LoL Water Bottle?
 
-To clean your LoL Water Bottle, first, remove any lids or accessories. Then, fill the bottle with warm soapy water and shake well to loosen any dirt or residue. Use a soft-bristled [bottle brush](https://best.serp.co/shop/bottle-brush/) or [dish sponge](https://best.serp.co/shop/dish-sponge/) to gently scrub the inside and outside of the bottle, focusing on any hard-to-reach areas. Rinse thoroughly with clean water and let air dry before reassembling the bottle with its lid and accessories. For more extensive cleaning, consider using a mild bleach solution or consulting the specific instructions provided by the bottle's manufacturer.
+To clean your LoL Water Bottle, first, remove any lids or accessories. Then, fill the bottle with warm soapy water and shake well to loosen any dirt or residue. Use a soft-bristled bottle brush or dish sponge to gently scrub the inside and outside of the bottle, focusing on any hard-to-reach areas. Rinse thoroughly with clean water and let air dry before reassembling the bottle with its lid and accessories. For more extensive cleaning, consider using a mild bleach solution or consulting the specific instructions provided by the bottle's manufacturer.
 
 ### What is the difference between a 17oz and a 25oz LoL Water Bottle?
 

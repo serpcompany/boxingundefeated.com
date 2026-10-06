@@ -126,7 +126,7 @@ Despite some minor drawbacks, I wholeheartedly recommend the Yeti Yonder Water B
 
 I've been using the Dopper Insulated Bottlenose Blue for about a month now, and I must say, it's been a game-changer. The bottle has a sleek design with a vibrant blue color that just screams 'environmentally friendly'. The stainless steel body is super durable and the vacuum insulation is amazing.
 
-One of the standout features for me is how well this bottle keeps water hot or cold. I've been using it to carry [hot tea](https://best.serp.co/shop/hot-tea/)tea during my morning commute and it's been a lifesaver when I get to the office. And when I'm out and about on a hot day, my water stays ice cold thanks to the vacuum insulation.
+One of the standout features for me is how well this bottle keeps water hot or cold. I've been using it to carry hot teatea during my morning commute and it's been a lifesaver when I get to the office. And when I'm out and about on a hot day, my water stays ice cold thanks to the vacuum insulation.
 
 The three-part design is also really convenient. It's easy to fill up, take apart for cleaning, and the top half turns into a cup, which is perfect for sharing water with someone. The only downside I've noticed is that the bottle can get a bit slippery when your hands are wet or sweaty.
 

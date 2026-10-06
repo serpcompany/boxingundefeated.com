@@ -49,7 +49,7 @@ One of the highlights of this bottle is the protective push-to-open lid that kee
 
 The double-wall insulation ensures that my child's drinks stay cold for up to 24 hours, even on the hottest days. And, with the wide opening, adding ice and cleaning the bottle is a breeze. Additionally, it's comforting to know that this bottle is completely BPA and phthalate-free, so I don't have to worry about any harmful chemicals.
 
-However, there are a few cons to consider. The only downside is that the cup-holder-friendly base can sometimes be challenging to clean thoroughly. Plus, while the bottle is great for cold beverages, it's not recommended for use with hot liquids. [Overall, the Owala Kids' Free Sip Stainless Steel Water Bottle is an excellent choice for kids who love hydrating in style and keeping their drinks chill.](https://best.serp.co/shop/owala-water-bottles/)
+However, there are a few cons to consider. The only downside is that the cup-holder-friendly base can sometimes be challenging to clean thoroughly. Plus, while the bottle is great for cold beverages, it's not recommended for use with hot liquids. Overall, the Owala Kids' Free Sip Stainless Steel Water Bottle is an excellent choice for kids who love hydrating in style and keeping their drinks chill.
 
 ### [Bubblegum Glass Hydration Tracking Water Bottle](https://serp.ly/@boxingundefeated/amazon/sip-water-bottles)
 
@@ -209,7 +209,7 @@ SIP water bottles are typically made from high-quality food-grade materials such
 
 ### How do I clean my SIP water bottle?
 
-Cleaning your SIP water bottle is easy. After each use, rinse the bottle thoroughly using warm soapy water or a gentle [bottle brush](https://best.serp.co/shop/bottle-brush/). For optimal cleaning, disassemble the valve and other removable parts and clean them separately. Make sure everything is dry before reassembling the bottle for storage. It is also advisable to check the manufacturer's specific cleaning instructions for your particular bottle model.
+Cleaning your SIP water bottle is easy. After each use, rinse the bottle thoroughly using warm soapy water or a gentle bottle brush. For optimal cleaning, disassemble the valve and other removable parts and clean them separately. Make sure everything is dry before reassembling the bottle for storage. It is also advisable to check the manufacturer's specific cleaning instructions for your particular bottle model.
 
 ### Can I use my SIP water bottle for hot liquids?
 

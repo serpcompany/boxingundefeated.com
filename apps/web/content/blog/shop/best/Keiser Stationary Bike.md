@@ -232,7 +232,7 @@ Assembling a Keiser Stationary Bike is straightforward. The package includes all
 
 ### What maintenance does a Keiser Stationary Bike require?
 
-Maintenance for a Keiser Stationary Bike is minimal. Regularly Check the tension of the brake pads[pads](https://best.serp.co/shop/pads/) and tighten bolts as needed. The chain may need to be lubricated occasionally after heavy usage. Always consult your user manual for specific maintenance guidelines.
+Maintenance for a Keiser Stationary Bike is minimal. Regularly Check the tension of the brake padspads and tighten bolts as needed. The chain may need to be lubricated occasionally after heavy usage. Always consult your user manual for specific maintenance guidelines.
 
 ### Do Keiser Stationary Bikes come with a warranty?
 

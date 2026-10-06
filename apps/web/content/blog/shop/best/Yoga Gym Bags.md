@@ -55,7 +55,7 @@ I recently picked up this stylish and functional MOLLYGAN Travel Duffel Bag, and
 
 One of the standout features for me is the shoe compartment. This came in handy during my beach trip when I needed to carry a pair of sandals. The shoe compartment kept my shoes separate from my clothes - a lifesaver in terms of keeping my belongings clean and organized.
 
-The adjustable shoulder strap is another feature that has made my life easier. Whether I'm carrying it as a [duffle bag](https://best.serp.co/shop/duffle-bag/), slung across my shoulder, or using the top handles, this versatile bag accommodates any situation.
+The adjustable shoulder strap is another feature that has made my life easier. Whether I'm carrying it as a duffle bag, slung across my shoulder, or using the top handles, this versatile bag accommodates any situation.
 
 The interior is also quite spacious, with multiple pockets to hold my laptop, iPad, daily essentials like clothes and towels, and even a small pocket for my cell phone and coins. The material is made of durable canvas, which not only ensures its longevity but also offers a soft and smooth touch.
 

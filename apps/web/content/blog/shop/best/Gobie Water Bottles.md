@@ -43,7 +43,7 @@ The reinforced borosilicate glass is surprisingly lightweight, making it easy to
 
 While the bottle's craftsmanship is top-notch, I did notice a slight issue with the silicone grip. Over time, it tends to loosen up a bit, which can cause the bottle to slip around when it gets wet. However, this is a minor inconvenience compared to the overall benefits of using this stylish glass water bottle.
 
-Another feature that sets this bottle apart from others is the optional [charcoal filter](https://best.serp.co/shop/charcoal-filter/), which enhances the taste of tap water and makes it more palatable. This has made me more inclined to stay hydrated throughout the day. Plus, the leak-proof cap ensures that I don't have to worry about any spills in my bag or on my desk.
+Another feature that sets this bottle apart from others is the optional charcoal filter, which enhances the taste of tap water and makes it more palatable. This has made me more inclined to stay hydrated throughout the day. Plus, the leak-proof cap ensures that I don't have to worry about any spills in my bag or on my desk.
 
 In conclusion, the KURO-BO Charcoal-Filter Glass Water Bottle 1L has proven to be an excellent addition to my daily routine. Its sleek design, eco-friendliness, and innovative features make it stand out among other water bottles on the market. Despite the minor issue with the grip, I highly recommend this bottle for anyone looking to stay hydrated while reducing their environmental impact.
 
@@ -105,7 +105,7 @@ In summary, the Dafi Filter Bottle 0,3L has been a reliable companion during my 
 
 <div class="image"><a href="https://serp.ly/@boxingundefeated/amazon/gobie-water-bottles"><img alt="tervis-topographic-radar-wide-mouth-stainless-steel-bottle-32-oz-1" src="https://imagedelivery.net/vy2bglCGN6hEeWOnSe2c7A/tervis-topographic-radar-wide-mouth-stainless-steel-bottle-32-oz-1/w=720,h=540,fit=pad,background=black"/></a></div>
 
-I recently got my hands on the Tervis Topographic Radar Stainless Steel Bottle, and boy, am I happy with it! The triple insulation feature is simply amazing - my coffee stays hot for hours, while my water remains ice-cold throughout the day. The large bottle opening makes it super easy to fill with [ice cubes](https://best.serp.co/shop/ice-cubes/), and the non-slip base ensures that it doesn't slide around on my desk.
+I recently got my hands on the Tervis Topographic Radar Stainless Steel Bottle, and boy, am I happy with it! The triple insulation feature is simply amazing - my coffee stays hot for hours, while my water remains ice-cold throughout the day. The large bottle opening makes it super easy to fill with ice cubes, and the non-slip base ensures that it doesn't slide around on my desk.
 
 One of the things I love most about this bottle is its durability. The 18/8 stainless steel construction not only gives it a sleek, modern look but also ensures that it won't retain any odors or tastes. Plus, I can trust Tervis to stand behind their product, with a 5-year guarantee on the stainless steel tumblers.
 
@@ -163,7 +163,7 @@ General advice for choosing a Gobie water bottle:
 
 ### What is Gobie Water Bottles?
 
-Gobie Water Bottles are a line of reusable, eco-friendly water bottles designed to help reduce the use of single-use [plastic water bottles](https://best.serp.co/shop/plastic-water-bottles/). The bottles come in various sizes and colors, making them suitable for different needs and preferences.
+Gobie Water Bottles are a line of reusable, eco-friendly water bottles designed to help reduce the use of single-use plastic water bottles. The bottles come in various sizes and colors, making them suitable for different needs and preferences.
 
 ### What materials are these water bottles made from?
 
@@ -185,7 +185,7 @@ Gobie Water Bottles come in various sizes, including 12 oz, 18 oz, and 24 oz. Th
 
 <div><a href="https://serp.ly/@boxingundefeated/amazon/gobie-water-bottles"><img src="https://imagedelivery.net/vy2bglCGN6hEeWOnSe2c7A/Gobie+Water+Bottles-6/w=720,h=540,fit=pad,background=black" alt="Gobie Water Bottles-6"></a></div>
 
-Gobie Water Bottles are easy to clean. Simply rinse the bottle with warm, soapy water and use a [bottle brush](https://best.serp.co/shop/bottle-brush/) to remove any stubborn residue. For a more thorough cleaning, you can use baking soda and water to create a natural cleaning solution, or dishwasher-safe models may be cleaned in the dishwasher.
+Gobie Water Bottles are easy to clean. Simply rinse the bottle with warm, soapy water and use a bottle brush to remove any stubborn residue. For a more thorough cleaning, you can use baking soda and water to create a natural cleaning solution, or dishwasher-safe models may be cleaned in the dishwasher.
 
 ### How effective is Gobie Water Bottles' filtration system?
 

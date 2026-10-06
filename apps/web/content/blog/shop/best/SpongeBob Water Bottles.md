@@ -96,7 +96,7 @@ All in all, Simple Modern's DC Comics Batman Kids Water Bottle has become a go-t
 
 SpongeBob SquarePants might be a cartoon character, but his loyal fans know he's nothing short of a legend. It's hard to find a gift for someone who loves him, until now! The SpongeBob SquarePants The Krusty Krab Tumbler is the ultimate fan merch that doubles as a reliable daily use tumbler. Made with double-walled, BPA-free acrylic, this 16 oz tumbler comes with a matching red straw and lid to complete the look. Its double-walled design keeps your beverages either hot or cold for hours, ensuring you enjoy every sip.
 
-One drawback is that it's not dishwasher or [microwave](https://best.serp.co/shop/microwaves/) safe. However, cleaning it manually is easy enough, especially given its dishwasher-friendly material. Overall, this tumbler offers a nostalgic twist on your daily routine and serves as a testament to the timeless appeal of SpongeBob SquarePants. If you're a fan or know a true fan, this tumbler makes for a perfect gift that promises both a functional use and a trip down memory lane.
+One drawback is that it's not dishwasher or microwave safe. However, cleaning it manually is easy enough, especially given its dishwasher-friendly material. Overall, this tumbler offers a nostalgic twist on your daily routine and serves as a testament to the timeless appeal of SpongeBob SquarePants. If you're a fan or know a true fan, this tumbler makes for a perfect gift that promises both a functional use and a trip down memory lane.
 
 SpongeBob SquarePants The Krusty Krab Tumbler is a fan favorite and it shows in the reviews. Many users were excited about the tumbler's capacity and loved the nostalgia attached to the beloved character. However, some users reported slight paint chipping and the lid tending to come off if accidentally bumped. Despite these minor inconveniences, the overall sentiment towards the tumbler is incredibly positive, with users praising its design, functionality, and capacity.
 
@@ -168,7 +168,7 @@ SpongeBob Water Bottles come in various sizes, typically ranging from 18 oz. (53
 
 ### How do I keep my SpongeBob Water Bottle clean?
 
-To clean your SpongeBob Water Bottle, use warm soapy water and a [bottle brush](https://best.serp.co/shop/bottle-brush/). Rinse thoroughly and air dry. For the most effective cleaning, disassemble the bottle, and wash all removable parts separately. If you have a dishwasher-safe bottle, you may also place it on the top rack for easy cleaning.
+To clean your SpongeBob Water Bottle, use warm soapy water and a bottle brush. Rinse thoroughly and air dry. For the most effective cleaning, disassemble the bottle, and wash all removable parts separately. If you have a dishwasher-safe bottle, you may also place it on the top rack for easy cleaning.
 
 ### Do SpongeBob Water Bottles have leak-proof lids?
 

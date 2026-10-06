@@ -98,7 +98,7 @@ I recently incorporated a new travel companion into my daily life, the Zap Impex
 
 The process of using the bottle is quite simple. All you need to do is pour water into it and leave it overnight. Consuming this water first thing in the morning has become part of my morning routine, and I must say, it has made a positive difference in my overall energy levels throughout the day.
 
-However, one thing to keep in mind is that the copper naturally darkens over time. This doesn't affect the functionality or safety of the bottle, but it does require regular cleaning to maintain its appearance. I usually use a mixture of [lemon juice](https://best.serp.co/shop/lemon-juice/) or tamarind to clean the bottle, which works quite effectively.
+However, one thing to keep in mind is that the copper naturally darkens over time. This doesn't affect the functionality or safety of the bottle, but it does require regular cleaning to maintain its appearance. I usually use a mixture of lemon juice or tamarind to clean the bottle, which works quite effectively.
 
 In terms of design, the bottle is round and very easy to hold, even when it's full. I also like that it's reusable, which aligns perfectly with my commitment to reducing single-use plastic waste.
 
@@ -198,7 +198,7 @@ I recently acquired the Rastogi Handicrafts Pure Copper Bottle and it's been an 
 
 One feature that stands out is that this bottle is free from any joints or linings. It's made entirely of solid copper, which is an excellent conductor for holding and retaining the heat, making it an ideal companion for hot beverages as well. However, I found out the hard way that solid copper does tarnish over time, so a weekly clean is necessary to keep it looking its best.
 
-Another positive aspect of this bottle is its leak-proof design. I can throw it into my bag without worrying about any unwanted spills. Plus, the wide mouth design makes it easy to clean and insert [ice cubes](https://best.serp.co/shop/ice-cubes/) when I need a cool refreshment.
+Another positive aspect of this bottle is its leak-proof design. I can throw it into my bag without worrying about any unwanted spills. Plus, the wide mouth design makes it easy to clean and insert ice cubes when I need a cool refreshment.
 
 However, there's one downside - the bottle is recommended for water storage only. This means if you are looking to store any other beverage, this bottle might not be the best fit for you.
 

@@ -57,7 +57,7 @@ Overall, the Life Energy 5mm EkoSmart Cork Yoga Mat with Yoga Strap has definite
 
 I have to say, the Sol Living Natural Rubber Yoga Mat in Grey has been a game-changer in my daily workout routine. The minute I unrolled it, I was greeted with a sense of comfort and luxury. Its thick surface not only gives me substantial cushioning, but it also offers a non-slip grip that makes it incredibly comfortable to practice any yoga pose. I've been especially thrilled about the grey color, which gives off a zen-like, smooth and delightful vibe to my practice space.
 
-Additionally, the mat is moisture-resistant, making it a perfect companion for hot yoga sessions. Besides yoga, this natural rubber mat also doubles as an excellent [exercise mat](https://best.serp.co/shop/exercise-mat/) for other floor exercises, providing a steady, non-slip surface for balance and comfort.
+Additionally, the mat is moisture-resistant, making it a perfect companion for hot yoga sessions. Besides yoga, this natural rubber mat also doubles as an excellent exercise mat for other floor exercises, providing a steady, non-slip surface for balance and comfort.
 
 However, there's one thing that does require a bit of effort - maintenance. The mat, being made of natural rubber, needs a gentle touch for cleaning. It's best to wipe it down with a soft damp cloth for a clean, slip-free surface, and an overall enjoyable workout experience.
 

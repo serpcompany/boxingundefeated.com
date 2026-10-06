@@ -48,7 +48,7 @@ The heavy-duty construction is truly worth mentioning. The sturdy materials make
 
 One thing that caught me off guard was the noise the metal zippers make when opening and closing them. It's not a deal-breaker, but it might be a little louder than I'd like. Another small inconvenience is the lack of a secure space for my keys, phone, and wallet. Although the side pockets are deep, items tend to get lost in there easily.
 
-Despite these minor issues, I absolutely love this gym bag. Not only does it hold all my boxing equipment, but it also has a sleek design that gets compliments every time I head to the gym. The ability to switch between a [duffle bag](https://best.serp.co/shop/duffle-bag/) and a backpack adds an extra layer of convenience that I didn't know I needed.
+Despite these minor issues, I absolutely love this gym bag. Not only does it hold all my boxing equipment, but it also has a sleek design that gets compliments every time I head to the gym. The ability to switch between a duffle bag and a backpack adds an extra layer of convenience that I didn't know I needed.
 
 In conclusion, the RGB50 Gym Bag by Rival has proven to be a reliable and stylish choice for my boxing needs. While there are some minor drawbacks, they are vastly outweighed by the bag's functionality and durability. I highly recommend giving it a try if you're in the market for a new gym bag!
 

@@ -96,7 +96,7 @@ Taking the Takeya Tritan 40 oz Black Water Bottle for a spin around my daily rou
 
 The first thing that caught my attention was the Takeya's craftsmanship. Unlike other water bottles, it's made from Eastman Tritan - a shatterproof, BPA-free plastic that not only boasts excellent durability but also maintains its pristine condition through countless dishwasher cycles. Furthermore, the Takeya's lightweight nature makes it a pleasure to carry around, whether it's on a casual walk or a long hike.
 
-A standout feature of the Takeya is its wide mouth. Unlike traditional water bottle openings, this one is broad enough to accommodate larger [ice cubes](https://best.serp.co/shop/ice-cubes/) and is even more accessible for those with limited dexterity. Plus, cleaning has never been easier: just pop it in the dishwasher and presto! It's as good as new.
+A standout feature of the Takeya is its wide mouth. Unlike traditional water bottle openings, this one is broad enough to accommodate larger ice cubes and is even more accessible for those with limited dexterity. Plus, cleaning has never been easier: just pop it in the dishwasher and presto! It's as good as new.
 
 However, there are a few areas where I believe the Takeya could improve. For instance, its spout lid, though leak-proof, may not be ideal for hot beverages due to heat retention. Additionally, while the silicone bumper offers excellent protection, it may also attract grime in the long run. These minor downsides aside, the Takeya Tritan 40 oz Black Water Bottle has become my go-to hydration solution.
 
@@ -162,7 +162,7 @@ Yes, Takeya Water Bottles 40 oz are suitable for both hot and cold beverages. Th
 
 ### How easy is it to clean Takeya Water Bottles 40 oz?
 
-Takeya Water Bottles 40 oz can be easily cleaned using warm, soapy water and a [bottle brush](https://best.serp.co/shop/bottle-brush/). The cap and spout can be disassembled for thorough cleaning.
+Takeya Water Bottles 40 oz can be easily cleaned using warm, soapy water and a bottle brush. The cap and spout can be disassembled for thorough cleaning.
 
 ### How do I know which size bottle is right for me?
 

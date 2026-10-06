@@ -65,7 +65,7 @@ I recently picked up the Contigo Cortland Chill 2.0 Autoseal Stainless Steel Wat
 
 One of the standout features of this bottle is its AUTOSEAL technology. With just a push of a button, I can take a swig and then easily seal it back up for spill-proof safety. It's perfect for keeping my desk and bag free from any accidental leaks. And speaking of safety, the button lock ensures that my bottle won't accidentally open up in my bag, which has happened with other bottles I've tried.
 
-Another benefit of this bottle is its double-wall vacuum-insulated stainless steel body. This design keeps my cold drinks chilled for up to 24 hours and my hot beverages steamy for six hours. It's been a lifesaver during long workdays when I rely on [hot tea](https://best.serp.co/shop/hot-tea/)tea to keep me going. Plus, the integrated handle makes it easy to carry around and swings out of the way when not in use.
+Another benefit of this bottle is its double-wall vacuum-insulated stainless steel body. This design keeps my cold drinks chilled for up to 24 hours and my hot beverages steamy for six hours. It's been a lifesaver during long workdays when I rely on hot teatea to keep me going. Plus, the integrated handle makes it easy to carry around and swings out of the way when not in use.
 
 Cleaning this bottle is also a breeze, thanks to its top-rack dishwasher-safe lid and an easy-to-open underside for those deep cleans. Additionally, it fits perfectly in most car cup holders, making it a convenient choice for road trips or daily commutes.
 

@@ -62,7 +62,7 @@ In summary, while this water bottle may have its quirks, its numerous benefits m
 
 <div class="image"><a href="https://serp.ly/@boxingundefeated/amazon/life-water-bottles"><img alt="lifefactory-glass-bottle-12-ounce-1" src="https://imagedelivery.net/vy2bglCGN6hEeWOnSe2c7A/lifefactory-glass-bottle-12-ounce-1/w=720,h=540,fit=pad,background=black"/></a></div>
 
-I've been using the Lifefactory 12 oz bottle to quench my thirst on my short trips to the store and the gym. It's a [glass bottle](https://best.serp.co/shop/glass-bottle/) that has all the features I love in a water bottle. The beautiful colors and the smooth, clean glass make it a stylish companion. However, what stands out for me is the classic, tight-fitting cap that's easy to carry.
+I've been using the Lifefactory 12 oz bottle to quench my thirst on my short trips to the store and the gym. It's a glass bottle that has all the features I love in a water bottle. The beautiful colors and the smooth, clean glass make it a stylish companion. However, what stands out for me is the classic, tight-fitting cap that's easy to carry.
 
 The bottle's protective silicone sleeve provides a non-slip grip, helping prevent breakage, which is an added advantage. I also appreciate that it's dishwasher safe, making it easy to clean.
 
@@ -112,7 +112,7 @@ In summary, Nestle Pure Life Purified Water is a fantastic choice for anyone loo
 
 The Lifefactory 12 Ounce Onyx Black Glass Bottle with Classic Cap is my go-to water bottle for every adventure. The glass construction offers a pure taste, and I don't have to worry about any unwanted leaching from plastics or metals. The silicone sleeve not only adds a stylish touch but also provides a comfortable, non-slip grip and helps prevent breakage.
 
-One of my favorite features is the wide-mouth access, making it super easy to fill up with [ice cubes](https://best.serp.co/shop/ice-cubes/) or even add some fresh lemon slices for an extra burst of flavor. The classic cap offers leak-proof security, and it's dishwasher safe, making cleaning a breeze. Plus, all components are BPA-free and made from high-quality materials, ensuring durability and long-lasting use.
+One of my favorite features is the wide-mouth access, making it super easy to fill up with ice cubes or even add some fresh lemon slices for an extra burst of flavor. The classic cap offers leak-proof security, and it's dishwasher safe, making cleaning a breeze. Plus, all components are BPA-free and made from high-quality materials, ensuring durability and long-lasting use.
 
 On the downside, the bottle tends to sweat a bit when filled with cold water, which can be a little inconvenient. However, that's a small price to pay for the overall quality and performance of this reusable water bottle. I highly recommend the Lifefactory 12 Ounce Onyx Black Glass Bottle with Classic Cap for those seeking a stylish, eco-friendly, and high-performing water bottle option.
 
@@ -160,7 +160,7 @@ I recently picked up the Lifefactory Stainless Steel Sport Bottle in pink, and I
 
 One feature that really stood out for me was the straw cap with a carry loop. It's super convenient for when I'm on the go, whether I'm at the gym, out for a run, or just sipping on some water at my desk. The durable powder coating also makes it really comfortable to grip, while the silicone base ensures that it stays put even on slick surfaces.
 
-Now, the downsides. While the bottle is fantastic for keeping cold drinks cold, it isn't suitable for hot beverages, so you'll need a separate mug for your tea or coffee. And speaking of separation, the bottle design can make it a bit difficult to clean - it's a good idea to invest in a long-handled [bottle brush](https://best.serp.co/shop/bottle-brush/) to get into those hard-to-reach spots.
+Now, the downsides. While the bottle is fantastic for keeping cold drinks cold, it isn't suitable for hot beverages, so you'll need a separate mug for your tea or coffee. And speaking of separation, the bottle design can make it a bit difficult to clean - it's a good idea to invest in a long-handled bottle brush to get into those hard-to-reach spots.
 
 Overall, I'm really happy with my Lifefactory Stainless Steel Sport Bottle. It's a stylish, practical addition to my daily routine, and I can't imagine life without it. If you're in the market for a new water bottle, this one is definitely worth checking out.
 

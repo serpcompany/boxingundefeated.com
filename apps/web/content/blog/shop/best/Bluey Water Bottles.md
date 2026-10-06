@@ -105,7 +105,7 @@ One downside, however, is that it tends to be quite heavy when filled up to its 
 
 Alright folks, let me tell you about my experience with this Bluey water bottle from Zak Designs. First of all, the artwork is absolutely adorable, my little ones love it! Plus, it comes with a sliding lock that makes sure the bottle stays shut tight when not in use.
 
-The best part? It's a double wall vacuum insulated bottle, which means your cold drinks will stay chilly-cool for a long period of time! No more lukewarm water halfway through the day. And you won't find any pesky condensation rings on your tables or [desks](https://best.serp.co/shop/desks/) either.
+The best part? It's a double wall vacuum insulated bottle, which means your cold drinks will stay chilly-cool for a long period of time! No more lukewarm water halfway through the day. And you won't find any pesky condensation rings on your tables or desks either.
 
 One little issue though - despite claiming to be leak-proof, we found that it does let out a tiny bit of moisture under the lid if you're not careful while closing. But hey, nothing major!
 
@@ -169,7 +169,7 @@ Bluey Water Bottles come in three sizes: 17 oz, 24 oz, and 32 oz. The 17 oz bott
 
 ### How do I clean my Bluey Water Bottle?
 
-Cleaning your Bluey Water Bottle is easy and straightforward. Simply remove the cap, empty any residual water, and wash both the bottle and cap with warm, soapy water. If needed, you can also use a gentle [bottle brush](https://best.serp.co/shop/bottle-brush/) to reach the bottom of the bottle. Rinse thoroughly and allow both pieces to air dry before reassembling and using the bottle again.
+Cleaning your Bluey Water Bottle is easy and straightforward. Simply remove the cap, empty any residual water, and wash both the bottle and cap with warm, soapy water. If needed, you can also use a gentle bottle brush to reach the bottom of the bottle. Rinse thoroughly and allow both pieces to air dry before reassembling and using the bottle again.
 
 <div><a href="https://serp.ly/@boxingundefeated/amazon/bluey-water-bottles"><img src="https://imagedelivery.net/vy2bglCGN6hEeWOnSe2c7A/Bluey+Water+Bottles-5/w=720,h=540,fit=pad,background=black" alt="Bluey Water Bottles-5"></a></div>
 
@@ -193,7 +193,7 @@ The warranty and return policy may vary depending on the retailer where you purc
 
 ### Are Bluey Water Bottles leak-proof?
 
-Yes, Bluey Water Bottles are leak-proof when properly secured with the screw cap. The silicone lining in the cap helps create a tight seal to prevent leakage, making them perfect for using in a [school bag](https://best.serp.co/shop/school-bag/) or gym bag without worrying about spills.
+Yes, Bluey Water Bottles are leak-proof when properly secured with the screw cap. The silicone lining in the cap helps create a tight seal to prevent leakage, making them perfect for using in a school bag or gym bag without worrying about spills.
 
 ### Can I personalize my Bluey Water Bottle with stickers or other decorations?
 

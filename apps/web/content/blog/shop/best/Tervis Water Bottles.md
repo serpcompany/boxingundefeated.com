@@ -41,7 +41,7 @@ My days usually revolve around long hours at work and intense workout sessions a
 
 This redbird-themed bottle has become my constant companion, not just because it's super easy to carry around but also due to its excellent performance. The double-wall insulated construction is a game-changer, ensuring my beverages stay hot or cold for longer periods.
 
-One issue I encountered was the size of its opening, which can be a bit tricky when trying to add [ice cubes](https://best.serp.co/shop/ice-cubes/). However, this small inconvenience is easily overshadowed by the bottle's durability and impact resistance. The BPA-free material ensures no unpleasant tastes or odors linger, making every sip an enjoyable experience.
+One issue I encountered was the size of its opening, which can be a bit tricky when trying to add ice cubes. However, this small inconvenience is easily overshadowed by the bottle's durability and impact resistance. The BPA-free material ensures no unpleasant tastes or odors linger, making every sip an enjoyable experience.
 
 Overall, the Tervis Water Bottle is a reliable choice for those wanting to mix functionality with personal style. Its lifetime guarantee gives me peace of mind, knowing I made a worthwhile investment in my daily hydration needs.
 

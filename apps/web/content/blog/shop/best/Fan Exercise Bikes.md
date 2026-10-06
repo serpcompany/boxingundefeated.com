@@ -37,7 +37,7 @@ _As an Amazon™ Associate, we earn from qualifying purchases._
 
 <div class="image"><a href="https://serp.ly/@boxingundefeated/amazon/fan-exercise-bikes"><img alt="titan-fitness-fan-bike-1" src="https://imagedelivery.net/vy2bglCGN6hEeWOnSe2c7A/titan-fitness-fan-bike-1/w=720,h=540,fit=pad,background=black"/></a></div>
 
-As a fitness enthusiast, I found the Titan Fitness Fan Bike to be a solid addition to my home gym setup. Right off the bat, I loved the robust construction that uses 114 pounds of heavy-gauge steel. The fan guard, water bottle holder, [phone holder](https://best.serp.co/shop/phone-holder/), and turf tires add to the overall appeal of the product. However, the built-in back handle could use some improvement in terms of design comfort.
+As a fitness enthusiast, I found the Titan Fitness Fan Bike to be a solid addition to my home gym setup. Right off the bat, I loved the robust construction that uses 114 pounds of heavy-gauge steel. The fan guard, water bottle holder, phone holder, and turf tires add to the overall appeal of the product. However, the built-in back handle could use some improvement in terms of design comfort.
 
 One of the key highlights of the Titan Fan Bike is its ease of assembly. The quality display was also impressive, though some reviewers mentioned it being slightly noisy. On the downside, the seat can be quite uncomfortable, as well as the seat adjustment mechanism.
 

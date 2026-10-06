@@ -63,9 +63,9 @@ This Japanese thermos bottle is not your average water bottle - it's a seamless,
 
 One feature that I absolutely love about this mug is its vacuum insulation. You can fill it up with boiling water in the morning, and it will still be hot when you take a sip at lunch. And if you're more of a cold drinks person, this mug will keep your beverages icy-cold for just as long.
 
-Another highlight is its wide mouth, which makes it incredibly easy to clean. Plus, you can add [ice cubes](https://best.serp.co/shop/ice-cubes/) without worrying about them getting stuck or spilling all over the place.
+Another highlight is its wide mouth, which makes it incredibly easy to clean. Plus, you can add ice cubes without worrying about them getting stuck or spilling all over the place.
 
-Now, let's talk about the cons. While the mug is pretty sleek and easy to handle, some users have reported that removing the [rubber band](https://best.serp.co/shop/rubber-band/) from the lid can be quite challenging. However, this seems to be a minor issue that doesn't affect the overall performance of the product.
+Now, let's talk about the cons. While the mug is pretty sleek and easy to handle, some users have reported that removing the rubber band from the lid can be quite challenging. However, this seems to be a minor issue that doesn't affect the overall performance of the product.
 
 If you're someone who loves traveling and wants to keep your drinks at the right temperature throughout the day, the Zojirushi Sm-Wa36-Gd Stainless Steel Mug Seamless One Touch Khaki is definitely worth considering.
 

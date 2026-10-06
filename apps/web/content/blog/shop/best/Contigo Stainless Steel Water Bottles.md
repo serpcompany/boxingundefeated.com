@@ -109,7 +109,7 @@ All in all, I would highly recommend the Contigo Kid's Water Bottle for its leak
 
 I've been using the Contigo Thermalock Stainless Steel Water Bottle for a few weeks now, and I must say, it's been a game-changer. The thermal insulation is amazing - my coffee stays hot for hours while my water stays ice-cold even on scorching summer days. Plus, the leak-proof lid gives me peace of mind when I'm tossing it into my gym bag or backpack.
 
-The removable spout is a lifesaver too. Not only does it make cleaning super easy, but it also means I can fill up with [ice cubes](https://best.serp.co/shop/ice-cubes/) to keep my drinks extra chilly. The only downside is that it's not the easiest to open and close with one hand, especially when I'm in the middle of a workout or trying to drive.
+The removable spout is a lifesaver too. Not only does it make cleaning super easy, but it also means I can fill up with ice cubes to keep my drinks extra chilly. The only downside is that it's not the easiest to open and close with one hand, especially when I'm in the middle of a workout or trying to drive.
 
 Another thing I love about this bottle is its sleek design. The stainless steel finish looks great and feels solid and sturdy in my hand. And despite its size, it fits perfectly into most cup holders, making it perfect for on-the-go use.
 

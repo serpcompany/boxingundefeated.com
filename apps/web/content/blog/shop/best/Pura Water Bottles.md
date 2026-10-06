@@ -78,9 +78,9 @@ I've been using the Pura Kiki Stainless-Steel Straw Cup with little Leo in his f
 
 One day, while we were hiking, I noticed that the bottle not only kept Leo's water cool in the scorching heat, but it also didn't leak at all! This is quite the feat, considering how many topple-turned-leaks I've experienced with other straw [cups](https://best.serp.co/cups/). Even when we're rushing out of the door, filling up water from the tap and shoving it into Leo's bag, I can rely on its leak-free design, so I don't have to worry about messy surprises.
 
-Another standout feature for me is its ease of cleaning. The silicone straw is super easy to detach from the bottle and can be popped in the dishwasher or cleaned with a baby-safe [bottle brush](https://best.serp.co/shop/bottle-brush/). The fact that this cup can be used with other Pura tops as Leo grows, makes it even more appealing! I don't have to keep investing in new cups as he transitions from sipping from a straw to a sippy cap.
+Another standout feature for me is its ease of cleaning. The silicone straw is super easy to detach from the bottle and can be popped in the dishwasher or cleaned with a baby-safe bottle brush. The fact that this cup can be used with other Pura tops as Leo grows, makes it even more appealing! I don't have to keep investing in new cups as he transitions from sipping from a straw to a sippy cap.
 
-However, it's not all perfect. I've noticed that the bottle gets dented up rather quickly when Leo throws it around (which he does quite a lot, being a toddler and all). [Plus, there's no insulation on this bottle, so it may not be the best choice if you're looking for something to keep your child's drinks hot or cold for longer periods.](https://best.serp.co/shop/portable-bottle-warmers/)
+However, it's not all perfect. I've noticed that the bottle gets dented up rather quickly when Leo throws it around (which he does quite a lot, being a toddler and all). Plus, there's no insulation on this bottle, so it may not be the best choice if you're looking for something to keep your child's drinks hot or cold for longer periods.
 
 Overall, I wholeheartedly recommend the Pura Kiki Stainless-Steel Straw Cup. It's a fantastic choice for parents who want a safe, easy-to-clean, leak-proof bottle for their little ones. With its toxin-free materials and compatibility with different top options, it's a cup that's designed to grow with your child.
 
@@ -90,7 +90,7 @@ Overall, I wholeheartedly recommend the Pura Kiki Stainless-Steel Straw Cup. It'
 
 I have been using the Pura Sport Stainless-Steel Bottle with Silicone Sport Top for a while now, and I must say it has made my life much easier, especially when I'm on-the-go. The best part about this bottle is that it is completely plastic-free - a feature that not many bottles in the market offer.
 
-One of the highlights of this bottle is its customizability. You can switch between different sleeves to match your style or your mood. Moreover, the wide-mouth design makes it super easy to clean and even accommodates full-size [ice cubes](https://best.serp.co/shop/ice-cubes/).
+One of the highlights of this bottle is its customizability. You can switch between different sleeves to match your style or your mood. Moreover, the wide-mouth design makes it super easy to clean and even accommodates full-size ice cubes.
 
 However, there have been a few instances where the bottom of the bottle got misshapen, making it difficult to place it on a flat surface. But this issue can be easily fixed with a little help from a hammer. Another con to note is that the lid can sometimes pop off easily.
 

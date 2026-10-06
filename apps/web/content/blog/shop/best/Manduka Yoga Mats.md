@@ -115,7 +115,7 @@ What I love most about the Prolite is its comfortable cushioning. As someone who
 
 One downside of the Prolite, however, is that it doesn't grip as well as I initially expected. It's taken some time to break in, but I've found that using a yoga towel helps significantly. So, if you're looking for a mat with great grip from the get-go, this might not be the best option for you.
 
-Overall, the Manduka Prolite Yoga Mat offers excellent support and comfort for my yoga practice, while also being easy to transport. [If you're someone who values portability and comfort over perfect grip, this product might be worth considering.](https://best.serp.co/shop/hand-grip-strengthener/)
+Overall, the Manduka Prolite Yoga Mat offers excellent support and comfort for my yoga practice, while also being easy to transport. If you're someone who values portability and comfort over perfect grip, this product might be worth considering.
 
 ### [Yogitoes Skidless Yoga Mat Towel - Standard](https://serp.ly/@boxingundefeated/amazon/manduka-yoga-mats)
 
@@ -123,7 +123,7 @@ Overall, the Manduka Prolite Yoga Mat offers excellent support and comfort for m
 
 Using the Manduka Yogitoes Yoga Mat Towel for my daily practice has been a game-changer. I first purchased this towel for hot yoga, and I was blown away by its sweat-absorbing capabilities. The material is soft and comfortable, making it a pleasure to practice on.
 
-One feature that truly stands out is the patented Skidless Technology, which uses 100% silicone nubs to grip the mat firmly. This ensures that the towel stays in place, even during the most intense vinyasa flows. I also appreciate that it's made from recycled [plastic water bottles](https://best.serp.co/shop/plastic-water-bottles/), making it both eco-friendly and hygienic.
+One feature that truly stands out is the patented Skidless Technology, which uses 100% silicone nubs to grip the mat firmly. This ensures that the towel stays in place, even during the most intense vinyasa flows. I also appreciate that it's made from recycled plastic water bottles, making it both eco-friendly and hygienic.
 
 However, there is a downside. The towel's color tends to bleed during the first few washes. While this didn't affect its performance, it did leave some of my laundry with a purple tint. Additionally, the towel is slightly narrower than my Manduka yoga mat, which causes some bunching up on the edges.
 

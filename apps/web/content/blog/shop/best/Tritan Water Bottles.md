@@ -58,7 +58,7 @@ I recently purchased the Thermoflask Tritan Bottle with Spout Lid in Sky color f
 
 One feature that stood out to me was the chug lid. It provides an easy-to-use mechanism to take quick sips without needing to remove the entire lid. The twist-off cap not only allows you to drink while the lid is still on but also seals tight to prevent any leakage.
 
-Another positive aspect of this bottle is its wide mouth, which is excellent for fitting [ice cubes](https://best.serp.co/shop/ice-cubes/) or adding fruits for infused water. Plus, being dishwasher safe, cleaning it is a breeze. The attached loop-top adds convenience as you can either hold it comfortably or clip it onto your bag when you're on the move.
+Another positive aspect of this bottle is its wide mouth, which is excellent for fitting ice cubes or adding fruits for infused water. Plus, being dishwasher safe, cleaning it is a breeze. The attached loop-top adds convenience as you can either hold it comfortably or clip it onto your bag when you're on the move.
 
 I've had this bottle for about a month now, and I must say, it has lived up to my expectations. The Thermoflask Tritan Bottle with Spout Lid has kept my water cold for long periods, even during hot summer days. And best of all, it's priced reasonably, making it an affordable option compared to other similar products on the market.
 
@@ -108,7 +108,7 @@ However, there's one minor con that I've noticed. The bottles tend to accumulate
 
 <div class="image"><a href="https://serp.ly/@boxingundefeated/amazon/tritan-water-bottles"><img alt="amazon-basics-tritan-water-bottle-with-action-lid-24-ounce-2-pack-blue-and-purple-1" src="https://imagedelivery.net/vy2bglCGN6hEeWOnSe2c7A/amazon-basics-tritan-water-bottle-with-action-lid-24-ounce-2-pack-blue-and-purple-1/w=720,h=540,fit=pad,background=black"/></a></div>
 
-I recently received the [Amazon Basics](https://best.serp.co/shop/amazon-basics/) Tritan Water Bottles in Blue and Purple as a birthday gift, and let me tell you, they have since become my go-to bottles! I'm always on-the-go, whether it's hiking, cycling, or just running errands, and these bottles have never failed me.
+I recently received the Amazon Basics Tritan Water Bottles in Blue and Purple as a birthday gift, and let me tell you, they have since become my go-to bottles! I'm always on-the-go, whether it's hiking, cycling, or just running errands, and these bottles have never failed me.
 
 The first thing that caught my eye was the shatterproof, 100% BPA-free, durable Tritan plastic construction. This might sound like a bunch of tech jargon, but trust me, it translates to a super strong bottle that can withstand my adventurous lifestyle. Plus, knowing that there's no BPA gives me peace of mind.
 
@@ -148,7 +148,7 @@ One downside though, it's not suitable for hot liquids, so no tea or coffee in t
 
 As a mom of a ballet-loving little girl, I can't tell you how much joy the Lightzz Kids Water Bottle has brought her. It's not just a functional bottle for school, but a magical tool that adds a touch of enchantment to her day. Every time she takes a sip, the 3D illusion light illuminates her favorite ballet design, bringing a smile to her face and sparking conversations among her friends.
 
-The durability and BPA-free safety precautions are certainly highlights, making it a reliable companion on our family outings. But the best part? The easy-to-use spring-loaded push button and leak-proof silicone gasket, which has saved me from countless spills in her [school bag](https://best.serp.co/shop/school-bag/). She also loves the attached comfortable carry lanyard, making it easy for her to keep track of her bottle wherever we go.
+The durability and BPA-free safety precautions are certainly highlights, making it a reliable companion on our family outings. But the best part? The easy-to-use spring-loaded push button and leak-proof silicone gasket, which has saved me from countless spills in her school bag. She also loves the attached comfortable carry lanyard, making it easy for her to keep track of her bottle wherever we go.
 
 One slight drawback, however, is the hand wash only care instructions. While this isn't a deal-breaker, it does mean that it can be a little more time-consuming to keep clean compared to other bottles she has.
 
@@ -310,7 +310,7 @@ Tritan water bottles come in various capacities, ranging from 16 oz (500 ml) to 
 
 <div><a href="https://serp.ly/@boxingundefeated/amazon/tritan-water-bottles"><img src="https://imagedelivery.net/vy2bglCGN6hEeWOnSe2c7A/Tritan+Water+Bottles-6/w=720,h=540,fit=pad,background=black" alt="Tritan Water Bottles-6"></a></div>
 
-Cleaning a Tritan water bottle is easy. Most models are dishwasher-safe, so you can simply remove the lid and place the bottle on the top rack of your dishwasher. Alternatively, you can wash the bottle by hand using warm, soapy water and a non-abrasive sponge or [bottle brush](https://best.serp.co/shop/bottle-brush/).
+Cleaning a Tritan water bottle is easy. Most models are dishwasher-safe, so you can simply remove the lid and place the bottle on the top rack of your dishwasher. Alternatively, you can wash the bottle by hand using warm, soapy water and a non-abrasive sponge or bottle brush.
 
 ### How can I personalize my Tritan water bottle?
 
