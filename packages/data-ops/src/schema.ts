@@ -1,5 +1,6 @@
 import { relations, sql } from 'drizzle-orm'
 import { check, index, integer, sqliteTable, text, uniqueIndex } from 'drizzle-orm/sqlite-core'
+import { SEARCH_NAME_KEY, SEARCH_TEXT_KEY } from './search'
 
 // Value sets observed across all 5,571 records of `from-pipeline/boxers.json`. They type the
 // columns in TypeScript only: SQLite can't change a CHECK constraint without rebuilding the table,
@@ -102,6 +103,16 @@ export const boxers = sqliteTable(
       sql`${table.proWins} DESC`,
       sql`${table.proTotalBouts} DESC`,
       sql`${table.name} COLLATE NOCASE`
+    ),
+    // `/api/search` (`searchBoxers`): the search keys (search.ts) and the directory order, so the
+    // search filters and ranks on this index alone instead of scanning the table, whose rows carry
+    // kilobytes of bio. SQLite keeps it in step with every write; nothing else maintains it.
+    index('boxers_search_idx').on(
+      sql.raw(SEARCH_TEXT_KEY),
+      sql.raw(SEARCH_NAME_KEY),
+      table.proWins,
+      table.proTotalBouts,
+      table.name
     ),
     check(
       'boxers_record_nonnegative',

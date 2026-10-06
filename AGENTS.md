@@ -31,9 +31,9 @@ The owner runs the production DNS cutover.
     `SITE_ENVIRONMENT` or build an origin anywhere else.
   - `content/`: markdown shop articles. The legal pages are TSX in `app/(legal)/`.
   - `public/data/boxers/`: per-boxer JSON generated from the pipeline data. Never hand-edit it.
-  - `scripts/`: data generators. The search index is built before `next build` (`predev`,
-    `build:with-data`); XML sitemaps are written after it and rewrite files in `public/`, so
-    revert those changes before committing.
+  - `scripts/`: data generators. The export's search index (`lib/search/`; the Worker answers
+    `/api/search` from D1) is built before `next build` (`predev`, `build:with-data`); XML
+    sitemaps are written after it and rewrite files in `public/`: revert them before committing.
   - `wrangler.jsonc`, `open-next.config.ts`, `worker.ts`: the Worker. The top level is local only;
     `env.staging` and `env.production` are the deployed Workers, each with its own D1 `DB`.
     `worker.ts` is the entry; `lib/worker/handle-request.ts` applies the canonical-host redirect
@@ -83,8 +83,8 @@ Worker (OpenNext on Cloudflare, about a minute; boxer pages read the local D1, s
 D1 (Drizzle schema in `packages/data-ops`, migrations in `d1/drizzle/`):
 
 - `pnpm --filter @boxingundefeated/data-ops test`: the query and importer tests (seconds).
-- `pnpm db:generate`: after changing `schema.ts`, write the next migration; commit it with the
-  schema. Re-running it on an unchanged schema must report no changes. Never `drizzle-kit push`.
+- `pnpm db:generate`: the migration for a `schema.ts` change (commit both); a re-run reports none.
+  It mangles expression indexes: hand-write those (0002 says how). Never `drizzle-kit push`.
 - `pnpm db:migrate:local`, `pnpm db:migrations:list:local`: apply or list migrations on the local
   D1 in `apps/web/.wrangler/state`, which the local Worker uses. `pnpm db:reset:local` wipes it,
   migrates and seeds the fixture (`db:seed:local`), in seconds.

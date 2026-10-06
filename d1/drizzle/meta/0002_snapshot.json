@@ -1,0 +1,716 @@
+{
+  "version": "6",
+  "dialect": "sqlite",
+  "id": "2d653813-0b94-4f7c-a237-91b9c4c2f0bd",
+  "prevId": "513c74f2-ab57-4d38-b1a9-fafb4559b8cd",
+  "tables": {
+    "bouts": {
+      "name": "bouts",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "boxer_id": {
+          "name": "boxer_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "ordinal": {
+          "name": "ordinal",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "boxrec_id": {
+          "name": "boxrec_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "bout_date": {
+          "name": "bout_date",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "opponent_name": {
+          "name": "opponent_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "opponent_boxer_id": {
+          "name": "opponent_boxer_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "opponent_weight": {
+          "name": "opponent_weight",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "opponent_record": {
+          "name": "opponent_record",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "event_name": {
+          "name": "event_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "referee_name": {
+          "name": "referee_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "judge1_name": {
+          "name": "judge1_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "judge1_score": {
+          "name": "judge1_score",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "judge2_name": {
+          "name": "judge2_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "judge2_score": {
+          "name": "judge2_score",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "judge3_name": {
+          "name": "judge3_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "judge3_score": {
+          "name": "judge3_score",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "num_rounds_scheduled": {
+          "name": "num_rounds_scheduled",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "result": {
+          "name": "result",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "result_method": {
+          "name": "result_method",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "result_round": {
+          "name": "result_round",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "event_page_link": {
+          "name": "event_page_link",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "bout_page_link": {
+          "name": "bout_page_link",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "scorecards_page_link": {
+          "name": "scorecards_page_link",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "title_fight": {
+          "name": "title_fight",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": false
+        }
+      },
+      "indexes": {
+        "bouts_boxer_ordinal_unique": {
+          "name": "bouts_boxer_ordinal_unique",
+          "columns": [
+            "boxer_id",
+            "ordinal"
+          ],
+          "isUnique": true
+        },
+        "bouts_opponent_boxer_id_idx": {
+          "name": "bouts_opponent_boxer_id_idx",
+          "columns": [
+            "opponent_boxer_id"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "bouts_boxer_id_boxers_id_fk": {
+          "name": "bouts_boxer_id_boxers_id_fk",
+          "tableFrom": "bouts",
+          "tableTo": "boxers",
+          "columnsFrom": [
+            "boxer_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "bouts_opponent_boxer_id_boxers_id_fk": {
+          "name": "bouts_opponent_boxer_id_boxers_id_fk",
+          "tableFrom": "bouts",
+          "tableTo": "boxers",
+          "columnsFrom": [
+            "opponent_boxer_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {
+        "bouts_ordinal_nonnegative": {
+          "name": "bouts_ordinal_nonnegative",
+          "value": "\"bouts\".\"ordinal\" >= 0"
+        },
+        "bouts_title_fight_boolean": {
+          "name": "bouts_title_fight_boolean",
+          "value": "\"bouts\".\"title_fight\" IN (0, 1)"
+        }
+      }
+    },
+    "boxers": {
+      "name": "boxers",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "boxrec_id": {
+          "name": "boxrec_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "boxrec_url": {
+          "name": "boxrec_url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "slug": {
+          "name": "slug",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "birth_name": {
+          "name": "birth_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "nicknames": {
+          "name": "nicknames",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "avatar_image": {
+          "name": "avatar_image",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "residence": {
+          "name": "residence",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "birth_place": {
+          "name": "birth_place",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "date_of_birth": {
+          "name": "date_of_birth",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "gender": {
+          "name": "gender",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "nationality": {
+          "name": "nationality",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "height": {
+          "name": "height",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "reach": {
+          "name": "reach",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "stance": {
+          "name": "stance",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "bio": {
+          "name": "bio",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "promoters": {
+          "name": "promoters",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'[]'"
+        },
+        "trainers": {
+          "name": "trainers",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'[]'"
+        },
+        "managers": {
+          "name": "managers",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'[]'"
+        },
+        "gym": {
+          "name": "gym",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "pro_debut_date": {
+          "name": "pro_debut_date",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "pro_division": {
+          "name": "pro_division",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "pro_wins": {
+          "name": "pro_wins",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": 0
+        },
+        "pro_wins_by_knockout": {
+          "name": "pro_wins_by_knockout",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": 0
+        },
+        "pro_losses": {
+          "name": "pro_losses",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": 0
+        },
+        "pro_losses_by_knockout": {
+          "name": "pro_losses_by_knockout",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": 0
+        },
+        "pro_draws": {
+          "name": "pro_draws",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": 0
+        },
+        "pro_total_bouts": {
+          "name": "pro_total_bouts",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": 0
+        },
+        "pro_total_rounds": {
+          "name": "pro_total_rounds",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "pro_status": {
+          "name": "pro_status",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "imported_at": {
+          "name": "imported_at",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "CURRENT_TIMESTAMP"
+        }
+      },
+      "indexes": {
+        "boxers_boxrec_id_unique": {
+          "name": "boxers_boxrec_id_unique",
+          "columns": [
+            "boxrec_id"
+          ],
+          "isUnique": true
+        },
+        "boxers_slug_unique": {
+          "name": "boxers_slug_unique",
+          "columns": [
+            "slug"
+          ],
+          "isUnique": true
+        },
+        "boxers_directory_idx": {
+          "name": "boxers_directory_idx",
+          "columns": [
+            "\"pro_wins\" DESC",
+            "\"pro_total_bouts\" DESC",
+            "\"name\" COLLATE NOCASE"
+          ],
+          "isUnique": false
+        },
+        "boxers_division_directory_idx": {
+          "name": "boxers_division_directory_idx",
+          "columns": [
+            "pro_division",
+            "\"pro_wins\" DESC",
+            "\"pro_total_bouts\" DESC",
+            "\"name\" COLLATE NOCASE"
+          ],
+          "isUnique": false
+        },
+        "boxers_search_idx": {
+          "name": "boxers_search_idx",
+          "columns": [
+            "lower(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(name || ' ' || coalesce(nicknames, '') || ' ' || coalesce(nationality, '') || ' ' || coalesce(pro_division, ''), char(192), 'a'), char(193), 'a'), char(194), 'a'), char(195), 'a'), char(196), 'a'), char(197), 'a'), char(198), 'ae'), char(199), 'c'), char(200), 'e'), char(201), 'e'), char(202), 'e'), char(203), 'e'), char(204), 'i'), char(205), 'i'), char(206), 'i'), char(207), 'i'), char(208), 'd'), char(209), 'n'), char(210), 'o'), char(211), 'o'), char(212), 'o'), char(213), 'o'), char(214), 'o'), char(216), 'o'), char(217), 'u'), char(218), 'u'), char(219), 'u'), char(220), 'u'), char(221), 'y'), char(222), 'th'), char(223), 'ss'), char(224), 'a'), char(225), 'a'), char(226), 'a'), char(227), 'a'), char(228), 'a'), char(229), 'a'), char(230), 'ae'), char(231), 'c'), char(232), 'e'), char(233), 'e'), char(234), 'e'), char(235), 'e'), char(236), 'i'), char(237), 'i'), char(238), 'i'), char(239), 'i'), char(240), 'd'), char(241), 'n'), char(242), 'o'), char(243), 'o'), char(244), 'o'), char(245), 'o'), char(246), 'o'), char(248), 'o'), char(249), 'u'), char(250), 'u'), char(251), 'u'), char(252), 'u'), char(253), 'y'), char(254), 'th'), char(255), 'y'), '''', ''), char(8216), ''), char(8217), ''))",
+            "lower(trim(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(name, char(192), 'a'), char(193), 'a'), char(194), 'a'), char(195), 'a'), char(196), 'a'), char(197), 'a'), char(198), 'ae'), char(199), 'c'), char(200), 'e'), char(201), 'e'), char(202), 'e'), char(203), 'e'), char(204), 'i'), char(205), 'i'), char(206), 'i'), char(207), 'i'), char(208), 'd'), char(209), 'n'), char(210), 'o'), char(211), 'o'), char(212), 'o'), char(213), 'o'), char(214), 'o'), char(216), 'o'), char(217), 'u'), char(218), 'u'), char(219), 'u'), char(220), 'u'), char(221), 'y'), char(222), 'th'), char(223), 'ss'), char(224), 'a'), char(225), 'a'), char(226), 'a'), char(227), 'a'), char(228), 'a'), char(229), 'a'), char(230), 'ae'), char(231), 'c'), char(232), 'e'), char(233), 'e'), char(234), 'e'), char(235), 'e'), char(236), 'i'), char(237), 'i'), char(238), 'i'), char(239), 'i'), char(240), 'd'), char(241), 'n'), char(242), 'o'), char(243), 'o'), char(244), 'o'), char(245), 'o'), char(246), 'o'), char(248), 'o'), char(249), 'u'), char(250), 'u'), char(251), 'u'), char(252), 'u'), char(253), 'y'), char(254), 'th'), char(255), 'y'), '''', ''), char(8216), ''), char(8217), ''), '-', ' '), '.', ' '), ',', ' '), '/', ' '), '(', ' '), ')', ' '), '\"', ' '), '`', ' '), '  ', ' '), '  ', ' '), '  ', ' ')))",
+            "pro_wins",
+            "pro_total_bouts",
+            "name"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "boxers_pro_division_divisions_pro_division_fk": {
+          "name": "boxers_pro_division_divisions_pro_division_fk",
+          "tableFrom": "boxers",
+          "tableTo": "divisions",
+          "columnsFrom": [
+            "pro_division"
+          ],
+          "columnsTo": [
+            "pro_division"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "cascade"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {
+        "boxers_record_nonnegative": {
+          "name": "boxers_record_nonnegative",
+          "value": "\"boxers\".\"pro_wins\" >= 0 AND \"boxers\".\"pro_wins_by_knockout\" >= 0 AND \"boxers\".\"pro_losses\" >= 0 AND \"boxers\".\"pro_losses_by_knockout\" >= 0 AND \"boxers\".\"pro_draws\" >= 0 AND \"boxers\".\"pro_total_bouts\" >= 0"
+        }
+      }
+    },
+    "dataset_state": {
+      "name": "dataset_state",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "version": {
+          "name": "version",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "importing": {
+          "name": "importing",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": false
+        },
+        "completed_at": {
+          "name": "completed_at",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {
+        "dataset_state_single_row": {
+          "name": "dataset_state_single_row",
+          "value": "\"dataset_state\".\"id\" = 1"
+        },
+        "dataset_state_importing_boolean": {
+          "name": "dataset_state_importing_boolean",
+          "value": "\"dataset_state\".\"importing\" IN (0, 1)"
+        }
+      }
+    },
+    "divisions": {
+      "name": "divisions",
+      "columns": {
+        "slug": {
+          "name": "slug",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "pro_division": {
+          "name": "pro_division",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "sort_order": {
+          "name": "sort_order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {
+        "divisions_pro_division_unique": {
+          "name": "divisions_pro_division_unique",
+          "columns": [
+            "pro_division"
+          ],
+          "isUnique": true
+        },
+        "divisions_sort_order_unique": {
+          "name": "divisions_sort_order_unique",
+          "columns": [
+            "sort_order"
+          ],
+          "isUnique": true
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    }
+  },
+  "views": {},
+  "enums": {},
+  "_meta": {
+    "schemas": {},
+    "tables": {},
+    "columns": {}
+  },
+  "internal": {
+    "indexes": {
+      "boxers_directory_idx": {
+        "columns": {
+          "\"pro_wins\" DESC": {
+            "isExpression": true
+          },
+          "\"pro_total_bouts\" DESC": {
+            "isExpression": true
+          },
+          "\"name\" COLLATE NOCASE": {
+            "isExpression": true
+          }
+        }
+      },
+      "boxers_division_directory_idx": {
+        "columns": {
+          "\"pro_wins\" DESC": {
+            "isExpression": true
+          },
+          "\"pro_total_bouts\" DESC": {
+            "isExpression": true
+          },
+          "\"name\" COLLATE NOCASE": {
+            "isExpression": true
+          }
+        }
+      },
+      "boxers_search_idx": {
+        "columns": {
+          "lower(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(name || ' ' || coalesce(nicknames, '') || ' ' || coalesce(nationality, '') || ' ' || coalesce(pro_division, ''), char(192), 'a'), char(193), 'a'), char(194), 'a'), char(195), 'a'), char(196), 'a'), char(197), 'a'), char(198), 'ae'), char(199), 'c'), char(200), 'e'), char(201), 'e'), char(202), 'e'), char(203), 'e'), char(204), 'i'), char(205), 'i'), char(206), 'i'), char(207), 'i'), char(208), 'd'), char(209), 'n'), char(210), 'o'), char(211), 'o'), char(212), 'o'), char(213), 'o'), char(214), 'o'), char(216), 'o'), char(217), 'u'), char(218), 'u'), char(219), 'u'), char(220), 'u'), char(221), 'y'), char(222), 'th'), char(223), 'ss'), char(224), 'a'), char(225), 'a'), char(226), 'a'), char(227), 'a'), char(228), 'a'), char(229), 'a'), char(230), 'ae'), char(231), 'c'), char(232), 'e'), char(233), 'e'), char(234), 'e'), char(235), 'e'), char(236), 'i'), char(237), 'i'), char(238), 'i'), char(239), 'i'), char(240), 'd'), char(241), 'n'), char(242), 'o'), char(243), 'o'), char(244), 'o'), char(245), 'o'), char(246), 'o'), char(248), 'o'), char(249), 'u'), char(250), 'u'), char(251), 'u'), char(252), 'u'), char(253), 'y'), char(254), 'th'), char(255), 'y'), '''', ''), char(8216), ''), char(8217), ''))": {
+            "isExpression": true
+          },
+          "lower(trim(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(name, char(192), 'a'), char(193), 'a'), char(194), 'a'), char(195), 'a'), char(196), 'a'), char(197), 'a'), char(198), 'ae'), char(199), 'c'), char(200), 'e'), char(201), 'e'), char(202), 'e'), char(203), 'e'), char(204), 'i'), char(205), 'i'), char(206), 'i'), char(207), 'i'), char(208), 'd'), char(209), 'n'), char(210), 'o'), char(211), 'o'), char(212), 'o'), char(213), 'o'), char(214), 'o'), char(216), 'o'), char(217), 'u'), char(218), 'u'), char(219), 'u'), char(220), 'u'), char(221), 'y'), char(222), 'th'), char(223), 'ss'), char(224), 'a'), char(225), 'a'), char(226), 'a'), char(227), 'a'), char(228), 'a'), char(229), 'a'), char(230), 'ae'), char(231), 'c'), char(232), 'e'), char(233), 'e'), char(234), 'e'), char(235), 'e'), char(236), 'i'), char(237), 'i'), char(238), 'i'), char(239), 'i'), char(240), 'd'), char(241), 'n'), char(242), 'o'), char(243), 'o'), char(244), 'o'), char(245), 'o'), char(246), 'o'), char(248), 'o'), char(249), 'u'), char(250), 'u'), char(251), 'u'), char(252), 'u'), char(253), 'y'), char(254), 'th'), char(255), 'y'), '''', ''), char(8216), ''), char(8217), ''), '-', ' '), '.', ' '), ',', ' '), '/', ' '), '(', ' '), ')', ' '), '\"', ' '), '`', ' '), '  ', ' '), '  ', ' '), '  ', ' ')))": {
+            "isExpression": true
+          }
+        }
+      }
+    }
+  }
+}
