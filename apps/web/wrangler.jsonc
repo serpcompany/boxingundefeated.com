@@ -11,7 +11,10 @@
     "binding": "ASSETS"
   },
   "vars": {
-    "SITE_ENVIRONMENT": "local"
+    "SITE_ENVIRONMENT": "local",
+    // `on` sends www and *.workers.dev to the environment's origin (lib/routing/canonical-host.ts).
+    // Off locally, where the only host is localhost.
+    "CANONICAL_HOST_REDIRECT": "off"
   },
   "d1_databases": [
     {
@@ -32,7 +35,10 @@
         "enabled": true
       },
       "vars": {
-        "SITE_ENVIRONMENT": "staging"
+        "SITE_ENVIRONMENT": "staging",
+        // Requests with the x-boxingundefeated-smoke-test header are exempt, so CI can test
+        // through the workers.dev URL.
+        "CANONICAL_HOST_REDIRECT": "on"
       },
       "d1_databases": [
         {
@@ -53,7 +59,10 @@
         "enabled": true
       },
       "vars": {
-        "SITE_ENVIRONMENT": "production"
+        "SITE_ENVIRONMENT": "production",
+        // Requests with the x-boxingundefeated-smoke-test header are exempt, so CI can test
+        // through the workers.dev URL.
+        "CANONICAL_HOST_REDIRECT": "on"
       },
       "d1_databases": [
         {

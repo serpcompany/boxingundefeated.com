@@ -34,14 +34,16 @@ function nonProductionRobotsTxt(request: Request): Response {
   })
 }
 
+/**
+ * Rewraps the response with the Workers idiom, `new Response(body, response)`, which copies the
+ * status, status text and headers (into a new, mutable `Headers`) and also the Workers-only
+ * fields such as `webSocket`, `cf` and `encodeBody`, so a pre-encoded body or a WebSocket upgrade
+ * passes through intact.
+ */
 function withNoindex(response: Response): Response {
-  const headers = new Headers(response.headers)
-  headers.set('x-robots-tag', NON_PRODUCTION_ROBOTS_TAG)
-  return new Response(response.body, {
-    headers,
-    status: response.status,
-    statusText: response.statusText
-  })
+  const wrapped = new Response(response.body, response)
+  wrapped.headers.set('x-robots-tag', NON_PRODUCTION_ROBOTS_TAG)
+  return wrapped
 }
 
 export async function withEnvironmentPolicy(
