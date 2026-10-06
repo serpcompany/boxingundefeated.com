@@ -140,4 +140,19 @@ describe('wrangler.jsonc', () => {
     expect(config.env.staging.vars.CANONICAL_HOST_REDIRECT).toBe('on')
     expect(config.env.production.vars.CANONICAL_HOST_REDIRECT).toBe('on')
   })
+
+  it('runs the Worker before every file except /_next/static/, in every env', () => {
+    // Set once at the top level, which the named envs inherit and OpenNext reads at build time.
+    expect(config.assets.run_worker_first).toEqual(['/*', '!/_next/static/*'])
+    expect(config.env.staging.assets).toBeUndefined()
+    expect(config.env.production.assets).toBeUndefined()
+  })
+
+  it('attaches only the staging custom domain; the owner attaches production at cutover', () => {
+    expect(config.env.staging.routes).toEqual([
+      { pattern: 'staging.boxingundefeated.com', custom_domain: true }
+    ])
+    expect(config.env.production.routes).toBeUndefined()
+    expect(config.routes).toBeUndefined()
+  })
 })

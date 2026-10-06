@@ -9,9 +9,10 @@
  * that serves it must use the same SITE_ENVIRONMENT. If they don't, this policy still keeps a
  * non-production runtime out of the index.
  *
- * `worker.ts` wires it in front of the OpenNext handler. It has no Next.js imports, so it runs
- * before OpenNext loads. Static files under `public/` are served from the assets binding before
- * the Worker runs and don't get the header; robots.txt still disallows them.
+ * lib/worker/handle-request.ts runs it in front of the OpenNext handler. It has no Next.js
+ * imports, so it runs before OpenNext loads. `assets.run_worker_first` sends the files from
+ * `public/` through the Worker too, so they get the header; only the hashed build output under
+ * /_next/static/ is served before the Worker runs.
  */
 import { NON_PRODUCTION_ROBOTS_TXT } from '../robots'
 import { NON_PRODUCTION_ROBOTS_TAG, parseSiteEnvironment } from '../site-config'

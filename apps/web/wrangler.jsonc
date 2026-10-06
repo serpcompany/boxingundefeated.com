@@ -6,9 +6,17 @@
   "main": "worker.ts",
   "compatibility_date": "2026-10-01",
   "compatibility_flags": ["nodejs_compat"],
+  // The named envs inherit `assets`. OpenNext reads `run_worker_first` at build time to decide
+  // which paths its asset resolver serves, so it is set once, here, for every env.
   "assets": {
     "directory": ".open-next/assets",
-    "binding": "ASSETS"
+    "binding": "ASSETS",
+    // The Worker runs before the files from `public/` (sitemaps, ads.txt, data/ JSON, images), so
+    // the canonical-host redirect and the crawl policy apply to them as well; OpenNext's asset
+    // resolver then serves them from ASSETS. Each such request is a billed Worker invocation.
+    // Hashed build output under /_next/static/ stays assets-first and free: crawlers don't index
+    // it, and pages on the canonical host load it on every view.
+    "run_worker_first": ["/*", "!/_next/static/*"]
   },
   "vars": {
     "SITE_ENVIRONMENT": "local",
@@ -28,7 +36,10 @@
   "env": {
     "staging": {
       "name": "boxingundefeated-com-staging",
-      // No `routes` yet: the cutover issue attaches the domains.
+      // Staging's canonical host. Wrangler attaches the custom domain and creates its DNS record
+      // on deploy. With this route, `wrangler dev --env staging` rewrites every Host header to it,
+      // so test the host redirect locally with `--env production`.
+      "routes": [{ "pattern": "staging.boxingundefeated.com", "custom_domain": true }],
       "workers_dev": true,
       "preview_urls": false,
       "observability": {
