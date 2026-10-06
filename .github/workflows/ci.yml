@@ -115,8 +115,29 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
+      # Two commits: on a pull request, HEAD is the merge commit and HEAD^1 the base branch.
       - name: Checkout
         uses: actions/checkout@v7
+        with:
+          fetch-depth: 2
+
+      # Staging and production apply migrations by name, once, so an edit to a merged migration
+      # never reaches them and their schemas drift from a fresh D1. Only new files may appear;
+      # drizzle-kit appends to the journal.
+      - name: Refuse edits to merged migrations
+        if: github.event_name == 'pull_request'
+        run: |
+          edited="$(git diff --name-only --diff-filter=MDRT HEAD^1 HEAD -- d1/drizzle/ ':!d1/drizzle/meta/_journal.json')"
+          if [ -n "$edited" ]; then
+            echo "$edited"
+            echo "::error::These migration files already exist on $GITHUB_BASE_REF and must not change. Add a new migration with pnpm db:generate instead."
+            exit 1
+          fi
+          if git diff --unified=0 HEAD^1 HEAD -- d1/drizzle/meta/_journal.json | grep -q '^-[^-]'; then
+            git diff HEAD^1 HEAD -- d1/drizzle/meta/_journal.json
+            echo "::error::d1/drizzle/meta/_journal.json may only gain entries."
+            exit 1
+          fi
 
       - name: Install
         uses: ./.github/actions/install
@@ -220,8 +241,12 @@ jobs:
           echo "::error::The local Worker preview did not answer 200 on $PREVIEW_ORIGIN/ within 3 minutes."
           exit 1
 
+      - name: Require the preview to serve this build
+        run: .github/scripts/wait-for-build.sh "$PREVIEW_ORIGIN" "$GITHUB_SHA" 1
+
+      # Through the e2e package, so the browser matches its @playwright/test.
       - name: Install Chromium for Playwright
-        run: pnpm exec playwright install --with-deps chromium
+        run: pnpm --filter e2e exec playwright install --with-deps chromium
 
       - name: E2E smoke against the local preview
         env:
