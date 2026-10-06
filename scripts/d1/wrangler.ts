@@ -7,7 +7,10 @@ export const REPO_ROOT = resolve(import.meta.dirname, '../..')
 export const APP_DIR = join(REPO_ROOT, 'apps/web')
 const WRANGLER_BIN = join(REPO_ROOT, 'node_modules/.bin/wrangler')
 
-function runWrangler(target: ImportTarget, args: string[]): string {
+/** A D1 database and the Wrangler flags that reach it. */
+export type D1Target = Pick<ImportTarget, 'database' | 'flags'>
+
+function runWrangler(target: D1Target, args: string[]): string {
   const result = spawnSync(
     WRANGLER_BIN,
     ['d1', 'execute', target.database, ...target.flags, ...args, '--json', '--yes'],
@@ -38,7 +41,7 @@ function parseJson<T>(stdout: string): D1Result<T>[] {
 }
 
 /** The rows of a single read-only statement. */
-export function d1Query<T = Record<string, unknown>>(target: ImportTarget, sql: string): T[] {
+export function d1Query<T = Record<string, unknown>>(target: D1Target, sql: string): T[] {
   const results = parseJson<T>(runWrangler(target, ['--command', sql]))
   return results[0]?.results ?? []
 }

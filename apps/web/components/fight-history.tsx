@@ -3,16 +3,16 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@boxingundefeated/design-system/card'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
-import type { Bout } from '@/lib/boxers-loader'
+import type { ProfileBout } from '@/lib/boxer-data/profile'
 import { normalizeInternalPath } from '@/lib/url-utils'
 
 interface FightHistoryProps {
-  bouts: Bout[]
+  bouts: ProfileBout[]
   opponentLinks: Map<string, string>
 }
 
 export function FightHistory({ bouts, opponentLinks }: FightHistoryProps) {
-  const [displayedBouts, setDisplayedBouts] = useState<Bout[]>([])
+  const [displayedBouts, setDisplayedBouts] = useState<ProfileBout[]>([])
   const [showAll, setShowAll] = useState(false)
   const initialDisplay = 10 // Show only 10 fights initially
 

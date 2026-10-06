@@ -4,6 +4,7 @@ import type { NextConfig } from 'next'
 import { slashRedirects } from './lib/routing/trailing-slash'
 
 export const INTERNAL_PACKAGES = [
+  '@boxingundefeated/data-ops',
   '@boxingundefeated/design-system',
   '@boxingundefeated/config-next',
   '@boxingundefeated/config-typescript'

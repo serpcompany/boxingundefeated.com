@@ -10,16 +10,24 @@
  * files land in d1/.import/<target>/ (gitignored). Production is refused: it runs via the
  * owner/CI. A remote import refuses to prune more than 1 % of the boxers (at most 50) unless
  * `--allow-prune <n>` allows that many.
+ *
+ * `dataset_state` brackets the writes: it is marked importing before the first one and records
+ * the dataset's version as the very last statement, after the row counts check out. Until a first
+ * import finishes, the Worker answers D1-backed pages with 503 (#10).
  */
 import { createHash } from 'node:crypto'
 import { mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
 import { join, relative, resolve } from 'node:path'
 import {
+  buildImportComplete,
   buildImportFiles,
+  buildImportStart,
   buildPrune,
   checkOutDir,
   checkPrune,
+  datasetVersion,
   type ExistingBoxer,
+  expectedChecksums,
   GENERATED_SQL_FILE,
   type ImportDataset,
   type ImportTarget,
@@ -166,6 +174,7 @@ function main(): void {
     )
   }
 
+  d1Query(target, buildImportStart())
   let rowsWritten = 0
   for (const file of toApply) {
     const fileStarted = performance.now()
@@ -180,7 +189,9 @@ function main(): void {
   if (target.name !== 'local') console.log(`Rows written in total: ${number(rowsWritten)}.`)
   console.log('Verifying row counts:')
   verifyCounts(target, dataset)
-  console.log(`Imported into ${target.name} in ${seconds(started)}.`)
+  const version = datasetVersion(expectedChecksums(dataset))
+  d1Query(target, buildImportComplete(version))
+  console.log(`Imported into ${target.name} in ${seconds(started)}; dataset version ${version}.`)
 }
 
 if (import.meta.filename === resolve(process.argv[1] ?? '')) {

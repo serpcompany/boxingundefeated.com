@@ -22,3 +22,15 @@ export function expectedChecksums(dataset: ImportDataset): TableChecksums {
     bouts: rowsChecksum(BOUT_COLUMNS, dataset.bouts)
   }
 }
+
+/**
+ * The dataset's version, which the importer records in `dataset_state` when it finishes and the
+ * Worker's edge cache keys pages by: a short hash of the content checksums, so re-importing the
+ * same data keeps it.
+ */
+export function datasetVersion(checksums: TableChecksums): string {
+  return createHash('sha256')
+    .update(`${checksums.divisions}\n${checksums.boxers}\n${checksums.bouts}\n`)
+    .digest('hex')
+    .slice(0, 16)
+}

@@ -6,6 +6,10 @@
   "main": "worker.ts",
   "compatibility_date": "2026-10-01",
   "compatibility_flags": ["nodejs_compat"],
+  // esbuild's keepNames wraps functions in `__name(...)`. Pages rendered on request (boxer
+  // profiles, from D1) inline next-themes' script from `fn.toString()`, so the browser would get
+  // a `__name` call it doesn't define. Inherited by every env.
+  "keep_names": false,
   // The named envs inherit `assets`. OpenNext reads `run_worker_first` at build time to decide
   // which paths its asset resolver serves, so it is set once, here, for every env.
   "assets": {
@@ -23,6 +27,11 @@
     // `on` sends www and *.workers.dev to the environment's origin (lib/routing/canonical-host.ts).
     // Off locally, where the only host is localhost.
     "CANONICAL_HOST_REDIRECT": "off"
+  },
+  // The Worker version keys the edge cache (lib/worker/edge-cache.ts). Bindings aren't inherited,
+  // so each env repeats it.
+  "version_metadata": {
+    "binding": "CF_VERSION_METADATA"
   },
   "d1_databases": [
     {
@@ -51,6 +60,9 @@
         // through the workers.dev URL.
         "CANONICAL_HOST_REDIRECT": "on"
       },
+      "version_metadata": {
+        "binding": "CF_VERSION_METADATA"
+      },
       "d1_databases": [
         {
           "binding": "DB",
@@ -74,6 +86,9 @@
         // Requests with the x-boxingundefeated-smoke-test header are exempt, so CI can test
         // through the workers.dev URL.
         "CANONICAL_HOST_REDIRECT": "on"
+      },
+      "version_metadata": {
+        "binding": "CF_VERSION_METADATA"
       },
       "d1_databases": [
         {
