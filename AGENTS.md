@@ -33,7 +33,12 @@ The owner runs the production DNS cutover.
     revert those changes before committing.
   - `wrangler.jsonc`, `open-next.config.ts`: the Worker. The top level is local only;
     `env.staging` and `env.production` are the deployed Workers, each with its own D1 `DB`.
-- `d1/drizzle/`: D1 migrations, shared by every environment.
+- `d1/drizzle/`: D1 migrations, shared by every environment. Generated from the schema by
+  `pnpm db:generate` (root `drizzle.config.ts`) and reviewed; never hand-edit the `meta/` folder.
+- `packages/data-ops/`: `@boxingundefeated/data-ops`, the D1 data layer: the Drizzle schema
+  (`src/schema.ts`), inferred types, and every query the app runs (`src/queries.ts`). The app
+  never writes SQL. Its Vitest tests run the queries on an in-memory D1 (Miniflare) with the
+  checked-in migrations applied.
 - `packages/`: shared UI (`design-system`, shadcn), `hooks` and `utils`. Read before adding a
   component or helper that might already exist.
 - `configs/`: shared Next.js and TypeScript configuration. Read before changing build settings.
@@ -66,6 +71,17 @@ Worker (OpenNext on Cloudflare; minutes, because it prerenders every page):
   because Wrangler's per-file watchers on about 16,000 assets exhaust file descriptors on macOS.
 - `pnpm --filter web cf-typegen`: regenerate `cloudflare-env.d.ts` after changing
   `wrangler.jsonc`, and commit it.
+
+D1 (Drizzle schema in `packages/data-ops`, migrations in `d1/drizzle/`):
+
+- `pnpm --filter @boxingundefeated/data-ops test`: the query tests (seconds).
+- `pnpm db:generate`: after changing `schema.ts`, write the next migration; commit it with the
+  schema. Re-running it on an unchanged schema must report no changes. Never `drizzle-kit push`.
+- `pnpm db:migrate:local`, `pnpm db:migrations:list:local`: apply or list migrations on the local
+  D1 in `apps/web/.wrangler/state`, which the local Worker uses.
+- `db:migrate:{staging,production}` and `db:migrations:list:{staging,production}` target the
+  remote databases with `--remote --env <env>`. Never use `--preview`. Only the owner, or a
+  protected workflow, migrates production.
 
 Finish gate, once per state when the branch is finished: `pnpm check` (read-only Biome check,
 workspace check, typecheck, tests and the production build; about a minute for the build). Run it

@@ -1,0 +1,11 @@
+{
+  "extends": "@boxingundefeated/config-typescript/base.json",
+  "compilerOptions": {
+    "lib": ["es2022"],
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "noEmit": true,
+    "types": ["@cloudflare/workers-types", "node"]
+  },
+  "include": ["src/**/*.ts", "vitest.config.ts"]
+}

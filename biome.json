@@ -28,7 +28,8 @@
       "!apps/web/public/search",
       "!apps/web/public/data",
       "!apps/web/data",
-      "!from-pipeline"
+      "!from-pipeline",
+      "!d1/drizzle/meta"
     ]
   },
   "formatter": {
