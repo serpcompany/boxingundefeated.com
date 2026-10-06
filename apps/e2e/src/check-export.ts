@@ -17,7 +17,7 @@ import { GTM_ID, PRODUCTION_ORIGIN } from './target'
 const REPO_ROOT = resolve(import.meta.dirname, '../../..')
 
 /**
- * Files that are Next.js's not-found page, which is noindex in every environment: the 404 page,
+ * Files that are Next.js's not-found page, which is noindex and has no canonical: the 404 page,
  * and two shop articles whose non-ASCII slugs the export renders as not found (a known bug, see
  * src/parity-allowlist.ts). They must still load Google Tag Manager.
  */
@@ -59,6 +59,9 @@ export function pageProblems(html: string, notFound = false): string[] {
     problems.push(`<meta name="robots" content="${facts.robots}">`)
   }
   if (!html.includes(GTM_ID)) problems.push(`no Google Tag Manager (${GTM_ID})`)
+  if (!notFound && facts.canonicalCount !== 1) {
+    problems.push(`${facts.canonicalCount} canonicals, not 1`)
+  }
   if (
     facts.canonical !== null &&
     facts.canonical !== PRODUCTION_ORIGIN &&
@@ -121,8 +124,8 @@ function main() {
     process.exit(1)
   }
   console.log(
-    `OK: ${pages} HTML pages in ${relative(REPO_ROOT, outDir) || outDir} load ${GTM_ID}, use ` +
-      `production canonicals and are indexable (except the ${NOT_FOUND_FILES.length} not-found ` +
+    `OK: ${pages} HTML pages in ${relative(REPO_ROOT, outDir) || outDir} load ${GTM_ID}, have one ` +
+      `production canonical each and are indexable (except the ${NOT_FOUND_FILES.length} not-found ` +
       'pages); robots.txt allows crawling and lists the sitemap index.'
   )
 }

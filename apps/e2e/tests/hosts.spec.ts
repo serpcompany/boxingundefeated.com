@@ -12,8 +12,11 @@ const redirects: Array<[string, string]> = [
   ['/', '/'],
   ['/about', '/about/'],
   [boxer.path, boxer.path],
+  ['/shop/best/2.7-l-water-bottles', '/shop/best/2.7-l-water-bottles/'],
   ['/robots.txt/', '/robots.txt'],
-  ['/api/search/?q=ortiz', '/api/search/?q=ortiz']
+  // /api keeps its exact path, with or without the slash.
+  ['/api/search/?q=ortiz', '/api/search/?q=ortiz'],
+  ['/api/search?q=ortiz', '/api/search?q=ortiz']
 ]
 
 test.describe('non-canonical hosts', () => {
@@ -47,13 +50,13 @@ test.describe('non-canonical hosts', () => {
           maxRedirects: 0
         })
         expect(page.status(), 'with the smoke-test header the page is served').toBe(200)
-        const api = await context.get(`${host.url}/api/search/?q=ortiz`, {
-          headers: smokeHeaders,
-          maxRedirects: 0
-        })
-        expect(api.status() >= 300 && api.status() < 400, `/api answered ${api.status()}`).toBe(
-          false
-        )
+        for (const path of ['/api/search?q=ortiz', '/api/search/?q=ortiz']) {
+          const api = await context.get(`${host.url}${path}`, {
+            headers: smokeHeaders,
+            maxRedirects: 0
+          })
+          expect(api.status(), `${host.host}${path} with the smoke-test header`).toBe(200)
+        }
       } finally {
         await context.dispose()
       }

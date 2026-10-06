@@ -9,7 +9,9 @@ export default defineConfig({
   testDir: './tests',
   fullyParallel: true,
   forbidOnly: isCI,
-  retries: isCI ? 1 : 0,
+  // No retries: a flaky result must fail the gate. The host check, which waits for a deploy to
+  // reach every edge, retries on its own (tests/hosts.spec.ts).
+  retries: 0,
   // A deployed environment is a shared, live site: keep the load small.
   workers: target.isLocal ? undefined : 4,
   reporter: [['list'], ['html', { open: 'never' }]],

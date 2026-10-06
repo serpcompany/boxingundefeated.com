@@ -18,12 +18,10 @@ async function expectOneHop(request: APIRequestContext, from: string, to: string
   expect(destination.status(), to).toBe(200)
 }
 
-function isRedirect(status: number): boolean {
-  return status >= 300 && status < 400
-}
-
 test('a page without its slash answers 308 to the slashed page', async ({ request }) => {
   const pages = ['/about/', '/boxers/', boxer.path, '/divisions/heavy/', '/shop/best/kettlebells/']
+  // Slugs can contain dots; such a page is still a page, not a file (the standard's dotted case).
+  pages.push('/shop/best/2.7-l-water-bottles/', '/shop/best/16.9-oz-water-bottles/')
   for (const page of pages) {
     await expectOneHop(request, page.slice(0, -1), page)
   }
@@ -36,26 +34,18 @@ test('a file with a slash answers 308 to the file', async ({ request }) => {
   await expectOneHop(request, '/ads.txt/', '/ads.txt')
 })
 
-test('/api/search is never redirected, with or without a slash', async ({ request }) => {
-  for (const path of [
-    '/api/search',
-    '/api/search/',
-    '/api/search?q=ortiz',
-    '/api/search/?q=ortiz'
-  ]) {
-    const response = await request.get(path, { maxRedirects: 0 })
-    expect(isRedirect(response.status()), `${path} answered ${response.status()}`).toBe(false)
-  }
-})
-
-// Pending #36, which adds the endpoint (issue #12). Until it merges, /api/search is a 404, which
-// the test above already holds to "never 3xx". Remove the fixme when #36 is on main.
-test.fixme('/api/search answers 200 with matching boxers (#36)', async ({ request }) => {
+test('/api/search answers 200 with matching boxers, with or without a slash', async ({
+  request
+}) => {
+  // Served exactly as requested: never a redirect, and a real answer (not a 404 or 5xx).
   for (const path of ['/api/search?q=ortiz', '/api/search/?q=ortiz']) {
     const response = await request.get(path, { maxRedirects: 0 })
     expect(response.status(), path).toBe(200)
-    expect(response.headers()['content-type']).toContain('application/json')
+    expect(response.headers()['content-type'], path).toContain('application/json')
     const body = (await response.json()) as { results: Array<{ slug: string }> }
-    expect(body.results.map(result => result.slug)).toContain('manuel-ortiz')
+    expect(
+      body.results.map(result => result.slug),
+      path
+    ).toContain('manuel-ortiz')
   }
 })

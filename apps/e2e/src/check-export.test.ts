@@ -35,6 +35,12 @@ describe('pageProblems', () => {
     ])
   })
 
+  it('needs exactly one canonical on every other page', () => {
+    expect(pageProblems(gtm)).toEqual(['0 canonicals, not 1'])
+    const twice = '<link rel="canonical" href="https://boxingundefeated.com/a/"/>'.repeat(2)
+    expect(pageProblems(`${twice}${gtm}`)).toEqual(['2 canonicals, not 1'])
+  })
+
   it('lets a not-found page be noindex, but not skip GTM', () => {
     expect(pageProblems(`<meta name="robots" content="noindex"/>${gtm}`, true)).toEqual([])
     expect(pageProblems('<meta name="robots" content="noindex"/>', true)).toEqual([

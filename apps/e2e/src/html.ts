@@ -39,10 +39,14 @@ export function decodeEntities(text: string): string {
   })
 }
 
+/** Visible text for comparison, not sanitized HTML: tags are removed until none is left. */
 function text(html: string): string {
-  return decodeEntities(html.replace(/<[^>]*>/g, ''))
-    .replace(/\s+/g, ' ')
-    .trim()
+  let stripped = html
+  for (let previous = ''; previous !== stripped; ) {
+    previous = stripped
+    stripped = stripped.replace(/<[^<>]*>/g, '')
+  }
+  return decodeEntities(stripped).replace(/\s+/g, ' ').trim()
 }
 
 function attribute(tag: string, name: string): string | null {
