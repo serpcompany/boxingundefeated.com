@@ -27,7 +27,7 @@ export default function SearchPage() {
     async function loadBoxers() {
       try {
         const response = await fetch('/search/boxer-search-index.json')
-        const data = await response.json()
+        const data = (await response.json()) as SearchBoxer[]
         setBoxers(data)
         setIsLoading(false)
       } catch (error) {

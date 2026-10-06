@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "build": "turbo build",
+    "build:worker": "pnpm --filter web build:worker",
     "export": "cd apps/web && next build",
     "check:frontmatter": "tsx scripts/check-frontmatter.ts",
     "check:links": "lychee --config ./lychee.toml --verbose .",
@@ -14,6 +15,7 @@
     "postinstall": "manypkg fix",
     "lint": "turbo lint && manypkg check",
     "lint:fix": "turbo lint:fix && manypkg fix && pnpm biome lint --write .",
+    "preview:worker": "pnpm --filter web preview:worker",
     "shadcn": "cd packages/design-system && pnpm dlx shadcn@canary add",
     "start": "turbo run start",
     "syncpack:fix": "pnpm dlx syncpack fix-mismatches",
