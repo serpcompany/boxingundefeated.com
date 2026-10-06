@@ -16,7 +16,7 @@ const config: Config.InitialOptions = {
   collectCoverageFrom: ['**/*.{ts,tsx}', '!**/*.d.ts', '!**/*.test.ts'],
   coveragePathIgnorePatterns: ['/node_modules/', '/.next/', '/coverage/'],
   testMatch: ['**/__tests__/**/*.ts?(x)', '**/?(*.)+(test).ts?(x)'],
-  testPathIgnorePatterns: ['<rootDir>/node_modules/', '<rootDir>/.next/'],
+  testPathIgnorePatterns: ['<rootDir>/node_modules/', '<rootDir>/.next/', '<rootDir>/.open-next/'],
 
   // A map from regular expressions to module names or to arrays of module names that allow to stub out resources with a single module
   moduleNameMapper: {
