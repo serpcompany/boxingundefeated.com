@@ -1,6 +1,6 @@
 import { Breadcrumb } from '@boxingundefeated/design-system/breadcrumb'
-import { getBaseUrl } from '@boxingundefeated/utils/get-base-url'
 import type { Metadata } from 'next'
+import { getSiteOrigin } from '@/lib/site-config'
 
 export const metadata: Metadata = {
   title: 'Terms of Service - Boxing Directory',
@@ -12,7 +12,7 @@ export default function TermsOfServicePage() {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <Breadcrumb items={breadcrumbItems} baseUrl={getBaseUrl()} />
+      <Breadcrumb items={breadcrumbItems} baseUrl={getSiteOrigin()} />
       <div className="max-w-3xl mx-auto space-y-8">
         <div className="prose dark:prose-invert max-w-none">
           <h1>Terms of Service</h1>

@@ -3,7 +3,7 @@
   // The top level is local only: `wrangler dev` and `opennextjs-cloudflare preview` use it, it is
   // never deployed, and named envs don't inherit its bindings. Every deploy passes `--env`.
   "name": "boxingundefeated-com-local",
-  "main": ".open-next/worker.js",
+  "main": "worker.ts",
   "compatibility_date": "2026-10-01",
   "compatibility_flags": ["nodejs_compat"],
   "assets": {

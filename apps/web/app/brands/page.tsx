@@ -1,14 +1,14 @@
 import { Breadcrumb } from '@boxingundefeated/design-system/breadcrumb'
-import { getBaseUrl } from '@boxingundefeated/utils/get-base-url'
 import type { Metadata } from 'next'
 import { getNoAdultBrands } from '@/lib/brands'
+import { getSiteOrigin } from '@/lib/site-config'
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
     title: 'Brands',
     description: 'Browse related SERP brands and properties.',
     alternates: {
-      canonical: `${getBaseUrl()}/brands/`
+      canonical: `${getSiteOrigin()}/brands/`
     }
   }
 }
@@ -18,7 +18,7 @@ export default async function BrandsPage() {
 
   return (
     <main className="mx-auto max-w-6xl px-4 py-8">
-      <Breadcrumb items={[{ name: 'Brands', href: '/brands/' }]} baseUrl={getBaseUrl()} />
+      <Breadcrumb items={[{ name: 'Brands', href: '/brands/' }]} baseUrl={getSiteOrigin()} />
       <h1 className="mb-4 text-4xl font-bold tracking-tight">Brands</h1>
       <ul className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
         {brands.map(brand => (

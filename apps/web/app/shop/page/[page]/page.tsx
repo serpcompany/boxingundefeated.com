@@ -1,10 +1,10 @@
 import { Breadcrumb } from '@boxingundefeated/design-system/breadcrumb'
-import { getBaseUrl } from '@boxingundefeated/utils/get-base-url'
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { ShopPostList } from '@/components/shop-post-list'
 import { getPaginatedItems, getPaginationPages } from '@/lib/directory-pagination'
 import { getShopPageHref, getShopPosts, SHOP_PAGE_SIZE } from '@/lib/shop-loader'
+import { getSiteOrigin } from '@/lib/site-config'
 
 export const dynamicParams = false
 
@@ -30,7 +30,7 @@ export async function generateMetadata({
     title: `Shop Guides - Page ${page}`,
     description: `Browse page ${page} of boxing, fitness, and training gear buying guides.`,
     alternates: {
-      canonical: `${getBaseUrl()}${getShopPageHref(page)}`
+      canonical: `${getSiteOrigin()}${getShopPageHref(page)}`
     }
   }
 }
@@ -57,7 +57,7 @@ export default async function ShopPaginatedPage({ params }: { params: Promise<{ 
           { name: 'Shop', href: '/shop/' },
           { name: `Page ${currentPage}`, href: getShopPageHref(currentPage) }
         ]}
-        baseUrl={getBaseUrl()}
+        baseUrl={getSiteOrigin()}
       />
       <ShopPostList
         posts={page.items}

@@ -1,4 +1,3 @@
-import { getBaseUrl } from '@boxingundefeated/utils/get-base-url'
 import { getBoxersWithoutBouts } from './boxers-loader'
 import {
   createBoxerMetaDescription,
@@ -7,6 +6,7 @@ import {
   MAX_META_DESCRIPTION_LENGTH
 } from './metadata'
 import { getShopPosts } from './shop-loader'
+import { getSiteOrigin } from './site-config'
 
 describe('metadata helpers', () => {
   it('defines default Open Graph and Twitter metadata at the root', () => {
@@ -14,14 +14,14 @@ describe('metadata helpers', () => {
     const description = metadata.description
 
     expect(description).toEqual(expect.any(String))
-    expect(metadata.metadataBase).toEqual(new URL(getBaseUrl()))
+    expect(metadata.metadataBase).toEqual(new URL(getSiteOrigin()))
     expect(metadata.openGraph).toEqual(
       expect.objectContaining({
         title: metadata.title,
         description,
         siteName: 'Boxing Undefeated',
         type: 'website',
-        url: getBaseUrl()
+        url: getSiteOrigin()
       })
     )
     expect(metadata.openGraph?.images).toEqual([

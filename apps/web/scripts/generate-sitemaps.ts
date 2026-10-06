@@ -2,15 +2,19 @@
 
 import fs from 'node:fs'
 import path from 'node:path'
+import { getSiteConfig, readSiteConfigInput } from '../lib/site-config'
 import { getSitemapPaths, toAbsoluteUrl } from '../lib/sitemap-paths'
 
 // Google recommends max 50,000 URLs per sitemap, but for better performance we'll use 2,000
 const MAX_URLS_PER_SITEMAP = 2000
 
-const baseUrl =
-  process.env.NEXT_PUBLIC_SITE_URL ||
-  process.env.NEXT_PUBLIC_WEB_URL ||
-  'https://boxingundefeated.com'
+// This script runs only as the last step of the static export (`build`, `build:vercel`), so it
+// resolves the environment as that build does (lib/site-config.ts).
+const baseUrl = getSiteConfig({
+  ...readSiteConfigInput(),
+  buildOutput: 'export',
+  nodeEnv: 'production'
+}).origin
 const publicDir = path.join(process.cwd(), 'public')
 const staticExportDir = path.join(process.cwd(), 'out')
 
@@ -180,16 +184,6 @@ async function generateSitemaps() {
 
   console.log(`\nGenerated sitemap index at ${sitemapIndexPath}`)
   console.log(`Generated compatibility sitemap alias at ${sitemapAliasPath}`)
-
-  // Update robots.txt
-  const robotsContent = `User-agent: *
-Allow: /
-
-# Sitemap index
-Sitemap: ${toAbsoluteUrl(baseUrl, '/sitemap-index.xml')}`
-
-  writeGeneratedFile('robots.txt', robotsContent)
-  console.log('Updated robots.txt with sitemap index')
 
   console.log('\nSitemap generation complete')
   console.log(`   Total URLs: ${totalUrlCount}`)

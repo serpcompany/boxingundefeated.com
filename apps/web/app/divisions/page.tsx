@@ -1,22 +1,22 @@
 import { Breadcrumb } from '@boxingundefeated/design-system/breadcrumb'
 import { Card, CardContent, CardHeader, CardTitle } from '@boxingundefeated/design-system/card'
-import { getBaseUrl } from '@boxingundefeated/utils/get-base-url'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { getBoxerCategories, getBoxersWithoutBouts } from '@/lib/boxers-loader'
+import { getSiteOrigin } from '@/lib/site-config'
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
     title: 'Boxing Divisions',
     description: 'Browse professional boxers by weight class.',
     alternates: {
-      canonical: `${getBaseUrl()}/divisions/`
+      canonical: `${getSiteOrigin()}/divisions/`
     }
   }
 }
 
 export default async function DivisionsPage() {
-  const baseUrl = getBaseUrl()
+  const baseUrl = getSiteOrigin()
   const categories = getBoxerCategories()
   const boxers = getBoxersWithoutBouts()
 

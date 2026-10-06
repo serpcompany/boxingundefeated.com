@@ -25,19 +25,22 @@ The owner runs the production DNS cutover.
   - `app/`: boxers, divisions, shop, search, brands, legal and HTML sitemap pages. `[...slug]`
     renders shop articles at `/shop/best/<slug>/`.
   - `lib/`: build-time data loaders (boxers, shop, blog), URL, metadata, route and sitemap-path
-    helpers. Change URLs here, not in individual pages.
+    helpers. Change URLs here, not in individual pages. `lib/site-config.ts` resolves the
+    environment and its origin (see Environments below); never read `SITE_ENVIRONMENT` or build
+    an origin anywhere else.
   - `content/`: markdown shop articles. The legal pages are TSX in `app/(legal)/`.
   - `public/data/boxers/`: per-boxer JSON generated from the pipeline data. Never hand-edit it.
   - `scripts/`: data generators. The search index is built before `next build` (`predev`,
     `build:with-data`); XML sitemaps are written after it and rewrite files in `public/`, so
     revert those changes before committing.
-  - `wrangler.jsonc`, `open-next.config.ts`: the Worker. The top level is local only;
+  - `wrangler.jsonc`, `open-next.config.ts`, `worker.ts`: the Worker. The top level is local only;
     `env.staging` and `env.production` are the deployed Workers, each with its own D1 `DB`.
+    `worker.ts` is the entry: it applies the crawl policy (`lib/worker/`), then runs OpenNext.
 - `d1/`: `drizzle/` migrations (`pnpm db:generate`; never edit `meta/`), `fixtures/`, `reports/`.
 - `packages/data-ops/`: the D1 data layer: the Drizzle schema (`src/schema.ts`), types, every
   query the app runs (`src/queries.ts`; the app never writes SQL) and the pipeline importer's
   mapping (`src/import/`). Vitest runs them on an in-memory D1 (Miniflare), migrations applied.
-- `packages/`: shared UI (`design-system`, shadcn), `hooks` and `utils`. Read before adding a
+- `packages/design-system/`: shared UI (shadcn). Read before adding a
   component or helper that might already exist.
 - `configs/`: shared Next.js and TypeScript configuration. Read before changing build settings.
 - `scripts/`: `split-boxer-data.js` writes `apps/web/public/data/boxers/`; `d1/` is the D1 import.
@@ -62,9 +65,12 @@ Worker (OpenNext on Cloudflare; minutes, because it prerenders every page):
 - `pnpm preview:worker`: `build:worker` (`opennextjs-cloudflare build` with
   `NEXT_BUILD_TARGET=worker`, which turns off `output: 'export'`), then serves the local Worker on
   http://localhost:8787 with the local top level of `apps/web/wrangler.jsonc`.
+- `pnpm --filter web build:worker:staging` / `build:worker:production`: the Worker build with that
+  environment's `SITE_ENVIRONMENT`, which the prerendered HTML needs (Environments below).
 - `pnpm --filter web serve:worker [--env staging]`: serve the last Worker build again. With
-  `--env`, it uses that environment's vars and bindings, locally. It sets `CHOKIDAR_USEPOLLING`
-  because Wrangler's per-file watchers on about 16,000 assets exhaust file descriptors on macOS.
+  `--env`, it uses that environment's vars and bindings, locally. Pair it with the matching build.
+  It sets `CHOKIDAR_USEPOLLING` because Wrangler's per-file watchers on about 16,000 assets exhaust
+  file descriptors on macOS.
 - `pnpm --filter web cf-typegen`: regenerate `cloudflare-env.d.ts` after changing
   `wrangler.jsonc`, and commit it.
 
@@ -109,6 +115,31 @@ the committed sitemap files' dates, so run `git checkout -- apps/web/public` bef
 - Visible UI: one screenshot of each changed page, from the PR preview (`preview.yml`) or a local
   build.
 - Deploy workflows: a link to the deploy run.
+
+## Environments
+
+`SITE_ENVIRONMENT` is `local`, `staging` or `production`, and only `production` is indexable and
+loads Google Tag Manager. `apps/web/lib/site-config.ts` resolves it, reading `process.env` when a
+value is used, never at module load:
+
+1. An explicit `SITE_ENVIRONMENT` wins; an unknown value is `local`.
+2. Without one, the static export (`next build` with `output: 'export'`) is production, unless
+   `GITHUB_EVENT_NAME` is `pull_request` (the Surge previews). This keeps the GitHub Pages
+   deploy, which sets no `SITE_ENVIRONMENT`, indexable.
+3. Everything else is `local`: `next dev`, tests, a Worker build without the variable, and a
+   Worker whose runtime var is missing.
+
+| | local | staging | production |
+| --- | --- | --- | --- |
+| Origin (canonicals, JSON-LD, sitemaps) | `http://localhost:<PORT or 8787>` | `https://staging.boxingundefeated.com` | `https://boxingundefeated.com` |
+| `<meta name="robots">`, `X-Robots-Tag` | `noindex` | `noindex` | none |
+| `/robots.txt` | `Disallow: /` | `Disallow: /` | `Allow: /` and the sitemap index |
+| Google Tag Manager | no | no | `GTM-PP4HWLM` (in code) |
+
+Prerendered HTML is fixed at build, so a Worker build and the environment that serves it must use
+the same value: `build:worker:staging` with `--env staging`. At runtime, `worker.ts` reads the
+`wrangler.jsonc` var and, unless it is exactly `production`, sends `X-Robots-Tag: noindex` and
+answers `/robots.txt` with `Disallow: /`. `app/robots.ts` is the only robots source.
 
 ## Invariants
 

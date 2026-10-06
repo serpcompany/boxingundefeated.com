@@ -2,7 +2,6 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { Breadcrumb } from '@boxingundefeated/design-system/breadcrumb'
 import { Card, CardContent, CardHeader, CardTitle } from '@boxingundefeated/design-system/card'
-import { getBaseUrl } from '@boxingundefeated/utils/get-base-url'
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { FightHistory } from '@/components/fight-history'
@@ -10,6 +9,7 @@ import { OptimizedImage } from '@/components/optimized-image'
 import { type BoxerMetadata, getBoxerBouts, getBoxerStats } from '@/lib/boxers-loader'
 import { createBoxerMetaDescription } from '@/lib/metadata'
 import { getOpponentLinksForBouts } from '@/lib/opponent-mapper'
+import { getSiteOrigin } from '@/lib/site-config'
 import { normalizeInternalPath, toAbsoluteUrl } from '@/lib/url-utils'
 
 // Load individual boxer data from split JSON files
@@ -87,7 +87,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params
   const boxer = getBoxerBySlugOptimized(slug)
-  const baseUrl = getBaseUrl()
+  const baseUrl = getSiteOrigin()
 
   if (!boxer) {
     return {
@@ -112,7 +112,7 @@ export default async function BoxerPage({ params }: { params: Promise<{ slug: st
     notFound()
   }
 
-  const baseUrl = getBaseUrl()
+  const baseUrl = getSiteOrigin()
   const stats = getBoxerStats(boxer)
   const bouts = getBoxerBouts(boxer)
   const opponentLinks = getOpponentLinksForBouts(bouts)

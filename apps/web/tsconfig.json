@@ -21,6 +21,7 @@
     "**/*.spec.tsx",
     "jest.setup.ts",
     "jest.config.ts",
-    "test/**/*"
+    "test/**/*",
+    "worker.ts"
   ]
 }
