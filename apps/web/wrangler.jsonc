@@ -6,6 +6,10 @@
   "main": "worker.ts",
   "compatibility_date": "2026-10-01",
   "compatibility_flags": ["nodejs_compat"],
+  // esbuild's keepNames wraps functions in `__name(...)`. Pages rendered on request (boxer
+  // profiles, from D1) inline next-themes' script from `fn.toString()`, so the browser would get
+  // a `__name` call it doesn't define. Inherited by every env.
+  "keep_names": false,
   "assets": {
     "directory": ".open-next/assets",
     "binding": "ASSETS"
