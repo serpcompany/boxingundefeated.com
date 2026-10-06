@@ -28,7 +28,9 @@ The owner runs the production DNS cutover.
     individual pages. Pages read boxers only through `lib/boxer-data/`: D1 via the server-only,
     fail-closed `lib/data/` in the Worker, the committed JSON in the static export (until #20).
     `lib/site-config.ts` resolves the environment and its origin (Environments below); never read
-    `SITE_ENVIRONMENT` or build an origin anywhere else.
+    `SITE_ENVIRONMENT` or build an origin anywhere else. Search (`lib/search/`): the Worker
+    answers `/api/search` itself (`lib/worker/search-api.ts`, data-ops `searchBoxers`); the
+    static export searches the committed `public/search/` index (until #20).
   - `content/`: markdown shop articles. The legal pages are TSX in `app/(legal)/`.
   - `public/data/boxers/`: per-boxer JSON generated from the pipeline data. Never hand-edit it.
   - `scripts/`: data generators. The search index is built before `next build` (`predev`,
