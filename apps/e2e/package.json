@@ -1,0 +1,21 @@
+{
+  "name": "e2e",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "clean": "git clean -xdf .turbo node_modules parity-report playwright-report test-results",
+    "test": "vitest run",
+    "test:e2e": "playwright test",
+    "test:install": "playwright install chromium",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@boxingundefeated/config-typescript": "workspace:*",
+    "@playwright/test": "^1.63.0",
+    "@types/node": "^22.13.17",
+    "tsx": "^4.23.15",
+    "typescript": "^5.8.2",
+    "vitest": "4.1.11"
+  }
+}

@@ -33,6 +33,7 @@
     "syncpack:fix": "pnpm dlx syncpack fix-mismatches",
     "syncpack:list": "pnpm dlx syncpack list-mismatches",
     "test": "turbo test --cache-dir=.turbo",
+    "test:e2e": "pnpm --filter e2e test:e2e",
     "test:watch": "turbo test:watch --cache-dir=.turbo",
     "typecheck": "turbo typecheck",
     "check": "biome check . && manypkg check && pnpm typecheck && pnpm test && pnpm build",
