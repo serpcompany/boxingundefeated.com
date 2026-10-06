@@ -6,13 +6,3 @@ offline = true
 index_files = ["index.html"]
 # apps/web/out is gitignored.
 no_ignore = true
-
-# Known broken links in shop articles, tracked in #43, which removes this list: 107 links written
-# without a scheme (`universityofguns.pages.dev/...`, `serpbooks.com/...`), which resolve under
-# the page and 404 on the live site, and two relative links. The first pattern also hides any new
-# scheme-less link to those two hosts until #43 lands.
-exclude = [
-  '/shop/best/[^/]+/(universityofguns\.pages\.dev|serpbooks\.com)/',
-  '/shop/best/motivational-water-bottles/motivational-water-bottles$',
-  '/shop/best/walking-bike-for-adults/link-to-full-article$',
-]

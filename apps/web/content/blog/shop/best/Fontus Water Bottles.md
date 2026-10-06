@@ -95,7 +95,7 @@ One of my favorite features of this water bottle is the Moflow Cap, which makes 
 
 However, there's one minor drawback - this bottle isn't insulated. While this isn't a deal-breaker for me since I usually drink cold water, it might be something to keep in mind if you're planning on using it during hot summer days or want your water to stay chilled for longer periods.
 
-Despite its minor shortcoming, I absolutely love the Pnw Components Elements Water Bottle in Seafoam Teal. It's lightweight, easy to clean, and perfect for keeping me hydrated throughout the day. [If you're looking for an attractive and functional water bottle, this is definitely worth considering!](universityofguns.pages.dev/best-camelback-water-bottles/)
+Despite its minor shortcoming, I absolutely love the Pnw Components Elements Water Bottle in Seafoam Teal. It's lightweight, easy to clean, and perfect for keeping me hydrated throughout the day. If you're looking for an attractive and functional water bottle, this is definitely worth considering!
 
 ### [Reusable 25 oz Water Bottle by Yeti](https://serp.ly/@boxingundefeated/amazon/fontus-water-bottles)
 

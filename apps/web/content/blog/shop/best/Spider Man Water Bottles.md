@@ -38,7 +38,7 @@ _As an Amazon™ Associate, we earn from qualifying purchases._
 
 As an avid user of this Simple Modern Spiderman Water Bottle, I can attest to its ability to keep my ice-cold beverages just that way for hours on end. The vacuum insulation is no joke. I've found that the 18/8 stainless steel construction not only adds durability but also ensures that my drinks maintain their temperature.
 
-One feature that really stands out is the leak-proof straw lid. I've never had any issues with leaks or spills, even when the bottle is upside down in my gym bag or backpack. It's convenient to be able to drink without having to tip the whole bottle over. [Plus, it fits snugly into most cup holders, making it super easy to carry around.](universityofguns.pages.dev/best-cup-holsters/)
+One feature that really stands out is the leak-proof straw lid. I've never had any issues with leaks or spills, even when the bottle is upside down in my gym bag or backpack. It's convenient to be able to drink without having to tip the whole bottle over. Plus, it fits snugly into most cup holders, making it super easy to carry around.
 
 However, as with any product, there are a few cons to consider. Firstly, the bottle is not intended for hot liquids, which means you'll need a separate container for your tea or coffee. Additionally, it should be hand-washed, which may be a bit of a chore for some users.
 

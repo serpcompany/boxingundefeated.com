@@ -90,7 +90,7 @@ One feature that stands out is the large vented pocket. Not only does it provide
 
 However, there are a few minor issues. The bag could be a tad bit bigger to accommodate more stuff comfortably, especially when I need to fit all my gym clothes and shoes. Additionally, while the material is quite durable, a slightly thicker strap would have made it even more comfortable to carry.
 
-[Despite these minor cons, the Under Armour Undeniable 5.0 Duffle Bag has been a reliable and convenient companion in my daily life.](universityofguns.pages.dev/best-5-11-duffle-bags/) Its ample storage options, durability, and compact design make it an excellent choice for anyone in need of a reliable gym bag or a versatile duffle bag for everyday use.
+Despite these minor cons, the Under Armour Undeniable 5.0 Duffle Bag has been a reliable and convenient companion in my daily life. Its ample storage options, durability, and compact design make it an excellent choice for anyone in need of a reliable gym bag or a versatile duffle bag for everyday use.
 
 ## Buyer's Guide
 

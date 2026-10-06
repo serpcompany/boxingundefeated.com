@@ -70,7 +70,7 @@ One of the standout features is the internal baffle, which provides additional s
 
 However, it's not all roses. I did encounter an unpleasant aftertaste from the bottle material, which some reviewers have noted as well. Additionally, while the bottle is leak-proof during normal use, there have been instances of leakiness, particularly along the vertical seam when the bottle is squeezed.
 
-On the whole, the Hydrapak Flexible Bottle, Stow, 1 Liter, Mammoth, boasts impressive features like its foldability, leak-proof cap, and internal baffle. [It's an excellent choice for those seeking a convenient, lightweight water bottle for their daily adventures.](universityofguns.pages.dev/best-camelback-water-bottles/) Just don't forget to thoroughly clean it to minimize the risk of unpleasant tastes or potential leakiness.
+On the whole, the Hydrapak Flexible Bottle, Stow, 1 Liter, Mammoth, boasts impressive features like its foldability, leak-proof cap, and internal baffle. It's an excellent choice for those seeking a convenient, lightweight water bottle for their daily adventures. Just don't forget to thoroughly clean it to minimize the risk of unpleasant tastes or potential leakiness.
 
 ### [Collapsible Burgundy Water Bottle for On-The-Go](https://serp.ly/@boxingundefeated/amazon/hydaway-collapsible-water-bottles)
 

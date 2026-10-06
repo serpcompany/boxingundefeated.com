@@ -91,7 +91,7 @@ One thing I really love about this bottle is how comfortable it is to carry arou
 
 Another great feature is that it's made of glass and silicone, which means it doesn't have that unpleasant aftertaste that sometimes comes with plastic or metal water bottles. And it's free from BPA, lead, cadmium, and phthalate, so I can feel good about using it.
 
-However, there is one downside to this bottle: it doesn't fit in a standard car cup holder. This can be a bit inconvenient at times, but it's not a deal-breaker for me. [Overall, I'm really happy with my Bink Day Bottle and would highly recommend it to anyone looking for a stylish, functional water bottle that helps them stay hydrated throughout the day.](universityofguns.pages.dev/best-camelback-water-bottles/)
+However, there is one downside to this bottle: it doesn't fit in a standard car cup holder. This can be a bit inconvenient at times, but it's not a deal-breaker for me. Overall, I'm really happy with my Bink Day Bottle and would highly recommend it to anyone looking for a stylish, functional water bottle that helps them stay hydrated throughout the day.
 
 ### [Durable and Leak-Proof Stainless Steel Sports Water Bottle](https://serp.ly/@boxingundefeated/amazon/bike-water-bottles)
 

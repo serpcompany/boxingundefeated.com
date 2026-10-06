@@ -70,7 +70,7 @@ All in all, the TAL 3 Liter Stainless Steel Zeus Water Bottle has been an excell
 
 I recently got my hands on the TAL Stainless Steel Basin Travel Mug, and I must say, it has made hydrating on-the-go so much easier! This sleek 30-ounce mug comes in a stylish slate color that seamlessly blends with my daily outfits, making it an instant fashion statement.
 
-The first thing that caught my eye was the silicone straw - it's so comfortable to use and keeps my beverages from spilling when I'm on the move. [Plus, the fact that it fits most cup holders is a huge plus for me when I'm driving.](universityofguns.pages.dev/best-cup-holsters/)
+The first thing that caught my eye was the silicone straw - it's so comfortable to use and keeps my beverages from spilling when I'm on the move. Plus, the fact that it fits most cup holders is a huge plus for me when I'm driving.
 
 One of the most impressive features of this mug is its construction. Made from high-quality stainless steel, the mug is built to withstand even the toughest conditions - whether it's being tossed around in my bag or accidentally dropped on the floor. Its vacuum-insulated double-wall design ensures that my drinks remain at their optimal temperature, hot or cold, all day long.
 

@@ -84,7 +84,7 @@ I especially love how the handle makes it easy to carry around, particularly whe
 
 <div class="image"><a href="https://serp.ly/@boxingundefeated/amazon/16-oz-water-bottles"><img alt="zak-designs-6827-t351-riverside-water-bottles-16-oz-beach-life-1" src="https://imagedelivery.net/vy2bglCGN6hEeWOnSe2c7A/zak-designs-6827-t351-riverside-water-bottles-16-oz-beach-life-1/w=720,h=540,fit=pad,background=black"/></a></div>
 
-I've been using this Zak Designs [Riverside Water Bottle for a while now and I must say, it's absolutely perfect for my daily needs!](universityofguns.pages.dev/best-camelback-water-bottles/) The beach life artwork adds such a fun and vibrant touch to it, making it more than just a regular water bottle that I can take wherever I go.
+I've been using this Zak Designs Riverside Water Bottle for a while now and I must say, it's absolutely perfect for my daily needs! The beach life artwork adds such a fun and vibrant touch to it, making it more than just a regular water bottle that I can take wherever I go.
 
 What I really love about this bottle is the built-in loop in the lid. It makes carrying it so much easier, especially when my hands are full. The spout is fantastic too, with a protective cover to keep it clean and free from dust or germs. Plus, the button release makes it super easy to open and drink from, even on the go.
 
