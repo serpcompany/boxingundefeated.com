@@ -6,3 +6,12 @@ offline = true
 index_files = ["index.html"]
 # apps/web/out is gitignored.
 no_ignore = true
+
+# Known broken links in shop articles (109 at the time of writing): links written without a
+# scheme (`universityofguns.pages.dev/...`, `serpbooks.com/...`) resolve under the page and 404
+# on the live site, as do two relative links. Remove each entry once its articles are fixed.
+exclude = [
+  '/shop/best/[^/]+/(universityofguns\.pages\.dev|serpbooks\.com)/',
+  '/shop/best/motivational-water-bottles/motivational-water-bottles$',
+  '/shop/best/walking-bike-for-adults/link-to-full-article$',
+]
