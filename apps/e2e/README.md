@@ -8,8 +8,8 @@ Smoke tests and URL checks for every environment of boxingundefeated.com:
   [environment configuration](https://github.com/serpcompany/serp/blob/main/docs/engineering/standards/environment-configuration.md#verification)
   standards.
 - **URL parity** (`src/parity.ts`): every URL the live site serves, on a candidate.
-- **Export check** (`src/check-export.ts`): the static export GitHub Pages deploys is the production
-  site. The cutover to the Worker (#19) is done; keep running it until GitHub Pages is turned off.
+- **Export check** (`src/check-export.ts`): retired. It checked the static export GitHub Pages
+  served, and Pages is off since the cutover (#19); #20 removes it with the export build.
 
 Run everything from the repository root.
 
@@ -19,7 +19,7 @@ Run everything from the repository root.
 | --- | --- | --- |
 | `BASE_URL=<origin> EXPECT_ENV=<env> pnpm test:e2e` | `BASE_URL`: the origin under test. `EXPECT_ENV`: `local`, `staging` or `production`, required with `BASE_URL` | Every smoke test passes |
 | `EXPECT_ENV=<env> pnpm parity -- <origin>` | The candidate origin. `EXPECT_ENV` defaults to `production` | 0 mismatches outside `src/parity-allowlist.ts`, 0 errors |
-| `pnpm check:export` | `apps/web/out`, built with the Pages workflow's env (below) | Robots, noindex, GTM and canonicals are production |
+| `pnpm check:export` | Retired with GitHub Pages (#20 removes it) | — |
 
 - Requests to a `*.workers.dev` host carry `x-boxingundefeated-smoke-test: 1`, which exempts them
   from the canonical-host redirect. The host test sends the same host without it and expects 308.
@@ -51,7 +51,6 @@ BASE_URL=https://staging.boxingundefeated.com EXPECT_ENV=staging pnpm test:e2e
 BASE_URL=https://boxingundefeated-com-production.serpcompany.workers.dev EXPECT_ENV=production pnpm test:e2e
 pnpm parity -- https://boxingundefeated-com-production.serpcompany.workers.dev
 EXPECT_ENV=staging pnpm parity -- https://staging.boxingundefeated.com
-env -u SITE_ENVIRONMENT GITHUB_EVENT_NAME=push pnpm --filter web build:vercel && pnpm check:export
 ```
 
 ## The local preview

@@ -6,10 +6,10 @@ Agents and contributors: start with [AGENTS.md](AGENTS.md) for the repository ma
 
 ## Tech Stack
 
-- **Framework**: Next.js 16 and React 19 (static export, built with Turbopack)
+- **Framework**: Next.js 16 and React 19 on an OpenNext Worker, built with Turbopack
 - **Styling**: Tailwind CSS 4
 - **Monorepo**: Turbo
-- **Deployment**: GitHub Pages via serpcompany/boxingundefeated.com
+- **Deployment**: Cloudflare Workers (OpenNext) with D1; see AGENTS.md
 
 ## Project Structure
 

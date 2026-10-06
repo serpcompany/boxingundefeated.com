@@ -1,9 +1,9 @@
 # AGENTS
 
 boxingundefeated.com is a boxing database: about 5,600 boxer profiles with fight histories, weight
-division listings, and an Amazon-affiliate shop. Today it is a Next.js static export deployed to
-GitHub Pages. It is migrating to a Next.js OpenNext Worker with D1 and Drizzle on Cloudflare; the
-plan and its order live in the pinned epic, serpcompany/boxingundefeated.com#3.
+division listings, and an Amazon-affiliate shop. It runs as a Next.js OpenNext Worker with D1 and
+Drizzle on Cloudflare (cut over from GitHub Pages on 2026-10-06, #19); the remaining plan lives in
+the pinned epic, serpcompany/boxingundefeated.com#3.
 
 The SERP-wide standards in
 [serpcompany/serp `docs/engineering/standards/`](https://github.com/serpcompany/serp/tree/main/docs/engineering/standards)
@@ -53,7 +53,7 @@ or deploy workflows, or production migrations, plus every release PR, and runs t
   regeneration and `db:import`; builds read `public/data/`. In a fresh worktree, copy it there,
   then `mkdir -p apps/web/data && ln -s ../../../from-pipeline/boxers.json apps/web/data/`.
 - `.github/workflows/`: `ci.yml` (the PR check; its `All checks` job is the required check),
-  `deploy-staging.yml`, `deploy-production.yml` and `deploy-github-pages.yml` (until the cutover).
+  `deploy-staging.yml` and `deploy-production.yml`.
 
 ## Commands
 
@@ -74,7 +74,7 @@ Worker (OpenNext on Cloudflare, about a minute; boxer pages read the local D1, s
   environment's vars and bindings, locally. Pair it with the matching build.
 - `pnpm test:e2e`: the smoke suite (`apps/e2e/`; its README has the CI interface) on the local
   preview after `db:reset:local` and `build:worker`; deployed: `BASE_URL=<origin> EXPECT_ENV=<env>`.
-  `pnpm parity -- <origin>`: every live URL on a candidate; `pnpm check:export`: the Pages export.
+  `pnpm parity -- <origin>`: every live URL on a candidate; `pnpm check:export`: retired with Pages (#20).
 - `pnpm --filter web cf-typegen`: regenerate and commit `cloudflare-env.d.ts` after changing
   `wrangler.jsonc`; it strips the `mainModule` type (`lib/cloudflare-env-types.ts`).
 
@@ -136,7 +136,7 @@ value is used, never at module load:
 
 1. An explicit `SITE_ENVIRONMENT` wins; an unknown value is `local`.
 2. Without one, the static export is production unless built for a pull request
-   (`GITHUB_EVENT_NAME`), so the GitHub Pages deploy, which sets none, is indexable.
+   (`GITHUB_EVENT_NAME`); the export only feeds CI's link check now (#20 removes it).
 3. Everything else is `local`: `next dev`, tests, a Worker build without the variable, and a
    Worker whose runtime var is missing.
 
@@ -156,8 +156,8 @@ answers `/robots.txt` with `Disallow: /`. `app/robots.ts` is the only robots sou
 
 ## Invariants
 
-- Public URLs are an SEO contract. Never change or drop one without a permanent redirect. GitHub
-  Pages can't serve redirects, so until the Worker cutover, don't change URLs at all.
+- Public URLs are an SEO contract. Never change or drop one without a permanent redirect, which
+  the Worker serves (`lib/routing/`, `next.config.ts` redirects).
 - Pages end in a trailing slash, files never do, and the homepage canonical is the origin without
   a slash (SERP URL trailing-slash standard). `lib/routing/trailing-slash.ts` holds the rules; the
   Worker redirects with them, the static export can't. The homepage renders its own canonical and
