@@ -10,11 +10,14 @@ import {
   buildOpponentIndex,
   buildUpserts,
   checkOutDir,
+  checkProductionSourcePath,
+  checkProductionSourceSize,
   checkPrune,
   D1_MAX_STATEMENT_BYTES,
   DIVISIONS,
   directoryIndexOrder,
   GENERATED_SQL_FILE,
+  IMPORT_FLAGS,
   nameList,
   packFiles,
   parseFlags,
@@ -375,12 +378,36 @@ describe('identity and targets', () => {
     })
     expect(() => parseFlags(['--env', 'production'], ['target'])).toThrow(/Unknown argument/)
   })
+
+  it("refuses a repeated flag, so appended arguments never override a script's own", () => {
+    for (const argv of [
+      ['--target', 'local', '--target', 'production'],
+      ['--target=local', '--', '--target=local'],
+      ['--dry-run', '--dry-run'],
+      ['--source', 'a.json', '--dry-run', '--source=b.json']
+    ]) {
+      expect(() => parseFlags(argv, IMPORT_FLAGS)).toThrow(/is given twice/)
+    }
+  })
+
+  it('keeps db:seed:local on the local target', () => {
+    const root = resolve(import.meta.dirname, '../../../..')
+    const { scripts } = JSON.parse(readFileSync(resolve(root, 'package.json'), 'utf8'))
+    const [, args = ''] = (scripts['db:seed:local'] as string).split('scripts/d1/import-boxers.ts')
+    const own = args.trim().split(/\s+/)
+    expect(resolveTarget(parseFlags(own, IMPORT_FLAGS)).name).toBe('local')
+    for (const appended of [
+      ['--', '--target', 'production', '--confirm-production'],
+      ['--target=staging'],
+      ['--source', 'from-pipeline/boxers.json']
+    ]) {
+      expect(() => parseFlags([...own, ...appended], IMPORT_FLAGS)).toThrow(/is given twice/)
+    }
+  })
 })
 
 // Target resolution only: nothing here runs Wrangler.
 describe('resolveTarget', () => {
-  // The flags `db:import` accepts (scripts/d1/import-boxers.ts).
-  const IMPORT_FLAGS = [...TARGET_FLAGS, 'source', 'out-dir', 'allow-prune', 'dry-run']
   const resolveArgs = (...argv: string[]) => resolveTarget(parseFlags(argv, IMPORT_FLAGS))
   const production = {
     name: 'production',
@@ -451,6 +478,21 @@ describe('resolveTarget', () => {
     }
   })
 
+  it('lets a read-only check take the confirmation without needing it', () => {
+    const check = (...argv: string[]) =>
+      resolveTarget(parseFlags(argv, TARGET_FLAGS), { requireConfirmation: false })
+    expect(check('--target', 'production')).toEqual(production)
+    expect(check('--target', 'production', '--confirm-production')).toEqual(production)
+    expect(check('--target', 'staging').name).toBe('staging')
+    expect(() => check('--target', 'staging', '--confirm-production')).toThrow(
+      /only goes with --target production/
+    )
+    expect(() => check('--target', 'production', '--confirm-production=1')).toThrow(
+      /takes no value/
+    )
+    expect(() => check()).toThrow(/Missing --target/)
+  })
+
   it("reaches the databases of wrangler.jsonc, with the db:migrate scripts' flags", () => {
     const root = resolve(import.meta.dirname, '../../../..')
     const { scripts } = JSON.parse(readFileSync(resolve(root, 'package.json'), 'utf8'))
@@ -463,6 +505,43 @@ describe('resolveTarget', () => {
       const config = target.name === 'local' ? wrangler : wrangler.env[target.name]
       expect(config.d1_databases[0].database_name).toBe(target.database)
     }
+  })
+})
+
+describe('a production source', () => {
+  const root = '/repo'
+
+  it('must be an explicit --source outside d1/fixtures/', () => {
+    expect(() => checkProductionSourcePath(undefined, root)).toThrow(/explicit --source/)
+    for (const path of [
+      '/repo/d1/fixtures/boxers.sample.json',
+      '/repo/d1/fixtures/other/boxers.json',
+      '/repo/d1/../d1/fixtures/boxers.sample.json'
+    ]) {
+      expect(() => checkProductionSourcePath(path, root)).toThrow(/d1\/fixtures\/ is test data/)
+    }
+    expect(() => checkProductionSourcePath('/repo/from-pipeline/boxers.json', root)).not.toThrow()
+    expect(() => checkProductionSourcePath('/data/boxers.json', root)).not.toThrow()
+  })
+
+  it('must hold 95 % of the boxers the site serves, unless --allow-small-source', () => {
+    expect(() => checkProductionSourceSize(5_570, 5_570)).not.toThrow()
+    expect(() => checkProductionSourceSize(5_292, 5_570)).not.toThrow()
+    expect(() => checkProductionSourceSize(5_291, 5_570)).toThrow(
+      /Refusing a production import of 5291 boxers: the site serves 5570 today, so fewer than 5292[\s\S]*--allow-small-source/
+    )
+    expect(() => checkProductionSourceSize(49, 5_570)).toThrow(/looks truncated/)
+    expect(() => checkProductionSourceSize(49, 5_570, true)).not.toThrow()
+  })
+
+  it('refuses the committed fixture on both counts', () => {
+    expect(() => checkProductionSourcePath(FIXTURE, resolve(FIXTURE, '../../..'))).toThrow(
+      /test data/
+    )
+    const fixture = prepareDataset(JSON.parse(readFileSync(FIXTURE, 'utf8')))
+    expect(() => checkProductionSourceSize(fixture.sourceCounts.boxers, 5_570)).toThrow(
+      /looks truncated/
+    )
   })
 })
 

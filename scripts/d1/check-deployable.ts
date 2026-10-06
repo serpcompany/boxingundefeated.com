@@ -1,9 +1,9 @@
 /**
  * Refuses a deploy of a D1-reading Worker build (boxer profiles read D1 since #10) unless the
  * target D1 is migrated and holds a complete import. Read-only: it only runs SELECTs, so production
- * needs no `--confirm-production` here.
+ * takes `--confirm-production`, like the rest of the production run, but doesn't need it.
  *
- * Usage: pnpm db:check-deployable -- --target local|staging|production
+ * Usage: pnpm db:check-deployable -- --target local|staging|production [--confirm-production]
  *
  * Checks that every migration in d1/drizzle/ is applied, that `dataset_state` records a finished
  * import (a version, not importing), and that boxers and bouts have rows. Run
@@ -11,7 +11,7 @@
  */
 import { readdirSync } from 'node:fs'
 import { join, resolve } from 'node:path'
-import { parseFlags, TARGETS } from '../../packages/data-ops/src/import'
+import { parseFlags, resolveTarget, TARGET_FLAGS } from '../../packages/data-ops/src/import'
 import { type D1Target, d1Query, REPO_ROOT } from './wrangler'
 
 /** The problems that make `target` unfit to serve a D1-reading build; empty when it is fit. */
@@ -52,10 +52,8 @@ export function deployProblems(target: D1Target): string[] {
 }
 
 function main(): void {
-  const flags = parseFlags(process.argv.slice(2), ['target'])
-  const name = typeof flags.target === 'string' ? flags.target : ''
-  if (!Object.hasOwn(TARGETS, name)) throw new Error('Pass --target local, staging or production.')
-  const target = TARGETS[name as keyof typeof TARGETS]
+  const flags = parseFlags(process.argv.slice(2), TARGET_FLAGS)
+  const target = resolveTarget(flags, { requireConfirmation: false })
 
   const problems = deployProblems(target)
   if (problems.length > 0) {
