@@ -2,6 +2,7 @@ import { and, asc, count, desc, eq, getTableColumns, gt, sql } from 'drizzle-orm
 import { alias } from 'drizzle-orm/sqlite-core'
 import type { Database } from './client'
 import { bouts, boxers, datasetState, divisions } from './schema'
+import { SEARCH_NAME_KEY, SEARCH_RESULT_LIMIT, SEARCH_TEXT_KEY, searchTerms } from './search'
 import type { Bout, Boxer, DatasetState, Division } from './types'
 
 /** Boxers per listing page, as on `/boxers/` and `/divisions/<division>/` today. */
@@ -261,4 +262,90 @@ export async function getDatasetState(
     .where(eq(datasetState.id, 1))
     .limit(1)
   return state ?? null
+}
+
+/** The columns a search result shows. */
+export const boxerSearchColumns = {
+  slug: boxers.slug,
+  name: boxers.name,
+  nicknames: boxers.nicknames,
+  nationality: boxers.nationality,
+  proDivision: boxers.proDivision,
+  proWins: boxers.proWins,
+  proLosses: boxers.proLosses,
+  proDraws: boxers.proDraws
+}
+
+export type BoxerSearchResult = Pick<Boxer, keyof typeof boxerSearchColumns>
+
+export interface BoxerSearch {
+  /** The query's terms (`searchTerms`), joined by spaces: what was searched for. */
+  query: string
+  /** Best match first. At most `limit`. */
+  results: BoxerSearchResult[]
+  /** More boxers match than `results` holds. */
+  truncated: boolean
+}
+
+/**
+ * Boxers whose name, nicknames, nationality or division contain every term of `query`
+ * (`searchTerms`), best first: the name is the query, then starts with it, then has a word that
+ * starts with it, then contains it, then everything else (a nickname, the nationality or the
+ * division); within each, the directory order.
+ *
+ * One statement. `keys` names the two key expressions once, as `boxers_search_idx` declares them,
+ * so SQLite reads them from the index; `hits` filters and ranks on that covering index alone
+ * (about 5,600 short entries), and only the returned rows are read from the table. Terms hold
+ * only letters and digits, and the tests are `instr()` substring tests: no pattern syntax, and no
+ * pattern length limit (D1 caps `LIKE` patterns at 50 bytes).
+ */
+export async function searchBoxers(
+  db: Database,
+  query: string,
+  { limit = SEARCH_RESULT_LIMIT }: { limit?: number } = {}
+): Promise<BoxerSearch> {
+  const terms = searchTerms(query)
+  if (terms.length === 0 || !Number.isInteger(limit) || limit < 1) {
+    return { query: terms.join(' '), results: [], truncated: false }
+  }
+  const phrase = terms.join(' ')
+  const keys = db.$with('keys').as(
+    db
+      .select({
+        id: boxers.id,
+        textKey: sql<string>`${sql.raw(SEARCH_TEXT_KEY)}`.as('text_key'),
+        nameKey: sql<string>`${sql.raw(SEARCH_NAME_KEY)}`.as('name_key'),
+        proWins: boxers.proWins,
+        proTotalBouts: boxers.proTotalBouts,
+        name: boxers.name
+      })
+      .from(boxers)
+  )
+  const name = sql`${keys.nameKey}`
+  const tier = sql<number>`CASE
+    WHEN ${name} = ${phrase} THEN 0
+    WHEN instr(${name}, ${phrase}) = 1 THEN 1
+    WHEN instr(' ' || ${name}, ${` ${phrase}`}) > 0 THEN 2
+    WHEN instr(${name}, ${phrase}) > 0 THEN 3
+    ELSE 4 END`.as('tier')
+  const hits = db.$with('hits').as(
+    db
+      .select({ id: keys.id, tier })
+      .from(keys)
+      .where(and(...terms.map(term => sql`instr(${keys.textKey}, ${term}) > 0`)))
+      .orderBy(
+        sql`tier`,
+        desc(keys.proWins),
+        desc(keys.proTotalBouts),
+        sql`${keys.name} COLLATE NOCASE`
+      )
+      .limit(limit + 1)
+  )
+  const rows = await db
+    .with(keys, hits)
+    .select(boxerSearchColumns)
+    .from(hits)
+    .innerJoin(boxers, eq(boxers.id, hits.id))
+    .orderBy(sql`${hits.tier}`, ...directoryOrder)
+  return { query: phrase, results: rows.slice(0, limit), truncated: rows.length > limit }
 }
