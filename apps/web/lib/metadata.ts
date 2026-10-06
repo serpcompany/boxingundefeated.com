@@ -28,6 +28,11 @@ export function createBoxerMetaDescription(boxer: BoxerMetadata): string {
 /**
  * The root layout's metadata. Outside production it adds `<meta name="robots" content="noindex">`;
  * no page sets its own `robots`, so every page inherits it.
+ *
+ * It sets no canonical and no `og:url`: every page inherits these values, and a layout canonical
+ * would point every page without its own at the homepage. Each page sets its own canonical. The
+ * homepage renders both tags itself as the bare origin (app/page.tsx), because with
+ * `trailingSlash` the metadata API would write `https://boxingundefeated.com/`.
  */
 export function createRootMetadata(config: SiteConfig = getSiteConfig()): Metadata {
   const baseUrl = config.origin
@@ -38,13 +43,9 @@ export function createRootMetadata(config: SiteConfig = getSiteConfig()): Metada
     title: rootTitle,
     description,
     metadataBase: new URL(baseUrl),
-    alternates: {
-      canonical: baseUrl
-    },
     openGraph: {
       title: rootTitle,
       description,
-      url: baseUrl,
       siteName: 'Boxing Undefeated',
       type: 'website',
       images: [

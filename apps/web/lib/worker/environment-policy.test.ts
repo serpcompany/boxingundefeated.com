@@ -91,4 +91,44 @@ describe('withEnvironmentPolicy', () => {
     expect(redirect.status).toBe(308)
     expect(redirect.headers.get('location')).toBe('/about/')
   })
+
+  it('rewraps with new Response(body, response), keeping the status, headers and webSocket', async () => {
+    // Workers' Response accepts and copies `webSocket`; Node's does not, so emulate it the way
+    // the Workers runtime reads its init: from the response passed as the init argument.
+    const webSocket = { accept: jest.fn() }
+    const upstream = new Response(null, {
+      status: 200,
+      statusText: 'Switching',
+      headers: { 'set-cookie': 'a=1', vary: 'accept' }
+    })
+    Object.defineProperty(upstream, 'webSocket', { value: webSocket })
+    const NativeResponse = globalThis.Response
+    const seenInits: unknown[] = []
+    class WorkersResponse extends NativeResponse {
+      webSocket: unknown
+      constructor(body?: BodyInit | null, init?: ResponseInit & { webSocket?: unknown }) {
+        super(body, init)
+        seenInits.push(init)
+        this.webSocket = init?.webSocket ?? null
+      }
+    }
+    globalThis.Response = WorkersResponse as typeof Response
+    try {
+      const response = await withEnvironmentPolicy(request('/live/'), {}, () =>
+        Promise.resolve(upstream)
+      )
+
+      expect(seenInits).toContain(upstream)
+      expect(response.status).toBe(200)
+      expect(response.statusText).toBe('Switching')
+      expect(response.headers.get('set-cookie')).toBe('a=1')
+      expect(response.headers.get('vary')).toBe('accept')
+      expect(response.headers.get('x-robots-tag')).toBe('noindex')
+      expect((response as WorkersResponse).webSocket).toBe(webSocket)
+      // The upstream headers are not mutated.
+      expect(upstream.headers.get('x-robots-tag')).toBeNull()
+    } finally {
+      globalThis.Response = NativeResponse
+    }
+  })
 })

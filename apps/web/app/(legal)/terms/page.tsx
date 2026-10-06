@@ -4,7 +4,9 @@ import { getSiteOrigin } from '@/lib/site-config'
 
 export const metadata: Metadata = {
   title: 'Terms of Service - Boxing Directory',
-  description: 'Terms of service for the Boxing Directory website.'
+  description: 'Terms of service for the Boxing Directory website.',
+  // Resolved against the root layout's metadataBase, the environment's origin.
+  alternates: { canonical: '/terms/' }
 }
 
 export default function TermsOfServicePage() {

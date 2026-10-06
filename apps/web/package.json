@@ -10,7 +10,7 @@
     "build:worker": "NEXT_BUILD_TARGET=worker NODE_NO_WARNINGS=1 opennextjs-cloudflare build",
     "build:worker:production": "SITE_ENVIRONMENT=production pnpm build:worker",
     "build:worker:staging": "SITE_ENVIRONMENT=staging pnpm build:worker",
-    "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts",
+    "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts && npx tsx scripts/strip-main-module-type.ts",
     "clean": "git clean -xdf .cache .turbo .next coverage node_modules",
     "predev": "node ../../scripts/split-boxer-data.js && npx tsx scripts/generate-boxer-search.ts",
     "dev": "NODE_OPTIONS='--inspect' next dev --port 3003",

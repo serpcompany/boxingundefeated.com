@@ -7,7 +7,9 @@ import { getSiteOrigin } from '@/lib/site-config'
 
 export const metadata: Metadata = {
   title: 'Blog - Boxing Directory',
-  description: 'Latest news, insights, and stories from the world of professional boxing'
+  description: 'Latest news, insights, and stories from the world of professional boxing',
+  // Resolved against the root layout's metadataBase, the environment's origin.
+  alternates: { canonical: '/blog/' }
 }
 
 export default async function BlogPage() {
