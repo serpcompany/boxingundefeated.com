@@ -41,8 +41,8 @@ export const slashRedirects: readonly SlashRedirect[] = [
   // Files never end in a slash: /robots.txt/ -> /robots.txt
   { source: `/:file(${file})/`, destination: '/:file', permanent: true },
   { source: `/:dir(${pageDir})+/:file(${file})/`, destination: '/:dir+/:file', permanent: true },
-  // Pages always do: /about -> /about/
-  { source: `/:page(${unslashedPage})`, destination: '/:page/', permanent: true },
+  // Pages always do: /about -> /about/ (THROWAWAY for #17: broken to /about. Never merge.)
+  { source: `/:page(${unslashedPage})`, destination: '/:page', permanent: true },
   {
     source: `/:dir(${pageDir})+/:page(${unslashedPage})`,
     destination: '/:dir+/:page/',
