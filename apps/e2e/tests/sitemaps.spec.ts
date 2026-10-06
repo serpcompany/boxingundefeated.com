@@ -1,5 +1,5 @@
 import { type APIRequestContext, expect, type Page, test } from '@playwright/test'
-import { pageFacts } from '../src/html'
+import { isNoindex, pageFacts } from '../src/html'
 import { target } from './site'
 
 /**
@@ -44,6 +44,10 @@ async function fetchSitemap(
   const response = await request.get(path, { maxRedirects: 0 })
   expect(response.status(), path).toBe(200)
   expect(response.headers()['content-type'], path).toContain('application/xml')
+  // Only production's sitemaps may be indexed; staging and local send noindex on every file.
+  expect(isNoindex(response.headers()['x-robots-tag']), `${path} X-Robots-Tag`).toBe(
+    target.environment !== 'production'
+  )
   const parsed = await parseXml(page, await response.text())
   expect(parsed.errors, `${path} is well-formed XML`).toBe(0)
   expect(parsed.root, path).toBe(root)
@@ -116,7 +120,14 @@ test('the sitemap index lists root child sitemaps of canonical, unique URLs that
 })
 
 test('old sitemap URLs answer 308 to the sitemap index', async ({ request }) => {
-  for (const path of ['/sitemap.xml', '/sitemaps/pages/1.xml', '/sitemaps/boxers/3.xml']) {
+  // One hop each, with or without a trailing slash.
+  for (const path of [
+    '/sitemap.xml',
+    '/sitemap.xml/',
+    '/sitemaps/pages/1.xml',
+    '/sitemaps/pages/1.xml/',
+    '/sitemaps/boxers/3.xml'
+  ]) {
     const response = await request.get(path, { maxRedirects: 0 })
     expect(response.status(), path).toBe(308)
     const location = new URL(response.headers().location ?? '', target.baseUrl)

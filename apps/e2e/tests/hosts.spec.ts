@@ -14,6 +14,9 @@ const redirects: Array<[string, string]> = [
   [boxer.path, boxer.path],
   ['/shop/best/2.7-l-water-bottles', '/shop/best/2.7-l-water-bottles/'],
   ['/robots.txt/', '/robots.txt'],
+  // Old sitemap URLs go straight to the index, in one hop.
+  ['/sitemap.xml', '/sitemap-index.xml'],
+  ['/sitemaps/pages/1.xml/', '/sitemap-index.xml'],
   // /api keeps its exact path, with or without the slash.
   ['/api/search/?q=ortiz', '/api/search/?q=ortiz'],
   ['/api/search?q=ortiz', '/api/search?q=ortiz']
