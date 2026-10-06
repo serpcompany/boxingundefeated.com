@@ -29,7 +29,10 @@
       "!apps/web/public/data",
       "!apps/web/data",
       "!from-pipeline",
-      "!d1/drizzle/meta"
+      "!d1/drizzle/meta",
+      "!apps/e2e/parity-report",
+      "!apps/e2e/playwright-report",
+      "!apps/e2e/test-results"
     ]
   },
   "formatter": {
