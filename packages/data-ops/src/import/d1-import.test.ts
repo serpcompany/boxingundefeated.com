@@ -43,11 +43,12 @@ async function all(sql: string): Promise<Row[]> {
 }
 
 /**
- * Every column, including ids and `imported_at`. Not `sqlite_sequence`: SQLite advances the
- * AUTOINCREMENT counter for every attempted insert, even one that resolves to a no-op upsert.
+ * Every column, including ids and `imported_at`, plus `sqlite_sequence`: the bouts' AUTOINCREMENT
+ * counter, which an INSERT advances (and D1 counts as a written row) even for a no-op upsert.
  */
 async function stateChecksum(): Promise<string> {
   return [
+    JSON.stringify(await all('SELECT name, seq FROM sqlite_sequence ORDER BY name')),
     rowsChecksum([...BOXER_COLUMNS, 'imported_at'], await all('SELECT * FROM boxers ORDER BY id')),
     rowsChecksum(
       ['id', ...BOUT_COLUMNS],

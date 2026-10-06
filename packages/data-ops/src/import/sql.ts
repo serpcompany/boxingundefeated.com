@@ -40,20 +40,46 @@ interface UpsertSpec {
   keep?: readonly string[]
   /** Extra assignments when a row changes, such as a timestamp. */
   touch?: string
+  /**
+   * Leave rows that already match out of the `INSERT` itself. Needed for an `AUTOINCREMENT`
+   * table: SQLite allocates a rowid for every row an `INSERT` attempts, even one the upsert then
+   * skips, so each statement would rewrite `sqlite_sequence` (one row written per statement on
+   * D1) and advance the counter by its row count on every re-run.
+   */
+  skipUnchanged?: boolean
+}
+
+const updatedColumns = ({ columns, conflict, keep = [] }: UpsertSpec) =>
+  columns.filter(column => !conflict.includes(column) && !keep.includes(column))
+
+function upsertPrefix(spec: UpsertSpec): string {
+  const columns = spec.columns.join(', ')
+  return spec.skipUnchanged
+    ? `WITH incoming (${columns}) AS (VALUES\n`
+    : `INSERT INTO ${spec.table} (${columns}) VALUES\n`
 }
 
 /**
  * `INSERT … ON CONFLICT DO UPDATE … WHERE <a column differs>`: a row that already matches is
  * not written at all, so re-running an import writes nothing. Not `INSERT OR REPLACE`, which
- * deletes the row and so cascades to its bouts and unlinks opponents.
+ * deletes the row and so cascades to its bouts and unlinks opponents. With `skipUnchanged`, the
+ * rows come from a `WITH incoming (…) AS (VALUES …)` and only those that differ are inserted.
  */
-function upsertSuffix({ table, columns, conflict, keep = [], touch }: UpsertSpec): string {
-  const updated = columns.filter(column => !conflict.includes(column) && !keep.includes(column))
+function upsertSuffix(spec: UpsertSpec): string {
+  const { table, columns, conflict, touch } = spec
+  const updated = updatedColumns(spec)
   const assignments = updated.map(column => `${column} = excluded.${column}`)
   if (touch) assignments.push(touch)
   const changed = updated.map(column => `${table}.${column} IS NOT excluded.${column}`)
+  const select = spec.skipUnchanged
+    ? `)\nINSERT INTO ${table} (${columns.join(', ')})\nSELECT * FROM incoming WHERE NOT EXISTS ` +
+      `(SELECT 1 FROM ${table} AS stored WHERE ${[
+        ...conflict.map(column => `stored.${column} = incoming.${column}`),
+        ...updated.map(column => `stored.${column} IS incoming.${column}`)
+      ].join(' AND ')})`
+    : ''
   return (
-    `\nON CONFLICT (${conflict.join(', ')}) DO UPDATE SET ${assignments.join(', ')}` +
+    `${select}\nON CONFLICT (${conflict.join(', ')}) DO UPDATE SET ${assignments.join(', ')}` +
     `\nWHERE ${changed.join(' OR ')};\n`
   )
 }
@@ -64,7 +90,7 @@ export function buildUpserts(
   rows: readonly Row[],
   maxStatementBytes = DEFAULT_MAX_STATEMENT_BYTES
 ): string[] {
-  const prefix = `INSERT INTO ${spec.table} (${spec.columns.join(', ')}) VALUES\n`
+  const prefix = upsertPrefix(spec)
   const suffix = upsertSuffix(spec)
   const fixed = byteLength(prefix) + byteLength(suffix)
   const statements: string[] = []
@@ -180,7 +206,8 @@ export function buildOpponentLinks(
  *    unique index rejects a `boxrec_id` that arrives under a new `id`;
  * 3. replace each boxer's bouts: upsert on `(boxer_id, ordinal)`, then delete the ordinals past
  *    the end of the list. The end state matches delete-then-insert, but unchanged bouts keep
- *    their ids and are not rewritten;
+ *    their ids and are not rewritten, nor even attempted (`skipUnchanged`: `bouts.id` is
+ *    `AUTOINCREMENT`), so `sqlite_sequence` stays put too;
  * 4. the final pass: resolve `opponent_boxer_id` (`buildOpponentLinks`).
  *
  * Upserts set `imported_at` explicitly whenever they change a row (the column default only
@@ -212,7 +239,8 @@ export function buildImportStatements(
       table: 'bouts',
       columns: BOUT_COLUMNS,
       conflict: ['boxer_id', 'ordinal'],
-      keep: ['opponent_boxer_id']
+      keep: ['opponent_boxer_id'],
+      skipUnchanged: true
     },
     dataset.bouts.map(bout => ({ ...bout, opponent_boxer_id: null })),
     maxStatementBytes

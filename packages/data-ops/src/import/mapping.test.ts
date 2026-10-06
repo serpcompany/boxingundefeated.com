@@ -239,6 +239,21 @@ describe('SQL batching', () => {
     )
   })
 
+  it('leaves matching rows out of the INSERT for an AUTOINCREMENT table', () => {
+    const [statement] = buildUpserts(
+      { table: 't', columns: ['k', 'a', 'b'], conflict: ['k'], keep: ['b'], skipUnchanged: true },
+      [{ k: 1, a: 'x', b: null }]
+    )
+    expect(statement).toBe(
+      "WITH incoming (k, a, b) AS (VALUES\n(1, 'x', NULL))\n" +
+        'INSERT INTO t (k, a, b)\n' +
+        'SELECT * FROM incoming WHERE NOT EXISTS (SELECT 1 FROM t AS stored WHERE ' +
+        'stored.k = incoming.k AND stored.a IS incoming.a)\n' +
+        'ON CONFLICT (k) DO UPDATE SET a = excluded.a\n' +
+        'WHERE t.a IS NOT excluded.a;\n'
+    )
+  })
+
   it('packs statements into files under the size limit, in order', () => {
     const statements = Array.from({ length: 50 }, (_, i) => `SELECT ${i};${' '.repeat(90)}\n`)
     const files = packFiles(statements, 1_000)
@@ -257,7 +272,8 @@ describe('SQL batching', () => {
     expect(second).toEqual(first)
     expect(Math.max(...first.map(byteLength))).toBeLessThan(D1_MAX_STATEMENT_BYTES)
     // Divisions and boxers come before any bout, and opponent links come last.
-    const firstBout = first.findIndex(s => s.startsWith('INSERT INTO bouts'))
+    const firstBout = first.findIndex(s => s.includes('\nINSERT INTO bouts'))
+    expect(firstBout).toBeGreaterThan(0)
     expect(first.slice(firstBout).some(s => s.startsWith('INSERT INTO boxers'))).toBe(false)
     expect(first.at(-1)).toMatch(/^UPDATE bouts SET opponent_boxer_id/)
   })
