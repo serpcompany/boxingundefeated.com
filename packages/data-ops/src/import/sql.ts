@@ -1,5 +1,6 @@
 import type { ImportDataset } from './dataset'
 import { BOUT_COLUMNS, BOXER_COLUMNS, DIVISION_COLUMNS, type Row, type SqlValue } from './rows'
+import type { ImportTarget } from './targets'
 
 /** D1's limit on one SQL statement (https://developers.cloudflare.com/d1/platform/limits/). */
 export const D1_MAX_STATEMENT_BYTES = 100_000
@@ -372,21 +373,24 @@ export function planImport(existing: readonly ExistingBoxer[], boxers: readonly 
   return { conflicts, stale }
 }
 
-/** A remote import prunes at most 1 % of the target, and never more than this, without `--allow-prune`. */
+/** A staging import prunes at most 1 % of the target, and never more than this, without `--allow-prune`. */
 export const REMOTE_PRUNE_LIMIT = 50
 
 /**
  * Refuses a prune larger than the limit, which catches a fixture or truncated file passed to a
- * remote target. Local targets are disposable and prune freely (`db:seed:local` relies on it).
+ * remote target. Production prunes nothing without `--allow-prune`. Local targets are disposable
+ * and prune freely (`db:seed:local` relies on it).
  */
 export function checkPrune(
-  target: 'local' | 'staging',
+  target: ImportTarget['name'],
   existing: number,
   stale: readonly ExistingBoxer[],
   allowPrune?: number
 ): void {
   if (target === 'local' || stale.length === 0) return
-  const limit = allowPrune ?? Math.min(REMOTE_PRUNE_LIMIT, Math.floor(existing / 100))
+  const limit =
+    allowPrune ??
+    (target === 'production' ? 0 : Math.min(REMOTE_PRUNE_LIMIT, Math.floor(existing / 100)))
   if (stale.length <= limit) return
   const listed = stale.slice(0, 50).map(row => `  - ${row.slug} (id ${row.id})`)
   const more = stale.length > 50 ? [`  … and ${stale.length - 50} more`] : []
