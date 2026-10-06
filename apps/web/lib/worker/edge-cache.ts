@@ -1,22 +1,27 @@
 /**
- * The Worker's edge cache for rendered responses, applied by `worker.ts` in front of OpenNext.
+ * The Worker's edge cache for rendered pages, step 3 of lib/worker/handle-request.ts: after the
+ * canonical-host redirect and inside the crawl policy, so a stored page never skips either.
  * Pages that render on request from D1 (boxer profiles; listings in #11) need it most.
  *
- * Each data center keeps a Cache API copy of a rendered response for `EDGE_CACHE_TTL_SECONDS`,
- * keyed by the Worker version and the URL. A hit is answered here, before OpenNext and D1 run, so
- * it costs no D1 query. A deploy changes the version, so new markup is served at once; a data
- * refresh (a re-import into D1) shows up when the stored copy expires, within the TTL. Nothing
- * needs purging: new keys stop matching old entries, which expire on their own.
+ * Each data center keeps a Cache API copy of a page for `EDGE_CACHE_TTL_SECONDS`, keyed by the
+ * Worker version and the URL. A hit is answered here, before OpenNext and D1 run, so it costs no
+ * D1 query. A deploy changes the version, so new markup is served at once; a data refresh (a
+ * re-import into D1) shows up when the stored copy expires, within the TTL. Nothing needs purging:
+ * new keys stop matching old entries, which expire on their own.
+ *
+ * Only pages: a GET or HEAD for a path ending in `/` (pages end in a slash, files never do), and
+ * only a 200 HTML or RSC response is stored. Files from `public/` (sitemaps, ads.txt, the boxer
+ * JSON, images), which `assets.run_worker_first` also sends through the Worker, pass through
+ * untouched, as do redirects, 404s and errors.
  *
  * Modeled on best.serp.co's `lib/edge-cache/html-cache.ts`, without its D1 data epoch: boxer data
  * changes only on an occasional import, so a TTL bounds staleness without a D1 read per request.
- * The Cache API has no effect on `*.workers.dev`, so the cache works once a custom domain is
- * attached; until then every request renders.
+ * The Cache API has no effect on `*.workers.dev`, so the cache works on custom domains only.
  *
  * No Next.js imports: this runs before OpenNext loads, and every dependency is injected.
  */
 
-/** How long a data center reuses a rendered response. */
+/** How long a data center reuses a rendered page. */
 export const EDGE_CACHE_TTL_SECONDS = 60 * 60
 export const EDGE_CACHE_NAME = 'edge-html'
 export const EDGE_CACHE_HEADER = 'x-edge-cache'
@@ -41,21 +46,29 @@ const RSC_VARIANT_HEADERS = [
 
 /**
  * The only client headers a cacheable request is rendered with, so no request-controlled value
- * (a cookie, a forwarded host, a framework-internal `x-middleware-*` header) can shape a response
- * that the cache then serves to everyone. `host` is set from the URL.
+ * (a cookie, a forwarded host, a framework-internal `x-middleware-*` header) can shape a page that
+ * the cache then serves to everyone. `host` is set from the URL.
  */
 const RENDER_REQUEST_HEADERS = ['accept', 'user-agent', ...RSC_VARIANT_HEADERS] as const
 
-const CACHEABLE_STATUSES = new Set([200, 301, 308, 404])
+/** A page as HTML, or as the RSC payload of a client-side navigation. */
+const PAGE_CONTENT_TYPE = /^(?:text\/html|text\/x-component)\b/u
 
-export type EdgeCacheState = 'BYPASS' | 'HIT' | 'MISS'
+export type EdgeCacheState = 'HIT' | 'MISS'
 
 export interface EdgeCacheContext {
   waitUntil(promise: Promise<unknown>): void
 }
 
+/** What the Worker entry provides: its execution context and the Cache API namespace. */
+export interface EdgeCacheRuntime {
+  context: EdgeCacheContext
+  /** `caches.open(EDGE_CACHE_NAME)`; only called for a cacheable request. */
+  openCache: () => Promise<Cache>
+}
+
 export interface EdgeCacheOptions {
-  cache: Cache
+  openCache: () => Promise<Cache>
   /** The Worker version (`CF_VERSION_METADATA.id`). Without one, nothing is cached. */
   deploymentId: string | undefined
   ttlSeconds?: number
@@ -70,12 +83,17 @@ export function isCacheableRequest(request: Request): boolean {
   if (request.method !== 'GET' && request.method !== 'HEAD') return false
   if (request.headers.has('authorization')) return false
   if (PREVIEW_COOKIE_PATTERN.test(request.headers.get('cookie') ?? '')) return false
-  const firstSegment = new URL(request.url).pathname.split('/')[1] ?? ''
-  return !BYPASS_PATH_SEGMENTS.has(firstSegment)
+  const { pathname } = new URL(request.url)
+  if (!pathname.endsWith('/')) return false
+  return !BYPASS_PATH_SEGMENTS.has(pathname.split('/')[1] ?? '')
 }
 
 export function isCacheableResponse(response: Response): boolean {
-  return CACHEABLE_STATUSES.has(response.status) && !response.headers.has('set-cookie')
+  return (
+    response.status === 200 &&
+    !response.headers.has('set-cookie') &&
+    PAGE_CONTENT_TYPE.test(response.headers.get('content-type') ?? '')
+  )
 }
 
 /** The same URL, method and signal, with only the allowlisted headers. */
@@ -95,7 +113,7 @@ async function sha256Hex(value: string): Promise<string> {
 }
 
 /**
- * The key covers everything a response varies on: the Worker version, the host (staging and
+ * The key covers everything a page varies on: the Worker version, the host (staging and
  * production differ), the path and query, and for RSC requests the router headers.
  */
 export async function cacheKeyFor(request: Request, deploymentId: string): Promise<Request> {
@@ -156,8 +174,9 @@ function servedCopy(cached: Response, method: string): Response {
 }
 
 /**
- * Answers `request` from the cache when it can, otherwise from `render`, storing a cacheable
- * response in the background. Every response carries `x-edge-cache: HIT`, `MISS` or `BYPASS`.
+ * Answers a page request from the cache when it can, otherwise from `render`, storing a 200 page
+ * in the background; those responses carry `x-edge-cache: HIT` or `MISS`. Any other request is
+ * passed to `render` as sent, and its response is returned as it is.
  */
 export async function withEdgeCache(
   request: Request,
@@ -165,33 +184,17 @@ export async function withEdgeCache(
   options: EdgeCacheOptions,
   render: (request: Request) => Promise<Response>
 ): Promise<Response> {
-  if (!isCacheableRequest(request) || !options.deploymentId) {
-    return withState(await render(request), 'BYPASS')
-  }
+  if (!isCacheableRequest(request) || !options.deploymentId) return render(request)
 
+  const cache = await options.openCache()
   const key = await cacheKeyFor(request, options.deploymentId)
-  const cached = await options.cache.match(key).catch(() => undefined)
+  const cached = await cache.match(key).catch(() => undefined)
   if (cached) return servedCopy(cached, request.method)
 
   const response = await render(renderRequestFor(request))
   if (request.method === 'GET' && isCacheableResponse(response)) {
     const stored = storedCopy(response.clone(), options.ttlSeconds ?? EDGE_CACHE_TTL_SECONDS)
-    context.waitUntil(options.cache.put(key, stored).catch(() => undefined))
+    context.waitUntil(cache.put(key, stored).catch(() => undefined))
   }
   return withState(response, 'MISS')
-}
-
-/** `worker.ts`'s entry point: the named cache and the Worker version from the bindings. */
-export async function serveWithEdgeCache(
-  request: Request,
-  env: EdgeCacheEnvironment,
-  context: EdgeCacheContext,
-  render: (request: Request) => Promise<Response>
-): Promise<Response> {
-  return withEdgeCache(
-    request,
-    context,
-    { cache: await caches.open(EDGE_CACHE_NAME), deploymentId: env.CF_VERSION_METADATA?.id },
-    render
-  )
 }

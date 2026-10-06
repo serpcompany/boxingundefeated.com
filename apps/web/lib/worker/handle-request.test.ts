@@ -2,7 +2,9 @@
  * @jest-environment node
  */
 import { SMOKE_TEST_HEADER } from '../routing/canonical-host'
+import { EDGE_CACHE_HEADER } from './edge-cache'
 import { handleWorkerRequest } from './handle-request'
+import { MemoryCache } from './memory-cache'
 
 const production = { SITE_ENVIRONMENT: 'production', CANONICAL_HOST_REDIRECT: 'on' }
 const staging = { SITE_ENVIRONMENT: 'staging', CANONICAL_HOST_REDIRECT: 'on' }
@@ -90,5 +92,154 @@ describe('handleWorkerRequest', () => {
     expect(response.status).toBe(200)
     expect(response.headers.get('x-robots-tag')).toBe('noindex')
     expect(serve).toHaveBeenCalledTimes(1)
+  })
+})
+
+describe('handleWorkerRequest with the edge cache', () => {
+  const version = { CF_VERSION_METADATA: { id: 'version-1' } }
+
+  function edgeCache() {
+    const cache = new MemoryCache()
+    const pending: Promise<unknown>[] = []
+    return {
+      cache,
+      runtime: {
+        context: { waitUntil: (promise: Promise<unknown>) => void pending.push(promise) },
+        openCache: jest.fn(async () => cache as unknown as Cache)
+      },
+      settle: () => Promise.all(pending.splice(0))
+    }
+  }
+
+  function pageSpy(status = 200) {
+    return jest.fn((request: Request) =>
+      Promise.resolve(
+        new Response(`page ${new URL(request.url).pathname}`, {
+          status,
+          headers: { 'content-type': 'text/html; charset=utf-8' }
+        })
+      )
+    )
+  }
+
+  async function fetchTwice(url: string, env: object, serve: ReturnType<typeof pageSpy>) {
+    const edge = edgeCache()
+    const first = await handleWorkerRequest(
+      new Request(url),
+      { ...env, ...version },
+      serve,
+      edge.runtime
+    )
+    await edge.settle()
+    const second = await handleWorkerRequest(
+      new Request(url),
+      { ...env, ...version },
+      serve,
+      edge.runtime
+    )
+    await edge.settle()
+    return { edge, first, second }
+  }
+
+  it('serves a stored page from the cache, without OpenNext, in production', async () => {
+    const serve = pageSpy()
+    const { first, second } = await fetchTwice(
+      'https://boxingundefeated.com/boxers/len-wickwar/',
+      production,
+      serve
+    )
+
+    expect(first.headers.get(EDGE_CACHE_HEADER)).toBe('MISS')
+    expect(second.headers.get(EDGE_CACHE_HEADER)).toBe('HIT')
+    expect(await second.text()).toBe('page /boxers/len-wickwar/')
+    expect(second.headers.get('x-robots-tag')).toBeNull()
+    expect(serve).toHaveBeenCalledTimes(1)
+  })
+
+  it('adds noindex to a stored page outside production, as to a rendered one', async () => {
+    const serve = pageSpy()
+    const { first, second } = await fetchTwice(
+      'https://staging.boxingundefeated.com/boxers/len-wickwar/',
+      staging,
+      serve
+    )
+
+    expect(first.headers.get('x-robots-tag')).toBe('noindex')
+    expect(second.headers.get(EDGE_CACHE_HEADER)).toBe('HIT')
+    expect(second.headers.get('x-robots-tag')).toBe('noindex')
+  })
+
+  it('redirects a non-canonical host before the cache, even for a stored page', async () => {
+    const edge = edgeCache()
+    const serve = pageSpy()
+    const page = 'https://boxingundefeated.com/boxers/len-wickwar/'
+    await handleWorkerRequest(new Request(page), { ...production, ...version }, serve, edge.runtime)
+    await edge.settle()
+    edge.runtime.openCache.mockClear()
+
+    for (const host of [WWW, WORKERS_DEV]) {
+      const response = await handleWorkerRequest(
+        new Request(`${host}/boxers/len-wickwar/`),
+        { ...production, ...version },
+        serve,
+        edge.runtime
+      )
+      expect(response.status).toBe(308)
+      expect(response.headers.get('location')).toBe(page)
+      expect(response.headers.has(EDGE_CACHE_HEADER)).toBe(false)
+    }
+    expect(edge.runtime.openCache).not.toHaveBeenCalled()
+    expect(serve).toHaveBeenCalledTimes(1)
+  })
+
+  it('answers the non-production robots.txt before the cache', async () => {
+    const edge = edgeCache()
+    const serve = pageSpy()
+    const response = await handleWorkerRequest(
+      new Request('https://staging.boxingundefeated.com/robots.txt'),
+      { ...staging, ...version },
+      serve,
+      edge.runtime
+    )
+
+    expect(await response.text()).toMatch(/^Disallow: \/$/m)
+    expect(edge.runtime.openCache).not.toHaveBeenCalled()
+    expect(serve).not.toHaveBeenCalled()
+  })
+
+  it.each(['/sitemap-index.xml', '/ads.txt', '/data/boxers/x.json'])(
+    'passes the file %s to OpenNext as sent, every time, and returns it as served',
+    async path => {
+      const edge = edgeCache()
+      const file = new Response('file', { headers: { 'content-type': 'application/xml' } })
+      const serve = jest.fn((_request: Request) => Promise.resolve(file))
+      const request = new Request(`https://boxingundefeated.com${path}`, {
+        headers: { cookie: '_ga=1' }
+      })
+
+      const response = await handleWorkerRequest(
+        request,
+        { ...production, ...version },
+        serve,
+        edge.runtime
+      )
+
+      expect(response).toBe(file)
+      expect(serve).toHaveBeenCalledWith(request)
+      expect(edge.runtime.openCache).not.toHaveBeenCalled()
+    }
+  )
+
+  it.each([
+    [404, 'https://boxingundefeated.com/boxers/nobody/'],
+    [308, 'https://boxingundefeated.com//boxers/'],
+    [500, 'https://boxingundefeated.com/boxers/len-wickwar/']
+  ])('renders a %i page again on every request', async (status, url) => {
+    const serve = pageSpy(status)
+    const { edge, second } = await fetchTwice(url, production, serve)
+
+    expect(second.status).toBe(status)
+    expect(serve).toHaveBeenCalledTimes(2)
+    expect(edge.cache.stored.size).toBe(0)
   })
 })

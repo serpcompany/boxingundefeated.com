@@ -7,46 +7,33 @@ import {
   type EdgeCacheOptions,
   withEdgeCache
 } from './edge-cache'
-
-/** The Cache API surface the edge cache uses, keyed by URL like the platform's. */
-class MemoryCache {
-  readonly stored = new Map<string, Response>()
-
-  async match(key: Request): Promise<Response | undefined> {
-    return this.stored.get(key.url)?.clone()
-  }
-
-  async put(key: Request, response: Response): Promise<void> {
-    this.stored.set(key.url, response)
-  }
-}
+import { MemoryCache } from './memory-cache'
 
 const NEXT_DYNAMIC_CACHE_CONTROL = 'private, no-cache, no-store, max-age=0, must-revalidate'
+const HTML = { 'content-type': 'text/html; charset=utf-8' }
 
 function setup(overrides: Partial<EdgeCacheOptions> = {}) {
   const cache = new MemoryCache()
+  const openCache = jest.fn(async () => cache as unknown as Cache)
   const pending: Promise<unknown>[] = []
   const context = { waitUntil: (promise: Promise<unknown>) => void pending.push(promise) }
   const rendered: Request[] = []
   let status = 200
-  let headers: Record<string, string> = { 'cache-control': NEXT_DYNAMIC_CACHE_CONTROL }
+  let headers: Record<string, string> = { ...HTML, 'cache-control': NEXT_DYNAMIC_CACHE_CONTROL }
   const render = jest.fn(async (request: Request) => {
     rendered.push(request)
     return new Response(`<h1>${new URL(request.url).pathname} #${rendered.length}</h1>`, {
       status,
-      headers: { 'content-type': 'text/html', ...headers }
+      headers
     })
   })
-  const options: EdgeCacheOptions = {
-    cache: cache as unknown as Cache,
-    deploymentId: 'version-1',
-    ...overrides
-  }
+  const options: EdgeCacheOptions = { openCache, deploymentId: 'version-1', ...overrides }
   return {
     cache,
+    openCache,
     rendered,
     render,
-    respondWith(nextStatus: number, nextHeaders: Record<string, string> = {}) {
+    respondWith(nextStatus: number, nextHeaders: Record<string, string> = HTML) {
       status = nextStatus
       headers = nextHeaders
     },
@@ -90,6 +77,18 @@ describe('withEdgeCache', () => {
     expect(hit.headers.has('x-edge-cache-origin-cache-control')).toBe(false)
   })
 
+  it('stores RSC payloads of pages as well as HTML', async () => {
+    const edge = setup()
+    edge.respondWith(200, { 'content-type': 'text/x-component' })
+    const rsc = () =>
+      new Request('https://boxingundefeated.com/boxers/jesse-hart/?_rsc=abc', {
+        headers: { rsc: '1' }
+      })
+    await edge.fetch(rsc())
+
+    expect((await edge.fetch(rsc())).headers.get(EDGE_CACHE_HEADER)).toBe('HIT')
+  })
+
   it('keys by Worker version, so a deploy renders afresh', async () => {
     const edge = setup()
     await edge.fetch('/boxers/jesse-hart/')
@@ -118,30 +117,33 @@ describe('withEdgeCache', () => {
     expect(edge.render).toHaveBeenCalledTimes(1 + others.length)
   })
 
-  it('caches a 404, so unknown slugs do not reach D1 again', async () => {
+  it.each([
+    ['a redirect', 308, { location: 'https://boxingundefeated.com/about/' }],
+    ['a 404', 404, HTML],
+    ['an error', 500, HTML],
+    ['a response that sets a cookie', 200, { ...HTML, 'set-cookie': 'session=1' }],
+    ['a non-page response', 200, { 'content-type': 'application/json' }]
+  ])('never stores %s', async (_name, status, headers) => {
     const edge = setup()
-    edge.respondWith(404)
+    edge.respondWith(status, headers)
     await edge.fetch('/boxers/nobody/')
-
     const again = await edge.fetch('/boxers/nobody/')
-    expect(again.status).toBe(404)
-    expect(again.headers.get(EDGE_CACHE_HEADER)).toBe('HIT')
-  })
 
-  it('never stores errors or responses that set cookies', async () => {
-    const edge = setup()
-    edge.respondWith(500)
-    await edge.fetch('/boxers/jesse-hart/')
-    edge.respondWith(200, { 'set-cookie': 'session=1' })
-    await edge.fetch('/boxers/ema-kozin/')
-
+    expect(again.status).toBe(status)
+    expect(again.headers.get(EDGE_CACHE_HEADER)).toBe('MISS')
+    expect(edge.render).toHaveBeenCalledTimes(2)
     expect(edge.cache.stored.size).toBe(0)
   })
 
   it.each([
     ['a POST', new Request('https://boxingundefeated.com/boxers/', { method: 'POST' })],
-    ['a framework path', new Request('https://boxingundefeated.com/_next/data/x.json')],
-    ['an API path', new Request('https://boxingundefeated.com/api/search?q=ali')],
+    ['a sitemap', new Request('https://boxingundefeated.com/sitemap-index.xml')],
+    ['ads.txt', new Request('https://boxingundefeated.com/ads.txt')],
+    ['boxer JSON', new Request('https://boxingundefeated.com/data/boxers/jesse-hart.json')],
+    ['an image', new Request('https://boxingundefeated.com/opengraph-image.png')],
+    ['a slashless page URL', new Request('https://boxingundefeated.com/boxers/jesse-hart')],
+    ['a framework path', new Request('https://boxingundefeated.com/_next/data/x/')],
+    ['an API path', new Request('https://boxingundefeated.com/api/search/?q=ali')],
     [
       'an authorized request',
       new Request('https://boxingundefeated.com/boxers/', { headers: { authorization: 'x' } })
@@ -152,22 +154,25 @@ describe('withEdgeCache', () => {
         headers: { cookie: '__prerender_bypass=1' }
       })
     ]
-  ])('bypasses %s', async (_name, request) => {
+  ])('passes %s through untouched, without opening the cache', async (_name, request) => {
     const edge = setup()
-    await edge.fetch(request.clone())
-    const response = await edge.fetch(request.clone())
+    const original = new Response('file', { headers: { 'content-type': 'text/plain', etag: 'x' } })
+    edge.render.mockResolvedValueOnce(original)
 
-    expect(response.headers.get(EDGE_CACHE_HEADER)).toBe('BYPASS')
-    expect(edge.render).toHaveBeenCalledTimes(2)
-    expect(edge.cache.stored.size).toBe(0)
+    const response = await edge.fetch(request)
+
+    expect(response).toBe(original)
+    expect(edge.render.mock.calls[0]?.[0]).toBe(request)
+    expect(edge.openCache).not.toHaveBeenCalled()
   })
 
-  it('bypasses everything without a Worker version', async () => {
+  it('passes everything through without a Worker version', async () => {
     const edge = setup({ deploymentId: undefined })
     await edge.fetch('/boxers/jesse-hart/')
+    const response = await edge.fetch('/boxers/jesse-hart/')
 
-    expect((await edge.fetch('/boxers/jesse-hart/')).headers.get(EDGE_CACHE_HEADER)).toBe('BYPASS')
-    expect(edge.cache.stored.size).toBe(0)
+    expect(response.headers.has(EDGE_CACHE_HEADER)).toBe(false)
+    expect(edge.openCache).not.toHaveBeenCalled()
   })
 
   it('answers HEAD from a stored GET, without a body, and never stores a HEAD', async () => {
