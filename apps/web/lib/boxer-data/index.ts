@@ -14,9 +14,26 @@ import { type BoxerProfileView, fromD1Profile } from './profile'
 
 export type { BoxerProfileView, ProfileBout, ProfileBoxer } from './profile'
 
+export class BuildTargetError extends Error {
+  override name = 'BuildTargetError'
+}
+
+/**
+ * The build target next.config.ts inlined. Anything else fails closed: falling through to the
+ * JSON in the Worker, which can't read `fs`, would turn every profile into a 404.
+ */
+export function buildTarget(): 'worker' | 'export' {
+  const output = process.env.SITE_BUILD_OUTPUT
+  if (output === 'worker' || output === 'export') return output
+  throw new BuildTargetError(
+    `SITE_BUILD_OUTPUT is ${JSON.stringify(output ?? null)}, not worker or export; boxer data ` +
+      'reads fail closed.'
+  )
+}
+
 /** True in the OpenNext Worker build, whose pages read D1. */
 export function readsFromD1(): boolean {
-  return process.env.SITE_BUILD_OUTPUT === 'worker'
+  return buildTarget() === 'worker'
 }
 
 /** A boxer profile by slug, or null when there is none. */

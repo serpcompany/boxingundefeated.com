@@ -1,3 +1,5 @@
+import { INTENTIONAL_DROPS } from '@boxingundefeated/data-ops/drops'
+
 // Lazy load the data only when needed
 let boxersData: any = null
 
@@ -15,12 +17,15 @@ function loadBoxersData() {
       const boxerFiles = fs.readdirSync(boxersDir).filter((file: string) => file.endsWith('.json'))
 
       boxersData = []
+      // The Worker build's profiles come from D1, which doesn't have the importer's intentional
+      // drops, so its listings leave them out rather than link to a 404. The export keeps them.
+      const dropped = process.env.SITE_BUILD_OUTPUT === 'worker' ? INTENTIONAL_DROPS : {}
       for (const file of boxerFiles) {
         try {
           const filePath = path.join(boxersDir, file)
           const content = fs.readFileSync(filePath, 'utf-8')
           const data = JSON.parse(content)
-          if (data && data.name) {
+          if (data && data.name && !Object.hasOwn(dropped, data.slug)) {
             boxersData.push(data)
           }
         } catch (error) {

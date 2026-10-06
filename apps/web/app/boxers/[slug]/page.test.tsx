@@ -1,6 +1,5 @@
 import type { BoutWithOpponent, Boxer, BoxerProfile } from '@boxingundefeated/data-ops'
 import { render, screen, waitFor } from '@testing-library/react'
-import BoxerPage, { generateMetadata } from './page'
 
 // `loadPage` gives a test a fresh module registry, mocks included, so the mocks delegate to these
 // shared functions.
@@ -21,6 +20,10 @@ jest.mock('@boxingundefeated/data-ops', () => ({
 }))
 
 type PageModule = typeof import('./page')
+
+// next.config.ts inlines SITE_BUILD_OUTPUT into every build; the module reads it when it loads.
+process.env.SITE_BUILD_OUTPUT = 'export'
+const { default: BoxerPage, generateMetadata } = require('./page') as PageModule
 
 /**
  * The page module as a build target compiles it: next.config.ts inlines SITE_BUILD_OUTPUT, so
@@ -122,7 +125,19 @@ function detail(label: string): HTMLElement | null {
 }
 
 afterEach(() => {
-  delete process.env.SITE_BUILD_OUTPUT
+  process.env.SITE_BUILD_OUTPUT = 'export'
+})
+
+describe('boxer profile page, unknown build target', () => {
+  it('fails closed instead of guessing a data source', async () => {
+    expect(() => loadPage('static' as never)).toThrow(/SITE_BUILD_OUTPUT is "static"/)
+
+    process.env.SITE_BUILD_OUTPUT = ''
+    await expect(BoxerPage(params('jesse-hart'))).rejects.toMatchObject({
+      name: 'BuildTargetError'
+    })
+    expect(mockQueryBoxerProfile).not.toHaveBeenCalled()
+  })
 })
 
 describe('boxer profile page, static export', () => {
