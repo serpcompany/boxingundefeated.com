@@ -13,22 +13,24 @@
  * send a non-canonical host straight to the canonical path in one hop. The unit tests compile
  * `slashRedirects` with Next.js's own route compiler and check that both agree.
  *
- * No boxer, division or shop slug contains a dot, so the standard's default `file` pattern (any
- * dotted last segment is a file) applies. This module has no Next.js imports: the Worker entry
- * loads it before OpenNext.
+ * A file is a last segment that ends in a known extension (`file-extensions.ts`), not any dotted
+ * segment: shop slugs such as `2.7-l-water-bottles` are pages, so `/shop/best/2.7-l-water-bottles`
+ * gets its slash. This module has no Next.js imports: the Worker entry loads it before OpenNext.
  */
+import { FILE_EXTENSION_PATTERN, hasFileExtension } from './file-extensions'
 
 // Segments that are never pages: anything starting with `_` (/_next/), /.well-known/, and /api.
 // The lookbehind limits the api exclusion to the first segment, so /docs/api is still a page.
 // Both exclusions spell out upper and lower case because OpenNext tests the pattern
 // case-sensitively but fills its parameters case-insensitively; this makes /API and
 // /.WELL-KNOWN/ behave the same in both runtimes.
-const notPage = '_|(?<=^/)[Aa][Pp][Ii](?:/|$)|\\.[Ww][Ee][Ll][Ll]-[Kk][Nn][Oo][Ww][Nn]/'
+const notPage = '_|(?<=^/)[Aa][Pp][Ii](?:/|$)|\\.[Ww][Ee][Ll][Ll]-[Kk][Nn][Oo][Ww][Nn](?:/|$)'
+const file = `[^/]+\\.${FILE_EXTENSION_PATTERN}`
 // Next.js lets every custom source also match with a trailing slash, so a page pattern must
-// refuse slashed paths itself, or /about/ would redirect to itself.
-const unslashedPage = `(?:(?!${notPage}|.*/$)[^/.]+)`
+// refuse slashed paths itself, or /about/ would redirect to itself. A dotted segment is a page
+// unless it ends in a file extension.
+const unslashedPage = `(?:(?!${notPage}|.*/$|[^/]*\\.${FILE_EXTENSION_PATTERN}$)[^/]+)`
 const pageDir = `(?:(?!${notPage})[^/]+)`
-const file = '[^/]+\\.\\w+'
 
 export interface SlashRedirect {
   source: string
@@ -50,7 +52,10 @@ export const slashRedirects: readonly SlashRedirect[] = [
   }
 ]
 
-const FILE_SEGMENT = /^[^/]+\.\w+$/
+/** A segment `file` accepts: a name, then a known extension. */
+function isFile(segment: string): boolean {
+  return segment.lastIndexOf('.') > 0 && hasFileExtension(segment)
+}
 
 /** A segment `pageDir` accepts at `index`: not `_*`, not a first-segment `api`, not `.well-known`. */
 function isPageDir(segment: string, index: number): boolean {
@@ -61,7 +66,7 @@ function isPageDir(segment: string, index: number): boolean {
 /**
  * The path `slashRedirects` sends `pathname` to, or `pathname` itself when no rule matches: the
  * homepage, canonical paths, `/api` and its subpaths, `/.well-known/` and `_*` segments, and
- * shapes neither rule covers (empty segments, or a last segment such as `foo.` that is neither
+ * shapes neither rule covers (empty segments, or a last segment such as `.json` that is neither
  * a page nor a file). The host redirect in `worker.ts` relies on this to keep `/api` paths
  * exactly as requested.
  */
@@ -79,11 +84,11 @@ export function canonicalPathname(pathname: string): string {
     return pathname
   }
   // Files never end in a slash.
-  if (slashed && FILE_SEGMENT.test(last)) {
+  if (slashed && isFile(last)) {
     return pathname.slice(0, -1)
   }
-  // Pages always do. A dotted last segment is a file, never a page.
-  if (!slashed && !last.includes('.') && isPageDir(last, segments.length - 1)) {
+  // Pages always do. A dotted last segment is a page unless it ends in a file extension.
+  if (!slashed && !hasFileExtension(last) && isPageDir(last, segments.length - 1)) {
     return `${pathname}/`
   }
   return pathname

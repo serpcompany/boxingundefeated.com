@@ -70,10 +70,11 @@ Worker (OpenNext on Cloudflare, about a minute; boxer pages read the local D1, s
   then serves the local top level of `apps/web/wrangler.jsonc` on http://localhost:8787.
 - `pnpm --filter web build:worker:staging` / `build:worker:production`: the Worker build with that
   environment's `SITE_ENVIRONMENT`, which the prerendered HTML needs (Environments below).
-- `pnpm --filter web serve:worker [--env staging]`: serve the last Worker build again. With
-  `--env`, it uses that environment's vars and bindings, locally. Pair it with the matching build.
-  `--env staging` rewrites every `Host` header to its custom domain, so test host redirects with
-  `--env production`, which has no route yet. It sets `CHOKIDAR_USEPOLLING` (file descriptors).
+- `pnpm --filter web serve:worker [--env staging]`: serve the last Worker build again, with that
+  environment's vars and bindings, locally. Pair it with the matching build.
+- `pnpm test:e2e`: the smoke suite (`apps/e2e/`; its README has the CI interface) on the local
+  preview after `db:reset:local` and `build:worker`; deployed: `BASE_URL=<origin> EXPECT_ENV=<env>`.
+  `pnpm parity -- <origin>`: every live URL on a candidate; `pnpm check:export`: the Pages export.
 - `pnpm --filter web cf-typegen`: regenerate and commit `cloudflare-env.d.ts` after changing
   `wrangler.jsonc`; it strips the `mainModule` type (`lib/cloudflare-env-types.ts`).
 
