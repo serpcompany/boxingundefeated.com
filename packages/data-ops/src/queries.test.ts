@@ -6,6 +6,7 @@ import {
   getDirectoryCounts,
   getDivisionBySlug,
   getHomepageData,
+  getSitemapData,
   listBoxers,
   listBoxersByDivision,
   listDivisions
@@ -47,7 +48,8 @@ const boxerRows: BoxerFixture[] = [
     proTotalBouts: 42,
     nicknames: '"The Hammer"',
     managers: ['Ron Dove', 'Bob Kane'],
-    bio: '<p>Bio</p>'
+    bio: '<p>Bio</p>',
+    updatedAt: '2025-08-08T18:56:21.604231'
   }),
   boxer('LeRoy Pryor', {
     proDivision: 'welter',
@@ -311,6 +313,34 @@ describe('queries against the migrated schema', () => {
         )
       )
       expect(data.divisions.map(d => d.boxerCount)).toEqual([2, 1, 2, 0])
+    })
+  })
+
+  describe('getSitemapData', () => {
+    it('lists every boxer by slug with its division and updated_at, and the division counts', async () => {
+      const data = await getSitemapData(test.db)
+
+      expect(data.boxers).toEqual(
+        [...boxerRows]
+          .sort((a, b) => a.slug.localeCompare(b.slug))
+          .map(row => ({
+            slug: row.slug,
+            updatedAt: row.updatedAt ?? null,
+            divisionSlug: divisionRows.find(d => d.proDivision === row.proDivision)?.slug ?? null
+          }))
+      )
+      expect(data.boxers.find(row => row.slug === 'ana-alpha')).toEqual({
+        slug: 'ana-alpha',
+        updatedAt: '2025-08-08T18:56:21.604231',
+        divisionSlug: 'heavy'
+      })
+      expect(data.boxers.find(row => row.slug === 'zero-zed')?.divisionSlug).toBeNull()
+      expect(data.divisions.map(({ slug, boxerCount }) => [slug, boxerCount])).toEqual([
+        ['heavy', 2],
+        ['light-heavy', 1],
+        ['welter', 2],
+        ['minimum', 0]
+      ])
     })
   })
 
