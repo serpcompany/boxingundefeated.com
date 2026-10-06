@@ -11,6 +11,9 @@ jest.mock('next/navigation', () => ({
     throw new Error('NEXT_HTTP_ERROR_FALLBACK;404')
   }
 }))
+// The Worker's reads call `connection()` so the page renders on request; `next/server` needs the
+// fetch globals jsdom lacks.
+jest.mock('next/server', () => ({ connection: jest.fn(async () => undefined) }))
 jest.mock('@opennextjs/cloudflare', () => ({
   getCloudflareContext: (...args: unknown[]) => mockGetCloudflareContext(...args)
 }))

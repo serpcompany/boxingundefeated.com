@@ -2,23 +2,18 @@ import { Breadcrumb } from '@boxingundefeated/design-system/breadcrumb'
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { BoxersDirectoryList } from '@/components/boxers-directory-list'
-import { getBoxersWithoutBouts } from '@/lib/boxers-loader'
-import {
-  getBoxersPageHref,
-  getPaginatedItems,
-  getPaginationPages,
-  sortBoxersForDirectory
-} from '@/lib/directory-pagination'
+import { boxersPageStaticParams, getBoxersPage } from '@/lib/boxer-data'
+import { getBoxersPageHref, parsePageNumber } from '@/lib/directory-pagination'
 import { getSiteOrigin } from '@/lib/site-config'
 
-export const dynamicParams = false
+// The static export prerenders every page from the committed JSON. The Worker prerenders none: it
+// renders each page on request from D1, and a page out of range is a 404 (lib/boxer-data).
+export const generateStaticParams = boxersPageStaticParams
 
-export async function generateStaticParams() {
-  const totalPages = getPaginationPages(getBoxersWithoutBouts().length)
-
-  return totalPages.slice(1).map(page => ({
-    page: page.toString()
-  }))
+/** The listing for `/boxers/page/<n>/`, or null for page 1 (that is `/boxers/`) or out of range. */
+async function getListing(pageParam: string) {
+  const page = parsePageNumber(pageParam)
+  return page === null || page === 1 ? null : getBoxersPage(page)
 }
 
 export async function generateMetadata({
@@ -27,7 +22,15 @@ export async function generateMetadata({
   params: Promise<{ page: string }>
 }): Promise<Metadata> {
   const { page: pageParam } = await params
-  const page = Number.parseInt(pageParam, 10)
+  const listing = await getListing(pageParam)
+
+  if (!listing) {
+    return {
+      title: 'Page Not Found'
+    }
+  }
+
+  const page = listing.currentPage
   const baseUrl = getSiteOrigin()
 
   return {
@@ -45,14 +48,13 @@ export default async function BoxersPaginatedPage({
   params: Promise<{ page: string }>
 }) {
   const { page: pageParam } = await params
-  const currentPage = Number.parseInt(pageParam, 10)
-  const boxers = sortBoxersForDirectory(getBoxersWithoutBouts())
-  const page = getPaginatedItems(boxers, currentPage)
+  const page = await getListing(pageParam)
 
-  if (!page || currentPage === 1) {
+  if (!page) {
     notFound()
   }
 
+  const currentPage = page.currentPage
   const baseUrl = getSiteOrigin()
   const breadcrumbItems = [
     { name: 'Boxers', href: '/boxers/' },

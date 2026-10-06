@@ -5,7 +5,8 @@ import {
   getDivisionPageHref,
   getPaginatedItems,
   getPaginationPages,
-  getTotalPages
+  getTotalPages,
+  parsePageNumber
 } from './directory-pagination'
 
 describe('directory pagination helpers', () => {
@@ -20,6 +21,14 @@ describe('directory pagination helpers', () => {
     expect(getBoxersPageHref(1)).toBe('/boxers/')
     expect(getBoxersPageHref(2)).toBe('/boxers/page/2/')
     expect(getBoxersPageHref(117)).toBe('/boxers/page/117/')
+  })
+
+  it('reads a page number only from its one canonical spelling', () => {
+    expect(parsePageNumber('1')).toBe(1)
+    expect(parsePageNumber('117')).toBe(117)
+    for (const segment of ['', '0', '02', '2abc', '1.5', '-1', '1e2', ' 2', '9999999']) {
+      expect([segment, parsePageNumber(segment)]).toEqual([segment, null])
+    }
   })
 
   it('returns null for invalid requested pages', () => {

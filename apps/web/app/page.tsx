@@ -4,7 +4,7 @@ import { Target, TrendingUp, Trophy, Users } from 'lucide-react'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { JsonLd } from '@/components/json-ld'
-import { getBoxersWithoutBouts } from '@/lib/boxers-loader'
+import { getHomepage } from '@/lib/boxer-data'
 import { getSiteOrigin } from '@/lib/site-config'
 
 /**
@@ -39,21 +39,9 @@ export function generateMetadata(): Metadata {
 }
 
 export default async function Home() {
-  const boxers = await getBoxersWithoutBouts()
-  const totalBoxers = boxers.length
-
-  // Calculate stats
-  const activeBoxers = boxers.filter(b => !b.proStatus || b.proStatus !== 'inactive').length
-  const totalBouts = boxers.reduce((sum, b) => sum + (b.proTotalBouts || 0), 0)
-  const eliteBoxers = boxers.filter(
-    b => b.proWins && b.proWins > 30 && (!b.proLosses || b.proLosses < 5)
-  ).length
-
-  // Get featured boxers (highest win counts)
-  const featuredBoxers = boxers
-    .filter(b => b.proWins && b.proTotalBouts)
-    .sort((a, b) => (b.proWins || 0) - (a.proWins || 0))
-    .slice(0, 6)
+  const { totalBoxers, activeBoxers, totalBouts, eliteBoxers, featuredBoxers, divisions } =
+    await getHomepage()
+  const boxerCounts = new Map(divisions.map(division => [division.slug, division.boxerCount]))
 
   const origin = getSiteOrigin()
 
@@ -198,30 +186,29 @@ export default async function Home() {
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             {[
-              { slug: 'heavy', name: 'Heavyweight', division: 'heavy' },
-              { slug: 'light-heavy', name: 'Light Heavyweight', division: 'light heavy' },
-              { slug: 'middle', name: 'Middleweight', division: 'middle' },
-              { slug: 'welter', name: 'Welterweight', division: 'welter' },
-              { slug: 'light', name: 'Lightweight', division: 'light' },
-              { slug: 'feather', name: 'Featherweight', division: 'feather' },
-              { slug: 'bantam', name: 'Bantamweight', division: 'bantam' },
-              { slug: 'fly', name: 'Flyweight', division: 'fly' }
-            ].map(item => {
-              const divisionBoxers = boxers.filter(b => b.proDivision === item.division)
-              return (
-                <Link key={item.slug} href={`/divisions/${item.slug}/`}>
-                  <Card className="hover:shadow-lg transition-shadow cursor-pointer">
-                    <CardContent className="p-4">
-                      <div className="text-center">
-                        <div className="font-semibold">{item.name}</div>
-                        <div className="text-2xl font-bold mt-1">{divisionBoxers.length}</div>
-                        <div className="text-xs text-muted-foreground">boxers</div>
+              { slug: 'heavy', name: 'Heavyweight' },
+              { slug: 'light-heavy', name: 'Light Heavyweight' },
+              { slug: 'middle', name: 'Middleweight' },
+              { slug: 'welter', name: 'Welterweight' },
+              { slug: 'light', name: 'Lightweight' },
+              { slug: 'feather', name: 'Featherweight' },
+              { slug: 'bantam', name: 'Bantamweight' },
+              { slug: 'fly', name: 'Flyweight' }
+            ].map(item => (
+              <Link key={item.slug} href={`/divisions/${item.slug}/`}>
+                <Card className="hover:shadow-lg transition-shadow cursor-pointer">
+                  <CardContent className="p-4">
+                    <div className="text-center">
+                      <div className="font-semibold">{item.name}</div>
+                      <div className="text-2xl font-bold mt-1">
+                        {boxerCounts.get(item.slug) ?? 0}
                       </div>
-                    </CardContent>
-                  </Card>
-                </Link>
-              )
-            })}
+                      <div className="text-xs text-muted-foreground">boxers</div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </Link>
+            ))}
           </div>
         </section>
       </div>
