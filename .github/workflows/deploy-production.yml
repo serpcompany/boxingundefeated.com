@@ -1,0 +1,157 @@
+name: Deploy Production
+
+# main is production. Every push to main (a promotion from staging) builds the production Worker,
+# migrates the production D1, deploys, and smoke-tests it. The `production` environment admits
+# only main, holds CLOUDFLARE_API_TOKEN and CLOUDFLARE_ACCOUNT_ID, and requires the owner's
+# approval before the deploy job starts; only the wrangler steps receive the secrets.
+#
+# .github/scripts/verify-production-release.sh gates every release, fail-closed: main must still
+# point at this commit, and Deploy Staging must have deployed this code first. It documents the
+# bootstrap (before staging exists) and the hotfix path.
+#
+# Until the cutover (#19) the production Worker is on workers.dev only, and the smoke test runs
+# there with the smoke-test header. At the cutover, point SMOKE_ORIGIN and the environment URL at
+# https://boxingundefeated.com.
+#
+# Agents never dispatch this workflow, re-run it, or approve its job. Only the logins in
+# RELEASE_OWNERS may release a hotfix: a dispatch from main with `hotfix` and the typed
+# confirmation, which deploys the Worker only (no migrations). Agents act through the owner's
+# account, so AGENTS.md, not this list, keeps them out.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      hotfix:
+        description: Release main without a staging deploy of its code (Worker only, owner only)
+        type: boolean
+        default: false
+      confirmation:
+        description: For a hotfix, type hotfix-boxingundefeated-production
+        type: string
+        default: ''
+
+permissions:
+  contents: read
+
+env:
+  NEXT_TELEMETRY_DISABLED: 1
+  TURBO_TELEMETRY_DISABLED: 1
+  WRANGLER_SEND_METRICS: false
+  RELEASE_OWNERS: devinschumacher
+  HOTFIX: ${{ github.event_name == 'workflow_dispatch' && inputs.hotfix }}
+
+jobs:
+  staging-verified:
+    name: Require a fresh release that staging verified
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      actions: read
+      contents: read
+    steps:
+      - name: Checkout the release scripts
+        uses: actions/checkout@v7
+        with:
+          sparse-checkout: .github/scripts
+
+      - name: Require main at this commit, and a staging deploy of its code (or an owner's hotfix)
+        env:
+          GH_TOKEN: ${{ github.token }}
+          CONFIRMATION: ${{ inputs.confirmation }}
+        run: .github/scripts/verify-production-release.sh
+
+  deploy:
+    name: Migrate, deploy and smoke-test production
+    needs: staging-verified
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    # Migrate, deploy and smoke test stay in this one job. Deploys never overlap; a newer push
+    # replaces a queued one, never a running one.
+    concurrency:
+      group: deploy-web-production
+      cancel-in-progress: false
+    environment:
+      name: production
+      url: https://boxingundefeated-com-production.serpcompany.workers.dev
+    env:
+      SMOKE_ORIGIN: https://boxingundefeated-com-production.serpcompany.workers.dev
+    steps:
+      - name: Require Cloudflare credentials
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          if [ -z "$CLOUDFLARE_API_TOKEN" ] || [ -z "$CLOUDFLARE_ACCOUNT_ID" ]; then
+            echo "::error::The production environment needs the CLOUDFLARE_API_TOKEN and CLOUDFLARE_ACCOUNT_ID secrets."
+            exit 1
+          fi
+
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Install
+        uses: ./.github/actions/install
+
+      # Built before anything touches Cloudflare, so a failed build never leaves a migrated D1
+      # behind the old Worker.
+      - name: Build the production Worker
+        run: pnpm --filter web build:worker:production
+
+      - name: Require the build to match env.production
+        run: pnpm --filter web check:build-environment production
+
+      # The approval can come long after the push; refuse if main has moved on since. A re-run of
+      # this job alone still needs a hotfix owner.
+      - name: Require main to still point at this commit, and a hotfix owner
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: .github/scripts/verify-production-release.sh --fresh-only
+
+      # A hotfix deploys the Worker only: db:check-deployable then refuses pending migrations.
+      - name: Migrate the production D1
+        if: env.HOTFIX != 'true'
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: pnpm db:migrate:production
+
+      - name: Require the production D1 to be deployable
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: pnpm db:check-deployable -- --target production --confirm-production
+
+      - name: Deploy the production Worker
+        working-directory: apps/web
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: pnpm exec opennextjs-cloudflare deploy --env production
+
+      - name: Wait until production serves this build
+        run: .github/scripts/wait-for-build.sh "$SMOKE_ORIGIN" "$GITHUB_SHA"
+
+      # Through the e2e package, so the browser matches its @playwright/test.
+      - name: Install Chromium for Playwright
+        run: pnpm --filter e2e exec playwright install --with-deps chromium
+
+      # Asserts production is indexable (no noindex, robots allows crawling and lists the sitemap,
+      # GTM present) among the rest (#16's suite). It sends the smoke-test header to workers.dev.
+      - name: Smoke-test production
+        env:
+          BASE_URL: ${{ env.SMOKE_ORIGIN }}
+          EXPECT_ENV: production
+        run: pnpm test:e2e
+
+      - name: Keep the Playwright report
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: e2e-production-${{ github.run_attempt }}
+          path: |
+            apps/e2e/playwright-report/
+            apps/e2e/test-results/
+          if-no-files-found: ignore
+          retention-days: 14

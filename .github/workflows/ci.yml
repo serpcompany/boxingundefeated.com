@@ -1,0 +1,286 @@
+name: CI
+
+# The repository's full check, on every pull request into staging (the base branch) or main
+# (promotions and hotfixes), and on every push to them. "All checks" is the one required check.
+# It passes when every job passed, or was skipped for a docs-only pull request or, for the two
+# builds, a draft. Marking a draft ready for review runs everything again.
+on:
+  pull_request:
+    branches: [staging, main]
+    types: [opened, synchronize, reopened, ready_for_review]
+  push:
+    branches: [staging, main]
+
+permissions:
+  contents: read
+
+# Cancels superseded runs of a pull request; every push to staging or main gets its own run.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event_name == 'pull_request' && github.ref || github.run_id }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+env:
+  NEXT_TELEMETRY_DISABLED: 1
+  TURBO_TELEMETRY_DISABLED: 1
+  WRANGLER_SEND_METRICS: false
+
+jobs:
+  changes:
+    name: Changes
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      pull-requests: read
+    outputs:
+      # Pushes always run everything.
+      code: ${{ github.event_name != 'pull_request' || steps.filter.outputs.code == 'true' || steps.filter.outputs.content == 'true' }}
+    steps:
+      - name: Detect a docs-only pull request
+        id: filter
+        if: github.event_name == 'pull_request'
+        uses: dorny/paths-filter@ceb8a2b8f2d89434be7ff52d3de7ec3738c5cc9d # v4.0.3
+        with:
+          predicate-quantifier: some-with-excludes
+          # Markdown is docs, except the shop articles, which are pages.
+          filters: |
+            code:
+              - '**'
+              - '!**/*.md'
+              - '!.github/ISSUE_TEMPLATE/**'
+              - '!.github/CODEOWNERS'
+              - '!.github/FUNDING.yml'
+            content:
+              - 'apps/web/content/**'
+
+  lint:
+    name: Lint
+    needs: changes
+    if: needs.changes.outputs.code == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Install
+        uses: ./.github/actions/install
+
+      - name: Biome (read-only)
+        run: pnpm exec biome ci .
+
+      - name: Workspace packages
+        run: pnpm exec manypkg check
+
+      - name: Shop article frontmatter
+        run: pnpm check:frontmatter
+
+  typecheck:
+    name: Typecheck
+    needs: changes
+    if: needs.changes.outputs.code == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Install
+        uses: ./.github/actions/install
+
+      - name: Typecheck
+        run: pnpm typecheck
+
+  test:
+    name: Unit tests
+    needs: changes
+    if: needs.changes.outputs.code == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Install
+        uses: ./.github/actions/install
+
+      # web (Jest) and data-ops (Vitest on an in-memory D1).
+      - name: Unit tests
+        run: pnpm test
+
+  migrations:
+    name: Migration validation
+    needs: changes
+    if: needs.changes.outputs.code == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      # Two commits: on a pull request, HEAD is the merge commit and HEAD^1 the base branch.
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 2
+
+      # Staging and production apply migrations by name, once, so an edit to a merged migration
+      # never reaches them and their schemas drift from a fresh D1. Only new files may appear;
+      # drizzle-kit appends to the journal.
+      - name: Refuse edits to merged migrations
+        if: github.event_name == 'pull_request'
+        run: |
+          edited="$(git diff --name-only --diff-filter=MDRT HEAD^1 HEAD -- d1/drizzle/ ':!d1/drizzle/meta/_journal.json')"
+          if [ -n "$edited" ]; then
+            echo "$edited"
+            echo "::error::These migration files already exist on $GITHUB_BASE_REF and must not change. Add a new migration with pnpm db:generate instead."
+            exit 1
+          fi
+          if git diff --unified=0 HEAD^1 HEAD -- d1/drizzle/meta/_journal.json | grep -q '^-[^-]'; then
+            git diff HEAD^1 HEAD -- d1/drizzle/meta/_journal.json
+            echo "::error::d1/drizzle/meta/_journal.json may only gain entries."
+            exit 1
+          fi
+
+      - name: Install
+        uses: ./.github/actions/install
+
+      - name: Apply every migration in d1/drizzle to a fresh local D1, then seed the fixture
+        run: pnpm db:reset:local
+
+      - name: Require every migration applied and a finished import
+        run: pnpm db:check-deployable -- --target local
+
+      - name: Require a committed migration for every schema change
+        run: |
+          pnpm db:generate < /dev/null
+          if [ -n "$(git status --porcelain)" ]; then
+            git status --porcelain
+            git diff
+            echo "::error::drizzle-kit generate changed the tree: packages/data-ops/src/schema.ts has changes without a committed migration. Run pnpm db:generate and commit d1/drizzle."
+            exit 1
+          fi
+
+  static-export:
+    name: Static export build and links
+    # The GitHub Pages site, live until the cutover (#19); remove this job with that workflow.
+    needs: changes
+    if: needs.changes.outputs.code == 'true' && github.event.pull_request.draft != true
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Install
+        uses: ./.github/actions/install
+
+      - name: Cache the Next.js build cache
+        uses: actions/cache@v6
+        with:
+          path: apps/web/.next/cache
+          key: next-export-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.sha }}
+          restore-keys: next-export-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-
+
+      # The command and environment of deploy-github-pages.yml. GITHUB_EVENT_NAME=push builds the
+      # production export that main deploys, also on a pull request (lib/site-config.ts).
+      - name: Build the static export as deploy-github-pages.yml does
+        env:
+          NODE_OPTIONS: --max-old-space-size=8192
+          NEXT_PUBLIC_SITE_URL: https://boxingundefeated.com
+          NEXT_PUBLIC_GTM_ID: GTM-PP4HWLM
+        run: GITHUB_EVENT_NAME=push pnpm turbo run build:vercel --filter=web
+
+      # Offline: only the site's own links and assets, never a third-party site (lychee.toml).
+      - name: Check the export's internal links
+        uses: lycheeverse/lychee-action@e7477775783ea5526144ba13e8db5eec57747ce8 # v2.9.0
+        with:
+          args: --config lychee.toml --root-dir ${{ github.workspace }}/apps/web/out 'apps/web/out/**/*.html'
+          output: ${{ runner.temp }}/lychee.md
+
+  worker-e2e:
+    name: Worker build and E2E smoke
+    needs: changes
+    if: needs.changes.outputs.code == 'true' && github.event.pull_request.draft != true
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      PREVIEW_ORIGIN: http://localhost:8787
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Install
+        uses: ./.github/actions/install
+
+      - name: Cache the Next.js build cache
+        uses: actions/cache@v6
+        with:
+          path: apps/web/.next/cache
+          key: next-worker-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.sha }}
+          restore-keys: next-worker-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-
+
+      # The one Worker build of this job: the local config, which the preview serves.
+      - name: Build the Worker
+        run: pnpm --filter web build:worker
+
+      - name: Require the build to match the local config
+        run: pnpm --filter web check:build-environment
+
+      - name: Reset the local D1 (every migration, then the fixture)
+        run: pnpm db:reset:local
+
+      - name: Start the local Worker preview
+        run: |
+          (cd apps/web && nohup pnpm serve:worker > "$RUNNER_TEMP/worker-preview.log" 2>&1 &)
+          for _ in $(seq 1 90); do
+            if curl -fsS -o /dev/null "$PREVIEW_ORIGIN/"; then
+              echo "The preview answers on $PREVIEW_ORIGIN."
+              exit 0
+            fi
+            sleep 2
+          done
+          cat "$RUNNER_TEMP/worker-preview.log"
+          echo "::error::The local Worker preview did not answer 200 on $PREVIEW_ORIGIN/ within 3 minutes."
+          exit 1
+
+      - name: Require the preview to serve this build
+        run: .github/scripts/wait-for-build.sh "$PREVIEW_ORIGIN" "$GITHUB_SHA" 1
+
+      # Through the e2e package, so the browser matches its @playwright/test.
+      - name: Install Chromium for Playwright
+        run: pnpm --filter e2e exec playwright install --with-deps chromium
+
+      - name: E2E smoke against the local preview
+        env:
+          BASE_URL: ${{ env.PREVIEW_ORIGIN }}
+          EXPECT_ENV: local
+        run: pnpm test:e2e
+
+      - name: Keep the Playwright report and the preview log
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: e2e-local-${{ github.run_attempt }}
+          path: |
+            apps/e2e/playwright-report/
+            apps/e2e/test-results/
+            ${{ runner.temp }}/worker-preview.log
+          if-no-files-found: ignore
+          retention-days: 14
+
+  all-checks:
+    name: All checks
+    # The required check. It always reports, so a docs-only or draft run can still merge.
+    needs: [changes, lint, typecheck, test, migrations, static-export, worker-e2e]
+    if: always()
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Require every job to pass or be skipped
+        env:
+          NEEDS: ${{ toJSON(needs) }}
+        run: |
+          jq -r 'to_entries[] | "\(.key): \(.value.result)"' <<<"$NEEDS"
+          failed="$(jq -r '[to_entries[] | select(.value.result != "success" and .value.result != "skipped") | .key] | join(", ")' <<<"$NEEDS")"
+          if [ -n "$failed" ]; then
+            echo "::error::Failed or cancelled: $failed"
+            exit 1
+          fi

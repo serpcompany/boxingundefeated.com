@@ -1,29 +1,18 @@
-#############################  Display  #############################
-verbose = "info"
-output = "./lychee-out.md"
+# The internal link check: every link and asset in the static export (apps/web/out, after the
+# build) must resolve to a file in it. Offline, so it checks only this site's own URLs and never a
+# third-party site. CI's static-export job runs it; locally, `pnpm build` and then
+# `pnpm check:links`. Absolute links need `--root-dir` (an absolute path), so both pass it.
+offline = true
+index_files = ["index.html"]
+# apps/web/out is gitignored.
+no_ignore = true
 
-#############################  Cache  ###############################
-cache = true
-max_cache_age = "2d"
-
-#############################  Runtime  #############################
-max_concurrency = 14
-
-#############################  Requests  ############################
-user_agent = "curl/7.83.1"
-timeout = 20
-accept = ["200", "429", "403", "404"]
-scheme = ["https"]
-
-#############################  Exclusions  ##########################
-base = "https://github.com/serpcompany/boxingundefeated.com/"
+# Known broken links in shop articles, tracked in #43, which removes this list: 107 links written
+# without a scheme (`universityofguns.pages.dev/...`, `serpbooks.com/...`), which resolve under
+# the page and 404 on the live site, and two relative links. The first pattern also hides any new
+# scheme-less link to those two hosts until #43 lands.
 exclude = [
-  "https://openphone.com/",
-  "https://www.openphone.com/docs/llms.txt",
-  "https://www.google.com/s2/favicons?domain=docs.rememberizer.ai&size=32",
-  "https://www.google.com/s2/favicons?domain=developers.campsite.com&size=32",
-  "https://www.google.com/s2/favicons?domain=docs.conductor.is&size=32",
-  "https://www.google.com/s2/favicons?domain=docs.pinata.cloud&size=32",
-  "https://www.google.com/s2/favicons?domain=docs.skydeck.ai&size=32",
-  "https://www.google.com/s2/favicons?domain=raincamp.ai&size=32"
+  '/shop/best/[^/]+/(universityofguns\.pages\.dev|serpbooks\.com)/',
+  '/shop/best/motivational-water-bottles/motivational-water-bottles$',
+  '/shop/best/walking-bike-for-adults/link-to-full-article$',
 ]

@@ -8,7 +8,7 @@
     "export": "cd apps/web && next build",
     "check:export": "pnpm --filter e2e check:export",
     "check:frontmatter": "tsx scripts/check-frontmatter.ts",
-    "check:links": "lychee --config ./lychee.toml --verbose .",
+    "check:links": "lychee --config lychee.toml --root-dir \"$PWD/apps/web/out\" 'apps/web/out/**/*.html'",
     "clean": "git clean -xdf node_modules dist .next",
     "clean:workspaces": "turbo clean",
     "db:check-deployable": "tsx scripts/d1/check-deployable.ts",

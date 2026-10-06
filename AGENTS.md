@@ -13,15 +13,13 @@ needs, then verify against the code.
 Stage: explore
 Agents may merge: yes
 
-The owner set both lines on 2026-10-06. Only the owner changes them. Agents merge once CI is green
-and a fresh review has no open blocking findings. The owner merges PRs that change these lines,
-the finish-gate command, CI or deploy workflows, or production migrations, plus every release PR.
-The owner runs the production DNS cutover.
+Only the owner changes these two lines. Agents merge once CI is green and a fresh review has no
+open blocking findings. The owner merges PRs that change these lines, the finish-gate command, CI
+or deploy workflows, or production migrations, plus every release PR, and runs the DNS cutover.
 
 ## Where things live
 
-- `apps/web/`: the Next.js app (App Router). Read its `app/` routes, `lib/` helpers and `content/`
-  before changing pages.
+- `apps/web/`: the Next.js app (App Router). Read the parts below before changing pages.
   - `app/`: boxers, divisions, shop, search, brands, legal and HTML sitemap pages. `[...slug]`
     renders shop articles at `/shop/best/<slug>/`.
   - `lib/`: data loaders, URL, metadata, route and sitemap-path helpers. Change URLs here, not in
@@ -33,7 +31,7 @@ The owner runs the production DNS cutover.
   - `public/data/boxers/`: per-boxer JSON generated from the pipeline data. Never hand-edit it.
   - `scripts/`: data generators. The export's search index (`lib/search/`; the Worker answers
     `/api/search` from D1) is built before `next build` (`predev`, `build:with-data`); XML
-    sitemaps are written after it and rewrite files in `public/`: revert them before committing.
+    sitemaps are written into `public/` after it (finish gate below).
   - `wrangler.jsonc`, `open-next.config.ts`, `worker.ts`: the Worker. The top level is local only;
     `env.staging` and `env.production` are the deployed Workers, each with its own D1 `DB`.
     `worker.ts` is the entry; `lib/worker/handle-request.ts` applies the canonical-host redirect
@@ -54,8 +52,8 @@ The owner runs the production DNS cutover.
 - `from-pipeline/boxers.json`: the pipeline output (about 104 MB, gitignored), read only by data
   regeneration and `db:import`; builds read `public/data/`. In a fresh worktree, copy it there,
   then `mkdir -p apps/web/data && ln -s ../../../from-pipeline/boxers.json apps/web/data/`.
-- `.github/workflows/`: `deploy-github-pages.yml` deploys `main` to production, `pr-review.yml`
-  runs PR checks, `preview.yml` publishes PR previews.
+- `.github/workflows/`: `ci.yml` (the PR check; its `All checks` job is the required check),
+  `deploy-staging.yml`, `deploy-production.yml` and `deploy-github-pages.yml` (until the cutover).
 
 ## Commands
 
@@ -68,9 +66,8 @@ Inner loop, while editing (seconds):
 
 Worker (OpenNext on Cloudflare, about a minute; boxer pages read the local D1, so seed it first):
 
-- `pnpm preview:worker`: `build:worker` (`opennextjs-cloudflare build` with
-  `NEXT_BUILD_TARGET=worker`, which turns off `output: 'export'`), then serves the local Worker on
-  http://localhost:8787 with the local top level of `apps/web/wrangler.jsonc`.
+- `pnpm preview:worker`: `build:worker` (`NEXT_BUILD_TARGET=worker` turns off `output: 'export'`),
+  then serves the local top level of `apps/web/wrangler.jsonc` on http://localhost:8787.
 - `pnpm --filter web build:worker:staging` / `build:worker:production`: the Worker build with that
   environment's `SITE_ENVIRONMENT`, which the prerendered HTML needs (Environments below).
 - `pnpm --filter web serve:worker [--env staging]`: serve the last Worker build again, with that
@@ -98,17 +95,21 @@ D1 (Drizzle schema in `packages/data-ops`, migrations in `d1/drizzle/`):
   Production writes (migrate, import) need a protected workflow or the owner's written approval in
   the current task, for that one run, cited in the PR or issue recording it; never your own
   initiative. Run `db:migrate:production`, then `db:import --source <json>`, `db:parity` and
-  `db:check-deployable` with `--target production --confirm-production`, then deploy.
+  `db:check-deployable` with `--target production --confirm-production`, then promote.
 
-Finish gate, once per state when the branch is finished: `pnpm check` (read-only Biome check,
-workspace check, typecheck, tests and the production build; about a minute for the build). Run it
-in the background. Don't re-run it on an unchanged tree; cite the earlier run. The build rewrites
-the committed sitemap files' dates, so run `git checkout -- apps/web/public` before committing.
+Finish gate: `pnpm check` (read-only Biome check, workspace check, typecheck, tests and the static
+export build). CI (`ci.yml`) runs it on every PR, plus migration validation, the Worker build and
+the E2E smoke suite; CI on the final commit is the record, so don't repeat it locally. Run it only
+to reproduce a CI failure, in the background. The build rewrites the committed sitemap files'
+dates, so run `git checkout -- apps/web/public` before committing.
 
 ## Workflow
 
 - GitHub issues are the plan. The next task is the first open, unblocked sub-issue of the epic.
-- Base branch: `main`, until the staging deploy issue makes `staging` the base branch.
+- Base branch: `staging` (`main` is production). The owner promotes it with a fast-forward:
+  `git fetch origin && git push origin origin/staging:main`. Deploys run only in the deploy
+  workflows, on pushes to `staging` and `main`; agents never deploy by hand, dispatch a deploy
+  workflow, or approve the `production` environment.
 - One issue, one `issue-<number>-<slug>` branch, one PR, squash merged. Work in a git worktree per
   issue, and never in a checkout that holds someone else's uncommitted changes.
 - PR title: a Conventional Commit describing the outcome a user notices. The body starts with
@@ -124,7 +125,7 @@ the committed sitemap files' dates, so run `git checkout -- apps/web/public` bef
 - Routes, redirects, metadata, robots, sitemaps, `next.config.ts` or data loaders: the HTML page
   count of `apps/web/out` before and after, the diff of the page list, and before/after output for
   sample URLs.
-- Visible UI: one screenshot of each changed page, from the PR preview or a local build.
+- Visible UI: one screenshot of each changed page, from a local build or staging.
 - Deploy workflows: a link to the deploy run.
 
 ## Environments
@@ -134,9 +135,8 @@ loads Google Tag Manager. `apps/web/lib/site-config.ts` resolves it, reading `pr
 value is used, never at module load:
 
 1. An explicit `SITE_ENVIRONMENT` wins; an unknown value is `local`.
-2. Without one, the static export (`next build` with `output: 'export'`) is production, unless
-   `GITHUB_EVENT_NAME` is `pull_request` (the Surge previews). This keeps the GitHub Pages
-   deploy, which sets no `SITE_ENVIRONMENT`, indexable.
+2. Without one, the static export is production unless built for a pull request
+   (`GITHUB_EVENT_NAME`), so the GitHub Pages deploy, which sets none, is indexable.
 3. Everything else is `local`: `next dev`, tests, a Worker build without the variable, and a
    Worker whose runtime var is missing.
 
@@ -149,8 +149,9 @@ value is used, never at module load:
 | `CANONICAL_HOST_REDIRECT` (`www`, `*.workers.dev` -> origin) | `off` | `on` | `on` |
 
 Prerendered HTML is fixed at build, so a Worker build and the environment that serves it must use
-the same value: `build:worker:staging` with `--env staging`. At runtime, `worker.ts` reads the
-`wrangler.jsonc` var and, unless it is exactly `production`, sends `X-Robots-Tag: noindex` and
+the same value (`build:worker:staging` with `--env staging`); on a mismatch the Worker answers 503
+to everything and deploys refuse it (`lib/worker/build-environment.ts`). At runtime, unless the
+`wrangler.jsonc` var is exactly `production`, `worker.ts` sends `X-Robots-Tag: noindex` and
 answers `/robots.txt` with `Disallow: /`. `app/robots.ts` is the only robots source.
 
 ## Invariants

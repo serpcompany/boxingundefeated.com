@@ -2,6 +2,7 @@
  * @jest-environment node
  */
 import { SMOKE_TEST_HEADER } from '../routing/canonical-host'
+import { BUILD_COMMIT_HEADER } from './build-environment'
 import { type DatasetReadiness, importGeneration } from './dataset-gate'
 import { EDGE_CACHE_HEADER } from './edge-cache'
 import { handleWorkerRequest, type WorkerRuntime } from './handle-request'
@@ -412,5 +413,125 @@ describe('handleWorkerRequest with the D1 readiness gate', () => {
 
     expect(response.status).toBe(308)
     expect(gate.runtime.datasetReadiness).not.toHaveBeenCalled()
+  })
+})
+
+describe('handleWorkerRequest with the build guard', () => {
+  const environments = { local, staging, production }
+  const builds = ['local', 'staging', 'production'] as const
+
+  it.each(
+    builds.flatMap(built =>
+      builds.filter(runtime => runtime !== built).map(runtime => [built, runtime] as const)
+    )
+  )('fails closed when a %s build runs as %s', async (built, runtime) => {
+    for (const path of [...paths, '/robots.txt']) {
+      const serve = serveSpy()
+      const log = jest.fn()
+      const response = await handleWorkerRequest(
+        new Request(`https://boxingundefeated.com${path}`),
+        environments[runtime],
+        serve,
+        { buildEnvironment: { siteEnvironment: built }, log }
+      )
+
+      expect(response.status).toBe(503)
+      expect(response.headers.get('cache-control')).toBe('no-store')
+      expect(response.headers.get('x-robots-tag')).toBe('noindex')
+      expect(serve).not.toHaveBeenCalled()
+      expect(log).toHaveBeenCalledWith({ event: 'build_environment_mismatch', built, runtime })
+    }
+  })
+
+  it('fails closed before the host redirect', async () => {
+    const response = await handleWorkerRequest(new Request(`${WWW}/`), production, serveSpy(), {
+      buildEnvironment: { siteEnvironment: 'staging' }
+    })
+
+    expect(response.status).toBe(503)
+  })
+
+  it.each([{}, { siteEnvironment: 'prod' }])(
+    'fails closed on a build record without a valid environment: %j',
+    async record => {
+      const serve = serveSpy()
+      const response = await handleWorkerRequest(
+        new Request('https://boxingundefeated.com/'),
+        production,
+        serve,
+        { buildEnvironment: record as { siteEnvironment?: 'production'; commit?: string } }
+      )
+
+      expect(response.status).toBe(503)
+      expect(serve).not.toHaveBeenCalled()
+    }
+  )
+
+  it('fails closed when a production build runs without a SITE_ENVIRONMENT var', async () => {
+    const response = await handleWorkerRequest(
+      new Request('https://boxingundefeated.com/'),
+      {},
+      serveSpy(),
+      { buildEnvironment: { siteEnvironment: 'production' } }
+    )
+
+    expect(response.status).toBe(503)
+  })
+
+  it.each(builds)('serves a %s build in its own environment', async environment => {
+    const serve = serveSpy()
+    const host = environment === 'local' ? 'http://localhost:8787' : 'https://boxingundefeated.com'
+    const response = await handleWorkerRequest(
+      new Request(`${host}/boxers/`),
+      { ...environments[environment], CANONICAL_HOST_REDIRECT: 'off' },
+      serve,
+      { buildEnvironment: { siteEnvironment: environment } }
+    )
+
+    expect(response.status).toBe(200)
+    expect(serve).toHaveBeenCalledTimes(1)
+  })
+})
+
+describe('handleWorkerRequest build commit header', () => {
+  const buildEnvironment = { siteEnvironment: 'production' as const, commit: 'abc123' }
+  const smoke = { [SMOKE_TEST_HEADER]: '1' }
+
+  it.each([
+    ['a page', 'https://boxingundefeated.com/boxers/', 200],
+    ['a workers.dev page', `${WORKERS_DEV}/boxers/`, 200],
+    ['a slashless page', 'https://boxingundefeated.com/boxers', 200]
+  ])('names the commit on a smoke-test request for %s', async (_, url, status) => {
+    const response = await handleWorkerRequest(
+      new Request(url, { headers: smoke }),
+      production,
+      serveSpy(),
+      { buildEnvironment }
+    )
+
+    expect(response.status).toBe(status)
+    expect(response.headers.get(BUILD_COMMIT_HEADER)).toBe('abc123')
+  })
+
+  it('names the commit on the build guard 503 too', async () => {
+    const response = await handleWorkerRequest(
+      new Request('https://boxingundefeated.com/', { headers: smoke }),
+      staging,
+      serveSpy(),
+      { buildEnvironment }
+    )
+
+    expect(response.status).toBe(503)
+    expect(response.headers.get(BUILD_COMMIT_HEADER)).toBe('abc123')
+  })
+
+  it('leaves it off requests without the smoke-test header', async () => {
+    for (const url of ['https://boxingundefeated.com/boxers/', `${WWW}/`]) {
+      const response = await handleWorkerRequest(new Request(url), production, serveSpy(), {
+        buildEnvironment
+      })
+
+      expect(response.headers.get(BUILD_COMMIT_HEADER)).toBeNull()
+    }
   })
 })
