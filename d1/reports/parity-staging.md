@@ -3,7 +3,7 @@
 - **Result: PASS**
 - Target: `boxingundefeated-com-staging` (`--remote --env staging`)
 - Source: `from-pipeline/boxers.json`, 108,670,746 bytes, sha256 `b7705c17ec55b112`
-- Generated: 2026-10-06T02:29:23.139Z by `pnpm db:parity -- --target staging`
+- Generated: 2026-10-07T14:34:15.102Z by `pnpm db:parity -- --target staging`
 - Method: D1 rows are read back and compared with the JSON by the parity rules (`packages/data-ops/src/parity/rules.ts`), which are written separately from the importer's mapping, so a mapping mistake shows up here.
 
 ## Row counts
@@ -14,7 +14,7 @@
 | boxers | 5,571 | 1 | 5,570 | 5,570 | yes |
 | bouts | 109,541 | 0 | 109,541 | 109,541 | yes |
 
-Divisions are expected from `getBoxerCategories()` (`apps/web/lib/boxers-loader.ts`).
+Divisions are expected from `REFERENCE_DIVISIONS` (`packages/data-ops/src/parity/reference.ts`).
 
 ## Intentional removals
 
@@ -22,21 +22,21 @@ Divisions are expected from `getBoxerCategories()` (`apps/web/lib/boxers-loader.
 | --- | --- | --- | --- | --- |
 | `world` | 808714 | World | 0 | Misparsed pipeline row: name "World", nationality "Usyk", no record and no bouts, and a bio about Chris Staples (BoxRec 808714). Not a boxer profile. |
 
-Each removed slug still has a static page today; once pages read from D1 (#10), its URL needs a 404 or a redirect.
+A removed slug is a 404 on the Worker.
 
-## Slug coverage (`apps/web/public/data/boxers/index.json`)
+## Slug coverage (the source)
 
 | Check | Count |
 | --- | --- |
-| Slugs in index.json | 5,571 |
+| Slugs in the source | 5,571 |
 | Present in D1 | 5,570 |
 | Intentionally dropped | 1 |
 | Missing from D1 | 0 |
 | Dropped but present in D1 | 0 |
-| In D1 but not in index.json | 0 |
+| In D1 but not in the source | 0 |
 
 
-## Divisions against `getBoxerCategories()`
+## Divisions against the reference
 
 17 divisions: slug, name, `pro_division` and order, and every source `proDivision` among them: **0 mismatches**.
 
@@ -44,15 +44,11 @@ Each removed slug still has a static page today; once pages read from D1 (#10), 
 
 5,570 boxers and 109,541 bouts, 2,812,794 fields compared: **0 mismatches**.
 
-## Every boxer and bout against `public/data/boxers/<slug>.json`
-
-What the live site renders today. 5,570 boxers and 109,541 bouts, 2,812,794 fields compared: **0 mismatches**.
-
-Both comparisons check every JSON key: each mapped key against its column by its rule (the same value; `""` or `null` as `NULL`; newline-separated names as a JSON array; `true`/`false` as `1`/`0`), and each unstored key against the documented drops (`boxrecWikiUrl`, the ten `amateur*` fields, a bout's `boxerId`, checked against the boxer's `boxrecId`). A key in neither list is a mismatch. Each bout is matched by its position in the list (`ordinal`), and its `opponent_boxer_id` must be the profile that today's `getOpponentSlug` links. Every D1 column is accounted for.
+The comparison checks every JSON key: each mapped key against its column by its rule (the same value; `""` or `null` as `NULL`; newline-separated names as a JSON array; `true`/`false` as `1`/`0`), and each unstored key against the documented drops (`boxrecWikiUrl`, the ten `amateur*` fields, a bout's `boxerId`, checked against the boxer's `boxrecId`). A key in neither list is a mismatch. Each bout is matched by its position in the list (`ordinal`), and its `opponent_boxer_id` must be the profile that the static site's opponent lookup links (`referenceOpponentSlugs`). Every D1 column is accounted for.
 
 ## Opponent links
 
-11,213 of 109,541 bouts link to a profile (1 to the boxer themselves, as today). Mismatches against `getOpponentSlug` are counted above, under `opponent_boxer_id`.
+11,213 of 109,541 bouts link to a profile (1 to the boxer themselves, as on the static site). Mismatches against the reference lookup are counted above, under `opponent_boxer_id`.
 
 ## Checksums
 
@@ -78,6 +74,6 @@ Content: every column except the database-assigned `boxers.imported_at` and `bou
 | Bout lists cut at exactly 100 | 93 | Stored as-is |
 | Boxers without bouts | 12 | No bout rows |
 | Bouts listed from both sides | 4,825 | One row per side, linked by `opponent_boxer_id` |
-| Name variants claimed by two boxers | 32 | Today's rule: the later boxer in index order wins |
-| Bouts linked to the boxer themselves | 1 | Kept, as today |
+| Name variants claimed by two boxers | 32 | The static rule: the later boxer in index order wins |
+| Bouts linked to the boxer themselves | 1 | Kept, as on the static site |
 | Staff values with two names | 3 | Split into a two-name array |
