@@ -42,7 +42,7 @@ Run everything from the repository root.
   (default and maximum 8 for remote hosts), `--report-dir <dir>`. It retries a 429, a 5xx or a
   network error with backoff (2, 4, 8 s, or `Retry-After`). A URL the reference still doesn't
   answer with 200 is an error, and the run fails.
-- The link check is offline in effect: `lychee.toml` checks only `http://localhost:<port>/` URLs,
+- The link check is offline in effect: `lychee.toml` excludes every host with a dot in its name,
   so it never requests a third-party site or the production origin that canonicals name.
 - `test:e2e` writes `playwright-report/` and `test-results/` here. Keep both as CI artifacts.
 - CI installs the browser once: `pnpm --filter e2e test:install`.
