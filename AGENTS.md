@@ -58,7 +58,9 @@ Inner loop, while editing (seconds):
 - `pnpm --filter web typecheck`
 - `pnpm --filter web exec jest <paths>`: the tests for the code you changed.
 - `pnpm exec biome lint <paths>`
-- `pnpm --filter web exec next dev --port 3003`: the dev server, on the local D1.
+- `pnpm --filter web exec next dev --port 3003`: the dev server, on the local D1. `/api/search`
+  and the XML sitemaps are answered only by the Worker, so search fails here; use
+  `pnpm preview:worker` for those.
 
 Worker (OpenNext on Cloudflare, about a minute; boxer pages read the local D1, so seed it first):
 

@@ -4,6 +4,9 @@
 #
 #   pnpm --silent --filter e2e sitemap-urls http://localhost:8787 > urls.txt
 #   lychee --config lychee.toml --files-from urls.txt
+#
+# The excludes below apply to links found on those pages, not to the pages in urls.txt: a listed
+# page that doesn't answer 200 stops the run with "Cannot read input content from URL".
 
 # Every request without a redirect: an internal link that needs one (a missing trailing slash,
 # an old URL) is a broken link.
@@ -17,8 +20,8 @@ exclude = [
   # Only the preview's own URLs: every host with a dot in its name is excluded, so no third-party
   # site, and not the production origin that canonicals and JSON-LD name.
   '^https?://[^/:]*\.',
-  # Known broken: the two shop articles with non-ASCII slugs 404 on the Worker
-  # (apps/e2e/src/parity-allowlist.ts). The old offline check of the export missed them, because
-  # the export wrote a not-found page at each path. Remove this once they are served.
+  # Known broken: the two shop articles with non-ASCII slugs 404 on the Worker (#53). The shop
+  # listing pages link them; the sitemaps leave them out (isServedShopPath, lib/sitemaps/content.ts).
+  # Remove this once they are served.
   '^http://localhost:\d+/shop/best/(nestl%C3%A9|br%C3%BCmate)-water-bottles/$',
 ]

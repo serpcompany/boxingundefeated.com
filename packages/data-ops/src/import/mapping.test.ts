@@ -534,6 +534,15 @@ describe('a production source', () => {
     expect(() => checkProductionSourceSize(49, 5_570, true)).not.toThrow()
   })
 
+  it('must hold 5,000 boxers even when production D1 is empty', () => {
+    expect(() => checkProductionSourceSize(5_570, 0)).not.toThrow()
+    expect(() => checkProductionSourceSize(5_000, 0)).not.toThrow()
+    expect(() => checkProductionSourceSize(4_999, 0)).toThrow(
+      /production D1 holds 0, so fewer than 5000 looks truncated/
+    )
+    expect(() => checkProductionSourceSize(49, 0, true)).not.toThrow()
+  })
+
   it('refuses the committed fixture on both counts', () => {
     expect(() => checkProductionSourcePath(FIXTURE, resolve(FIXTURE, '../../..'))).toThrow(
       /test data/

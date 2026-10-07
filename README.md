@@ -40,7 +40,7 @@ development and CI use a small committed fixture (`d1/fixtures/boxers.sample.jso
 ```bash
 pnpm install
 pnpm db:reset:local                    # migrate the local D1 and seed the fixture
-pnpm --filter web exec next dev --port 3003
+pnpm --filter web exec next dev --port 3003  # pages only; search and XML sitemaps need the Worker
 pnpm preview:worker                    # the Worker build, served on http://localhost:8787
 pnpm check                             # the finish gate
 ```

@@ -11,7 +11,7 @@
  * The source defaults to $BOXERS_SOURCE, then from-pipeline/boxers.json in the repo root. The SQL
  * files land in d1/.import/<target>/ (gitignored). Production needs `--confirm-production` and an
  * explicit `--source`, never under d1/fixtures/, with at least 95 % of the boxers production D1
- * holds now unless `--allow-small-source`. A staging import refuses to prune more than 1 % of the
+ * holds now, and never under 5,000, unless `--allow-small-source`. A staging import refuses to prune more than 1 % of the
  * boxers (at most 50), and a production import any boxer, unless `--allow-prune <n>` allows that
  * many. A repeated flag is refused.
  *

@@ -102,6 +102,8 @@ export function parseFlags(argv: readonly string[], allowed: readonly string[]) 
 
 /** A production source must hold at least this share of the boxers production D1 holds now. */
 export const PRODUCTION_MIN_SOURCE_SHARE = 0.95
+/** And at least this many boxers, so an empty or wiped production D1 sets no floor of 0. */
+export const PRODUCTION_MIN_SOURCE_BOXERS = 5_000
 
 /**
  * A production import reads only an explicit `--source` (not `$BOXERS_SOURCE` or the default),
@@ -121,14 +123,18 @@ export function checkProductionSourcePath(path: string | undefined, repoRoot: st
 
 /**
  * Refuses a production source with under 95 % of `liveBoxers`, the boxers in production D1 before
- * the import, which looks truncated, unless `--allow-small-source`.
+ * the import, or under `PRODUCTION_MIN_SOURCE_BOXERS`, which looks truncated, unless
+ * `--allow-small-source`.
  */
 export function checkProductionSourceSize(
   boxers: number,
   liveBoxers: number,
   allowSmall = false
 ): void {
-  const floor = Math.ceil(liveBoxers * PRODUCTION_MIN_SOURCE_SHARE)
+  const floor = Math.max(
+    Math.ceil(liveBoxers * PRODUCTION_MIN_SOURCE_SHARE),
+    PRODUCTION_MIN_SOURCE_BOXERS
+  )
   if (boxers >= floor || allowSmall) return
   throw new Error(
     `Refusing a production import of ${boxers} boxers: production D1 holds ${liveBoxers}, so ` +
