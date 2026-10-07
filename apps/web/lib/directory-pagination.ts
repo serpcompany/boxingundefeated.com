@@ -1,5 +1,3 @@
-import type { BoxerMetadata } from './boxers-loader'
-
 export const BOXER_PAGE_SIZE = 48
 
 export interface DirectoryPage<T> {
@@ -70,16 +68,4 @@ export function getVisiblePaginationPages(currentPage: number, totalPages: numbe
   }
 
   return Array.from(pages).sort((a, b) => a - b)
-}
-
-export function sortBoxersForDirectory(boxers: BoxerMetadata[]): BoxerMetadata[] {
-  return [...boxers].sort((a, b) => {
-    const winsDiff = (b.proWins || 0) - (a.proWins || 0)
-    if (winsDiff !== 0) return winsDiff
-
-    const boutsDiff = (b.proTotalBouts || 0) - (a.proTotalBouts || 0)
-    if (boutsDiff !== 0) return boutsDiff
-
-    return a.name.localeCompare(b.name)
-  })
 }

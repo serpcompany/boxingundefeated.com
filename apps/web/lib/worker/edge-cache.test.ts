@@ -198,7 +198,7 @@ describe('withEdgeCache', () => {
     ['a POST', new Request('https://boxingundefeated.com/boxers/', { method: 'POST' })],
     ['a sitemap', new Request('https://boxingundefeated.com/sitemap-index.xml')],
     ['ads.txt', new Request('https://boxingundefeated.com/ads.txt')],
-    ['boxer JSON', new Request('https://boxingundefeated.com/data/boxers/jesse-hart.json')],
+    ['a JSON file', new Request('https://boxingundefeated.com/feeds/jesse-hart.json')],
     ['an image', new Request('https://boxingundefeated.com/opengraph-image.png')],
     ['a slashless page URL', new Request('https://boxingundefeated.com/boxers/jesse-hart')],
     ['a framework path', new Request('https://boxingundefeated.com/_next/data/x/')],

@@ -2,13 +2,9 @@ import { Breadcrumb } from '@boxingundefeated/design-system/breadcrumb'
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { BoxersDirectoryList } from '@/components/boxers-directory-list'
-import { divisionStaticParams, getDivisionPage } from '@/lib/boxer-data'
+import { getDivisionPage } from '@/lib/boxer-data'
 import { getDivisionPageHref } from '@/lib/directory-pagination'
 import { getSiteOrigin } from '@/lib/site-config'
-
-// The static export prerenders every division from the committed JSON. The Worker prerenders none:
-// it renders each one on request from D1, and an unknown division is a 404 (lib/boxer-data).
-export const generateStaticParams = divisionStaticParams
 
 export async function generateMetadata({
   params

@@ -1,13 +1,9 @@
-import { mkdirSync, mkdtempSync, writeFileSync } from 'node:fs'
-import { tmpdir } from 'node:os'
-import { join } from 'node:path'
 import { describe, expect, it } from 'vitest'
 import type { PageFacts } from './html'
 import {
   classifyReference,
   compare,
   expectedCanonical,
-  exportPaths,
   type Fetched,
   isAllowed,
   normalizePath,
@@ -96,24 +92,14 @@ describe('URLs', () => {
 
   it('reads sitemap locations', () => {
     const xml =
-      '<urlset><url><loc>https://boxingundefeated.com</loc></url><url><loc>\n  https://boxingundefeated.com/a/?x=1&amp;y=2 </loc></url></urlset>'
+      '<urlset><url><loc>https://boxingundefeated.com</loc></url><url><loc>\n  https://boxingundefeated.com/a/?x=1&amp;y=2 </loc></url>' +
+      '<url><loc>https://boxingundefeated.com/shop/best/men&apos;s-yoga-mats/</loc></url>' +
+      '<url><loc>https://boxingundefeated.com/b/?q=&quot;&lt;&gt;&amp;apos;</loc></url></urlset>'
     expect(sitemapLocations(xml)).toEqual([
       'https://boxingundefeated.com',
-      'https://boxingundefeated.com/a/?x=1&y=2'
-    ])
-  })
-
-  it('lists the pages of a static export, without the not-found page', () => {
-    const out = mkdtempSync(join(tmpdir(), 'parity-'))
-    for (const dir of ['', '404', 'boxers/manuel-ortiz', 'shop/best/brümate-water-bottles']) {
-      mkdirSync(join(out, dir), { recursive: true })
-      writeFileSync(join(out, dir, 'index.html'), '')
-    }
-    writeFileSync(join(out, '404.html'), '')
-    expect(exportPaths(out).sort()).toEqual([
-      '/',
-      '/boxers/manuel-ortiz/',
-      '/shop/best/br%C3%BCmate-water-bottles/'
+      'https://boxingundefeated.com/a/?x=1&y=2',
+      "https://boxingundefeated.com/shop/best/men's-yoga-mats/",
+      'https://boxingundefeated.com/b/?q="<>&apos;'
     ])
   })
 })
@@ -127,29 +113,24 @@ describe('classifyReference', () => {
   })
 
   it('compares a 200', () => {
-    expect(classifyReference(ok(), true)).toEqual({ kind: 'compare', facts: facts() })
+    expect(classifyReference(ok())).toEqual({ kind: 'compare', facts: facts() })
   })
 
-  it('accepts a 404 or 410 only for an export page the sitemaps do not list', () => {
-    expect(classifyReference(answer(404), false)).toEqual({ kind: 'not-served', status: 404 })
-    expect(classifyReference(answer(410), false).kind).toBe('not-served')
-    expect(classifyReference(answer(404), true)).toEqual({
+  it('fails on a 404, a 429 left after the retries, a 403, a redirect or a network error', () => {
+    expect(classifyReference(answer(404))).toEqual({
       kind: 'error',
-      error: 'reference answered 404, and its sitemaps list the URL'
+      error: 'reference answered 404'
     })
-  })
-
-  it('fails on a 429 left after the retries, a 403, a redirect or a network error', () => {
-    expect(classifyReference(answer(429, { attempts: 4 }), false)).toEqual({
+    expect(classifyReference(answer(429, { attempts: 4 }))).toEqual({
       kind: 'error',
       error: 'reference answered 429 after 4 attempts'
     })
-    expect(classifyReference(answer(403), false).kind).toBe('error')
-    expect(classifyReference(answer(301, { location: '/a/' }), true)).toEqual({
+    expect(classifyReference(answer(403)).kind).toBe('error')
+    expect(classifyReference(answer(301, { location: '/a/' }))).toEqual({
       kind: 'error',
-      error: 'reference answered 301 -> /a/, and its sitemaps list the URL'
+      error: 'reference answered 301 -> /a/'
     })
-    expect(classifyReference(answer(0, { error: 'timeout' }), false).kind).toBe('error')
+    expect(classifyReference(answer(0, { error: 'timeout' })).kind).toBe('error')
   })
 })
 

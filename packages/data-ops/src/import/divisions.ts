@@ -1,8 +1,8 @@
 import type { NewDivision } from '../types'
 
 /**
- * The 17 weight classes, in the display order of today's `getBoxerCategories()`
- * (`apps/web/lib/boxers-loader.ts`). `proDivision` is the value boxers carry in the source.
+ * The 17 weight classes, in the display order the static site used (the parity check holds its
+ * own copy: `../parity/reference.ts`). `proDivision` is the value boxers carry in the source.
  */
 const DIVISION_NAMES = [
   ['heavy', 'Heavyweight', 'heavy'],

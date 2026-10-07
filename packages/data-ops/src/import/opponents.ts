@@ -1,6 +1,5 @@
-// The opponent matching of today's pages (`apps/web/lib/opponent-mapper.ts`), so a bout links to
-// the same profile in D1 as it does on the static site. Keep the two in step until #10 removes
-// the static version.
+// The opponent matching the static site used, so a bout links to the same profile in D1 as it did
+// there. The parity check holds its own copy of the static rule (`../parity/reference.ts`).
 
 export interface OpponentCandidate {
   slug: string
@@ -35,8 +34,8 @@ function nameVariants(name: string): string[] {
 }
 
 /**
- * The order of `public/data/boxers/index.json` (`scripts/split-boxer-data.js`): most bouts, then
- * most wins, with ties in source order. Later boxers win name collisions, as on the site.
+ * The order of the static site's boxer index: most bouts, then most wins, with ties in source
+ * order. Later boxers win name collisions, as on the site.
  */
 export function directoryIndexOrder<T extends OpponentCandidate>(boxers: readonly T[]): T[] {
   return [...boxers].sort(

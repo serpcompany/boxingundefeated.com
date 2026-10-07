@@ -1,7 +1,6 @@
 /**
  * `GET /api/search?q=`: boxer search on D1, answered by the Worker itself, before OpenNext
- * (lib/worker/handle-request.ts). The static export has no Worker and keeps searching its
- * committed index (lib/search/) until #20 removes it.
+ * (lib/worker/handle-request.ts). The search page calls it (lib/search/).
  *
  * - Paths: `/api/search` and `/api/search/` both answer 200, never a redirect (SERP URL standard:
  *   `/api` paths are served exactly as requested). Other `/api` paths fall through to OpenNext.

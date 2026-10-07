@@ -26,11 +26,7 @@ function buildCommit(): string {
 
 const record: BuildEnvironmentRecord = {
   // The resolution lib/site-config.ts applies inside the Worker build's `next build`.
-  siteEnvironment: resolveSiteEnvironment({
-    siteEnvironment: process.env.SITE_ENVIRONMENT,
-    buildOutput: 'worker',
-    nodeEnv: 'production'
-  }),
+  siteEnvironment: resolveSiteEnvironment({ siteEnvironment: process.env.SITE_ENVIRONMENT }),
   commit: buildCommit()
 }
 

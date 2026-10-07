@@ -13,12 +13,7 @@
  *    `wrangler.jsonc`; for statically rendered output it is set in the build's environment
  *    (`build:worker:staging`, `build:worker:production`). A value that is not exactly `local`,
  *    `staging` or `production` is non-production (`local`).
- * 2. Without it, the static export (`next build` with `output: 'export'`, which GitHub Pages
- *    deploys) is production, unless it is built for a pull request (`GITHUB_EVENT_NAME` is
- *    `pull_request`, as in the Surge previews). This keeps the live deploy, whose workflow sets no
- *    `SITE_ENVIRONMENT`, indexable. next.config.ts inlines `SITE_BUILD_OUTPUT` into the bundles,
- *    so code running in the Worker knows it is not the export.
- * 3. Anything else is `local`: `next dev`, tests, the Worker build without a value, and the
+ * 2. Anything else is `local`: `next dev`, tests, the Worker build without a value, and the
  *    Worker runtime when `SITE_ENVIRONMENT` is missing.
  */
 
@@ -39,12 +34,6 @@ export const NON_PRODUCTION_ROBOTS_TAG = 'noindex'
 export interface SiteConfigInput {
   /** `SITE_ENVIRONMENT`: `local`, `staging` or `production`. */
   siteEnvironment?: string
-  /** `SITE_BUILD_OUTPUT`, inlined by next.config.ts: `export` or `worker`. */
-  buildOutput?: string
-  /** `NODE_ENV`: `production` during `next build` and in the Worker. */
-  nodeEnv?: string
-  /** `GITHUB_EVENT_NAME`, set by GitHub Actions. */
-  githubEventName?: string
   /** `PORT`, for the local origin. */
   port?: string
 }
@@ -58,16 +47,10 @@ export interface SiteConfig {
   gtmId: string | null
 }
 
-/**
- * Reads the inputs from `process.env`. Each variable is read by its literal name so the values
- * that next.config.ts inlines at build time (`SITE_BUILD_OUTPUT`, `NODE_ENV`) are replaced.
- */
+/** Reads the inputs from `process.env`. */
 export function readSiteConfigInput(): SiteConfigInput {
   return {
     siteEnvironment: process.env.SITE_ENVIRONMENT,
-    buildOutput: process.env.SITE_BUILD_OUTPUT,
-    nodeEnv: process.env.NODE_ENV,
-    githubEventName: process.env.GITHUB_EVENT_NAME,
     port: process.env.PORT
   }
 }
@@ -77,22 +60,9 @@ export function parseSiteEnvironment(value: unknown): SiteEnvironment | null {
   return SITE_ENVIRONMENTS.find(environment => environment === value) ?? null
 }
 
-function isPullRequestBuild(githubEventName: string | undefined): boolean {
-  return githubEventName === 'pull_request' || githubEventName === 'pull_request_target'
-}
-
 /** See the resolution order at the top of this file. */
 export function resolveSiteEnvironment(input: SiteConfigInput): SiteEnvironment {
-  if (input.siteEnvironment) {
-    return parseSiteEnvironment(input.siteEnvironment) ?? 'local'
-  }
-
-  const isExportBuild = input.buildOutput === 'export' && input.nodeEnv === 'production'
-  if (isExportBuild && !isPullRequestBuild(input.githubEventName)) {
-    return 'production'
-  }
-
-  return 'local'
+  return parseSiteEnvironment(input.siteEnvironment) ?? 'local'
 }
 
 export function siteOriginFor(environment: SiteEnvironment, port?: string): string {

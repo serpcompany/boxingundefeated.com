@@ -1,10 +1,13 @@
 /**
  * Proves a D1 import lost nothing, independently of the importer's mapping: every boxer and bout
- * in D1 is compared field by field with the source JSON and with today's per-boxer JSON
- * (`apps/web/public/data/boxers/<slug>.json`, what the live site renders), using the parity
- * rules in `packages/data-ops/src/parity/rules.ts`. Opponent links are checked against today's
- * `getOpponentSlug` and divisions against today's `getBoxerCategories`. Writes a Markdown report
+ * in D1 is compared field by field with the source JSON, using the parity rules in
+ * `packages/data-ops/src/parity/rules.ts`. Opponent links and divisions are checked against what
+ * the static site showed (`packages/data-ops/src/parity/reference.ts`). Writes a Markdown report
  * and exits 1 on any mismatch.
+ *
+ * Until #20 the check also compared D1 with the per-boxer JSON the static site was built from.
+ * That JSON was the source records written out unchanged, so the comparison with the source
+ * covers it.
  *
  * Usage:
  *   pnpm db:parity -- --target local|staging [--source <boxers.json>]
@@ -12,10 +15,8 @@
  *   pnpm db:parity -- --target production --confirm-production [...]   # owner-approved runs only
  */
 import { createHash } from 'node:crypto'
-import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from 'node:fs'
+import { mkdirSync, readFileSync, statSync, writeFileSync } from 'node:fs'
 import { dirname, join, relative, resolve } from 'node:path'
-import { getBoxerCategories } from '../../apps/web/lib/boxers-loader'
-import { getOpponentSlug } from '../../apps/web/lib/opponent-mapper'
 import {
   BOUT_COLUMNS,
   BOXER_COLUMNS,
@@ -28,15 +29,18 @@ import {
   TARGET_FLAGS
 } from '../../packages/data-ops/src/import'
 import {
+  REFERENCE_DIVISIONS,
+  referenceOpponentSlugs
+} from '../../packages/data-ops/src/parity/reference'
+import {
   compareBoxerRecord,
   type D1Row,
   type Mismatch,
   unaccountedColumns
 } from '../../packages/data-ops/src/parity/rules'
 import { loadDataset, resolveSource } from './import-boxers'
-import { APP_DIR, d1Query, REPO_ROOT } from './wrangler'
+import { d1Query, REPO_ROOT } from './wrangler'
 
-const PUBLIC_BOXERS = join(APP_DIR, 'public/data/boxers')
 const BOXER_PAGE = 1_000
 const BOUT_PAGE = 10_000
 const number = (value: number) => value.toLocaleString('en-US')
@@ -182,7 +186,7 @@ function main(): void {
   // 1. Row counts, straight from the source JSON.
   const boutCount = (list: readonly Record<string, unknown>[]) =>
     list.reduce((total, record) => total + ((record.bouts as unknown[] | null)?.length ?? 0), 0)
-  const categories = getBoxerCategories()
+  const categories = REFERENCE_DIVISIONS
   const counts = [
     ['divisions', categories.length, 0, categories.length, snapshot.divisions.length],
     [
@@ -202,18 +206,15 @@ function main(): void {
   ] as const
   const countsOk = counts.every(([, , , expected, actual]) => expected === actual)
 
-  // 2. Slug coverage against today's index.
-  const index = JSON.parse(readFileSync(join(PUBLIC_BOXERS, 'index.json'), 'utf8')) as {
-    slug: string
-  }[]
+  // 2. Slug coverage: every source slug is in D1 unless dropped, and D1 has no other.
   const d1Slugs = new Set(snapshot.boxers.map(row => row.slug as string))
-  const indexSlugs = new Set(index.map(boxer => boxer.slug))
+  const indexSlugs = new Set(source.map(record => record.slug as string))
   const missing = [...indexSlugs].filter(slug => !d1Slugs.has(slug) && !droppedSlugs.has(slug))
   const droppedPresent = [...droppedSlugs].filter(slug => d1Slugs.has(slug))
   const extra = [...d1Slugs].filter(slug => !indexSlugs.has(slug))
   const slugsOk = missing.length === 0 && droppedPresent.length === 0 && extra.length === 0
 
-  // 3. Divisions against today's `getBoxerCategories()`, and every source division among them.
+  // 3. Divisions against the reference, and every source division among them.
   const divisionMismatches: Mismatch[] = []
   categories.forEach((category, sortOrder) => {
     const row = snapshot.divisions.find(division => division.slug === category.slug)
@@ -242,31 +243,15 @@ function main(): void {
     }
   }
 
-  // 4 and 5. Every boxer and bout, against the source and against today's per-boxer JSON.
-  // Opponents are expected where today's `getOpponentSlug` (reading public/data from the cwd)
-  // links them, unless that boxer was dropped.
-  process.chdir(APP_DIR)
+  // 4. Every boxer and bout against the source. Opponents are expected where the static site's
+  // lookup (over every source record) linked them, unless that boxer was dropped.
   const idBySlug = new Map(snapshot.boxers.map(row => [row.slug as string, row.id as number]))
-  const todaysOpponent = (name: string) => {
-    const slug = getOpponentSlug(name)
+  const referenceOpponent = referenceOpponentSlugs(source)
+  const expectedOpponent = (name: string) => {
+    const slug = referenceOpponent(name)
     return slug === undefined || droppedSlugs.has(slug) ? null : (idBySlug.get(slug) ?? null)
   }
-  const againstSource = compareRecords(records, snapshot, todaysOpponent)
-  const siteRecords: Record<string, unknown>[] = []
-  const missingFiles: Mismatch[] = []
-  for (const record of records) {
-    const file = join(PUBLIC_BOXERS, `${record.slug as string}.json`)
-    if (existsSync(file)) siteRecords.push(JSON.parse(readFileSync(file, 'utf8')))
-    else
-      missingFiles.push({
-        where: String(record.slug),
-        field: '(file)',
-        expected: file,
-        actual: 'missing'
-      })
-  }
-  const againstSite = compareRecords(siteRecords, snapshot, todaysOpponent)
-  againstSite.mismatches.unshift(...missingFiles)
+  const againstSource = compareRecords(records, snapshot, expectedOpponent)
 
   // 6. Every D1 column is accounted for by a JSON key or a derived column.
   const unaccounted = [
@@ -281,7 +266,6 @@ function main(): void {
     slugsOk &&
     divisionMismatches.length === 0 &&
     againstSource.mismatches.length === 0 &&
-    againstSite.mismatches.length === 0 &&
     unaccounted.length === 0
 
   // 7. Checksums of what D1 holds, to compare environments and runs.
@@ -322,7 +306,7 @@ function main(): void {
       ])
     ),
     '',
-    'Divisions are expected from `getBoxerCategories()` (`apps/web/lib/boxers-loader.ts`).',
+    'Divisions are expected from `REFERENCE_DIVISIONS` (`packages/data-ops/src/parity/reference.ts`).',
     '',
     '## Intentional removals',
     '',
@@ -339,26 +323,26 @@ function main(): void {
           ])
         ),
     '',
-    'Each removed slug still has a static page today; once pages read from D1 (#10), its URL needs a 404 or a redirect.',
+    'A removed slug is a 404 on the Worker.',
     '',
-    '## Slug coverage (`apps/web/public/data/boxers/index.json`)',
+    '## Slug coverage (the source)',
     '',
     table(
       ['Check', 'Count'],
       [
-        ['Slugs in index.json', indexSlugs.size],
+        ['Slugs in the source', indexSlugs.size],
         ['Present in D1', [...indexSlugs].filter(slug => d1Slugs.has(slug)).length],
         ['Intentionally dropped', [...indexSlugs].filter(slug => droppedSlugs.has(slug)).length],
         ['Missing from D1', missing.length],
         ['Dropped but present in D1', droppedPresent.length],
-        ['In D1 but not in index.json', extra.length]
+        ['In D1 but not in the source', extra.length]
       ]
     ),
     missing.length + extra.length > 0
       ? `\nMissing: ${missing.slice(0, 50).join(', ')}\nExtra: ${extra.slice(0, 50).join(', ')}`
       : '',
     '',
-    '## Divisions against `getBoxerCategories()`',
+    '## Divisions against the reference',
     '',
     `${number(snapshot.divisions.length)} divisions: slug, name, \`pro_division\` and order, and every source \`proDivision\` among them: **${number(divisionMismatches.length)} mismatches**.${formatMismatches(divisionMismatches)}`,
     '',
@@ -366,24 +350,20 @@ function main(): void {
     '',
     summary('boxers', againstSource),
     '',
-    `## Every boxer and bout against \`public/data/boxers/<slug>.json\``,
-    '',
-    `What the live site renders today. ${summary('boxers', againstSite)}`,
-    '',
-    'Both comparisons check every JSON key: each mapped key against its column by its rule ' +
+    'The comparison checks every JSON key: each mapped key against its column by its rule ' +
       '(the same value; `""` or `null` as `NULL`; newline-separated names as a JSON array; ' +
       '`true`/`false` as `1`/`0`), and each unstored key against the documented drops ' +
       "(`boxrecWikiUrl`, the ten `amateur*` fields, a bout's `boxerId`, checked against the " +
       "boxer's `boxrecId`). A key in neither list is a mismatch. Each bout is matched by its " +
       'position in the list (`ordinal`), and its `opponent_boxer_id` must be the profile that ' +
-      "today's `getOpponentSlug` links." +
+      "the static site's opponent lookup links (`referenceOpponentSlugs`)." +
       (unaccounted.length > 0
         ? `\n\n**D1 columns that no JSON key accounts for: ${unaccounted.join(', ')}.**`
         : ' Every D1 column is accounted for.'),
     '',
     '## Opponent links',
     '',
-    `${number(linked)} of ${number(snapshot.bouts.length)} bouts link to a profile (${number(selfLinked)} to the boxer themselves, as today). Mismatches against \`getOpponentSlug\` are counted above, under \`opponent_boxer_id\`.`,
+    `${number(linked)} of ${number(snapshot.bouts.length)} bouts link to a profile (${number(selfLinked)} to the boxer themselves, as on the static site). Mismatches against the reference lookup are counted above, under \`opponent_boxer_id\`.`,
     '',
     '## Checksums',
     '',
@@ -416,9 +396,9 @@ function main(): void {
         [
           'Name variants claimed by two boxers',
           q.contestedOpponentNames,
-          "Today's rule: the later boxer in index order wins"
+          'The static rule: the later boxer in index order wins'
         ],
-        ['Bouts linked to the boxer themselves', q.selfLinks, 'Kept, as today'],
+        ['Bouts linked to the boxer themselves', q.selfLinks, 'Kept, as on the static site'],
         ['Staff values with two names', q.multiNameStaffValues, 'Split into a two-name array']
       ]
     ),

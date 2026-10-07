@@ -3,10 +3,6 @@ import '@testing-library/jest-dom'
 import { TextDecoder, TextEncoder } from 'node:util'
 import React from 'react'
 
-// next.config.ts inlines the build target into every build, and pages read it when their module
-// loads: tests run as the static export unless they set `worker` themselves.
-process.env.SITE_BUILD_OUTPUT ??= 'export'
-
 if (!global.TextEncoder) {
   global.TextEncoder = TextEncoder
 }

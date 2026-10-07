@@ -52,21 +52,6 @@ import DivisionsPage from './divisions/page'
 import Home from './page'
 import HtmlSitemapPage from './sitemap/page'
 
-type StaticParamsModule = { generateStaticParams?: () => Promise<unknown[]> }
-
-/**
- * A page module as a build target compiles it: next.config.ts inlines SITE_BUILD_OUTPUT, so
- * `generateStaticParams` is fixed when the module loads.
- */
-function loadPage(path: string, target: 'export' | 'worker'): StaticParamsModule {
-  process.env.SITE_BUILD_OUTPUT = target
-  let page: StaticParamsModule | undefined
-  jest.isolateModules(() => {
-    page = require(path)
-  })
-  return page!
-}
-
 const NOT_FOUND = 'NEXT_HTTP_ERROR_FALLBACK;404'
 
 let nextId = 1
@@ -100,50 +85,23 @@ function division(slug: string, name: string, boxerCount: number, sortOrder = 0)
 const links = () => [...document.querySelectorAll('a')].map(link => link.getAttribute('href'))
 
 afterEach(() => {
-  process.env.SITE_BUILD_OUTPUT = 'export'
   delete process.env.SHOP_POST_COUNT
 })
 
-describe('listing pages, static export', () => {
-  it('prerenders every page from the committed JSON', async () => {
-    const boxers = await loadPage('./boxers/page/[page]/page', 'export').generateStaticParams!()
-    expect(boxers).toHaveLength(116)
-    expect(boxers[0]).toEqual({ page: '2' })
-
-    const divisions = await loadPage('./divisions/[division]/page', 'export')
-      .generateStaticParams!()
-    expect(divisions).toHaveLength(17)
-
-    const divisionPages = await loadPage('./divisions/[division]/page/[page]/page', 'export')
-      .generateStaticParams!()
-    expect(divisionPages).toContainEqual({ division: 'heavy', page: '2' })
-    expect(divisionPages).not.toContainEqual({ division: 'heavy', page: '1' })
-  })
-
-  it('reads no D1', async () => {
-    render(await BoxersPage())
-    render(await Home())
-    expect(mockListBoxers).not.toHaveBeenCalled()
-    expect(mockGetHomepageData).not.toHaveBeenCalled()
-    expect(mockConnection).not.toHaveBeenCalled()
-  })
-})
-
-describe('listing pages, Worker', () => {
+describe('listing pages', () => {
   beforeEach(() => {
-    process.env.SITE_BUILD_OUTPUT = 'worker'
     mockGetCloudflareContext.mockResolvedValue({
       env: { DB: {} as D1Database, SITE_ENVIRONMENT: 'local' }
     } as never)
   })
 
-  it('prerenders none of them', () => {
-    for (const path of [
-      './boxers/page/[page]/page',
-      './divisions/[division]/page',
-      './divisions/[division]/page/[page]/page'
+  it('prerenders none of them: each renders on request', async () => {
+    for (const page of [
+      await import('./boxers/page/[page]/page'),
+      await import('./divisions/[division]/page'),
+      await import('./divisions/[division]/page/[page]/page')
     ]) {
-      expect(loadPage(path, 'worker').generateStaticParams).toBeUndefined()
+      expect('generateStaticParams' in page).toBe(false)
     }
   })
 
@@ -309,6 +267,18 @@ describe('listing pages, Worker', () => {
     for (const missing of ['/boxers/page/4/', '/divisions/heavy/page/3/', '/shop/page/3/']) {
       expect(hrefs).not.toContain(missing)
     }
+    expect(hrefs).toContain('/sitemap/')
+    expect(hrefs.filter(href => href?.endsWith('.xml'))).toEqual([
+      '/sitemap-index.xml',
+      '/sitemap-pages.xml',
+      '/sitemap-boxers.xml',
+      '/sitemap-divisions.xml',
+      '/sitemap-shop.xml'
+    ])
+    // Listing pages only, never a profile or an article.
+    expect(
+      hrefs.filter(href => /^\/(boxers|shop\/best)\/(?!page\/)[^/]+\/$/.test(href ?? ''))
+    ).toEqual([])
   })
 
   it('fails closed when the build did not count the shop posts', async () => {
@@ -316,7 +286,7 @@ describe('listing pages, Worker', () => {
     await expect(HtmlSitemapPage()).rejects.toThrow(/SHOP_POST_COUNT/)
   })
 
-  it('fails closed without the DB binding instead of falling back to the JSON', async () => {
+  it('fails closed without the DB binding', async () => {
     mockGetCloudflareContext.mockResolvedValue({ env: { SITE_ENVIRONMENT: 'production' } } as never)
 
     const failedClosed = { name: 'DataBindingError' }

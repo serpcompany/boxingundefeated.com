@@ -7,10 +7,7 @@ import type {
 } from '@boxingundefeated/data-ops'
 import type { DirectoryPage } from '../directory-pagination'
 
-/**
- * What the listing pages render, whichever source it comes from: the static export's JSON records
- * fit these types as they are; D1 rows go through the `fromD1*` functions below.
- */
+/** What the listing pages render: D1 rows go through the `fromD1*` functions below. */
 
 /** A boxer card: `/boxers/`, a division, the homepage's top fighters. */
 export interface ListedBoxer {

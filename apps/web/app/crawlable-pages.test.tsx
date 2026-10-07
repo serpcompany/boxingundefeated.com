@@ -1,38 +1,11 @@
 import { render } from '@testing-library/react'
-import { getBoxersWithoutBouts } from '@/lib/boxers-loader'
-import { getBoxersPageHref } from '@/lib/directory-pagination'
 import { getShopPosts } from '@/lib/shop-loader'
-import BoxersPage from './boxers/page'
 import BrandsPage from './brands/page'
-import DivisionPage from './divisions/[division]/page'
-import DivisionsPage from './divisions/page'
 import ShopPage from './shop/page'
 import ShopPaginatedPage from './shop/page/[page]/page'
-import HtmlSitemapPage from './sitemap/page'
 
+// The boxer listings, the divisions and the HTML sitemap read D1: listing-pages.test.tsx.
 describe('crawlable directory pages', () => {
-  it('/boxers contains boxer detail links and crawlable pagination anchors', async () => {
-    const firstBoxer = getBoxersWithoutBouts()[0]
-    render(await BoxersPage())
-
-    expect(document.querySelector(`a[href="/boxers/${firstBoxer.slug}/"]`)).toBeInTheDocument()
-    expect(document.querySelector('a[href="/boxers/page/2/"]')).toBeInTheDocument()
-    expect(document.querySelector('a[href="/boxers/page/117/"]')).toBeInTheDocument()
-  })
-
-  it('/divisions/heavy contains crawlable pagination anchors', async () => {
-    render(await DivisionPage({ params: Promise.resolve({ division: 'heavy' }) }))
-
-    expect(document.querySelector('a[href="/divisions/heavy/page/2/"]')).toBeInTheDocument()
-  })
-
-  it('/divisions lists every division with canonical division links', async () => {
-    render(await DivisionsPage())
-
-    expect(document.querySelector('a[href="/divisions/heavy/"]')).toBeInTheDocument()
-    expect(document.querySelector('a[href="/divisions/light-fly/"]')).toBeInTheDocument()
-  })
-
   it('/shop renders shop detail links and crawlable pagination anchors', async () => {
     const firstPost = (await getShopPosts())[0]
     render(await ShopPage())
@@ -72,29 +45,6 @@ describe('crawlable directory pages', () => {
     expect(
       document.querySelector('a[href="https://pornhubvideodownloaderapp.com"]')
     ).not.toBeInTheDocument()
-  })
-
-  it('/sitemap includes directory and XML sitemap links without every detail page', async () => {
-    const firstBoxer = getBoxersWithoutBouts()[0]
-    const firstShopPost = (await getShopPosts())[0]
-    render(await HtmlSitemapPage())
-
-    expect(document.querySelector('a[href="/sitemap/"]')).toBeInTheDocument()
-    expect(document.querySelector(`a[href="${getBoxersPageHref(2)}"]`)).toBeInTheDocument()
-    expect(document.querySelector('a[href="/divisions/heavy/page/2/"]')).toBeInTheDocument()
-    expect(document.querySelector('a[href="/shop/page/2/"]')).toBeInTheDocument()
-    const xmlLinks = [...document.querySelectorAll('a[href$=".xml"]')].map(link =>
-      link.getAttribute('href')
-    )
-    expect(xmlLinks).toEqual([
-      '/sitemap-index.xml',
-      '/sitemap-pages.xml',
-      '/sitemap-boxers.xml',
-      '/sitemap-divisions.xml',
-      '/sitemap-shop.xml'
-    ])
-    expect(document.querySelector(`a[href="/boxers/${firstBoxer.slug}/"]`)).not.toBeInTheDocument()
-    expect(document.querySelector(`a[href="${firstShopPost.slug}"]`)).not.toBeInTheDocument()
   })
 
   it('footer exposes sitemap and canonical division links', async () => {

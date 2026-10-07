@@ -4,15 +4,11 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { FightHistory } from '@/components/fight-history'
 import { OptimizedImage } from '@/components/optimized-image'
-import { boxerProfileStaticParams, getBoxerProfile } from '@/lib/boxer-data'
-import { getBoxerStats } from '@/lib/boxers-loader'
+import { getBoxerProfile } from '@/lib/boxer-data'
+import { getBoxerStats } from '@/lib/boxer-stats'
 import { createBoxerMetaDescription } from '@/lib/metadata'
 import { getSiteOrigin } from '@/lib/site-config'
 import { normalizeInternalPath, toAbsoluteUrl } from '@/lib/url-utils'
-
-// The static export prerenders every profile from the committed JSON. The Worker prerenders none:
-// it renders each profile on request from D1, and an unknown slug is a 404 (lib/boxer-data).
-export const generateStaticParams = boxerProfileStaticParams
 
 export async function generateMetadata({
   params

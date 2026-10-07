@@ -86,9 +86,12 @@ describe('isSitemapRequest', () => {
     ['/sitemaps/pages/1.xml', true],
     ['/sitemaps/pages/1.xml/', true],
     ['/sitemap.xml/', true],
+    ['//sitemap.xml', true],
+    ['/sitemaps//pages/1.xml', true],
     ['/sitemap-zzz.xml', true],
     ['/sitemap/', false],
     ['/sitemap-index.xml/', false],
+    ['//sitemap-index.xml', false],
     ['/sitemaps/', false],
     ['/boxers/sitemap-index.xml', false],
     ['/robots.txt', false]
@@ -148,7 +151,9 @@ describe('handleSitemapRequest', () => {
     '/sitemaps/pages/1.xml',
     '/sitemaps/pages/1.xml/',
     '/sitemaps/boxers/3.xml',
-    '/sitemaps/blog/1.xml'
+    '/sitemaps/blog/1.xml',
+    '//sitemap.xml',
+    '/sitemaps//pages/1.xml'
   ])('redirects the old %s to the index with a 308, without reading D1', async path => {
     const site = setup()
     const response = await site.fetch(path)
@@ -298,7 +303,9 @@ describe('the sitemaps through the Worker pipeline', () => {
     'https://www.boxingundefeated.com/sitemaps/boxers/1.xml/',
     'https://boxingundefeated-com-production.serpcompany.workers.dev/sitemap.xml?x=1',
     `${ORIGIN}/sitemaps/pages/1.xml/`,
-    `${ORIGIN}/sitemap.xml`
+    `${ORIGIN}/sitemap.xml`,
+    `${ORIGIN}//sitemap.xml`,
+    `${ORIGIN}/sitemaps//pages/1.xml`
   ])('sends the old %s to the canonical index in one hop', async url => {
     const { site, serve, runtime } = pipeline()
     const response = await handleWorkerRequest(new Request(url), production, serve, runtime)
@@ -309,7 +316,7 @@ describe('the sitemaps through the Worker pipeline', () => {
     expect(site.load).not.toHaveBeenCalled()
   })
 
-  it('leaves a slashed sitemap URL to the trailing-slash redirect in OpenNext', async () => {
+  it('leaves a new-style sitemap URL with a slash (/sitemap-index.xml/) to the trailing-slash redirect in OpenNext', async () => {
     const { serve, runtime } = pipeline()
     await handleWorkerRequest(
       new Request(`${ORIGIN}/sitemap-index.xml/`),

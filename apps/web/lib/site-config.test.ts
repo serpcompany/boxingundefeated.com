@@ -14,49 +14,24 @@ import {
   STAGING_ORIGIN
 } from './site-config'
 
-const exportBuild: SiteConfigInput = { buildOutput: 'export', nodeEnv: 'production' }
-const workerRuntime: SiteConfigInput = { buildOutput: 'worker', nodeEnv: 'production' }
+const workerRuntime: SiteConfigInput = {}
 
 describe('resolveSiteEnvironment', () => {
   it.each(['local', 'staging', 'production'] as const)('uses an explicit %s', environment => {
     expect(resolveSiteEnvironment({ siteEnvironment: environment })).toBe(environment)
-    expect(resolveSiteEnvironment({ ...exportBuild, siteEnvironment: environment })).toBe(
-      environment
-    )
-    expect(resolveSiteEnvironment({ ...workerRuntime, siteEnvironment: environment })).toBe(
-      environment
-    )
   })
 
   it.each([
     ['nothing set', {}],
-    ['the Worker runtime without SITE_ENVIRONMENT', workerRuntime],
-    ['next dev', { buildOutput: 'export', nodeEnv: 'development' }],
-    ['tests', { nodeEnv: 'test' }]
+    ['an empty value', { siteEnvironment: '' }]
   ])('falls back to local for %s', (_name, input: SiteConfigInput) => {
     expect(resolveSiteEnvironment(input)).toBe('local')
   })
 
   it.each(['Production', 'prod', ' production', 'preview'])(
-    'treats the unknown value %j as local, even in the export',
+    'treats the unknown value %j as local',
     value => {
       expect(resolveSiteEnvironment({ siteEnvironment: value })).toBe('local')
-      expect(resolveSiteEnvironment({ ...exportBuild, siteEnvironment: value })).toBe('local')
-    }
-  )
-
-  it('treats the static export as production when nothing says otherwise', () => {
-    expect(resolveSiteEnvironment(exportBuild)).toBe('production')
-    expect(resolveSiteEnvironment({ ...exportBuild, githubEventName: 'push' })).toBe('production')
-    expect(resolveSiteEnvironment({ ...exportBuild, githubEventName: 'workflow_dispatch' })).toBe(
-      'production'
-    )
-  })
-
-  it.each(['pull_request', 'pull_request_target'])(
-    'keeps a %s export (the Surge preview) non-production',
-    githubEventName => {
-      expect(resolveSiteEnvironment({ ...exportBuild, githubEventName })).toBe('local')
     }
   )
 })
@@ -69,13 +44,11 @@ describe('getSiteConfig', () => {
     expect(getSiteConfig({ siteEnvironment: 'local', port: '3003' }).origin).toBe(
       'http://localhost:3003'
     )
-    expect(getSiteConfig(exportBuild).origin).toBe('https://boxingundefeated.com')
     expect(getSiteConfig(workerRuntime).origin).toBe('http://localhost:8787')
   })
 
   it('renders Google Tag Manager only in production', () => {
     expect(getSiteConfig({ siteEnvironment: 'production' }).gtmId).toBe(GTM_ID)
-    expect(getSiteConfig(exportBuild).gtmId).toBe('GTM-PP4HWLM')
     expect(getSiteConfig({ siteEnvironment: 'staging' }).gtmId).toBeNull()
     expect(getSiteConfig({ siteEnvironment: 'local' }).gtmId).toBeNull()
     expect(getSiteConfig(workerRuntime).gtmId).toBeNull()

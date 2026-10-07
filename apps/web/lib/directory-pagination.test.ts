@@ -1,4 +1,3 @@
-import { getBoxerCategories, getBoxersWithoutBouts } from './boxers-loader'
 import {
   BOXER_PAGE_SIZE,
   getBoxersPageHref,
@@ -10,11 +9,13 @@ import {
 } from './directory-pagination'
 
 describe('directory pagination helpers', () => {
-  const boxers = getBoxersWithoutBouts()
+  // The full import's boxer count: 117 pages of 48.
+  const boxers = Array.from({ length: 5570 }, (_, index) => index)
 
   it('uses 48 boxers per page and exposes 117 boxer directory pages', () => {
     expect(BOXER_PAGE_SIZE).toBe(48)
     expect(getTotalPages(boxers.length, BOXER_PAGE_SIZE)).toBe(117)
+    expect(getTotalPages(0)).toBe(1)
   })
 
   it('maps boxer directory page numbers to canonical hrefs', () => {
@@ -31,24 +32,22 @@ describe('directory pagination helpers', () => {
     }
   })
 
-  it('returns null for invalid requested pages', () => {
+  it('slices a page and returns null for invalid requested pages', () => {
+    expect(getPaginatedItems(boxers, 117)).toMatchObject({
+      currentPage: 117,
+      totalPages: 117,
+      startIndex: 5568,
+      endIndex: 5570,
+      items: [5568, 5569]
+    })
     expect(getPaginatedItems(boxers, 0)).toBeNull()
     expect(getPaginatedItems(boxers, 118)).toBeNull()
   })
 
-  it('computes division pagination from current boxer data', () => {
-    const categories = getBoxerCategories()
-
-    for (const category of categories) {
-      const divisionBoxers = boxers.filter(boxer => boxer.proDivision === category.division)
-      const expectedTotalPages = getTotalPages(divisionBoxers.length, BOXER_PAGE_SIZE)
-
-      expect(getPaginationPages(divisionBoxers.length)).toHaveLength(expectedTotalPages)
-      expect(getDivisionPageHref(category.slug, 1)).toBe(`/divisions/${category.slug}/`)
-
-      if (expectedTotalPages > 1) {
-        expect(getDivisionPageHref(category.slug, 2)).toBe(`/divisions/${category.slug}/page/2/`)
-      }
-    }
+  it('paginates a division by its boxer count', () => {
+    expect(getPaginationPages(48)).toEqual([1])
+    expect(getPaginationPages(49)).toEqual([1, 2])
+    expect(getDivisionPageHref('light-fly', 1)).toBe('/divisions/light-fly/')
+    expect(getDivisionPageHref('light-fly', 2)).toBe('/divisions/light-fly/page/2/')
   })
 })

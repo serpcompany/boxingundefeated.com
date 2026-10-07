@@ -1,8 +1,6 @@
 import type { BoutWithOpponent, Boxer, BoxerProfile } from '@boxingundefeated/data-ops'
 import { render, screen, waitFor } from '@testing-library/react'
 
-// `loadPage` gives a test a fresh module registry, mocks included, so the mocks delegate to these
-// shared functions.
 const mockGetCloudflareContext = jest.fn()
 const mockQueryBoxerProfile = jest.fn<Promise<BoxerProfile | null>, [unknown, string]>()
 
@@ -22,30 +20,7 @@ jest.mock('@boxingundefeated/data-ops', () => ({
   getBoxerProfile: (db: unknown, slug: string) => mockQueryBoxerProfile(db, slug)
 }))
 
-type PageModule = typeof import('./page')
-
-// next.config.ts inlines SITE_BUILD_OUTPUT into every build; the module reads it when it loads.
-process.env.SITE_BUILD_OUTPUT = 'export'
-const { default: BoxerPage, generateMetadata } = require('./page') as PageModule
-
-/**
- * The page module as a build target compiles it: next.config.ts inlines SITE_BUILD_OUTPUT, so
- * `generateStaticParams` is fixed when the module loads. Not for rendering: the fresh registry
- * has its own React.
- */
-function loadPage(target: 'export' | 'worker'): PageModule {
-  process.env.SITE_BUILD_OUTPUT = target
-  let page: PageModule | undefined
-  jest.isolateModules(() => {
-    page = require('./page')
-  })
-  return page!
-}
-
-/** Reads go to the target's source at request time. */
-function buildTarget(target: 'export' | 'worker') {
-  process.env.SITE_BUILD_OUTPUT = target
-}
+import BoxerPage, { generateMetadata } from './page'
 
 const params = (slug: string) => ({ params: Promise.resolve({ slug }) })
 
@@ -90,7 +65,7 @@ function d1Boxer(fields: Partial<Boxer>): Boxer {
 }
 
 // Each bout's position comes from its index here. Avoid the column's name in apps/web: Tailwind
-// scans these files and would add a CSS utility of that name to the static export.
+// scans these files and would add a CSS utility of that name to the site's CSS.
 function d1Bout(index: number, opponentName: string, opponentSlug: string | null) {
   return {
     id: index + 1,
@@ -127,56 +102,19 @@ function detail(label: string): HTMLElement | null {
   return (term?.nextElementSibling as HTMLElement | null) ?? null
 }
 
-afterEach(() => {
-  process.env.SITE_BUILD_OUTPUT = 'export'
-})
-
-describe('boxer profile page, unknown build target', () => {
-  it('fails closed instead of guessing a data source', async () => {
-    expect(() => loadPage('static' as never)).toThrow(/SITE_BUILD_OUTPUT is "static"/)
-
-    process.env.SITE_BUILD_OUTPUT = ''
-    await expect(BoxerPage(params('jesse-hart'))).rejects.toMatchObject({
-      name: 'BuildTargetError'
-    })
-    expect(mockQueryBoxerProfile).not.toHaveBeenCalled()
-  })
-})
-
-describe('boxer profile page, static export', () => {
-  it('prerenders every boxer from the committed JSON', async () => {
-    const page = loadPage('export')
-    const slugs = await page.generateStaticParams!()
-    expect(slugs.length).toBeGreaterThan(5000)
-    expect(slugs).toContainEqual({ slug: 'jesse-hart' })
-  })
-
-  it('renders the JSON record, with newline-separated staff as one value', async () => {
-    buildTarget('export')
-    render(await BoxerPage(params('jesse-hart')))
-
-    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(
-      // The source quotes nicknames and the page quotes them again: today's output, kept.
-      'Jesse Hart""Hard Work""'
-    )
-    expect(detail('Managers')?.textContent).toBe('Ron Dove\nBob Kane')
-    expect(detail('Trainers')).toBeNull()
-    expect(mockQueryBoxerProfile).not.toHaveBeenCalled()
-  })
-})
-
-describe('boxer profile page, Worker', () => {
+describe('boxer profile page', () => {
   beforeEach(() => {
     mockGetCloudflareContext.mockResolvedValue({
       env: { DB: {} as D1Database, SITE_ENVIRONMENT: 'local' }
     } as never)
   })
 
-  it('prerenders nothing', () => {
-    expect(loadPage('worker').generateStaticParams).toBeUndefined()
+  it('prerenders nothing: each profile renders on request', async () => {
+    const page = await import('./page')
+    expect('generateStaticParams' in page).toBe(false)
   })
 
-  it('renders the D1 profile like the static page: staff lists, opponent links', async () => {
+  it('renders the D1 profile: staff lists, opponent links', async () => {
     const profile: BoxerProfile = {
       boxer: d1Boxer({
         nicknames: '"Hard Work"',
@@ -187,7 +125,6 @@ describe('boxer profile page, Worker', () => {
       bouts: [d1Bout(0, 'Linked Opponent', 'linked-opponent'), d1Bout(1, 'Unknown Opponent', null)]
     }
     mockQueryBoxerProfile.mockResolvedValue(profile)
-    buildTarget('worker')
 
     render(await BoxerPage(params('ana-alpha')))
 
@@ -212,7 +149,6 @@ describe('boxer profile page, Worker', () => {
       boxer: d1Boxer({ bio: '<p>Southpaw.</p>' }),
       bouts: []
     })
-    buildTarget('worker')
     const metadata = await generateMetadata(params('ana-alpha'))
 
     expect(metadata.title).toBe('Ana Alpha - Professional Boxer')
@@ -224,7 +160,6 @@ describe('boxer profile page, Worker', () => {
 
   it('is a 404 for a slug D1 does not have', async () => {
     mockQueryBoxerProfile.mockResolvedValue(null)
-    buildTarget('worker')
 
     await expect(BoxerPage(params('world'))).rejects.toThrow('NEXT_HTTP_ERROR_FALLBACK;404')
     await expect(generateMetadata(params('world'))).resolves.toEqual({
@@ -232,11 +167,10 @@ describe('boxer profile page, Worker', () => {
     })
   })
 
-  it('fails closed without the DB binding instead of falling back to the JSON', async () => {
+  it('fails closed without the DB binding', async () => {
     mockGetCloudflareContext.mockResolvedValue({
       env: { SITE_ENVIRONMENT: 'production' }
     } as never)
-    buildTarget('worker')
 
     const failedClosed = { name: 'DataBindingError', message: expect.stringContaining('DB') }
     await expect(BoxerPage(params('jesse-hart'))).rejects.toMatchObject(failedClosed)

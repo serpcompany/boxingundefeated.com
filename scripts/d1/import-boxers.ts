@@ -10,8 +10,8 @@
  *
  * The source defaults to $BOXERS_SOURCE, then from-pipeline/boxers.json in the repo root. The SQL
  * files land in d1/.import/<target>/ (gitignored). Production needs `--confirm-production` and an
- * explicit `--source`, never under d1/fixtures/, with at least 95 % of the boxers the site serves
- * today unless `--allow-small-source`. A staging import refuses to prune more than 1 % of the
+ * explicit `--source`, never under d1/fixtures/, with at least 95 % of the boxers production D1
+ * holds now, and never under 5,000, unless `--allow-small-source`. A staging import refuses to prune more than 1 % of the
  * boxers (at most 50), and a production import any boxer, unless `--allow-prune <n>` allows that
  * many. A repeated flag is refused.
  *
@@ -46,7 +46,8 @@ import {
   resolveTarget,
   type SqlFile
 } from '../../packages/data-ops/src/import'
-import { APP_DIR, d1ExecuteFile, d1Query, REPO_ROOT } from './wrangler'
+import { searchFoldingGaps } from '../../packages/data-ops/src/search'
+import { d1ExecuteFile, d1Query, REPO_ROOT } from './wrangler'
 
 export function resolveSource(value: string | true | undefined): string {
   if (typeof value === 'string') return resolve(process.cwd(), value)
@@ -144,11 +145,18 @@ function main(): void {
       `${number(dataset.sourceCounts.boxers)} boxers, ${number(dataset.sourceCounts.bouts)} bouts.`
   )
   if (target.name === 'production') {
-    const indexPath = join(APP_DIR, 'public/data/boxers/index.json')
-    const live = (JSON.parse(readFileSync(indexPath, 'utf8')) as unknown[]).length
-    checkProductionSourceSize(dataset.sourceCounts.boxers, live, allowSmallSource)
+    const [served] = d1Query<{ boxers: number }>(target, 'SELECT count(*) AS boxers FROM boxers')
+    checkProductionSourceSize(dataset.sourceCounts.boxers, served?.boxers ?? 0, allowSmallSource)
   }
   for (const drop of dataset.dropped) console.log(`  dropped ${drop.slug}: ${drop.reason}`)
+  // Search folds only what the stored keys fold (packages/data-ops/src/search.ts): a name with
+  // another accented or non-Latin capital letter would not be found by that letter.
+  for (const gap of searchFoldingGaps(dataset.boxers)) {
+    console.warn(
+      `  warning: ${gap.slug} ${gap.field} has ${gap.characters.join(' ')}, which search can't ` +
+        'match; folding it needs a new boxers_search_idx migration.'
+    )
+  }
 
   const files = buildImportFiles(dataset)
   const outDir = resolve(

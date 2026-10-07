@@ -1,99 +1,52 @@
 # Boxing Undefeated
 
-A comprehensive boxing database and directory featuring 4,500+ professional boxers with detailed statistics and fight histories.
+A boxing database at [boxingundefeated.com](https://boxingundefeated.com): about 5,600 professional
+boxer profiles with fight histories, weight division listings, boxer search and an
+Amazon-affiliate shop.
 
-Agents and contributors: start with [AGENTS.md](AGENTS.md) for the repository map, commands and workflow.
+Agents and contributors: start with [AGENTS.md](AGENTS.md) for the repository map, commands,
+environments and workflow.
 
-## Tech Stack
+## Stack
 
-- **Framework**: Next.js 16 and React 19 on an OpenNext Worker, built with Turbopack
-- **Styling**: Tailwind CSS 4
-- **Monorepo**: Turbo
-- **Deployment**: Cloudflare Workers (OpenNext) with D1; see AGENTS.md
+- **Runtime**: Next.js 16 and React 19 as one OpenNext Worker on Cloudflare, with a local, a
+  staging and a production environment (`apps/web/wrangler.jsonc`).
+- **Data**: boxers, bouts and divisions live in Cloudflare D1, one database per environment, with
+  a Drizzle schema and reviewed migrations (`packages/data-ops`, `d1/drizzle`). Boxer pages,
+  listings, divisions, the homepage, search and the XML sitemaps read D1 on request, behind an
+  edge cache. Shop articles and legal pages are markdown and TSX, prerendered at build.
+- **Styling**: Tailwind CSS 4 and a shared shadcn design system (`packages/design-system`).
+- **Monorepo**: pnpm workspaces and Turbo.
 
-## Project Structure
+## Layout
 
 ```
-├── apps/
-│   └── web/                      # Main Next.js application
-│       ├── app/                  # App router pages
-│       ├── components/           # React components
-│       ├── content/              # MDX content (blog, legal)
-│       ├── data/                 # Source data
-│       │   └── boxers.json       # Main boxer database (72MB)
-│       ├── lib/                  # Application utilities
-│       │   ├── blog-loader.ts   # Blog content loading
-│       │   ├── boxers-loader.ts # Boxer data loading
-│       │   └── routes.ts        # Route definitions
-│       ├── public/
-│       │   ├── data/boxers/     # Individual boxer JSON files (4,500+)
-│       │   └── images/boxers/   # Boxer profile images
-│       └── scripts/              # Web-specific build scripts
-│           ├── generate-boxer-search.ts
-│           └── generate-search.ts
-│
-├── packages/                     # Shared packages
-│   ├── design-system/           # UI components library
-│   │   └── lib/                 # Component utilities
-│   └── utils/                   # Shared utility functions
-│
-├── configs/                      # Shared configurations
-│   ├── next/                    # Next.js config
-│   └── typescript/              # TypeScript config
-│
-└── scripts/                      # Root-level build & data scripts
-    ├── split-boxer-data.js      # Splits main JSON into individual files
-    ├── download-and-update-boxer-images.js  # Image processing
-    └── validate-boxer-data.js   # Validates pipeline boxer data
+apps/web/            The Next.js app and the Worker (worker.ts, lib/worker/)
+apps/e2e/            Playwright smoke tests, URL parity and the sitemap URL list for link checks
+packages/data-ops/   D1 schema, queries, the pipeline importer's mapping and the parity rules
+packages/design-system/
+configs/             Shared Next.js and TypeScript configuration
+d1/                  Migrations, the committed fixture and parity reports
+scripts/d1/          db:import, db:parity, db:check-deployable
 ```
 
-## Development
+## Data
+
+The pipeline's output (`from-pipeline/boxers.json`, about 104 MB, gitignored) is the only source
+of boxer data. `pnpm db:import` loads it into an environment's D1, idempotently, and
+`pnpm db:parity` proves the import lost nothing by comparing every row with that file. Local
+development and CI use a small committed fixture (`d1/fixtures/boxers.sample.json`).
 
 ```bash
-# Install dependencies
 pnpm install
-
-# Run development server
-pnpm dev
-
-# Build for production
-pnpm build
+pnpm db:reset:local                    # migrate the local D1 and seed the fixture
+pnpm --filter web exec next dev --port 3003  # pages only; search and XML sitemaps need the Worker
+pnpm preview:worker                    # the Worker build, served on http://localhost:8787
+pnpm check                             # the finish gate
 ```
 
-## Build Process
+## Deploys
 
-The build automatically:
-1. Generates static HTML for all boxer pages
-2. Creates search indexes
-3. Exports to `apps/web/out/` for deployment
-
-## Data Structure
-
-- **Source**: Single `boxers.json` (72MB) with all boxer data
-- **Build Output**: Individual JSON files per boxer for optimal loading
-- **Search**: Pre-built search indexes for fast client-side search
-- **Images**: Boxer profile images served from `/images/boxers/`
-
-## Folder Organization
-
-### Data Folders
-- `apps/web/data/` - Source data files (main boxers.json)
-- `apps/web/public/data/` - Individual boxer JSON files for web serving
-- `apps/web/out/data/` - Build output (gitignored)
-
-### Script Folders
-- `/scripts/` - Root-level build and data processing scripts
-- `apps/web/scripts/` - Web application-specific generation scripts
-- `apps/web/lib/` - Application runtime utilities and loaders
-
-### Package Libraries
-- `packages/*/lib/` - Package-specific utility functions
-
-## Recent Cleanup (Issue #15)
-
-Removed redundancies from template conversion:
-- Consolidated all images to `apps/web/public/images/`
-- Removed empty `.codersinflow` template folder
-- Removed duplicate root `/images` folder
-- Cleaned up unused scripts
-- Added `.swc` cache to gitignore
+`staging` is the base branch: CI deploys the staging Worker on every merge into it. The owner
+promotes `staging` to `main`, which deploys production. Data imports into staging and production
+run separately from deploys (AGENTS.md, "D1").

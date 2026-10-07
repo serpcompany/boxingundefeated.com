@@ -1,4 +1,3 @@
-import { getBoxersWithoutBouts } from './boxers-loader'
 import {
   createBoxerMetaDescription,
   createMetaDescription,
@@ -43,15 +42,15 @@ describe('metadata helpers', () => {
   })
 
   it('creates non-empty capped boxer meta descriptions from boxer data', () => {
-    const boxer = getBoxersWithoutBouts().find(item => item.bio && item.bio.length > 160)
+    const boxer = { name: 'Jesse Hart', bio: `<p>${'A long boxing career. '.repeat(20)}</p>` }
 
-    expect(boxer).toBeDefined()
+    const description = createBoxerMetaDescription(boxer)
 
-    const description = createBoxerMetaDescription(boxer!)
-
-    expect(description).toEqual(expect.any(String))
-    expect(description.length).toBeGreaterThan(0)
+    expect(
+      description.startsWith('Professional boxing record and statistics for Jesse Hart.')
+    ).toBe(true)
     expect(description.length).toBeLessThanOrEqual(MAX_META_DESCRIPTION_LENGTH)
+    expect(description.endsWith('...')).toBe(true)
   })
 
   it('creates non-empty capped shop post meta descriptions from post excerpts', async () => {

@@ -11,47 +11,30 @@ export const INTERNAL_PACKAGES = [
   '@boxingundefeated/config-typescript'
 ]
 
-// `build:worker` sets NEXT_BUILD_TARGET=worker for the OpenNext Worker build. Every other build
-// (`build`, `build:vercel`, the GitHub Pages deploy) stays a static export to `out/`.
-const isWorkerBuild = process.env.NEXT_BUILD_TARGET === 'worker'
-
 let nextConfig: NextConfig = {
   ...baseConfig,
 
-  output: isWorkerBuild ? undefined : 'export',
   // Pages end in a slash and files never do (SERP URL trailing-slash standard). The built-in
   // redirect is off (`skipTrailingSlashRedirect` in the shared base config); the Worker applies
-  // the standard's rules in `redirects()` instead. The static export can't serve redirects, so it
-  // gets none: GitHub Pages serves each page only at its slashed path.
+  // the standard's rules in `redirects()` instead.
   trailingSlash: true,
-  ...(isWorkerBuild ? { redirects: async () => [...slashRedirects] } : {}),
+  redirects: async () => [...slashRedirects],
 
-  // Inlined into the bundles at build time, so lib/site-config.ts can tell the static export (which
-  // is production unless SITE_ENVIRONMENT says otherwise) from the Worker, whose runtime has no
-  // NEXT_BUILD_TARGET. SITE_ENVIRONMENT itself is not inlined: the Worker reads it per request.
   env: {
-    SITE_BUILD_OUTPUT: isWorkerBuild ? 'worker' : 'export',
     // The Worker renders the HTML sitemap on request, from D1, and can't read `content/` then, so
     // its shop pagination comes from the count taken here (lib/shop-loader.ts).
-    ...(isWorkerBuild ? { SHOP_POST_COUNT: String(countShopPosts()) } : {})
+    SHOP_POST_COUNT: String(countShopPosts())
   },
-
-  // No basePath needed for the boxingundefeated.com custom domain.
-  // basePath: process.env.NODE_ENV === 'production' ? '/boxing' : '',
-  // assetPrefix: process.env.NODE_ENV === 'production' ? '/boxing' : '',
 
   transpilePackages: INTERNAL_PACKAGES,
 
   pageExtensions: ['ts', 'tsx'],
 
   images: {
-    unoptimized: true, // Required for static export
+    // Served as they are: the Worker has no image optimization. Boxer avatars (boxrec.com) are
+    // plain <img> tags; `next/image` loads only the footer's DR badge.
+    unoptimized: true,
     remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'boxrec.com',
-        pathname: '/**'
-      },
       {
         protocol: 'https',
         hostname: 'dr.serp.co',

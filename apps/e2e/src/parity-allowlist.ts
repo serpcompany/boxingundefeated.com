@@ -28,8 +28,8 @@ export const PARITY_ALLOWLIST: AllowedDifference[] = [
     field: 'status' as const,
     actual: '404',
     reason:
-      'Broken on the live site too: the static export renders the not-found page for these ' +
-      'non-ASCII slugs, which GitHub Pages serves as a 200 with noindex and no content. The ' +
-      'Worker answers 404. Serving these two articles is a follow-up.'
+      'Known broken: the Worker answers 404 for these non-ASCII slugs, and the sitemaps leave ' +
+      'them out. Before the cutover, GitHub Pages served the not-found page with a 200. ' +
+      'Serving these two articles is #53.'
   }))
 ]

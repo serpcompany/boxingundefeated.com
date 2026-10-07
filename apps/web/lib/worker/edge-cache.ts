@@ -12,8 +12,8 @@
  * new markup and data need no purge: old entries expire on their own.
  *
  * Only pages: a GET or HEAD for a path ending in `/` (pages end in a slash, files never do), and
- * only a 200 HTML or RSC response is stored. Files from `public/` (ads.txt, the boxer JSON,
- * images), which `assets.run_worker_first` also sends through the Worker, pass through untouched,
+ * only a 200 HTML or RSC response is stored. Files from `public/` (ads.txt, images), which
+ * `assets.run_worker_first` also sends through the Worker, pass through untouched,
  * as do redirects, 404s and errors. The XML sitemaps never get here: lib/worker/sitemaps.ts
  * answers and caches them.
  *
@@ -58,7 +58,7 @@ const RENDER_REQUEST_HEADERS = ['accept', 'user-agent', ...RSC_VARIANT_HEADERS] 
  * Query parameters that only attribute a visit. Pages never read them, so a cacheable page is
  * rendered and keyed without them: a campaign click shares the page everyone else gets, and no
  * stored copy carries one visitor's parameters in its RSC payload. The browser keeps the full URL,
- * so analytics still sees them; the static export likewise serves one page for every query.
+ * so analytics still sees them.
  */
 const TRACKING_PARAMETER = /^(?:utm_.+|gclid|fbclid|msclkid|ref)$/u
 

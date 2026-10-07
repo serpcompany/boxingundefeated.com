@@ -1,7 +1,6 @@
 /**
- * What `GET /api/search?q=` answers (lib/worker/search-api.ts) and what the search page renders,
- * from the API in the Worker or from the static index in the export (lib/search/). Client-safe:
- * no server or Worker imports.
+ * What `GET /api/search?q=` answers (lib/worker/search-api.ts) and what the search page renders.
+ * Client-safe: no server or Worker imports.
  */
 
 export const SEARCH_API_PATH = '/api/search'

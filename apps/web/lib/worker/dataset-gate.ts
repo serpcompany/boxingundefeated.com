@@ -10,14 +10,21 @@
  * - a re-import in progress: pages are served, cached copies of the last complete import too,
  *   but nothing new is stored, since a page rendered now may be half old, half new;
  * - a finished import: pages are cached under its generation (`importGeneration`), so the next
- *   import takes effect without a purge.
+ *   import takes effect without a purge. Every finished import is a new generation, even one that
+ *   changed no data, so any re-import, of the same data too, empties the whole page cache.
+ * - an unreadable D1 after a finished import: copies cached under the last generation this isolate
+ *   read are still served (`lastGeneration`), with `x-edge-cache: HIT`, for as long as each copy
+ *   lasts (`EDGE_CACHE_TTL_SECONDS`); a page without one is a 503. Each request still logs
+ *   `dataset_unavailable`, so that log counts stale hits as well as 503s.
  *
  * Each isolate reads `dataset_state` (one row, by primary key) at most once per
  * `DATASET_STATE_TTL_MS`, so a cached page normally costs no D1 query. For that long after an
  * import starts, an isolate can still believe no import is running and cache a page rendered from
  * half-imported data. That page is stored under the generation from before the import, which every
  * isolate has left behind within `DATASET_STATE_TTL_MS` of the import finishing, so it is never
- * served after that, even when the import left the data, and so the version, unchanged.
+ * served after that, even when the import left the data, and so the version, unchanged. The one
+ * exception is an isolate that never read the new generation before D1 became unreadable: it
+ * serves its last generation's copies, that page included, until D1 answers again.
  */
 import { createDatabase, getDatasetState } from '@boxingundefeated/data-ops'
 
@@ -45,7 +52,15 @@ export interface DatasetState {
 
 export type DatasetReadiness =
   | { ready: true; version: string; generation: string; importing: boolean }
-  | { ready: false; reason: string }
+  | {
+      ready: false
+      reason: string
+      /**
+       * When `dataset_state` is unreadable: the generation this isolate last read from a finished
+       * import, whose cached pages may still be served.
+       */
+      lastGeneration?: string
+    }
 
 export function readsD1(request: Request): boolean {
   const { pathname } = new URL(request.url)
@@ -89,6 +104,7 @@ export function datasetUnavailable(request: Request): Response {
 export class DatasetReadinessMemo {
   private inflight: Promise<DatasetReadiness> | undefined
   private value: { readiness: DatasetReadiness; expiresAt: number } | undefined
+  private lastGeneration: string | undefined
 
   constructor(
     private readonly load: () => Promise<DatasetState | null>,
@@ -104,12 +120,15 @@ export class DatasetReadinessMemo {
       .catch((error: unknown) => ({
         readiness: {
           ready: false as const,
-          reason: `dataset_state is unreadable: ${error instanceof Error ? error.message : String(error)}`
+          reason: `dataset_state is unreadable: ${error instanceof Error ? error.message : String(error)}`,
+          ...(this.lastGeneration ? { lastGeneration: this.lastGeneration } : {})
         },
         ttl: DATASET_ERROR_TTL_MS
       }))
       .then(({ readiness, ttl }) => {
         this.value = { readiness, expiresAt: this.now() + ttl }
+        if (readiness.ready) this.lastGeneration = readiness.generation
+        else if (!readiness.lastGeneration) this.lastGeneration = undefined
         return readiness
       })
       .finally(() => {

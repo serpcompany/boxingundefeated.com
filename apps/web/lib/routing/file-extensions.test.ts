@@ -1,6 +1,8 @@
 /**
  * @jest-environment node
  */
+import fs from 'node:fs'
+import path from 'node:path'
 import { getBlogSlugs } from '../blog-loader'
 import { getShopSlugs } from '../shop-loader'
 import { FILE_EXTENSION_PATTERN, hasFileExtension } from './file-extensions'
@@ -44,5 +46,18 @@ describe('page slugs', () => {
       '16.9-oz-water-bottles',
       '2.7-l-water-bottles'
     ])
+  })
+})
+
+describe('public files', () => {
+  // The Worker serves `public/` at the same paths. A file whose extension isn't listed counts as
+  // a page, so the slash redirect would send it to a slashed URL that 404s.
+  it('all end in a listed file extension', () => {
+    const root = path.join(__dirname, '..', '..', 'public')
+    const files = (fs.readdirSync(root, { recursive: true, withFileTypes: true }) as fs.Dirent[])
+      .filter(entry => entry.isFile())
+      .map(entry => path.relative(root, path.join(entry.parentPath, entry.name)))
+    expect(files.length).toBeGreaterThan(0)
+    expect(files.filter(file => !hasFileExtension(path.basename(file)))).toEqual([])
   })
 })

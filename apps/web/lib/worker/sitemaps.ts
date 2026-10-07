@@ -1,13 +1,14 @@
 /**
  * The XML sitemaps (lib/sitemaps/sitemaps.ts), answered by the Worker itself, before OpenNext
- * (lib/worker/handle-request.ts), like `/api/search`: they read D1 on request, which a Next.js
- * route handler in the static export (kept for CI's link check until #20) can't.
+ * (lib/worker/handle-request.ts), like `/api/search`: they read D1 on request, with the edge
+ * cache and the readiness gate below.
  *
  * - `/sitemap-index.xml` and `/sitemap-<group>[-<n>].xml`: generated from D1 (`getSitemapData`)
  *   and the build's content entries, with the environment's origin (lib/site-config.ts): local
  *   output lists local URLs, staging lists staging URLs. A name the index doesn't list is a 404.
  * - Old URLs: `/sitemap.xml` (the compatibility alias) and the nested `/sitemaps/<group>/<n>.xml`
- *   files the static export published, with or without a trailing slash, answer one 308 to
+ *   files GitHub Pages published, with or without a trailing slash or with repeated slashes,
+ *   answer one 308 to
  *   `/sitemap-index.xml` (on `www` and `*.workers.dev`, the canonical-host redirect does it).
  * - A name that is neither the index nor a group's file is a 404 before any D1 read.
  * - Crawl policy: robots.txt lists the index in production only. Outside production, robots.txt
@@ -45,9 +46,18 @@ export const SITEMAP_BROWSER_MAX_AGE_SECONDS = 60 * 60
 
 const CACHE_KEY_ORIGIN = 'https://edge-cache.invalid'
 
+/**
+ * An old sitemap path, also with repeated slashes (`//sitemap.xml`), which OpenNext would first
+ * collapse in a redirect of its own: the canonical host sends it to the index in one hop, as the
+ * other hosts do (lib/routing/canonical-host.ts).
+ */
+function isOldSitemapPath(pathname: string): boolean {
+  return isLegacySitemapPath(pathname.replace(/\/{2,}/g, '/'))
+}
+
 export function isSitemapRequest(request: Request): boolean {
   const { pathname } = new URL(request.url)
-  return SITEMAP_FILE.test(pathname) || isLegacySitemapPath(pathname)
+  return SITEMAP_FILE.test(pathname) || isOldSitemapPath(pathname)
 }
 
 export interface SitemapEvent {
@@ -114,7 +124,7 @@ export async function handleSitemapRequest(
   if (request.method !== 'GET' && request.method !== 'HEAD') {
     return text(request, 'Use GET.\n', 405, { allow: 'GET, HEAD', 'cache-control': 'no-store' })
   }
-  if (isLegacySitemapPath(path)) {
+  if (isOldSitemapPath(path)) {
     return new Response(null, {
       status: 308,
       headers: { location: new URL(SITEMAP_INDEX_PATH, url).href }

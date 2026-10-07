@@ -52,7 +52,7 @@ describe('canonicalHostRedirect', () => {
     [`${WWW}/about?ref=x&b=1`, 'https://boxingundefeated.com/about/?ref=x&b=1', 'query'],
     // Files from public/ reach the Worker too (assets.run_worker_first).
     [`${WWW}/ads.txt`, 'https://boxingundefeated.com/ads.txt', 'file'],
-    [`${WWW}/data/boxers/x.json`, 'https://boxingundefeated.com/data/boxers/x.json', 'file'],
+    [`${WWW}/feeds/x.json`, 'https://boxingundefeated.com/feeds/x.json', 'file'],
     // Repeated slashes collapse in the same hop.
     [`${WWW}//about`, 'https://boxingundefeated.com/about/', 'repeated slashes'],
     [`${WWW}/boxers//x//`, 'https://boxingundefeated.com/boxers/x/', 'repeated slashes'],

@@ -1,13 +1,27 @@
-# The internal link check: every link and asset in the static export (apps/web/out, after the
-# build) must resolve to a file in it. Offline, so it checks only this site's own URLs and never a
-# third-party site. CI's static-export job runs it; locally, `pnpm build` and then
-# `pnpm check:links`. Absolute links need `--root-dir` (an absolute path), so both pass it.
-offline = true
-index_files = ["index.html"]
-# apps/web/out is gitignored.
-no_ignore = true
+# The internal link check: every link and asset on every page the sitemaps list must answer 200
+# on the site under test, without a redirect. CI's worker-e2e job runs it against the local
+# Worker preview (http://localhost:8787, the D1 fixture):
+#
+#   pnpm --silent --filter e2e sitemap-urls http://localhost:8787 > urls.txt
+#   lychee --config lychee.toml --files-from urls.txt
+#
+# The excludes below apply to links found on those pages, not to the pages in urls.txt: a listed
+# page that doesn't answer 200 stops the run with "Cannot read input content from URL".
 
-# The XML sitemaps the HTML sitemap (/sitemap/) links to: the Worker generates them from D1 on
-# request (apps/web/lib/worker/sitemaps.ts), so the export has no file for them, and the E2E
-# suite checks them on the Worker (apps/e2e/tests/sitemaps.spec.ts). #20 removes the export.
-exclude = ['/sitemap-[a-z0-9-]+\.xml$']
+# Every request without a redirect: an internal link that needs one (a missing trailing slash,
+# an old URL) is a broken link.
+max_redirects = 0
+# The local preview is one workerd process.
+max_concurrency = 16
+max_retries = 2
+timeout = 30
+
+exclude = [
+  # Only the preview's own URLs: every host with a dot in its name is excluded, so no third-party
+  # site, and not the production origin that canonicals and JSON-LD name.
+  '^https?://[^/:]*\.',
+  # Known broken: the two shop articles with non-ASCII slugs 404 on the Worker (#53). The shop
+  # listing pages link them; the sitemaps leave them out (isServedShopPath, lib/sitemaps/content.ts).
+  # Remove this once they are served.
+  '^http://localhost:\d+/shop/best/(nestl%C3%A9|br%C3%BCmate)-water-bottles/$',
+]

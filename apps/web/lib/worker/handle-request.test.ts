@@ -17,7 +17,7 @@ const WORKERS_DEV = 'https://boxingundefeated-com-production.serp.workers.dev'
 const STAGING_WORKERS_DEV = 'https://boxingundefeated-com-staging.serp.workers.dev'
 
 // Pages and files from `public/` both reach the Worker (`assets.run_worker_first`).
-const paths = ['/', '/boxers/len-wickwar/', '/sitemap-index.xml', '/ads.txt', '/data/boxers/x.json']
+const paths = ['/', '/boxers/len-wickwar/', '/sitemap-index.xml', '/ads.txt', '/feeds/x.json']
 
 function serveSpy() {
   return jest.fn(() => Promise.resolve(new Response('served', { status: 200 })))
@@ -214,7 +214,7 @@ describe('handleWorkerRequest with the edge cache', () => {
     expect(serve).not.toHaveBeenCalled()
   })
 
-  it.each(['/sitemap-index.xml', '/ads.txt', '/data/boxers/x.json'])(
+  it.each(['/sitemap-index.xml', '/ads.txt', '/feeds/x.json'])(
     'passes the file %s to OpenNext as sent, every time, and returns it as served',
     async path => {
       const edge = edgeCache()
@@ -405,6 +405,28 @@ describe('handleWorkerRequest with the D1 readiness gate', () => {
 
     gate.become(imported('v1', '2026-10-06 04:30:00.000'))
     expect((await gate.fetch(listing)).headers.get(EDGE_CACHE_HEADER)).toBe('MISS')
+  })
+
+  it('serves the last good copy while D1 is unreadable, and 503 without one', async () => {
+    const gate = setup(v1)
+    await gate.fetch()
+    if (!v1.ready) throw new Error('v1 is ready')
+    gate.become({
+      ready: false,
+      reason: 'dataset_state is unreadable: D1 is down',
+      lastGeneration: v1.generation
+    })
+
+    const stale = await gate.fetch()
+    expect(stale.status).toBe(200)
+    expect(stale.headers.get(EDGE_CACHE_HEADER)).toBe('HIT')
+    expect(await stale.text()).toBe('render 1 of /boxers/len-wickwar/')
+
+    const uncached = await gate.fetch('https://boxingundefeated.com/boxers/jesse-hart/')
+    expect(uncached.status).toBe(503)
+    expect(uncached.headers.get('retry-after')).toBe('120')
+    expect(gate.serve).toHaveBeenCalledTimes(1)
+    expect(gate.cache.stored.size).toBe(1)
   })
 
   it('redirects a non-canonical host before reading D1', async () => {
