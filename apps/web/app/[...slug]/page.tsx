@@ -82,8 +82,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
   const baseUrl = getSiteOrigin()
   const isShopPost = post.slug.startsWith('/shop/')
+  // The crumbs after Home: the Breadcrumb adds Home itself.
   const breadcrumbItems = [
-    { name: 'Home', href: '/' },
     isShopPost ? { name: 'Shop', href: '/shop/' } : { name: 'Blog', href: '/blog/' },
     { name: post.title, href: encodePath(post.slug) }
   ]
