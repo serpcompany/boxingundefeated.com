@@ -10,10 +10,10 @@
  * (404). Whole sections rather than a list of URLs, because the old site's blog was WordPress:
  * posts plus author, category and tag archives with pagination (56 paths in the Wayback Machine,
  * every one under `/blog/`), and crawlers know variants the archive never saw. The shop's articles
- * include spellings with non-ASCII letters (`/shop/best/br%C3%BCmate-water-bottles/`, NFD, lowercase
- * hex); every one of them is under `/shop/`, so each is gone as it was sent. A file is one path,
- * with or without a trailing slash. Repeated slashes count as one (`//shop/`), so no spelling needs
- * a redirect first.
+ * include spellings with non-ASCII letters (`/shop/best/br%C3%BCmate-water-bottles/`, NFD,
+ * lowercase hex); every one of them is under `/shop/`, so each is gone as it was sent. A file is
+ * one path, with or without a trailing slash. Repeated slashes count as one (`//shop/`), so no
+ * spelling needs a redirect first.
  *
  * lib/worker/handle-request.ts answers it after staging's password and the canonical-host
  * redirect (`www` and `*.workers.dev` still get their one 308 to the origin first), and before the

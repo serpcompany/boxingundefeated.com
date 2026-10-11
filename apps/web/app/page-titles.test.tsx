@@ -181,18 +181,11 @@ beforeEach(() => {
   )
 })
 
-/**
- * The shop's pages, which are being retired with a 410 (owner, 2026-10-11) in their own PR, so
- * their titles stay as they are. Nothing matches once their files are gone.
- */
-const RETIRED_SHOP_PAGES = /^(shop|\[\.\.\.slug\])\//
-
 /** Every page file under app/, as the table names them. */
 function pageFiles(): string[] {
   return readdirSync(__dirname, { recursive: true, encoding: 'utf8' })
     .map(file => file.split('\\').join('/'))
     .filter(file => /(^|\/)page\.tsx$/.test(file) || file === 'not-found.tsx')
-    .filter(file => !RETIRED_SHOP_PAGES.test(file))
     .sort()
 }
 

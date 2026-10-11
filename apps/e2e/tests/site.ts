@@ -40,10 +40,7 @@ export function canonicalUrl(path: string): string {
   return path === '/' ? target.canonicalOrigin : `${target.canonicalOrigin}${path}`
 }
 
-/**
- * The document title of each sample page, which og:title and twitter:title repeat (#87). The shop's
- * pages have none here: the shop is being retired with a 410 in its own PR.
- */
+/** The document title of each sample page, which og:title and twitter:title repeat (#87). */
 export const sampleTitles: Record<string, string> = {
   '/': 'Boxing Undefeated - Professional Boxers Database',
   [boxer.path]: 'Manuel Ortiz Record, Stats & Fights - Boxing Undefeated',

@@ -10,9 +10,9 @@
  * origin. The path is already in canonical form (`lib/routing/trailing-slash.ts`), so
  * `www.boxingundefeated.com/about` goes straight to `https://boxingundefeated.com/about/`.
  * Repeated slashes are collapsed in the same hop (`//about` -> `/about/`), which OpenNext would
- * otherwise do in a second redirect. `/api` paths keep exactly the path they asked for. The query string is kept as sent. An old sitemap URL
- * (`/sitemap.xml`, `/sitemaps/<group>/<n>.xml`) goes straight to the canonical origin's
- * `/sitemap-index.xml` (lib/worker/sitemaps.ts).
+ * otherwise do in a second redirect. `/api` paths keep exactly the path they asked for. The query
+ * string is kept as sent. An old sitemap URL (`/sitemap.xml`, `/sitemaps/<group>/<n>.xml`) goes
+ * straight to the canonical origin's `/sitemap-index.xml` (lib/worker/sitemaps.ts).
  *
  * Requests that carry the smoke-test header are served normally, so CI can test a deployment
  * through its platform host. The header is not a secret: it only reveals the same public site on
