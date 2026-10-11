@@ -1,8 +1,10 @@
 import type { Metadata } from 'next'
 import type { ProfileBoxer } from './boxer-data'
 import { getSiteConfig, NON_PRODUCTION_ROBOTS_TAG, SITE_NAME, type SiteConfig } from './site-config'
+import { htmlToPlainText } from './text'
 
-export const MAX_META_DESCRIPTION_LENGTH = 160
+/** The longest meta description, in characters, the ellipsis of a cut one included. */
+export const MAX_META_DESCRIPTION_LENGTH = 155
 
 /** The not-found page's title before the site name, the same for every 404. */
 export const NOT_FOUND_TITLE = 'Page Not Found'
@@ -10,20 +12,61 @@ export const NOT_FOUND_TITLE = 'Page Not Found'
 const rootDescription =
   'Comprehensive database of professional boxers with statistics, records, and fight history.'
 const openGraphImage = '/opengraph-image.png'
+const ellipsis = '\u2026'
 
-export function createMetaDescription(description?: string | null): string {
-  const normalized = (description || rootDescription).replace(/\s+/g, ' ').trim() || rootDescription
+/** Characters a cut description shouldn't end on before its ellipsis. */
+const DANGLING_PUNCTUATION = /[\s,;:.!?\-\u2013\u2014([{"'\u201c\u2018]+$/u
 
-  if (normalized.length <= MAX_META_DESCRIPTION_LENGTH) {
-    return normalized
+/**
+ * `text`, whose whitespace is already collapsed, cut on a word boundary to at most `maxLength`
+ * characters with an ellipsis; uncut, and without one, when it fits. A first word longer than the
+ * limit is cut mid-word.
+ */
+function truncateOnWordBoundary(text: string, maxLength: number): string {
+  if (text.length <= maxLength) {
+    return text
   }
 
-  return `${normalized.slice(0, MAX_META_DESCRIPTION_LENGTH - 3).trimEnd()}...`
+  const room = maxLength - ellipsis.length
+  // A space at `room` means the words before it fit exactly.
+  const lastSpace = text.lastIndexOf(' ', room)
+  let cut = text.slice(0, lastSpace > 0 ? lastSpace : room)
+
+  // Never split a surrogate pair (an emoji) on a mid-word cut.
+  const lastCodeUnit = cut.charCodeAt(cut.length - 1)
+  if (lastCodeUnit >= 0xd800 && lastCodeUnit <= 0xdbff) {
+    cut = cut.slice(0, -1)
+  }
+
+  return `${cut.replace(DANGLING_PUNCTUATION, '') || cut}${ellipsis}`
 }
 
+/**
+ * A page's meta description, which is its `og:description` and `twitter:description` as well:
+ * plain text with its whitespace collapsed, at most `MAX_META_DESCRIPTION_LENGTH` characters, cut
+ * on a word boundary. The site's own description when there's none.
+ */
+export function createMetaDescription(description?: string | null): string {
+  const normalized = (description || '').replace(/\s+/g, ' ').trim() || rootDescription
+
+  return truncateOnWordBoundary(normalized, MAX_META_DESCRIPTION_LENGTH)
+}
+
+/**
+ * A boxer's meta description: the start of their bio as plain text (the bio is HTML), or, for a
+ * boxer without one, `Professional boxing record and statistics for <name>.`
+ *
+ * The bio's blocks run together as sentences: one that ends on a letter or digit, such as the
+ * `<name>: The Rising Star of Boxing` title that opens about a third of the bios, gets a full stop.
+ */
 export function createBoxerMetaDescription(boxer: Pick<ProfileBoxer, 'name' | 'bio'>): string {
+  const bio = htmlToPlainText(boxer.bio || '')
+    .split('\n')
+    .map(block => (/[\p{L}\p{N}]$/u.test(block) ? `${block}.` : block))
+    .join(' ')
+
   return createMetaDescription(
-    `Professional boxing record and statistics for ${boxer.name}. ${boxer.bio || ''}`
+    bio || `Professional boxing record and statistics for ${boxer.name}.`
   )
 }
 

@@ -1,6 +1,7 @@
 import {
   createBoxerMetaDescription,
   createDocumentMetadata,
+  createMetaDescription,
   createNotFoundMetadata,
   createPageMetadata,
   createRootMetadata,
@@ -137,16 +138,104 @@ describe('metadata helpers', () => {
     expect(metadata.twitter?.title).toBe(metadata.title)
     expect(metadata).not.toHaveProperty('alternates')
   })
+})
 
-  it('creates non-empty capped boxer meta descriptions from boxer data', () => {
+describe('createMetaDescription', () => {
+  it('keeps a description of exactly 155 characters whole, without an ellipsis', () => {
+    const description = `${'word '.repeat(30)}abcde`
+
+    expect(MAX_META_DESCRIPTION_LENGTH).toBe(155)
+    expect(description).toHaveLength(155)
+    expect(createMetaDescription(description)).toBe(description)
+  })
+
+  it('cuts a longer one on a word boundary, with an ellipsis, to at most 155 characters', () => {
+    // 156 characters: the last word doesn't fit with the ellipsis after it.
+    const description = `${'word '.repeat(30)}abcdef`
+    const cut = createMetaDescription(description)
+
+    expect(cut).toBe(`${'word '.repeat(30).trimEnd()}\u2026`)
+    expect(cut).toHaveLength(150)
+  })
+
+  it('cuts where the words before the ellipsis fit exactly', () => {
+    // A space at index 154: the 154 characters before it and the ellipsis make 155.
+    const description = `${'a'.repeat(154)} next words`
+
+    expect(createMetaDescription(description)).toBe(`${'a'.repeat(154)}\u2026`)
+  })
+
+  it('leaves no punctuation dangling before the ellipsis', () => {
+    const description = `${'word '.repeat(29)}endings, and more words follow here`
+
+    expect(createMetaDescription(description)).toBe(`${'word '.repeat(29)}endings\u2026`)
+  })
+
+  it('cuts a single word longer than the limit mid-word', () => {
+    expect(createMetaDescription('x'.repeat(200))).toBe(`${'x'.repeat(154)}\u2026`)
+  })
+
+  it("collapses whitespace and falls back to the site's description", () => {
+    expect(createMetaDescription('  Browse \n\t boxers. ')).toBe('Browse boxers.')
+    expect(createMetaDescription('   ')).toBe(createRootMetadata().description)
+    expect(createMetaDescription(null)).toBe(createRootMetadata().description)
+  })
+})
+
+describe('createBoxerMetaDescription', () => {
+  it('builds it from the bio as plain text: no tags, entities decoded', () => {
+    const boxer = {
+      name: 'Manuel Ortiz',
+      bio: '<p>Manuel <strong>Ortiz</strong> &amp; his <em>team</em>&#39;s &lt;great&gt; run.</p>'
+    }
+
+    expect(createBoxerMetaDescription(boxer)).toBe("Manuel Ortiz & his team's <great> run.")
+  })
+
+  it('runs the blocks together as sentences, closing a title block with a full stop', () => {
+    const boxer = {
+      name: 'Jeff Franklin',
+      bio:
+        '<p>Jeff Franklin: The Rising Star</p>\n\n<p>When it comes to boxing, few are as exciting.</p>' +
+        '<h2>Career highlights:</h2><p>Won 20<br>Lost 2</p>'
+    }
+
+    expect(createBoxerMetaDescription(boxer)).toBe(
+      'Jeff Franklin: The Rising Star. When it comes to boxing, few are as exciting. ' +
+        'Career highlights: Won 20. Lost 2.'
+    )
+  })
+
+  it('cuts a long bio on a word boundary to at most 155 characters, with an ellipsis', () => {
     const boxer = { name: 'Jesse Hart', bio: `<p>${'A long boxing career. '.repeat(20)}</p>` }
 
     const description = createBoxerMetaDescription(boxer)
 
-    expect(
-      description.startsWith('Professional boxing record and statistics for Jesse Hart.')
-    ).toBe(true)
     expect(description.length).toBeLessThanOrEqual(MAX_META_DESCRIPTION_LENGTH)
-    expect(description.endsWith('...')).toBe(true)
+    expect(description).toBe(`${'A long boxing career. '.repeat(6)}A long boxing career\u2026`)
+    expect(description).not.toMatch(/[<>]|&\w+;/)
+  })
+
+  it('falls back to the template for a boxer without a usable bio', () => {
+    const template = 'Professional boxing record and statistics for Abdullah Mason.'
+
+    expect(createBoxerMetaDescription({ name: 'Abdullah Mason', bio: null })).toBe(template)
+    expect(createBoxerMetaDescription({ name: 'Abdullah Mason', bio: '' })).toBe(template)
+    expect(createBoxerMetaDescription({ name: 'Abdullah Mason', bio: '<p> &nbsp; </p>' })).toBe(
+      template
+    )
+  })
+
+  it('gives the same plain description to the meta, og and twitter descriptions', () => {
+    const description = createBoxerMetaDescription({
+      name: 'Ana Alpha',
+      bio: '<p>Ana&nbsp;Alpha<br/>Southpaw</p>'
+    })
+    const metadata = createPageMetadata({ title: 'Ana Alpha Record, Stats & Fights', description })
+
+    expect(description).toBe('Ana Alpha. Southpaw.')
+    expect(metadata.description).toBe(description)
+    expect(metadata.openGraph?.description).toBe(description)
+    expect(metadata.twitter?.description).toBe(description)
   })
 })
