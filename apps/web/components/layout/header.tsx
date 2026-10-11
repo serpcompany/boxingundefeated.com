@@ -56,22 +56,14 @@ function PhoneMenu() {
     setOpen(false)
   }, [pathname])
 
-  // Tailwind scans only apps/web, not packages/design-system, so a stock component's own classes
-  // are generated only when apps/web names them too: the button's size and the popover's
-  // background and shadow are repeated here. (A size-* class here would also resize the theme
-  // toggle, which renders the same Button.)
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
-        <Button variant="ghost" size="icon" className="h-9 w-9 md:hidden" aria-label="Menu">
+        <Button variant="ghost" size="icon" className="md:hidden" aria-label="Menu">
           <Menu className="size-5" aria-hidden="true" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent
-        align="end"
-        aria-label="Site navigation"
-        className="w-56 bg-popover p-2 text-popover-foreground shadow-md"
-      >
+      <PopoverContent align="end" aria-label="Site navigation" className="w-56 p-2">
         <nav aria-label="Main" className="flex flex-col">
           {navItems.map(({ href, label }) => (
             <NavLink
