@@ -5,7 +5,13 @@
   "name": "boxingundefeated-com-local",
   "main": "worker.ts",
   "compatibility_date": "2026-10-01",
-  "compatibility_flags": ["nodejs_compat"],
+  // `global_fetch_strictly_public`: a fetch() to one of the zone's own hostnames goes out over the
+  // public internet, as any other client's would, never straight to an origin. Inherited by every
+  // env, like `upload_source_maps` and `keep_names` below.
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+  // Each deploy uploads the bundle's source maps, so Workers Logs maps stack traces to the original
+  // files. Cloudflare keeps them out of band: they never reach a visitor or count toward the bundle.
+  "upload_source_maps": true,
   // esbuild's keepNames wraps functions in `__name(...)`. Pages rendered on request (boxer
   // profiles, from D1) inline next-themes' script from `fn.toString()`, so the browser would get
   // a `__name` call it doesn't define. Inherited by every env.
@@ -15,9 +21,9 @@
   "assets": {
     "directory": ".open-next/assets",
     "binding": "ASSETS",
-    // The Worker runs before the files from `public/` (ads.txt, data/ JSON, images), so
-    // the canonical-host redirect and the crawl policy apply to them as well; OpenNext's asset
-    // resolver then serves them from ASSETS. Each such request is a billed Worker invocation.
+    // The Worker runs before the files from `public/` (ads.txt), so the canonical-host redirect
+    // and the crawl policy apply to them as well; OpenNext's asset resolver then serves them from
+    // ASSETS. Each such request is a billed Worker invocation.
     // Hashed build output under /_next/static/ stays assets-first and free: crawlers don't index
     // it, and pages on the canonical host load it on every view.
     "run_worker_first": ["/*", "!/_next/static/*"]
@@ -67,6 +73,14 @@
       "version_metadata": {
         "binding": "CF_VERSION_METADATA"
       },
+      // OpenNext calls its own Worker through WORKER_SELF_REFERENCE (on-demand revalidation and
+      // its queue, neither of which the site uses yet), so each env binds its own Worker's name.
+      // The local top level has none: a binding to the top level's own name makes `wrangler types`
+      // import worker.ts into the type check, which then fails after a Worker build, as
+      // `mainModule` did (lib/cloudflare-env-types.ts).
+      "services": [
+        { "binding": "WORKER_SELF_REFERENCE", "service": "boxingundefeated-com-staging" }
+      ],
       "d1_databases": [
         {
           "binding": "DB",
@@ -99,6 +113,10 @@
       "version_metadata": {
         "binding": "CF_VERSION_METADATA"
       },
+      // This env's own Worker (see env.staging).
+      "services": [
+        { "binding": "WORKER_SELF_REFERENCE", "service": "boxingundefeated-com-production" }
+      ],
       "d1_databases": [
         {
           "binding": "DB",
