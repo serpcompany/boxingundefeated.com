@@ -7,9 +7,9 @@ import { expect, samplePages, target, test } from './site'
  * first: a small page with noindex that links home, never stored by the edge cache. No page links
  * to them, and the sitemap index no longer lists the shop's sitemap.
  *
- * On the production apex the shared brands Worker (serpcompany/serp `workers/brands-page`) answers
- * `boxingundefeated.com/brands*` before this Worker until serpcompany/serp#1490 removes its route:
- * `/brands` gets its 308 first. CI tests the workers.dev host, which that route never covers.
+ * The shared brands Worker's route on the production apex was removed (serpcompany/serp#1490,
+ * 2026-10-11): production `/brands` and `/brands/` answer this 410, with no `x-brands-*` headers.
+ * CI tests the workers.dev host.
  */
 const RETIRED_SECTIONS = ['/blog', '/brands', '/shop']
 const RETIRED_FILES = ['/sitemap-shop.xml']

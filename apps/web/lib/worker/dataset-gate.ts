@@ -17,9 +17,11 @@
  *   lasts (`EDGE_CACHE_TTL_SECONDS`); a page without one is a 503. Each request still logs
  *   `dataset_unavailable`, so that log counts stale hits as well as 503s.
  *
- * Each isolate reads `dataset_state` (one row, by primary key) at most once per
- * `DATASET_STATE_TTL_MS`, so a cached page normally costs no D1 query. For that long after an
- * import starts, an isolate can still believe no import is running and cache a page rendered from
+ * Each isolate keeps its `dataset_state` answer (one row, by primary key) for
+ * `DATASET_STATE_TTL_MS`, so a cached page normally costs no D1 query. Requests share only the
+ * stored answer, never a read in flight (`DatasetReadinessMemo`), so a burst at expiry reads once
+ * per request until a fresh answer is stored. For up to `DATASET_STATE_TTL_MS` after an import
+ * starts, an isolate can still believe no import is running and cache a page rendered from
  * half-imported data. That page is stored under the generation from before the import, which every
  * isolate has left behind within `DATASET_STATE_TTL_MS` of the import finishing, so it is never
  * served after that, even when the import left the data, and so the version, unchanged. The one
