@@ -21,8 +21,9 @@ name: D1 import
 # commit has migrated that environment. Both refuse while a ci.yml deploy of the environment runs
 # or is pending, in the preflight and again right before the import. That guards one direction
 # only: a deploy that starts during an import migrates before its check refuses (#104). Both also
-# refuse unless the branch is still at the commit the run checked out, since a queue or the
-# production approval can outlast a merge: re-dispatch from the new tip. Imports keep the prune cap
+# refuse unless the branch is still at the commit the run checked out, before their first
+# Cloudflare step and again before their first D1 step, since a queue or the production approval
+# can outlast a merge: re-dispatch from the new tip. Imports keep the prune cap
 # (scripts/d1/import-boxers.ts); allow_prune, at most 250, raises it for one run and shows in the
 # run's name. A re-import keeps the last version's pages up while it runs; a deploy of the same
 # environment that starts meanwhile fails db:check-deployable (an import in progress), so re-run
@@ -122,21 +123,29 @@ jobs:
       - name: Install
         uses: ./.github/actions/install
 
+      # The checkout is this run's commit; refuse before any Cloudflare step if staging has moved
+      # on since (a queue can outlast a merge).
+      - name: Require staging to be at this run's commit
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ENVIRONMENT: staging
+        run: .github/scripts/verify-d1-import.sh --tip-only
+
       - name: Fetch the artifact from the staging bucket and check its SHA-256
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: pnpm db:fetch-artifact -- --target staging --version "$VERSION" --out "$SOURCE"
 
-      # Again, right before the first D1 write.
+      # Again, right before the first D1 step.
       - name: Require no deploy of staging running or pending
         env:
           GH_TOKEN: ${{ github.token }}
           ENVIRONMENT: staging
         run: .github/scripts/verify-d1-import.sh --deploys-only
 
-      # The checkout is this run's commit; refuse if staging has moved on since.
-      - name: Require staging to be at this run's commit
+      # And the tip again, after the fetch.
+      - name: Require staging to still be at this run's commit
         env:
           GH_TOKEN: ${{ github.token }}
           ENVIRONMENT: staging
@@ -225,6 +234,14 @@ jobs:
       - name: Install
         uses: ./.github/actions/install
 
+      # The checkout is this run's commit, and main may have moved on during the approval wait:
+      # refuse before any Cloudflare step, so a stale run neither reads nor writes a bucket.
+      - name: Require main to be at this run's commit
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ENVIRONMENT: production
+        run: .github/scripts/verify-d1-import.sh --tip-only
+
       # A re-import reads the version production already pins. A key holding other content fails
       # the step; nothing is ever overwritten.
       - name: Fetch the artifact from the production bucket, if it is pinned there
@@ -247,7 +264,7 @@ jobs:
           pnpm db:fetch-artifact -- --target staging --version "$VERSION" --out "$SOURCE"
           pnpm db:upload-artifact -- --target production --confirm-production --source "$SOURCE"
 
-      # Again, right before the first D1 write, since the approval can come long after the
+      # Again, right before the first D1 step, since the approval can come long after the
       # preflight.
       - name: Require no deploy of production running or pending
         env:
@@ -255,8 +272,8 @@ jobs:
           ENVIRONMENT: production
         run: .github/scripts/verify-d1-import.sh --deploys-only
 
-      # The checkout is this run's commit, and main may have moved on during the approval wait.
-      - name: Require main to be at this run's commit
+      # And the tip again, after the fetch or the copy.
+      - name: Require main to still be at this run's commit
         env:
           GH_TOKEN: ${{ github.token }}
           ENVIRONMENT: production
