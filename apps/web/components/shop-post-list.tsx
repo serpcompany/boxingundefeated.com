@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { HeroImage } from '@/components/hero-image'
 import { getVisiblePaginationPages } from '@/lib/directory-pagination'
 import { getShopPageHref, type ShopPost } from '@/lib/shop-loader'
 
@@ -29,9 +30,15 @@ export function ShopPostList({
             <div className="grid gap-4 md:grid-cols-[180px_1fr]">
               {post.image && (
                 <Link href={post.slug} className="block overflow-hidden rounded-md border">
-                  <img
+                  {/*
+                    The box crops the 9:5 hero to its height: from md up a 180px column up to
+                    about 270px tall, so the hero shows up to 480px wide; below md, 16:10 at the
+                    page's width less its padding, so 9/8 of that width.
+                  */}
+                  <HeroImage
                     src={post.image}
                     alt={post.title}
+                    sizes="(min-width: 48rem) 480px, calc((100vw - 2rem) * 1.125)"
                     className="aspect-[16/10] h-full w-full object-cover"
                     loading="lazy"
                   />

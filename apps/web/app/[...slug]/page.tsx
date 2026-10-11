@@ -2,6 +2,7 @@ import { Breadcrumb } from '@boxingundefeated/design-system/breadcrumb'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
+import { HeroImage } from '@/components/hero-image'
 import { createMetaDescription } from '@/lib/metadata'
 import { decodePagePath, encodePath, routeKeyPath } from '@/lib/routing/non-ascii-paths'
 import { getShopPost, getShopSlugs } from '@/lib/shop-loader'
@@ -118,7 +119,13 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
       {post.image && (
         <div className="mb-8">
-          <img src={post.image} alt={post.title} className="w-full rounded-lg" />
+          {/* The article is at most 56rem wide, less 1rem of padding on each side. */}
+          <HeroImage
+            src={post.image}
+            alt={post.title}
+            sizes="(min-width: 56rem) 54rem, calc(100vw - 2rem)"
+            className="w-full rounded-lg"
+          />
         </div>
       )}
 
