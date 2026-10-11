@@ -26,9 +26,9 @@ A section the owner removes without a replacement answers **410 Gone** instead o
 holds the list; add later retirements there, and drop their links and sitemap entries. The Worker
 answers the 410 after staging's password and the canonical-host 308, and before the XML sitemaps,
 the edge cache and the trailing-slash redirects: a small page with `noindex` and
-`Cache-Control: no-store`. On the production apex the shared brands Worker answers `/brands*`
-first until serpcompany/serp#1490 is deployed: `/brands` gets its 308 to `/brands/`, which passes
-the 410 through.
+`Cache-Control: no-store`. The shared brands Worker's route on the production apex is gone
+(serpcompany/serp#1490, 2026-10-11): `/brands` and `/brands/` answer this 410 for GET and HEAD,
+with no `x-brands-*` headers.
 
 ## The `/_next/static/` exception
 
