@@ -30,6 +30,7 @@ Planned: Ship (agents merge listed paths, to be chosen by the owner) once round 
     boxers only through `lib/boxer-data/`, which reads D1 on request via the server-only,
     fail-closed `lib/data/`; search calls `/api/search`. `lib/site-config.ts` alone resolves the
     environment and origin; [environments.md](docs/agents/environments.md) has what each serves.
+    `lib/source-rules.test.ts` holds that and the SQL boundary below (Biome bans `drizzle-orm`).
   - `public/`: files served at the same path ([urls.md](docs/agents/urls.md)).
   - `scripts/`: the `build:worker` step that records the build's environment and commit
     (`write-build-environment.ts`).
@@ -45,7 +46,8 @@ Planned: Ship (agents merge listed paths, to be chosen by the owner) once round 
 - `apps/e2e/`: the Playwright smoke suite, the sitemap URL lister and the parity check.
 - `scripts/`: `d1/`, the D1 import, parity and deploy checks.
 - `.github/workflows/`: `ci.yml` (the check, then the deploys; `All checks` is the required check),
-  `d1-import.yml` (data imports, [d1.md](docs/agents/d1.md)) and `pr-issue-link.yml`.
+  `d1-import.yml` (data imports, [d1.md](docs/agents/d1.md)), `pr-issue-link.yml` and
+  `agent-docs.yml` (the doc size budgets; every leaf under `docs/agents/` linked from here).
   `.github/scripts/`: the production release gate, the deploy wait and the D1 import preflight.
 
 ## Commands

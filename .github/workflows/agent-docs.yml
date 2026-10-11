@@ -1,0 +1,35 @@
+name: Agent Docs
+
+# SERP Docs Are Maps, held by two scripts: the size budgets of every map (AGENTS.md, CLAUDE.md,
+# README.md) and of every doc under docs/ (check-agent-docs.mjs, the serp-agent-docs skill's copy,
+# kept verbatim), and every leaf under docs/agents/ linked from AGENTS.md
+# (check-agent-doc-links.mjs).
+on:
+  # No path filters: the check takes seconds, and a required check must report on every PR.
+  pull_request:
+  push:
+    branches: [staging, main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check-agent-docs:
+    runs-on: ${{ vars.RUNNER_TYPE || 'ubuntu-latest' }}
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Setup Node
+        uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+
+      - name: Check agent doc sizes
+        run: node .github/scripts/check-agent-docs.mjs
+
+      - name: Check every docs/agents leaf is linked from AGENTS.md
+        if: ${{ !cancelled() }}
+        run: node .github/scripts/check-agent-doc-links.mjs
