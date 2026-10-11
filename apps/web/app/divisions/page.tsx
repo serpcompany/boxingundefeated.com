@@ -20,7 +20,7 @@ export default async function DivisionsPage() {
   const divisions = await getDivisions()
 
   return (
-    <main className="mx-auto max-w-6xl px-4 py-8">
+    <div className="mx-auto max-w-6xl px-4 py-8">
       <Breadcrumb items={[{ name: 'Divisions', href: '/divisions/' }]} baseUrl={baseUrl} />
       <h1 className="mb-4 text-4xl font-bold tracking-tight">Divisions</h1>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
@@ -41,6 +41,6 @@ export default async function DivisionsPage() {
           </Card>
         ))}
       </div>
-    </main>
+    </div>
   )
 }

@@ -51,7 +51,7 @@ export default async function ShopPaginatedPage({ params }: { params: Promise<{ 
   }
 
   return (
-    <main className="mx-auto max-w-6xl px-4 py-8">
+    <div className="mx-auto max-w-6xl px-4 py-8">
       <Breadcrumb
         items={[
           { name: 'Shop', href: '/shop/' },
@@ -67,6 +67,6 @@ export default async function ShopPaginatedPage({ params }: { params: Promise<{ 
         startIndex={page.startIndex}
         endIndex={page.endIndex}
       />
-    </main>
+    </div>
   )
 }
