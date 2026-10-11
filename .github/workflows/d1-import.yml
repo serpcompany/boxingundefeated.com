@@ -4,27 +4,35 @@ name: D1 import
 # artifact is the pipeline's boxers.json, pinned in R2 at boxers/<version>.json, where the version
 # is its SHA-256 (scripts/d1/artifact.ts). How to pin one and run this: docs/agents/d1.md.
 #
+# - preflight (.github/scripts/verify-d1-import.sh): the inputs, the branch, no deploy of that
+#   environment running or pending in ci.yml, and for production the staging receipt. Its summary
+#   shows the version and how many boxers the run may prune.
 # - staging: dispatch from staging. It fetches the version from boxingundefeated-com-data-staging,
 #   checks its SHA-256, then runs db:import, db:parity and db:check-deployable on the staging D1.
 #   Once all three pass, it records the receipt passed-d1-import-staging-<version> (90 days).
 # - production: dispatch from main, with a version staging imported. The preflight refuses a
 #   version without that receipt, then the job waits for the owner's approval of the `production`
-#   environment. It copies the version from the staging bucket into
-#   boxingundefeated-com-data-production (a no-op when it is there; never an overwrite), since
-#   production buckets change only through CI, then runs the same three commands with
+#   environment. It fetches the version from boxingundefeated-com-data-production, or, when that
+#   bucket lacks it, copies it there from the staging bucket (never an overwrite), since
+#   production buckets change only through CI. Then it runs the same three commands with
 #   --confirm-production, which records that approval.
 #
 # Both refuse a D1 that lacks one of this commit's migrations: run it after the deploy of this
-# commit has migrated that environment. Imports keep the prune cap (scripts/d1/import-boxers.ts);
-# allow_prune raises it for one run. A re-import keeps the last version's pages up while it runs;
-# a deploy of the same environment meanwhile fails db:check-deployable (an import in progress), so
-# re-run that deploy after the import.
+# commit has migrated that environment. Both refuse while a ci.yml deploy of the environment runs
+# or is pending, in the preflight and again right before the import. Imports keep the prune cap
+# (scripts/d1/import-boxers.ts); allow_prune, at most 250, raises it for one run and shows in the
+# run's name. A re-import keeps the last version's pages up while it runs; a deploy of the same
+# environment that starts meanwhile fails db:check-deployable (an import in progress), so re-run
+# that deploy after the import.
 #
 # Never on push or pull request. Only the wrangler steps receive the Cloudflare secrets. Agents
 # never dispatch or re-run this workflow, or approve the `production` environment (AGENTS.md).
 
-# Names each run by its target and version, so `gh run list --workflow d1-import.yml` lists both.
-run-name: D1 import, ${{ inputs.environment }}, ${{ inputs.version }}
+# Names each run by its target, version and any allow_prune, so `gh run list --workflow
+# d1-import.yml` lists them and the production approver sees them.
+run-name: >-
+  D1 import, ${{ inputs.environment }}, ${{ inputs.version }}${{ inputs.allow_prune != ''
+  && format(', allow_prune {0}', inputs.allow_prune) || '' }}
 
 on:
   workflow_dispatch:
@@ -39,7 +47,7 @@ on:
         type: string
         required: true
       allow_prune:
-        description: Optional. Let this import prune up to this many boxers the artifact no longer has
+        description: Optional. Let this import prune up to this many boxers (at most 250) the artifact no longer has
         type: string
         required: false
         default: ''
@@ -62,64 +70,24 @@ env:
 
 jobs:
   preflight:
-    name: Check the inputs, the branch and, for production, the staging import
+    name: Check the inputs, the branch, the deploys and, for production, the staging import
     runs-on: ubuntu-latest
     timeout-minutes: 5
     permissions:
       actions: read
       contents: read
     steps:
-      - name: Check the inputs and the branch
-        env:
-          ENVIRONMENT: ${{ inputs.environment }}
-          REF: ${{ github.ref }}
-        run: |
-          if ! [[ "$VERSION" =~ ^[0-9a-f]{64}$ ]]; then
-            echo "::error::version must be the artifact's SHA-256, 64 lowercase hex digits, as pnpm db:upload-artifact prints it."
-            exit 1
-          fi
-          if [ -n "$ALLOW_PRUNE" ] && ! [[ "$ALLOW_PRUNE" =~ ^[0-9]+$ ]]; then
-            echo "::error::allow_prune must be empty or a whole number of boxers."
-            exit 1
-          fi
-          case "$ENVIRONMENT" in
-            staging) branch=staging ;;
-            production) branch=main ;;
-            *) echo "::error::Unknown environment $ENVIRONMENT."; exit 1 ;;
-          esac
-          # The environment admits only that branch, whose code and migrations match its D1.
-          if [ "$REF" != "refs/heads/$branch" ]; then
-            echo "::error::Dispatch the $ENVIRONMENT import from $branch, not $REF."
-            exit 1
-          fi
+      - name: Checkout the import scripts
+        uses: actions/checkout@v7
+        with:
+          sparse-checkout: .github/scripts
 
-      # Production imports only a version that a staging import of this repository fetched,
-      # imported and proved with clean parity.
-      - name: Require a staging import of this version
-        if: inputs.environment == 'production'
+      # Fails closed; the script lists its checks.
+      - name: Verify this import
         env:
           GH_TOKEN: ${{ github.token }}
-        run: |
-          receipt="passed-d1-import-staging-$VERSION"
-          runs="$(gh api "repos/$GITHUB_REPOSITORY/actions/artifacts?name=$receipt&per_page=100" \
-            --jq '.artifacts[] | select((.expired | not) and .workflow_run.head_branch == "staging") | .workflow_run.id')" || {
-            echo "::error::Could not list the staging receipts; failing closed."
-            exit 1
-          }
-          for run_id in $runs; do
-            url="$(gh api "repos/$GITHUB_REPOSITORY/actions/runs/$run_id" \
-              --jq 'select(.path == ".github/workflows/d1-import.yml" and .event == "workflow_dispatch"
-                  and .head_repository.full_name == $ENV.GITHUB_REPOSITORY) | .html_url')" || {
-              echo "::error::Could not read run $run_id; failing closed."
-              exit 1
-            }
-            if [ -n "$url" ]; then
-              echo "Staging imported $VERSION with clean parity: $url"
-              exit 0
-            fi
-          done
-          echo "::error::No staging import of $VERSION in the last 90 days ($receipt). Dispatch this workflow from staging with environment staging and this version first."
-          exit 1
+          ENVIRONMENT: ${{ inputs.environment }}
+        run: .github/scripts/verify-d1-import.sh
 
   staging:
     name: Import into staging
@@ -127,6 +95,10 @@ jobs:
     if: inputs.environment == 'staging'
     runs-on: ubuntu-latest
     timeout-minutes: 60
+    # actions: read for the deploy check.
+    permissions:
+      actions: read
+      contents: read
     environment:
       name: staging
       url: https://staging.boxingundefeated.com
@@ -152,6 +124,13 @@ jobs:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: pnpm db:fetch-artifact -- --target staging --version "$VERSION" --out "$SOURCE"
+
+      # Again, right before the first D1 write.
+      - name: Require no deploy of staging running or pending
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ENVIRONMENT: staging
+        run: .github/scripts/verify-d1-import.sh --deploys-only
 
       - name: Require every migration of this commit in the staging D1
         env:
@@ -211,6 +190,10 @@ jobs:
     if: inputs.environment == 'production'
     runs-on: ubuntu-latest
     timeout-minutes: 60
+    # actions: read for the deploy check.
+    permissions:
+      actions: read
+      contents: read
     # Asks for the owner's approval, and admits only main.
     environment:
       name: production
@@ -232,19 +215,35 @@ jobs:
       - name: Install
         uses: ./.github/actions/install
 
-      - name: Fetch the artifact from the staging bucket and check its SHA-256
+      # A re-import reads the version production already pins. A key holding other content fails
+      # the step; nothing is ever overwritten.
+      - name: Fetch the artifact from the production bucket, if it is pinned there
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-        run: pnpm db:fetch-artifact -- --target staging --version "$VERSION" --out "$SOURCE"
+        run: pnpm db:fetch-artifact -- --target production --version "$VERSION" --out "$SOURCE" --if-exists
 
-      # The upload reads the production object back (or the one already there) and checks its
-      # SHA-256, so what production pins is exactly what this job imports.
-      - name: Pin it in the production bucket
+      # Otherwise from the staging bucket. The upload reads the production object back and checks
+      # its SHA-256, so what production pins is exactly what this job imports.
+      - name: Otherwise copy it from the staging bucket into the production bucket
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-        run: pnpm db:upload-artifact -- --target production --confirm-production --source "$SOURCE"
+        run: |
+          if [ -f "$SOURCE" ]; then
+            echo "The production bucket already pins $VERSION: nothing to copy."
+            exit 0
+          fi
+          pnpm db:fetch-artifact -- --target staging --version "$VERSION" --out "$SOURCE"
+          pnpm db:upload-artifact -- --target production --confirm-production --source "$SOURCE"
+
+      # Again, right before the first D1 write, since the approval can come long after the
+      # preflight.
+      - name: Require no deploy of production running or pending
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ENVIRONMENT: production
+        run: .github/scripts/verify-d1-import.sh --deploys-only
 
       # --confirm-production from here on records the owner's approval of this run's
       # `production` environment (docs/agents/d1.md).

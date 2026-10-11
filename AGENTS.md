@@ -47,7 +47,7 @@ Planned: Ship (agents merge listed paths, to be chosen by the owner) once round 
   runs on the empty `apps/web/content/blog/` stub until an owner PR removes both (#94).
 - `.github/workflows/`: `ci.yml` (the check, then the deploys; `All checks` is the required check),
   `d1-import.yml` (data imports, [d1.md](docs/agents/d1.md)) and `pr-issue-link.yml`.
-  `.github/scripts/`: the production release gate and the deploy wait.
+  `.github/scripts/`: the production release gate, the deploy wait and the D1 import preflight.
 
 ## Commands
 

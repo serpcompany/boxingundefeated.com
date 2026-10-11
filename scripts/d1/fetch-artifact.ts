@@ -5,21 +5,29 @@
  *
  * Usage:
  *   pnpm db:fetch-artifact -- --target local|staging|production --version <sha256> [--out <path>]
+ *                             [--if-exists]
  *
  * Read-only, so production takes `--confirm-production` but doesn't need it. The file lands at
  * from-pipeline/boxers-<version>.json (gitignored) unless `--out` says otherwise, and only once its
- * checksum matched.
+ * checksum matched. A missing key fails, unless `--if-exists`: then it writes nothing and succeeds,
+ * which the production job uses to copy a version from staging only when production lacks it.
  */
 import { mkdirSync } from 'node:fs'
 import { dirname, join, relative, resolve } from 'node:path'
-import { parseFlags, resolveTarget, TARGET_FLAGS } from '../../packages/data-ops/src/import'
+import {
+  bareFlag,
+  parseFlags,
+  resolveTarget,
+  TARGET_FLAGS
+} from '../../packages/data-ops/src/import'
 import { ARTIFACT_BUCKETS, artifactKey, checkVersion, fetchArtifact } from './artifact'
 import { REPO_ROOT } from './wrangler'
 
 function main(): void {
-  const flags = parseFlags(process.argv.slice(2), [...TARGET_FLAGS, 'version', 'out'])
+  const flags = parseFlags(process.argv.slice(2), [...TARGET_FLAGS, 'version', 'out', 'if-exists'])
   const target = resolveTarget(flags, { requireConfirmation: false }).name
   const version = checkVersion(flags.version)
+  const ifExists = bareFlag(flags, 'if-exists')
   const out = resolve(
     process.cwd(),
     typeof flags.out === 'string'
@@ -30,6 +38,10 @@ function main(): void {
 
   mkdirSync(dirname(out), { recursive: true })
   const bytes = fetchArtifact(target, version, out)
+  if (bytes === null && ifExists) {
+    console.log(`${object} does not exist: nothing fetched (--if-exists).`)
+    return
+  }
   if (bytes === null) {
     throw new Error(
       `${object} does not exist. ` +

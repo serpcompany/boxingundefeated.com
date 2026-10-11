@@ -63,7 +63,8 @@ export function resolveTarget(
   if (target.name === 'production' && !confirmed && requireConfirmation) {
     throw new Error(
       'Refusing --target production without --confirm-production. Pass it only for a ' +
-        'production run the owner has approved in writing.'
+        "production run the owner approved: d1-import.yml's `production` environment " +
+        "approval, or the owner's written approval of that one run."
     )
   }
   if (target.name !== 'production' && confirmed) {
