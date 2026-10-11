@@ -40,6 +40,7 @@ jest.mock('@boxingundefeated/data-ops', () => ({
   getDirectoryCounts: (db: unknown) => mockGetDirectoryCounts(db)
 }))
 
+import { isRetiredPath } from '@/lib/routing/retired-paths'
 import BoxersPage from './boxers/page'
 import BoxersPaginatedPage, {
   generateMetadata as boxersPageMetadata
@@ -268,6 +269,8 @@ describe('listing pages', () => {
       expect(hrefs).not.toContain(missing)
     }
     expect(hrefs).toContain('/sitemap/')
+    // `/blog/` and `/brands/` answer 410 (#59).
+    expect(hrefs.filter(href => isRetiredPath(href ?? ''))).toEqual([])
     expect(hrefs.filter(href => href?.endsWith('.xml'))).toEqual([
       '/sitemap-index.xml',
       '/sitemap-pages.xml',

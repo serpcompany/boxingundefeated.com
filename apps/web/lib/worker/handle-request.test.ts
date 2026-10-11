@@ -176,6 +176,137 @@ describe('handleWorkerRequest for a shop path with non-ASCII letters', () => {
   )
 })
 
+describe('handleWorkerRequest for a retired path', () => {
+  const ORIGIN = 'https://boxingundefeated.com'
+  const version = { CF_VERSION_METADATA: { id: 'version-1' } }
+  const retired = ['/blog/', '/blog', '/blog/jab/', '/blog/x/', '/brands/', '/brands', '/brands/x/']
+
+  function runtime() {
+    const cache = new MemoryCache()
+    const openCache = jest.fn(async () => cache as unknown as Cache)
+    const datasetReadiness = jest.fn(
+      async (): Promise<DatasetReadiness> => ({ ready: false, reason: 'not read' })
+    )
+    return {
+      openCache,
+      datasetReadiness,
+      runtime: {
+        edgeCache: { context: { waitUntil: () => {} }, openCache },
+        datasetReadiness,
+        searchApi: jest.fn(),
+        sitemaps: jest.fn()
+      } satisfies WorkerRuntime
+    }
+  }
+
+  function expectGone(response: Response, robots = 'noindex') {
+    expect(response.status).toBe(410)
+    expect(response.headers.get('location')).toBeNull()
+    expect(response.headers.get('content-type')).toBe('text/html; charset=utf-8')
+    expect(response.headers.get('cache-control')).toBe('no-store')
+    expect(response.headers.get('x-robots-tag')).toBe(robots)
+    expect(response.headers.get(EDGE_CACHE_HEADER)).toBeNull()
+  }
+
+  it.each(retired)(
+    'answers %s with 410 in production, without a redirect, the edge cache, D1 or OpenNext',
+    async path => {
+      const serve = serveSpy()
+      const edge = runtime()
+      // Twice: the second is not served from the edge cache either.
+      for (const _attempt of [1, 2]) {
+        const response = await handleWorkerRequest(
+          new Request(`${ORIGIN}${path}`),
+          { ...production, ...version },
+          serve,
+          edge.runtime
+        )
+        expectGone(response)
+        expect(await response.text()).toContain('<a href="/">')
+      }
+      expect(serve).not.toHaveBeenCalled()
+      expect(edge.openCache).not.toHaveBeenCalled()
+      expect(edge.datasetReadiness).not.toHaveBeenCalled()
+    }
+  )
+
+  it('answers HEAD with the same status and headers, and no body', async () => {
+    const response = await handleWorkerRequest(
+      new Request(`${ORIGIN}/brands/`, { method: 'HEAD' }),
+      production,
+      serveSpy()
+    )
+    expectGone(response)
+    expect(await response.text()).toBe('')
+  })
+
+  it.each([
+    [WWW, '/blog', '/blog/'],
+    [WWW, '/blog/', '/blog/'],
+    [WWW, '/brands', '/brands/'],
+    [WORKERS_DEV, '/brands/x', '/brands/x/']
+  ])('sends %s%s to the canonical host first, in one 308 to %s', async (host, path, to) => {
+    const serve = serveSpy()
+    const response = await handleWorkerRequest(new Request(`${host}${path}`), production, serve)
+
+    expect(response.status).toBe(308)
+    expect(response.headers.get('location')).toBe(`${ORIGIN}${to}`)
+    expect(serve).not.toHaveBeenCalled()
+  })
+
+  it('answers a smoke-test request on workers.dev with the 410', async () => {
+    const response = await handleWorkerRequest(
+      new Request(`${WORKERS_DEV}/blog`, { headers: SMOKE }),
+      production,
+      serveSpy()
+    )
+    expectGone(response)
+  })
+
+  it("asks for staging's password first, then answers 410 with noindex", async () => {
+    const refused = await handleWorkerRequest(new Request(`${STAGING}/blog/`), staging, serveSpy())
+    expect(refused.status).toBe(401)
+
+    for (const headers of [PASSWORD, SMOKE]) {
+      const serve = serveSpy()
+      const response = await handleWorkerRequest(
+        new Request(`${STAGING}/brands`, { headers }),
+        staging,
+        serve
+      )
+      // Its own noindex: the crawl policy adds none for a request with the password.
+      expectGone(response)
+      expect(serve).not.toHaveBeenCalled()
+    }
+
+    const fromWorkersDev = await handleWorkerRequest(
+      new Request(`${STAGING_WORKERS_DEV}/blog`, { headers: PASSWORD }),
+      staging,
+      serveSpy()
+    )
+    expect(fromWorkersDev.status).toBe(308)
+    expect(fromWorkersDev.headers.get('location')).toBe(`${STAGING}/blog/`)
+  })
+
+  it('answers it on a local Worker too', async () => {
+    expectGone(
+      await handleWorkerRequest(new Request('http://localhost:8787/blog'), local, serveSpy())
+    )
+  })
+
+  it.each(['/blogs/', '/Blog/', '/brand/', '/shop/best/blog/', '/no-such-page/'])(
+    'leaves %s to OpenNext, which answers an unknown path with 404',
+    async path => {
+      const serve = serveSpy()
+      const request = new Request(`${ORIGIN}${path}`)
+      const response = await handleWorkerRequest(request, production, serve)
+
+      expect(response.status).toBe(200)
+      expect(serve).toHaveBeenCalledWith(request)
+    }
+  )
+})
+
 describe('handleWorkerRequest with the edge cache', () => {
   const version = { CF_VERSION_METADATA: { id: 'version-1' } }
 

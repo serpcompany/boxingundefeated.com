@@ -1,9 +1,20 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import matter from 'gray-matter'
-import type { BlogPost } from './blog-loader'
 import { BOXER_PAGE_SIZE } from './directory-pagination'
 import { normalizeInternalPath } from './url-utils'
+
+/** A shop article from `content/blog/shop/`; `content` (its HTML) only from `getShopPost`. */
+export interface ShopPost {
+  slug: string
+  title: string
+  description: string
+  date: string
+  author?: string
+  tags?: string[]
+  image?: string
+  content?: string
+}
 
 const shopPostsDirectory = path.join(process.cwd(), 'content/blog/shop')
 
@@ -48,11 +59,11 @@ function normalizeSlug(slug: string): string {
   return normalizeInternalPath(slug.normalize('NFC'))
 }
 
-export async function getShopPosts(): Promise<BlogPost[]> {
+export async function getShopPosts(): Promise<ShopPost[]> {
   return readShopPosts()
 }
 
-function readShopPosts(): BlogPost[] {
+function readShopPosts(): ShopPost[] {
   try {
     const allFiles = getAllMarkdownFiles(shopPostsDirectory)
     const posts = allFiles
@@ -78,7 +89,7 @@ function readShopPosts(): BlogPost[] {
           return null
         }
       })
-      .filter(post => post !== null) as BlogPost[]
+      .filter(post => post !== null) as ShopPost[]
 
     return posts.sort((a, b) => {
       const dateDiff = new Date(b.date).getTime() - new Date(a.date).getTime()
@@ -118,7 +129,7 @@ async function renderMarkdownToHtml(content: string): Promise<string> {
   return processedContent.toString()
 }
 
-export async function getShopPost(slug: string): Promise<BlogPost | null> {
+export async function getShopPost(slug: string): Promise<ShopPost | null> {
   const normalizedSlug = normalizeSlug(slug)
 
   try {

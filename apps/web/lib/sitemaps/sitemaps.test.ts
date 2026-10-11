@@ -1,4 +1,5 @@
 import type { SitemapData } from '@boxingundefeated/data-ops'
+import { isRetiredPath } from '../routing/retired-paths'
 import {
   lastmodDate,
   latestDate,
@@ -97,16 +98,21 @@ describe('lastmod dates', () => {
 describe('sitemap entries', () => {
   const groups = sitemapEntries(data, content)
 
-  it('lists the homepage as its own path and the static pages, without /blog/', () => {
+  it('lists the homepage as its own path and the static pages, without the retired ones', () => {
     expect(groups.pages.map(entry => entry.path)).toEqual([
       '/',
       '/about/',
       '/search/',
-      '/brands/',
       '/privacy/',
       '/terms/',
       '/sitemap/'
     ])
+  })
+
+  it('lists no retired path (lib/routing/retired-paths.ts)', () => {
+    const paths = Object.values(groups).flatMap(entries => entries.map(entry => entry.path))
+    expect(paths.length).toBeGreaterThan(0)
+    expect(paths.filter(isRetiredPath)).toEqual([])
   })
 
   it('lists every boxer listing page and profile', () => {
@@ -164,7 +170,7 @@ describe('sitemap files', () => {
   it('continues an overflowing group in numbered files beside the first', () => {
     const files = sitemapFiles(sitemapEntries(data, content), 20)
     expect(files.map(file => [file.path, file.entries.length])).toEqual([
-      ['/sitemap-pages.xml', 7],
+      ['/sitemap-pages.xml', 6],
       ['/sitemap-boxers.xml', 20],
       ['/sitemap-boxers-2.xml', 20],
       ['/sitemap-boxers-3.xml', 13],
@@ -210,7 +216,7 @@ describe('rendered XML', () => {
 
     expect(urls.filter(url => !isCanonical(url))).toEqual([])
     expect(new Set(urls).size).toBe(urls.length)
-    expect(urls).toHaveLength(7 + 53 + 5 + 3)
+    expect(urls).toHaveLength(6 + 53 + 5 + 3)
     expect(urls[0]).toBe(ORIGIN)
     expect(urls).not.toContain(`${ORIGIN}/`)
     expect(urls).toContain(`${ORIGIN}/shop/best/men's-water-bottles/`)

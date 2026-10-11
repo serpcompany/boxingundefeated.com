@@ -1,10 +1,9 @@
 import Link from 'next/link'
-import type { BlogPost } from '@/lib/blog-loader'
 import { getVisiblePaginationPages } from '@/lib/directory-pagination'
-import { getShopPageHref } from '@/lib/shop-loader'
+import { getShopPageHref, type ShopPost } from '@/lib/shop-loader'
 
 interface ShopPostListProps {
-  posts: BlogPost[]
+  posts: ShopPost[]
   currentPage: number
   totalPages: number
   totalItems: number

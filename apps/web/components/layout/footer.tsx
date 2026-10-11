@@ -111,11 +111,6 @@ export function Footer() {
                   Shop
                 </Link>
               </li>
-              <li>
-                <Link href="/brands/" className="text-muted-foreground hover:text-foreground">
-                  Brands
-                </Link>
-              </li>
             </ul>
           </div>
           <div className="space-y-3">

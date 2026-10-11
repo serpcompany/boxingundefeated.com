@@ -22,5 +22,13 @@ export const PARITY_ALLOWLIST: AllowedDifference[] = [
     reason:
       'Intentional: the importer drops the `world` placeholder record, so the Worker answers 404 ' +
       '(#9, #33), and the sitemaps no longer list it (#15).'
+  },
+  {
+    path: '/brands/',
+    field: 'status',
+    actual: '410',
+    reason:
+      'Intentional: retired with 410 Gone (#59), and dropped from the pages sitemap. Stale once ' +
+      'production serves the 410 and its sitemap no longer lists it; remove it then.'
   }
 ]

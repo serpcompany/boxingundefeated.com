@@ -35,13 +35,12 @@ export type SitemapGroup = (typeof SITEMAP_GROUPS)[number]
 export const MAX_URLS_PER_SITEMAP = 50_000
 
 /**
- * The pages that read no data, after the homepage. `/blog/` is left out while it lists no posts,
- * and the shop, boxer and division listings are in their own groups.
+ * The pages that read no data, after the homepage. The shop, boxer and division listings are in
+ * their own groups.
  */
 export const STATIC_PAGE_PATHS: readonly string[] = [
   '/about/',
   '/search/',
-  '/brands/',
   '/privacy/',
   '/terms/',
   '/sitemap/'

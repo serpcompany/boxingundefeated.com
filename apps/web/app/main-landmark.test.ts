@@ -13,8 +13,6 @@ const SCANNED_DIRECTORIES = [
   'packages/design-system'
 ]
 const ROOT_LAYOUT = 'apps/web/app/layout.tsx'
-// `/brands/` still nests one until #59 retires the page.
-const RETIRING = new Set(['apps/web/app/brands/page.tsx'])
 
 // A JSX `<main>` element, an element with `role="main"`, or `createElement('main')`.
 const MAIN_LANDMARK = /<main[\s/>]|role=\{?["'`]main["'`]|createElement\(\s*["'`]main["'`]/g
@@ -55,7 +53,7 @@ describe('the <main> landmark', () => {
 
   it('is not rendered again by any page or component', () => {
     const nested = files
-      .filter(file => file !== ROOT_LAYOUT && !RETIRING.has(file))
+      .filter(file => file !== ROOT_LAYOUT)
       .filter(file => countMainLandmarks(file) > 0)
 
     expect(nested).toEqual([])

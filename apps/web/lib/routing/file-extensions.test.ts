@@ -3,7 +3,6 @@
  */
 import fs from 'node:fs'
 import path from 'node:path'
-import { getBlogSlugs } from '../blog-loader'
 import { getShopSlugs } from '../shop-loader'
 import { FILE_EXTENSION_PATTERN, hasFileExtension } from './file-extensions'
 
@@ -34,10 +33,10 @@ describe('hasFileExtension', () => {
 
 describe('page slugs', () => {
   // Boxer slugs are `[a-z0-9-]` (the importer's SLUG_PATTERN), and division slugs are fixed.
-  // Shop and blog slugs come from markdown front matter, so check them: a page whose last
-  // segment ended in a file extension would lose its slash.
+  // Shop slugs come from markdown front matter, so check them: a page whose last segment ended
+  // in a file extension would lose its slash.
   it('never end in a file extension', async () => {
-    const slugs = [...(await getShopSlugs()), ...(await getBlogSlugs())]
+    const slugs = await getShopSlugs()
     expect(slugs.length).toBeGreaterThan(600)
     const segments = slugs.map(slug => slug.replace(/\/+$/, '').split('/').pop() ?? '')
     expect(segments.filter(hasFileExtension)).toEqual([])
