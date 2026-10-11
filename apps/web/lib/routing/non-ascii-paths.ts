@@ -7,8 +7,10 @@
  *   UTF-8 in uppercase hex, `/shop/best/br%C3%BCmate-water-bottles/`. Canonicals, JSON-LD and the
  *   sitemap use it, and browsers send it for a link to the page.
  * - Any other spelling of such a path gets one 308 to the canonical one, with the trailing slash
- *   fixed in the same hop (`canonicalShopPathname`): NFD (`bru%CC%88mate`), lowercase hex, raw
- *   UTF-8 (which workerd passes on as lowercase hex), a route key, or a missing slash.
+ *   fixed and repeated slashes collapsed in the same hop (`canonicalShopPathname`): NFD
+ *   (`bru%CC%88mate`), lowercase hex, raw UTF-8 (which workerd passes on as lowercase hex), a
+ *   route key, a missing slash, or `//` (which OpenNext would otherwise collapse in a second
+ *   redirect, to the route key).
  * - Route keys (`routeKeyPath`): OpenNext's `handleFallbackFalse` (@opennextjs/aws 4.1.x) compares
  *   the request's percent-encoded path with the decoded paths of the prerender manifest, so in a
  *   route with `dynamicParams = false` a prerendered page whose path has non-ASCII characters is a
@@ -76,14 +78,19 @@ export function routeKeyPath(path: string): string {
 
 /**
  * The canonical spelling of a `/shop/` request path whose decoded form has non-ASCII characters,
- * slash rule included, or null for any other path (ASCII or malformed), which is left alone. The
- * Worker answers a 308 when the request's spelling differs, and renders the route key otherwise.
+ * repeated slashes collapsed and slash rule included, or null for any other path (ASCII or
+ * malformed), which is left alone. The Worker answers a 308 when the request's spelling differs,
+ * and renders the route key otherwise.
  */
 export function canonicalShopPathname(pathname: string): string | null {
-  if (!pathname.startsWith(SHOP_PREFIX) || !(ESCAPED.test(pathname) || NON_ASCII.test(pathname))) {
+  const collapsed = pathname.replace(/\/{2,}/g, '/')
+  if (
+    !collapsed.startsWith(SHOP_PREFIX) ||
+    !(ESCAPED.test(collapsed) || NON_ASCII.test(collapsed))
+  ) {
     return null
   }
-  const decoded = decodeNonAscii(pathname)
+  const decoded = decodeNonAscii(collapsed)
   if (decoded === null || !NON_ASCII.test(decoded)) return null
   return canonicalPathname(encodePath(decoded))
 }

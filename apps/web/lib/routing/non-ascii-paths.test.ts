@@ -75,7 +75,20 @@ describe('canonicalShopPathname', () => {
   })
 
   it.each<[string, string]>([
+    ['/shop//best/br%C3%BCmate-water-bottles/', BRUMATE_URL],
+    ['/shop//best/br%C3%BCmate-water-bottles', BRUMATE_URL],
+    ['//shop/best/bru%CC%88mate-water-bottles/', BRUMATE_URL],
+    ['/shop/best//br~C3~BCmate-water-bottles//', BRUMATE_URL],
+    ['/shop/best//nestl%C3%A9-water-bottles/', '/shop/best/nestl%C3%A9-water-bottles/'],
+    ['/shop/best//nestl%C3%A9-water-bottles', '/shop/best/nestl%C3%A9-water-bottles/'],
+    ['/shop///best/nestle%CC%81-water-bottles', '/shop/best/nestl%C3%A9-water-bottles/']
+  ])('collapses the repeated slashes of %s in the same hop, to %s', (pathname, canonical) => {
+    expect(canonicalShopPathname(pathname)).toBe(canonical)
+  })
+
+  it.each<[string, string]>([
     ['/shop/best/2.7-l-water-bottles/', 'ASCII'],
+    ['/shop//best/2.7-l-water-bottles/', 'ASCII, repeated slashes: OpenNext collapses them'],
     ["/shop/best/men's-water-bottles", 'ASCII, no slash: the slash rules redirect it'],
     ['/shop/best/x%20y/', 'an ASCII escape'],
     ['/shop/best/x~41/', 'not a route key: ~ before an ASCII byte'],

@@ -122,6 +122,21 @@ describe('handleWorkerRequest for a shop path with non-ASCII letters', () => {
     }
   })
 
+  it.each([
+    ['/shop//best/br%C3%BCmate-water-bottles/', PAGE],
+    ['/shop//best/br%C3%BCmate-water-bottles', PAGE],
+    ['//shop/best/bru%CC%88mate-water-bottles', PAGE],
+    ['/shop/best//nestl%C3%A9-water-bottles/', '/shop/best/nestl%C3%A9-water-bottles/'],
+    ['/shop/best//nestl%C3%A9-water-bottles', '/shop/best/nestl%C3%A9-water-bottles/']
+  ])('answers %s, with repeated slashes, with one 308 to %s', async (path, location) => {
+    const serve = serveSpy()
+    const response = await handleWorkerRequest(new Request(`${ORIGIN}${path}`), production, serve)
+
+    expect(response.status).toBe(308)
+    expect(response.headers.get('location')).toBe(location)
+    expect(serve).not.toHaveBeenCalled()
+  })
+
   it('renders the canonical spelling from its route key, query and headers kept', async () => {
     const serve = serveSpy()
     const response = await handleWorkerRequest(
@@ -137,14 +152,17 @@ describe('handleWorkerRequest for a shop path with non-ASCII letters', () => {
     expect(rendered.headers.get('rsc')).toBe('1')
   })
 
-  it('leaves ASCII shop paths to OpenNext as sent', async () => {
-    const serve = serveSpy()
-    const request = new Request(`${ORIGIN}/shop/best/fuelmate-water-bottles`)
-    const response = await handleWorkerRequest(request, production, serve)
+  it.each(['/shop/best/fuelmate-water-bottles', '/shop//best/fuelmate-water-bottles/'])(
+    'leaves the ASCII shop path %s to OpenNext as sent',
+    async path => {
+      const serve = serveSpy()
+      const request = new Request(`${ORIGIN}${path}`)
+      const response = await handleWorkerRequest(request, production, serve)
 
-    expect(response.status).toBe(200)
-    expect(serve).toHaveBeenCalledWith(request)
-  })
+      expect(response.status).toBe(200)
+      expect(serve).toHaveBeenCalledWith(request)
+    }
+  )
 })
 
 describe('handleWorkerRequest with the edge cache', () => {

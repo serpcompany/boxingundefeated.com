@@ -41,15 +41,20 @@ test('a shop path with a non-ASCII letter answers one 308 to its percent-encoded
     '/shop/best/bru%CC%88mate-water-bottles/',
     '/shop/best/bru%CC%88mate-water-bottles',
     // The ASCII route key the Worker renders the page from (lib/routing/non-ascii-paths.ts).
-    '/shop/best/br~C3~BCmate-water-bottles/'
+    '/shop/best/br~C3~BCmate-water-bottles/',
+    // Repeated slashes, collapsed in the same hop rather than by OpenNext to the route key.
+    '/shop//best/br%C3%BCmate-water-bottles/',
+    '/shop//best/br%C3%BCmate-water-bottles'
   ]) {
     await expectOneHop(request, from, page)
   }
-  await expectOneHop(
-    request,
+  for (const from of [
     '/shop/best/nestle%CC%81-water-bottles',
-    '/shop/best/nestl%C3%A9-water-bottles/'
-  )
+    '/shop/best//nestl%C3%A9-water-bottles/',
+    '/shop/best//nestl%C3%A9-water-bottles'
+  ]) {
+    await expectOneHop(request, from, '/shop/best/nestl%C3%A9-water-bottles/')
+  }
 })
 
 test('a file with a slash answers 308 to the file', async ({ request }) => {
