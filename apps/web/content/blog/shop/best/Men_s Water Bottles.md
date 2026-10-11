@@ -8,7 +8,7 @@ excerpt: >-
   lifestyle.
 publishDate: '2024-01-15T07:36:55Z'
 image: >-
-  https://imagedelivery.net/vy2bglCGN6hEeWOnSe2c7A/Men%27s+Water+Bottles-1/w=900,h=500,fit=pad,background=black
+  https://imagedelivery.net/vy2bglCGN6hEeWOnSe2c7A/Men%2527s+Water+Bottles-1/w=900,h=500,fit=pad,background=black
 category: Reviews
 tags: Water Bottles
 ---

@@ -8,7 +8,7 @@ excerpt: >-
   hydration.
 publishDate: '2024-01-15T06:33:24Z'
 image: >-
-  https://imagedelivery.net/vy2bglCGN6hEeWOnSe2c7A/Br%C3%BCMate+Water+Bottles-1/w=900,h=500,fit=pad,background=black
+  https://imagedelivery.net/vy2bglCGN6hEeWOnSe2c7A/Br%25C3%25BCMate+Water+Bottles-1/w=900,h=500,fit=pad,background=black
 category: Reviews
 tags: Water Bottles
 ---
