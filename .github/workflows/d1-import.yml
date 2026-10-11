@@ -19,7 +19,10 @@ name: D1 import
 #
 # Both refuse a D1 that lacks one of this commit's migrations: run it after the deploy of this
 # commit has migrated that environment. Both refuse while a ci.yml deploy of the environment runs
-# or is pending, in the preflight and again right before the import. Imports keep the prune cap
+# or is pending, in the preflight and again right before the import. That guards one direction
+# only: a deploy that starts during an import migrates before its check refuses (#104). Both also
+# refuse unless the branch is still at the commit the run checked out, since a queue or the
+# production approval can outlast a merge: re-dispatch from the new tip. Imports keep the prune cap
 # (scripts/d1/import-boxers.ts); allow_prune, at most 250, raises it for one run and shows in the
 # run's name. A re-import keeps the last version's pages up while it runs; a deploy of the same
 # environment that starts meanwhile fails db:check-deployable (an import in progress), so re-run
@@ -131,6 +134,13 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           ENVIRONMENT: staging
         run: .github/scripts/verify-d1-import.sh --deploys-only
+
+      # The checkout is this run's commit; refuse if staging has moved on since.
+      - name: Require staging to be at this run's commit
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ENVIRONMENT: staging
+        run: .github/scripts/verify-d1-import.sh --tip-only
 
       - name: Require every migration of this commit in the staging D1
         env:
@@ -244,6 +254,13 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           ENVIRONMENT: production
         run: .github/scripts/verify-d1-import.sh --deploys-only
+
+      # The checkout is this run's commit, and main may have moved on during the approval wait.
+      - name: Require main to be at this run's commit
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ENVIRONMENT: production
+        run: .github/scripts/verify-d1-import.sh --tip-only
 
       # --confirm-production from here on records the owner's approval of this run's
       # `production` environment (docs/agents/d1.md).
