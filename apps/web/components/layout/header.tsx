@@ -5,7 +5,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '@boxingundefeated/desig
 import { Menu } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { getRoute } from '@/lib/routes'
 
 const navItems = [
@@ -47,6 +47,13 @@ function NavLink({ href, children, exact = false, className, onClick }: NavLinkP
 /** The phone navigation: the same links as the desktop nav, in a popover under a menu button. */
 function PhoneMenu() {
   const [open, setOpen] = useState(false)
+  const pathname = usePathname()
+
+  // Close the menu whenever the URL changes, including browser back and forward, which never
+  // click a menu link.
+  useEffect(() => {
+    setOpen(false)
+  }, [pathname])
 
   // Tailwind scans only apps/web, not packages/design-system, so a stock component's own classes
   // are generated only when apps/web names them too: the button's size and the popover's
@@ -59,7 +66,11 @@ function PhoneMenu() {
           <Menu className="size-5" aria-hidden="true" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent align="end" className="w-56 bg-popover p-2 text-popover-foreground shadow-md">
+      <PopoverContent
+        align="end"
+        aria-label="Site navigation"
+        className="w-56 bg-popover p-2 text-popover-foreground shadow-md"
+      >
         <nav aria-label="Main" className="flex flex-col">
           {navItems.map(({ href, label }) => (
             <NavLink

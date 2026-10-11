@@ -1,6 +1,10 @@
 import { fireEvent, render, screen, within } from '@testing-library/react'
 import { Header } from './header'
 
+// The URL the header renders at; a test changes it to stand in for a navigation.
+let mockPathname = '/'
+jest.mock('next/navigation', () => ({ usePathname: () => mockPathname }))
+
 const navLinks = [
   ['Boxers', '/boxers/'],
   ['Divisions', '/divisions/'],
@@ -9,6 +13,10 @@ const navLinks = [
 ]
 
 describe('Header', () => {
+  beforeEach(() => {
+    mockPathname = '/'
+  })
+
   it('links the main sections and not the empty blog', () => {
     render(<Header />)
 
@@ -28,6 +36,7 @@ describe('Header', () => {
     fireEvent.click(menuButton)
 
     expect(menuButton).toHaveAttribute('aria-expanded', 'true')
+    expect(screen.getByRole('dialog', { name: 'Site navigation' })).toBeInTheDocument()
     const phoneNav = screen.getAllByRole('navigation', { name: 'Main' })[1]
     expect(
       within(phoneNav)
@@ -39,5 +48,18 @@ describe('Header', () => {
 
     expect(menuButton).toHaveAttribute('aria-expanded', 'false')
     expect(screen.getAllByRole('navigation', { name: 'Main' })).toHaveLength(1)
+  })
+
+  it('closes the phone menu on any URL change, such as back or forward', () => {
+    const { rerender } = render(<Header />)
+    const menuButton = screen.getByRole('button', { name: 'Menu' })
+    fireEvent.click(menuButton)
+    expect(screen.getByRole('dialog', { name: 'Site navigation' })).toBeInTheDocument()
+
+    mockPathname = '/boxers/'
+    rerender(<Header />)
+
+    expect(menuButton).toHaveAttribute('aria-expanded', 'false')
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
   })
 })
