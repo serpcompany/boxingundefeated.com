@@ -1,34 +1,39 @@
 /**
- * Retired sections (#59): URLs the owner removed without a replacement, so they answer
+ * Retired URLs (#59, #94): what the owner removed without a replacement, so it answers
  * **410 Gone** instead of the permanent redirect every other changed URL gets (docs/agents/urls.md).
  * A 410 tells search engines the page is gone for good, and visitors get a small page that says so
- * and links home. Add a later retirement to `RETIRED_SECTIONS`; nothing else needs to change.
+ * and links home. Add a later retirement to `RETIRED_SECTIONS` or `RETIRED_FILES`; nothing else
+ * needs to change.
  *
  * A section is a path prefix: the path itself, with or without its slash, and everything under it,
  * so `/blog`, `/blog/` and `/blog/jab/` are gone, while `/blogs/` and `/Blog/` stay unknown paths
  * (404). Whole sections rather than a list of URLs, because the old site's blog was WordPress:
  * posts plus author, category and tag archives with pagination (56 paths in the Wayback Machine,
- * every one under `/blog/`), and crawlers know variants the archive never saw.
+ * every one under `/blog/`), and crawlers know variants the archive never saw. The shop's articles
+ * include spellings with non-ASCII letters (`/shop/best/br%C3%BCmate-water-bottles/`, NFD,
+ * lowercase hex); every one of them is under `/shop/`, so each is gone as it was sent. A file is
+ * one path, with or without a trailing slash. Repeated slashes count as one (`//shop/`), so no
+ * spelling needs a redirect first.
  *
  * lib/worker/handle-request.ts answers it after staging's password and the canonical-host
  * redirect (`www` and `*.workers.dev` still get their one 308 to the origin first), and before the
- * edge cache and OpenNext's trailing-slash redirects, so `/blog` answers 410 without a hop and the
- * 410 is never stored as a page. The response carries its own `noindex` (header and meta tag),
- * because production's crawl policy adds none, and neither does staging's for a request with the
- * password.
+ * XML sitemaps, the edge cache and OpenNext's trailing-slash redirects, so `/blog` answers 410
+ * without a hop and the 410 is never stored as a page. The response carries its own `noindex`
+ * (header and meta tag), because production's crawl policy adds none, and neither does staging's
+ * for a request with the password.
  *
  * No Next.js imports: the Worker runs this before OpenNext loads.
  */
 import { SITE_NAME } from '../site-config'
 
-export interface RetiredSection {
-  /** The section's path without a trailing slash, such as `/blog`. */
+export interface RetiredPath {
+  /** The path without a trailing slash, such as `/blog` or `/sitemap-shop.xml`. */
   path: string
   /** Why it is gone, and who decided. */
   reason: string
 }
 
-export const RETIRED_SECTIONS: readonly RetiredSection[] = [
+export const RETIRED_SECTIONS: readonly RetiredPath[] = [
   {
     path: '/blog',
     reason:
@@ -40,12 +45,33 @@ export const RETIRED_SECTIONS: readonly RetiredSection[] = [
     reason:
       'Owner, 2026-10-11: "actually lets just remove the brands page." (#59). The shared ' +
       "brands Worker's route there goes in serpcompany/serp#1490."
+  },
+  {
+    path: '/shop',
+    reason:
+      'Amazon-affiliate buying guides: `/shop/`, its listing pages and 627 articles under ' +
+      '`/shop/best/`. Owner, 2026-10-11: drop the whole shop, "its super outdated" (#94).'
   }
 ]
 
-/** True for a retired section's path and every path under it (case-sensitive, as routes are). */
+/** Single retired paths, not prefixes. */
+export const RETIRED_FILES: readonly RetiredPath[] = [
+  {
+    path: '/sitemap-shop.xml',
+    reason: "The shop's XML sitemap, which the sitemap index no longer lists (#94)."
+  }
+]
+
+/**
+ * True for a retired section's path and every path under it, and for a retired file with or
+ * without a trailing slash, with repeated slashes counted as one (case-sensitive, as routes are).
+ */
 export function isRetiredPath(pathname: string): boolean {
-  return RETIRED_SECTIONS.some(({ path }) => pathname === path || pathname.startsWith(`${path}/`))
+  const path = pathname.replace(/\/{2,}/g, '/')
+  const inSection = RETIRED_SECTIONS.some(
+    section => path === section.path || path.startsWith(`${section.path}/`)
+  )
+  return inSection || RETIRED_FILES.some(file => path === file.path || path === `${file.path}/`)
 }
 
 const GONE_PAGE = `<!doctype html>

@@ -106,11 +106,6 @@ export function Footer() {
                   Sitemap
                 </Link>
               </li>
-              <li>
-                <Link href="/shop/" className="text-muted-foreground hover:text-foreground">
-                  Shop
-                </Link>
-              </li>
             </ul>
           </div>
           <div className="space-y-3">

@@ -43,7 +43,7 @@ Run everything from the repository root.
   machine with `BASE_URL=https://boxingundefeated.com`.
 - `/api/search` must answer 200 with JSON, so a Worker deployed before #36 fails the smoke.
 - The sitemap test (`tests/sitemaps.spec.ts`) requests every URL the sitemaps list on a local
-  preview (about 6,450 with a full import, a minute or two), but only the first and last few of
+  preview (about 5,810 with a full import, a minute or two), but only the first and last few of
   each child sitemap on a deployed environment, to keep the load on the live site small.
 - Playwright doesn't retry (`retries: 0`), so a flaky test fails the run. Only the host check
   retries, for up to 30 s, while a new deploy reaches every edge.

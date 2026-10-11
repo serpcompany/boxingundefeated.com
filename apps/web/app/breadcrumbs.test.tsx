@@ -12,7 +12,7 @@ import type { ReactElement } from 'react'
 import { toAbsoluteUrl } from '@/lib/url-utils'
 
 // The boxer and division pages read D1 through data-ops in the Worker; these stand in for its
-// queries. Shop articles and listings read the real markdown in content/.
+// queries.
 const mockGetCloudflareContext = jest.fn()
 const mockGetBoxerProfile = jest.fn<Promise<BoxerProfile | null>, [unknown, string]>()
 const mockListBoxers = jest.fn<Promise<BoxerPage | null>, [unknown, { page?: number }]>()
@@ -40,15 +40,9 @@ jest.mock('@boxingundefeated/data-ops', () => ({
     mockListBoxersByDivision(db, slug, options),
   listDivisions: (db: unknown) => mockListDivisions(db)
 }))
-// The article body is beside the point here, and remark is ESM only.
-jest.mock('remark', () => ({
-  remark: () => ({ use: () => ({ process: async (markdown: string) => markdown }) })
-}))
-jest.mock('remark-html', () => ({ __esModule: true, default: () => undefined }))
 
 import PrivacyPolicyPage, { metadata as privacyMetadata } from './(legal)/privacy/page'
 import TermsOfServicePage, { metadata as termsMetadata } from './(legal)/terms/page'
-import ShopArticlePage, { generateMetadata as shopArticleMetadata } from './[...slug]/page'
 import BoxerProfilePage, { generateMetadata as boxerMetadata } from './boxers/[slug]/page'
 import BoxersPage, { generateMetadata as boxersMetadata } from './boxers/page'
 import BoxersPaginatedPage, {
@@ -59,8 +53,6 @@ import DivisionPaginatedPage, {
   generateMetadata as divisionPageMetadata
 } from './divisions/[division]/page/[page]/page'
 import DivisionsPage, { generateMetadata as divisionsMetadata } from './divisions/page'
-import ShopPage, { generateMetadata as shopMetadata } from './shop/page'
-import ShopPaginatedPage, { generateMetadata as shopPageMetadata } from './shop/page/[page]/page'
 
 const ORIGIN = 'http://localhost:8787'
 
@@ -149,32 +141,11 @@ function canonical(metadata: Metadata): string {
   return value.startsWith('/') ? `${ORIGIN}${value}` : value
 }
 
-const article = (...slug: string[]) => ({ params: Promise.resolve({ slug }) })
 const page = (value: string) => ({ params: Promise.resolve({ page: value }) })
 
 // Every page family that renders the breadcrumb. The homepage, /about/, /sitemap/ and /search/
 // have none.
 const pages: [string, () => Promise<ReactElement>, () => Promise<Metadata>, string[]][] = [
-  [
-    '/shop/best/kettlebells/',
-    () => ShopArticlePage(article('shop', 'best', 'kettlebells')),
-    () => shopArticleMetadata(article('shop', 'best', 'kettlebells')),
-    ['Home', 'Shop', 'Kettlebells']
-  ],
-  [
-    '/shop/best/br%C3%BCmate-water-bottles/',
-    // Next.js passes the segment percent-encoded.
-    () => ShopArticlePage(article('shop', 'best', 'br%C3%BCmate-water-bottles')),
-    () => shopArticleMetadata(article('shop', 'best', 'br%C3%BCmate-water-bottles')),
-    ['Home', 'Shop', 'BrüMate Water Bottles']
-  ],
-  ['/shop/', () => ShopPage(), () => shopMetadata(), ['Home', 'Shop']],
-  [
-    '/shop/page/2/',
-    () => ShopPaginatedPage(page('2')),
-    () => shopPageMetadata(page('2')),
-    ['Home', 'Shop', 'Page 2']
-  ],
   ['/boxers/', () => BoxersPage(), () => boxersMetadata(), ['Home', 'Boxers']],
   [
     '/boxers/page/2/',

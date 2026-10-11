@@ -3,22 +3,43 @@ import { decodeEntities, isNoindex, pageFacts } from '../src/html'
 import { samplePages, target } from './site'
 
 /**
- * Retired sections (#59; apps/web/lib/routing/retired-paths.ts): `/blog` and `/brands`, and every
- * path under them, answer 410 Gone directly, without a redirect first: a small page with noindex
- * that links home, never stored by the edge cache. No page links to them.
+ * Retired URLs (#59, #94; apps/web/lib/routing/retired-paths.ts): `/blog`, `/brands` and `/shop`,
+ * every path under them, and `/sitemap-shop.xml` answer 410 Gone directly, without a redirect
+ * first: a small page with noindex that links home, never stored by the edge cache. No page links
+ * to them, and the sitemap index no longer lists the shop's sitemap.
  *
  * On the production apex the shared brands Worker (serpcompany/serp `workers/brands-page`) answers
  * `boxingundefeated.com/brands*` before this Worker until serpcompany/serp#1490 removes its route:
  * `/brands` gets its 308 first. CI tests the workers.dev host, which that route never covers.
  */
-const RETIRED_SECTIONS = ['/blog', '/brands']
-const retiredPaths = ['/blog/', '/blog', '/blog/jab/', '/brands/', '/brands']
+const RETIRED_SECTIONS = ['/blog', '/brands', '/shop']
+const RETIRED_FILES = ['/sitemap-shop.xml']
+const retiredPaths = [
+  '/blog/',
+  '/blog',
+  '/blog/jab/',
+  '/brands/',
+  '/brands',
+  '/shop',
+  '/shop/',
+  '/shop/page/2/',
+  '/shop/best/1-inch-thick-yoga-mats/',
+  // The shop's articles with non-ASCII letters, in each spelling that used to get a 308 first
+  // (#54): canonical NFC, lowercase hex, NFD without the slash, the old route key, and `//`.
+  '/shop/best/br%C3%BCmate-water-bottles/',
+  '/shop/best/br%c3%bcmate-water-bottles/',
+  '/shop/best/bru%CC%88mate-water-bottles',
+  '/shop/best/br~C3~BCmate-water-bottles/',
+  '/shop//best/nestl%C3%A9-water-bottles/',
+  '/sitemap-shop.xml'
+]
 /** The sample pages, plus the pages that used to link a retired section (footer, HTML sitemap). */
-const linkingPages = [...samplePages.map(page => page.path), '/about/', '/sitemap/', '/shop/']
+const linkingPages = [...samplePages.map(page => page.path), '/about/', '/sitemap/']
 
 function isRetired(pathname: string): boolean {
-  return RETIRED_SECTIONS.some(
-    section => pathname === section || pathname.startsWith(`${section}/`)
+  return (
+    RETIRED_SECTIONS.some(section => pathname === section || pathname.startsWith(`${section}/`)) ||
+    RETIRED_FILES.includes(pathname)
   )
 }
 
@@ -45,7 +66,24 @@ for (const path of retiredPaths) {
   })
 }
 
-test('no sampled page links to a retired section', async ({ request }) => {
+test('the sitemap index no longer lists the shop sitemap', async ({ request }) => {
+  const response = await request.get('/sitemap-index.xml', { maxRedirects: 0 })
+  expect(response.status()).toBe(200)
+  const sitemaps = [...(await response.text()).matchAll(/<loc>([^<]+)<\/loc>/g)].map(
+    match => new URL(match[1]).pathname
+  )
+  expect(sitemaps.length).toBeGreaterThan(0)
+  expect(sitemaps.filter(isRetired)).toEqual([])
+})
+
+test('/shopping/ and /shops/ are unknown paths, not retired ones', async ({ request }) => {
+  for (const path of ['/shopping/', '/shops/']) {
+    const response = await request.get(path, { maxRedirects: 0 })
+    expect(response.status(), path).toBe(404)
+  }
+})
+
+test('no sampled page links to a retired path', async ({ request }) => {
   for (const path of linkingPages) {
     const response = await request.get(path, { maxRedirects: 0 })
     expect(response.status(), path).toBe(200)

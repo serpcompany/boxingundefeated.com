@@ -1,35 +1,17 @@
 import { render } from '@testing-library/react'
-import { getShopPosts } from '@/lib/shop-loader'
-import ShopPage from './shop/page'
-import ShopPaginatedPage from './shop/page/[page]/page'
 
 // The boxer listings, the divisions and the HTML sitemap read D1: listing-pages.test.tsx.
 describe('crawlable directory pages', () => {
-  it('/shop renders shop detail links and crawlable pagination anchors', async () => {
-    const firstPost = (await getShopPosts())[0]
-    render(await ShopPage())
-
-    expect(document.querySelector(`a[href="${firstPost.slug}"]`)).toBeInTheDocument()
-    expect(document.querySelector('a[href="/shop/page/2/"]')).toBeInTheDocument()
-  })
-
-  it('/shop/page/2 renders the second shop page with canonical pagination links', async () => {
-    render(await ShopPaginatedPage({ params: Promise.resolve({ page: '2' }) }))
-
-    expect(document.querySelector('a[href="/shop/"]')).toBeInTheDocument()
-    expect(document.querySelector('a[href="/shop/page/3/"]')).toBeInTheDocument()
-  })
-
   it('footer exposes sitemap and canonical division links', async () => {
     const { Footer } = await import('@/components/layout/footer')
     render(<Footer />)
 
     expect(document.querySelector('a[href="/sitemap/"]')).toBeInTheDocument()
     expect(document.querySelector('a[href="/divisions/"]')).toBeInTheDocument()
-    expect(document.querySelector('a[href="/shop/"]')).toBeInTheDocument()
     // Retired with a 410 (lib/routing/retired-paths.ts); the DR badge below stays.
     expect(document.querySelector('a[href^="/brands"]')).not.toBeInTheDocument()
     expect(document.querySelector('a[href^="/blog"]')).not.toBeInTheDocument()
+    expect(document.querySelector('a[href^="/shop"]')).not.toBeInTheDocument()
     expect(document.querySelector('a[href="/divisions/heavy/"]')).toBeInTheDocument()
     expect(document.querySelector('a[href="/boxers?division=heavy"]')).not.toBeInTheDocument()
 
@@ -71,5 +53,6 @@ describe('crawlable directory pages', () => {
     render(<Header />)
 
     expect(document.querySelector('a[href="/divisions/"]')).toBeInTheDocument()
+    expect(document.querySelector('a[href^="/shop"]')).not.toBeInTheDocument()
   })
 })

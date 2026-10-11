@@ -1,11 +1,17 @@
 /**
  * @jest-environment node
  */
-import { isRetiredPath, RETIRED_SECTIONS, retiredPathResponse } from './retired-paths'
+import {
+  isRetiredPath,
+  RETIRED_FILES,
+  RETIRED_SECTIONS,
+  retiredPathResponse
+} from './retired-paths'
 import { canonicalPathname } from './trailing-slash'
 
 // Every /blog/ path family the Wayback Machine has for the old site (posts, author, category and
-// tag archives with pagination, and a 301), and the /brands/ page.
+// tag archives with pagination, and a 301), the /brands/ page, and the shop (#94): its listing
+// pages, its articles in every spelling, and its XML sitemap.
 const retired = [
   '/blog',
   '/blog/',
@@ -18,7 +24,28 @@ const retired = [
   '/blog/feed.xml',
   '/brands',
   '/brands/',
-  '/brands/x/'
+  '/brands/x/',
+  '/shop',
+  '/shop/',
+  '/shop/page/2/',
+  '/shop/page/13/',
+  '/shop/best/1-inch-thick-yoga-mats/',
+  '/shop/best/1-inch-thick-yoga-mats',
+  '/shop/best/2.7-l-water-bottles/',
+  '/shop/best/br%C3%BCmate-water-bottles/',
+  '/shop/best/br%c3%bcmate-water-bottles/',
+  '/shop/best/bru%CC%88mate-water-bottles',
+  '/shop/best/br~C3~BCmate-water-bottles/',
+  '/shop/best/brümate-water-bottles/',
+  '/shop/best/nestl%C3%A9-water-bottles/',
+  '/shop/best/blog/',
+  '/shop//best/x/',
+  '//shop/best/x/',
+  '//shop',
+  '//blog/',
+  '/sitemap-shop.xml',
+  '/sitemap-shop.xml/',
+  '//sitemap-shop.xml'
 ]
 const notRetired = [
   '/',
@@ -28,7 +55,16 @@ const notRetired = [
   '/brandsx/',
   '/Blog/',
   '/BRANDS/',
-  '/shop/best/blog/',
+  '/shopping/',
+  '/shops/',
+  '/Shop/',
+  '/SHOP/best/x/',
+  '/x/shop/',
+  '/sitemap-shop.xml.gz',
+  '/sitemap-shops.xml',
+  '/sitemap-shop-2.xml',
+  '/sitemap-shop.xml/x',
+  '/sitemap-pages.xml',
   '/about/'
 ]
 
@@ -41,18 +77,20 @@ describe('isRetiredPath', () => {
     expect(isRetiredPath(path)).toBe(false)
   })
 
-  it('lists each section once, without a trailing slash, with a reason', () => {
-    const paths = RETIRED_SECTIONS.map(section => section.path)
-    expect(paths).toEqual(['/blog', '/brands'])
-    for (const { path, reason } of RETIRED_SECTIONS) {
+  it('lists each section and file once, without a trailing slash, with a reason', () => {
+    expect(RETIRED_SECTIONS.map(section => section.path)).toEqual(['/blog', '/brands', '/shop'])
+    expect(RETIRED_FILES.map(file => file.path)).toEqual(['/sitemap-shop.xml'])
+    for (const { path, reason } of [...RETIRED_SECTIONS, ...RETIRED_FILES]) {
       expect(path).toMatch(/^\/[^/]+(?:\/[^/]+)*$/)
       expect(reason.length).toBeGreaterThan(0)
     }
   })
 
-  it('retires every slash form of a section, so the 410 never needs a redirect first', () => {
-    for (const { path } of RETIRED_SECTIONS) {
-      expect(isRetiredPath(canonicalPathname(path))).toBe(true)
+  it('retires every slash form, so the 410 never needs a redirect first', () => {
+    for (const { path } of [...RETIRED_SECTIONS, ...RETIRED_FILES]) {
+      for (const form of [path, `${path}/`, `/${path}`, canonicalPathname(path)]) {
+        expect([form, isRetiredPath(form)]).toEqual([form, true])
+      }
     }
   })
 })

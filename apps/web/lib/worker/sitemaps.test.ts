@@ -3,7 +3,6 @@
  */
 import type { SitemapData } from '@boxingundefeated/data-ops'
 import { SMOKE_TEST_HEADER } from '../routing/canonical-host'
-import type { SitemapContent } from '../sitemaps/sitemaps'
 import type { DatasetReadiness } from './dataset-gate'
 import { EDGE_CACHE_HEADER } from './edge-cache'
 import { handleWorkerRequest } from './handle-request'
@@ -39,12 +38,6 @@ const data: SitemapData = {
     { slug: 'bantam', name: 'Bantamweight', proDivision: 'bantam', sortOrder: 0, boxerCount: 1 }
   ]
 }
-const content: SitemapContent = {
-  shop: [
-    { path: '/shop/', lastmod: '2024-01-15' },
-    { path: '/shop/best/1-inch-thick-yoga-mats/', lastmod: '2024-01-15' }
-  ]
-}
 
 function setup(overrides: Partial<SitemapOptions> = {}) {
   let readiness = ready
@@ -54,7 +47,6 @@ function setup(overrides: Partial<SitemapOptions> = {}) {
   const observe = jest.fn()
   const options: SitemapOptions = {
     load,
-    content,
     readiness: jest.fn(async () => readiness),
     siteEnvironment: 'production',
     edgeCache: {
@@ -118,8 +110,7 @@ describe('handleSitemapRequest', () => {
     expect([...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map(match => match[1])).toEqual([
       `${ORIGIN}/sitemap-pages.xml`,
       `${ORIGIN}/sitemap-boxers.xml`,
-      `${ORIGIN}/sitemap-divisions.xml`,
-      `${ORIGIN}/sitemap-shop.xml`
+      `${ORIGIN}/sitemap-divisions.xml`
     ])
   })
 
@@ -127,9 +118,6 @@ describe('handleSitemapRequest', () => {
     const site = setup()
     expect(await (await site.fetch('/sitemap-boxers.xml')).text()).toContain(
       `<url><loc>${ORIGIN}/boxers/manuel-ortiz/</loc><lastmod>2025-08-08</lastmod></url>`
-    )
-    expect(await (await site.fetch('/sitemap-shop.xml')).text()).toContain(
-      `<loc>${ORIGIN}/shop/best/1-inch-thick-yoga-mats/</loc>`
     )
 
     const local = setup({ siteEnvironment: 'local' })
@@ -259,6 +247,14 @@ describe('handleSitemapRequest', () => {
     expect(unversioned.cache.stored.size).toBe(0)
   })
 
+  it('answers 404 for the old shop group without reading D1', async () => {
+    // The Worker answers it 410 before this handler (lib/routing/retired-paths.ts).
+    const site = setup()
+    expect((await site.fetch('/sitemap-shop.xml')).status).toBe(404)
+    expect(site.load).not.toHaveBeenCalled()
+    expect(site.options.readiness).not.toHaveBeenCalled()
+  })
+
   it('answers other methods with 405', async () => {
     const site = setup()
     const response = await site.fetch('/sitemap-index.xml', { method: 'POST' })
@@ -326,6 +322,20 @@ describe('the sitemaps through the Worker pipeline', () => {
     expect(site.load).not.toHaveBeenCalled()
   })
 
+  it.each([`${ORIGIN}/sitemap-shop.xml`, `${ORIGIN}//sitemap-shop.xml`])(
+    'answers the retired shop sitemap %s with 410, without reading D1',
+    async url => {
+      const { site, serve, runtime } = pipeline()
+      const response = await handleWorkerRequest(new Request(url), production, serve, runtime)
+
+      expect(response.status).toBe(410)
+      expect(response.headers.get('x-robots-tag')).toBe('noindex')
+      expect(serve).not.toHaveBeenCalled()
+      expect(site.load).not.toHaveBeenCalled()
+      expect(site.options.readiness).not.toHaveBeenCalled()
+    }
+  )
+
   it('leaves a new-style sitemap URL with a slash (/sitemap-index.xml/) to the trailing-slash redirect in OpenNext', async () => {
     const { serve, runtime } = pipeline()
     await handleWorkerRequest(
@@ -343,7 +353,7 @@ describe('d1Sitemaps', () => {
     const observe = jest.fn()
     const handler = d1Sitemaps(
       { SITE_ENVIRONMENT: 'production', CF_VERSION_METADATA: { id: 'v' } },
-      { content, readiness: async () => ready, observe }
+      { readiness: async () => ready, observe }
     )
     const response = await handler(new Request(`${ORIGIN}/sitemap-index.xml`))
 

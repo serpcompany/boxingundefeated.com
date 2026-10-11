@@ -2,7 +2,6 @@ import {
   BOXER_PAGE_SIZE,
   getBoxersPageHref,
   getDivisionPageHref,
-  getPaginatedItems,
   getPaginationPages,
   getTotalPages,
   parsePageNumber
@@ -30,18 +29,6 @@ describe('directory pagination helpers', () => {
     for (const segment of ['', '0', '02', '2abc', '1.5', '-1', '1e2', ' 2', '9999999']) {
       expect([segment, parsePageNumber(segment)]).toEqual([segment, null])
     }
-  })
-
-  it('slices a page and returns null for invalid requested pages', () => {
-    expect(getPaginatedItems(boxers, 117)).toMatchObject({
-      currentPage: 117,
-      totalPages: 117,
-      startIndex: 5568,
-      endIndex: 5570,
-      items: [5568, 5569]
-    })
-    expect(getPaginatedItems(boxers, 0)).toBeNull()
-    expect(getPaginatedItems(boxers, 118)).toBeNull()
   })
 
   it('paginates a division by its boxer count', () => {

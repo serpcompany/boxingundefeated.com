@@ -179,6 +179,20 @@ describe('isAllowed', () => {
     expect(isAllowed({ ...difference, actual: '500' }, allowlist)).toBe(false)
     expect(isAllowed({ ...difference, actual: '308 -> /boxers/' }, allowlist)).toBe(false)
   })
+
+  it('matches every path under a prefix entry', () => {
+    const allowlist = [
+      { path: '/shop/', prefix: true, field: 'status' as const, actual: '410', reason: 'x' }
+    ]
+    const difference = { field: 'status' as const, expected: '200', actual: '410' }
+    for (const path of ['/shop/', '/shop/page/2/', '/shop/best/br%C3%BCmate-water-bottles/']) {
+      expect(isAllowed({ ...difference, path }, allowlist)).toBe(true)
+    }
+    for (const path of ['/shopping/', '/boxers/shop/', '/']) {
+      expect(isAllowed({ ...difference, path }, allowlist)).toBe(false)
+    }
+    expect(isAllowed({ ...difference, path: '/shop/', actual: '404' }, allowlist)).toBe(false)
+  })
 })
 
 describe('parseOptions', () => {

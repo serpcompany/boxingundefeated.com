@@ -58,8 +58,8 @@ const expected: Array<[string, string | null]> = [
   ['/apis', '/apis/'],
   ['/About', '/About/'],
   // A dotted segment is a page unless it ends in a file extension.
-  ['/shop/best/2.7-l-water-bottles', '/shop/best/2.7-l-water-bottles/'],
-  ['/shop/best/16.9-oz-water-bottles', '/shop/best/16.9-oz-water-bottles/'],
+  ['/boxers/2.7-l', '/boxers/2.7-l/'],
+  ['/boxers/16.9-oz', '/boxers/16.9-oz/'],
   ['/boxers/x.y', '/boxers/x.y/'],
   ['/foo.', '/foo./'],
   ['/a.json5', '/a.json5/'],
@@ -83,8 +83,8 @@ const expected: Array<[string, string | null]> = [
   ['/favicon.ico', null],
   ['/feeds/x.json', null],
   ['/ROBOTS.TXT', null],
-  ['/shop/best/2.7-l-water-bottles/', null],
-  ['/shop/best/16.9-oz-water-bottles/', null],
+  ['/boxers/2.7-l/', null],
+  ['/boxers/16.9-oz/', null],
   // Exempt.
   ['/_next/static/chunks/main.js', null],
   ['/_next/static/chunks/main.js/', null],

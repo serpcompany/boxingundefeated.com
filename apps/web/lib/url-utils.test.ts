@@ -4,10 +4,8 @@ describe('internal path normalization', () => {
   it('normalizes internal paths with trailing slashes except root and files', () => {
     expect(normalizeInternalPath('/')).toBe('/')
     expect(normalizeInternalPath('/divisions')).toBe('/divisions/')
-    expect(normalizeInternalPath('/shop/best/boxing-resistance-bands')).toBe(
-      '/shop/best/boxing-resistance-bands/'
-    )
-    expect(normalizeInternalPath('/shop?page=2#guides')).toBe('/shop/?page=2#guides')
+    expect(normalizeInternalPath('/boxers/len-wickwar')).toBe('/boxers/len-wickwar/')
+    expect(normalizeInternalPath('/boxers?page=2#list')).toBe('/boxers/?page=2#list')
     expect(normalizeInternalPath('/sitemap-pages.xml/')).toBe('/sitemap-pages.xml')
     expect(normalizeInternalPath('brands')).toBe('/brands/')
   })
@@ -20,13 +18,5 @@ describe('internal path normalization', () => {
     expect(toAbsoluteUrl('https://boxingundefeated.com', '/sitemap-index.xml')).toBe(
       'https://boxingundefeated.com/sitemap-index.xml'
     )
-  })
-
-  it('percent-encodes non-ASCII letters in absolute URLs, in NFC', () => {
-    for (const path of ['/shop/best/brümate-water-bottles', '/shop/best/brümate-water-bottles/']) {
-      expect(toAbsoluteUrl('https://boxingundefeated.com', path)).toBe(
-        'https://boxingundefeated.com/shop/best/br%C3%BCmate-water-bottles/'
-      )
-    }
   })
 })

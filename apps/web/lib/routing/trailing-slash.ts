@@ -14,8 +14,8 @@
  * `slashRedirects` with Next.js's own route compiler and check that both agree.
  *
  * A file is a last segment that ends in a known extension (`file-extensions.ts`), not any dotted
- * segment: shop slugs such as `2.7-l-water-bottles` are pages, so `/shop/best/2.7-l-water-bottles`
- * gets its slash. This module has no Next.js imports: the Worker entry loads it before OpenNext.
+ * segment: `/boxers/2.7-l` is a page, so it gets its slash. This module has no Next.js imports:
+ * the Worker entry loads it before OpenNext.
  */
 import { FILE_EXTENSION_PATTERN, hasFileExtension } from './file-extensions'
 

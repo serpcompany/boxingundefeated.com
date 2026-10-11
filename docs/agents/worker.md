@@ -12,9 +12,9 @@ environment sets is in [environments.md](environments.md).
   `env.production` (the apex and `www`) are the deployed Workers, each with its own D1 `DB`.
 - `apps/web/lib/worker/handle-request.ts` maps the request pipeline, in order: the build guard,
   staging's password gate, the canonical host, then the crawl policy, which wraps the retired
-  paths' 410 ([urls.md](urls.md#retired-urls)), the shop's non-ASCII 308, `/api/search` and the
-  XML sitemaps (from D1, per the SERP sitemap index pattern), the D1 readiness gate, the edge cache
-  and the not-found page, and finally OpenNext.
+  paths' 410 ([urls.md](urls.md#retired-urls)), `/api/search` and the XML sitemaps (from D1, per
+  the SERP sitemap index pattern), the D1 readiness gate, the edge cache and the not-found page,
+  and finally OpenNext.
   - The password gate runs on every host of the staging Worker, before the canonical-host
     redirect: `*.workers.dev` without the password answers 401, not 308, and it is the only host
     CI can reach (#45). A request that passes loses its `Authorization` header, so the edge cache

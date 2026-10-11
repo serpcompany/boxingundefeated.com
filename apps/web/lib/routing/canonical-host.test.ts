@@ -72,27 +72,13 @@ describe('canonicalHostRedirect', () => {
     [`${WORKERS_DEV}/api/search`, 'https://boxingundefeated.com/api/search', 'workers'],
     [`${PREVIEW}/about/`, 'https://boxingundefeated.com/about/', 'preview URL'],
     ['https://WWW.BoxingUndefeated.com/about/', 'https://boxingundefeated.com/about/', 'case'],
-    // A shop path with non-ASCII letters: straight to its canonical spelling, in the same hop.
-    [
-      `${WWW}/shop/best/br%C3%BCmate-water-bottles/`,
-      'https://boxingundefeated.com/shop/best/br%C3%BCmate-water-bottles/',
-      'non-ASCII'
-    ],
+    // A retired path (lib/routing/retired-paths.ts) keeps its spelling; the origin answers 410.
     [
       `${WWW}/shop/best/bru%CC%88mate-water-bottles`,
-      'https://boxingundefeated.com/shop/best/br%C3%BCmate-water-bottles/',
-      'non-ASCII, NFD, no slash'
+      'https://boxingundefeated.com/shop/best/bru%CC%88mate-water-bottles/',
+      'retired, non-ASCII'
     ],
-    [
-      `${WORKERS_DEV}/shop/best/nestl%c3%a9-water-bottles/?x=1`,
-      'https://boxingundefeated.com/shop/best/nestl%C3%A9-water-bottles/?x=1',
-      'non-ASCII, lowercase hex'
-    ],
-    [
-      `${WWW}/shop/best//br~C3~BCmate-water-bottles/`,
-      'https://boxingundefeated.com/shop/best/br%C3%BCmate-water-bottles/',
-      'route key, repeated slashes'
-    ]
+    [`${WORKERS_DEV}//shop`, 'https://boxingundefeated.com/shop/', 'retired, repeated slashes']
   ])('sends %s to %s (%s) in production', async (url, location) => {
     const response = redirect(url, production)
 

@@ -7,54 +7,29 @@ import { boxer, target } from './site'
  * there on the same host, and /api is never redirected.
  */
 
-/** `from` answers one 308 to `to` on the same host, and `to` answers 200. */
-async function expectOneHop(request: APIRequestContext, from: string, to: string) {
+/**
+ * `from` answers one 308 to `to` on the same host, and `to` answers `status`: 200, or 404 for a
+ * path no page has.
+ */
+async function expectOneHop(request: APIRequestContext, from: string, to: string, status = 200) {
   const response = await request.get(from, { maxRedirects: 0 })
   expect(response.status(), from).toBe(308)
   const location = new URL(response.headers().location ?? '', target.baseUrl)
   expect(location.origin, `${from} stays on the host`).toBe(target.baseUrl)
   expect(`${location.pathname}${location.search}`, `${from} Location`).toBe(to)
   const destination = await request.get(to, { maxRedirects: 0 })
-  expect(destination.status(), to).toBe(200)
+  expect(destination.status(), to).toBe(status)
 }
 
 test('a page without its slash answers 308 to the slashed page', async ({ request }) => {
-  const pages = ['/about/', '/boxers/', boxer.path, '/divisions/heavy/', '/shop/best/kettlebells/']
-  // Slugs can contain dots; such a page is still a page, not a file (the standard's dotted case).
-  pages.push('/shop/best/2.7-l-water-bottles/', '/shop/best/16.9-oz-water-bottles/')
-  for (const page of pages) {
+  for (const page of ['/about/', '/boxers/', boxer.path, '/divisions/heavy/']) {
     await expectOneHop(request, page.slice(0, -1), page)
   }
   // The query string is kept.
   await expectOneHop(request, '/search?q=ortiz', '/search/?q=ortiz')
-})
-
-test('a shop path with a non-ASCII letter answers one 308 to its percent-encoded NFC spelling', async ({
-  request
-}) => {
-  const page = '/shop/best/br%C3%BCmate-water-bottles/'
-  for (const from of [
-    '/shop/best/br%C3%BCmate-water-bottles',
-    // Lowercase hex, which is also how workerd passes raw UTF-8 on.
-    '/shop/best/br%c3%bcmate-water-bottles/',
-    // NFD: u and a combining diaeresis.
-    '/shop/best/bru%CC%88mate-water-bottles/',
-    '/shop/best/bru%CC%88mate-water-bottles',
-    // The ASCII route key the Worker renders the page from (lib/routing/non-ascii-paths.ts).
-    '/shop/best/br~C3~BCmate-water-bottles/',
-    // Repeated slashes, collapsed in the same hop rather than by OpenNext to the route key.
-    '/shop//best/br%C3%BCmate-water-bottles/',
-    '/shop//best/br%C3%BCmate-water-bottles'
-  ]) {
-    await expectOneHop(request, from, page)
-  }
-  for (const from of [
-    '/shop/best/nestle%CC%81-water-bottles',
-    '/shop/best//nestl%C3%A9-water-bottles/',
-    '/shop/best//nestl%C3%A9-water-bottles'
-  ]) {
-    await expectOneHop(request, from, '/shop/best/nestl%C3%A9-water-bottles/')
-  }
+  // A dotted segment is still a page, not a file (the standard's dotted case). No page has a
+  // dotted slug since the shop's were retired (#94), so the slashed path is a 404.
+  await expectOneHop(request, '/boxers/2.7-l', '/boxers/2.7-l/', 404)
 })
 
 test('a file with a slash answers 308 to the file', async ({ request }) => {

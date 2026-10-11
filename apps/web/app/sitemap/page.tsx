@@ -7,15 +7,13 @@ import {
   getPaginationPages
 } from '@/lib/directory-pagination'
 import { createPageMetadata } from '@/lib/metadata'
-import { getShopPageHref, getShopPostCount, SHOP_PAGE_SIZE } from '@/lib/shop-loader'
 import { getSiteOrigin, SITE_NAME } from '@/lib/site-config'
 import { SITEMAP_GROUPS, SITEMAP_INDEX_PATH, sitemapFilePath } from '@/lib/sitemaps/sitemaps'
 
 const SITEMAP_LABELS = {
   pages: 'Pages sitemap',
   boxers: 'Boxers sitemap',
-  divisions: 'Divisions sitemap',
-  shop: 'Shop sitemap'
+  divisions: 'Divisions sitemap'
 } as const
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -29,7 +27,6 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function HtmlSitemapPage() {
   const { totalBoxers, divisions } = await getDirectoryCounts()
   const boxerPages = getPaginationPages(totalBoxers)
-  const shopPages = getPaginationPages(await getShopPostCount(), SHOP_PAGE_SIZE)
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-8">
@@ -42,7 +39,6 @@ export default async function HtmlSitemapPage() {
           { href: '/about/', label: 'About' },
           { href: '/search/', label: 'Search' },
           { href: '/divisions/', label: 'Divisions' },
-          { href: '/shop/', label: 'Shop' },
           { href: '/privacy/', label: 'Privacy Policy' },
           { href: '/terms/', label: 'Terms of Service' },
           { href: '/sitemap/', label: 'Sitemap' }
@@ -65,14 +61,6 @@ export default async function HtmlSitemapPage() {
             label: page === 1 ? division.name : `${division.name} page ${page}`
           }))
         )}
-      />
-
-      <SitemapSection
-        title="Shop pages"
-        links={shopPages.map(page => ({
-          href: getShopPageHref(page),
-          label: page === 1 ? 'Shop' : `Shop page ${page}`
-        }))}
       />
 
       <SitemapSection

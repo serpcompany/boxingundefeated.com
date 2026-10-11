@@ -18,30 +18,6 @@ export function getPaginationPages(totalItems: number, pageSize = BOXER_PAGE_SIZ
   return Array.from({ length: totalPages }, (_, index) => index + 1)
 }
 
-export function getPaginatedItems<T>(
-  items: T[],
-  page: number,
-  pageSize = BOXER_PAGE_SIZE
-): DirectoryPage<T> | null {
-  const totalPages = getTotalPages(items.length, pageSize)
-
-  if (!Number.isInteger(page) || page < 1 || page > totalPages) {
-    return null
-  }
-
-  const startIndex = (page - 1) * pageSize
-  const endIndex = Math.min(startIndex + pageSize, items.length)
-
-  return {
-    items: items.slice(startIndex, endIndex),
-    currentPage: page,
-    totalItems: items.length,
-    totalPages,
-    startIndex,
-    endIndex
-  }
-}
-
 /**
  * The page number in a `/page/<n>/` URL: digits without a leading zero, so `/page/02/` or
  * `/page/2abc/` is not another URL for page 2. Null for anything else.

@@ -1,5 +1,3 @@
-import { encodePath } from './routing/non-ascii-paths'
-
 export function normalizeInternalPath(pathname: string): string {
   const input = pathname.trim()
 
@@ -26,10 +24,7 @@ export function normalizeInternalPath(pathname: string): string {
   return `${normalizedPath}${suffix}`
 }
 
-/**
- * The absolute URL of a path, in canonical form: the homepage is the origin without a slash, and
- * non-ASCII letters are percent-encoded NFC (`encodePath`, lib/routing/non-ascii-paths.ts).
- */
+/** The absolute URL of a path, in canonical form: the homepage is the origin without a slash. */
 export function toAbsoluteUrl(baseUrl: string, pathname: string): string {
   const normalizedBaseUrl = baseUrl.replace(/\/+$/, '')
   const normalizedPath = normalizeInternalPath(pathname)
@@ -38,5 +33,5 @@ export function toAbsoluteUrl(baseUrl: string, pathname: string): string {
     return normalizedBaseUrl
   }
 
-  return `${normalizedBaseUrl}${encodePath(normalizedPath)}`
+  return `${normalizedBaseUrl}${normalizedPath}`
 }

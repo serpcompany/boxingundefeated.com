@@ -32,17 +32,6 @@ export const samplePages: SamplePage[] = [
   boxer,
   { name: 'listing', path: '/boxers/', h1: 'Boxers' },
   { name: 'division', path: '/divisions/heavy/', h1: 'Heavyweight Boxers' },
-  {
-    name: 'shop article',
-    path: '/shop/best/1-inch-thick-yoga-mats/',
-    h1: '1 Inch Thick Yoga Mats'
-  },
-  // Its slug has a non-ASCII letter: canonical, percent-encoded NFC (#53).
-  {
-    name: 'shop article with a non-ASCII slug',
-    path: '/shop/best/br%C3%BCmate-water-bottles/',
-    h1: 'BrüMate Water Bottles'
-  },
   { name: 'search', path: '/search/', h1: 'Search Boxers' }
 ]
 
@@ -51,10 +40,7 @@ export function canonicalUrl(path: string): string {
   return path === '/' ? target.canonicalOrigin : `${target.canonicalOrigin}${path}`
 }
 
-/**
- * The document title of each sample page, which og:title and twitter:title repeat (#87). The shop's
- * pages have none here: the shop is being retired with a 410 in its own PR.
- */
+/** The document title of each sample page, which og:title and twitter:title repeat (#87). */
 export const sampleTitles: Record<string, string> = {
   '/': 'Boxing Undefeated - Professional Boxers Database',
   [boxer.path]: 'Manuel Ortiz Record, Stats & Fights - Boxing Undefeated',

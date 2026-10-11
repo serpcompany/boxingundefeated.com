@@ -40,9 +40,8 @@ describe('readsD1', () => {
     for (const path of [
       '/about/',
       '/search/',
-      '/shop/',
-      '/shop/page/2/',
-      '/shop/best/boxing-gloves/',
+      '/privacy/',
+      '/terms/',
       '/boxers/jesse-hart/fights/',
       '/divisions/heavy/page/2/extra/',
       '/sitemap.xml',
