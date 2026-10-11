@@ -370,6 +370,218 @@ describe('handleWorkerRequest with the edge cache', () => {
   })
 })
 
+describe("handleWorkerRequest with a D1 page's notFound()", () => {
+  const version = { CF_VERSION_METADATA: { id: 'version-1' } }
+  const HTML = 'text/html; charset=utf-8'
+  const NO_STORE = 'private, no-cache, no-store, max-age=0, must-revalidate'
+  const ERROR_SHELL = '<!DOCTYPE html><html id="__next_error__"><head></head><body></body></html>'
+  const NOT_FOUND_PAGE =
+    '<!DOCTYPE html><html lang="en"><body><h1>Page Not Found</h1></body></html>'
+
+  /**
+   * OpenNext as the Worker sees it: a known boxer is a 200 page, `/_not-found` the prerendered
+   * not-found page, an RSC request an RSC 404, and any other page `notFound()`'s empty document.
+   */
+  function openNext() {
+    return jest.fn(async (request: Request) => {
+      const { pathname } = new URL(request.url)
+      const body = (text: string) => (request.method === 'HEAD' ? null : text)
+      if (pathname === '/boxers/len-wickwar/') {
+        return new Response(body('Len Wickwar'), { headers: { 'content-type': HTML } })
+      }
+      if (request.headers.has('rsc')) {
+        return new Response(body('1:"$Sreact.fragment"'), {
+          status: 404,
+          headers: { 'content-type': 'text/x-component' }
+        })
+      }
+      if (pathname === '/_not-found') {
+        return new Response(body(NOT_FOUND_PAGE), {
+          status: 404,
+          headers: { 'content-type': HTML }
+        })
+      }
+      return new Response(body(ERROR_SHELL), {
+        status: 404,
+        headers: { 'content-type': HTML, 'cache-control': NO_STORE }
+      })
+    })
+  }
+
+  function edgeCache() {
+    const cache = new MemoryCache()
+    const pending: Promise<unknown>[] = []
+    return {
+      cache,
+      runtime: {
+        edgeCache: {
+          context: { waitUntil: (promise: Promise<unknown>) => void pending.push(promise) },
+          openCache: async () => cache as unknown as Cache
+        }
+      } satisfies WorkerRuntime,
+      settle: () => Promise.all(pending.splice(0))
+    }
+  }
+
+  const renderedPaths = (serve: ReturnType<typeof openNext>) =>
+    serve.mock.calls.map(([request]) => new URL(request.url).pathname)
+
+  it.each([
+    'https://boxingundefeated.com/boxers/no-such-boxer/',
+    'https://boxingundefeated.com/boxers/page/999/',
+    'https://boxingundefeated.com/divisions/nope/',
+    'https://boxingundefeated.com/divisions/heavy/page/999/'
+  ])('answers %s with the full not-found page, a 404, never stored', async url => {
+    const serve = openNext()
+    const edge = edgeCache()
+    for (const _ of [1, 2]) {
+      const response = await handleWorkerRequest(
+        new Request(url),
+        { ...production, ...version },
+        serve,
+        edge.runtime
+      )
+      await edge.settle()
+
+      expect(response.status).toBe(404)
+      expect(await response.text()).toBe(NOT_FOUND_PAGE)
+      expect(response.headers.get('content-type')).toBe(HTML)
+      expect(response.headers.get('cache-control')).toBe(NO_STORE)
+      expect(response.headers.get(EDGE_CACHE_HEADER)).toBe('MISS')
+      expect(response.headers.get('x-robots-tag')).toBeNull()
+    }
+    expect(edge.cache.stored.size).toBe(0)
+    const path = new URL(url).pathname
+    expect(renderedPaths(serve)).toEqual([path, '/_not-found', path, '/_not-found'])
+  })
+
+  it('serves it on staging only behind the password, with noindex for a smoke test', async () => {
+    const url = `${STAGING}/boxers/no-such-boxer/`
+    const serve = openNext()
+
+    const refused = await handleWorkerRequest(new Request(url), staging, serve)
+    expect(refused.status).toBe(401)
+    expect(await refused.text()).not.toContain('Page Not Found')
+    expect(serve).not.toHaveBeenCalled()
+
+    for (const [headers, robots] of [
+      [PASSWORD, null],
+      [SMOKE, 'noindex']
+    ] as const) {
+      const response = await handleWorkerRequest(new Request(url, { headers }), staging, serve)
+
+      expect(response.status).toBe(404)
+      expect(await response.text()).toBe(NOT_FOUND_PAGE)
+      expect(response.headers.get('x-robots-tag')).toBe(robots)
+    }
+    const notFound = serve.mock.calls.find(([request]) => request.url.endsWith('/_not-found'))
+    expect(notFound?.[0].headers.has('authorization')).toBe(false)
+  })
+
+  it('serves it on a local Worker with noindex', async () => {
+    const response = await handleWorkerRequest(
+      new Request('http://localhost:8787/boxers/no-such-boxer/'),
+      local,
+      openNext()
+    )
+
+    expect(response.status).toBe(404)
+    expect(await response.text()).toBe(NOT_FOUND_PAGE)
+    expect(response.headers.get('x-robots-tag')).toBe('noindex')
+  })
+
+  it('answers HEAD with the same status and headers as GET, and no body', async () => {
+    const url = 'https://boxingundefeated.com/boxers/no-such-boxer/'
+    const serve = openNext()
+    const get = await handleWorkerRequest(new Request(url), production, serve)
+    const head = await handleWorkerRequest(new Request(url, { method: 'HEAD' }), production, serve)
+
+    expect(head.status).toBe(get.status)
+    expect([...head.headers]).toEqual([...get.headers])
+    expect(await head.text()).toBe('')
+    expect(renderedPaths(serve)).toEqual([
+      '/boxers/no-such-boxer/',
+      '/_not-found',
+      '/boxers/no-such-boxer/'
+    ])
+  })
+
+  it("passes a client-side navigation's RSC 404 through, so the browser shows the not-found page", async () => {
+    const serve = openNext()
+    const edge = edgeCache()
+    const response = await handleWorkerRequest(
+      new Request('https://boxingundefeated.com/boxers/no-such-boxer/?_rsc=abc', {
+        headers: { rsc: '1', 'next-router-state-tree': '%5B%22%22%5D' }
+      }),
+      { ...production, ...version },
+      serve,
+      edge.runtime
+    )
+    await edge.settle()
+
+    expect(response.status).toBe(404)
+    expect(response.headers.get('content-type')).toBe('text/x-component')
+    expect(await response.text()).toBe('1:"$Sreact.fragment"')
+    expect(renderedPaths(serve)).toEqual(['/boxers/no-such-boxer/'])
+    expect(edge.cache.stored.size).toBe(0)
+  })
+
+  it('leaves a known page, and pages that do not read D1, as OpenNext answers them', async () => {
+    const serve = openNext()
+    const page = await handleWorkerRequest(
+      new Request('https://boxingundefeated.com/boxers/len-wickwar/'),
+      production,
+      serve
+    )
+    expect(page.status).toBe(200)
+    expect(await page.text()).toBe('Len Wickwar')
+
+    // Unmatched URLs get the not-found page from OpenNext itself; this one is the empty document.
+    for (const path of ['/no-such-page/', '/shop/best/nope/', '/boxers/a/b/']) {
+      const response = await handleWorkerRequest(
+        new Request(`https://boxingundefeated.com${path}`),
+        production,
+        serve
+      )
+      expect(response.status).toBe(404)
+      expect(await response.text()).toBe(ERROR_SHELL)
+    }
+    expect(renderedPaths(serve)).not.toContain('/_not-found')
+  })
+
+  it('leaves /api/search, the XML sitemaps and redirects alone', async () => {
+    const serve = openNext()
+    const notFound = (type: string) =>
+      jest.fn(
+        async () => new Response(ERROR_SHELL, { status: 404, headers: { 'content-type': type } })
+      )
+    const runtime = { searchApi: notFound(HTML), sitemaps: notFound(HTML) }
+
+    for (const path of [
+      '/api/search?q=x',
+      '/api/search/?q=x',
+      '/sitemap-nope.xml',
+      '/sitemap.xml'
+    ]) {
+      const response = await handleWorkerRequest(
+        new Request(`https://boxingundefeated.com${path}`),
+        production,
+        serve,
+        runtime
+      )
+      expect(response.status).toBe(404)
+      expect(await response.text()).toBe(ERROR_SHELL)
+    }
+    const redirect = await handleWorkerRequest(
+      new Request('https://www.boxingundefeated.com/boxers/no-such-boxer/'),
+      production,
+      serve
+    )
+    expect(redirect.status).toBe(308)
+    expect(serve).not.toHaveBeenCalled()
+  })
+})
+
 describe('handleWorkerRequest with the D1 readiness gate', () => {
   const version = { CF_VERSION_METADATA: { id: 'version-1' } }
   const PROFILE = 'https://boxingundefeated.com/boxers/len-wickwar/'
