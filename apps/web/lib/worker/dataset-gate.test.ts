@@ -108,17 +108,51 @@ describe('DatasetReadinessMemo', () => {
     }
   }
 
-  it('reads dataset_state once per TTL, sharing concurrent reads', async () => {
+  it('reads dataset_state once per TTL', async () => {
     const load = vi.fn(async () => ({ version: 'v1', importing: false }))
     const { instance, advance } = memo(load)
 
-    await Promise.all([instance.current(), instance.current()])
+    await instance.current()
     advance(DATASET_STATE_TTL_MS - 1)
     await instance.current()
     expect(load).toHaveBeenCalledTimes(1)
 
     advance(1)
     await instance.current()
+    expect(load).toHaveBeenCalledTimes(2)
+  })
+
+  it("never makes a request wait on another request's read (#110)", async () => {
+    // The first read is I/O of a request whose client went away: Workers cancels it, so it never
+    // settles.
+    const load = vi
+      .fn<() => Promise<DatasetState | null>>()
+      .mockReturnValueOnce(new Promise(() => {}))
+      .mockResolvedValue({ version: 'v1', importing: false })
+    const { instance } = memo(load)
+
+    const abandoned = instance.current()
+    await expect(instance.current()).resolves.toMatchObject({ ready: true, version: 'v1' })
+    await expect(instance.current()).resolves.toMatchObject({ ready: true, version: 'v1' })
+    expect(load).toHaveBeenCalledTimes(2)
+    void abandoned
+  })
+
+  it('keeps the newest answer when concurrent reads settle out of order', async () => {
+    const answers: Array<(state: DatasetState) => void> = []
+    const load = vi.fn(
+      () => new Promise<DatasetState | null>(resolve => answers.push(state => resolve(state)))
+    )
+    const { instance } = memo(load)
+
+    const older = instance.current()
+    const newer = instance.current()
+    answers[1]({ version: 'v2', importing: false })
+    await expect(newer).resolves.toMatchObject({ version: 'v2' })
+    answers[0]({ version: 'v1', importing: false })
+    await expect(older).resolves.toMatchObject({ version: 'v1' })
+
+    await expect(instance.current()).resolves.toMatchObject({ version: 'v2' })
     expect(load).toHaveBeenCalledTimes(2)
   })
 
