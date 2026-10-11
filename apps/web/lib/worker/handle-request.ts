@@ -26,7 +26,9 @@
  *    While D1 is unreadable, a page cached under the last generation is still served.
  * 5. The edge cache (lib/worker/edge-cache.ts), for pages only: a stored copy, or `serve` and then
  *    store a 200 page. Files, redirects, 404s and errors pass through untouched.
- * 6. `serve`: OpenNext applies the trailing-slash `redirects()` from next.config.ts
+ * 6. For pages that read D1, the not-found page (lib/worker/not-found-page.ts): when `notFound()`
+ *    left OpenNext's empty error document, the prerendered `/_not-found` page's body, still a 404.
+ * 7. `serve`: OpenNext applies the trailing-slash `redirects()` from next.config.ts
  *    (lib/routing/trailing-slash.ts), then serves the page, or the file from `public/` through
  *    its asset resolver.
  *
@@ -54,6 +56,7 @@ import {
   withEdgeCache
 } from './edge-cache'
 import { type WorkerEnvironment, withEnvironmentPolicy } from './environment-policy'
+import { withNotFoundPage } from './not-found-page'
 import { isSearchApiRequest } from './search-api'
 import { isSitemapRequest } from './sitemaps'
 import { type StagingAccessEnvironment, stagingAccess } from './staging-access'
@@ -131,7 +134,8 @@ async function handle(
   const answer = async (): Promise<Response> => {
     const shopPage = shopPageRoute(request, serve)
     if (shopPage instanceof Response) return shopPage
-    const render = shopPage ?? serve
+    const route = shopPage ?? serve
+    const render = readsD1(request) ? (page: Request) => withNotFoundPage(page, route) : route
     if (runtime.searchApi && isSearchApiRequest(request)) return runtime.searchApi(request)
     if (runtime.sitemaps && isSitemapRequest(request)) return runtime.sitemaps(request)
     let dataGeneration: string | undefined

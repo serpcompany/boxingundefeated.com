@@ -1,5 +1,7 @@
 import type { BoutWithOpponent, Boxer, BoxerProfile } from '@boxingundefeated/data-ops'
-import { render, screen, waitFor } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
+// The Node build: jsdom has no MessageChannel, which the browser build needs.
+import { renderToString } from 'react-dom/server.node'
 
 const mockGetCloudflareContext = jest.fn()
 const mockQueryBoxerProfile = jest.fn<Promise<BoxerProfile | null>, [unknown, string]>()
@@ -135,13 +137,23 @@ describe('boxer profile page', () => {
       expect(detail(empty)).toBeNull()
     }
     expect(detail('Total Bouts')?.textContent).toBe('2')
-    await waitFor(() =>
-      expect(screen.getByRole('link', { name: 'Linked Opponent' })).toHaveAttribute(
-        'href',
-        '/boxers/linked-opponent/'
-      )
+    expect(screen.getByRole('link', { name: 'Linked Opponent' })).toHaveAttribute(
+      'href',
+      '/boxers/linked-opponent/'
     )
     expect(screen.getByText('Unknown Opponent').tagName).toBe('SPAN')
+  })
+
+  it('puts every bout in the first HTML, not only after the page loads', async () => {
+    const bouts = Array.from({ length: 12 }, (_, i) => d1Bout(i, `Opponent ${i + 1}`, null))
+    mockQueryBoxerProfile.mockResolvedValue({ boxer: d1Boxer({ proTotalBouts: 12 }), bouts })
+
+    const firstHtml = document.createElement('div')
+    firstHtml.innerHTML = renderToString(await BoxerPage(params('ana-alpha')))
+
+    expect(firstHtml.textContent).toContain('Fight History (12 Bouts)')
+    const opponents = [...firstHtml.querySelectorAll('span.font-semibold')].map(e => e.textContent)
+    expect(opponents).toEqual(bouts.map(bout => bout.opponentName))
   })
 
   it('builds the metadata from the same profile', async () => {
