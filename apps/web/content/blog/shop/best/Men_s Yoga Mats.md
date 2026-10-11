@@ -7,7 +7,7 @@ excerpt: >-
   reliable guide to help you choose the perfect mat for your needs.
 publishDate: '2024-01-15T05:06:59Z'
 image: >-
-  https://imagedelivery.net/vy2bglCGN6hEeWOnSe2c7A/Men%27s+Yoga+Mats-1/w=900,h=500,fit=pad,background=black
+  https://imagedelivery.net/vy2bglCGN6hEeWOnSe2c7A/Men%2527s+Yoga+Mats-1/w=900,h=500,fit=pad,background=black
 category: Reviews
 tags: Yoga Mats
 ---
