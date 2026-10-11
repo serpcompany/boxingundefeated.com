@@ -1,6 +1,13 @@
 import { expect, type Page, test } from '@playwright/test'
 import { pageFacts } from '../src/html'
-import { boxer, canonicalUrl, samplePages, sampleTitles, target } from './site'
+import {
+  boxer,
+  boxerTitleLimitSamples,
+  canonicalUrl,
+  samplePages,
+  sampleTitles,
+  target
+} from './site'
 
 /**
  * Keep the browser on the site under test: no analytics hits from test runs, and no
@@ -32,6 +39,18 @@ test.describe('canonical pages', () => {
         expect(facts.twitterTitle, 'twitter:title').toBe(title)
         if (sample.path !== '/') expect(facts.ogUrl, 'og:url').toBe(facts.canonical)
       }
+    })
+  }
+
+  for (const { path, title } of boxerTitleLimitSamples) {
+    test(`${path} is titled "${title}"`, async ({ request }) => {
+      const response = await request.get(path, { maxRedirects: 0 })
+      expect(response.status(), path).toBe(200)
+
+      const facts = pageFacts(await response.text())
+      expect(facts.title).toBe(title)
+      expect(facts.ogTitle, 'og:title').toBe(title)
+      expect(facts.twitterTitle, 'twitter:title').toBe(title)
     })
   }
 

@@ -27,27 +27,9 @@ export const boxer: SamplePage = {
   h1: 'Manuel Ortiz'
 }
 
-/**
- * Boxers on either side of the 60-character title limit, where a profile's title drops the site
- * name (apps/web/lib/metadata.ts). Both are in the fixture too.
- */
-export const boxerAtTitleLimit: SamplePage = {
-  name: 'boxer with a 60-character title',
-  path: '/boxers/jonathan-gonzalez/',
-  h1: 'Jonathan Gonzalez'
-}
-
-export const boxerPastTitleLimit: SamplePage = {
-  name: 'boxer whose title would pass 60 characters',
-  path: '/boxers/demetrius-williams/',
-  h1: 'Demetrius Williams'
-}
-
 export const samplePages: SamplePage[] = [
   { name: 'home', path: '/', h1: 'Boxing Undefeated' },
   boxer,
-  boxerAtTitleLimit,
-  boxerPastTitleLimit,
   { name: 'listing', path: '/boxers/', h1: 'Boxers' },
   { name: 'division', path: '/divisions/heavy/', h1: 'Heavyweight Boxers' },
   {
@@ -76,9 +58,19 @@ export function canonicalUrl(path: string): string {
 export const sampleTitles: Record<string, string> = {
   '/': 'Boxing Undefeated - Professional Boxers Database',
   [boxer.path]: 'Manuel Ortiz Record, Stats & Fights - Boxing Undefeated',
-  [boxerAtTitleLimit.path]: 'Jonathan Gonzalez Record, Stats & Fights - Boxing Undefeated',
-  [boxerPastTitleLimit.path]: 'Demetrius Williams Record, Stats & Fights',
   '/boxers/': 'Boxers Directory - Boxing Undefeated',
   '/divisions/heavy/': 'Heavyweight Boxers - Boxing Undefeated',
   '/search/': 'Search Boxers - Boxing Undefeated'
 }
+
+/**
+ * Boxer profiles on either side of the 60-character limit past which a profile's title drops the
+ * site name (apps/web/lib/metadata.ts). Both are in the fixture too.
+ */
+export const boxerTitleLimitSamples: Array<{ path: string; title: string }> = [
+  {
+    path: '/boxers/jonathan-gonzalez/',
+    title: 'Jonathan Gonzalez Record, Stats & Fights - Boxing Undefeated'
+  },
+  { path: '/boxers/demetrius-williams/', title: 'Demetrius Williams Record, Stats & Fights' }
+]
