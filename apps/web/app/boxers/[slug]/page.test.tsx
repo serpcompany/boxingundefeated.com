@@ -159,15 +159,16 @@ describe('boxer profile page', () => {
 
   it('builds the metadata from the same profile', async () => {
     mockQueryBoxerProfile.mockResolvedValue({
-      boxer: d1Boxer({ bio: '<p>Southpaw.</p>' }),
+      boxer: d1Boxer({ bio: '<p>Ana Alpha: The Southpaw</p><p>A &amp; B&#39;s champion.</p>' }),
       bouts: []
     })
     const metadata = await generateMetadata(params('ana-alpha'))
 
     expect(metadata.title).toBe('Ana Alpha Record, Stats & Fights - Boxing Undefeated')
-    expect(metadata.description).toBe(
-      'Professional boxing record and statistics for Ana Alpha. <p>Southpaw.</p>'
-    )
+    // The bio as plain text (#95), in all three descriptions.
+    expect(metadata.description).toBe("Ana Alpha: The Southpaw. A & B's champion.")
+    expect(metadata.openGraph?.description).toBe(metadata.description)
+    expect(metadata.twitter?.description).toBe(metadata.description)
     expect(metadata.alternates?.canonical).toBe('http://localhost:8787/boxers/ana-alpha/')
   })
 

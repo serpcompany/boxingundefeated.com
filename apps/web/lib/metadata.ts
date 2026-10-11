@@ -1,8 +1,10 @@
 import type { Metadata } from 'next'
 import type { ProfileBoxer } from './boxer-data'
 import { getSiteConfig, NON_PRODUCTION_ROBOTS_TAG, SITE_NAME, type SiteConfig } from './site-config'
+import { htmlToPlainText } from './text'
 
-export const MAX_META_DESCRIPTION_LENGTH = 160
+/** The longest meta description, in characters, the ellipsis of a cut one included. */
+export const MAX_META_DESCRIPTION_LENGTH = 155
 
 /** The not-found page's title before the site name, the same for every 404. */
 export const NOT_FOUND_TITLE = 'Page Not Found'
@@ -10,20 +12,96 @@ export const NOT_FOUND_TITLE = 'Page Not Found'
 const rootDescription =
   'Comprehensive database of professional boxers with statistics, records, and fight history.'
 const openGraphImage = '/opengraph-image.png'
+const ellipsis = '\u2026'
 
-export function createMetaDescription(description?: string | null): string {
-  const normalized = (description || rootDescription).replace(/\s+/g, ' ').trim() || rootDescription
+/**
+ * Characters a cut description shouldn't end on before its ellipsis. Quotes aren't among them: a
+ * closing quote belongs to the phrase it closes.
+ */
+const DANGLING_PUNCTUATION = /[\s,;:.!?\-\u2013\u2014([{]+$/u
 
-  if (normalized.length <= MAX_META_DESCRIPTION_LENGTH) {
-    return normalized
-  }
+/** The least text worth keeping when a cut drops a quoted phrase that it would leave open. */
+const MIN_LENGTH_BEFORE_OPEN_QUOTE = 100
 
-  return `${normalized.slice(0, MAX_META_DESCRIPTION_LENGTH - 3).trimEnd()}...`
+/**
+ * Where the double quote that `text` leaves open starts, or -1 when its quotes are balanced:
+ * the last straight `"` when there's an odd number of them, or the last `\u201c` with no
+ * `\u201d` to close it. Single quotes are apostrophes as often as not, so they aren't counted.
+ */
+function findOpenQuote(text: string): number {
+  const count = (character: string) => text.split(character).length - 1
+  const straight = count('"') % 2 === 1 ? text.lastIndexOf('"') : -1
+  const curly = count('\u201c') > count('\u201d') ? text.lastIndexOf('\u201c') : -1
+
+  return Math.max(straight, curly)
 }
 
+/**
+ * `text`, whose whitespace is already collapsed, cut on a word boundary to at most `maxLength`
+ * characters with an ellipsis; uncut, and without one, when it fits. A first word longer than the
+ * limit is cut mid-word.
+ *
+ * A cut inside a quoted phrase goes back to before the phrase's opening quote when that keeps
+ * `MIN_LENGTH_BEFORE_OPEN_QUOTE` characters; otherwise the phrase stays open, with the ellipsis
+ * inside it.
+ */
+function truncateOnWordBoundary(text: string, maxLength: number): string {
+  if (text.length <= maxLength) {
+    return text
+  }
+
+  const room = maxLength - ellipsis.length
+  // A space at `room` means the words before it fit exactly.
+  const lastSpace = text.lastIndexOf(' ', room)
+  let cut = text.slice(0, lastSpace > 0 ? lastSpace : room)
+
+  // Never split a surrogate pair (an emoji) on a mid-word cut.
+  const lastCodeUnit = cut.charCodeAt(cut.length - 1)
+  if (lastCodeUnit >= 0xd800 && lastCodeUnit <= 0xdbff) {
+    cut = cut.slice(0, -1)
+  }
+
+  const openQuote = findOpenQuote(cut)
+  if (openQuote !== -1) {
+    const beforeQuote = cut.slice(0, openQuote).replace(DANGLING_PUNCTUATION, '')
+    if (beforeQuote.length >= MIN_LENGTH_BEFORE_OPEN_QUOTE) {
+      cut = beforeQuote
+    }
+  }
+
+  return `${cut.replace(DANGLING_PUNCTUATION, '') || cut}${ellipsis}`
+}
+
+/**
+ * A page's meta description, which is its `og:description` and `twitter:description` as well:
+ * plain text with its whitespace collapsed, at most `MAX_META_DESCRIPTION_LENGTH` characters, cut
+ * on a word boundary. The site's own description when there's none.
+ */
+export function createMetaDescription(description?: string | null): string {
+  const normalized = (description || '').replace(/\s+/g, ' ').trim() || rootDescription
+
+  return truncateOnWordBoundary(normalized, MAX_META_DESCRIPTION_LENGTH)
+}
+
+/** A bio block that ends on a letter, digit, closing quote or closing bracket, and so lacks a stop. */
+const BLOCK_NEEDS_FULL_STOP = /[\p{L}\p{N}"'\u201d\u2019)\]}]$/u
+
+/**
+ * A boxer's meta description: the start of their bio as plain text (the bio is HTML), or, for a
+ * boxer without one, `Professional boxing record and statistics for <name>.`
+ *
+ * The bio's blocks run together as sentences: one that ends on a letter, digit, closing quote or
+ * closing bracket, such as the `<name>: The Rising Star of Boxing` title that opens about a third
+ * of the bios, gets a full stop.
+ */
 export function createBoxerMetaDescription(boxer: Pick<ProfileBoxer, 'name' | 'bio'>): string {
+  const bio = htmlToPlainText(boxer.bio || '')
+    .split('\n')
+    .map(block => (BLOCK_NEEDS_FULL_STOP.test(block) ? `${block}.` : block))
+    .join(' ')
+
   return createMetaDescription(
-    `Professional boxing record and statistics for ${boxer.name}. ${boxer.bio || ''}`
+    bio || `Professional boxing record and statistics for ${boxer.name}.`
   )
 }
 
