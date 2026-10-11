@@ -69,7 +69,9 @@ function BoutRow({ bout, opponentSlug }: { bout: ProfileBout; opponentSlug: stri
   return (
     <li className="border-b pb-3 last:border-0">
       <div className="flex justify-between items-start">
-        <div className="flex-1">
+        {/* `min-w-0` lets the column shrink and a word wider than a phone break, instead of
+            pushing the result off the card and scrolling the page sideways (#75). */}
+        <div className="min-w-0 flex-1 break-words">
           <div className="flex items-center gap-2">
             {opponentSlug ? (
               <Link
