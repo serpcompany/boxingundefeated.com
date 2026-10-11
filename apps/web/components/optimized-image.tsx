@@ -1,7 +1,7 @@
 'use client'
 
 import { cn } from '@boxingundefeated/design-system/lib/utils'
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 interface OptimizedImageProps {
   src: string
@@ -12,6 +12,10 @@ interface OptimizedImageProps {
   priority?: boolean
 }
 
+/**
+ * A boxer photo, or a placeholder of the same size when there is no photo or it fails to load.
+ * The photos are hot-linked from boxrec.com, which answers some of them with an error.
+ */
 export function OptimizedImage({
   src,
   alt,
@@ -20,16 +24,35 @@ export function OptimizedImage({
   height = 200,
   priority = false
 }: OptimizedImageProps) {
-  const [error, setError] = useState(false)
+  const imageRef = useRef<HTMLImageElement>(null)
+  // The src that failed, so a new src gets its own attempt.
+  const [failedSrc, setFailedSrc] = useState<string | null>(null)
 
-  // Skip external images or use placeholder
-  if (!src || error) {
+  // A server-rendered image can fail before hydration attaches onError, so check on mount too.
+  useEffect(() => {
+    const image = imageRef.current
+    if (image?.complete && image.naturalWidth === 0) setFailedSrc(src)
+  }, [src])
+
+  if (!src || failedSrc === src) {
     return (
       <div
-        className={cn('bg-gray-200 flex items-center justify-center text-gray-400', className)}
+        role="img"
+        aria-label={alt}
+        // shrink-0 keeps the placeholder the photo's size in a flex row, as the img would be.
+        className={cn(
+          'bg-muted text-muted-foreground flex shrink-0 items-center justify-center',
+          className
+        )}
         style={{ width, height }}
       >
-        <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg
+          className="h-3/8 w-3/8"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          aria-hidden="true"
+        >
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -43,13 +66,14 @@ export function OptimizedImage({
 
   return (
     <img
+      ref={imageRef}
       src={src}
       alt={alt}
       width={width}
       height={height}
       className={className}
       loading={priority ? 'eager' : 'lazy'}
-      onError={() => setError(true)}
+      onError={() => setFailedSrc(src)}
     />
   )
 }

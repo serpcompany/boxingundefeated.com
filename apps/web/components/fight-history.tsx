@@ -45,7 +45,7 @@ export function FightHistory({ bouts, opponentLinks }: FightHistoryProps) {
                       {opponentSlug ? (
                         <Link
                           href={normalizeInternalPath(`/boxers/${opponentSlug}`)}
-                          className="font-semibold hover:text-blue-600 hover:underline transition-colors"
+                          className="font-semibold hover:text-link hover:underline transition-colors"
                         >
                           {bout.opponentName}
                         </Link>
@@ -53,7 +53,7 @@ export function FightHistory({ bouts, opponentLinks }: FightHistoryProps) {
                         <span className="font-semibold">{bout.opponentName}</span>
                       )}
                       {bout.titleFight && (
-                        <span className="text-xs bg-yellow-500 text-black px-2 py-0.5 rounded">
+                        <span className="text-xs bg-title-fight text-title-fight-foreground px-2 py-0.5 rounded">
                           Title Fight
                         </span>
                       )}
@@ -66,10 +66,10 @@ export function FightHistory({ bouts, opponentLinks }: FightHistoryProps) {
                     <span
                       className={`font-bold ${
                         bout.result === 'win'
-                          ? 'text-green-600'
+                          ? 'text-win'
                           : bout.result === 'loss'
-                            ? 'text-red-600'
-                            : 'text-yellow-600'
+                            ? 'text-loss'
+                            : 'text-draw'
                       }`}
                     >
                       {bout.result ? bout.result.toUpperCase() : 'N/A'}
@@ -90,7 +90,7 @@ export function FightHistory({ bouts, opponentLinks }: FightHistoryProps) {
             <button
               type="button"
               onClick={handleShowMore}
-              className="text-sm text-blue-600 hover:text-blue-800 font-medium"
+              className="text-sm text-link hover:text-link-hover font-medium"
             >
               Show {bouts.length - initialDisplay} more fights →
             </button>

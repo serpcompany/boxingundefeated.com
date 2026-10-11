@@ -1,13 +1,4 @@
-import {
-  SiFacebook,
-  SiGithub,
-  SiInstagram,
-  SiReddit,
-  SiThreads,
-  SiTiktok,
-  SiX,
-  SiYoutube
-} from '@icons-pack/react-simple-icons'
+import { SiFacebook, SiGithub, SiInstagram, SiX } from '@icons-pack/react-simple-icons'
 import Image from 'next/image'
 import Link from 'next/link'
 import type { SVGProps } from 'react'
@@ -25,15 +16,12 @@ function LinkedinIcon(props: SVGProps<SVGSVGElement>) {
 const socialLinks = [
   { label: 'Facebook', href: 'https://www.facebook.com/boxundefeated', Icon: SiFacebook },
   { label: 'GitHub', href: 'https://github.com/boxingundefeated', Icon: SiGithub },
-  { label: 'Reddit', href: '#', Icon: SiReddit },
   { label: 'Twitter', href: 'https://x.com/boxundefeated', Icon: SiX },
   { label: 'Instagram', href: 'https://www.instagram.com/boxundefeated', Icon: SiInstagram },
-  { label: 'YouTube', href: '#', Icon: SiYoutube },
-  { label: 'Threads', href: '#', Icon: SiThreads },
-  { label: 'TikTok', href: '#', Icon: SiTiktok },
+  // Boxing Undefeated's public company page (LinkedIn company 90466967).
   {
     label: 'LinkedIn',
-    href: 'https://www.linkedin.com/company/90466967/admin/dashboard/',
+    href: 'https://www.linkedin.com/company/boxingundefeated/',
     Icon: LinkedinIcon
   }
 ]
@@ -154,14 +142,12 @@ export function Footer() {
             <h3 className="font-semibold">Links</h3>
             <ul className="space-y-2 text-sm">
               <li>
-                <a
-                  href="https://boxingundefeated.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <Link
+                  href={getRoute('home')}
                   className="text-muted-foreground hover:text-foreground"
                 >
                   Boxing Undefeated
-                </a>
+                </Link>
               </li>
               <li>
                 <a
