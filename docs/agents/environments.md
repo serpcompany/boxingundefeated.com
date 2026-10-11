@@ -9,8 +9,12 @@ standard applies.
 `SITE_ENVIRONMENT` is `local`, `staging` or `production`, and only `production` is indexable and
 loads Google Tag Manager (staging looks the same to a request with its password, below).
 `apps/web/lib/site-config.ts` resolves it, reading `process.env` when a value is used, never at
-module load. A missing or unknown value is `local`. Never read `SITE_ENVIRONMENT` or build an
-origin anywhere else.
+module load. A missing or unknown value is `local`. Nothing else reads `SITE_ENVIRONMENT` from
+`process.env` or writes an origin; `apps/web/lib/source-rules.test.ts` fails on any that does.
+The exceptions: `apps/web/scripts/write-build-environment.ts` reads the variable to hand it to
+site-config's resolver (it records what a Worker build prerendered); the Worker's
+`env.SITE_ENVIRONMENT` binding goes through `parseSiteEnvironment`; `apps/e2e` checks the site from
+outside, so it keeps its own expected origins.
 
 | | local | staging | production |
 | --- | --- | --- | --- |
