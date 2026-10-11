@@ -52,7 +52,8 @@ describe('htmlToPlainText', () => {
 
     expect(text).toBe('after')
     // It was 5.8 s while every opening tag lowercased the rest of the input.
-    expect(elapsed).toBeLessThan(200)
+    // Linear takes ~40 ms (203 ms once on a CI runner); 1.5 s leaves that headroom and still fails.
+    expect(elapsed).toBeLessThan(1500)
   })
 
   it('keeps a < that starts no tag', () => {
