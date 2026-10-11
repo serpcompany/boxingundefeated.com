@@ -24,7 +24,7 @@ export default async function ShopPage() {
   }
 
   return (
-    <main className="mx-auto max-w-6xl px-4 py-8">
+    <div className="mx-auto max-w-6xl px-4 py-8">
       <Breadcrumb items={[{ name: 'Shop', href: '/shop/' }]} baseUrl={getSiteOrigin()} />
       <ShopPostList
         posts={page.items}
@@ -34,6 +34,6 @@ export default async function ShopPage() {
         startIndex={page.startIndex}
         endIndex={page.endIndex}
       />
-    </main>
+    </div>
   )
 }
