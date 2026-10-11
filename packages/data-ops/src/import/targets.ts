@@ -44,7 +44,7 @@ export function bareFlag(flags: Readonly<Record<string, string | true>>, name: s
 
 /**
  * The target must be explicit. Production also needs `--confirm-production`, which records the
- * owner's approval of that one run (AGENTS.md, D1); it is not an approval itself. A read-only
+ * owner's approval of that one run (docs/agents/d1.md); it is not an approval itself. A read-only
  * check passes `requireConfirmation: false`, so it takes the flag but doesn't need it.
  */
 export function resolveTarget(

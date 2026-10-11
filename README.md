@@ -49,4 +49,4 @@ pnpm check                             # the finish gate
 
 `staging` is the base branch: CI deploys the staging Worker on every merge into it. The owner
 promotes `staging` to `main`, which deploys production. Data imports into staging and production
-run separately from deploys (AGENTS.md, "D1").
+run separately from deploys ([docs/agents/d1.md](docs/agents/d1.md)).

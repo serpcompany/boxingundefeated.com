@@ -17,9 +17,11 @@ Agents may merge: listed paths
 
 Only the owner changes these two lines and the list. An agent merges a PR only when every file
 it changes is on the list (deleted and renamed files count), it adds no redirect and removes,
-renames or moves no linked article; one at a time, up to date with `staging`, with CI green, a
-clean review and the last staging deploy passed. The owner merges the rest, including workflows,
-the finish gate, migrations and releases, and runs DNS changes. Rules, auto-merge included:
+renames or moves no linked article, and changes no article's `slug:` (or file name, when it has
+no `slug:`), which sets its public URL (`lib/shop-loader.ts` reads `slug:` first); one at a time,
+up to date with `staging`, with CI green, a clean review and the last staging deploy passed. The
+owner merges the rest, including workflows, the finish gate, migrations and releases, and runs
+DNS changes. Rules, auto-merge included:
 [Verification Cadence](https://github.com/serpcompany/serp/blob/main/docs/engineering/standards/verification-cadence.md#merging-and-deploys).
 
 ## Where things live
@@ -34,7 +36,8 @@ the finish gate, migrations and releases, and runs DNS changes. Rules, auto-merg
   - `content/`: markdown shop articles. The legal pages are TSX in `app/(legal)/`.
   - `public/`: files served at the same path ([urls.md](docs/agents/urls.md)).
   - `scripts/`: `build:worker` steps: the build's environment and commit
-    (`write-build-environment.ts`) and the shop's sitemap entries (`write-sitemap-content.ts`).
+    (`write-build-environment.ts`) and the shop's sitemap entries from `content/`
+    (`write-sitemap-content.ts`).
   - `wrangler.jsonc`, `open-next.config.ts`, `worker.ts`, `lib/worker/`: the Worker. Its request
     pipeline and build, preview, E2E, parity and link commands: [worker.md](docs/agents/worker.md).
 - `d1/`: `drizzle/` migrations, `fixtures/`, `reports/`. [d1.md](docs/agents/d1.md): the boxer data
@@ -100,17 +103,15 @@ applies, its review loop included, with these specifics:
 
 Deliberate divergences from the SERP standards. They are not gaps; don't fix them.
 
-- **shadcn `new-york` on Radix**, not `base-nova` on Base UI: moving is a visual rebuild the owner
-  ruled out; visible bugs are fixed on Radix (#58). Owner, 2026-10-11.
-- **Shared packages, Turbo, `apps/e2e` and no `src/`**: `packages/data-ops`,
-  `packages/design-system`, `configs/*` and `apps/e2e` stay workspaces under Turbo, and `apps/web`
-  has no `src/`: flattening is large and visitors gain nothing. Owner, 2026-10-11.
-- **No Sentry**: errors are read in Workers Logs (`observability` in each deployed environment of
-  `wrangler.jsonc`). The owner declined Sentry (#23). Owner, 2026-10-11.
-- **`/brands/` is rendered by this app** from repo data, not the shared brands Worker (which serves
-  it until #60 lands): the owner brought it into the project. Owner, 2026-10-11.
-- **Shop affiliate links stay as they are**: no disclosure and no `rel` change on the `serp.ly`
-  links in shop articles; the owner chose to keep them. Owner, 2026-10-11.
+- **shadcn `new-york` on Radix**, not `base-nova`: the owner chose "Keep look, fix bugs" (#58).
+- **Shared packages, Turbo, `apps/e2e` and no `src/`**: the owner chose "Exceptions + Vitest".
+- **No Sentry**: the owner said "no sentry"; errors are read in Workers Logs (`observability` in
+  each deployed environment of `wrangler.jsonc`).
+- **`/brands/` is rendered by this app** from repo data; the owner said
+  "brands comes into th eproject. no shared worker". The shared brands Worker keeps serving
+  production `/brands/` until a serpcompany/serp PR removes its route, which merges only after the
+  in-app page (#60) is live in production (#66 H5).
+- **Shop affiliate links stay as they are** (no disclosure, no `rel` change on the `serp.ly`
+  links): the owner chose "Keep as-is".
 - **`/_next/static/` skips the canonical-host redirect**: `www` and `*.workers.dev` answer hashed
-  build output with 200, because routing it through the Worker would bill an invocation per chunk
-  and crawlers don't index it ([urls.md](docs/agents/urls.md)).
+  build output with 200, to save an invocation per chunk ([urls.md](docs/agents/urls.md)).
