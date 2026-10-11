@@ -26,7 +26,7 @@ async function sameOriginOnly(page: Page) {
   )
 }
 
-for (const path of [...unknownD1Pages, '/no-such-page-e2e/', '/shop/best/no-such-article-e2e/']) {
+for (const path of [...unknownD1Pages, '/no-such-page-e2e/']) {
   test(`${path} answers 404 with the not-found page in its first HTML`, async ({ request }) => {
     for (const attempt of ['first', 'repeat']) {
       const response = await request.get(path, { maxRedirects: 0 })

@@ -1,6 +1,6 @@
 import { expect, type Page, test } from '@playwright/test'
 import { pageFacts } from '../src/html'
-import { boxer, canonicalUrl, samplePages, target } from './site'
+import { boxer, canonicalUrl, samplePages, sampleTitles, target } from './site'
 
 /**
  * Keep the browser on the site under test: no analytics hits from test runs, and no
@@ -24,11 +24,14 @@ test.describe('canonical pages', () => {
       expect(facts.canonicalCount, 'one canonical').toBe(1)
       expect(facts.canonical).toBe(canonicalUrl(sample.path))
       expect(facts.h1).toBe(sample.h1)
-      expect(facts.title).toBe(sample.title)
-      // A share shows the page's own title, not the site name the root layout sets.
-      expect(facts.ogTitle, 'og:title').toBe(sample.title)
-      expect(facts.twitterTitle, 'twitter:title').toBe(sample.title)
-      if (sample.path !== '/') expect(facts.ogUrl, 'og:url').toBe(facts.canonical)
+      const title = sampleTitles[sample.path]
+      if (title) {
+        expect(facts.title).toBe(title)
+        // A share shows the page's own title, not the site name the root layout sets.
+        expect(facts.ogTitle, 'og:title').toBe(title)
+        expect(facts.twitterTitle, 'twitter:title').toBe(title)
+        if (sample.path !== '/') expect(facts.ogUrl, 'og:url').toBe(facts.canonical)
+      }
     })
   }
 

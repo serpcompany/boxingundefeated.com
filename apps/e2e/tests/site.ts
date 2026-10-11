@@ -15,8 +15,6 @@ export interface SamplePage {
   name: string
   path: string
   h1: string
-  /** The document title, which og:title and twitter:title repeat (#87). */
-  title: string
 }
 
 /**
@@ -26,52 +24,41 @@ export interface SamplePage {
 export const boxer: SamplePage = {
   name: 'boxer',
   path: '/boxers/manuel-ortiz/',
-  h1: 'Manuel Ortiz',
-  title: 'Manuel Ortiz - Professional Boxer - Boxing Undefeated'
+  h1: 'Manuel Ortiz'
 }
 
 export const samplePages: SamplePage[] = [
-  {
-    name: 'home',
-    path: '/',
-    h1: 'Boxing Undefeated',
-    title: 'Boxing Undefeated - Professional Boxers Database'
-  },
+  { name: 'home', path: '/', h1: 'Boxing Undefeated' },
   boxer,
-  {
-    name: 'listing',
-    path: '/boxers/',
-    h1: 'Boxers',
-    title: 'Boxers Directory - Boxing Undefeated'
-  },
-  {
-    name: 'division',
-    path: '/divisions/heavy/',
-    h1: 'Heavyweight Boxers',
-    title: 'Heavyweight Boxers - Boxing Undefeated'
-  },
+  { name: 'listing', path: '/boxers/', h1: 'Boxers' },
+  { name: 'division', path: '/divisions/heavy/', h1: 'Heavyweight Boxers' },
   {
     name: 'shop article',
     path: '/shop/best/1-inch-thick-yoga-mats/',
-    h1: '1 Inch Thick Yoga Mats',
-    title: '1 Inch Thick Yoga Mats - Boxing Undefeated'
+    h1: '1 Inch Thick Yoga Mats'
   },
   // Its slug has a non-ASCII letter: canonical, percent-encoded NFC (#53).
   {
     name: 'shop article with a non-ASCII slug',
     path: '/shop/best/br%C3%BCmate-water-bottles/',
-    h1: 'BrüMate Water Bottles',
-    title: 'BrüMate Water Bottles - Boxing Undefeated'
+    h1: 'BrüMate Water Bottles'
   },
-  {
-    name: 'search',
-    path: '/search/',
-    h1: 'Search Boxers',
-    title: 'Search Boxers - Boxing Undefeated'
-  }
+  { name: 'search', path: '/search/', h1: 'Search Boxers' }
 ]
 
 /** The canonical URL of a path: the homepage is the bare origin. */
 export function canonicalUrl(path: string): string {
   return path === '/' ? target.canonicalOrigin : `${target.canonicalOrigin}${path}`
+}
+
+/**
+ * The document title of each sample page, which og:title and twitter:title repeat (#87). The shop's
+ * pages have none here: the shop is being retired with a 410 in its own PR.
+ */
+export const sampleTitles: Record<string, string> = {
+  '/': 'Boxing Undefeated - Professional Boxers Database',
+  [boxer.path]: 'Manuel Ortiz - Professional Boxer - Boxing Undefeated',
+  '/boxers/': 'Boxers Directory - Boxing Undefeated',
+  '/divisions/heavy/': 'Heavyweight Boxers - Boxing Undefeated',
+  '/search/': 'Search Boxers - Boxing Undefeated'
 }

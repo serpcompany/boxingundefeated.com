@@ -11,18 +11,12 @@ jest.mock('@/lib/boxer-data', () => ({
   getBoxersPage: (page: number) => mockGetBoxersPage(page),
   getDivisionPage: (slug: string, page: number) => mockGetDivisionPage(slug, page)
 }))
-// The article body is beside the point here, and remark is ESM only.
-jest.mock('remark', () => ({
-  remark: () => ({ use: () => ({ process: async (markdown: string) => markdown }) })
-}))
-jest.mock('remark-html', () => ({ __esModule: true, default: () => undefined }))
 
 import type { Metadata } from 'next'
 import { createNotFoundMetadata } from '@/lib/metadata'
 import { getSiteOrigin } from '@/lib/site-config'
 import { metadata as privacyMetadata } from './(legal)/privacy/page'
 import { metadata as termsMetadata } from './(legal)/terms/page'
-import { generateMetadata as shopArticleMetadata } from './[...slug]/page'
 import { metadata as aboutMetadata } from './about/page'
 import { generateMetadata as boxerMetadata } from './boxers/[slug]/page'
 import { generateMetadata as boxersMetadata } from './boxers/page'
@@ -33,8 +27,6 @@ import { generateMetadata as divisionsMetadata } from './divisions/page'
 import { metadata as notFoundMetadata } from './not-found'
 import { generateMetadata as homeMetadata } from './page'
 import { metadata as searchMetadata } from './search/layout'
-import { generateMetadata as shopMetadata } from './shop/page'
-import { generateMetadata as shopPageMetadata } from './shop/page/[page]/page'
 import { generateMetadata as htmlSitemapMetadata } from './sitemap/page'
 
 /**
@@ -98,33 +90,6 @@ const families: PageFamily[] = [
     metadata: () => divisionPageMetadata(params({ division: 'heavy', page: '2' }))
   },
   {
-    file: 'shop/page.tsx',
-    path: '/shop/',
-    title: 'Shop Guides - Boxing Undefeated',
-    metadata: () => shopMetadata()
-  },
-  {
-    file: 'shop/page/[page]/page.tsx',
-    path: '/shop/page/2/',
-    title: 'Shop Guides - Page 2 - Boxing Undefeated',
-    metadata: () => shopPageMetadata(params({ page: '2' }))
-  },
-  {
-    file: '[...slug]/page.tsx',
-    path: '/shop/best/1-inch-thick-yoga-mats/',
-    title: '1 Inch Thick Yoga Mats - Boxing Undefeated',
-    metadata: () =>
-      shopArticleMetadata(params({ slug: ['shop', 'best', '1-inch-thick-yoga-mats'] }))
-  },
-  {
-    // Next.js passes the segment percent-encoded.
-    file: '[...slug]/page.tsx',
-    path: '/shop/best/br%C3%BCmate-water-bottles/',
-    title: 'BrüMate Water Bottles - Boxing Undefeated',
-    metadata: () =>
-      shopArticleMetadata(params({ slug: ['shop', 'best', 'br%C3%BCmate-water-bottles'] }))
-  },
-  {
     file: 'about/page.tsx',
     path: '/about/',
     title: 'About - Boxing Undefeated',
@@ -175,10 +140,6 @@ const notFoundPages: Array<[string, () => Promise<Metadata>]> = [
   [
     '/divisions/heavy/page/99999/',
     () => divisionPageMetadata(params({ division: 'heavy', page: '99999' }))
-  ],
-  [
-    '/shop/best/no-such-article/',
-    () => shopArticleMetadata(params({ slug: ['shop', 'best', 'no-such-article'] }))
   ]
 ]
 
@@ -207,11 +168,18 @@ beforeEach(() => {
   )
 })
 
+/**
+ * The shop's pages, which are being retired with a 410 (owner, 2026-10-11) in their own PR, so
+ * their titles stay as they are. Nothing matches once their files are gone.
+ */
+const RETIRED_SHOP_PAGES = /^(shop|\[\.\.\.slug\])\//
+
 /** Every page file under app/, as the table names them. */
 function pageFiles(): string[] {
   return readdirSync(__dirname, { recursive: true, encoding: 'utf8' })
     .map(file => file.split('\\').join('/'))
     .filter(file => /(^|\/)page\.tsx$/.test(file) || file === 'not-found.tsx')
+    .filter(file => !RETIRED_SHOP_PAGES.test(file))
     .sort()
 }
 
