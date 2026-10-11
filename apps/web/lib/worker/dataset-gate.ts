@@ -100,11 +100,23 @@ export function datasetUnavailable(request: Request): Response {
   })
 }
 
-/** Per-isolate memo of the readiness; concurrent reads share one load. */
+/**
+ * Per-isolate memo of the readiness. Requests share its answer, never a read in flight: a request
+ * that finds the answer stale reads `dataset_state` itself, so a burst at expiry costs one
+ * primary-key read per request until the first answer lands.
+ *
+ * Sharing the read hung requests (#110). A read is I/O of the request that started it, and the
+ * Workers runtime cancels that I/O when the request's client disconnects (a Next.js prefetch the
+ * browser drops) or its response completes. The shared promise then never settled, so every request
+ * waiting on it, and every later D1 page, sitemap and search of that isolate, hung until the
+ * client gave up.
+ */
 export class DatasetReadinessMemo {
-  private inflight: Promise<DatasetReadiness> | undefined
   private value: { readiness: DatasetReadiness; expiresAt: number } | undefined
   private lastGeneration: string | undefined
+  /** Reads started, and the one whose answer `value` holds: an older read never replaces it. */
+  private readsStarted = 0
+  private storedRead = 0
 
   constructor(
     private readonly load: () => Promise<DatasetState | null>,
@@ -115,7 +127,8 @@ export class DatasetReadinessMemo {
     if (this.value && this.now() < this.value.expiresAt) {
       return Promise.resolve(this.value.readiness)
     }
-    this.inflight ||= this.load()
+    const read = ++this.readsStarted
+    return this.load()
       .then(state => ({ readiness: readinessOf(state), ttl: DATASET_STATE_TTL_MS }))
       .catch((error: unknown) => ({
         readiness: {
@@ -126,15 +139,14 @@ export class DatasetReadinessMemo {
         ttl: DATASET_ERROR_TTL_MS
       }))
       .then(({ readiness, ttl }) => {
-        this.value = { readiness, expiresAt: this.now() + ttl }
-        if (readiness.ready) this.lastGeneration = readiness.generation
-        else if (!readiness.lastGeneration) this.lastGeneration = undefined
+        if (read > this.storedRead) {
+          this.storedRead = read
+          this.value = { readiness, expiresAt: this.now() + ttl }
+          if (readiness.ready) this.lastGeneration = readiness.generation
+          else if (!readiness.lastGeneration) this.lastGeneration = undefined
+        }
         return readiness
       })
-      .finally(() => {
-        this.inflight = undefined
-      })
-    return this.inflight
   }
 }
 
