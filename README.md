@@ -1,8 +1,7 @@
 # Boxing Undefeated
 
 A boxing database at [boxingundefeated.com](https://boxingundefeated.com): about 5,600 professional
-boxer profiles with fight histories, weight division listings, boxer search and an
-Amazon-affiliate shop.
+boxer profiles with fight histories, weight division listings and boxer search.
 
 Agents and contributors: start with [AGENTS.md](AGENTS.md) for the repository map, commands,
 environments and workflow.
@@ -14,7 +13,7 @@ environments and workflow.
 - **Data**: boxers, bouts and divisions live in Cloudflare D1, one database per environment, with
   a Drizzle schema and reviewed migrations (`packages/data-ops`, `d1/drizzle`). Boxer pages,
   listings, divisions, the homepage, search and the XML sitemaps read D1 on request, behind an
-  edge cache. Shop articles and legal pages are markdown and TSX, prerendered at build.
+  edge cache. The about and legal pages are TSX, prerendered at build.
 - **Styling**: Tailwind CSS 4 and a shared shadcn design system (`packages/design-system`).
 - **Monorepo**: pnpm workspaces and Turbo.
 

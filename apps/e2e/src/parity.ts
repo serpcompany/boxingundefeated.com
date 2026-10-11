@@ -126,12 +126,14 @@ export function compare(
 }
 
 export function isAllowed(difference: Difference, allowlist: AllowedDifference[]): boolean {
-  return allowlist.some(
-    entry =>
+  return allowlist.some(entry => {
+    const path = normalizePath(entry.path)
+    return (
       entry.field === difference.field &&
-      normalizePath(entry.path) === difference.path &&
+      (entry.prefix ? difference.path.startsWith(path) : path === difference.path) &&
       (entry.actual === undefined || entry.actual === difference.actual)
-  )
+    )
+  })
 }
 
 export type ReferenceOutcome =

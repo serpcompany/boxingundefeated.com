@@ -40,7 +40,7 @@ describe('the <main> landmark', () => {
       expect.arrayContaining([
         ROOT_LAYOUT,
         'apps/web/app/page.tsx',
-        'apps/web/app/shop/page.tsx',
+        'apps/web/app/boxers/page.tsx',
         'apps/web/app/divisions/page.tsx',
         'apps/web/app/sitemap/page.tsx'
       ])

@@ -86,10 +86,6 @@ function division(slug: string, name: string, boxerCount: number, sortOrder = 0)
 
 const links = () => [...document.querySelectorAll('a')].map(link => link.getAttribute('href'))
 
-afterEach(() => {
-  delete process.env.SHOP_POST_COUNT
-})
-
 describe('listing pages', () => {
   beforeEach(() => {
     mockGetCloudflareContext.mockResolvedValue({
@@ -248,46 +244,32 @@ describe('listing pages', () => {
     expect(card('middle')).toHaveTextContent('Middleweight0boxers')
   })
 
-  it('links the HTML sitemap to every listing page D1 counts, and the shop pages the build counted', async () => {
+  it('links the HTML sitemap to every listing page D1 counts', async () => {
     mockGetDirectoryCounts.mockResolvedValue({
       totalBoxers: 97,
       divisions: [division('heavy', 'Heavyweight', 49), division('minimum', 'Minimumweight', 0, 16)]
     })
-    process.env.SHOP_POST_COUNT = '49'
 
     render(await HtmlSitemapPage())
 
     const hrefs = links()
     expect(hrefs).toEqual(
-      expect.arrayContaining([
-        '/boxers/page/3/',
-        '/divisions/heavy/page/2/',
-        '/divisions/minimum/',
-        '/shop/page/2/'
-      ])
+      expect.arrayContaining(['/boxers/page/3/', '/divisions/heavy/page/2/', '/divisions/minimum/'])
     )
-    for (const missing of ['/boxers/page/4/', '/divisions/heavy/page/3/', '/shop/page/3/']) {
+    for (const missing of ['/boxers/page/4/', '/divisions/heavy/page/3/']) {
       expect(hrefs).not.toContain(missing)
     }
     expect(hrefs).toContain('/sitemap/')
-    // `/blog/` and `/brands/` answer 410 (#59).
+    // `/blog/`, `/brands/` and `/shop/` answer 410 (#59, #94).
     expect(hrefs.filter(href => isRetiredPath(href ?? ''))).toEqual([])
     expect(hrefs.filter(href => href?.endsWith('.xml'))).toEqual([
       '/sitemap-index.xml',
       '/sitemap-pages.xml',
       '/sitemap-boxers.xml',
-      '/sitemap-divisions.xml',
-      '/sitemap-shop.xml'
+      '/sitemap-divisions.xml'
     ])
-    // Listing pages only, never a profile or an article.
-    expect(
-      hrefs.filter(href => /^\/(boxers|shop\/best)\/(?!page\/)[^/]+\/$/.test(href ?? ''))
-    ).toEqual([])
-  })
-
-  it('fails closed when the build did not count the shop posts', async () => {
-    mockGetDirectoryCounts.mockResolvedValue({ totalBoxers: 1, divisions: [] })
-    await expect(HtmlSitemapPage()).rejects.toThrow(/SHOP_POST_COUNT/)
+    // Listing pages only, never a profile.
+    expect(hrefs.filter(href => /^\/boxers\/(?!page\/)[^/]+\/$/.test(href ?? ''))).toEqual([])
   })
 
   it('fails closed without the DB binding', async () => {

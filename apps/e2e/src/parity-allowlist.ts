@@ -3,6 +3,8 @@ import type { ParityField } from './parity'
 export interface AllowedDifference {
   /** The URL path as the site serves it, for example `/boxers/world/`. */
   path: string
+  /** When true, `path` and every path under it, for a retired section such as `/shop/`. */
+  prefix?: boolean
   field: ParityField
   /** The candidate's value it allows, for example `404`; any value when unset. */
   actual?: string
@@ -30,5 +32,14 @@ export const PARITY_ALLOWLIST: AllowedDifference[] = [
     reason:
       'Intentional: retired with 410 Gone (#59), and dropped from the pages sitemap. Stale once ' +
       'production serves the 410 and its sitemap no longer lists it; remove it then.'
+  },
+  {
+    path: '/shop/',
+    prefix: true,
+    field: 'status',
+    actual: '410',
+    reason:
+      'Intentional: the shop is retired with 410 Gone (#94), its sitemap with it. Stale once ' +
+      'production serves the 410 and its sitemaps no longer list the shop; remove it then.'
   }
 ]

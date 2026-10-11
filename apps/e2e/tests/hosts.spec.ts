@@ -13,12 +13,12 @@ const redirects: Array<[string, string]> = [
   ['/', '/'],
   ['/about', '/about/'],
   [boxer.path, boxer.path],
-  ['/shop/best/2.7-l-water-bottles', '/shop/best/2.7-l-water-bottles/'],
-  // A non-ASCII letter: NFD and without the slash, straight to the percent-encoded NFC page.
-  ['/shop/best/bru%CC%88mate-water-bottles', '/shop/best/br%C3%BCmate-water-bottles/'],
   ['/robots.txt/', '/robots.txt'],
-  // A retired section: the canonical host first, which then answers 410 (tests/retired.spec.ts).
+  // A retired section: the canonical host first, which then answers 410 (tests/retired.spec.ts),
+  // with the spelling it was sent (a non-ASCII letter in NFD here).
   ['/blog', '/blog/'],
+  ['/shop/best/bru%CC%88mate-water-bottles', '/shop/best/bru%CC%88mate-water-bottles/'],
+  ['/sitemap-shop.xml', '/sitemap-shop.xml'],
   // Old sitemap URLs go straight to the index, in one hop.
   ['/sitemap.xml', '/sitemap-index.xml'],
   ['/sitemaps/pages/1.xml/', '/sitemap-index.xml'],

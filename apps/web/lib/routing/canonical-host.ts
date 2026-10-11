@@ -10,9 +10,7 @@
  * origin. The path is already in canonical form (`lib/routing/trailing-slash.ts`), so
  * `www.boxingundefeated.com/about` goes straight to `https://boxingundefeated.com/about/`.
  * Repeated slashes are collapsed in the same hop (`//about` -> `/about/`), which OpenNext would
- * otherwise do in a second redirect, and a shop path with non-ASCII letters gets its canonical
- * spelling (`bru%CC%88mate` -> `br%C3%BCmate`, lib/routing/non-ascii-paths.ts). `/api` paths keep
- * exactly the path they asked for. The query string is kept as sent. An old sitemap URL
+ * otherwise do in a second redirect. `/api` paths keep exactly the path they asked for. The query string is kept as sent. An old sitemap URL
  * (`/sitemap.xml`, `/sitemaps/<group>/<n>.xml`) goes straight to the canonical origin's
  * `/sitemap-index.xml` (lib/worker/sitemaps.ts).
  *
@@ -26,7 +24,6 @@
  */
 import { parseSiteEnvironment, siteOriginFor } from '../site-config'
 import { isLegacySitemapPath, SITEMAP_INDEX_PATH } from '../sitemaps/sitemaps'
-import { canonicalShopPathname } from './non-ascii-paths'
 import { canonicalPathname } from './trailing-slash'
 
 export const SMOKE_TEST_HEADER = 'x-boxingundefeated-smoke-test'
@@ -90,14 +87,12 @@ export function canonicalHostRedirect(
 
 /**
  * The path a non-canonical host redirects to: `/api` paths exactly as requested, and every other
- * path with repeated slashes collapsed and in canonical slash form, and a shop path with non-ASCII
- * letters in its canonical spelling (lib/routing/non-ascii-paths.ts). The collapse is not part of
+ * path with repeated slashes collapsed and in canonical slash form. The collapse is not part of
  * `canonicalPathname`, which must keep agreeing with `slashRedirects`.
  */
 export function canonicalHostPathname(pathname: string): string {
   if (API_PATH.test(pathname)) {
     return pathname
   }
-  const collapsed = pathname.replace(/\/{2,}/g, '/')
-  return canonicalShopPathname(collapsed) ?? canonicalPathname(collapsed)
+  return canonicalPathname(pathname.replace(/\/{2,}/g, '/'))
 }

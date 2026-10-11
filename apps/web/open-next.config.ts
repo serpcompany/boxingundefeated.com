@@ -3,9 +3,9 @@ import staticAssetsIncrementalCache from '@opennextjs/cloudflare/overrides/incre
 
 // Boxer pages (profiles, listings, divisions, the homepage, the HTML sitemap) render on request
 // from D1 and are cached by worker.ts's edge cache (lib/worker/edge-cache.ts), not by OpenNext.
-// Every other route reads markdown or JSON with `fs`, is fully prerendered at build, and never
-// revalidates: the Worker serves those pages from its static assets, because `fs` can't read the
-// repository at request time. This read-only cache never stores a page rendered on request.
+// Every other page (about, search, the legal pages) is fully prerendered at build and never
+// revalidates: the Worker serves those pages from its static assets. This read-only cache never
+// stores a page rendered on request.
 export default {
   ...defineCloudflareConfig({
     incrementalCache: staticAssetsIncrementalCache,

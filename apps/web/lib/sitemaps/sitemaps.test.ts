@@ -5,8 +5,8 @@ import {
   latestDate,
   MAX_URLS_PER_SITEMAP,
   renderSitemapFile,
+  renderUrlset,
   SITEMAP_INDEX_PATH,
-  type SitemapContent,
   sitemapEntries,
   sitemapFiles
 } from './sitemaps'
@@ -38,14 +38,6 @@ const data: SitemapData = {
   divisions: [division('heavy', 0, 49), division('welter', 1, 1), division('minimum', 2, 0)]
 }
 
-const content: SitemapContent = {
-  shop: [
-    { path: '/shop/', lastmod: '2024-03-01' },
-    { path: "/shop/best/men's-water-bottles/", lastmod: '2024-01-15' },
-    { path: '/shop/best/2.7-l-water-bottles/', lastmod: '2024-03-01' }
-  ]
-}
-
 /** Parses XML the way a crawler does; fails on anything that isn't well-formed. */
 function parse(xml: string): Document {
   const document = new DOMParser().parseFromString(xml, 'application/xml')
@@ -58,7 +50,7 @@ function locs(document: Document): string[] {
 }
 
 function render(path: string, maxUrls?: number): string {
-  const xml = renderSitemapFile(path, ORIGIN, data, content, maxUrls)
+  const xml = renderSitemapFile(path, ORIGIN, data, maxUrls)
   if (xml === null) throw new Error(`no sitemap at ${path}`)
   return xml
 }
@@ -96,7 +88,7 @@ describe('lastmod dates', () => {
 })
 
 describe('sitemap entries', () => {
-  const groups = sitemapEntries(data, content)
+  const groups = sitemapEntries(data)
 
   it('lists the homepage as its own path and the static pages, without the retired ones', () => {
     expect(groups.pages.map(entry => entry.path)).toEqual([
@@ -133,10 +125,6 @@ describe('sitemap entries', () => {
     ])
   })
 
-  it('takes the shop group from the build content as it is', () => {
-    expect(groups.shop).toBe(content.shop)
-  })
-
   it("dates a profile by the boxer's updated_at and a listing by the latest one it shows", () => {
     const lastmod = (path: string) =>
       Object.values(groups)
@@ -158,30 +146,28 @@ describe('sitemap entries', () => {
 
 describe('sitemap files', () => {
   it('names one root file per group while every group fits', () => {
-    expect(sitemapFiles(sitemapEntries(data, content)).map(file => file.path)).toEqual([
+    expect(sitemapFiles(sitemapEntries(data)).map(file => file.path)).toEqual([
       '/sitemap-pages.xml',
       '/sitemap-boxers.xml',
-      '/sitemap-divisions.xml',
-      '/sitemap-shop.xml'
+      '/sitemap-divisions.xml'
     ])
     expect(MAX_URLS_PER_SITEMAP).toBe(50_000)
   })
 
   it('continues an overflowing group in numbered files beside the first', () => {
-    const files = sitemapFiles(sitemapEntries(data, content), 20)
+    const files = sitemapFiles(sitemapEntries(data), 20)
     expect(files.map(file => [file.path, file.entries.length])).toEqual([
       ['/sitemap-pages.xml', 6],
       ['/sitemap-boxers.xml', 20],
       ['/sitemap-boxers-2.xml', 20],
       ['/sitemap-boxers-3.xml', 13],
-      ['/sitemap-divisions.xml', 5],
-      ['/sitemap-shop.xml', 3]
+      ['/sitemap-divisions.xml', 5]
     ])
   })
 
   it('has no file for an empty group', () => {
-    const files = sitemapFiles(sitemapEntries(data, { shop: [] }))
-    expect(files.map(file => file.group)).toEqual(['pages', 'boxers', 'divisions'])
+    const files = sitemapFiles({ ...sitemapEntries(data), boxers: [] })
+    expect(files.map(file => file.group)).toEqual(['pages', 'divisions'])
   })
 })
 
@@ -200,8 +186,7 @@ describe('rendered XML', () => {
       [`${ORIGIN}/sitemap-boxers.xml`, '2025-09-01'],
       [`${ORIGIN}/sitemap-boxers-2.xml`, '2025-07-01'],
       [`${ORIGIN}/sitemap-boxers-3.xml`, '2025-07-01'],
-      [`${ORIGIN}/sitemap-divisions.xml`, '2025-09-01'],
-      [`${ORIGIN}/sitemap-shop.xml`, '2024-03-01']
+      [`${ORIGIN}/sitemap-divisions.xml`, '2025-09-01']
     ])
   })
 
@@ -216,30 +201,33 @@ describe('rendered XML', () => {
 
     expect(urls.filter(url => !isCanonical(url))).toEqual([])
     expect(new Set(urls).size).toBe(urls.length)
-    expect(urls).toHaveLength(6 + 53 + 5 + 3)
+    expect(urls).toHaveLength(6 + 53 + 5)
     expect(urls[0]).toBe(ORIGIN)
     expect(urls).not.toContain(`${ORIGIN}/`)
-    expect(urls).toContain(`${ORIGIN}/shop/best/men's-water-bottles/`)
-    expect(urls).toContain(`${ORIGIN}/shop/best/2.7-l-water-bottles/`)
   })
 
   it('escapes URLs for XML and omits an unknown lastmod', () => {
-    const shop = render('/sitemap-shop.xml')
-    expect(shop).toContain(`<loc>${ORIGIN}/shop/best/men&apos;s-water-bottles/</loc>`)
+    const escaped = renderUrlset(ORIGIN, [{ path: "/boxers/o'neil&co/" }])
+    expect(escaped).toContain(`<loc>${ORIGIN}/boxers/o&apos;neil&amp;co/</loc>`)
     const pages = render('/sitemap-pages.xml')
     expect(pages).toContain(`<url><loc>${ORIGIN}</loc><lastmod>2025-09-01</lastmod></url>`)
     expect(pages).toContain(`<url><loc>${ORIGIN}/about/</loc></url>`)
   })
 
   it('uses the origin it is given, such as the local one', () => {
-    const local = renderSitemapFile('/sitemap-pages.xml', 'http://localhost:8787', data, content)
+    const local = renderSitemapFile('/sitemap-pages.xml', 'http://localhost:8787', data)
     expect(locs(parse(local ?? ''))[0]).toBe('http://localhost:8787')
     expect(local).not.toContain(ORIGIN)
   })
 
   it('has no file for a name the index does not list', () => {
-    for (const path of ['/sitemap-blog.xml', '/sitemap-boxers-2.xml', '/sitemap-pages-1.xml']) {
-      expect(renderSitemapFile(path, ORIGIN, data, content)).toBeNull()
+    for (const path of [
+      '/sitemap-blog.xml',
+      '/sitemap-shop.xml',
+      '/sitemap-boxers-2.xml',
+      '/sitemap-pages-1.xml'
+    ]) {
+      expect(renderSitemapFile(path, ORIGIN, data)).toBeNull()
     }
   })
 })

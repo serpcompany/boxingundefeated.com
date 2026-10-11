@@ -16,16 +16,18 @@ import { boxer, canonicalUrl, stagingAuthorization, target } from './site'
 const CHALLENGE = 'Basic realm="boxingundefeated.com staging", charset="UTF-8"'
 const onPlatformHost = isPlatformHost(new URL(target.baseUrl).hostname)
 
-const pages = [
-  '/',
-  boxer.path,
-  '/boxers/',
-  '/divisions/heavy/',
-  '/shop/best/1-inch-thick-yoga-mats/'
-]
+const pages = ['/', boxer.path, '/boxers/', '/divisions/heavy/', '/about/']
 const files = ['/sitemap-index.xml', '/sitemap-boxers.xml', '/ads.txt', '/api/search?q=ortiz']
-/** Redirects, a 404 and a 410: none of them is answered before the password either. */
-const others = ['/about', '/robots.txt/', '/sitemap.xml', '/not-a-page/', '/blog']
+/** Redirects, a 404 and 410s: none of them is answered before the password either. */
+const others = [
+  '/about',
+  '/robots.txt/',
+  '/sitemap.xml',
+  '/not-a-page/',
+  '/blog',
+  '/shop/best/1-inch-thick-yoga-mats/',
+  '/sitemap-shop.xml'
+]
 
 /** A request context without the suite's default smoke-test header. */
 async function withContext<T>(

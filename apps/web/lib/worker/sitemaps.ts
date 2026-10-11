@@ -4,7 +4,7 @@
  * cache and the readiness gate below.
  *
  * - `/sitemap-index.xml` and `/sitemap-<group>[-<n>].xml`: generated from D1 (`getSitemapData`)
- *   and the build's content entries, with the environment's origin (lib/site-config.ts): local
+ *   with the environment's origin (lib/site-config.ts): local
  *   output lists local URLs, staging lists staging URLs. A name the index doesn't list is a 404.
  * - Old URLs: `/sitemap.xml` (the compatibility alias) and the nested `/sitemaps/<group>/<n>.xml`
  *   files GitHub Pages published, with or without a trailing slash or with repeated slashes,
@@ -28,8 +28,7 @@ import {
   isKnownSitemapPath,
   isLegacySitemapPath,
   renderSitemapFile,
-  SITEMAP_INDEX_PATH,
-  type SitemapContent
+  SITEMAP_INDEX_PATH
 } from '../sitemaps/sitemaps'
 import { DATASET_RETRY_AFTER_SECONDS, type DatasetReadiness } from './dataset-gate'
 import { EDGE_CACHE_HEADER, EDGE_CACHE_TTL_SECONDS, type EdgeCacheRuntime } from './edge-cache'
@@ -72,8 +71,6 @@ export interface SitemapEvent {
 export interface SitemapOptions {
   /** Reads what the sitemaps list from D1. Only called when D1 is ready and the cache misses. */
   load: () => Promise<SitemapData>
-  /** The build's content entries (`.open-next/sitemap-content.json`). */
-  content: SitemapContent
   /** Whether D1 holds a finished import (`DatasetReadinessMemo.current`). */
   readiness: () => Promise<DatasetReadiness>
   /** The runtime `SITE_ENVIRONMENT`, which sets the origin of every URL. */
@@ -164,13 +161,7 @@ export async function handleSitemapRequest(
   const environment = parseSiteEnvironment(options.siteEnvironment) ?? 'local'
   let xml: string | null
   try {
-    xml = renderSitemapFile(
-      path,
-      siteOriginFor(environment),
-      await options.load(),
-      options.content,
-      options.maxUrls
-    )
+    xml = renderSitemapFile(path, siteOriginFor(environment), await options.load(), options.maxUrls)
   } catch (error) {
     observe({ event: 'sitemap', path, state: 'BYPASS', status: 503, error: errorSummary(error) })
     return text(request, 'The sitemap is unavailable. Please try again in a few minutes.\n', 503, {

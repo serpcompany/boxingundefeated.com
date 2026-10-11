@@ -21,10 +21,12 @@ standard applies.
 ## Retired URLs
 
 A section the owner removes without a replacement answers **410 Gone** instead of a redirect:
-`/blog` and `/brands`, each with every path under it (#59). `lib/routing/retired-paths.ts` holds
-the list; add later retirements there, and drop their links and sitemap entries. The Worker answers
-the 410 after staging's password and the canonical-host 308, and before the edge cache and the
-trailing-slash redirects: a small page with `noindex` and `Cache-Control: no-store`. On the
+`/blog` and `/brands` (#59) and `/shop` (#94), each with every path under it in any spelling
+(non-ASCII, repeated slashes), and the file `/sitemap-shop.xml`. `lib/routing/retired-paths.ts`
+holds the list; add later retirements there, and drop their links and sitemap entries. The Worker
+answers the 410 after staging's password and the canonical-host 308, and before the XML sitemaps,
+the edge cache and the trailing-slash redirects: a small page with `noindex` and
+`Cache-Control: no-store`. On the
 production apex the shared brands Worker answers `/brands*` first until serpcompany/serp#1490 is
 deployed: `/brands` gets its 308 to `/brands/`, which passes the 410 through.
 

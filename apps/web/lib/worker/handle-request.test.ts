@@ -108,78 +108,43 @@ describe('handleWorkerRequest', () => {
   })
 })
 
-describe('handleWorkerRequest for a shop path with non-ASCII letters', () => {
-  const ORIGIN = 'https://boxingundefeated.com'
-  const PAGE = '/shop/best/br%C3%BCmate-water-bottles/'
-
-  it.each([
-    ['/shop/best/br%C3%BCmate-water-bottles', 'no slash'],
-    ['/shop/best/br%c3%bcmate-water-bottles/', 'lowercase hex, as workerd passes raw UTF-8 on'],
-    ['/shop/best/bru%CC%88mate-water-bottles/', 'NFD'],
-    ['/shop/best/bru%CC%88mate-water-bottles', 'NFD, no slash'],
-    ['/shop/best/br~C3~BCmate-water-bottles/', 'its route key']
-  ])('answers %s (%s) with one 308 to the canonical spelling', async path => {
-    for (const [env, robots] of [
-      [production, null],
-      [local, 'noindex']
-    ] as const) {
-      const serve = serveSpy()
-      const response = await handleWorkerRequest(new Request(`${ORIGIN}${path}?q=1`), env, serve)
-
-      expect(response.status).toBe(308)
-      expect(response.headers.get('location')).toBe(`${PAGE}?q=1`)
-      expect(response.headers.get('x-robots-tag')).toBe(robots)
-      expect(serve).not.toHaveBeenCalled()
-    }
-  })
-
-  it.each([
-    ['/shop//best/br%C3%BCmate-water-bottles/', PAGE],
-    ['/shop//best/br%C3%BCmate-water-bottles', PAGE],
-    ['//shop/best/bru%CC%88mate-water-bottles', PAGE],
-    ['/shop/best//nestl%C3%A9-water-bottles/', '/shop/best/nestl%C3%A9-water-bottles/'],
-    ['/shop/best//nestl%C3%A9-water-bottles', '/shop/best/nestl%C3%A9-water-bottles/']
-  ])('answers %s, with repeated slashes, with one 308 to %s', async (path, location) => {
-    const serve = serveSpy()
-    const response = await handleWorkerRequest(new Request(`${ORIGIN}${path}`), production, serve)
-
-    expect(response.status).toBe(308)
-    expect(response.headers.get('location')).toBe(location)
-    expect(serve).not.toHaveBeenCalled()
-  })
-
-  it('renders the canonical spelling from its route key, query and headers kept', async () => {
-    const serve = serveSpy()
-    const response = await handleWorkerRequest(
-      new Request(`${ORIGIN}${PAGE}?_rsc=1`, { headers: { rsc: '1' } }),
-      production,
-      serve
-    )
-
-    expect(response.status).toBe(200)
-    expect(serve).toHaveBeenCalledTimes(1)
-    const [rendered] = serve.mock.calls[0] as unknown as [Request]
-    expect(rendered.url).toBe(`${ORIGIN}/shop/best/br~C3~BCmate-water-bottles/?_rsc=1`)
-    expect(rendered.headers.get('rsc')).toBe('1')
-  })
-
-  it.each(['/shop/best/fuelmate-water-bottles', '/shop//best/fuelmate-water-bottles/'])(
-    'leaves the ASCII shop path %s to OpenNext as sent',
-    async path => {
-      const serve = serveSpy()
-      const request = new Request(`${ORIGIN}${path}`)
-      const response = await handleWorkerRequest(request, production, serve)
-
-      expect(response.status).toBe(200)
-      expect(serve).toHaveBeenCalledWith(request)
-    }
-  )
-})
-
 describe('handleWorkerRequest for a retired path', () => {
   const ORIGIN = 'https://boxingundefeated.com'
   const version = { CF_VERSION_METADATA: { id: 'version-1' } }
-  const retired = ['/blog/', '/blog', '/blog/jab/', '/blog/x/', '/brands/', '/brands', '/brands/x/']
+  const retired = [
+    '/blog/',
+    '/blog',
+    '/blog/jab/',
+    '/blog/x/',
+    '/brands/',
+    '/brands',
+    '/brands/x/',
+    '/shop',
+    '/shop/',
+    '/shop/page/2/',
+    '/shop/best/1-inch-thick-yoga-mats/',
+    '/shop/best/1-inch-thick-yoga-mats',
+    '/shop/best/2.7-l-water-bottles',
+    '/sitemap-shop.xml',
+    '/sitemap-shop.xml/'
+  ]
+  // Every spelling of the shop's two articles with non-ASCII letters, and repeated slashes, which
+  // a redirect used to fix first (#54): each one is gone as it was sent.
+  const shopSpellings = [
+    '/shop/best/br%C3%BCmate-water-bottles/',
+    '/shop/best/br%C3%BCmate-water-bottles',
+    '/shop/best/br%c3%bcmate-water-bottles/',
+    '/shop/best/bru%CC%88mate-water-bottles/',
+    '/shop/best/bru%CC%88mate-water-bottles',
+    '/shop/best/br~C3~BCmate-water-bottles/',
+    '/shop/best/brümate-water-bottles/',
+    '/shop//best/br%C3%BCmate-water-bottles/',
+    '/shop/best//nestl%C3%A9-water-bottles',
+    '//shop/best/bru%CC%88mate-water-bottles',
+    '//shop',
+    '//sitemap-shop.xml',
+    '//blog/'
+  ]
 
   function runtime() {
     const cache = new MemoryCache()
@@ -208,7 +173,7 @@ describe('handleWorkerRequest for a retired path', () => {
     expect(response.headers.get(EDGE_CACHE_HEADER)).toBeNull()
   }
 
-  it.each(retired)(
+  it.each([...retired, ...shopSpellings])(
     'answers %s with 410 in production, without a redirect, the edge cache, D1 or OpenNext',
     async path => {
       const serve = serveSpy()
@@ -227,6 +192,7 @@ describe('handleWorkerRequest for a retired path', () => {
       expect(serve).not.toHaveBeenCalled()
       expect(edge.openCache).not.toHaveBeenCalled()
       expect(edge.datasetReadiness).not.toHaveBeenCalled()
+      expect(edge.runtime.sitemaps).not.toHaveBeenCalled()
     }
   )
 
@@ -244,7 +210,11 @@ describe('handleWorkerRequest for a retired path', () => {
     [WWW, '/blog', '/blog/'],
     [WWW, '/blog/', '/blog/'],
     [WWW, '/brands', '/brands/'],
-    [WORKERS_DEV, '/brands/x', '/brands/x/']
+    [WORKERS_DEV, '/brands/x', '/brands/x/'],
+    [WWW, '/shop', '/shop/'],
+    [WWW, '/shop/best/bru%CC%88mate-water-bottles', '/shop/best/bru%CC%88mate-water-bottles/'],
+    [WWW, '//shop/best/x', '/shop/best/x/'],
+    [WWW, '/sitemap-shop.xml', '/sitemap-shop.xml']
   ])('sends %s%s to the canonical host first, in one 308 to %s', async (host, path, to) => {
     const serve = serveSpy()
     const response = await handleWorkerRequest(new Request(`${host}${path}`), production, serve)
@@ -264,19 +234,28 @@ describe('handleWorkerRequest for a retired path', () => {
   })
 
   it("asks for staging's password first, then answers 410 with noindex", async () => {
-    const refused = await handleWorkerRequest(new Request(`${STAGING}/blog/`), staging, serveSpy())
-    expect(refused.status).toBe(401)
-
-    for (const headers of [PASSWORD, SMOKE]) {
-      const serve = serveSpy()
-      const response = await handleWorkerRequest(
-        new Request(`${STAGING}/brands`, { headers }),
+    const paths = ['/brands', '/shop/best/bru%CC%88mate-water-bottles', '/sitemap-shop.xml']
+    for (const path of ['/blog/', ...paths]) {
+      const refused = await handleWorkerRequest(
+        new Request(`${STAGING}${path}`),
         staging,
-        serve
+        serveSpy()
       )
-      // Its own noindex: the crawl policy adds none for a request with the password.
-      expectGone(response)
-      expect(serve).not.toHaveBeenCalled()
+      expect(refused.status).toBe(401)
+    }
+
+    for (const path of paths) {
+      for (const headers of [PASSWORD, SMOKE]) {
+        const serve = serveSpy()
+        const response = await handleWorkerRequest(
+          new Request(`${STAGING}${path}`, { headers }),
+          staging,
+          serve
+        )
+        // Its own noindex: the crawl policy adds none for a request with the password.
+        expectGone(response)
+        expect(serve).not.toHaveBeenCalled()
+      }
     }
 
     const fromWorkersDev = await handleWorkerRequest(
@@ -294,7 +273,7 @@ describe('handleWorkerRequest for a retired path', () => {
     )
   })
 
-  it.each(['/blogs/', '/Blog/', '/brand/', '/shop/best/blog/', '/no-such-page/'])(
+  it.each(['/blogs/', '/Blog/', '/brand/', '/shopping/', '/shops/', '/Shop/', '/no-such-page/'])(
     'leaves %s to OpenNext, which answers an unknown path with 404',
     async path => {
       const serve = serveSpy()
@@ -471,21 +450,6 @@ describe('handleWorkerRequest with the edge cache', () => {
       expect(edge.openCache).not.toHaveBeenCalled()
     }
   )
-
-  it('caches a shop page with non-ASCII letters under the URL requested, rendered from its route key', async () => {
-    const serve = pageSpy()
-    const { edge, first, second } = await fetchTwice(
-      'https://boxingundefeated.com/shop/best/nestl%C3%A9-water-bottles/',
-      production,
-      serve
-    )
-
-    expect(first.headers.get(EDGE_CACHE_HEADER)).toBe('MISS')
-    expect(second.headers.get(EDGE_CACHE_HEADER)).toBe('HIT')
-    expect(await second.text()).toBe('page /shop/best/nestl~C3~A9-water-bottles/')
-    expect(serve).toHaveBeenCalledTimes(1)
-    expect([...edge.cache.stored.keys()].join()).toContain('/shop/best/nestl%C3%A9-water-bottles/')
-  })
 
   it.each([
     [404, 'https://boxingundefeated.com/boxers/nobody/'],
@@ -668,7 +632,7 @@ describe("handleWorkerRequest with a D1 page's notFound()", () => {
     expect(await page.text()).toBe('Len Wickwar')
 
     // Unmatched URLs get the not-found page from OpenNext itself; this one is the empty document.
-    for (const path of ['/no-such-page/', '/shop/best/nope/', '/boxers/a/b/']) {
+    for (const path of ['/no-such-page/', '/no/such/page/', '/boxers/a/b/']) {
       const response = await handleWorkerRequest(
         new Request(`https://boxingundefeated.com${path}`),
         production,
@@ -802,7 +766,7 @@ describe('handleWorkerRequest with the D1 readiness gate', () => {
 
   it('leaves pages that do not read D1 alone', async () => {
     const gate = setup(notReady)
-    for (const path of ['/shop/page/2/', '/about/', '/ads.txt']) {
+    for (const path of ['/privacy/', '/about/', '/ads.txt']) {
       expect((await gate.fetch(`https://boxingundefeated.com${path}`)).status).toBe(200)
     }
     expect(gate.runtime.datasetReadiness).not.toHaveBeenCalled()
@@ -964,44 +928,6 @@ describe("handleWorkerRequest with staging's password", () => {
     expect(response.status).toBe(308)
     expect(response.headers.get('location')).toBe(`${STAGING}/about/`)
     expect(serve).not.toHaveBeenCalled()
-  })
-
-  it('asks for the password before the 308 of a shop path with non-ASCII letters', async () => {
-    const page = '/shop/best/br%C3%BCmate-water-bottles/'
-    for (const path of [page, '/shop/best/bru%CC%88mate-water-bottles']) {
-      const serve = serveSpy()
-      const refused = await handleWorkerRequest(new Request(`${STAGING}${path}`), staging, serve)
-      expect(refused.status).toBe(401)
-      expect(refused.headers.get('location')).toBeNull()
-      expect(serve).not.toHaveBeenCalled()
-    }
-
-    for (const [headers, robots] of [
-      [PASSWORD, null],
-      [SMOKE, 'noindex']
-    ] as const) {
-      const serve = serveSpy()
-      const redirected = await handleWorkerRequest(
-        new Request(`${STAGING}/shop/best/bru%CC%88mate-water-bottles`, { headers }),
-        staging,
-        serve
-      )
-      expect(redirected.status).toBe(308)
-      expect(redirected.headers.get('location')).toBe(page)
-      expect(redirected.headers.get('x-robots-tag')).toBe(robots)
-      expect(serve).not.toHaveBeenCalled()
-
-      const rendered = await handleWorkerRequest(
-        new Request(`${STAGING}${page}`, { headers }),
-        staging,
-        serve
-      )
-      expect(rendered.status).toBe(200)
-      expect(rendered.headers.get('x-robots-tag')).toBe(robots)
-      const [served] = serve.mock.calls[0] as unknown as [Request]
-      expect(served.url).toBe(`${STAGING}/shop/best/br~C3~BCmate-water-bottles/`)
-      expect(served.headers.has('authorization')).toBe(false)
-    }
   })
 
   it('serves smoke-test requests without the password, and keeps their noindex with it', async () => {

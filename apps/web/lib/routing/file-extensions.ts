@@ -2,10 +2,10 @@
  * The extensions that make a URL path a file rather than a page (SERP URL trailing-slash
  * standard, "What counts as a file"): files never end with a slash, pages always do.
  *
- * "Contains a dot" doesn't mean "is a file": shop slugs such as `2.7-l-water-bottles` and
- * `16.9-oz-water-bottles` are pages. Only a last segment ending in one of these is a file. None
- * of them is a top-level domain; never add one that is (`.zip`, `.mov`, `.md`, `.app`, ...).
- * No page slug may end in one of them (lib/routing/file-extensions.test.ts checks the content).
+ * "Contains a dot" doesn't mean "is a file": a slug such as `2.7-l` or `16.9-oz` is a page. Only
+ * a last segment ending in one of these is a file. None of them is a top-level domain; never add
+ * one that is (`.zip`, `.mov`, `.md`, `.app`, ...). No page slug may end in one of them: boxer
+ * slugs are `[a-z0-9-]` (the importer's SLUG_PATTERN), and division slugs are fixed.
  */
 export const FILE_EXTENSIONS: readonly string[] = [
   'atom',

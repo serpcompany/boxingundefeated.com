@@ -1,9 +1,9 @@
 # AGENTS
 
 boxingundefeated.com is a boxing database: about 5,600 boxer profiles with fight histories, weight
-division listings, and an Amazon-affiliate shop. It runs as a Next.js OpenNext Worker with D1 and
-Drizzle on Cloudflare (cut over from GitHub Pages on 2026-10-06, #19); the remaining plan lives in
-the pinned epic, serpcompany/boxingundefeated.com#3.
+division listings and boxer search. It runs as a Next.js OpenNext Worker with D1 and Drizzle on
+Cloudflare (cut over from GitHub Pages on 2026-10-06, #19); the remaining plan lives in the pinned
+epic, serpcompany/boxingundefeated.com#3.
 
 The SERP-wide [standards](https://github.com/serpcompany/serp/tree/main/docs/engineering/standards)
 apply here unless [Exceptions](#exceptions) declares otherwise. Use this file as a map: read only
@@ -16,25 +16,23 @@ Only the owner changes these two lines. Agents merge once CI is green and a fres
 plus a re-review of the fix commits after blocking findings) has no open blocking findings, one PR at
 a time, checking the staging deploy after each. The owner always merges PRs that change these lines,
 the finish-gate command, CI or deploy workflows or the scripts they run, shared-database migrations,
-and release PRs (`staging` to `main`), and runs DNS changes. An article's `slug:` (its file name when
-it has none) is its URL; changing one needs a redirect. Rules:
+and release PRs (`staging` to `main`), and runs DNS changes. Rules:
 [Verification Cadence](https://github.com/serpcompany/serp/blob/main/docs/engineering/standards/verification-cadence.md#merging-and-deploys).
 
-Planned: Ship (agents merge listed paths) once round 2 of #3 is done (owner, 2026-10-11).
+Planned: Ship (agents merge listed paths, to be chosen by the owner) once round 2 of #3 is done
+(owner, 2026-10-11).
 
 ## Where things live
 
 - `apps/web/`: the Next.js app (App Router). Read the parts below before changing pages.
-  - `app/`: boxers, divisions, shop, search, legal and HTML sitemap pages. `[...slug]`
-    renders shop articles at `/shop/best/<slug>/`.
+  - `app/`: boxers, divisions, search, legal (TSX in `app/(legal)/`) and HTML sitemap pages.
   - `lib/`: data loaders, URL, metadata, route and XML sitemap (`sitemaps/`) helpers. Pages read
     boxers only through `lib/boxer-data/`, which reads D1 on request via the server-only,
     fail-closed `lib/data/`; search calls `/api/search`. `lib/site-config.ts` alone resolves the
     environment and origin; [environments.md](docs/agents/environments.md) has what each serves.
-  - `content/`: markdown shop articles. The legal pages are TSX in `app/(legal)/`.
   - `public/`: files served at the same path ([urls.md](docs/agents/urls.md)).
-  - `scripts/`: `build:worker` steps: the build's environment and commit
-    (`write-build-environment.ts`) and the shop's sitemap entries (`write-sitemap-content.ts`).
+  - `scripts/`: the `build:worker` step that records the build's environment and commit
+    (`write-build-environment.ts`).
   - `wrangler.jsonc`, `open-next.config.ts`, `worker.ts`, `lib/worker/`: the Worker. Its request
     pipeline and build, preview, E2E, parity and link commands: [worker.md](docs/agents/worker.md).
 - `d1/`: `drizzle/` migrations, `fixtures/`, `reports/`. [d1.md](docs/agents/d1.md): the boxer data
@@ -45,7 +43,8 @@ Planned: Ship (agents merge listed paths) once round 2 of #3 is done (owner, 202
 - `packages/design-system/`: shared UI (shadcn). Read before adding a component or helper.
 - `configs/`: shared Next.js and TypeScript configuration. Read before changing build settings.
 - `apps/e2e/`: the Playwright smoke suite, the sitemap URL lister and the parity check.
-- `scripts/`: `d1/` is the D1 import, parity and deploy checks; `check-frontmatter.ts`.
+- `scripts/`: `d1/` is the D1 import, parity and deploy checks; `check-frontmatter.ts`, which CI
+  runs on the empty `apps/web/content/blog/` stub until an owner PR removes both (#94).
 - `.github/workflows/`: `ci.yml` (the PR check; its `All checks` job is the required check),
   `deploy-staging.yml` and `deploy-production.yml`.
 
@@ -107,8 +106,8 @@ Deliberate divergences from the SERP standards. They are not gaps; don't fix the
 - **No `/brands/` page** (the brands-page standard asks for one and a footer link); the owner said
   "actually lets just remove the brands page." `/brands/` answers 410 (#59); serpcompany/serp#1490
   removes the shared Worker's route once the 410 is live in production (#66 H5).
-- **Shop affiliate links stay as they are** (no disclosure, no `rel` change on the `serp.ly`
-  links): the owner chose "Keep as-is".
+- **No shop**: retired with 410 (owner, 2026-10-11; #94). Every `/shop` URL and
+  `/sitemap-shop.xml` answer 410, and its Amazon affiliate links are gone with it.
 - **`/_next/static/` skips the canonical-host redirect**: `www` and `*.workers.dev` answer hashed
   build output with 200, to save an invocation per chunk ([urls.md](docs/agents/urls.md)).
 - **Cloudflare Web Analytics is injected by Cloudflare, not by code** ("Enable, excluding visitor

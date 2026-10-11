@@ -1,7 +1,6 @@
 import {
   createBoxerMetaDescription,
   createDocumentMetadata,
-  createMetaDescription,
   createNotFoundMetadata,
   createPageMetadata,
   createRootMetadata,
@@ -9,7 +8,6 @@ import {
   MAX_TITLE_LENGTH,
   pageTitle
 } from './metadata'
-import { getShopPosts } from './shop-loader'
 import { getSiteOrigin } from './site-config'
 
 describe('metadata helpers', () => {
@@ -150,18 +148,5 @@ describe('metadata helpers', () => {
     ).toBe(true)
     expect(description.length).toBeLessThanOrEqual(MAX_META_DESCRIPTION_LENGTH)
     expect(description.endsWith('...')).toBe(true)
-  })
-
-  it('creates non-empty capped shop post meta descriptions from post excerpts', async () => {
-    const posts = await getShopPosts()
-    const post = posts.find(item => item.slug === '/shop/best/boxing-resistance-bands/')
-
-    expect(post).toBeDefined()
-
-    const description = createMetaDescription(post?.description)
-
-    expect(description).toEqual(expect.any(String))
-    expect(description.length).toBeGreaterThan(0)
-    expect(description.length).toBeLessThanOrEqual(MAX_META_DESCRIPTION_LENGTH)
   })
 })
