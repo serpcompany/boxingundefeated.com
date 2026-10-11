@@ -19,8 +19,8 @@ the finish-gate command, CI or deploy workflows or the scripts they run, shared-
 and release PRs (`staging` to `main`), and runs DNS changes. Rules:
 [Verification Cadence](https://github.com/serpcompany/serp/blob/main/docs/engineering/standards/verification-cadence.md#merging-and-deploys).
 
-Planned: Ship (agents merge listed paths, to be chosen by the owner) once round 2 of #3 is done
-(owner, 2026-10-11).
+Planned: stay Explore until the data-scraper work lands, then Ship with listed paths the owner
+chooses (owner, 2026-10-12, #66).
 
 ## Where things live
 
@@ -106,8 +106,8 @@ Deliberate divergences from the SERP standards. They are not gaps; don't fix the
 - **No Sentry**: the owner said "no sentry"; errors are read in Workers Logs (`observability` in
   each deployed environment of `wrangler.jsonc`).
 - **No `/brands/` page** (the brands-page standard asks for one and a footer link); the owner said
-  "actually lets just remove the brands page." `/brands/` answers 410 (#59); serpcompany/serp#1490
-  removes the shared Worker's route once the 410 is live in production (#66 H5).
+  "actually lets just remove the brands page." `/brands/` answers 410 (#59), and the shared
+  Worker's route is gone (serpcompany/serp#1490).
 - **No shop**: retired with 410 (owner, 2026-10-11; #94). Every `/shop` URL and
   `/sitemap-shop.xml` answer 410, and its Amazon affiliate links are gone with it.
 - **`/_next/static/` skips the canonical-host redirect**: `www` and `*.workers.dev` answer hashed
