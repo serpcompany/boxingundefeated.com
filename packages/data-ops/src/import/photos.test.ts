@@ -278,6 +278,25 @@ describe('createPacer', () => {
     expect(slept).toEqual([400])
     expect(clock).toBe(2400)
   })
+
+  it('keeps the interval after a sleep that wakes late', async () => {
+    let clock = 1000
+    const oversleeps = [200, 0, 350, 0] // how late each sleep wakes, in order
+    const pacer = createPacer(500, {
+      now: () => clock,
+      sleep: async ms => {
+        clock += ms + (oversleeps.shift() ?? 0)
+      }
+    })
+    const starts: number[] = []
+    for (let request = 0; request < 5; request++) {
+      await pacer.wait()
+      starts.push(clock) // the request starts here and takes no time
+    }
+    const gaps = starts.slice(1).map((start, index) => start - starts[index]!)
+    expect(gaps).toHaveLength(4)
+    for (const gap of gaps) expect(gap).toBeGreaterThanOrEqual(500)
+  })
 })
 
 describe('buildPhotoUpserts', () => {

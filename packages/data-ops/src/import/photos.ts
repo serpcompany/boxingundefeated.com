@@ -228,7 +228,11 @@ export async function fetchPhoto(
   }
 }
 
-/** Spaces calls to `wait()` at least `intervalMs` apart, from the start of one to the next. */
+/**
+ * Spaces calls to `wait()` at least `intervalMs` apart, from the start of one to the next. The
+ * next deadline counts from when `wait()` returns (the request starts), not from when the sleep
+ * was due to end, so a late wake-up cannot shorten the gap that follows.
+ */
 export function createPacer(
   intervalMs: number,
   {
@@ -239,9 +243,12 @@ export function createPacer(
   let next = Number.NEGATIVE_INFINITY
   return {
     async wait() {
-      const at = now()
-      if (at < next) await sleep(next - at)
-      next = Math.max(at, next) + intervalMs
+      let at = now()
+      if (at < next) {
+        await sleep(next - at)
+        at = now()
+      }
+      next = at + intervalMs
     }
   }
 }
