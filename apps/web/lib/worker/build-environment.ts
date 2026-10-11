@@ -1,10 +1,10 @@
 /**
  * The build/runtime environment guard, step 0 of lib/worker/handle-request.ts.
  *
- * Prerendered HTML is fixed at build: its robots meta tag, canonicals and Google Tag Manager come
- * from the build's SITE_ENVIRONMENT (lib/site-config.ts). A staging build served as production
- * would ship noindex pages with staging canonicals; a production build served as staging would
- * ship indexable pages with production canonicals and GTM. So a Worker whose runtime
+ * Prerendered HTML is fixed at build: its robots meta tag, canonicals, robots.txt and Google Tag
+ * Manager come from the build's SITE_ENVIRONMENT (lib/site-config.ts). A staging build served as
+ * production would ship pages with staging canonicals and staging's robots.txt; a production build
+ * served as staging would ship pages with production canonicals and GTM. So a Worker whose runtime
  * `SITE_ENVIRONMENT` var is not the environment it was built for fails closed: every request gets
  * a 503 that is never cached and never indexed.
  *

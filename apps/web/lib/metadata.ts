@@ -26,8 +26,10 @@ export function createBoxerMetaDescription(boxer: Pick<ProfileBoxer, 'name' | 'b
 }
 
 /**
- * The root layout's metadata. Outside production it adds `<meta name="robots" content="noindex">`;
- * no page sets its own `robots`, so every page inherits it.
+ * The root layout's metadata. A local build adds `<meta name="robots" content="noindex">`; no page
+ * sets its own `robots`, so every page inherits it. Staging's HTML has none, as production's: the
+ * edge cache serves the same page to requests with and without staging's password, so the Worker
+ * sends staging's noindex as an `X-Robots-Tag` header instead (lib/worker/environment-policy.ts).
  *
  * It sets no canonical and no `og:url`: every page inherits these values, and a layout canonical
  * would point every page without its own at the homepage. Each page sets its own canonical. The
@@ -39,7 +41,7 @@ export function createRootMetadata(config: SiteConfig = getSiteConfig()): Metada
   const description = createMetaDescription(rootDescription)
 
   return {
-    ...(config.isProduction ? {} : { robots: NON_PRODUCTION_ROBOTS_TAG }),
+    ...(config.environment === 'local' ? { robots: NON_PRODUCTION_ROBOTS_TAG } : {}),
     title: rootTitle,
     description,
     metadataBase: new URL(baseUrl),

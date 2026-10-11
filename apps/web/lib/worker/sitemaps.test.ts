@@ -2,6 +2,7 @@
  * @jest-environment node
  */
 import type { SitemapData } from '@boxingundefeated/data-ops'
+import { SMOKE_TEST_HEADER } from '../routing/canonical-host'
 import type { SitemapContent } from '../sitemaps/sitemaps'
 import type { DatasetReadiness } from './dataset-gate'
 import { EDGE_CACHE_HEADER } from './edge-cache'
@@ -17,7 +18,11 @@ import {
 
 const ORIGIN = 'https://boxingundefeated.com'
 const production = { SITE_ENVIRONMENT: 'production', CANONICAL_HOST_REDIRECT: 'on' }
-const staging = { SITE_ENVIRONMENT: 'staging', CANONICAL_HOST_REDIRECT: 'on' }
+const staging = {
+  SITE_ENVIRONMENT: 'staging',
+  CANONICAL_HOST_REDIRECT: 'on',
+  STAGING_BASIC_AUTH_PASSWORD: 'stagingpassword'
+}
 const ready: DatasetReadiness = {
   ready: true,
   version: 'v1',
@@ -284,18 +289,23 @@ describe('the sitemaps through the Worker pipeline', () => {
     expect(serve).not.toHaveBeenCalled()
   })
 
-  it('marks staging sitemaps noindex', async () => {
+  it("marks staging sitemaps noindex, except behind staging's password", async () => {
     const { serve, runtime } = pipeline({ siteEnvironment: 'staging' })
-    const response = await handleWorkerRequest(
-      new Request('https://staging.boxingundefeated.com/sitemap-pages.xml'),
-      staging,
-      serve,
-      runtime
-    )
+    const url = 'https://staging.boxingundefeated.com/sitemap-pages.xml'
+    const fetch = (headers: Record<string, string>) =>
+      handleWorkerRequest(new Request(url, { headers }), staging, serve, runtime)
 
-    expect(response.status).toBe(200)
-    expect(response.headers.get('x-robots-tag')).toBe('noindex')
-    expect(await response.text()).toContain('https://staging.boxingundefeated.com/about/')
+    const smoke = await fetch({ [SMOKE_TEST_HEADER]: '1' })
+    expect(smoke.status).toBe(200)
+    expect(smoke.headers.get('x-robots-tag')).toBe('noindex')
+    expect(await smoke.text()).toContain('https://staging.boxingundefeated.com/about/')
+
+    const authorized = await fetch({ authorization: `Basic ${btoa('staging:stagingpassword')}` })
+    expect(authorized.status).toBe(200)
+    expect(authorized.headers.get('x-robots-tag')).toBeNull()
+    expect(await authorized.text()).toContain('https://staging.boxingundefeated.com/about/')
+
+    expect((await fetch({})).status).toBe(401)
   })
 
   it.each([

@@ -8,9 +8,14 @@
  * - `CANONICAL_ORIGIN`: optional. The origin canonicals must use; defaults to the environment's.
  * - `NON_CANONICAL_HOSTS`: optional, comma-separated. The hosts that must answer 308 to the
  *   canonical origin. Defaults below; an empty value tests none.
+ * - `STAGING_BASIC_AUTH_PASSWORD`: optional. Staging's password, for the tests that send it
+ *   (tests/staging-access.spec.ts). Defaults to `stagingpassword`, which every SERP site's staging
+ *   shares and which is public on purpose (serp docs/engineering/standards/staging-access.md).
  *
  * Requests to a `*.workers.dev` target carry the smoke-test header, which exempts them from the
- * canonical-host redirect (apps/web/lib/routing/canonical-host.ts).
+ * canonical-host redirect (apps/web/lib/routing/canonical-host.ts). So does every request to a
+ * staging target, where the header is also the exemption from staging's password
+ * (apps/web/lib/worker/staging-access.ts): the suite tests staging as CI sees it, with noindex.
  */
 
 export const SMOKE_TEST_HEADER = 'x-boxingundefeated-smoke-test'
@@ -25,6 +30,9 @@ export const LOCAL_ORIGIN = 'http://localhost:8787'
 export const LOCAL_PREVIEW_URL = 'http://localhost:8787'
 
 export const GTM_ID = 'GTM-PP4HWLM'
+
+/** The password every SERP site's staging shares; public, so not a secret (staging-access.md). */
+export const STAGING_PASSWORD = 'stagingpassword'
 
 const WWW_HOST = 'www.boxingundefeated.com'
 const PLATFORM_HOSTS: Record<'staging' | 'production', string> = {
@@ -44,11 +52,13 @@ export interface Target {
   environment: ExpectedEnvironment
   /** The origin canonicals, `og:url`, robots.txt and sitemaps use, without a trailing slash. */
   canonicalOrigin: string
-  /** Headers every request to `baseUrl` sends: the smoke-test header for `*.workers.dev`. */
+  /** Headers every request to `baseUrl` sends: the smoke-test header (`smokeHeadersFor`). */
   headers: Record<string, string>
   /** True when `baseUrl` is this machine, so other hosts are reached with a `Host` header. */
   isLocal: boolean
   nonCanonicalHosts: NonCanonicalHost[]
+  /** Staging's password: `STAGING_BASIC_AUTH_PASSWORD`, or `STAGING_PASSWORD` when unset. */
+  stagingPassword: string
 }
 
 /** `process.env`, or the same variables in a test. */
@@ -64,8 +74,21 @@ export function isPlatformHost(hostname: string): boolean {
   return hostname.toLowerCase().endsWith('.workers.dev')
 }
 
-export function smokeHeadersFor(url: string): Record<string, string> {
-  return isPlatformHost(new URL(url).hostname) ? { [SMOKE_TEST_HEADER]: '1' } : {}
+/**
+ * The smoke-test header for a request to `url`: on a `*.workers.dev` host, and on any host when
+ * the target is staging, which serves nothing else without its password.
+ */
+export function smokeHeadersFor(
+  url: string,
+  environment?: ExpectedEnvironment
+): Record<string, string> {
+  const smoke = environment === 'staging' || isPlatformHost(new URL(url).hostname)
+  return smoke ? { [SMOKE_TEST_HEADER]: '1' } : {}
+}
+
+/** An `Authorization: Basic` header for staging's password; the gate ignores the username. */
+export function basicAuthorization(password: string, username = 'staging'): string {
+  return `Basic ${Buffer.from(`${username}:${password}`, 'utf8').toString('base64')}`
 }
 
 export function isLocalHost(hostname: string): boolean {
@@ -124,13 +147,14 @@ export function resolveTarget(input: TargetInput): Target {
     baseUrl,
     environment,
     canonicalOrigin,
-    headers: smokeHeadersFor(baseUrl),
+    headers: smokeHeadersFor(baseUrl, environment),
     isLocal,
     nonCanonicalHosts: hostNames.map(
       (name): NonCanonicalHost =>
         isLocal
           ? { host: name, url: baseUrl, headers: { host: name } }
           : { host: name, url: `https://${name}`, headers: {} }
-    )
+    ),
+    stagingPassword: input.STAGING_BASIC_AUTH_PASSWORD || STAGING_PASSWORD
   }
 }

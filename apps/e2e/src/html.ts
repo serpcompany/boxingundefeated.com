@@ -84,3 +84,38 @@ export function pageFacts(html: string): PageFacts {
 export function isNoindex(directive: string | null | undefined): boolean {
   return /(?:^|[\s,])(?:noindex|none)(?:$|[\s,])/i.test(directive ?? '')
 }
+
+/**
+ * robots.txt's groups: each user agent (lower case) and its `allow`/`disallow` rules, as
+ * `allow: /` (lower-case field, value as written). Agents listed together share their rules.
+ */
+export function robotsGroups(text: string): Map<string, string[]> {
+  const groups = new Map<string, string[]>()
+  let agents: string[] = []
+  let rules: string[] = []
+  let inRules = false
+  const close = () => {
+    for (const agent of agents) groups.set(agent, rules)
+  }
+  for (const raw of text.split('\n')) {
+    const line = raw.replace(/#.*/, '').trim()
+    const separator = line.indexOf(':')
+    if (separator === -1) continue
+    const field = line.slice(0, separator).trim().toLowerCase()
+    const value = line.slice(separator + 1).trim()
+    if (field === 'user-agent') {
+      if (inRules) {
+        close()
+        agents = []
+        rules = []
+        inRules = false
+      }
+      agents.push(value.toLowerCase())
+    } else if (field === 'allow' || field === 'disallow') {
+      inRules = true
+      rules.push(`${field}: ${value}`)
+    }
+  }
+  close()
+  return groups
+}

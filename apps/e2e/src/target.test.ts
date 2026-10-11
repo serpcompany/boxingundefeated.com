@@ -1,5 +1,11 @@
 import { describe, expect, it } from 'vitest'
-import { resolveTarget, SMOKE_TEST_HEADER } from './target'
+import {
+  basicAuthorization,
+  resolveTarget,
+  SMOKE_TEST_HEADER,
+  STAGING_PASSWORD,
+  smokeHeadersFor
+} from './target'
 
 describe('resolveTarget', () => {
   it('defaults to the local preview with the local config', () => {
@@ -9,7 +15,8 @@ describe('resolveTarget', () => {
       canonicalOrigin: 'http://localhost:8787',
       headers: {},
       isLocal: true,
-      nonCanonicalHosts: []
+      nonCanonicalHosts: [],
+      stagingPassword: 'stagingpassword'
     })
   })
 
@@ -28,8 +35,11 @@ describe('resolveTarget', () => {
     expect(target).toMatchObject({
       baseUrl: 'https://staging.boxingundefeated.com',
       canonicalOrigin: 'https://staging.boxingundefeated.com',
-      headers: {},
-      isLocal: false
+      // Staging's password exempts smoke-test requests: the suite tests staging as CI sees it.
+      headers: { [SMOKE_TEST_HEADER]: '1' },
+      isLocal: false,
+      // The shared staging password unless STAGING_BASIC_AUTH_PASSWORD overrides it.
+      stagingPassword: 'stagingpassword'
     })
     expect(target.nonCanonicalHosts).toEqual([
       {
@@ -38,6 +48,38 @@ describe('resolveTarget', () => {
         headers: {}
       }
     ])
+  })
+
+  it("reads staging's password, and sends the smoke-test header to a local staging preview", () => {
+    const target = resolveTarget({
+      BASE_URL: 'http://localhost:8794',
+      EXPECT_ENV: 'staging',
+      STAGING_BASIC_AUTH_PASSWORD: 'another-password'
+    })
+    expect(target.stagingPassword).toBe('another-password')
+    expect(target.headers).toEqual({ [SMOKE_TEST_HEADER]: '1' })
+    // Unset or empty, it is the shared one.
+    for (const value of [undefined, '']) {
+      expect(
+        resolveTarget({ EXPECT_ENV: 'staging', STAGING_BASIC_AUTH_PASSWORD: value }).stagingPassword
+      ).toBe(STAGING_PASSWORD)
+    }
+    expect(STAGING_PASSWORD).toBe('stagingpassword')
+    expect(basicAuthorization('stagingpassword')).toBe(
+      `Basic ${Buffer.from('staging:stagingpassword').toString('base64')}`
+    )
+  })
+
+  it('sends the smoke-test header only to workers.dev and staging', () => {
+    expect(smokeHeadersFor('https://boxingundefeated.com/')).toEqual({})
+    expect(smokeHeadersFor('https://boxingundefeated.com/', 'production')).toEqual({})
+    expect(smokeHeadersFor('http://localhost:8787/', 'local')).toEqual({})
+    expect(smokeHeadersFor('https://staging.boxingundefeated.com/', 'staging')).toEqual({
+      [SMOKE_TEST_HEADER]: '1'
+    })
+    expect(smokeHeadersFor('https://x.serpcompany.workers.dev/')).toEqual({
+      [SMOKE_TEST_HEADER]: '1'
+    })
   })
 
   it('sends the smoke-test header to a workers.dev target, and tests that host without it', () => {

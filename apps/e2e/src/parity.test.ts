@@ -52,16 +52,25 @@ describe('compare', () => {
     ])
   })
 
-  it('expects staging canonicals and noindex outside production', () => {
-    const staging = ok({
-      canonical: 'https://staging.boxingundefeated.com/boxers/manuel-ortiz/',
+  it("expects staging canonicals and production's robots meta on staging", () => {
+    // Staging's noindex is an X-Robots-Tag header, not a meta tag (apps/web/lib/metadata.ts).
+    const staging = ok({ canonical: 'https://staging.boxingundefeated.com/boxers/manuel-ortiz/' })
+    expect(compare(path, facts(), staging, 'staging')).toEqual([])
+    expect(compare(path, facts(), ok({ ...staging.facts, robots: 'noindex' }), 'staging')).toEqual([
+      { path, field: 'robots', expected: null, actual: 'noindex' }
+    ])
+    expect(compare(path, facts(), ok(), 'staging')[0].field).toBe('canonical')
+  })
+
+  it('expects local canonicals and noindex on a local build', () => {
+    const local = ok({
+      canonical: 'http://localhost:8787/boxers/manuel-ortiz/',
       robots: 'noindex'
     })
-    expect(compare(path, facts(), staging, 'staging')).toEqual([])
-    expect(compare(path, facts(), ok({ ...staging.facts, robots: null }), 'staging')).toEqual([
+    expect(compare(path, facts(), local, 'local')).toEqual([])
+    expect(compare(path, facts(), ok({ ...local.facts, robots: null }), 'local')).toEqual([
       { path, field: 'robots', expected: 'noindex', actual: null }
     ])
-    expect(compare(path, facts(), ok({ robots: 'noindex' }), 'staging')[0].field).toBe('canonical')
   })
 })
 

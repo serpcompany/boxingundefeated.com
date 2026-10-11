@@ -10,9 +10,16 @@ environment sets is in [environments.md](environments.md).
 - `apps/web/wrangler.jsonc`, `open-next.config.ts`, `worker.ts`: the Worker. The top level of
   `wrangler.jsonc` is local only; `env.staging` (`staging.boxingundefeated.com`) and
   `env.production` (the apex and `www`) are the deployed Workers, each with its own D1 `DB`.
-- `apps/web/lib/worker/handle-request.ts` maps the request pipeline: canonical host, crawl policy,
-  `/api/search` and the XML sitemaps (from D1, per the SERP sitemap index pattern), the D1
-  readiness gate, the edge cache, then OpenNext.
+- `apps/web/lib/worker/handle-request.ts` maps the request pipeline, in order: the build guard,
+  staging's password gate, the canonical host, then the crawl policy, which wraps the shop's
+  non-ASCII 308, `/api/search` and the XML sitemaps (from D1, per the SERP sitemap index pattern),
+  the D1 readiness gate and the edge cache, and finally OpenNext.
+  - The password gate runs on every host of the staging Worker, before the canonical-host
+    redirect: `*.workers.dev` without the password answers 401, not 308, and it is the only host
+    CI can reach (#45). A request that passes loses its `Authorization` header, so the edge cache
+    stores and serves it like an anonymous one. Smoke-test requests and `/robots.txt` are exempt,
+    and there are no webhook exemptions ([environments.md](environments.md#stagings-password)).
+  - The crawl policy sits outside the cache, so each response's `noindex` is decided per request.
 
 ## Commands
 

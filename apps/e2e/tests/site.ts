@@ -1,7 +1,15 @@
-import { resolveTarget } from '../src/target'
+import { basicAuthorization, resolveTarget } from '../src/target'
 
 /** The site under test and what it must show (src/target.ts). */
 export const target = resolveTarget(process.env)
+
+/**
+ * `Authorization` with staging's password (`target.stagingPassword`), or another one, for staging
+ * tests that request without the smoke-test header.
+ */
+export function stagingAuthorization(password?: string, username?: string): string {
+  return basicAuthorization(password ?? target.stagingPassword, username)
+}
 
 export interface SamplePage {
   name: string
