@@ -4,7 +4,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { createRootMetadata } from './metadata'
-import { NON_PRODUCTION_ROBOTS_TXT, robotsFor } from './robots'
+import { NON_PRODUCTION_ROBOTS_TXT, robotsFor, STAGING_AUDIT_CRAWLER } from './robots'
 import {
   CLOUDFLARE_WEB_ANALYTICS_TOKEN,
   GTM_ID,
@@ -89,14 +89,27 @@ describe('environment-dependent output', () => {
       rules: { userAgent: '*', allow: '/' },
       sitemap: 'https://boxingundefeated.com/sitemap-index.xml'
     })
-    expect(robotsFor(staging)).toEqual({ rules: { userAgent: '*', disallow: '/' } })
     expect(robotsFor(getSiteConfig({}))).toEqual({ rules: { userAgent: '*', disallow: '/' } })
     expect(NON_PRODUCTION_ROBOTS_TXT).toBe('User-agent: *\nDisallow: /\n')
   })
 
-  it('adds noindex to the root metadata outside production', () => {
+  it("disallows every crawler on staging but its auditor, which gets production's rules", () => {
+    const productionRules = robotsFor(production).rules as { allow: string }
+    expect(robotsFor(staging)).toEqual({
+      rules: [
+        { userAgent: '*', disallow: '/' },
+        { userAgent: STAGING_AUDIT_CRAWLER, allow: productionRules.allow }
+      ],
+      sitemap: 'https://staging.boxingundefeated.com/sitemap-index.xml'
+    })
+    expect(STAGING_AUDIT_CRAWLER).toBe('AhrefsSiteAudit')
+  })
+
+  it('adds noindex to the root metadata of a local build only', () => {
     expect(createRootMetadata(production).robots).toBeUndefined()
-    expect(createRootMetadata(staging).robots).toBe('noindex')
+    // Staging's noindex is an X-Robots-Tag header, dropped behind the password
+    // (lib/worker/environment-policy.ts), never a meta tag in HTML the edge cache serves to both.
+    expect(createRootMetadata(staging).robots).toBeUndefined()
     expect(createRootMetadata(getSiteConfig({})).robots).toBe('noindex')
   })
 

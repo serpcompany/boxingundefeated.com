@@ -87,11 +87,14 @@ jobs:
       - name: Install Chromium for Playwright
         run: pnpm --filter e2e exec playwright install --with-deps chromium
 
-      # Asserts staging's noindex and Disallow among the rest (#16's suite).
+      # Asserts staging's password (401 without it, the redirect with it), its exemptions, its
+      # noindex and robots.txt among the rest (#16's suite, #57). The password is public on purpose
+      # (serp docs/engineering/standards/staging-access.md), so it is a plain value, not a secret.
       - name: Smoke-test staging
         env:
           BASE_URL: ${{ env.SMOKE_ORIGIN }}
           EXPECT_ENV: staging
+          STAGING_BASIC_AUTH_PASSWORD: stagingpassword
         run: pnpm test:e2e
 
       - name: Keep the Playwright report

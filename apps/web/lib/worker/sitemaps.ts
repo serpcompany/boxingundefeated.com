@@ -11,9 +11,9 @@
  *   answer one 308 to
  *   `/sitemap-index.xml` (on `www` and `*.workers.dev`, the canonical-host redirect does it).
  * - A name that is neither the index nor a group's file is a 404 before any D1 read.
- * - Crawl policy: robots.txt lists the index in production only. Outside production, robots.txt
- *   disallows everything and these files carry `X-Robots-Tag: noindex` like every other response
- *   (lib/worker/environment-policy.ts, which wraps this handler).
+ * - Crawl policy: robots.txt lists the index in production, and on staging for its auditor.
+ *   Outside production these files carry `X-Robots-Tag: noindex` like every other response, except
+ *   on staging behind its password (lib/worker/environment-policy.ts, which wraps this handler).
  * - Readiness: the import marker (lib/worker/dataset-gate.ts). Until a first import finishes, or
  *   while D1 is unreadable, a 503 with `Retry-After`, never a sitemap without boxers.
  * - Edge cache: per data center, keyed by the Worker version, the import generation, the host and

@@ -1,14 +1,19 @@
 import { expect, test } from '@playwright/test'
-import { isNoindex, pageFacts } from '../src/html'
+import { isNoindex, pageFacts, robotsGroups } from '../src/html'
 import { GTM_ID } from '../src/target'
 import { boxer, target } from './site'
 
 /**
- * Environment behavior (serpcompany/serp docs/engineering/standards/environment-configuration.md,
- * "Verification"; apps/web/lib/site-config.ts): only production is indexable, lists its sitemap
- * and loads Google Tag Manager. Staging and local send noindex and disallow crawling.
+ * Environment behavior (serpcompany/serp docs/engineering/standards/environment-configuration.md
+ * and staging-access.md, "Verification"; apps/web/lib/site-config.ts): only production is
+ * indexable and loads Google Tag Manager. Local sends noindex and disallows crawling. Staging, as
+ * the suite requests it (with the smoke-test header, exempt from its password), sends noindex as a
+ * header only: its HTML is production's, and its robots.txt lets only its auditor in, with
+ * production's rules and staging's own sitemap index. tests/staging-access.spec.ts tests the
+ * password itself.
  */
 const production = target.environment === 'production'
+const staging = target.environment === 'staging'
 
 test(`robots.txt is the ${target.environment} policy`, async ({ request }) => {
   const response = await request.get('/robots.txt', { maxRedirects: 0 })
@@ -24,6 +29,13 @@ test(`robots.txt is the ${target.environment} policy`, async ({ request }) => {
     expect(disallowsAll, 'Disallow: /').toBe(false)
     expect(lines).toContain(`Sitemap: ${target.canonicalOrigin}/sitemap-index.xml`)
     expect(isNoindex(response.headers()['x-robots-tag'])).toBe(false)
+  } else if (staging) {
+    const groups = robotsGroups(lines.join('\n'))
+    expect(groups.get('*'), 'every crawler is disallowed').toEqual(['disallow: /'])
+    // Production's rules (apps/web/lib/robots.ts), so the audit catches a rule that blocks pages.
+    expect(groups.get('ahrefssiteaudit'), 'the auditor gets production rules').toEqual(['allow: /'])
+    expect(lines).toContain(`Sitemap: ${target.canonicalOrigin}/sitemap-index.xml`)
+    expect(isNoindex(response.headers()['x-robots-tag'])).toBe(true)
   } else {
     expect(disallowsAll, 'Disallow: /').toBe(true)
     expect(
@@ -47,6 +59,12 @@ for (const path of ['/', boxer.path]) {
       expect(isNoindex(robots), `<meta name="robots" content="${robots}">`).toBe(false)
       expect(html).toContain(`googletagmanager.com/gtm.js`)
       expect(html).toContain(GTM_ID)
+    } else if (staging) {
+      expect(isNoindex(header), `X-Robots-Tag: ${header}`).toBe(true)
+      // No noindex meta tag in HTML the edge cache also serves behind the password.
+      expect(isNoindex(robots), `<meta name="robots" content="${robots}">`).toBe(false)
+      expect(html).not.toContain('googletagmanager.com')
+      expect(html).not.toContain(GTM_ID)
     } else {
       expect(isNoindex(header), `X-Robots-Tag: ${header}`).toBe(true)
       expect(isNoindex(robots), `<meta name="robots" content="${robots}">`).toBe(true)

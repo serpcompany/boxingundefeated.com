@@ -145,13 +145,36 @@ describe('GET /api/search through the Worker pipeline', () => {
   it('applies the crawl policy outside production', async () => {
     const { serve, runtime } = pipeline()
     const response = await handleWorkerRequest(
-      new Request('https://staging.boxingundefeated.com/api/search?q=ali'),
-      { SITE_ENVIRONMENT: 'staging', CANONICAL_HOST_REDIRECT: 'on' },
+      new Request('http://localhost:8787/api/search?q=ali'),
+      { SITE_ENVIRONMENT: 'local', CANONICAL_HOST_REDIRECT: 'off' },
       serve,
       runtime
     )
     expect(response.status).toBe(200)
     expect(response.headers.get('x-robots-tag')).toBe('noindex')
+  })
+
+  it("asks for staging's password, and keeps its own noindex behind it", async () => {
+    const { serve, runtime } = pipeline()
+    const env = {
+      SITE_ENVIRONMENT: 'staging',
+      CANONICAL_HOST_REDIRECT: 'on',
+      STAGING_BASIC_AUTH_PASSWORD: 'stagingpassword'
+    }
+    const url = 'https://staging.boxingundefeated.com/api/search?q=ali'
+
+    const refused = await handleWorkerRequest(new Request(url), env, serve, runtime)
+    expect(refused.status).toBe(401)
+
+    const authorized = await handleWorkerRequest(
+      new Request(url, { headers: { authorization: `Basic ${btoa(':stagingpassword')}` } }),
+      env,
+      serve,
+      runtime
+    )
+    expect(authorized.status).toBe(200)
+    // Results are for the search page, not for search engines, in production too.
+    expect(authorized.headers.get('x-robots-tag')).toBe('noindex')
   })
 
   it('leaves every other /api path to OpenNext', async () => {

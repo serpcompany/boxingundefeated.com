@@ -10,9 +10,11 @@
  * - Each URL is fetched from the reference (default: the live site) and the candidate without
  *   following redirects. The candidate must answer 200 at the same URL, and its title, canonical,
  *   H1 and robots meta must match the reference's. EXPECT_ENV (default `production`) is the
- *   candidate's configuration: outside production, canonicals use that environment's origin and
- *   every page must be noindex.
- * - Requests to a `*.workers.dev` host carry the smoke-test header.
+ *   candidate's configuration: outside production, canonicals use that environment's origin, and
+ *   on a local build every page must be noindex. Staging's HTML has production's robots meta: its
+ *   noindex is a header, which only requests without its password get.
+ * - Requests to a `*.workers.dev` host carry the smoke-test header, and so do requests to a staging
+ *   candidate, which is otherwise behind its password (apps/web/lib/worker/staging-access.ts).
  * - A 429, a 5xx or a network error is retried with backoff (2, 4, 8 s, or `Retry-After`).
  * - Differences listed in parity-allowlist.ts pass. The report (Markdown and JSON, in
  *   apps/e2e/parity-report/) lists every difference; the exit code is 1 when any is not
@@ -115,7 +117,7 @@ export function compare(
   check('title', reference.title, facts.title)
   check('canonical', expectedCanonical(reference.canonical, environment), facts.canonical)
   check('h1', reference.h1, facts.h1)
-  if (environment === 'production') {
+  if (environment !== 'local') {
     check('robots', normalizeRobots(reference.robots), normalizeRobots(facts.robots))
   } else if (!isNoindex(facts.robots)) {
     differences.push({ path, field: 'robots', expected: 'noindex', actual: facts.robots })
@@ -161,13 +163,13 @@ export function retryDelay(retryAfter: string | null, attempt: number): number {
   return 1_000 * 2 ** attempt
 }
 
-async function fetchPage(url: string): Promise<Fetched> {
+async function fetchPage(url: string, environment?: ExpectedEnvironment): Promise<Fetched> {
   let lastError = ''
   for (let attempt = 1; attempt <= ATTEMPTS; attempt++) {
     try {
       const response = await fetch(url, {
         redirect: 'manual',
-        headers: { 'user-agent': USER_AGENT, ...smokeHeadersFor(url) },
+        headers: { 'user-agent': USER_AGENT, ...smokeHeadersFor(url, environment) },
         signal: AbortSignal.timeout(30_000)
       })
       const body = await response.text()
@@ -326,7 +328,7 @@ async function main() {
   await forEachLimited(paths, options.concurrency, async path => {
     const [reference, candidate] = await Promise.all([
       fetchPage(`${options.reference}${path}`),
-      fetchPage(`${options.candidate}${path}`)
+      fetchPage(`${options.candidate}${path}`, options.environment)
     ])
     retries += (reference.attempts ?? 1) - 1 + (candidate.attempts ?? 1) - 1
     const outcome = classifyReference(reference)

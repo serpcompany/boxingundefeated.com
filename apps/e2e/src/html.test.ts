@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { isNoindex, pageFacts } from './html'
+import { isNoindex, pageFacts, robotsGroups } from './html'
 
 const page = `<!DOCTYPE html><html><head><meta charSet="utf-8"/>
 <title>Men&#x27;s Water Bottles - Boxing Directory</title>
@@ -46,5 +46,36 @@ describe('isNoindex', () => {
     [undefined, false]
   ])('%s -> %s', (directive, expected) => {
     expect(isNoindex(directive)).toBe(expected)
+  })
+})
+
+describe('robotsGroups', () => {
+  it("reads each user agent's rules, as Next.js writes robots.txt", () => {
+    const text = [
+      'User-Agent: *',
+      'Disallow: /',
+      '',
+      'User-Agent: AhrefsSiteAudit',
+      'Allow: /',
+      '',
+      'Sitemap: https://staging.boxingundefeated.com/sitemap-index.xml',
+      ''
+    ].join('\n')
+    expect(robotsGroups(text)).toEqual(
+      new Map([
+        ['*', ['disallow: /']],
+        ['ahrefssiteaudit', ['allow: /']]
+      ])
+    )
+  })
+
+  it('gives agents listed together the same rules, and ignores comments', () => {
+    const text = 'User-agent: a\nUser-agent: b # both\nDisallow: /x\nAllow: /\n'
+    expect(robotsGroups(text)).toEqual(
+      new Map([
+        ['a', ['disallow: /x', 'allow: /']],
+        ['b', ['disallow: /x', 'allow: /']]
+      ])
+    )
   })
 })

@@ -1,12 +1,13 @@
 import { expect, test } from '@playwright/test'
 import { SMOKE_TEST_HEADER } from '../src/target'
-import { boxer, target } from './site'
+import { boxer, stagingAuthorization, target } from './site'
 
 /**
  * Canonical hosts (serpcompany/serp docs/engineering/standards/environment-configuration.md,
  * "Verification"): `*.workers.dev` and `www` answer one 308 to the canonical origin, with the
  * path already canonical and /api paths unchanged. Requests with the smoke-test header are
- * served instead, so CI can test a deployment through its platform host.
+ * served instead, so CI can test a deployment through its platform host. Staging asks for its
+ * password first, on every host (tests/staging-access.spec.ts), so these requests send it there.
  */
 const redirects: Array<[string, string]> = [
   ['/', '/'],
@@ -33,7 +34,10 @@ test.describe('non-canonical hosts', () => {
   for (const host of target.nonCanonicalHosts) {
     test(`${host.host} answers one 308 to ${target.canonicalOrigin}`, async ({ playwright }) => {
       // Without the suite's default headers, which carry the smoke-test header for workers.dev.
-      const context = await playwright.request.newContext({ extraHTTPHeaders: {} })
+      const context = await playwright.request.newContext({
+        extraHTTPHeaders:
+          target.environment === 'staging' ? { authorization: stagingAuthorization() } : {}
+      })
       try {
         for (const [from, to] of redirects) {
           // After a deploy, the new version can take a few seconds to reach every edge.
