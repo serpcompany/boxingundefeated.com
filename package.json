@@ -8,6 +8,7 @@
     "check:frontmatter": "tsx scripts/check-frontmatter.ts",
     "clean": "git clean -xdf node_modules dist .next",
     "clean:workspaces": "turbo clean",
+    "db:check": "drizzle-kit check --config drizzle.config.ts",
     "db:check-deployable": "tsx scripts/d1/check-deployable.ts",
     "db:generate": "drizzle-kit generate --config drizzle.config.ts",
     "db:import": "tsx scripts/d1/import-boxers.ts",
@@ -35,7 +36,7 @@
     "test:e2e": "pnpm --filter e2e test:e2e",
     "test:watch": "turbo test:watch --cache-dir=.turbo",
     "typecheck": "turbo typecheck",
-    "check": "biome check . && manypkg check && pnpm typecheck && pnpm test && pnpm build",
+    "check": "biome check . && manypkg check && pnpm typecheck && pnpm db:check && pnpm test && pnpm build",
     "update": "pnpm update -r"
   },
   "devDependencies": {

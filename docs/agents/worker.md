@@ -2,14 +2,16 @@
 
 The site runs as a Next.js OpenNext Worker on Cloudflare. Read this before changing
 `apps/web/wrangler.jsonc`, `open-next.config.ts`, `worker.ts` or `lib/worker/`, before building or
-previewing the Worker, and when something works in `next dev` but not on the Worker. What each
-environment sets is in [environments.md](environments.md).
+previewing the Worker, when something works in `next dev` but not on the Worker, and when a
+deploy didn't run. What each environment sets is in [environments.md](environments.md).
 
 ## Files
 
 - `apps/web/wrangler.jsonc`, `open-next.config.ts`, `worker.ts`: the Worker. The top level of
   `wrangler.jsonc` is local only; `env.staging` (`staging.boxingundefeated.com`) and
-  `env.production` (the apex and `www`) are the deployed Workers, each with its own D1 `DB`.
+  `env.production` (the apex and `www`) are the deployed Workers, each with its own D1 `DB` and a
+  `WORKER_SELF_REFERENCE` binding to itself. Every env inherits `global_fetch_strictly_public`
+  and `upload_source_maps` from the top level.
 - `apps/web/lib/worker/handle-request.ts` maps the request pipeline, in order: the build guard,
   staging's password gate, the canonical host, then the crawl policy, which wraps the retired
   paths' 410 ([urls.md](urls.md#retired-urls)), `/api/search` and the XML sitemaps (from D1, per
@@ -38,9 +40,20 @@ Worker builds take about a minute. Boxer pages read the local D1, so seed it fir
   environment's vars and bindings, locally. Pair it with the matching build.
 - `pnpm test:e2e`: the smoke suite (`apps/e2e/`; its README has the CI interface) on the local
   preview after `db:reset:local` and `build:worker`; deployed: `BASE_URL=<origin> EXPECT_ENV=<env>`.
+  CI runs it on the local build and on the staging build served with `env.staging`'s vars on the
+  local top level (the README's staging recipe), where the password's 200 path is reachable.
 - `pnpm parity -- <origin> [--reference <origin>]`: every sitemap URL of the reference (default:
   production) on a candidate, compared.
 - Links (CI runs them on the local preview): `pnpm --silent --filter e2e sitemap-urls <origin>`
   into `urls.txt`, then `lychee --config lychee.toml --files-from urls.txt`.
 - `pnpm --filter web cf-typegen`: regenerate and commit `cloudflare-env.d.ts` after changing
   `wrangler.jsonc`; it strips the `mainModule` type (`lib/cloudflare-env-types.ts`).
+
+## Deploys
+
+`ci.yml` deploys a push to `staging` or `main` once `All checks` passes on that commit; its header
+has the receipts, the tip guard and the production release gate. A deploy job that joins its
+concurrency group cancels the one waiting there, and jobs join when their checks finish, so an
+older commit's job can cancel the tip's and then skip at the tip guard. If the staging tip shows a
+cancelled "Migrate, deploy and smoke-test staging" job, the owner re-runs that job for the tip
+commit; agents only report it.
