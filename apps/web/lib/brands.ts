@@ -1,26 +1,15 @@
 import brandsData from './brands-data.json'
 
 export interface Brand {
-  key: string
+  slug: string
   name: string
   url: string
 }
 
-interface BrandsData {
-  brands: Record<string, { name: string; url: string }>
-  brandGroups: {
-    noAdult: string[]
-  }
-}
-
-export function getNoAdultBrands(): Brand[] {
-  const data = brandsData as BrandsData
-
-  return data.brandGroups.noAdult
-    .map(key => {
-      const brand = data.brands[key]
-      return brand ? { key, ...brand } : null
-    })
-    .filter(brand => brand !== null)
-    .sort((a, b) => a.name.localeCompare(b.name)) as Brand[]
+// brands-data.json is a snapshot of the shared `mainBrandsAll` brand set
+// (serpcompany/serp workers/brands-page/data/), the list the shared brands Worker
+// served on this site's /brands/ until this app took the page over (#60). It
+// doesn't follow the shared data: update it by hand.
+export function getBrands(): Brand[] {
+  return [...brandsData.brands].sort((a, b) => a.name.localeCompare(b.name, 'en'))
 }

@@ -1,4 +1,5 @@
 import { render } from '@testing-library/react'
+import brandsData from '@/lib/brands-data.json'
 import { getShopPosts } from '@/lib/shop-loader'
 import BrandsPage from './brands/page'
 import ShopPage from './shop/page'
@@ -21,30 +22,28 @@ describe('crawlable directory pages', () => {
     expect(document.querySelector('a[href="/shop/page/3/"]')).toBeInTheDocument()
   })
 
-  it('/brands renders noAdult brands alphabetically with dofollow external links', async () => {
-    render(await BrandsPage())
+  it('/brands lists each brand once, alphabetically, linked by name in a new tab', async () => {
+    const { container } = render(await BrandsPage())
+    const links = Array.from(container.querySelectorAll<HTMLAnchorElement>('ul a'))
+    const names = links.map(link => link.textContent)
 
-    const names = Array.from(document.querySelectorAll('h2')).map(heading => heading.textContent)
+    expect(links.map(link => [link.textContent, link.getAttribute('href')])).toEqual(
+      [...brandsData.brands]
+        .sort((a, b) => a.name.localeCompare(b.name, 'en'))
+        .map(brand => [brand.name, brand.url])
+    )
+    expect(names).toHaveLength(brandsData.brands.length)
+    expect(new Set(names).size).toBe(names.length)
+    expect(names.at(0)).toBe('Awesome Shadcn UI')
+    expect(names.at(-1)).toBe('yt-dlp online')
 
-    expect(names).toEqual([...names].sort((a, b) => String(a).localeCompare(String(b))))
+    for (const link of links) {
+      expect(link).toHaveAttribute('target', '_blank')
+      expect(link).toHaveAttribute('rel', 'noopener')
+    }
 
-    const boxingLink = document.querySelector(
-      'a[href="https://boxingundefeated.com"]'
-    ) as HTMLAnchorElement
-
-    expect(boxingLink).toBeInTheDocument()
-    expect(boxingLink).toHaveTextContent('https://boxingundefeated.com')
-    expect(boxingLink).toHaveAttribute('target', '_blank')
-    expect(boxingLink.getAttribute('rel')).not.toContain('nofollow')
-    expect(
-      document.querySelector('a[href="https://mindvalleyvideodownloader.com"]')
-    ).toBeInTheDocument()
-    expect(
-      document.querySelector('a[href="https://onlyfansvideodownloader.com"]')
-    ).not.toBeInTheDocument()
-    expect(
-      document.querySelector('a[href="https://pornhubvideodownloaderapp.com"]')
-    ).not.toBeInTheDocument()
+    // The root layout renders the page's <main>.
+    expect(container.querySelector('main')).not.toBeInTheDocument()
   })
 
   it('footer exposes sitemap and canonical division links', async () => {
