@@ -18,9 +18,9 @@ interface FightHistoryProps {
 
 /**
  * Every bout, in the first HTML, so crawlers that don't run JavaScript and the first paint get the
- * whole record. The first `INITIAL_BOUTS` show; "Show more" is a native `<details>` that reveals
- * the rest without JavaScript. Nothing is rendered in an effect, so hydration changes nothing and
- * nothing shifts.
+ * whole record, one list item per bout. The first `INITIAL_BOUTS` show; "Show more" is a native
+ * `<details>` that reveals the rest, numbered on, without JavaScript. Nothing is rendered in an
+ * effect, so hydration changes nothing and nothing shifts.
  */
 export function FightHistory({ bouts, opponentLinks }: FightHistoryProps) {
   if (bouts.length === 0) return null
@@ -34,7 +34,7 @@ export function FightHistory({ bouts, opponentLinks }: FightHistoryProps) {
         <CardTitle>Fight History ({bouts.length} Bouts)</CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="space-y-3">
+        <ol className="space-y-3">
           {shown.map((bout, index) => (
             <BoutRow
               key={`${bout.boxrecId}-${index}`}
@@ -42,14 +42,14 @@ export function FightHistory({ bouts, opponentLinks }: FightHistoryProps) {
               opponentSlug={opponentLinks.get(bout.opponentName)}
             />
           ))}
-        </div>
+        </ol>
         {more.length > 0 && (
           <details className="group">
             {/* Hidden once open: the list then reads as one, as before. */}
             <summary className="mx-auto mt-4 block w-fit cursor-pointer list-none text-sm font-medium text-link hover:text-link-hover group-open:hidden [&::-webkit-details-marker]:hidden">
               Show {more.length} more fights →
             </summary>
-            <div className="space-y-3 border-t pt-3">
+            <ol start={INITIAL_BOUTS + 1} className="space-y-3 border-t pt-3">
               {more.map((bout, index) => (
                 <BoutRow
                   key={`${bout.boxrecId}-${index + INITIAL_BOUTS}`}
@@ -57,7 +57,7 @@ export function FightHistory({ bouts, opponentLinks }: FightHistoryProps) {
                   opponentSlug={opponentLinks.get(bout.opponentName)}
                 />
               ))}
-            </div>
+            </ol>
           </details>
         )}
       </CardContent>
@@ -67,7 +67,7 @@ export function FightHistory({ bouts, opponentLinks }: FightHistoryProps) {
 
 function BoutRow({ bout, opponentSlug }: { bout: ProfileBout; opponentSlug: string | undefined }) {
   return (
-    <div className="border-b pb-3 last:border-0">
+    <li className="border-b pb-3 last:border-0">
       <div className="flex justify-between items-start">
         <div className="flex-1">
           <div className="flex items-center gap-2">
@@ -110,6 +110,6 @@ function BoutRow({ bout, opponentSlug }: { bout: ProfileBout; opponentSlug: stri
           )}
         </div>
       </div>
-    </div>
+    </li>
   )
 }

@@ -55,6 +55,17 @@ describe('FightHistory', () => {
     expect(details?.textContent).not.toContain('Opponent 10')
   })
 
+  it('is one list item per bout, numbered on after "Show more"', () => {
+    const html = serverHtml(opponents(12).map(makeBout))
+    const [shown, more] = [...html.querySelectorAll('ol')]
+
+    expect(html.querySelectorAll('li')).toHaveLength(12)
+    expect(shown?.querySelectorAll('li')).toHaveLength(10)
+    expect(more?.closest('details')).not.toBeNull()
+    expect(more?.getAttribute('start')).toBe('11')
+    expect(more?.querySelectorAll('li')).toHaveLength(2)
+  })
+
   it('has no "Show more" for 10 bouts or fewer', () => {
     const html = serverHtml(opponents(10).map(makeBout))
 
