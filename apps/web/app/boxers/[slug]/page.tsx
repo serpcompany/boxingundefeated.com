@@ -56,7 +56,10 @@ export default async function BoxerPage({ params }: { params: Promise<{ slug: st
       <Breadcrumb items={breadcrumbItems} baseUrl={baseUrl} />
 
       <div className="space-y-6 mt-6">
-        <div className="flex items-start gap-6">
+        {/* On phones the photo sits above the name, which gets the full width, and the nickname
+            takes its own line; a word longer than the screen breaks rather than scrolling the
+            page sideways (#75). From `sm` up, the photo and name sit side by side as before. */}
+        <div className="flex flex-col items-start gap-4 sm:flex-row sm:gap-6">
           {boxer.avatarImage && (
             <OptimizedImage
               src={boxer.avatarImage}
@@ -67,11 +70,13 @@ export default async function BoxerPage({ params }: { params: Promise<{ slug: st
               priority={true}
             />
           )}
-          <div>
+          <div className="min-w-0 max-w-full break-words">
             <h1 className="text-4xl font-bold tracking-tight mb-2">
               {boxer.name}
               {boxer.nicknames && (
-                <span className="ml-3 text-2xl text-muted-foreground">"{boxer.nicknames}"</span>
+                <span className="block text-2xl text-muted-foreground sm:inline sm:ml-3">
+                  "{boxer.nicknames}"
+                </span>
               )}
             </h1>
             {boxer.residence && <p className="text-muted-foreground">{boxer.residence}</p>}

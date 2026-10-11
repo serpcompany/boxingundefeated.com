@@ -138,10 +138,14 @@
     --chart-3: 197 37% 24%;
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
-    /* Tailwind's green-600, red-600, yellow-600, yellow-500, blue-600 and blue-800. */
-    --win: 142.3 100% 32.6%;
+    /*
+      Tailwind's green-700, red-600, yellow-700, yellow-500, blue-600 and blue-800. Results are
+      text on the card, so each needs 4.5:1 against it (WCAG AA): win 4.9, loss 4.8, draw 4.9;
+      black on the title-fight badge is 11.0 (#75, apps/web/components/result-colors.test.ts).
+    */
+    --win: 144.9 100% 25.5%;
     --loss: 357.2 100% 45.3%;
-    --draw: 38.9 100% 40.9%;
+    --draw: 34.3 100% 32.5%;
     --title-fight: 44.2 100% 47.1%;
     --title-fight-foreground: 0 0% 0%;
     --link: 221.3 97.1% 53.5%;
@@ -181,8 +185,13 @@
     --chart-3: 30 80% 55%;
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
-    /* Lighter loss and link colors, which read on the near-black background. */
+    /*
+      Lighter result and link colors, which read on the near-black background: green-600, red-500
+      and yellow-600 for win, loss and draw (6.2, 5.2 and 6.8 to 1 on the card).
+    */
+    --win: 142.3 100% 32.6%;
     --loss: 356.9 95.9% 57.7%;
+    --draw: 38.9 100% 40.9%;
     --link: 212 100% 65.8%;
     --link-hover: 210.7 100% 77.8%;
     --sidebar-background: 240 5.9% 10%;
