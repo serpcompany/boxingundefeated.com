@@ -1,5 +1,12 @@
 @import "tailwindcss";
 
+/*
+  Tailwind finds class names on its own only in the app that builds this file (apps/web), so it
+  never sees the ones that live only in this package's components: a card's background and
+  radius, a button's size. This line adds the components to the scan.
+*/
+@source "../components";
+
 @custom-variant dark (&:is(.dark *));
 
 @theme {

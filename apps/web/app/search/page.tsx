@@ -32,7 +32,7 @@ export default function SearchPage() {
             value={searchQuery}
             maxLength={SEARCH_QUERY_MAX_LENGTH}
             onChange={e => setSearchQuery(e.target.value)}
-            className="pl-10 h-12 text-lg"
+            className="pl-10 h-12 text-lg md:text-lg"
             autoFocus
           />
         </div>
