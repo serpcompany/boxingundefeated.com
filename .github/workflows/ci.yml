@@ -68,7 +68,7 @@ jobs:
       pull-requests: read
     outputs:
       # Pushes and dispatches always run everything.
-      code: ${{ github.event_name != 'pull_request' || steps.filter.outputs.code == 'true' || steps.filter.outputs.content == 'true' }}
+      code: ${{ github.event_name != 'pull_request' || steps.filter.outputs.code == 'true' }}
     steps:
       # A dispatch is for production releases from main only. From any other branch it would post
       # "All checks" on that branch's head commit, a pull request's included, so it fails here,
@@ -87,7 +87,7 @@ jobs:
         uses: dorny/paths-filter@ceb8a2b8f2d89434be7ff52d3de7ec3738c5cc9d # v4.0.3
         with:
           predicate-quantifier: some-with-excludes
-          # Markdown is docs, except the shop articles, which are pages.
+          # Markdown is docs.
           filters: |
             code:
               - '**'
@@ -95,8 +95,6 @@ jobs:
               - '!.github/ISSUE_TEMPLATE/**'
               - '!.github/CODEOWNERS'
               - '!.github/FUNDING.yml'
-            content:
-              - 'apps/web/content/**'
 
   lint:
     name: Lint
@@ -116,9 +114,6 @@ jobs:
 
       - name: Workspace packages
         run: pnpm exec manypkg check
-
-      - name: Shop article frontmatter
-        run: pnpm check:frontmatter
 
       # The bindings and vars of wrangler.jsonc must match the committed types.
       - name: cloudflare-env.d.ts matches wrangler.jsonc

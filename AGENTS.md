@@ -43,8 +43,7 @@ Planned: Ship (agents merge listed paths, to be chosen by the owner) once round 
 - `packages/design-system/`: shared UI (shadcn). Read before adding a component or helper.
 - `configs/`: shared Next.js and TypeScript configuration. Read before changing build settings.
 - `apps/e2e/`: the Playwright smoke suite, the sitemap URL lister and the parity check.
-- `scripts/`: `d1/` is the D1 import, parity and deploy checks; `check-frontmatter.ts`, which CI
-  runs on the empty `apps/web/content/blog/` stub until an owner PR removes both (#94).
+- `scripts/`: `d1/`, the D1 import, parity and deploy checks.
 - `.github/workflows/`: `ci.yml` (the check, then the deploys; `All checks` is the required check),
   `d1-import.yml` (data imports, [d1.md](docs/agents/d1.md)) and `pr-issue-link.yml`.
   `.github/scripts/`: the production release gate, the deploy wait and the D1 import preflight.
