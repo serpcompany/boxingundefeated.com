@@ -3,6 +3,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import type { SVGProps } from 'react'
 import { getRoute } from '@/lib/routes'
+import { SITE_NAME } from '@/lib/site-config'
 import { ModeToggle } from '../mode-toggle'
 
 function LinkedinIcon(props: SVGProps<SVGSVGElement>) {
@@ -33,7 +34,7 @@ export function Footer() {
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-6 gap-8">
           <div className="space-y-3 md:col-span-2">
-            <h3 className="font-semibold text-lg">🥊 Boxing Directory</h3>
+            <h3 className="font-semibold text-lg">🥊 {SITE_NAME}</h3>
             <p className="text-sm text-muted-foreground">
               Comprehensive database of professional boxers from around the world. Browse
               statistics, records, and fight history for thousands of fighters.
@@ -146,7 +147,7 @@ export function Footer() {
                   href={getRoute('home')}
                   className="text-muted-foreground hover:text-foreground"
                 >
-                  Boxing Undefeated
+                  {SITE_NAME}
                 </Link>
               </li>
               <li>
@@ -191,7 +192,7 @@ export function Footer() {
             ))}
           </div>
           <p className="text-center text-sm text-muted-foreground">
-            © {new Date().getFullYear()} Boxing Directory. All rights reserved.
+            © {new Date().getFullYear()} {SITE_NAME}. All rights reserved.
           </p>
         </div>
       </div>

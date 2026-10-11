@@ -1,10 +1,11 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@boxingundefeated/design-system/card'
 import { Target, TrendingUp, Trophy, Users } from 'lucide-react'
 import type { Metadata } from 'next'
+import { SITE_NAME } from '@/lib/site-config'
 
 export const metadata: Metadata = {
-  title: 'About - Boxing Directory',
-  description: 'Learn about the comprehensive boxing directory and database.',
+  title: `About - ${SITE_NAME}`,
+  description: `Learn about ${SITE_NAME}, the comprehensive boxing database.`,
   // Resolved against the root layout's metadataBase, the environment's origin.
   alternates: { canonical: '/about/' }
 }
@@ -12,7 +13,7 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
-      <h1 className="text-4xl font-bold mb-8">About Boxing Directory</h1>
+      <h1 className="text-4xl font-bold mb-8">About {SITE_NAME}</h1>
 
       <div className="space-y-6">
         <Card>
@@ -24,8 +25,8 @@ export default function AboutPage() {
           </CardHeader>
           <CardContent>
             <p className="text-muted-foreground">
-              Boxing Directory is a comprehensive database dedicated to preserving and presenting
-              the rich history of professional boxing. We maintain detailed records for thousands of
+              {SITE_NAME} is a comprehensive database dedicated to preserving and presenting the
+              rich history of professional boxing. We maintain detailed records for thousands of
               professional boxers from around the world, making this information easily accessible
               to fans, researchers, and boxing enthusiasts.
             </p>
@@ -97,8 +98,8 @@ export default function AboutPage() {
           </CardHeader>
           <CardContent>
             <p className="text-muted-foreground">
-              Have questions or suggestions? We'd love to hear from you! This directory is
-              maintained as a resource for the boxing community.
+              Have questions or suggestions? We'd love to hear from you! This site is maintained as
+              a resource for the boxing community.
             </p>
           </CardContent>
         </Card>

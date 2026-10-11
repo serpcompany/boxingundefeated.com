@@ -7,6 +7,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { getRoute } from '@/lib/routes'
+import { SITE_NAME } from '@/lib/site-config'
 
 const navItems = [
   { href: getRoute('website.list'), label: 'Boxers' },
@@ -94,7 +95,7 @@ export function Header() {
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
         <div className="flex items-center gap-6">
           <Link href={getRoute('home')} className="font-bold text-xl">
-            🥊 Boxing Directory
+            🥊 {SITE_NAME}
           </Link>
           <nav aria-label="Main" className="hidden md:flex items-center gap-4">
             {navItems.map(({ href, label }) => (

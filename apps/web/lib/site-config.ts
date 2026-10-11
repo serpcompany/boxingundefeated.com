@@ -21,6 +21,9 @@
 export const SITE_ENVIRONMENTS = ['local', 'staging', 'production'] as const
 export type SiteEnvironment = (typeof SITE_ENVIRONMENTS)[number]
 
+/** The site's name: the header and footer, the root and page titles, and `og:site_name`. */
+export const SITE_NAME = 'Boxing Undefeated'
+
 export const PRODUCTION_ORIGIN = 'https://boxingundefeated.com'
 export const STAGING_ORIGIN = 'https://staging.boxingundefeated.com'
 /** The port `serve:worker` listens on. `next dev` sets `PORT` to its own port. */

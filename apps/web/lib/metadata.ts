@@ -1,10 +1,10 @@
 import type { Metadata } from 'next'
 import type { ProfileBoxer } from './boxer-data'
-import { getSiteConfig, NON_PRODUCTION_ROBOTS_TAG, type SiteConfig } from './site-config'
+import { getSiteConfig, NON_PRODUCTION_ROBOTS_TAG, SITE_NAME, type SiteConfig } from './site-config'
 
 export const MAX_META_DESCRIPTION_LENGTH = 160
 
-const rootTitle = 'Boxing Directory'
+const rootTitle = SITE_NAME
 const rootDescription =
   'Comprehensive database of professional boxers with statistics, records, and fight history.'
 const openGraphImage = '/opengraph-image.png'
@@ -48,14 +48,14 @@ export function createRootMetadata(config: SiteConfig = getSiteConfig()): Metada
     openGraph: {
       title: rootTitle,
       description,
-      siteName: 'Boxing Undefeated',
+      siteName: SITE_NAME,
       type: 'website',
       images: [
         {
           url: openGraphImage,
           width: 1200,
           height: 630,
-          alt: 'Boxing Undefeated'
+          alt: SITE_NAME
         }
       ]
     },

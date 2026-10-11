@@ -12,6 +12,8 @@ describe('metadata helpers', () => {
     const metadata = createRootMetadata()
     const description = metadata.description
 
+    // The fallback title of every page without its own, such as search and the 404.
+    expect(metadata.title).toBe('Boxing Undefeated')
     expect(description).toEqual(expect.any(String))
     expect(metadata.metadataBase).toEqual(new URL(getSiteOrigin()))
     expect(metadata.openGraph).toEqual(
