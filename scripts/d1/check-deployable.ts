@@ -5,18 +5,24 @@
  * need it.
  *
  * Usage: pnpm db:check-deployable -- --target local|staging|production [--confirm-production]
- *                                   [--migrations-only]
+ *                                   [--migrations-only | --importing-only]
  *
  * Checks that every migration in d1/drizzle/ is applied, that `dataset_state` records a finished
  * import (a version, not importing), and that boxers and bouts have rows. Run
  * `pnpm db:parity -- --target <t>` as well before the first deploy to an environment.
  * `--migrations-only` checks just the migrations: d1-import.yml runs it before an import, which
- * needs this commit's schema.
+ * needs this commit's schema. `--importing-only` checks just that `dataset_state` shows no import
+ * in progress: ci.yml's deploy jobs run it right before they migrate (#104), and a D1 without
+ * `dataset_state` (before migration 0001) passes, since no import can have started there.
  */
 import { readdirSync } from 'node:fs'
 import { join, resolve } from 'node:path'
 import {
   bareFlag,
+  DATASET_STATE_QUERY,
+  DATASET_STATE_TABLE_QUERY,
+  type DatasetStateRow,
+  importInProgress,
   parseFlags,
   resolveTarget,
   TARGET_FLAGS
@@ -47,7 +53,7 @@ export function deployProblems(target: D1Target): string[] {
 
   const [state] = d1Query<{ version: string | null; importing: number }>(
     target,
-    'SELECT version, importing FROM dataset_state WHERE id = 1'
+    DATASET_STATE_QUERY
   )
   if (!state?.version) problems.push('no import has finished (dataset_state has no version)')
   else if (state.importing)
@@ -65,16 +71,54 @@ export function deployProblems(target: D1Target): string[] {
   return problems
 }
 
+/**
+ * Why an import may be writing to `target` now, by its `dataset_state`; empty when none is. It
+ * fails closed: a failed query throws, and a table count other than 0 or 1 is a problem.
+ */
+export function importingProblems(target: D1Target): string[] {
+  const [table] = d1Query<{ tables: unknown }>(target, DATASET_STATE_TABLE_QUERY)
+  if (table?.tables === 0) return []
+  if (table?.tables !== 1) return ['could not tell whether dataset_state exists']
+  const problem = importInProgress(d1Query<DatasetStateRow>(target, DATASET_STATE_QUERY))
+  return problem ? [problem] : []
+}
+
+function list(problems: string[]): string {
+  return problems.map(problem => `  - ${problem}`).join('\n')
+}
+
 function main(): void {
-  const flags = parseFlags(process.argv.slice(2), [...TARGET_FLAGS, 'migrations-only'])
+  const flags = parseFlags(process.argv.slice(2), [
+    ...TARGET_FLAGS,
+    'migrations-only',
+    'importing-only'
+  ])
   const target = resolveTarget(flags, { requireConfirmation: false })
   const migrationsOnly = bareFlag(flags, 'migrations-only')
+  const importingOnly = bareFlag(flags, 'importing-only')
+  if (migrationsOnly && importingOnly) {
+    throw new Error('Pass at most one of --migrations-only and --importing-only.')
+  }
+
+  if (importingOnly) {
+    const problems = importingProblems(target)
+    if (problems.length > 0) {
+      throw new Error(
+        `Refusing: ${target.database} can't be migrated now:\n${list(problems)}\n` +
+          'A migration must not run while an import writes the same D1. Let the import finish ' +
+          '(if it stopped, run it again until one finishes); then the owner re-runs this deploy. ' +
+          'See docs/agents/d1.md#deploy-gate.'
+      )
+    }
+    console.log(`${target.database} shows no import in progress: OK to migrate.`)
+    return
+  }
 
   const problems = migrationsOnly ? migrationProblems(target) : deployProblems(target)
   if (problems.length > 0) {
     throw new Error(
       `Refusing: ${target.database} can't ${migrationsOnly ? 'take an import' : 'serve a D1-reading build'} yet:\n` +
-        problems.map(problem => `  - ${problem}`).join('\n')
+        list(problems)
     )
   }
   console.log(

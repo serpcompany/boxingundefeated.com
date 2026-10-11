@@ -56,4 +56,6 @@ has the receipts, the tip guard and the production release gate. A deploy job th
 concurrency group cancels the one waiting there, and jobs join when their checks finish, so an
 older commit's job can cancel the tip's and then skip at the tip guard. If the staging tip shows a
 cancelled "Migrate, deploy and smoke-test staging" job, the owner re-runs that job for the tip
-commit; agents only report it.
+commit; agents only report it. Right before it migrates, each deploy job also refuses while an
+import into its environment runs or is pending, just as an import refuses while a deploy does
+([d1.md](d1.md#remote-imports-ci-only)); the owner re-runs the deploy once the import finishes.

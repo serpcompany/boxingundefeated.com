@@ -19,15 +19,16 @@ name: D1 import
 #
 # Both refuse a D1 that lacks one of this commit's migrations: run it after the deploy of this
 # commit has migrated that environment. Both refuse while a ci.yml deploy of the environment runs
-# or is pending, in the preflight and again right before the import. That guards one direction
-# only: a deploy that starts during an import migrates before its check refuses (#104). Both also
-# refuse unless the branch is still at the commit the run checked out, before their first
-# Cloudflare step and again before their first D1 step, since a queue or the production approval
-# can outlast a merge: re-dispatch from the new tip. Imports keep the prune cap
-# (scripts/d1/import-boxers.ts); allow_prune, at most 250, raises it for one run and shows in the
-# run's name. A re-import keeps the last version's pages up while it runs; a deploy of the same
-# environment that starts meanwhile fails db:check-deployable (an import in progress), so re-run
-# that deploy after the import.
+# or is pending, in the preflight and again right before the import; the other way round,
+# ci.yml's deploy jobs refuse to migrate while an unfinished run of this workflow names their
+# environment, or none, in its run-name (#104). Both also refuse unless the branch is still at the
+# commit the run checked out, before their first Cloudflare step and again before their first D1
+# step, since a queue or the production approval can outlast a merge: re-dispatch from the new
+# tip. Imports keep the prune cap (scripts/d1/import-boxers.ts); allow_prune, at most 250, raises
+# it for one run and shows in the run's name. A re-import keeps the last version's pages up while
+# it runs; a deploy of the same environment that starts meanwhile refuses before it migrates, so
+# the owner re-runs that deploy after the import. Keep the run-name's "D1 import, <environment>,"
+# prefix: that guard reads it.
 #
 # Never on push or pull request. Only the wrangler steps receive the Cloudflare secrets. Agents
 # never dispatch or re-run this workflow, or approve the `production` environment (AGENTS.md).

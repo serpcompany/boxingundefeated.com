@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # shellcheck disable=SC2016 # the single-quoted strings are jq programs
-# The preflight of d1-import.yml (#63). It fails closed.
+# The preflight of d1-import.yml (#63), and the reverse check ci.yml's deploy jobs run before they
+# migrate (--imports-only, #104). It fails closed.
 #
 # 1. The inputs: the version is an artifact's SHA-256, and allow_prune is empty or a whole number
 #    up to MAX_ALLOW_PRUNE. The step summary shows both, so the production approver sees them.
@@ -9,9 +10,7 @@
 # 3. No deploy of that environment is running or about to run: no unfinished ci.yml run on the
 #    branch (a push, or an owner's dispatch from main) whose "Migrate, deploy and smoke-test <env>"
 #    job hasn't finished, whether it runs, is queued, waits for approval or waits for its checks.
-#    So an import never starts while a deploy migrates the same D1. The reverse is not guarded
-#    yet: a deploy that starts during an import runs its migrate step in ci.yml before its
-#    db:check-deployable refuses (follow-up #104, a guard before that step, owner-merged). It lists
+#    So an import never starts while a deploy migrates the same D1; step 6 is the reverse. It lists
 #    only unfinished runs, one query per unfinished status, so finished runs never fill the page.
 #    It refuses when a status has more runs than one page lists (a deploy could hide beyond them),
 #    and it makes two passes, so a run that changes status once while it reads (say from
@@ -28,11 +27,19 @@
 #    out. GITHUB_REF names only the branch, so after an approval wait or a queue it may have moved
 #    on and the job would import with an older importer and parity check. The jobs run it before
 #    their first Cloudflare step and again right before their D1 steps.
+# 6. No import of that environment is running or about to run (--imports-only, ci.yml's deploy
+#    jobs only, right before their migrate step): no unfinished d1-import.yml run, from any branch,
+#    whose run-name ("D1 import, <environment>, <version>") names that environment or names none,
+#    whether it runs, is queued, waits for approval or is still in its preflight. So a deploy
+#    never migrates the D1 an import writes. The same two passes, one query per unfinished status,
+#    and the same refusal when a status has more runs than one page lists. The deploy job then
+#    checks dataset_state's importing flag too (db:check-deployable --importing-only).
 #
-# Usage: verify-d1-import.sh [--deploys-only | --tip-only]
-#   --deploys-only: step 3 alone. --tip-only: step 5 alone.
+# Usage: verify-d1-import.sh [--deploys-only | --tip-only | --imports-only]
+#   --deploys-only: step 3 alone. --tip-only: step 5 alone. --imports-only: step 6 alone.
 # Env: GH_TOKEN, GITHUB_REPOSITORY, GITHUB_REPOSITORY_ID, GITHUB_REF, ENVIRONMENT, VERSION and
-# ALLOW_PRUNE; GITHUB_SHA for --tip-only; GITHUB_STEP_SUMMARY when set.
+# ALLOW_PRUNE; GITHUB_SHA for --tip-only; GITHUB_STEP_SUMMARY when set. --imports-only needs only
+# GH_TOKEN, GITHUB_REPOSITORY and ENVIRONMENT.
 set -euo pipefail
 
 # Five times the importer's staging cap (REMOTE_PRUNE_LIMIT, 50, in packages/data-ops). A larger
@@ -164,6 +171,48 @@ check_no_deploy() {
   echo "No deploy of $ENVIRONMENT is running or pending on $branch."
 }
 
+# ci.yml's deploy jobs run this right before their migrate step. The environment comes from the
+# run-name, since the runs API lists no inputs; a run whose run-name names no environment could be
+# importing into this one, so it refuses too. Its run-name is never printed: it holds the inputs.
+check_no_import() {
+  local status listed kind total listed_count run_env run_url run_status
+  for _ in 1 2; do
+    for status in $UNFINISHED_STATUSES; do
+      # The first line is "incomplete" when the list can't be proven to hold every run of that status.
+      listed="$(gh api "repos/$repo/actions/workflows/d1-import.yml/runs?status=$status&per_page=$PER_PAGE" \
+        --jq '(if (.total_count | type) != "number" or .total_count > (.workflow_runs | length)
+              then "incomplete \(.total_count | if type == "number" then tostring else "?" end) \(.workflow_runs | length)"
+              else empty end),
+          (.workflow_runs[]
+            | select(.status != "completed")
+            | (.display_title
+              | if type == "string" and test("^D1 import, staging(,|$)") then "staging"
+                elif type == "string" and test("^D1 import, production(,|$)") then "production"
+                else "unknown" end) as $env
+            | select($env == $ENV.ENVIRONMENT or $env == "unknown")
+            | "\($env) \(.html_url) \(.status)")')" || {
+        echo "::error::Could not list the $status d1-import.yml runs; failing closed."
+        exit 1
+      }
+      read -r kind total listed_count <<<"$listed"
+      if [ "$kind" = "incomplete" ]; then
+        [ "$total" != "?" ] || total="an unknown number of"
+        echo "::error::d1-import.yml has $total $status runs but only $listed_count were listed, so an import into $ENVIRONMENT could be hidden; failing closed. Let them finish, or cancel them; then the owner re-runs this deploy."
+        exit 1
+      fi
+      [ -n "$listed" ] || continue
+      read -r run_env run_url run_status <<<"$listed"
+      if [ "$run_env" = "unknown" ]; then
+        echo "::error::d1-import.yml run $run_url ($run_status) names no environment in its run-name, so it could be importing into $ENVIRONMENT; failing closed. A deploy must not migrate the D1 an import writes. Let that run finish, or cancel it; then the owner re-runs this deploy."
+      else
+        echo "::error::An import into $ENVIRONMENT is unfinished in $run_url: the run is $run_status. A deploy must not migrate the D1 an import writes, so this one stops before its migration. Let that run finish, or cancel it; then the owner re-runs this deploy."
+      fi
+      exit 1
+    done
+  done
+  echo "No import into $ENVIRONMENT is running or pending."
+}
+
 # The import jobs run this before their first Cloudflare step and again before their D1 steps.
 check_branch_tip() {
   if ! is_sha "${GITHUB_SHA:-}"; then
@@ -242,8 +291,12 @@ case "${1:-}" in
     check_branch_tip
     exit 0
     ;;
+  --imports-only)
+    check_no_import
+    exit 0
+    ;;
   *)
-    echo "::error::Unknown argument $1: use --deploys-only or --tip-only, or none."
+    echo "::error::Unknown argument $1: use --deploys-only, --tip-only or --imports-only, or none."
     exit 1
     ;;
 esac

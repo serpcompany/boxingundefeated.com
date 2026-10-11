@@ -495,6 +495,23 @@ jobs:
             echo "::notice title=Not deployed::staging is now at ${tip:-an unknown commit}, not $GITHUB_SHA. Its own run deploys it."
           fi
 
+      # An import writes the same D1 as the migration: refuse while one into staging runs or is
+      # pending, by its d1-import.yml run, then by dataset_state (#104). The owner re-runs this
+      # deploy once the import finishes.
+      - name: Require no import into staging running or pending
+        if: steps.tip.outputs.deploy == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ENVIRONMENT: staging
+        run: .github/scripts/verify-d1-import.sh --imports-only
+
+      - name: Require the staging D1 to show no import in progress
+        if: steps.tip.outputs.deploy == 'true'
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: pnpm db:check-deployable -- --target staging --importing-only
+
       - name: Migrate the staging D1
         if: steps.tip.outputs.deploy == 'true'
         env:
@@ -646,6 +663,22 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: .github/scripts/verify-production-release.sh --fresh-only
+
+      # As in deploy-staging, refuse while an import into production runs or is pending (#104). A
+      # hotfix migrates nothing, so it skips these two.
+      - name: Require no import into production running or pending
+        if: env.HOTFIX != 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ENVIRONMENT: production
+        run: .github/scripts/verify-d1-import.sh --imports-only
+
+      - name: Require the production D1 to show no import in progress
+        if: env.HOTFIX != 'true'
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: pnpm db:check-deployable -- --target production --confirm-production --importing-only
 
       # A hotfix deploys the Worker only: db:check-deployable then refuses pending migrations.
       - name: Migrate the production D1
