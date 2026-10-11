@@ -19,9 +19,24 @@ type RootLayoutProps = {
   children: React.ReactNode
 }
 
+/**
+ * The Cloudflare Web Analytics beacon, at the end of `<body>` where Cloudflare's own injection
+ * puts it. `defer` runs it once the document is parsed, so it never blocks rendering, and a page
+ * works the same when a browser blocks it or it fails to load.
+ */
+function CloudflareWebAnalytics({ token }: { token: string }) {
+  return (
+    <script
+      defer
+      src="https://static.cloudflareinsights.com/beacon.min.js"
+      data-cf-beacon={JSON.stringify({ token })}
+    />
+  )
+}
+
 export default function RootLayout({ children }: RootLayoutProps) {
-  // Google Tag Manager loads only in production (lib/site-config.ts).
-  const { gtmId } = getSiteConfig()
+  // Google Tag Manager and Cloudflare Web Analytics load only in production (lib/site-config.ts).
+  const { gtmId, cloudflareWebAnalyticsToken } = getSiteConfig()
 
   return (
     <html lang="en" suppressHydrationWarning className={fontVariable}>
@@ -36,6 +51,9 @@ export default function RootLayout({ children }: RootLayoutProps) {
             <Footer />
           </div>
         </DesignSystemProvider>
+        {cloudflareWebAnalyticsToken && (
+          <CloudflareWebAnalytics token={cloudflareWebAnalyticsToken} />
+        )}
       </body>
     </html>
   )
