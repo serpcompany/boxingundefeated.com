@@ -6,6 +6,7 @@ import path from 'node:path'
 import { createRootMetadata } from './metadata'
 import { NON_PRODUCTION_ROBOTS_TXT, robotsFor } from './robots'
 import {
+  CLOUDFLARE_WEB_ANALYTICS_TOKEN,
   GTM_ID,
   getSiteConfig,
   PRODUCTION_ORIGIN,
@@ -52,6 +53,17 @@ describe('getSiteConfig', () => {
     expect(getSiteConfig({ siteEnvironment: 'staging' }).gtmId).toBeNull()
     expect(getSiteConfig({ siteEnvironment: 'local' }).gtmId).toBeNull()
     expect(getSiteConfig(workerRuntime).gtmId).toBeNull()
+  })
+
+  it('loads Cloudflare Web Analytics only in production', () => {
+    expect(getSiteConfig({ siteEnvironment: 'production' }).cloudflareWebAnalyticsToken).toBe(
+      CLOUDFLARE_WEB_ANALYTICS_TOKEN
+    )
+    expect(getSiteConfig({ siteEnvironment: 'staging' }).cloudflareWebAnalyticsToken).toBeNull()
+    expect(getSiteConfig({ siteEnvironment: 'local' }).cloudflareWebAnalyticsToken).toBeNull()
+    expect(getSiteConfig(workerRuntime).cloudflareWebAnalyticsToken).toBeNull()
+    // A Web Analytics site token is 32 hex characters.
+    expect(CLOUDFLARE_WEB_ANALYTICS_TOKEN).toMatch(/^[0-9a-f]{32}$/)
   })
 
   it('reads process.env when it is called, not when the module loads', () => {
