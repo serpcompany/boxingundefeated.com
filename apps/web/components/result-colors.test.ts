@@ -1,8 +1,6 @@
-/**
- * @jest-environment node
- */
 import { readFileSync } from 'node:fs'
 import { join } from 'node:path'
+import { describe, expect, it } from 'vitest'
 
 // The fight history (fight-history.tsx) writes each result as text on the card in its result
 // color. WCAG AA asks 4.5:1 of text this size in both themes (#75). The colors are HSL triples in

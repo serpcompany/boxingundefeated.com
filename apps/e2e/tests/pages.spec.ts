@@ -1,12 +1,14 @@
-import { expect, type Page, test } from '@playwright/test'
+import type { Page } from '@playwright/test'
 import { pageFacts } from '../src/html'
 import {
   boxer,
   boxerTitleLimitSamples,
   canonicalUrl,
+  expect,
   samplePages,
   sampleTitles,
-  target
+  target,
+  test
 } from './site'
 
 /**

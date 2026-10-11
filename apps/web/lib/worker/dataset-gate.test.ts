@@ -1,6 +1,4 @@
-/**
- * @jest-environment node
- */
+import { describe, expect, it, vi } from 'vitest'
 import {
   DATASET_ERROR_TTL_MS,
   DATASET_STATE_TTL_MS,
@@ -12,7 +10,7 @@ import {
   readsD1
 } from './dataset-gate'
 
-jest.mock('@boxingundefeated/data-ops', () => ({}))
+vi.mock('@boxingundefeated/data-ops', () => ({}))
 
 const at = (path: string) => new Request(`https://boxingundefeated.com${path}`)
 
@@ -111,7 +109,7 @@ describe('DatasetReadinessMemo', () => {
   }
 
   it('reads dataset_state once per TTL, sharing concurrent reads', async () => {
-    const load = jest.fn(async () => ({ version: 'v1', importing: false }))
+    const load = vi.fn(async () => ({ version: 'v1', importing: false }))
     const { instance, advance } = memo(load)
 
     await Promise.all([instance.current(), instance.current()])
@@ -125,7 +123,7 @@ describe('DatasetReadinessMemo', () => {
   })
 
   it('treats an unreadable dataset_state as not ready, and retries it sooner', async () => {
-    const load = jest.fn(async (): Promise<DatasetState | null> => {
+    const load = vi.fn(async (): Promise<DatasetState | null> => {
       throw new Error('no such table: dataset_state')
     })
     const { instance, advance } = memo(load)

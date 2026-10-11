@@ -1,6 +1,4 @@
-/**
- * @jest-environment node
- */
+import { describe, expect, it, vi } from 'vitest'
 import { isProductionRuntime, withEnvironmentPolicy } from './environment-policy'
 
 const page = () =>
@@ -65,7 +63,7 @@ describe('withEnvironmentPolicy', () => {
   })
 
   it('answers robots.txt with Disallow outside production, without calling Next.js', async () => {
-    const handle = jest.fn(productionRobots)
+    const handle = vi.fn(productionRobots)
     const response = await withEnvironmentPolicy(request('/robots.txt'), {}, handle)
 
     expect(handle).not.toHaveBeenCalled()
@@ -95,7 +93,7 @@ describe('withEnvironmentPolicy', () => {
   it('rewraps with new Response(body, response), keeping the status, headers and webSocket', async () => {
     // Workers' Response accepts and copies `webSocket`; Node's does not, so emulate it the way
     // the Workers runtime reads its init: from the response passed as the init argument.
-    const webSocket = { accept: jest.fn() }
+    const webSocket = { accept: vi.fn() }
     const upstream = new Response(null, {
       status: 200,
       statusText: 'Switching',

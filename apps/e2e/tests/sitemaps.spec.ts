@@ -1,6 +1,6 @@
-import { type APIRequestContext, expect, type Page, test } from '@playwright/test'
+import type { APIRequestContext, Page } from '@playwright/test'
 import { isNoindex, pageFacts } from '../src/html'
-import { target } from './site'
+import { expect, target, test } from './site'
 
 /**
  * The XML sitemaps (serpcompany/serp docs/engineering/websites/features/xml-sitemaps.md, and the

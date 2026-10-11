@@ -1,6 +1,4 @@
-/**
- * @jest-environment node
- */
+import { describe, expect, it, vi } from 'vitest'
 import { SMOKE_TEST_HEADER } from '../routing/canonical-host'
 import { BUILD_COMMIT_HEADER } from './build-environment'
 import { type DatasetReadiness, importGeneration } from './dataset-gate'
@@ -29,7 +27,7 @@ const SMOKE = { [SMOKE_TEST_HEADER]: '1' }
 const paths = ['/', '/boxers/len-wickwar/', '/sitemap-index.xml', '/ads.txt', '/feeds/x.json']
 
 function serveSpy() {
-  return jest.fn(() => Promise.resolve(new Response('served', { status: 200 })))
+  return vi.fn(() => Promise.resolve(new Response('served', { status: 200 })))
 }
 
 describe('handleWorkerRequest', () => {
@@ -148,8 +146,8 @@ describe('handleWorkerRequest for a retired path', () => {
 
   function runtime() {
     const cache = new MemoryCache()
-    const openCache = jest.fn(async () => cache as unknown as Cache)
-    const datasetReadiness = jest.fn(
+    const openCache = vi.fn(async () => cache as unknown as Cache)
+    const datasetReadiness = vi.fn(
       async (): Promise<DatasetReadiness> => ({ ready: false, reason: 'not read' })
     )
     return {
@@ -158,8 +156,8 @@ describe('handleWorkerRequest for a retired path', () => {
       runtime: {
         edgeCache: { context: { waitUntil: () => {} }, openCache },
         datasetReadiness,
-        searchApi: jest.fn(),
-        sitemaps: jest.fn()
+        searchApi: vi.fn(),
+        sitemaps: vi.fn()
       } satisfies WorkerRuntime
     }
   }
@@ -292,7 +290,7 @@ describe('handleWorkerRequest with the edge cache', () => {
   function edgeCache(runtime: Omit<WorkerRuntime, 'edgeCache'> = {}) {
     const cache = new MemoryCache()
     const pending: Promise<unknown>[] = []
-    const openCache = jest.fn(async () => cache as unknown as Cache)
+    const openCache = vi.fn(async () => cache as unknown as Cache)
     return {
       cache,
       openCache,
@@ -308,7 +306,7 @@ describe('handleWorkerRequest with the edge cache', () => {
   }
 
   function pageSpy(status = 200) {
-    return jest.fn((request: Request) =>
+    return vi.fn((request: Request) =>
       Promise.resolve(
         new Response(`page ${new URL(request.url).pathname}`, {
           status,
@@ -414,7 +412,7 @@ describe('handleWorkerRequest with the edge cache', () => {
     const robots = new Response('User-Agent: *\nDisallow: /\n', {
       headers: { 'content-type': 'text/plain' }
     })
-    const serve = jest.fn((_request: Request) => Promise.resolve(robots))
+    const serve = vi.fn((_request: Request) => Promise.resolve(robots))
     const response = await handleWorkerRequest(
       new Request(`${STAGING}/robots.txt`),
       { ...staging, ...version },
@@ -433,7 +431,7 @@ describe('handleWorkerRequest with the edge cache', () => {
     async path => {
       const edge = edgeCache()
       const file = new Response('file', { headers: { 'content-type': 'application/xml' } })
-      const serve = jest.fn((_request: Request) => Promise.resolve(file))
+      const serve = vi.fn((_request: Request) => Promise.resolve(file))
       const request = new Request(`https://boxingundefeated.com${path}`, {
         headers: { cookie: '_ga=1' }
       })
@@ -478,7 +476,7 @@ describe("handleWorkerRequest with a D1 page's notFound()", () => {
    * not-found page, an RSC request an RSC 404, and any other page `notFound()`'s empty document.
    */
   function openNext() {
-    return jest.fn(async (request: Request) => {
+    return vi.fn(async (request: Request) => {
       const { pathname } = new URL(request.url)
       const body = (text: string) => (request.method === 'HEAD' ? null : text)
       if (pathname === '/boxers/len-wickwar/') {
@@ -647,7 +645,7 @@ describe("handleWorkerRequest with a D1 page's notFound()", () => {
   it('leaves /api/search, the XML sitemaps and redirects alone', async () => {
     const serve = openNext()
     const notFound = (type: string) =>
-      jest.fn(
+      vi.fn(
         async () => new Response(ERROR_SHELL, { status: 404, headers: { 'content-type': type } })
       )
     const runtime = { searchApi: notFound(HTML), sitemaps: notFound(HTML) }
@@ -685,18 +683,18 @@ describe('handleWorkerRequest with the D1 readiness gate', () => {
     let readiness = initial
     const cache = new MemoryCache()
     const pending: Promise<unknown>[] = []
-    const openCache = jest.fn(async () => cache as unknown as Cache)
-    const log = jest.fn()
+    const openCache = vi.fn(async () => cache as unknown as Cache)
+    const log = vi.fn()
     const runtime: WorkerRuntime = {
       edgeCache: {
         context: { waitUntil: (promise: Promise<unknown>) => void pending.push(promise) },
         openCache
       },
-      datasetReadiness: jest.fn(async () => readiness),
+      datasetReadiness: vi.fn(async () => readiness),
       log
     }
     let renders = 0
-    const serve = jest.fn((request: Request) =>
+    const serve = vi.fn((request: Request) =>
       Promise.resolve(
         new Response(`render ${++renders} of ${new URL(request.url).pathname}`, {
           status: 200,
@@ -1020,14 +1018,14 @@ describe("handleWorkerRequest with staging's password", () => {
   it('caches a page for the password like an anonymous one, and never across the gate', async () => {
     const cache = new MemoryCache()
     const pending: Promise<unknown>[] = []
-    const openCache = jest.fn(async () => cache as unknown as Cache)
+    const openCache = vi.fn(async () => cache as unknown as Cache)
     const runtime: WorkerRuntime = {
       edgeCache: {
         context: { waitUntil: (promise: Promise<unknown>) => void pending.push(promise) },
         openCache
       }
     }
-    const serve = jest.fn((request: Request) =>
+    const serve = vi.fn((request: Request) =>
       Promise.resolve(
         new Response(`page ${new URL(request.url).pathname}`, {
           headers: { 'content-type': 'text/html; charset=utf-8' }
@@ -1080,7 +1078,7 @@ describe('handleWorkerRequest with the build guard', () => {
   )('fails closed when a %s build runs as %s', async (built, runtime) => {
     for (const path of [...paths, '/robots.txt']) {
       const serve = serveSpy()
-      const log = jest.fn()
+      const log = vi.fn()
       const response = await handleWorkerRequest(
         new Request(`https://boxingundefeated.com${path}`),
         environments[runtime],

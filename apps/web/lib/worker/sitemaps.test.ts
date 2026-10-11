@@ -1,7 +1,5 @@
-/**
- * @jest-environment node
- */
 import type { SitemapData } from '@boxingundefeated/data-ops'
+import { describe, expect, it, vi } from 'vitest'
 import { SMOKE_TEST_HEADER } from '../routing/canonical-host'
 import type { DatasetReadiness } from './dataset-gate'
 import { EDGE_CACHE_HEADER } from './edge-cache'
@@ -43,11 +41,11 @@ function setup(overrides: Partial<SitemapOptions> = {}) {
   let readiness = ready
   const cache = new MemoryCache()
   const pending: Promise<unknown>[] = []
-  const load = jest.fn(async () => data)
-  const observe = jest.fn()
+  const load = vi.fn(async () => data)
+  const observe = vi.fn()
   const options: SitemapOptions = {
     load,
-    readiness: jest.fn(async () => readiness),
+    readiness: vi.fn(async () => readiness),
     siteEnvironment: 'production',
     edgeCache: {
       context: { waitUntil: promise => void pending.push(promise) },
@@ -197,7 +195,7 @@ describe('handleSitemapRequest', () => {
   it('answers 503 when D1 fails, and logs only the root cause', async () => {
     const failure = new Error('Failed query: select ...', { cause: new Error('D1_ERROR: boom') })
     failure.name = 'DrizzleQueryError'
-    const site = setup({ load: jest.fn(async () => Promise.reject(failure)) })
+    const site = setup({ load: vi.fn(async () => Promise.reject(failure)) })
     const response = await site.fetch('/sitemap-boxers.xml')
 
     expect(response.status).toBe(503)
@@ -266,7 +264,7 @@ describe('handleSitemapRequest', () => {
 describe('the sitemaps through the Worker pipeline', () => {
   function pipeline(options: Partial<SitemapOptions> = {}) {
     const site = setup(options)
-    const serve = jest.fn(async () => new Response('OpenNext', { status: 404 }))
+    const serve = vi.fn(async () => new Response('OpenNext', { status: 404 }))
     const runtime = { sitemaps: (request: Request) => handleSitemapRequest(request, site.options) }
     return { site, serve, runtime }
   }
@@ -350,7 +348,7 @@ describe('the sitemaps through the Worker pipeline', () => {
 
 describe('d1Sitemaps', () => {
   it('fails closed without the DB binding', async () => {
-    const observe = jest.fn()
+    const observe = vi.fn()
     const handler = d1Sitemaps(
       { SITE_ENVIRONMENT: 'production', CF_VERSION_METADATA: { id: 'v' } },
       { readiness: async () => ready, observe }

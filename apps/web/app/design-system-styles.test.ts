@@ -1,6 +1,3 @@
-/**
- * @jest-environment node
- */
 import { readFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { buttonVariants } from '@boxingundefeated/design-system/button'
@@ -9,6 +6,7 @@ import { PopoverContent } from '@boxingundefeated/design-system/popover'
 import tailwindcss from '@tailwindcss/postcss'
 import postcss from 'postcss'
 import type { ReactElement } from 'react'
+import { beforeAll, expect, test } from 'vitest'
 
 // Tailwind finds class names on its own only in apps/web, the app whose build compiles the
 // stylesheet, so the classes that live only inside packages/design-system components are

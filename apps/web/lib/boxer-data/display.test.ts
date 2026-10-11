@@ -1,6 +1,4 @@
-/**
- * @jest-environment node
- */
+import { describe, expect, it } from 'vitest'
 import { formatNickname, plural, stripNicknameQuotes } from './display'
 
 describe('stripNicknameQuotes', () => {
@@ -37,7 +35,7 @@ describe('stripNicknameQuotes', () => {
     expect(stripNicknameQuotes(stored)).toBe(text)
   })
 
-  it.each([null, undefined, '', '   ', '""', '"\'\'"', '“”'])('is null for %p', stored => {
+  it.each([null, undefined, '', '   ', '""', '"\'\'"', '“”'])('is null for %j', stored => {
     expect(stripNicknameQuotes(stored)).toBeNull()
   })
 })

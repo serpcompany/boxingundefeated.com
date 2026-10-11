@@ -1,6 +1,4 @@
-/**
- * @jest-environment node
- */
+import { describe, expect, it, vi } from 'vitest'
 import { SMOKE_TEST_HEADER } from '../routing/canonical-host'
 import {
   basicAuthPassword,
@@ -72,7 +70,7 @@ describe("staging's password check", () => {
 
   it("compares SHA-256 digests with workerd's crypto.subtle.timingSafeEqual when it exists", async () => {
     const subtle = crypto.subtle as SubtleCrypto & { timingSafeEqual?: unknown }
-    const timingSafeEqual = jest.fn((left: ArrayBuffer, right: ArrayBuffer) => {
+    const timingSafeEqual = vi.fn((left: ArrayBuffer, right: ArrayBuffer) => {
       expect(left.byteLength).toBe(32)
       expect(right.byteLength).toBe(32)
       return Buffer.from(left).equals(Buffer.from(right))

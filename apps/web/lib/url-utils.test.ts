@@ -1,3 +1,4 @@
+import { describe, expect, it } from 'vitest'
 import { normalizeInternalPath, toAbsoluteUrl } from './url-utils'
 
 describe('internal path normalization', () => {

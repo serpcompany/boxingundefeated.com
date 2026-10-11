@@ -1,7 +1,7 @@
 {
   "extends": "@boxingundefeated/config-typescript/base.json",
   "compilerOptions": {
-    "lib": ["es2022", "DOM"],
+    "lib": ["es2022", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "moduleResolution": "Bundler",
     "noEmit": true,

@@ -1,3 +1,4 @@
+import { describe, expect, it } from 'vitest'
 import {
   BOXER_PAGE_SIZE,
   getBoxersPageHref,

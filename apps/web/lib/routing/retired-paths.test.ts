@@ -1,6 +1,4 @@
-/**
- * @jest-environment node
- */
+import { describe, expect, it } from 'vitest'
 import {
   isRetiredPath,
   RETIRED_FILES,

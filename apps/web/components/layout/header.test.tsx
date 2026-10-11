@@ -1,9 +1,12 @@
+// @vitest-environment happy-dom
+
 import { fireEvent, render, screen, within } from '@testing-library/react'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { Header } from './header'
 
 // The URL the header renders at; a test changes it to stand in for a navigation.
 let mockPathname = '/'
-jest.mock('next/navigation', () => ({ usePathname: () => mockPathname }))
+vi.mock('next/navigation', () => ({ usePathname: () => mockPathname }))
 
 const navLinks = [
   ['Boxers', '/boxers/'],

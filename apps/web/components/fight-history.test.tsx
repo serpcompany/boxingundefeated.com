@@ -1,6 +1,8 @@
+// @vitest-environment happy-dom
+
 import { render, screen } from '@testing-library/react'
-// The Node build: jsdom has no MessageChannel, which the browser build needs.
-import { renderToString } from 'react-dom/server.node'
+import { renderToString } from 'react-dom/server'
+import { describe, expect, it } from 'vitest'
 import type { ProfileBout } from '@/lib/boxer-data'
 import { FightHistory } from './fight-history'
 

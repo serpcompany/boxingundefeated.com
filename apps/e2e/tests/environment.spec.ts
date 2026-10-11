@@ -1,7 +1,6 @@
-import { expect, test } from '@playwright/test'
 import { isNoindex, pageFacts, robotsGroups } from '../src/html'
 import { GTM_ID } from '../src/target'
-import { boxer, target } from './site'
+import { boxer, expect, target, test } from './site'
 
 /**
  * Environment behavior (serpcompany/serp docs/engineering/standards/environment-configuration.md

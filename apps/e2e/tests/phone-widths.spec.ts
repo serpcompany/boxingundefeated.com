@@ -1,5 +1,5 @@
-import { expect, type Page, test } from '@playwright/test'
-import { samplePages, target } from './site'
+import type { Page } from '@playwright/test'
+import { expect, samplePages, target, test } from './site'
 
 /**
  * No page scrolls sideways on a phone (#75). A boxer profile was 469 px wide on a 390 px screen:
@@ -7,6 +7,7 @@ import { samplePages, target } from './site'
  * it is in the committed D1 fixture, so the seeded local D1 serves it as well as a full import.
  */
 const PHONE_WIDTHS = [390, 360]
+const NOT_FOUND_PAGE = '/no-such-page-e2e/'
 
 const pages = [
   ...samplePages.map(({ path }) => path),
@@ -16,7 +17,7 @@ const pages = [
   '/about/',
   '/privacy/',
   '/terms/',
-  '/no-such-page-e2e/'
+  NOT_FOUND_PAGE
 ]
 
 /** Keep the browser on the site under test. */
@@ -45,21 +46,25 @@ test.describe('at phone widths', () => {
   test.beforeEach(async ({ page }) => sameOriginOnly(page))
 
   for (const path of pages) {
-    test(`${path} doesn't scroll sideways`, async ({ page }) => {
-      await page.setViewportSize({ width: PHONE_WIDTHS[0], height: 800 })
-      await page.goto(path)
-      // "Show more" on a fight history, and any other disclosure: measure what a visitor can open.
-      await page.evaluate(() => {
-        for (const details of document.querySelectorAll('details')) details.open = true
-      })
+    test.describe(() => {
+      test.use({ expectedPageStatuses: path === NOT_FOUND_PAGE ? [404] : [] })
 
-      for (const width of PHONE_WIDTHS) {
-        await page.setViewportSize({ width, height: 800 })
-        const { viewport, scrollWidth, culprits } = await page.evaluate(measureOverflow)
-        expect(scrollWidth, `${path} at ${width} px: ${culprits.join(', ')}`).toBeLessThanOrEqual(
-          viewport
-        )
-      }
+      test(`${path} doesn't scroll sideways`, async ({ page }) => {
+        await page.setViewportSize({ width: PHONE_WIDTHS[0], height: 800 })
+        await page.goto(path)
+        // "Show more" on a fight history, and any other disclosure: measure what a visitor can open.
+        await page.evaluate(() => {
+          for (const details of document.querySelectorAll('details')) details.open = true
+        })
+
+        for (const width of PHONE_WIDTHS) {
+          await page.setViewportSize({ width, height: 800 })
+          const { viewport, scrollWidth, culprits } = await page.evaluate(measureOverflow)
+          expect(scrollWidth, `${path} at ${width} px: ${culprits.join(', ')}`).toBeLessThanOrEqual(
+            viewport
+          )
+        }
+      })
     })
   }
 })

@@ -1,6 +1,6 @@
-import { expect, type Page, test } from '@playwright/test'
+import type { Page } from '@playwright/test'
 import { isNoindex, pageFacts } from '../src/html'
-import { target } from './site'
+import { expect, target, test } from './site'
 
 /**
  * Pages that render from D1 answer an unknown boxer, division or page number with a 404 whose
@@ -47,13 +47,12 @@ for (const path of [...unknownD1Pages, '/no-such-page-e2e/']) {
 }
 
 test.describe('in a browser', () => {
+  test.use({ expectedPageStatuses: [404] })
   test.beforeEach(async ({ page }) => sameOriginOnly(page))
   const [unknownBoxer] = unknownD1Pages as [string]
 
+  // An uncaught error fails it too, as every browser test (./site.ts).
   test('the not-found page of an unknown boxer hydrates and links home', async ({ page }) => {
-    const errors: string[] = []
-    page.on('pageerror', error => errors.push(String(error)))
-
     const response = await page.goto(unknownBoxer)
     expect(response?.status()).toBe(404)
     await expect(page.getByRole('heading', { level: 1, name: NOT_FOUND_H1 })).toBeVisible()
@@ -61,7 +60,6 @@ test.describe('in a browser', () => {
     await page.getByRole('link', { name: 'Back to homepage' }).click()
     await expect(page.getByRole('heading', { level: 1, name: 'Boxing Undefeated' })).toBeVisible()
     expect(new URL(page.url()).pathname).toBe('/')
-    expect(errors).toEqual([])
   })
 
   test('a client-side navigation to an unknown boxer shows the not-found page', async ({

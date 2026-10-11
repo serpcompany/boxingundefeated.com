@@ -1,4 +1,7 @@
+// @vitest-environment happy-dom
+
 import { render } from '@testing-library/react'
+import { describe, expect, it } from 'vitest'
 
 // The boxer listings, the divisions and the HTML sitemap read D1: listing-pages.test.tsx.
 describe('crawlable directory pages', () => {

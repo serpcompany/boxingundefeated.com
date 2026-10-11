@@ -1,8 +1,6 @@
-/**
- * @jest-environment node
- */
 import fs from 'node:fs'
 import path from 'node:path'
+import { describe, expect, it } from 'vitest'
 import { createRootMetadata } from './metadata'
 import { NON_PRODUCTION_ROBOTS_TXT, robotsFor, STAGING_AUDIT_CRAWLER } from './robots'
 import {
