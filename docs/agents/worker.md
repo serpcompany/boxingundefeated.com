@@ -2,8 +2,8 @@
 
 The site runs as a Next.js OpenNext Worker on Cloudflare. Read this before changing
 `apps/web/wrangler.jsonc`, `open-next.config.ts`, `worker.ts` or `lib/worker/`, before building or
-previewing the Worker, and when something works in `next dev` but not on the Worker. What each
-environment sets is in [environments.md](environments.md).
+previewing the Worker, when something works in `next dev` but not on the Worker, and when a
+deploy didn't run. What each environment sets is in [environments.md](environments.md).
 
 ## Files
 
@@ -48,3 +48,12 @@ Worker builds take about a minute. Boxer pages read the local D1, so seed it fir
   into `urls.txt`, then `lychee --config lychee.toml --files-from urls.txt`.
 - `pnpm --filter web cf-typegen`: regenerate and commit `cloudflare-env.d.ts` after changing
   `wrangler.jsonc`; it strips the `mainModule` type (`lib/cloudflare-env-types.ts`).
+
+## Deploys
+
+`ci.yml` deploys a push to `staging` or `main` once `All checks` passes on that commit; its header
+has the receipts, the tip guard and the production release gate. A deploy job that joins its
+concurrency group cancels the one waiting there, and jobs join when their checks finish, so an
+older commit's job can cancel the tip's and then skip at the tip guard. If the staging tip shows a
+cancelled "Migrate, deploy and smoke-test staging" job, the owner re-runs that job for the tip
+commit; agents only report it.

@@ -33,8 +33,8 @@ Planned: Ship (agents merge listed paths, to be chosen by the owner) once round 
   - `public/`: files served at the same path ([urls.md](docs/agents/urls.md)).
   - `scripts/`: the `build:worker` step that records the build's environment and commit
     (`write-build-environment.ts`).
-  - `wrangler.jsonc`, `open-next.config.ts`, `worker.ts`, `lib/worker/`: the Worker. Its request
-    pipeline and build, preview, E2E, parity and link commands: [worker.md](docs/agents/worker.md).
+  - `wrangler.jsonc`, `open-next.config.ts`, `worker.ts`, `lib/worker/`: the Worker. Its pipeline,
+    build, preview, E2E, parity and link commands, and deploys: [worker.md](docs/agents/worker.md).
 - `d1/`: `drizzle/` migrations, `fixtures/`, `reports/`. [d1.md](docs/agents/d1.md): the boxer data
   source (`from-pipeline/`), migrations, imports, the deploy gate and production writes.
 - `packages/data-ops/`: the D1 data layer: the Drizzle schema (`src/schema.ts`), types, every

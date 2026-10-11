@@ -70,6 +70,17 @@ jobs:
       # Pushes and dispatches always run everything.
       code: ${{ github.event_name != 'pull_request' || steps.filter.outputs.code == 'true' || steps.filter.outputs.content == 'true' }}
     steps:
+      # A dispatch is for production releases from main only. From any other branch it would post
+      # "All checks" on that branch's head commit, a pull request's included, so it fails here,
+      # and "All checks" with it.
+      - name: Refuse a dispatch from any branch but main
+        if: github.event_name == 'workflow_dispatch' && github.ref != 'refs/heads/main'
+        env:
+          REF: ${{ github.ref }}
+        run: |
+          echo "::error::Dispatch CI from main only (a production release or an owner's hotfix), not from $REF. A pull request's checks run on its own pushes."
+          exit 1
+
       - name: Detect a docs-only pull request
         id: filter
         if: github.event_name == 'pull_request'
@@ -437,8 +448,11 @@ jobs:
       github.event_name == 'push' && github.ref == 'refs/heads/staging'
     runs-on: ubuntu-latest
     timeout-minutes: 45
-    # Build, migrate, deploy and smoke test stay in this one job. Deploys never overlap; a newer
-    # push replaces a queued one, never a running one.
+    # Build, migrate, deploy and smoke test stay in this one job. Deploys never overlap. A job that
+    # joins the group cancels the one waiting there, never a running one, and jobs join when their
+    # checks finish, not in push order. So an older commit's job can cancel the tip's waiting job,
+    # then skip at the tip guard, leaving the tip undeployed. If the staging tip shows this job
+    # cancelled, the owner re-runs it for the tip commit (docs/agents/worker.md#deploys).
     concurrency:
       group: deploy-web-staging
       cancel-in-progress: false
@@ -593,8 +607,9 @@ jobs:
       needs.staging-verified.result == 'success'
     runs-on: ubuntu-latest
     timeout-minutes: 45
-    # Build, migrate, deploy and smoke test stay in this one job. Deploys never overlap; a newer
-    # push replaces a queued one, never a running one.
+    # Build, migrate, deploy and smoke test stay in this one job. Deploys never overlap. As in
+    # deploy-staging, a job that joins the group cancels the waiting one, so an older commit's job
+    # can cancel main's tip and then fail the tip guard; the owner re-runs the tip's job.
     concurrency:
       group: deploy-web-production
       cancel-in-progress: false
