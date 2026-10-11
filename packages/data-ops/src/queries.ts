@@ -21,8 +21,9 @@ const directoryOrder = [
 
 /**
  * A boxer's copied photo (#64): the `photos` row of their `avatar_image`, by primary key. Its key,
- * or null when the photo isn't copied (or there is none), when the page shows the placeholder.
- * The source URL itself never reaches a page, so no page loads an image from boxrec.com.
+ * or null when the photo isn't copied (or there is none). The pages choose what to show from the
+ * key and `avatar_image` together (`boxerPhoto` in photos.ts): the copy, or until the copy
+ * reaches the boxer, the boxrec.com source.
  */
 const withPhoto = eq(photos.sourceUrl, boxers.avatarImage)
 
@@ -32,6 +33,7 @@ export const boxerListColumns = {
   slug: boxers.slug,
   name: boxers.name,
   nicknames: boxers.nicknames,
+  avatarImage: boxers.avatarImage,
   photoKey: photos.key,
   nationality: boxers.nationality,
   proDivision: boxers.proDivision,

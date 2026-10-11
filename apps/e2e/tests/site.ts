@@ -10,8 +10,9 @@ const ERROR_STATUS = /^Failed to load resource: the server responded with a stat
 /**
  * Chrome logs every failed request as a console error. The browser tests abort each request to
  * another origin, to stay off third-party hosts and out of analytics, so another origin's failed
- * resource (a boxer photo hot-linked from boxrec.com, the DR badge, Cloudflare's injected Web
- * Analytics beacon) is noise. The site's own failed requests still fail the test.
+ * resource (a boxer photo still hot-linked from boxrec.com until the copy reaches it (#64), the
+ * DR badge, Cloudflare's injected Web Analytics beacon) is noise. The site's own failed requests
+ * still fail the test.
  */
 function isThirdPartyLoadFailure(message: ConsoleMessage): boolean {
   const { url } = message.location()

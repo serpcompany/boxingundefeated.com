@@ -20,6 +20,8 @@ deploy didn't run. What each environment sets is in [environments.md](environmen
   - `PHOTOS` is each environment's R2 photo bucket (`boxingundefeated-com-photos-<env>`), which the
     Worker only reads ([d1.md](d1.md#boxer-photos)). `/photos/<sha256>.<ext>` answers 200 with a
     year of immutable caching, 304 or 404; a slashed or malformed path goes on to OpenNext.
+    `caches.default` keeps each 200 photo per data center (`x-edge-cache: HIT` or `MISS`), so a
+    repeat request reads no R2; 404s, 405s and 500s are never stored.
   - The password gate runs on every host of the staging Worker, before the canonical-host
     redirect: `*.workers.dev` without the password answers 401, not 308, and it is the only host
     CI can reach (#45). A request that passes loses its `Authorization` header, so the edge cache

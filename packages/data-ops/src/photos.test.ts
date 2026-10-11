@@ -1,6 +1,9 @@
 import { describe, expect, it } from 'vitest'
 import {
+  boxerPhoto,
   isPhotoKey,
+  isPhotoSourceUrl,
+  isPlaceholderAvatar,
   PHOTO_CONTENT_TYPES,
   photoContentType,
   photoKey,
@@ -68,6 +71,58 @@ describe('photo URLs', () => {
       `/photos//${SHA}.jpg`
     ]) {
       expect([path, photoKeyFromPath(path)]).toEqual([path, null])
+    }
+  })
+})
+
+describe('photo sources', () => {
+  const PHOTO = 'https://boxrec.com/images/thumb/8/83/1.jpeg/200px-1.jpeg'
+  const PLACEHOLDER = 'https://boxrec.com/build/images/main/v6-avatar.svg'
+
+  it('copies, or links while not copied, only https URLs on boxrec.com', () => {
+    expect(isPhotoSourceUrl(PHOTO)).toBe(true)
+    expect(isPhotoSourceUrl('https://www.boxrec.com/images/a.jpg')).toBe(true)
+    for (const url of [
+      'http://boxrec.com/images/a.jpg',
+      'https://boxrec.com:8443/images/a.jpg',
+      'https://boxrec.com.evil.test/a.jpg',
+      'https://evilboxrec.com/a.jpg',
+      'https://169.254.169.254/latest',
+      'javascript:alert(1)',
+      'file:///etc/passwd',
+      'not a url'
+    ]) {
+      expect([url, isPhotoSourceUrl(url)]).toEqual([url, false])
+    }
+  })
+
+  it("knows BoxRec's placeholder", () => {
+    expect(isPlaceholderAvatar(PLACEHOLDER)).toBe(true)
+    for (const url of [PHOTO, null, undefined, '']) expect(isPlaceholderAvatar(url)).toBe(false)
+  })
+
+  it('shows the copy when there is one, else the boxrec.com source, else the placeholder', () => {
+    const key = photoKey(SHA, 'jpg')
+    // Copied: this site's copy, whatever the source.
+    expect(boxerPhoto(key, PHOTO)).toBe(`/photos/${SHA}.jpg`)
+    // Not copied yet, or the copy failed: the source, as before the copy existed.
+    expect(boxerPhoto(null, PHOTO)).toBe(PHOTO)
+    expect(boxerPhoto(undefined, 'https://www.boxrec.com/images/a.jpg')).toBe(
+      'https://www.boxrec.com/images/a.jpg'
+    )
+    // A malformed key is no copy.
+    expect(boxerPhoto(`photos/${SHA}.svg`, PHOTO)).toBe(PHOTO)
+    // BoxRec's placeholder, no photo, or a URL anywhere else: the site's placeholder.
+    for (const avatar of [
+      PLACEHOLDER,
+      null,
+      undefined,
+      '',
+      'http://boxrec.com/images/a.jpg',
+      'https://example.com/a.jpg',
+      'javascript:alert(1)'
+    ]) {
+      expect([avatar, boxerPhoto(null, avatar)]).toEqual([avatar, null])
     }
   })
 })

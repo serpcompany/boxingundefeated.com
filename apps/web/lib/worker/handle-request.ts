@@ -20,8 +20,8 @@
  *    the XML sitemaps, the edge cache and the trailing-slash redirects, so `/blog` answers 410
  *    without a hop and the 410 is never stored.
  *    A boxer photo, `/photos/<sha256>.<ext>`, is answered here from R2 by `runtime.photos`
- *    (lib/worker/photos.ts), without the readiness gate or the edge cache: it reads no D1, and
- *    browsers keep it for a year.
+ *    (lib/worker/photos.ts), without the readiness gate or the page edge cache: it reads no D1,
+ *    keeps its own copy in `caches.default`, and browsers keep it for a year.
  *    `/api/search` and `/api/search/` are answered here, by `runtime.searchApi`
  *    (lib/worker/search-api.ts), and the XML sitemaps (`/sitemap-index.xml`, `/sitemap-*.xml`,
  *    and the old `/sitemap.xml` and `/sitemaps/*` URLs) by `runtime.sitemaps`

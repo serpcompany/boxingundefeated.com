@@ -7,8 +7,9 @@
  *   its content, and an object is never overwritten with other content.
  * - The URL is the key under the site's root, `/photos/<sha256>.<ext>`: a file, so no trailing
  *   slash, and every extension here is in apps/web/lib/routing/file-extensions.ts.
- * - The `photos` table maps each copied source URL to its key (schema.ts). Pages link a photo only
- *   through it, so a key they link is one the copy finished (scripts/d1/copy-photos.ts).
+ * - The `photos` table maps each copied source URL to its key (schema.ts). Pages link a key only
+ *   through it, so a key they link is one the copy finished (scripts/d1/copy-photos.ts). Until the
+ *   copy reaches a boxer, the page keeps the boxrec.com source (`boxerPhoto`).
  *
  * No Node.js or Next.js imports: the Worker uses this before OpenNext loads.
  */
@@ -61,6 +62,44 @@ export function photoContentType(key: string): string | null {
  */
 export function photoPath(key: string | null | undefined): string | null {
   return typeof key === 'string' && KEY.test(key) ? `/${key}` : null
+}
+
+/** The only hosts a photo is copied from, or linked from while it isn't copied. */
+export const PHOTO_SOURCE_HOSTS: ReadonlySet<string> = new Set(['boxrec.com', 'www.boxrec.com'])
+/** BoxRec's own "no photo" image, which pages replace with the site's placeholder. */
+export const PLACEHOLDER_AVATAR = /v6-avatar\.svg/
+
+export function isPlaceholderAvatar(url: string | null | undefined): boolean {
+  return PLACEHOLDER_AVATAR.test(url ?? '')
+}
+
+/** An `https:` URL on boxrec.com, the only place photos are copied from. */
+export function isPhotoSourceUrl(value: string): boolean {
+  if (!URL.canParse(value)) return false
+  const url = new URL(value)
+  return url.protocol === 'https:' && PHOTO_SOURCE_HOSTS.has(url.hostname) && url.port === ''
+}
+
+/**
+ * The photo a page shows for a boxer, from their `photos` row's key and their `avatar_image`:
+ *
+ * - copied: the copy on this site, `/photos/<sha256>.<ext>`;
+ * - not copied yet (or the copy failed): the boxrec.com source, as before #64, so a deploy that
+ *   lands before the copy runs, or a copy BoxRec refuses, hides no photo. `OptimizedImage` shows
+ *   the placeholder when it fails to load;
+ * - none, BoxRec's own placeholder, or a URL anywhere but https boxrec.com: null, the site's
+ *   placeholder.
+ */
+export function boxerPhoto(
+  key: string | null | undefined,
+  avatarImage: string | null | undefined
+): string | null {
+  return (
+    photoPath(key) ??
+    (avatarImage && isPhotoSourceUrl(avatarImage) && !isPlaceholderAvatar(avatarImage)
+      ? avatarImage
+      : null)
+  )
 }
 
 /** The key a request path names, or null when the path isn't exactly a photo's. */

@@ -1,7 +1,14 @@
 import { describe, expect, it, vi } from 'vitest'
 import type { DatasetReadiness } from './dataset-gate'
 import { handleWorkerRequest, type WorkerRuntime } from './handle-request'
-import { handlePhoto, isPhotoRequest, type PhotoBucket, type PhotoEvent, r2Photos } from './photos'
+import {
+  handlePhoto,
+  isPhotoRequest,
+  matchesIfNoneMatch,
+  type PhotoBucket,
+  type PhotoEvent,
+  r2Photos
+} from './photos'
 
 const SHA = '0f'.repeat(32)
 const KEY = `photos/${SHA}.jpg`
@@ -116,6 +123,24 @@ describe('handlePhoto', () => {
     expect(photos.get).toHaveBeenCalledWith(KEY, undefined)
   })
 
+  it('answers a HEAD with a matching If-None-Match with 304 too', async () => {
+    const photos = bucket()
+    const head = (ifNoneMatch: string) =>
+      handlePhoto(
+        request(URL_PATH, { method: 'HEAD', headers: { 'if-none-match': ifNoneMatch } }),
+        photos
+      )
+
+    const matching = await head(ETAG)
+    expect(matching.status).toBe(304)
+    expect(matching.body).toBeNull()
+    expect(matching.headers.get('etag')).toBe(ETAG)
+    expect(matching.headers.get('content-length')).toBeNull()
+    expect((await head(`"other", W/${ETAG}`)).status).toBe(304)
+    expect((await head('"other"')).status).toBe(200)
+    expect(photos.get).not.toHaveBeenCalled()
+  })
+
   it('answers HEAD from the object’s metadata, without reading its body', async () => {
     const photos = bucket()
     const response = await handlePhoto(request(URL_PATH, { method: 'HEAD' }), photos)
@@ -137,6 +162,7 @@ describe('handlePhoto', () => {
       expect(response.status).toBe(404)
       expect(response.headers.get('cache-control')).toBe('no-store')
       expect(response.headers.get('content-type')).toBe('text/plain; charset=utf-8')
+      expect(response.headers.get('x-robots-tag')).toBe('noindex')
     }
     expect(events).toEqual([
       { event: 'photo', status: 404, key: missing.slice(1) },
@@ -170,6 +196,163 @@ describe('handlePhoto', () => {
   it('has no handler without the PHOTOS binding', () => {
     expect(r2Photos({})).toBeUndefined()
     expect(r2Photos({ PHOTOS: bucket() })).toBeTypeOf('function')
+  })
+})
+
+describe('matchesIfNoneMatch', () => {
+  it('compares tags weakly, in a list, or any tag for *', () => {
+    expect(matchesIfNoneMatch(ETAG, ETAG)).toBe(true)
+    expect(matchesIfNoneMatch(`W/${ETAG}`, ETAG)).toBe(true)
+    expect(matchesIfNoneMatch(` "a" , ${ETAG}`, ETAG)).toBe(true)
+    expect(matchesIfNoneMatch('*', ETAG)).toBe(true)
+    expect(matchesIfNoneMatch('"a", "b"', ETAG)).toBe(false)
+    expect(matchesIfNoneMatch(null, ETAG)).toBe(false)
+    expect(matchesIfNoneMatch(ETAG, null)).toBe(false)
+  })
+})
+
+/** A Cache API stand-in, keyed by URL, which keeps a copy of what was put. */
+function fakeCache() {
+  const entries = new Map<string, { body: ArrayBuffer; init: ResponseInit }>()
+  const pending: Promise<unknown>[] = []
+  const cache = {
+    match: vi.fn(async (key: Request) => {
+      const entry = entries.get(key.url)
+      return entry ? new Response(entry.body.slice(0), entry.init) : undefined
+    }),
+    put: vi.fn(async (key: Request, response: Response) => {
+      expect(key.method).toBe('GET')
+      entries.set(key.url, {
+        body: await response.arrayBuffer(),
+        init: { status: response.status, headers: new Headers(response.headers) }
+      })
+    })
+  }
+  const runtime = {
+    context: { waitUntil: (promise: Promise<unknown>) => void pending.push(promise) },
+    openCache: vi.fn(async () => cache as unknown as Cache)
+  }
+  return { cache, entries, runtime, settled: () => Promise.all(pending) }
+}
+
+describe('handlePhoto with the Cache API', () => {
+  it('stores a 200 photo on a miss, then answers from the cache without R2', async () => {
+    const photos = bucket()
+    const edge = fakeCache()
+
+    const miss = await handlePhoto(request(), photos, { cache: edge.runtime })
+    expect(miss.status).toBe(200)
+    expect(miss.headers.get('x-edge-cache')).toBe('MISS')
+    expect(new Uint8Array(await miss.arrayBuffer())).toEqual(JPEG)
+    await edge.settled()
+    expect(edge.cache.put).toHaveBeenCalledTimes(1)
+    const stored = edge.entries.get(`${ORIGIN}${URL_PATH}`)!
+    expect(new Uint8Array(stored.body)).toEqual(JPEG)
+    const storedHeaders = new Headers(stored.init.headers)
+    expect(storedHeaders.get('x-edge-cache')).toBeNull()
+    expect(storedHeaders.get('cache-control')).toBe('public, max-age=31536000, immutable')
+    expect(storedHeaders.get('etag')).toBe(ETAG)
+
+    // The query never changes the photo, so it shares the entry.
+    for (const path of [URL_PATH, `${URL_PATH}?v=2`]) {
+      const hit = await handlePhoto(request(path), photos, { cache: edge.runtime })
+      expect(hit.status).toBe(200)
+      expect(Object.fromEntries(hit.headers)).toEqual({
+        'content-type': 'image/jpeg',
+        'content-length': String(JPEG.byteLength),
+        'cache-control': 'public, max-age=31536000, immutable',
+        etag: ETAG,
+        'last-modified': UPLOADED.toUTCString(),
+        'x-content-type-options': 'nosniff',
+        'x-edge-cache': 'HIT'
+      })
+      expect(new Uint8Array(await hit.arrayBuffer())).toEqual(JPEG)
+    }
+    expect(photos.get).toHaveBeenCalledTimes(1)
+    expect(photos.head).not.toHaveBeenCalled()
+    expect(edge.cache.put).toHaveBeenCalledTimes(1)
+  })
+
+  it('answers HEAD and a matching If-None-Match from the cache too', async () => {
+    const photos = bucket()
+    const edge = fakeCache()
+    await (await handlePhoto(request(), photos, { cache: edge.runtime })).arrayBuffer()
+    await edge.settled()
+    photos.get.mockClear()
+
+    const head = await handlePhoto(request(URL_PATH, { method: 'HEAD' }), photos, {
+      cache: edge.runtime
+    })
+    expect(head.status).toBe(200)
+    expect(head.body).toBeNull()
+    expect(head.headers.get('content-length')).toBe(String(JPEG.byteLength))
+    expect(head.headers.get('x-edge-cache')).toBe('HIT')
+
+    for (const method of ['GET', 'HEAD']) {
+      const conditional = await handlePhoto(
+        request(URL_PATH, { method, headers: { 'if-none-match': ETAG } }),
+        photos,
+        { cache: edge.runtime }
+      )
+      expect(conditional.status).toBe(304)
+      expect(conditional.body).toBeNull()
+      expect(conditional.headers.get('etag')).toBe(ETAG)
+      expect(conditional.headers.get('x-edge-cache')).toBe('HIT')
+    }
+    const other = await handlePhoto(
+      request(URL_PATH, { headers: { 'if-none-match': '"other"' } }),
+      photos,
+      { cache: edge.runtime }
+    )
+    expect(other.status).toBe(200)
+    expect(new Uint8Array(await other.arrayBuffer())).toEqual(JPEG)
+
+    expect(photos.get).not.toHaveBeenCalled()
+    expect(photos.head).not.toHaveBeenCalled()
+  })
+
+  it('never stores a 404, a 405, a 500, a HEAD or a 304', async () => {
+    const edge = fakeCache()
+    const photos = bucket()
+    const missing = await handlePhoto(request(`/photos/${'e'.repeat(64)}.png`), photos, {
+      cache: edge.runtime
+    })
+    expect(missing.status).toBe(404)
+    expect(missing.headers.get('x-edge-cache')).toBeNull()
+
+    const post = await handlePhoto(request(URL_PATH, { method: 'POST' }), photos, {
+      cache: edge.runtime
+    })
+    expect(post.status).toBe(405)
+
+    photos.get.mockRejectedValueOnce(new Error('R2 is down'))
+    expect((await handlePhoto(request(), photos, { cache: edge.runtime })).status).toBe(500)
+
+    const head = await handlePhoto(request(URL_PATH, { method: 'HEAD' }), photos, {
+      cache: edge.runtime
+    })
+    expect(head.headers.get('x-edge-cache')).toBe('MISS')
+    const conditional = await handlePhoto(
+      request(URL_PATH, { headers: { 'if-none-match': ETAG } }),
+      photos,
+      { cache: edge.runtime }
+    )
+    expect(conditional.status).toBe(304)
+
+    await edge.settled()
+    expect(edge.cache.put).not.toHaveBeenCalled()
+    expect(edge.entries.size).toBe(0)
+    // A 405 is answered before the cache is even opened.
+    expect(edge.runtime.openCache).toHaveBeenCalledTimes(4)
+  })
+
+  it('reads R2 when the cache fails', async () => {
+    const photos = bucket()
+    const edge = fakeCache()
+    edge.cache.match.mockRejectedValueOnce(new Error('cache is down'))
+    const response = await handlePhoto(request(), photos, { cache: edge.runtime })
+    expect(response.status).toBe(200)
+    expect(new Uint8Array(await response.arrayBuffer())).toEqual(JPEG)
   })
 })
 

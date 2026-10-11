@@ -1,11 +1,11 @@
 import {
   type BoxerListItem,
   type BoxerPage,
+  boxerPhoto,
   type DirectoryCounts as D1DirectoryCounts,
   type DivisionBoxerPage,
   type DivisionWithCount,
-  type HomepageData,
-  photoPath
+  type HomepageData
 } from '@boxingundefeated/data-ops'
 import type { DirectoryPage } from '../directory-pagination'
 
@@ -17,7 +17,10 @@ export interface ListedBoxer {
   slug: string
   name: string
   nicknames?: string | null
-  /** The boxer's photo on this site (`/photos/<sha256>.<ext>`), or null for the placeholder. */
+  /**
+   * The boxer's photo: the copy on this site (`/photos/<sha256>.<ext>`), the boxrec.com source
+   * until the copy reaches it, or null for the placeholder (`boxerPhoto`).
+   */
   photo?: string | null
   nationality?: string | null
   proDivision?: string | null
@@ -69,11 +72,11 @@ export function fromD1Divisions(divisions: DivisionWithCount[]): DivisionSummary
 }
 
 /**
- * A D1 card. Its photo is the copy in R2 that the Worker serves (lib/worker/photos.ts), never the
- * boxrec.com source, so a card without a copied photo shows the placeholder.
+ * A D1 card. Its photo is the copy in R2 that the Worker serves (lib/worker/photos.ts), or until
+ * the copy reaches the boxer, the boxrec.com source; BoxRec's placeholder becomes the site's.
  */
-export function fromD1ListedBoxer({ photoKey, ...boxer }: BoxerListItem): ListedBoxer {
-  return { ...boxer, photo: photoPath(photoKey) }
+export function fromD1ListedBoxer({ photoKey, avatarImage, ...boxer }: BoxerListItem): ListedBoxer {
+  return { ...boxer, photo: boxerPhoto(photoKey, avatarImage) }
 }
 
 export function fromD1Page({

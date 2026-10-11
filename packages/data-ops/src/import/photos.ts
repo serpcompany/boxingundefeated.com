@@ -3,36 +3,26 @@
  * URLs the source has, how one photo is fetched politely from boxrec.com, the pacing between
  * requests and the `photos` rows it writes (#64). Keys and URL paths are in ../photos.ts.
  */
-import { type PhotoExtension, sniffPhotoType } from '../photos'
+import {
+  isPhotoSourceUrl,
+  isPlaceholderAvatar,
+  type PhotoExtension,
+  sniffPhotoType
+} from '../photos'
 import type { Row } from './rows'
 import type { SourceBoxer } from './source'
 import { buildUpserts } from './sql'
 
 /** How the copy introduces itself to boxrec.com. */
 export const PHOTO_USER_AGENT = 'BoxingUndefeatedPhotoCopy/1.0 (+https://boxingundefeated.com/)'
-/** The only hosts a photo is fetched from, redirects included. */
-export const PHOTO_SOURCE_HOSTS: ReadonlySet<string> = new Set(['boxrec.com', 'www.boxrec.com'])
 /** BoxRec's thumbnails are about 10 KB; anything this large isn't one. */
 export const PHOTO_MAX_BYTES = 5 * 1024 * 1024
 /** The least time between two requests to boxrec.com: at most 2 a second by default. */
 export const PHOTO_DEFAULT_INTERVAL_MS = 500
 export const PHOTO_MIN_INTERVAL_MS = 250
-/** BoxRec's own "no photo" image, which pages replace with the site's placeholder. */
-export const PLACEHOLDER_AVATAR = /v6-avatar\.svg/
 
 const MAX_REDIRECTS = 3
 const REDIRECT_STATUSES = new Set([301, 302, 303, 307, 308])
-
-export function isPlaceholderAvatar(url: string | null | undefined): boolean {
-  return PLACEHOLDER_AVATAR.test(url ?? '')
-}
-
-/** An `https:` URL on boxrec.com, the only place photos are copied from. */
-export function isPhotoSourceUrl(value: string): boolean {
-  if (!URL.canParse(value)) return false
-  const url = new URL(value)
-  return url.protocol === 'https:' && PHOTO_SOURCE_HOSTS.has(url.hostname) && url.port === ''
-}
 
 export interface PhotoSources {
   /** Each photo URL once, in the order `/boxers/` lists its boxers, so a partial copy covers

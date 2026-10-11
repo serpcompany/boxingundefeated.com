@@ -4,7 +4,8 @@ import { cn } from '@boxingundefeated/design-system/lib/utils'
 import { useEffect, useRef, useState } from 'react'
 
 interface OptimizedImageProps {
-  /** A photo on this site (`/photos/<sha256>.<ext>`), or null for the placeholder. */
+  /** A photo on this site (`/photos/<sha256>.<ext>`), its boxrec.com source until it is copied,
+   * or null for the placeholder. */
   src?: string | null
   alt: string
   className?: string
@@ -15,8 +16,8 @@ interface OptimizedImageProps {
 
 /**
  * A boxer photo, or a placeholder of the same size when there is no photo or it fails to load.
- * The photos are copies in R2 that the Worker serves (lib/worker/photos.ts); a boxer whose photo
- * isn't copied has none.
+ * The photos are copies in R2 that the Worker serves (lib/worker/photos.ts); until the copy
+ * reaches a boxer, the photo is still hot-linked from boxrec.com, which answers some with an error.
  */
 export function OptimizedImage({
   src,

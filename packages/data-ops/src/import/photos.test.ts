@@ -6,7 +6,6 @@ import {
   buildPhotoUpserts,
   createPacer,
   fetchPhoto,
-  isPhotoSourceUrl,
   PHOTO_USER_AGENT,
   type PhotoRow,
   photoSources,
@@ -36,22 +35,6 @@ describe('photoSources', () => {
       boxersWithoutPhoto: 2,
       offSite: ['https://example.com/c.jpg', 'http://boxrec.com/images/d.jpg']
     })
-  })
-
-  it('fetches only https URLs on boxrec.com', () => {
-    expect(isPhotoSourceUrl(PHOTO)).toBe(true)
-    expect(isPhotoSourceUrl('https://www.boxrec.com/images/a.jpg')).toBe(true)
-    for (const url of [
-      'http://boxrec.com/images/a.jpg',
-      'https://boxrec.com:8443/images/a.jpg',
-      'https://boxrec.com.evil.test/a.jpg',
-      'https://evilboxrec.com/a.jpg',
-      'https://169.254.169.254/latest',
-      'file:///etc/passwd',
-      'not a url'
-    ]) {
-      expect([url, isPhotoSourceUrl(url)]).toEqual([url, false])
-    }
   })
 })
 

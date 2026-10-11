@@ -68,6 +68,7 @@ function listed(slug: string, fields: Partial<BoxerListItem> = {}): BoxerListIte
       .map(word => word[0]!.toUpperCase() + word.slice(1))
       .join(' '),
     nicknames: null,
+    avatarImage: null,
     photoKey: null,
     nationality: null,
     proDivision: 'heavy',
@@ -247,12 +248,20 @@ describe('listing pages', () => {
     expect(card('middle')).toHaveTextContent('Middleweight0boxers')
   })
 
-  it("shows each card's copied photo from this site, and the placeholder for the rest", async () => {
+  it("shows each card's copied photo, else its boxrec.com source, else the placeholder", async () => {
     const key = `photos/${'ab'.repeat(32)}.jpg`
-    const items = [listed('with-photo', { photoKey: key }), listed('without-photo')]
-    mockListBoxers.mockResolvedValue({ items, page: 1, pageSize: 48, totalItems: 2, totalPages: 1 })
+    const source = (name: string) => `https://boxrec.com/images/thumb/a/aa/${name}.jpg`
+    const items = [
+      listed('copied', { avatarImage: source('copied'), photoKey: key }),
+      listed('not-copied', { avatarImage: source('not-copied') }),
+      listed('boxrec-placeholder', {
+        avatarImage: 'https://boxrec.com/build/images/main/v6-avatar.svg'
+      }),
+      listed('no-photo')
+    ]
+    mockListBoxers.mockResolvedValue({ items, page: 1, pageSize: 48, totalItems: 4, totalPages: 1 })
     mockGetHomepageData.mockResolvedValue({
-      stats: { totalBoxers: 2, activeBoxers: 2, totalBouts: 22, eliteBoxers: 0 },
+      stats: { totalBoxers: 4, activeBoxers: 4, totalBouts: 44, eliteBoxers: 0 },
       featuredBoxers: items,
       divisions: []
     })
@@ -261,11 +270,13 @@ describe('listing pages', () => {
     const loading = vi.spyOn(HTMLImageElement.prototype, 'complete', 'get').mockReturnValue(false)
     for (const page of [BoxersPage, Home]) {
       const { container, unmount } = render(await page())
-      const photo = screen.getByRole('img', { name: 'With Photo' })
-      expect(photo.tagName).toBe('IMG')
-      expect(photo).toHaveAttribute('src', `/${key}`)
-      expect(screen.getByRole('img', { name: 'Without Photo' }).tagName).toBe('DIV')
-      expect(container.innerHTML).not.toContain('boxrec.com')
+      const image = (name: string) => screen.getByRole('img', { name })
+      expect(image('Copied')).toHaveAttribute('src', `/${key}`)
+      expect(image('Not Copied').tagName).toBe('IMG')
+      expect(image('Not Copied')).toHaveAttribute('src', source('not-copied'))
+      expect(image('Boxrec Placeholder').tagName).toBe('DIV')
+      expect(image('No Photo').tagName).toBe('DIV')
+      expect(container.innerHTML).not.toContain('v6-avatar.svg')
       unmount()
     }
     loading.mockRestore()

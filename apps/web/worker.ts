@@ -3,9 +3,9 @@
  * lib/worker/handle-request.ts (build guard, staging's password, canonical host, crawl policy, D1
  * readiness, edge cache, then OpenNext), with the handler that `opennextjs-cloudflare build`
  * generates as `serve`, the environment `build:worker` recorded, the Cache API namespace the edge
- * cache stores pages in, a per-isolate memo of D1's readiness, the boxer photos in R2
- * (lib/worker/photos.ts), the D1 search API (lib/worker/search-api.ts) and the XML sitemaps
- * (lib/worker/sitemaps.ts).
+ * cache stores pages in, a per-isolate memo of D1's readiness, the boxer photos in R2 with
+ * `caches.default` in front (lib/worker/photos.ts), the D1 search API (lib/worker/search-api.ts)
+ * and the XML sitemaps (lib/worker/sitemaps.ts).
  *
  * wrangler.jsonc `main` points here. tsconfig.json excludes this file because `.open-next/`
  * exists only after a Worker build; the pipeline it wires in is type-checked and unit-tested.
@@ -40,7 +40,10 @@ export default {
     const readiness = datasetReadiness
     return handleWorkerRequest(request, env, rendered => openNextWorker.fetch(rendered, env, ctx), {
       buildEnvironment,
-      photos: r2Photos(env, { observe: log }),
+      photos: r2Photos(env, {
+        cache: { context: ctx, openCache: async () => caches.default },
+        observe: log
+      }),
       searchApi: d1SearchApi(env, {
         readiness: () => readiness.current(),
         edgeCache: { context: ctx, openCache: () => caches.open(EDGE_CACHE_NAME) },

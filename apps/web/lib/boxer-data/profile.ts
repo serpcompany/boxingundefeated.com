@@ -1,4 +1,4 @@
-import { type BoxerProfile, photoPath } from '@boxingundefeated/data-ops'
+import { type BoxerProfile, boxerPhoto } from '@boxingundefeated/data-ops'
 
 /** What a boxer profile page renders: D1 rows go through `fromD1Profile`. */
 export interface ProfileBoxer {
@@ -6,7 +6,10 @@ export interface ProfileBoxer {
   name: string
   birthName?: string | null
   nicknames?: string | null
-  /** The boxer's photo on this site (`/photos/<sha256>.<ext>`), or null for the placeholder. */
+  /**
+   * The boxer's photo: the copy on this site (`/photos/<sha256>.<ext>`), the boxrec.com source
+   * until the copy reaches it, or null for the placeholder (`boxerPhoto`).
+   */
   photo?: string | null
   residence?: string | null
   birthPlace?: string | null
@@ -75,8 +78,8 @@ export function fromD1Profile({ boxer, bouts }: BoxerProfile): BoxerProfileView 
       name: boxer.name,
       birthName: boxer.birthName,
       nicknames: boxer.nicknames,
-      // The copy in R2, never the boxrec.com source (lib/worker/photos.ts).
-      photo: photoPath(boxer.photoKey),
+      // The copy in R2 (lib/worker/photos.ts), or the boxrec.com source until it is copied.
+      photo: boxerPhoto(boxer.photoKey, boxer.avatarImage),
       residence: boxer.residence,
       birthPlace: boxer.birthPlace,
       dateOfBirth: boxer.dateOfBirth,

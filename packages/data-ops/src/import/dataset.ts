@@ -1,6 +1,6 @@
+import { isPlaceholderAvatar } from '../photos'
 import { DIVISIONS } from './divisions'
 import { buildOpponentIndex, directoryIndexOrder } from './opponents'
-import { isPlaceholderAvatar } from './photos'
 import { type Row, toBoutRow, toBoxerRow, toDivisionRow } from './rows'
 import { INTENTIONAL_DROPS, type SourceBoxer, validateSource } from './source'
 

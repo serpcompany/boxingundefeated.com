@@ -152,22 +152,29 @@ describe('boxer profile page', () => {
     expect(screen.getByText('Unknown Opponent').tagName).toBe('SPAN')
   })
 
-  it('shows the copied photo from this site, never the boxrec.com source', async () => {
+  it('shows the copied photo, else the boxrec.com source, else the placeholder', async () => {
     const avatarImage = 'https://boxrec.com/images/thumb/8/83/1.jpeg/200px-1.jpeg'
     const key = `photos/${'cd'.repeat(32)}.jpg`
-    mockQueryBoxerProfile.mockResolvedValue({
-      boxer: d1Boxer({ avatarImage, photoKey: key }),
-      bouts: []
-    })
-    const withPhoto = renderToString(await BoxerPage(params('ana-alpha')))
-    expect(withPhoto).toContain(`src="/${key}"`)
-    expect(withPhoto).not.toContain('boxrec.com/images')
+    const profile = async (fields: Partial<BoxerProfile['boxer']>) => {
+      mockQueryBoxerProfile.mockResolvedValue({ boxer: d1Boxer(fields), bouts: [] })
+      return renderToString(await BoxerPage(params('ana-alpha')))
+    }
 
-    // Not copied yet, or failed: the placeholder, with no request anywhere.
-    mockQueryBoxerProfile.mockResolvedValue({ boxer: d1Boxer({ avatarImage }), bouts: [] })
-    render(await BoxerPage(params('ana-alpha')))
-    expect(screen.getByRole('img', { name: 'Ana Alpha' }).tagName).toBe('DIV')
-    expect(document.body.innerHTML).not.toContain('boxrec.com/images')
+    // Copied: from this site.
+    const copied = await profile({ avatarImage, photoKey: key })
+    expect(copied).toContain(`src="/${key}"`)
+    expect(copied).not.toContain('boxrec.com/images')
+
+    // Not copied yet, or the copy failed: the boxrec.com source, as before the copy existed.
+    const notCopied = await profile({ avatarImage })
+    expect(notCopied).toContain(`src="${avatarImage}"`)
+
+    // BoxRec's own placeholder: the site's placeholder, with no request anywhere.
+    const placeholder = 'https://boxrec.com/build/images/main/v6-avatar.svg'
+    const withoutPhoto = await profile({ avatarImage: placeholder })
+    expect(withoutPhoto).toContain('role="img" aria-label="Ana Alpha"')
+    expect(withoutPhoto).not.toContain('<img')
+    expect(withoutPhoto).not.toContain('boxrec.com/build')
   })
 
   it('puts every bout in the first HTML, not only after the page loads', async () => {

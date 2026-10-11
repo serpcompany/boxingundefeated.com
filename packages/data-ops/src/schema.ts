@@ -196,9 +196,10 @@ export const datasetState = sqliteTable(
 /**
  * The boxer photos copied into the environment's R2 photo bucket (#64): one row per source URL,
  * a boxer's `avatar_image`, with the key of its copy (`photos/<sha256>.<ext>`, photos.ts). Only
- * `pnpm db:copy-photos` writes it, after the object is in R2, so pages link only copied photos;
- * a boxer whose URL has no row shows the placeholder. Several URLs can share a key when their
- * bytes match. The importer never touches it, and a pruned boxer's row stays, as its object does.
+ * `pnpm db:copy-photos` writes it, after the object is in R2, so pages link only copied keys; a
+ * boxer whose URL has no row keeps the boxrec.com source (`boxerPhoto`, photos.ts). Several URLs
+ * can share a key when their bytes match. The importer never touches it, and a pruned boxer's
+ * row stays, as its object does.
  */
 export const photos = sqliteTable('photos', {
   sourceUrl: text('source_url').primaryKey(),

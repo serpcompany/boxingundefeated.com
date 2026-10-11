@@ -233,16 +233,18 @@ describe('queries against the migrated schema', () => {
   })
 
   describe('photos', () => {
-    it('gives every listing card its copied photo key, and never the source URL', async () => {
+    it('gives every listing card its copied photo key next to its source URL', async () => {
       const pages = [
         (await listBoxers(test.db))!.items,
         (await listBoxersByDivision(test.db, 'heavy'))!.items,
         (await getHomepageData(test.db)).featuredBoxers
       ]
       for (const items of pages) {
-        expect(items.find(item => item.slug === 'ana-alpha')?.photoKey).toBe(ANA_PHOTO_KEY)
-        expect(items.find(item => item.slug === 'bob-bravo')?.photoKey).toBeNull()
-        for (const item of items) expect(item).not.toHaveProperty('avatarImage')
+        const anaCard = items.find(item => item.slug === 'ana-alpha')
+        expect(anaCard).toMatchObject({ photoKey: ANA_PHOTO_KEY, avatarImage: ana.avatarImage })
+        // Not copied: no key, and the source URL, which the page shows until the copy runs.
+        const bobCard = items.find(item => item.slug === 'bob-bravo')
+        expect(bobCard).toMatchObject({ photoKey: null, avatarImage: bob.avatarImage })
       }
       const all = (await listBoxers(test.db))!.items
       expect(all.map(item => [item.slug, item.photoKey])).toEqual(

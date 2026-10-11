@@ -22,7 +22,10 @@ name: D1 import
 # record them in D1 (scripts/d1/copy-photos.ts): politely, for at most 35 minutes, resumably; a
 # run with nothing new copies nothing. The import's finish then moves the page cache to a new
 # generation, so pages render with the new photos. The counts go into the job summary. The
-# production bucket, like production D1, changes only here, after the owner's approval.
+# production bucket, like production D1, changes only here, after the owner's approval. The copy
+# never fails the job: a photo that isn't copied keeps its boxrec.com source on the page, so the
+# import goes on whatever BoxRec answers. A failed copy gets a warning and a FAILED line in the
+# summary, and the next run resumes it.
 #
 # Both refuse a D1 that lacks one of this commit's migrations: run it after the deploy of this
 # commit has migrated that environment. Both refuse while a ci.yml deploy of the environment runs
@@ -167,12 +170,30 @@ jobs:
         run: pnpm db:check-deployable -- --target staging --migrations-only
 
       # Needs the photos table (migration 0003), so after the check above. Writes the staging
-      # photo bucket and D1; stops cleanly at the budget, leaving the rest to the next run.
+      # photo bucket and D1; stops cleanly at the budget, leaving the rest to the next run. Never
+      # fatal (see the top): a failure or a hang past 45 minutes only warns, and the import goes on.
       - name: Copy new boxer photos into the staging photo bucket
+        id: copy-photos
+        continue-on-error: true
+        timeout-minutes: 45
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: pnpm db:copy-photos -- --target staging --source "$SOURCE" --max-minutes 35 --summary "$GITHUB_STEP_SUMMARY"
+
+      # Loud, but not fatal: the run goes on to the import.
+      - name: Report a failed photo copy
+        if: steps.copy-photos.outcome != 'success'
+        env:
+          OUTCOME: ${{ steps.copy-photos.outcome }}
+        run: |
+          echo "::warning title=Boxer photo copy failed::The photo copy into the staging photo bucket ended with '$OUTCOME'. The import goes on; photos not copied keep their boxrec.com source. The copy step's log has the cause; the next run resumes the copy."
+          {
+            echo "### Boxer photos, staging: the copy FAILED ($OUTCOME)"
+            echo
+            echo "The import went on without it: pages show the boxrec.com source of every photo D1 doesn't record yet. The copy step's log has the cause; dispatch this workflow again to resume the copy."
+            echo
+          } >> "$GITHUB_STEP_SUMMARY"
 
       # The copy can take a while: the tip once more, right before the import.
       - name: Require staging to still be at this run's commit after the photo copy
@@ -199,7 +220,8 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: pnpm db:check-deployable -- --target staging
 
-      # Reached only when every step above passed. The production preflight reads it.
+      # Reached only when every step above passed, the photo copy aside (it never blocks). The
+      # production preflight reads it.
       - name: Record the staging receipt for this version
         run: echo "$VERSION $GITHUB_SHA" > "$RUNNER_TEMP/imported.txt"
 
@@ -312,12 +334,29 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: pnpm db:check-deployable -- --target production --confirm-production --migrations-only
 
-      # As on staging, into the production photo bucket and D1.
+      # As on staging, into the production photo bucket and D1, and never fatal.
       - name: Copy new boxer photos into the production photo bucket
+        id: copy-photos
+        continue-on-error: true
+        timeout-minutes: 45
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: pnpm db:copy-photos -- --target production --confirm-production --source "$SOURCE" --max-minutes 35 --summary "$GITHUB_STEP_SUMMARY"
+
+      # Loud, but not fatal: the run goes on to the import.
+      - name: Report a failed photo copy
+        if: steps.copy-photos.outcome != 'success'
+        env:
+          OUTCOME: ${{ steps.copy-photos.outcome }}
+        run: |
+          echo "::warning title=Boxer photo copy failed::The photo copy into the production photo bucket ended with '$OUTCOME'. The import goes on; photos not copied keep their boxrec.com source. The copy step's log has the cause; the next run resumes the copy."
+          {
+            echo "### Boxer photos, production: the copy FAILED ($OUTCOME)"
+            echo
+            echo "The import went on without it: pages show the boxrec.com source of every photo D1 doesn't record yet. The copy step's log has the cause; dispatch this workflow again to resume the copy."
+            echo
+          } >> "$GITHUB_STEP_SUMMARY"
 
       - name: Require main to still be at this run's commit after the photo copy
         env:
