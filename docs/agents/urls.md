@@ -8,8 +8,8 @@ standard applies.
 ## Rules
 
 - Never change or drop a public URL without a permanent redirect, which the Worker serves
-  (`apps/web/lib/routing/`, `next.config.ts` redirects). Change URLs in `apps/web/lib/`, not in
-  individual pages.
+  (`apps/web/lib/routing/`, `next.config.ts` redirects), unless the owner retires it with a 410
+  ([Retired URLs](#retired-urls)). Change URLs in `apps/web/lib/`, not in individual pages.
 - Pages end in a trailing slash, files never do, and the homepage canonical is the origin without
   a slash. `lib/routing/trailing-slash.ts` holds the rules; the Worker redirects with them. The
   homepage renders its own canonical and `og:url`, so the root layout sets neither.
@@ -17,6 +17,16 @@ standard applies.
   keep their exact path.
 - Every file in `apps/web/public/` is served at the same path and needs its extension in
   `lib/routing/file-extensions.ts` (a test checks).
+
+## Retired URLs
+
+A section the owner removes without a replacement answers **410 Gone** instead of a redirect:
+`/blog` and `/brands`, each with every path under it (#59). `lib/routing/retired-paths.ts` holds
+the list; add later retirements there, and drop their links and sitemap entries. The Worker answers
+the 410 after staging's password and the canonical-host 308, and before the edge cache and the
+trailing-slash redirects: a small page with `noindex` and `Cache-Control: no-store`. On the
+production apex the shared brands Worker answers `/brands*` first until serpcompany/serp#1490 is
+deployed: `/brands` gets its 308 to `/brands/`, which passes the 410 through.
 
 ## The `/_next/static/` exception
 

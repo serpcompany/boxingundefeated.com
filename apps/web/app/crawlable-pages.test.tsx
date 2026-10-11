@@ -1,6 +1,5 @@
 import { render } from '@testing-library/react'
 import { getShopPosts } from '@/lib/shop-loader'
-import BrandsPage from './brands/page'
 import ShopPage from './shop/page'
 import ShopPaginatedPage from './shop/page/[page]/page'
 
@@ -21,32 +20,6 @@ describe('crawlable directory pages', () => {
     expect(document.querySelector('a[href="/shop/page/3/"]')).toBeInTheDocument()
   })
 
-  it('/brands renders noAdult brands alphabetically with dofollow external links', async () => {
-    render(await BrandsPage())
-
-    const names = Array.from(document.querySelectorAll('h2')).map(heading => heading.textContent)
-
-    expect(names).toEqual([...names].sort((a, b) => String(a).localeCompare(String(b))))
-
-    const boxingLink = document.querySelector(
-      'a[href="https://boxingundefeated.com"]'
-    ) as HTMLAnchorElement
-
-    expect(boxingLink).toBeInTheDocument()
-    expect(boxingLink).toHaveTextContent('https://boxingundefeated.com')
-    expect(boxingLink).toHaveAttribute('target', '_blank')
-    expect(boxingLink.getAttribute('rel')).not.toContain('nofollow')
-    expect(
-      document.querySelector('a[href="https://mindvalleyvideodownloader.com"]')
-    ).toBeInTheDocument()
-    expect(
-      document.querySelector('a[href="https://onlyfansvideodownloader.com"]')
-    ).not.toBeInTheDocument()
-    expect(
-      document.querySelector('a[href="https://pornhubvideodownloaderapp.com"]')
-    ).not.toBeInTheDocument()
-  })
-
   it('footer exposes sitemap and canonical division links', async () => {
     const { Footer } = await import('@/components/layout/footer')
     render(<Footer />)
@@ -54,7 +27,9 @@ describe('crawlable directory pages', () => {
     expect(document.querySelector('a[href="/sitemap/"]')).toBeInTheDocument()
     expect(document.querySelector('a[href="/divisions/"]')).toBeInTheDocument()
     expect(document.querySelector('a[href="/shop/"]')).toBeInTheDocument()
-    expect(document.querySelector('a[href="/brands/"]')).toBeInTheDocument()
+    // Retired with a 410 (lib/routing/retired-paths.ts); the DR badge below stays.
+    expect(document.querySelector('a[href^="/brands"]')).not.toBeInTheDocument()
+    expect(document.querySelector('a[href^="/blog"]')).not.toBeInTheDocument()
     expect(document.querySelector('a[href="/divisions/heavy/"]')).toBeInTheDocument()
     expect(document.querySelector('a[href="/boxers?division=heavy"]')).not.toBeInTheDocument()
 

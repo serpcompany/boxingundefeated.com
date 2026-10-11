@@ -24,8 +24,8 @@ const pages = [
   '/shop/best/1-inch-thick-yoga-mats/'
 ]
 const files = ['/sitemap-index.xml', '/sitemap-boxers.xml', '/ads.txt', '/api/search?q=ortiz']
-/** Redirects and a 404: none of them is answered before the password either. */
-const others = ['/about', '/robots.txt/', '/sitemap.xml', '/not-a-page/']
+/** Redirects, a 404 and a 410: none of them is answered before the password either. */
+const others = ['/about', '/robots.txt/', '/sitemap.xml', '/not-a-page/', '/blog']
 
 /** A request context without the suite's default smoke-test header. */
 async function withContext<T>(

@@ -1,10 +1,10 @@
-/* Blog Content Styles */
-.blog-content {
+/* The shop article body: the markdown rendered as HTML (app/[...slug]/page.tsx). */
+.article-content {
   color: var(--foreground);
   line-height: 1.6;
 }
 
-.blog-content h1 {
+.article-content h1 {
   font-size: 2.5rem;
   font-weight: 700;
   margin-bottom: 1.5rem;
@@ -12,7 +12,7 @@
   line-height: 1.2;
 }
 
-.blog-content h2 {
+.article-content h2 {
   font-size: 2rem;
   font-weight: 700;
   margin-bottom: 1rem;
@@ -20,7 +20,7 @@
   line-height: 1.3;
 }
 
-.blog-content h3 {
+.article-content h3 {
   font-size: 1.5rem;
   font-weight: 600;
   margin-bottom: 0.75rem;
@@ -28,7 +28,7 @@
   line-height: 1.4;
 }
 
-.blog-content h4 {
+.article-content h4 {
   font-size: 1.25rem;
   font-weight: 600;
   margin-bottom: 0.5rem;
@@ -36,7 +36,7 @@
   line-height: 1.4;
 }
 
-.blog-content h5 {
+.article-content h5 {
   font-size: 1.125rem;
   font-weight: 500;
   margin-bottom: 0.5rem;
@@ -44,7 +44,7 @@
   line-height: 1.5;
 }
 
-.blog-content h6 {
+.article-content h6 {
   font-size: 1rem;
   font-weight: 500;
   margin-bottom: 0.5rem;
@@ -52,34 +52,34 @@
   line-height: 1.5;
 }
 
-.blog-content p {
+.article-content p {
   margin-bottom: 1rem;
   line-height: 1.75;
 }
 
-.blog-content ul {
+.article-content ul {
   list-style-type: disc;
   list-style-position: inside;
   margin-bottom: 1rem;
 }
 
-.blog-content ul li {
+.article-content ul li {
   margin-bottom: 0.5rem;
   line-height: 1.75;
 }
 
-.blog-content ol {
+.article-content ol {
   list-style-type: decimal;
   list-style-position: inside;
   margin-bottom: 1rem;
 }
 
-.blog-content ol li {
+.article-content ol li {
   margin-bottom: 0.5rem;
   line-height: 1.75;
 }
 
-.blog-content blockquote {
+.article-content blockquote {
   border-left: 4px solid hsl(var(--muted-foreground) / 0.3);
   padding-left: 1rem;
   font-style: italic;
@@ -87,7 +87,7 @@
   color: hsl(var(--muted-foreground));
 }
 
-.blog-content pre {
+.article-content pre {
   background-color: hsl(var(--secondary));
   border-radius: 0.5rem;
   padding: 1rem;
@@ -95,7 +95,7 @@
   margin-bottom: 1rem;
 }
 
-.blog-content code {
+.article-content code {
   background-color: hsl(var(--secondary));
   padding: 0.125rem 0.25rem;
   border-radius: 0.25rem;
@@ -103,41 +103,41 @@
   font-family: "Courier New", Courier, monospace;
 }
 
-.blog-content pre code {
+.article-content pre code {
   background-color: transparent;
   padding: 0;
 }
 
-.blog-content a {
+.article-content a {
   color: hsl(var(--primary));
   text-decoration: underline;
   transition: text-decoration 0.2s;
 }
 
-.blog-content a:hover {
+.article-content a:hover {
   text-decoration: none;
 }
 
-.blog-content img {
+.article-content img {
   border-radius: 0.5rem;
   margin: 1.5rem 0;
   max-width: 100%;
   height: auto;
 }
 
-.blog-content hr {
+.article-content hr {
   border: none;
   border-top: 1px solid hsl(var(--border));
   margin: 2rem 0;
 }
 
-.blog-content table {
+.article-content table {
   width: 100%;
   border-collapse: collapse;
   margin-bottom: 1rem;
 }
 
-.blog-content th {
+.article-content th {
   border: 1px solid hsl(var(--border));
   background-color: hsl(var(--secondary));
   padding: 0.5rem 1rem;
@@ -145,15 +145,15 @@
   font-weight: 600;
 }
 
-.blog-content td {
+.article-content td {
   border: 1px solid hsl(var(--border));
   padding: 0.5rem 1rem;
 }
 
-.blog-content strong {
+.article-content strong {
   font-weight: 700;
 }
 
-.blog-content em {
+.article-content em {
   font-style: italic;
 }

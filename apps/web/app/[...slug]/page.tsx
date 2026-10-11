@@ -2,20 +2,19 @@ import { Breadcrumb } from '@boxingundefeated/design-system/breadcrumb'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import { getBlogPost, getBlogSlugs } from '@/lib/blog-loader'
 import { createMetaDescription } from '@/lib/metadata'
 import { decodePagePath, encodePath, routeKeyPath } from '@/lib/routing/non-ascii-paths'
 import { getShopPost, getShopSlugs } from '@/lib/shop-loader'
 import { getSiteOrigin, SITE_NAME } from '@/lib/site-config'
 import { normalizeInternalPath, toAbsoluteUrl } from '@/lib/url-utils'
-import '../blog/blog.css'
+import './article.css'
 
 // Articles are read from markdown with `fs` at build time, which the Worker can't do at request
 // time: every article is prerendered, and any other path is a 404.
 export const dynamicParams = false
 
 export async function generateStaticParams() {
-  const slugs = new Set([...(await getBlogSlugs()), ...(await getShopSlugs())])
+  const slugs = new Set(await getShopSlugs())
   // An article whose path has non-ASCII letters is prerendered at its ASCII route key as well,
   // which is the one the Worker can serve (lib/routing/non-ascii-paths.ts).
   const paths = Array.from(slugs).flatMap(slug => {
@@ -40,13 +39,7 @@ function pagePath(slug: string[]): string {
 }
 
 async function getPostBySlug(slug: string) {
-  const normalizedSlug = normalizeInternalPath(slug)
-
-  if (normalizedSlug.startsWith('/shop/')) {
-    return getShopPost(normalizedSlug)
-  }
-
-  return getBlogPost(normalizedSlug)
+  return getShopPost(normalizeInternalPath(slug))
 }
 
 export async function generateMetadata({
@@ -81,10 +74,9 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
   }
 
   const baseUrl = getSiteOrigin()
-  const isShopPost = post.slug.startsWith('/shop/')
   // The crumbs after Home: the Breadcrumb adds Home itself.
   const breadcrumbItems = [
-    isShopPost ? { name: 'Shop', href: '/shop/' } : { name: 'Blog', href: '/blog/' },
+    { name: 'Shop', href: '/shop/' },
     { name: post.title, href: encodePath(post.slug) }
   ]
 
@@ -130,11 +122,11 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         </div>
       )}
 
-      <div className="blog-content" dangerouslySetInnerHTML={{ __html: post.content || '' }} />
+      <div className="article-content" dangerouslySetInnerHTML={{ __html: post.content || '' }} />
 
       <footer className="mt-12 pt-8 border-t">
-        <Link href={isShopPost ? '/shop/' : '/blog/'} className="text-primary hover:underline">
-          ← Back to {isShopPost ? 'Shop' : 'Blog'}
+        <Link href="/shop/" className="text-primary hover:underline">
+          ← Back to Shop
         </Link>
       </footer>
     </article>

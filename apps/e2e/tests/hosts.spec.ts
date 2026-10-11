@@ -17,6 +17,8 @@ const redirects: Array<[string, string]> = [
   // A non-ASCII letter: NFD and without the slash, straight to the percent-encoded NFC page.
   ['/shop/best/bru%CC%88mate-water-bottles', '/shop/best/br%C3%BCmate-water-bottles/'],
   ['/robots.txt/', '/robots.txt'],
+  // A retired section: the canonical host first, which then answers 410 (tests/retired.spec.ts).
+  ['/blog', '/blog/'],
   // Old sitemap URLs go straight to the index, in one hop.
   ['/sitemap.xml', '/sitemap-index.xml'],
   ['/sitemaps/pages/1.xml/', '/sitemap-index.xml'],

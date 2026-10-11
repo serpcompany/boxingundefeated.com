@@ -15,6 +15,9 @@
  * 3. The environment's crawl policy (lib/worker/environment-policy.ts). It wraps the steps below,
  *    so a 503 or a page from the edge cache gets the same noindex header as a rendered page, and
  *    only a staging request that passed the password goes without it.
+ *    A retired section (lib/routing/retired-paths.ts: `/blog`, `/brands` and every path under
+ *    them) gets its 410 here, with its own noindex, before the edge cache and the trailing-slash
+ *    redirects, so `/blog` answers 410 without a hop and the 410 is never stored.
  *    A shop path with non-ASCII letters (lib/routing/non-ascii-paths.ts) in any spelling but the
  *    canonical one gets one 308 to it here; the canonical one is rendered from its route key.
  *    `/api/search` and `/api/search/` are answered here, by `runtime.searchApi`
@@ -41,6 +44,7 @@ import {
   SMOKE_TEST_HEADER
 } from '../routing/canonical-host'
 import { canonicalShopPathname, routeKeyPath } from '../routing/non-ascii-paths'
+import { retiredPathResponse } from '../routing/retired-paths'
 import {
   BUILD_COMMIT_HEADER,
   type BuildEnvironmentMismatch,
@@ -132,6 +136,8 @@ async function handle(
     return redirect
   }
   const answer = async (): Promise<Response> => {
+    const retired = retiredPathResponse(request)
+    if (retired) return retired
     const shopPage = shopPageRoute(request, serve)
     if (shopPage instanceof Response) return shopPage
     const route = shopPage ?? serve

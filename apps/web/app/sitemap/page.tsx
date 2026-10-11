@@ -42,10 +42,8 @@ export default async function HtmlSitemapPage() {
           { href: '/', label: 'Home' },
           { href: '/about/', label: 'About' },
           { href: '/search/', label: 'Search' },
-          { href: '/blog/', label: 'Blog' },
           { href: '/divisions/', label: 'Divisions' },
           { href: '/shop/', label: 'Shop' },
-          { href: '/brands/', label: 'Brands' },
           { href: '/privacy/', label: 'Privacy Policy' },
           { href: '/terms/', label: 'Terms of Service' },
           { href: '/sitemap/', label: 'Sitemap' }

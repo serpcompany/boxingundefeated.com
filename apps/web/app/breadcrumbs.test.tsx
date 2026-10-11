@@ -153,7 +153,7 @@ const article = (...slug: string[]) => ({ params: Promise.resolve({ slug }) })
 const page = (value: string) => ({ params: Promise.resolve({ page: value }) })
 
 // Every page family that renders the breadcrumb. The homepage, /about/, /sitemap/ and /search/
-// have none; /brands/ and /blog/ are being retired (#59).
+// have none.
 const pages: [string, () => Promise<ReactElement>, () => Promise<Metadata>, string[]][] = [
   [
     '/shop/best/kettlebells/',
