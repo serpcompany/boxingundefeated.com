@@ -22,14 +22,5 @@ export const PARITY_ALLOWLIST: AllowedDifference[] = [
     reason:
       'Intentional: the importer drops the `world` placeholder record, so the Worker answers 404 ' +
       '(#9, #33), and the sitemaps no longer list it (#15).'
-  },
-  ...['/shop/best/brümate-water-bottles/', '/shop/best/nestlé-water-bottles/'].map(path => ({
-    path,
-    field: 'status' as const,
-    actual: '404',
-    reason:
-      'Known broken: the Worker answers 404 for these non-ASCII slugs, and the sitemaps leave ' +
-      'them out. Before the cutover, GitHub Pages served the not-found page with a 200. ' +
-      'Serving these two articles is #53.'
-  }))
+  }
 ]

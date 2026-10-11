@@ -97,6 +97,56 @@ describe('handleWorkerRequest', () => {
   })
 })
 
+describe('handleWorkerRequest for a shop path with non-ASCII letters', () => {
+  const ORIGIN = 'https://boxingundefeated.com'
+  const PAGE = '/shop/best/br%C3%BCmate-water-bottles/'
+
+  it.each([
+    ['/shop/best/br%C3%BCmate-water-bottles', 'no slash'],
+    ['/shop/best/br%c3%bcmate-water-bottles/', 'lowercase hex, as workerd passes raw UTF-8 on'],
+    ['/shop/best/bru%CC%88mate-water-bottles/', 'NFD'],
+    ['/shop/best/bru%CC%88mate-water-bottles', 'NFD, no slash'],
+    ['/shop/best/br~C3~BCmate-water-bottles/', 'its route key']
+  ])('answers %s (%s) with one 308 to the canonical spelling', async path => {
+    for (const [env, robots] of [
+      [production, null],
+      [local, 'noindex']
+    ] as const) {
+      const serve = serveSpy()
+      const response = await handleWorkerRequest(new Request(`${ORIGIN}${path}?q=1`), env, serve)
+
+      expect(response.status).toBe(308)
+      expect(response.headers.get('location')).toBe(`${PAGE}?q=1`)
+      expect(response.headers.get('x-robots-tag')).toBe(robots)
+      expect(serve).not.toHaveBeenCalled()
+    }
+  })
+
+  it('renders the canonical spelling from its route key, query and headers kept', async () => {
+    const serve = serveSpy()
+    const response = await handleWorkerRequest(
+      new Request(`${ORIGIN}${PAGE}?_rsc=1`, { headers: { rsc: '1' } }),
+      production,
+      serve
+    )
+
+    expect(response.status).toBe(200)
+    expect(serve).toHaveBeenCalledTimes(1)
+    const [rendered] = serve.mock.calls[0] as unknown as [Request]
+    expect(rendered.url).toBe(`${ORIGIN}/shop/best/br~C3~BCmate-water-bottles/?_rsc=1`)
+    expect(rendered.headers.get('rsc')).toBe('1')
+  })
+
+  it('leaves ASCII shop paths to OpenNext as sent', async () => {
+    const serve = serveSpy()
+    const request = new Request(`${ORIGIN}/shop/best/fuelmate-water-bottles`)
+    const response = await handleWorkerRequest(request, production, serve)
+
+    expect(response.status).toBe(200)
+    expect(serve).toHaveBeenCalledWith(request)
+  })
+})
+
 describe('handleWorkerRequest with the edge cache', () => {
   const version = { CF_VERSION_METADATA: { id: 'version-1' } }
 
@@ -236,6 +286,21 @@ describe('handleWorkerRequest with the edge cache', () => {
       expect(edge.openCache).not.toHaveBeenCalled()
     }
   )
+
+  it('caches a shop page with non-ASCII letters under the URL requested, rendered from its route key', async () => {
+    const serve = pageSpy()
+    const { edge, first, second } = await fetchTwice(
+      'https://boxingundefeated.com/shop/best/nestl%C3%A9-water-bottles/',
+      production,
+      serve
+    )
+
+    expect(first.headers.get(EDGE_CACHE_HEADER)).toBe('MISS')
+    expect(second.headers.get(EDGE_CACHE_HEADER)).toBe('HIT')
+    expect(await second.text()).toBe('page /shop/best/nestl~C3~A9-water-bottles/')
+    expect(serve).toHaveBeenCalledTimes(1)
+    expect([...edge.cache.stored.keys()].join()).toContain('/shop/best/nestl%C3%A9-water-bottles/')
+  })
 
   it.each([
     [404, 'https://boxingundefeated.com/boxers/nobody/'],

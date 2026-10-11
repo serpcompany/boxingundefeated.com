@@ -39,8 +39,13 @@ function normalizeTags(tags: unknown): string[] {
   return []
 }
 
+/**
+ * The page path, decoded and in NFC. Two slugs have non-ASCII letters
+ * (`/shop/best/brümate-water-bottles/`), which canonicals and the sitemap percent-encode
+ * (lib/routing/non-ascii-paths.ts).
+ */
 function normalizeSlug(slug: string): string {
-  return normalizeInternalPath(slug)
+  return normalizeInternalPath(slug.normalize('NFC'))
 }
 
 export async function getShopPosts(): Promise<BlogPost[]> {

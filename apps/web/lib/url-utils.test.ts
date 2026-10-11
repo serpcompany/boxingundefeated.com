@@ -21,4 +21,12 @@ describe('internal path normalization', () => {
       'https://boxingundefeated.com/sitemap-index.xml'
     )
   })
+
+  it('percent-encodes non-ASCII letters in absolute URLs, in NFC', () => {
+    for (const path of ['/shop/best/brümate-water-bottles', '/shop/best/brümate-water-bottles/']) {
+      expect(toAbsoluteUrl('https://boxingundefeated.com', path)).toBe(
+        'https://boxingundefeated.com/shop/best/br%C3%BCmate-water-bottles/'
+      )
+    }
+  })
 })

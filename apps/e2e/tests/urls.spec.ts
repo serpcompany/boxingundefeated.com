@@ -29,6 +29,29 @@ test('a page without its slash answers 308 to the slashed page', async ({ reques
   await expectOneHop(request, '/search?q=ortiz', '/search/?q=ortiz')
 })
 
+test('a shop path with a non-ASCII letter answers one 308 to its percent-encoded NFC spelling', async ({
+  request
+}) => {
+  const page = '/shop/best/br%C3%BCmate-water-bottles/'
+  for (const from of [
+    '/shop/best/br%C3%BCmate-water-bottles',
+    // Lowercase hex, which is also how workerd passes raw UTF-8 on.
+    '/shop/best/br%c3%bcmate-water-bottles/',
+    // NFD: u and a combining diaeresis.
+    '/shop/best/bru%CC%88mate-water-bottles/',
+    '/shop/best/bru%CC%88mate-water-bottles',
+    // The ASCII route key the Worker renders the page from (lib/routing/non-ascii-paths.ts).
+    '/shop/best/br~C3~BCmate-water-bottles/'
+  ]) {
+    await expectOneHop(request, from, page)
+  }
+  await expectOneHop(
+    request,
+    '/shop/best/nestle%CC%81-water-bottles',
+    '/shop/best/nestl%C3%A9-water-bottles/'
+  )
+})
+
 test('a file with a slash answers 308 to the file', async ({ request }) => {
   await expectOneHop(request, '/robots.txt/', '/robots.txt')
   await expectOneHop(request, '/ads.txt/', '/ads.txt')

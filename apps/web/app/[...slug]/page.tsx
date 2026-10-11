@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { getBlogPost, getBlogSlugs } from '@/lib/blog-loader'
 import { createMetaDescription } from '@/lib/metadata'
+import { decodePagePath, encodePath, routeKeyPath } from '@/lib/routing/non-ascii-paths'
 import { getShopPost, getShopSlugs } from '@/lib/shop-loader'
 import { getSiteOrigin } from '@/lib/site-config'
 import { normalizeInternalPath, toAbsoluteUrl } from '@/lib/url-utils'
@@ -15,13 +16,27 @@ export const dynamicParams = false
 
 export async function generateStaticParams() {
   const slugs = new Set([...(await getBlogSlugs()), ...(await getShopSlugs())])
-  return Array.from(slugs).map(slug => {
+  // An article whose path has non-ASCII letters is prerendered at its ASCII route key as well,
+  // which is the one the Worker can serve (lib/routing/non-ascii-paths.ts).
+  const paths = Array.from(slugs).flatMap(slug => {
+    const routeKey = routeKeyPath(slug)
+    return routeKey === slug ? [slug] : [slug, routeKey]
+  })
+  return paths.map(path => {
     // Remove leading/trailing slashes and split
-    const cleanSlug = normalizeInternalPath(slug).replace(/^\/+|\/+$/g, '')
+    const cleanSlug = normalizeInternalPath(path).replace(/^\/+|\/+$/g, '')
     return {
       slug: cleanSlug.split('/')
     }
   })
+}
+
+/**
+ * The article path the route's segments stand for. Next.js passes non-ASCII letters
+ * percent-encoded, and a route key stands for its article.
+ */
+function pagePath(slug: string[]): string {
+  return normalizeInternalPath(decodePagePath(`/${slug.join('/')}`))
 }
 
 async function getPostBySlug(slug: string) {
@@ -40,8 +55,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string[] }>
 }): Promise<Metadata> {
   const { slug } = await params
-  const slugPath = normalizeInternalPath(`/${slug.join('/')}`)
-  const post = await getPostBySlug(slugPath)
+  const post = await getPostBySlug(pagePath(slug))
 
   if (!post) {
     return {
@@ -60,8 +74,7 @@ export async function generateMetadata({
 
 export default async function BlogPostPage({ params }: { params: Promise<{ slug: string[] }> }) {
   const { slug } = await params
-  const slugPath = normalizeInternalPath(`/${slug.join('/')}`)
-  const post = await getPostBySlug(slugPath)
+  const post = await getPostBySlug(pagePath(slug))
 
   if (!post) {
     notFound()
@@ -72,7 +85,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
   const breadcrumbItems = [
     { name: 'Home', href: '/' },
     isShopPost ? { name: 'Shop', href: '/shop/' } : { name: 'Blog', href: '/blog/' },
-    { name: post.title, href: post.slug }
+    { name: post.title, href: encodePath(post.slug) }
   ]
 
   return (

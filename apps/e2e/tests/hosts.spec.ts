@@ -13,6 +13,8 @@ const redirects: Array<[string, string]> = [
   ['/about', '/about/'],
   [boxer.path, boxer.path],
   ['/shop/best/2.7-l-water-bottles', '/shop/best/2.7-l-water-bottles/'],
+  // A non-ASCII letter: NFD and without the slash, straight to the percent-encoded NFC page.
+  ['/shop/best/bru%CC%88mate-water-bottles', '/shop/best/br%C3%BCmate-water-bottles/'],
   ['/robots.txt/', '/robots.txt'],
   // Old sitemap URLs go straight to the index, in one hop.
   ['/sitemap.xml', '/sitemap-index.xml'],

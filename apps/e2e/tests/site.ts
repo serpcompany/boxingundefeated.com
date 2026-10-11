@@ -29,6 +29,12 @@ export const samplePages: SamplePage[] = [
     path: '/shop/best/1-inch-thick-yoga-mats/',
     h1: '1 Inch Thick Yoga Mats'
   },
+  // Its slug has a non-ASCII letter: canonical, percent-encoded NFC (#53).
+  {
+    name: 'shop article with a non-ASCII slug',
+    path: '/shop/best/br%C3%BCmate-water-bottles/',
+    h1: 'BrüMate Water Bottles'
+  },
   { name: 'search', path: '/search/', h1: 'Search Boxers' }
 ]
 
