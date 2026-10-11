@@ -5,8 +5,7 @@ division listings, and an Amazon-affiliate shop. It runs as a Next.js OpenNext W
 Drizzle on Cloudflare (cut over from GitHub Pages on 2026-10-06, #19); the remaining plan lives in
 the pinned epic, serpcompany/boxingundefeated.com#3.
 
-The SERP-wide standards in
-[serpcompany/serp `docs/engineering/standards/`](https://github.com/serpcompany/serp/tree/main/docs/engineering/standards)
+The SERP-wide [standards](https://github.com/serpcompany/serp/tree/main/docs/engineering/standards)
 apply here unless [Exceptions](#exceptions) declares otherwise. Use this file as a map: read only
 what the task needs, then verify against the code.
 
@@ -35,8 +34,7 @@ Planned: Ship (agents merge listed paths) once round 2 of #3 is done (owner, 202
   - `content/`: markdown shop articles. The legal pages are TSX in `app/(legal)/`.
   - `public/`: files served at the same path ([urls.md](docs/agents/urls.md)).
   - `scripts/`: `build:worker` steps: the build's environment and commit
-    (`write-build-environment.ts`) and the shop's sitemap entries from `content/`
-    (`write-sitemap-content.ts`).
+    (`write-build-environment.ts`) and the shop's sitemap entries (`write-sitemap-content.ts`).
   - `wrangler.jsonc`, `open-next.config.ts`, `worker.ts`, `lib/worker/`: the Worker. Its request
     pipeline and build, preview, E2E, parity and link commands: [worker.md](docs/agents/worker.md).
 - `d1/`: `drizzle/` migrations, `fixtures/`, `reports/`. [d1.md](docs/agents/d1.md): the boxer data
@@ -113,3 +111,6 @@ Deliberate divergences from the SERP standards. They are not gaps; don't fix the
   links): the owner chose "Keep as-is".
 - **`/_next/static/` skips the canonical-host redirect**: `www` and `*.workers.dev` answer hashed
   build output with 200, to save an invocation per chunk ([urls.md](docs/agents/urls.md)).
+- **Cloudflare Web Analytics is injected by Cloudflare, not by code** ("Enable, excluding visitor
+  data in the EU"; a code beacon would double-count): the owner chose "Keep Cloudflare's setting,
+  drop #72's beacon" (#61). Staging is password-gated, so injection there reaches only the team.
