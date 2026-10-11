@@ -1,6 +1,12 @@
 import { Button } from '@boxingundefeated/design-system/button'
+import type { Metadata } from 'next'
 import Link from 'next/link'
+import { createNotFoundMetadata } from '@/lib/metadata'
 import { getRoute } from '@/lib/routes'
+
+// The title of every 404's first HTML: an unmatched URL, and a page that calls `notFound()`, whose
+// body the Worker replaces with this page's (lib/worker/not-found-page.ts).
+export const metadata: Metadata = createNotFoundMetadata()
 
 export default async function NotFound() {
   return (

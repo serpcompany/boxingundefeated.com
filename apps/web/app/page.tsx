@@ -6,7 +6,8 @@ import Link from 'next/link'
 import { JsonLd } from '@/components/json-ld'
 import { OptimizedImage } from '@/components/optimized-image'
 import { getHomepage } from '@/lib/boxer-data'
-import { getSiteOrigin } from '@/lib/site-config'
+import { createDocumentMetadata } from '@/lib/metadata'
+import { getSiteOrigin, SITE_NAME } from '@/lib/site-config'
 
 /**
  * The homepage's canonical URL is the bare origin (`https://boxingundefeated.com`, SERP URL
@@ -15,28 +16,13 @@ import { getSiteOrigin } from '@/lib/site-config'
  * and the page renders both tags itself; React hoists them into `<head>`.
  */
 export function generateMetadata(): Metadata {
-  const origin = getSiteOrigin()
-
-  return {
-    title: 'Boxing Undefeated - Professional Boxers Database',
+  const metadata = createDocumentMetadata({
+    title: `${SITE_NAME} - Professional Boxers Database`,
     description:
-      'Explore our comprehensive database of professional boxers. Find boxer statistics, records, and fight history.',
-    openGraph: {
-      title: 'Boxing Undefeated - Professional Boxers Database',
-      description:
-        'Explore our comprehensive database of professional boxers. Find boxer statistics, records, and fight history.',
-      siteName: 'Boxing Undefeated',
-      images: [
-        {
-          url: `${origin}/opengraph-image.png`,
-          width: 1200,
-          height: 630
-        }
-      ],
-      locale: 'en_US',
-      type: 'website'
-    }
-  }
+      'Explore our comprehensive database of professional boxers. Find boxer statistics, records, and fight history.'
+  })
+
+  return { ...metadata, openGraph: { ...metadata.openGraph, locale: 'en_US' } }
 }
 
 export default async function Home() {
@@ -54,7 +40,7 @@ export default async function Home() {
         data={{
           '@context': 'https://schema.org',
           '@type': 'WebSite',
-          name: 'Boxing Undefeated',
+          name: SITE_NAME,
           url: origin,
           description:
             'Comprehensive database of professional boxers with statistics, records, and fight history.'
@@ -63,7 +49,7 @@ export default async function Home() {
       <div className="max-w-6xl mx-auto px-4 py-8 space-y-16">
         {/* Hero Section */}
         <section className="text-center space-y-6">
-          <h1 className="text-5xl font-bold tracking-tight">Boxing Undefeated</h1>
+          <h1 className="text-5xl font-bold tracking-tight">{SITE_NAME}</h1>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
             Explore comprehensive records and statistics for {totalBoxers.toLocaleString()}{' '}
             professional boxers from around the world.

@@ -1,14 +1,15 @@
 import { Breadcrumb } from '@boxingundefeated/design-system/breadcrumb'
 import type { Metadata } from 'next'
+import { createPageMetadata } from '@/lib/metadata'
 import { getSiteOrigin, SITE_NAME } from '@/lib/site-config'
 import { legalTypography } from '../legal-typography'
 
-export const metadata: Metadata = {
-  title: `Terms of Service - ${SITE_NAME}`,
+export const metadata: Metadata = createPageMetadata({
+  title: 'Terms of Service',
   description: `Terms of service for the ${SITE_NAME} website.`,
   // Resolved against the root layout's metadataBase, the environment's origin.
-  alternates: { canonical: '/terms/' }
-}
+  canonical: '/terms/'
+})
 
 export default function TermsOfServicePage() {
   const breadcrumbItems = [{ name: 'Terms of Service', href: '/terms/' }]

@@ -4,7 +4,8 @@ import { notFound } from 'next/navigation'
 import { BoxersDirectoryList } from '@/components/boxers-directory-list'
 import { getDivisionPage } from '@/lib/boxer-data'
 import { getDivisionPageHref } from '@/lib/directory-pagination'
-import { getSiteOrigin, SITE_NAME } from '@/lib/site-config'
+import { createNotFoundMetadata, createPageMetadata } from '@/lib/metadata'
+import { getSiteOrigin } from '@/lib/site-config'
 
 export async function generateMetadata({
   params
@@ -15,20 +16,16 @@ export async function generateMetadata({
   const page = await getDivisionPage(division, 1)
 
   if (!page) {
-    return {
-      title: 'Division Not Found'
-    }
+    return createNotFoundMetadata()
   }
 
   const { name } = page.division
 
-  return {
-    title: `${name} Boxers - ${SITE_NAME}`,
+  return createPageMetadata({
+    title: `${name} Boxers`,
     description: `Browse professional ${name.toLowerCase()} boxers with statistics and fight records.`,
-    alternates: {
-      canonical: `${getSiteOrigin()}${getDivisionPageHref(division, 1)}`
-    }
-  }
+    canonical: `${getSiteOrigin()}${getDivisionPageHref(division, 1)}`
+  })
 }
 
 export default async function DivisionPage({ params }: { params: Promise<{ division: string }> }) {

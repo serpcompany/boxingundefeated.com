@@ -6,8 +6,9 @@ import {
   getDivisionPageHref,
   getPaginationPages
 } from '@/lib/directory-pagination'
+import { createPageMetadata } from '@/lib/metadata'
 import { getShopPageHref, getShopPostCount, SHOP_PAGE_SIZE } from '@/lib/shop-loader'
-import { getSiteOrigin } from '@/lib/site-config'
+import { getSiteOrigin, SITE_NAME } from '@/lib/site-config'
 import { SITEMAP_GROUPS, SITEMAP_INDEX_PATH, sitemapFilePath } from '@/lib/sitemaps/sitemaps'
 
 const SITEMAP_LABELS = {
@@ -18,13 +19,11 @@ const SITEMAP_LABELS = {
 } as const
 
 export async function generateMetadata(): Promise<Metadata> {
-  return {
+  return createPageMetadata({
     title: 'HTML Sitemap',
-    description: 'Browse all crawlable pages on Boxing Undefeated.',
-    alternates: {
-      canonical: `${getSiteOrigin()}/sitemap/`
-    }
-  }
+    description: `Browse all crawlable pages on ${SITE_NAME}.`,
+    canonical: `${getSiteOrigin()}/sitemap/`
+  })
 }
 
 export default async function HtmlSitemapPage() {

@@ -22,6 +22,7 @@ jest.mock('@boxingundefeated/data-ops', () => ({
   getBoxerProfile: (db: unknown, slug: string) => mockQueryBoxerProfile(db, slug)
 }))
 
+import { createNotFoundMetadata } from '@/lib/metadata'
 import BoxerPage, { generateMetadata } from './page'
 
 const params = (slug: string) => ({ params: Promise.resolve({ slug }) })
@@ -163,20 +164,31 @@ describe('boxer profile page', () => {
     })
     const metadata = await generateMetadata(params('ana-alpha'))
 
-    expect(metadata.title).toBe('Ana Alpha - Professional Boxer')
+    expect(metadata.title).toBe('Ana Alpha Record, Stats & Fights - Boxing Undefeated')
     expect(metadata.description).toBe(
       'Professional boxing record and statistics for Ana Alpha. <p>Southpaw.</p>'
     )
     expect(metadata.alternates?.canonical).toBe('http://localhost:8787/boxers/ana-alpha/')
   })
 
+  it('titles a long name without the site name, and never cuts the name', async () => {
+    const name = 'Carlos Antonio Rodriguez Moreno'
+    mockQueryBoxerProfile.mockResolvedValue({
+      boxer: d1Boxer({ slug: 'carlos-antonio-rodriguez-moreno', name }),
+      bouts: []
+    })
+    const metadata = await generateMetadata(params('carlos-antonio-rodriguez-moreno'))
+
+    expect(metadata.title).toBe(`${name} Record, Stats & Fights`)
+    expect(metadata.openGraph?.title).toBe(metadata.title)
+    expect(metadata.twitter?.title).toBe(metadata.title)
+  })
+
   it('is a 404 for a slug D1 does not have', async () => {
     mockQueryBoxerProfile.mockResolvedValue(null)
 
     await expect(BoxerPage(params('world'))).rejects.toThrow('NEXT_HTTP_ERROR_FALLBACK;404')
-    await expect(generateMetadata(params('world'))).resolves.toEqual({
-      title: 'Boxer Not Found'
-    })
+    await expect(generateMetadata(params('world'))).resolves.toEqual(createNotFoundMetadata())
   })
 
   it('fails closed without the DB binding', async () => {

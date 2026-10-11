@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation'
 import { BoxersDirectoryList } from '@/components/boxers-directory-list'
 import { getDivisionPage } from '@/lib/boxer-data'
 import { getDivisionPageHref, parsePageNumber } from '@/lib/directory-pagination'
+import { createNotFoundMetadata, createPageMetadata } from '@/lib/metadata'
 import { getSiteOrigin } from '@/lib/site-config'
 
 /**
@@ -24,21 +25,17 @@ export async function generateMetadata({
   const listing = await getListing(division, pageParam)
 
   if (!listing) {
-    return {
-      title: 'Division Not Found'
-    }
+    return createNotFoundMetadata()
   }
 
   const page = listing.currentPage
   const { name } = listing.division
 
-  return {
+  return createPageMetadata({
     title: `${name} Boxers - Page ${page}`,
     description: `Browse page ${page} of professional ${name.toLowerCase()} boxers.`,
-    alternates: {
-      canonical: `${getSiteOrigin()}${getDivisionPageHref(division, page)}`
-    }
-  }
+    canonical: `${getSiteOrigin()}${getDivisionPageHref(division, page)}`
+  })
 }
 
 export default async function DivisionPaginatedPage({

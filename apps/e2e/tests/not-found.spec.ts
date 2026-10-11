@@ -9,6 +9,8 @@ import { target } from './site'
  * only JavaScript fills in. An unmatched URL gets the same page from Next.js itself.
  */
 const NOT_FOUND_H1 = 'Page Not Found'
+/** The title of every 404, og:title and twitter:title too (apps/web/app/not-found.tsx). */
+const NOT_FOUND_TITLE = 'Page Not Found - Boxing Undefeated'
 const unknownD1Pages = [
   '/boxers/no-such-boxer-e2e/',
   '/boxers/page/99999/',
@@ -35,6 +37,9 @@ for (const path of [...unknownD1Pages, '/no-such-page-e2e/']) {
       const html = await response.text()
       const facts = pageFacts(html)
       expect(facts.h1, `${attempt} <h1>`).toBe(NOT_FOUND_H1)
+      expect(facts.title, `${attempt} <title>`).toBe(NOT_FOUND_TITLE)
+      expect(facts.ogTitle, `${attempt} og:title`).toBe(NOT_FOUND_TITLE)
+      expect(facts.twitterTitle, `${attempt} twitter:title`).toBe(NOT_FOUND_TITLE)
       expect(html).not.toContain('id="__next_error__"')
       expect(isNoindex(facts.robots), `<meta name="robots" content="${facts.robots}">`).toBe(true)
     }
@@ -77,6 +82,8 @@ test.describe('in a browser', () => {
     }, unknownBoxer)
 
     await expect(page.getByRole('heading', { level: 1, name: NOT_FOUND_H1 })).toBeVisible()
+    // The page's own not-found metadata, the same as the first HTML's (apps/web/lib/metadata.ts).
+    await expect(page).toHaveTitle(NOT_FOUND_TITLE)
     expect(new URL(page.url()).pathname).toBe(unknownBoxer)
     expect(documents, 'no full page load').toEqual([])
   })

@@ -11,6 +11,10 @@ export interface PageFacts {
   /** How many `<link rel="canonical">` the page has; exactly one is right. */
   canonicalCount: number
   ogUrl: string | null
+  /** `<meta property="og:title">` content: a share's title, the document title (#87). */
+  ogTitle: string | null
+  /** `<meta name="twitter:title">` content, the document title as well. */
+  twitterTitle: string | null
   /** The text of the first `<h1>`, tags removed and whitespace collapsed. */
   h1: string | null
   /** `<meta name="robots">` content, or null when the page has none. */
@@ -66,7 +70,9 @@ export function pageFacts(html: string): PageFacts {
   const canonicals = tags(document, 'link').filter(tag =>
     /^canonical$/i.test(attribute(tag, 'rel') ?? '')
   )
-  const ogUrl = tags(document, 'meta').find(tag => attribute(tag, 'property') === 'og:url')
+  const meta = (key: string, value: string) =>
+    tags(document, 'meta').find(tag => attribute(tag, key) === value)
+  const content = (tag: string | undefined) => (tag ? attribute(tag, 'content') : null)
   const robots = tags(document, 'meta').find(tag => /^robots$/i.test(attribute(tag, 'name') ?? ''))
   const h1 = /<h1\b[^>]*>([\s\S]*?)<\/h1>/i.exec(document)
 
@@ -74,7 +80,9 @@ export function pageFacts(html: string): PageFacts {
     title: title ? text(title[1]) : null,
     canonical: canonicals[0] ? attribute(canonicals[0], 'href') : null,
     canonicalCount: canonicals.length,
-    ogUrl: ogUrl ? attribute(ogUrl, 'content') : null,
+    ogUrl: content(meta('property', 'og:url')),
+    ogTitle: content(meta('property', 'og:title')),
+    twitterTitle: content(meta('name', 'twitter:title')),
     h1: h1 ? text(h1[1]) : null,
     robots: robots ? attribute(robots, 'content') : null
   }

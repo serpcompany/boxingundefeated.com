@@ -50,3 +50,27 @@ export const samplePages: SamplePage[] = [
 export function canonicalUrl(path: string): string {
   return path === '/' ? target.canonicalOrigin : `${target.canonicalOrigin}${path}`
 }
+
+/**
+ * The document title of each sample page, which og:title and twitter:title repeat (#87). The shop's
+ * pages have none here: the shop is being retired with a 410 in its own PR.
+ */
+export const sampleTitles: Record<string, string> = {
+  '/': 'Boxing Undefeated - Professional Boxers Database',
+  [boxer.path]: 'Manuel Ortiz Record, Stats & Fights - Boxing Undefeated',
+  '/boxers/': 'Boxers Directory - Boxing Undefeated',
+  '/divisions/heavy/': 'Heavyweight Boxers - Boxing Undefeated',
+  '/search/': 'Search Boxers - Boxing Undefeated'
+}
+
+/**
+ * Boxer profiles on either side of the 60-character limit past which a profile's title drops the
+ * site name (apps/web/lib/metadata.ts). Both are in the fixture too.
+ */
+export const boxerTitleLimitSamples: Array<{ path: string; title: string }> = [
+  {
+    path: '/boxers/jonathan-gonzalez/',
+    title: 'Jonathan Gonzalez Record, Stats & Fights - Boxing Undefeated'
+  },
+  { path: '/boxers/demetrius-williams/', title: 'Demetrius Williams Record, Stats & Fights' }
+]

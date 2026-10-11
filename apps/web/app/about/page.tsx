@@ -1,14 +1,15 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@boxingundefeated/design-system/card'
 import { Target, TrendingUp, Trophy, Users } from 'lucide-react'
 import type { Metadata } from 'next'
+import { createPageMetadata } from '@/lib/metadata'
 import { SITE_NAME } from '@/lib/site-config'
 
-export const metadata: Metadata = {
-  title: `About - ${SITE_NAME}`,
+export const metadata: Metadata = createPageMetadata({
+  title: 'About',
   description: `Learn about ${SITE_NAME}, the comprehensive boxing database.`,
   // Resolved against the root layout's metadataBase, the environment's origin.
-  alternates: { canonical: '/about/' }
-}
+  canonical: '/about/'
+})
 
 export default function AboutPage() {
   return (

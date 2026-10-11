@@ -1,14 +1,15 @@
 import { Breadcrumb } from '@boxingundefeated/design-system/breadcrumb'
 import type { Metadata } from 'next'
+import { createPageMetadata } from '@/lib/metadata'
 import { getSiteOrigin, SITE_NAME } from '@/lib/site-config'
 import { legalTypography } from '../legal-typography'
 
-export const metadata: Metadata = {
-  title: `Privacy Policy - ${SITE_NAME}`,
+export const metadata: Metadata = createPageMetadata({
+  title: 'Privacy Policy',
   description: `Privacy policy for the ${SITE_NAME} website.`,
   // Resolved against the root layout's metadataBase, the environment's origin.
-  alternates: { canonical: '/privacy/' }
-}
+  canonical: '/privacy/'
+})
 
 export default function PrivacyPolicyPage() {
   const breadcrumbItems = [{ name: 'Privacy Policy', href: '/privacy/' }]
