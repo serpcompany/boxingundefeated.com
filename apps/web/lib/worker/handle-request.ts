@@ -10,6 +10,8 @@
  *    (lib/routing/canonical-host.ts). Requests with the smoke-test header are exempt.
  * 2. The environment's crawl policy (lib/worker/environment-policy.ts). It wraps the steps below,
  *    so a 503 or a page from the edge cache gets the same noindex header as a rendered page.
+ *    A shop path with non-ASCII letters (lib/routing/non-ascii-paths.ts) in any spelling but the
+ *    canonical one gets one 308 to it here; the canonical one is rendered from its route key.
  *    `/api/search` and `/api/search/` are answered here, by `runtime.searchApi`
  *    (lib/worker/search-api.ts), and the XML sitemaps (`/sitemap-index.xml`, `/sitemap-*.xml`,
  *    and the old `/sitemap.xml` and `/sitemaps/*` URLs) by `runtime.sitemaps`
@@ -31,6 +33,7 @@ import {
   canonicalHostRedirect,
   SMOKE_TEST_HEADER
 } from '../routing/canonical-host'
+import { canonicalShopPathname, routeKeyPath } from '../routing/non-ascii-paths'
 import {
   BUILD_COMMIT_HEADER,
   type BuildEnvironmentMismatch,
@@ -113,6 +116,9 @@ function handle(
     return Promise.resolve(redirect)
   }
   return withEnvironmentPolicy(request, env, async () => {
+    const shopPage = shopPageRoute(request, serve)
+    if (shopPage instanceof Response) return shopPage
+    const render = shopPage ?? serve
     if (runtime.searchApi && isSearchApiRequest(request)) return runtime.searchApi(request)
     if (runtime.sitemaps && isSitemapRequest(request)) return runtime.sitemaps(request)
     let dataGeneration: string | undefined
@@ -139,7 +145,7 @@ function handle(
       dataGeneration = readiness.generation
       store = !readiness.importing
     }
-    if (!runtime.edgeCache) return serve(request)
+    if (!runtime.edgeCache) return render(request)
     return withEdgeCache(
       request,
       runtime.edgeCache.context,
@@ -150,7 +156,29 @@ function handle(
         store,
         observe: runtime.log
       },
-      serve
+      render
     )
   })
+}
+
+/**
+ * For a shop path with non-ASCII letters (lib/routing/non-ascii-paths.ts): a 308 to its canonical
+ * spelling, or, for the canonical spelling, how to render it: OpenNext gets the page's route key,
+ * while the edge cache keeps the URL that was requested. Null for every other path.
+ */
+function shopPageRoute(
+  request: Request,
+  serve: (request: Request) => Promise<Response>
+): Response | ((page: Request) => Promise<Response>) | null {
+  const { pathname, search } = new URL(request.url)
+  const canonical = canonicalShopPathname(pathname)
+  if (canonical === null) return null
+  if (canonical !== pathname) {
+    return new Response(null, { status: 308, headers: { location: `${canonical}${search}` } })
+  }
+  return page => {
+    const url = new URL(page.url)
+    url.pathname = routeKeyPath(canonical)
+    return serve(new Request(url, page))
+  }
 }

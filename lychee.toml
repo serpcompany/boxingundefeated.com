@@ -20,8 +20,4 @@ exclude = [
   # Only the preview's own URLs: every host with a dot in its name is excluded, so no third-party
   # site, and not the production origin that canonicals and JSON-LD name.
   '^https?://[^/:]*\.',
-  # Known broken: the two shop articles with non-ASCII slugs 404 on the Worker (#53). The shop
-  # listing pages link them; the sitemaps leave them out (isServedShopPath, lib/sitemaps/content.ts).
-  # Remove this once they are served.
-  '^http://localhost:\d+/shop/best/(nestl%C3%A9|br%C3%BCmate)-water-bottles/$',
 ]

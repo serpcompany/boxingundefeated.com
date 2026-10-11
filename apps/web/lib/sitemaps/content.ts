@@ -6,38 +6,33 @@
  * the Worker bundle never imports this file.
  */
 import { getPaginationPages } from '../directory-pagination'
+import { encodePath } from '../routing/non-ascii-paths'
 import { getShopPageHref, SHOP_PAGE_SIZE } from '../shop-loader'
 import { lastmodDate, latestDate, type SitemapContent, type SitemapEntry } from './sitemaps'
 
 /** A shop article as `getShopPosts()` (lib/shop-loader.ts) returns it. */
 export interface ShopPostSummary {
-  /** The canonical path, `/shop/best/<slug>/`. */
+  /** The canonical path, `/shop/best/<slug>/`, decoded. */
   slug: string
   /** `publishDate` from the frontmatter. */
   date: string
 }
 
 /**
- * Only printable ASCII paths. The Worker answers 404 for the two articles whose slugs have
- * non-ASCII letters (`brümate-water-bottles`, `nestlé-water-bottles`; apps/e2e parity allowlist),
- * so a sitemap must not list them until they are served.
+ * The shop group: `/shop/` and its pages as the shop paginates them, then every article. A path
+ * with non-ASCII letters is listed in its canonical spelling, percent-encoded NFC
+ * (`/shop/best/br%C3%BCmate-water-bottles/`, lib/routing/non-ascii-paths.ts).
  */
-export function isServedShopPath(path: string): boolean {
-  return /^\/shop\/[\x21-\x7e]*$/.test(path)
-}
-
-/** The shop group: `/shop/` and its pages as the shop paginates them, then every served article. */
 export function shopSitemapEntries(
   posts: ShopPostSummary[],
   pageSize = SHOP_PAGE_SIZE
 ): SitemapContent {
-  const articles: SitemapEntry[] = posts
-    .filter(post => isServedShopPath(post.slug))
-    .map(post => {
-      const lastmod = lastmodDate(post.date)
-      return lastmod ? { path: post.slug, lastmod } : { path: post.slug }
-    })
-  // Every article, served or not, takes a place on the listing, which changes when one is added.
+  const articles: SitemapEntry[] = posts.map(post => {
+    const path = encodePath(post.slug)
+    const lastmod = lastmodDate(post.date)
+    return lastmod ? { path, lastmod } : { path }
+  })
+  // Every article takes a place on the listing, which changes when one is added.
   const newest = latestDate(posts.map(post => lastmodDate(post.date)))
   const listings: SitemapEntry[] = getPaginationPages(posts.length, pageSize).map(page => {
     const path = getShopPageHref(page)
