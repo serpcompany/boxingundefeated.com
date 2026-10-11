@@ -27,7 +27,7 @@ DNS changes. Rules, auto-merge included:
 ## Where things live
 
 - `apps/web/`: the Next.js app (App Router). Read the parts below before changing pages.
-  - `app/`: boxers, divisions, shop, search, brands, legal and HTML sitemap pages. `[...slug]`
+  - `app/`: boxers, divisions, shop, search, legal and HTML sitemap pages. `[...slug]`
     renders shop articles at `/shop/best/<slug>/`.
   - `lib/`: data loaders, URL, metadata, route and XML sitemap (`sitemaps/`) helpers. Pages read
     boxers only through `lib/boxer-data/`, which reads D1 on request via the server-only,
@@ -107,10 +107,9 @@ Deliberate divergences from the SERP standards. They are not gaps; don't fix the
 - **Shared packages, Turbo, `apps/e2e` and no `src/`**: the owner chose "Exceptions + Vitest".
 - **No Sentry**: the owner said "no sentry"; errors are read in Workers Logs (`observability` in
   each deployed environment of `wrangler.jsonc`).
-- **`/brands/` is rendered by this app** from repo data; the owner said
-  "brands comes into th eproject. no shared worker". The shared brands Worker keeps serving
-  production `/brands/` until a serpcompany/serp PR removes its route, which merges only after the
-  in-app page (#60) is live in production (#66 H5).
+- **No `/brands/` page** (the brands-page standard asks for one and a footer link); the owner said
+  "actually lets just remove the brands page." `/brands/` answers 410 (#59); serpcompany/serp#1490
+  removes the shared Worker's route once the 410 is live in production (#66 H5).
 - **Shop affiliate links stay as they are** (no disclosure, no `rel` change on the `serp.ly`
   links): the owner chose "Keep as-is".
 - **`/_next/static/` skips the canonical-host redirect**: `www` and `*.workers.dev` answer hashed
