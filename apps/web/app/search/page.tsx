@@ -6,6 +6,7 @@ import { Input } from '@boxingundefeated/design-system/input'
 import { Search } from 'lucide-react'
 import Link from 'next/link'
 import { useState } from 'react'
+import { formatNickname } from '@/lib/boxer-data/display'
 import { type SearchResult, searchResultHref } from '@/lib/search/contract'
 import { searchApi } from '@/lib/search/sources'
 import { type BoxerSearchState, useBoxerSearch } from '@/lib/search/use-boxer-search'
@@ -100,6 +101,7 @@ function SearchResults({ state }: { state: BoxerSearchState }) {
 }
 
 function SearchResultCard({ boxer }: { boxer: SearchResult }) {
+  const nickname = formatNickname(boxer.nicknames)
   return (
     <Card className="hover:shadow-lg transition-shadow">
       <CardHeader>
@@ -107,10 +109,8 @@ function SearchResultCard({ boxer }: { boxer: SearchResult }) {
           <Link href={searchResultHref(boxer)} className="hover:underline">
             {boxer.name}
           </Link>
-          {boxer.nicknames && (
-            <span className="block text-sm font-normal text-muted-foreground">
-              {boxer.nicknames}
-            </span>
+          {nickname && (
+            <span className="block text-sm font-normal text-muted-foreground">{nickname}</span>
           )}
         </CardTitle>
       </CardHeader>

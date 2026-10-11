@@ -68,6 +68,30 @@ describe('search page', () => {
     expect(screen.getByText('50-0-0')).toBeInTheDocument()
   })
 
+  it('shows each nickname in one pair of quotes, however the data quotes it', async () => {
+    const result = floyd.results[0]
+    fetchMock.mockResolvedValue(
+      json({
+        ...floyd,
+        results: [
+          { ...result, nicknames: '"\'The Sensation\'"' },
+          {
+            ...result,
+            slug: 'danny-rodriguez',
+            name: 'Danny Rodriguez',
+            nicknames: '"\\"Reinito\\""'
+          }
+        ]
+      })
+    )
+    render(<SearchPage />)
+    await type('Floyd')
+    await settle()
+
+    expect(await screen.findByText('"The Sensation"')).toBeInTheDocument()
+    expect(screen.getByText('"Reinito"')).toBeInTheDocument()
+  })
+
   it('says when nothing matches', async () => {
     fetchMock.mockResolvedValue(json({ query: 'zzz', results: [], truncated: false }))
     render(<SearchPage />)

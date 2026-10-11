@@ -5,9 +5,8 @@ import { readFileSync } from 'node:fs'
 import { join } from 'node:path'
 
 // The fight history (fight-history.tsx) writes each result as text on the card in its result
-// color, and "Title Fight" in the badge's foreground on its background. WCAG AA asks 4.5:1 of
-// text this size in both themes (#75). The colors are HSL triples in the design system's
-// stylesheet: `:root` is the light theme, and `.dark` overrides some of them.
+// color. WCAG AA asks 4.5:1 of text this size in both themes (#75). The colors are HSL triples in
+// the design system's stylesheet: `:root` is the light theme, and `.dark` overrides some of them.
 const STYLESHEET = join(__dirname, '../../../packages/design-system/styles/globals.css')
 const AA_TEXT = 4.5
 
@@ -54,8 +53,7 @@ const themes = { light, dark: { ...light, ...tokens(css, '.dark') } }
 const pairs: [string, string][] = [
   ['win', 'card'],
   ['loss', 'card'],
-  ['draw', 'card'],
-  ['title-fight-foreground', 'title-fight']
+  ['draw', 'card']
 ]
 
 describe.each(Object.entries(themes))('result colors in the %s theme', (_, theme) => {

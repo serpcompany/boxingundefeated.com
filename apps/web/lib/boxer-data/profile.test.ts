@@ -51,6 +51,7 @@ describe('fromD1Profile', () => {
     expect([...opponentLinks]).toEqual([['Daniel Aduku', 'daniel-aduku']])
   })
 
+  // D1's title flag is false on every bout the pipeline has, so the page shows no badge (#98).
   it('sends the client only the bout fields the fight history shows', () => {
     const { bouts } = fromD1Profile({ boxer, bouts: [bout('Daniel Aduku', 'daniel-aduku')] })
 
@@ -62,8 +63,7 @@ describe('fromD1Profile', () => {
         eventName: null,
         result: 'win',
         resultMethod: 'KO',
-        resultRound: '3',
-        titleFight: true
+        resultRound: '3'
       }
     ])
   })
