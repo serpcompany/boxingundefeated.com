@@ -65,7 +65,7 @@ function listed(slug: string): BoxerListItem {
     slug,
     name: 'Ana Alpha',
     nicknames: null,
-    avatarImage: null,
+    photoKey: null,
     nationality: null,
     proDivision: 'heavy',
     proStatus: null,
@@ -77,9 +77,10 @@ function listed(slug: string): BoxerListItem {
   }
 }
 
-function boxer(): Boxer {
+function boxer(): Boxer & { photoKey: string | null } {
   return {
     ...listed('ana-alpha'),
+    avatarImage: null,
     boxrecId: '1',
     boxrecUrl: 'https://boxrec.com/en/box-pro/1',
     birthName: null,

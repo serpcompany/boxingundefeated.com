@@ -9,6 +9,7 @@
     "clean:workspaces": "turbo clean",
     "db:check": "drizzle-kit check --config drizzle.config.ts",
     "db:check-deployable": "tsx scripts/d1/check-deployable.ts",
+    "db:copy-photos": "tsx scripts/d1/copy-photos.ts",
     "db:fetch-artifact": "tsx scripts/d1/fetch-artifact.ts",
     "db:generate": "drizzle-kit generate --config drizzle.config.ts",
     "db:import": "tsx scripts/d1/import-boxers.ts",

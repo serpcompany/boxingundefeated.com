@@ -16,7 +16,9 @@ standard applies.
 - Host redirects exempt requests with the `x-boxingundefeated-smoke-test` header, and `/api` paths
   keep their exact path.
 - Every file in `apps/web/public/` is served at the same path and needs its extension in
-  `lib/routing/file-extensions.ts` (a test checks).
+  `lib/routing/file-extensions.ts` (a test checks). Boxer photos are files too, at
+  `/photos/<sha256>.<ext>`, served from R2 by the Worker ([worker.md](worker.md)); their
+  extensions (`jpg`, `png`, `gif`, `webp`) are in the same list.
 
 ## Retired URLs
 

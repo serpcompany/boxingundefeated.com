@@ -1,6 +1,6 @@
 // @vitest-environment happy-dom
 
-import type { BoutWithOpponent, Boxer, BoxerProfile } from '@boxingundefeated/data-ops'
+import type { BoutWithOpponent, BoxerProfile } from '@boxingundefeated/data-ops'
 import { render, screen } from '@testing-library/react'
 import { renderToString } from 'react-dom/server'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
@@ -29,7 +29,7 @@ import BoxerPage, { generateMetadata } from './page'
 
 const params = (slug: string) => ({ params: Promise.resolve({ slug }) })
 
-function d1Boxer(fields: Partial<Boxer>): Boxer {
+function d1Boxer(fields: Partial<BoxerProfile['boxer']>): BoxerProfile['boxer'] {
   return {
     id: 1,
     boxrecId: '1',
@@ -65,6 +65,7 @@ function d1Boxer(fields: Partial<Boxer>): Boxer {
     createdAt: null,
     updatedAt: null,
     importedAt: '2026-10-06 00:00:00',
+    photoKey: null,
     ...fields
   }
 }
@@ -149,6 +150,24 @@ describe('boxer profile page', () => {
       '/boxers/linked-opponent/'
     )
     expect(screen.getByText('Unknown Opponent').tagName).toBe('SPAN')
+  })
+
+  it('shows the copied photo from this site, never the boxrec.com source', async () => {
+    const avatarImage = 'https://boxrec.com/images/thumb/8/83/1.jpeg/200px-1.jpeg'
+    const key = `photos/${'cd'.repeat(32)}.jpg`
+    mockQueryBoxerProfile.mockResolvedValue({
+      boxer: d1Boxer({ avatarImage, photoKey: key }),
+      bouts: []
+    })
+    const withPhoto = renderToString(await BoxerPage(params('ana-alpha')))
+    expect(withPhoto).toContain(`src="/${key}"`)
+    expect(withPhoto).not.toContain('boxrec.com/images')
+
+    // Not copied yet, or failed: the placeholder, with no request anywhere.
+    mockQueryBoxerProfile.mockResolvedValue({ boxer: d1Boxer({ avatarImage }), bouts: [] })
+    render(await BoxerPage(params('ana-alpha')))
+    expect(screen.getByRole('img', { name: 'Ana Alpha' }).tagName).toBe('DIV')
+    expect(document.body.innerHTML).not.toContain('boxrec.com/images')
   })
 
   it('puts every bout in the first HTML, not only after the page loads', async () => {

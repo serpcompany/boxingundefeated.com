@@ -1,7 +1,7 @@
 import { and, asc, count, desc, eq, getTableColumns, gt, sql } from 'drizzle-orm'
 import { alias } from 'drizzle-orm/sqlite-core'
 import type { Database } from './client'
-import { bouts, boxers, datasetState, divisions } from './schema'
+import { bouts, boxers, datasetState, divisions, photos } from './schema'
 import { SEARCH_NAME_KEY, SEARCH_RESULT_LIMIT, SEARCH_TEXT_KEY, searchTerms } from './search'
 import type { Bout, Boxer, DatasetState, Division } from './types'
 
@@ -19,13 +19,20 @@ const directoryOrder = [
   sql`${boxers.name} COLLATE NOCASE`
 ]
 
-/** The columns a listing card shows: no bio, no bouts. */
+/**
+ * A boxer's copied photo (#64): the `photos` row of their `avatar_image`, by primary key. Its key,
+ * or null when the photo isn't copied (or there is none), when the page shows the placeholder.
+ * The source URL itself never reaches a page, so no page loads an image from boxrec.com.
+ */
+const withPhoto = eq(photos.sourceUrl, boxers.avatarImage)
+
+/** The columns a listing card shows: no bio, no bouts. `photoKey` comes from `withPhoto`. */
 export const boxerListColumns = {
   id: boxers.id,
   slug: boxers.slug,
   name: boxers.name,
   nicknames: boxers.nicknames,
-  avatarImage: boxers.avatarImage,
+  photoKey: photos.key,
   nationality: boxers.nationality,
   proDivision: boxers.proDivision,
   proStatus: boxers.proStatus,
@@ -36,12 +43,16 @@ export const boxerListColumns = {
   proTotalBouts: boxers.proTotalBouts
 }
 
-export type BoxerListItem = Pick<Boxer, keyof typeof boxerListColumns>
+export type BoxerListItem = Pick<Boxer, Exclude<keyof typeof boxerListColumns, 'photoKey'>> & {
+  /** The copied photo's R2 key (`photos/<sha256>.<ext>`), or null. */
+  photoKey: string | null
+}
 export type BoutWithOpponent = Bout & { opponentSlug: string | null }
 export type DivisionWithCount = Division & { boxerCount: number }
 
 export interface BoxerProfile {
-  boxer: Boxer
+  /** With the copied photo's R2 key, or null (`withPhoto`). */
+  boxer: Boxer & { photoKey: string | null }
   /** In source order. */
   bouts: BoutWithOpponent[]
 }
@@ -109,7 +120,12 @@ const opponent = alias(boxers, 'opponent')
  */
 export async function getBoxerProfile(db: Database, slug: string): Promise<BoxerProfile | null> {
   const [boxerRows, boutRows] = await db.batch([
-    db.select().from(boxers).where(eq(boxers.slug, slug)).limit(1),
+    db
+      .select({ ...getTableColumns(boxers), photoKey: photos.key })
+      .from(boxers)
+      .leftJoin(photos, withPhoto)
+      .where(eq(boxers.slug, slug))
+      .limit(1),
     db
       .select({ ...getTableColumns(bouts), opponentSlug: opponent.slug })
       .from(bouts)
@@ -134,6 +150,7 @@ export async function listBoxers(
     db
       .select(boxerListColumns)
       .from(boxers)
+      .leftJoin(photos, withPhoto)
       .orderBy(...directoryOrder)
       .limit(pageSize)
       .offset((page - 1) * pageSize)
@@ -205,6 +222,7 @@ export async function listBoxersByDivision(
       .select(boxerListColumns)
       .from(boxers)
       .innerJoin(divisions, eq(divisions.proDivision, boxers.proDivision))
+      .leftJoin(photos, withPhoto)
       .where(inDivision)
       .orderBy(...directoryOrder)
       .limit(pageSize)
@@ -233,6 +251,7 @@ export async function getHomepageData(
     db
       .select(boxerListColumns)
       .from(boxers)
+      .leftJoin(photos, withPhoto)
       .where(and(gt(boxers.proWins, 0), gt(boxers.proTotalBouts, 0)))
       .orderBy(...directoryOrder)
       .limit(featuredLimit),

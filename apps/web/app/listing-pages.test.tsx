@@ -68,7 +68,7 @@ function listed(slug: string, fields: Partial<BoxerListItem> = {}): BoxerListIte
       .map(word => word[0]!.toUpperCase() + word.slice(1))
       .join(' '),
     nicknames: null,
-    avatarImage: null,
+    photoKey: null,
     nationality: null,
     proDivision: 'heavy',
     proStatus: null,
@@ -245,6 +245,30 @@ describe('listing pages', () => {
     expect(card('fly')).toHaveTextContent('Flyweight25boxers')
     // A division D1 doesn't list counts as empty rather than failing the homepage.
     expect(card('middle')).toHaveTextContent('Middleweight0boxers')
+  })
+
+  it("shows each card's copied photo from this site, and the placeholder for the rest", async () => {
+    const key = `photos/${'ab'.repeat(32)}.jpg`
+    const items = [listed('with-photo', { photoKey: key }), listed('without-photo')]
+    mockListBoxers.mockResolvedValue({ items, page: 1, pageSize: 48, totalItems: 2, totalPages: 1 })
+    mockGetHomepageData.mockResolvedValue({
+      stats: { totalBoxers: 2, activeBoxers: 2, totalBouts: 22, eliteBoxers: 0 },
+      featuredBoxers: items,
+      divisions: []
+    })
+
+    // happy-dom calls every image complete and broken; a browser's is still loading here.
+    const loading = vi.spyOn(HTMLImageElement.prototype, 'complete', 'get').mockReturnValue(false)
+    for (const page of [BoxersPage, Home]) {
+      const { container, unmount } = render(await page())
+      const photo = screen.getByRole('img', { name: 'With Photo' })
+      expect(photo.tagName).toBe('IMG')
+      expect(photo).toHaveAttribute('src', `/${key}`)
+      expect(screen.getByRole('img', { name: 'Without Photo' }).tagName).toBe('DIV')
+      expect(container.innerHTML).not.toContain('boxrec.com')
+      unmount()
+    }
+    loading.mockRestore()
   })
 
   it('links the HTML sitemap to every listing page D1 counts', async () => {

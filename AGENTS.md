@@ -37,14 +37,14 @@ Planned: Ship (agents merge listed paths, to be chosen by the owner) once round 
   - `wrangler.jsonc`, `open-next.config.ts`, `worker.ts`, `lib/worker/`: the Worker. Its pipeline,
     build, preview, E2E, parity and link commands, and deploys: [worker.md](docs/agents/worker.md).
 - `d1/`: `drizzle/` migrations, `fixtures/`, `reports/`. [d1.md](docs/agents/d1.md): the boxer data
-  (pinned in R2), migrations, imports (staging and production only from CI) and the deploy gate.
+  and photos (in R2), migrations, imports (staging and production only from CI) and the deploy gate.
 - `packages/data-ops/`: the D1 data layer: the Drizzle schema (`src/schema.ts`), types, every
   query the app runs (`src/queries.ts`; the app never writes SQL) and the pipeline importer's
   mapping (`src/import/`). Vitest runs them on an in-memory D1 (Miniflare), migrations applied.
 - `packages/design-system/`: shared UI (shadcn). Read before adding a component or helper.
 - `configs/`: shared Next.js and TypeScript configuration. Read before changing build settings.
 - `apps/e2e/`: the Playwright smoke suite, the sitemap URL lister and the parity check.
-- `scripts/`: `d1/`, the D1 import, parity and deploy checks.
+- `scripts/`: `d1/`, the D1 import, parity and deploy checks, and the photo copy.
 - `.github/workflows/`: `ci.yml` (the check, then the deploys; `All checks` is the required check),
   `d1-import.yml` (data imports, [d1.md](docs/agents/d1.md)), `pr-issue-link.yml` and
   `agent-docs.yml` (the doc size budgets; every leaf under `docs/agents/` linked from here).
@@ -58,9 +58,9 @@ Inner loop, while editing (seconds):
 - `pnpm --filter web exec vitest run <paths>`: the tests for the code you changed.
 - `pnpm --filter @boxingundefeated/data-ops test`: the query and importer tests.
 - `pnpm exec biome lint <paths>`
-- `pnpm --filter web exec next dev --port 3003`: the dev server, on the local D1. `/api/search`
-  and the XML sitemaps are answered only by the Worker, so search fails here; use
-  `pnpm preview:worker` for those.
+- `pnpm --filter web exec next dev --port 3003`: the dev server, on the local D1. `/api/search`,
+  the XML sitemaps and `/photos/` are answered only by the Worker, so search and photos fail here;
+  use `pnpm preview:worker` for those.
 
 Finish gate: `pnpm check` (read-only Biome check, workspace check, typecheck, `db:check`, tests,
 `next build`). CI (`ci.yml`) runs it on every PR, plus migration validation, a Worker build per

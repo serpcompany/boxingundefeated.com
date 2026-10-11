@@ -117,16 +117,14 @@ export default async function Home() {
               <Card key={boxer.id} className="hover:shadow-lg transition-shadow">
                 <CardHeader>
                   <div className="flex items-center gap-3">
-                    {boxer.avatarImage && (
-                      <OptimizedImage
-                        src={boxer.avatarImage}
-                        alt={boxer.name}
-                        width={48}
-                        height={48}
-                        className="w-12 h-12 rounded-full object-cover"
-                        priority
-                      />
-                    )}
+                    <OptimizedImage
+                      src={boxer.photo}
+                      alt={boxer.name}
+                      width={48}
+                      height={48}
+                      className="w-12 h-12 rounded-full object-cover"
+                      priority
+                    />
                     <CardTitle>
                       <Link href={`/boxers/${boxer.slug}/`} className="hover:underline">
                         {boxer.name}

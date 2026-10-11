@@ -4,7 +4,7 @@ import { fireEvent, render, screen } from '@testing-library/react'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { OptimizedImage } from './optimized-image'
 
-const photo = 'https://boxrec.com/images/thumb/a/a6/photo.jpg/200px-photo.jpg'
+const photo = `/photos/${'ab'.repeat(32)}.jpg`
 
 describe('OptimizedImage', () => {
   // A browser's image is incomplete while it loads. happy-dom loads none and calls every image
@@ -23,6 +23,19 @@ describe('OptimizedImage', () => {
     const image = screen.getByRole('img', { name: 'Matthew Bowling' })
     expect(image.tagName).toBe('IMG')
     expect(image).toHaveAttribute('src', photo)
+  })
+
+  it('shows the placeholder, and requests nothing, when there is no photo', () => {
+    for (const src of [null, undefined, '']) {
+      const { unmount } = render(
+        <OptimizedImage src={src} alt="Matthew Bowling" width={64} height={64} />
+      )
+      const placeholder = screen.getByRole('img', { name: 'Matthew Bowling' })
+      expect(placeholder.tagName).toBe('DIV')
+      expect(placeholder).toHaveStyle({ width: '64px', height: '64px' })
+      expect(document.querySelector('img')).toBeNull()
+      unmount()
+    }
   })
 
   it('falls back to a placeholder of the same size when the photo fails to load', () => {

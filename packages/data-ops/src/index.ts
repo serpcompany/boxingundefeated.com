@@ -1,5 +1,6 @@
 export * from './client'
 export * from './drops'
+export * from './photos'
 export * from './queries'
 export * from './schema'
 export * from './search'

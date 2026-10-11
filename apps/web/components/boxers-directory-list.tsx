@@ -100,15 +100,13 @@ function BoxerDirectoryCard({ boxer }: { boxer: ListedBoxer }) {
     <Card className="hover:shadow-lg transition-shadow">
       <CardHeader>
         <div className="flex items-start gap-4">
-          {boxer.avatarImage && (
-            <OptimizedImage
-              src={boxer.avatarImage}
-              alt={boxer.name}
-              width={64}
-              height={64}
-              className="h-16 w-16 rounded-full object-cover"
-            />
-          )}
+          <OptimizedImage
+            src={boxer.photo}
+            alt={boxer.name}
+            width={64}
+            height={64}
+            className="h-16 w-16 rounded-full object-cover"
+          />
           <CardTitle className="flex-1">
             <Link href={normalizeInternalPath(`/boxers/${boxer.slug}`)} className="hover:underline">
               {boxer.name}

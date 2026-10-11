@@ -1,9 +1,11 @@
-import type {
-  BoxerPage,
-  DirectoryCounts as D1DirectoryCounts,
-  DivisionBoxerPage,
-  DivisionWithCount,
-  HomepageData
+import {
+  type BoxerListItem,
+  type BoxerPage,
+  type DirectoryCounts as D1DirectoryCounts,
+  type DivisionBoxerPage,
+  type DivisionWithCount,
+  type HomepageData,
+  photoPath
 } from '@boxingundefeated/data-ops'
 import type { DirectoryPage } from '../directory-pagination'
 
@@ -15,7 +17,8 @@ export interface ListedBoxer {
   slug: string
   name: string
   nicknames?: string | null
-  avatarImage?: string | null
+  /** The boxer's photo on this site (`/photos/<sha256>.<ext>`), or null for the placeholder. */
+  photo?: string | null
   nationality?: string | null
   proDivision?: string | null
   proWins?: number
@@ -65,6 +68,14 @@ export function fromD1Divisions(divisions: DivisionWithCount[]): DivisionSummary
   return divisions.map(fromD1Division)
 }
 
+/**
+ * A D1 card. Its photo is the copy in R2 that the Worker serves (lib/worker/photos.ts), never the
+ * boxrec.com source, so a card without a copied photo shows the placeholder.
+ */
+export function fromD1ListedBoxer({ photoKey, ...boxer }: BoxerListItem): ListedBoxer {
+  return { ...boxer, photo: photoPath(photoKey) }
+}
+
 export function fromD1Page({
   items,
   page,
@@ -74,7 +85,7 @@ export function fromD1Page({
 }: BoxerPage): BoxerListingPage {
   const startIndex = (page - 1) * pageSize
   return {
-    items,
+    items: items.map(fromD1ListedBoxer),
     currentPage: page,
     totalItems,
     totalPages,
@@ -89,7 +100,11 @@ export function fromD1DivisionPage(page: DivisionBoxerPage): DivisionListingPage
 }
 
 export function fromD1Homepage({ stats, featuredBoxers, divisions }: HomepageData): HomepageView {
-  return { ...stats, featuredBoxers, divisions: fromD1Divisions(divisions) }
+  return {
+    ...stats,
+    featuredBoxers: featuredBoxers.map(fromD1ListedBoxer),
+    divisions: fromD1Divisions(divisions)
+  }
 }
 
 export function fromD1DirectoryCounts({

@@ -48,6 +48,10 @@
       "migrations_table": "d1_migrations"
     }
   ],
+  // Boxer photos (#64), which the Worker serves at /photos/<sha256>.<ext> (lib/worker/photos.ts)
+  // and only reads. `pnpm db:copy-photos` fills each bucket (scripts/d1/copy-photos.ts): staging's
+  // and production's only from .github/workflows/d1-import.yml. Locally, Wrangler's local R2.
+  "r2_buckets": [{ "binding": "PHOTOS", "bucket_name": "boxingundefeated-com-photos-local" }],
   "env": {
     "staging": {
       "name": "boxingundefeated-com-staging",
@@ -89,7 +93,8 @@
           "migrations_dir": "../../d1/drizzle",
           "migrations_table": "d1_migrations"
         }
-      ]
+      ],
+      "r2_buckets": [{ "binding": "PHOTOS", "bucket_name": "boxingundefeated-com-photos-staging" }]
     },
     "production": {
       "name": "boxingundefeated-com-production",
@@ -125,6 +130,9 @@
           "migrations_dir": "../../d1/drizzle",
           "migrations_table": "d1_migrations"
         }
+      ],
+      "r2_buckets": [
+        { "binding": "PHOTOS", "bucket_name": "boxingundefeated-com-photos-production" }
       ]
     }
   }

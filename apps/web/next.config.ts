@@ -24,8 +24,8 @@ let nextConfig: NextConfig = {
   pageExtensions: ['ts', 'tsx'],
 
   images: {
-    // Served as they are: the Worker has no image optimization. Boxer avatars (boxrec.com) are
-    // plain <img> tags; `next/image` loads only the footer's DR badge.
+    // Served as they are: the Worker has no image optimization. Boxer photos (/photos/, from R2)
+    // are plain <img> tags; `next/image` loads only the footer's DR badge.
     unoptimized: true,
     remotePatterns: [
       {

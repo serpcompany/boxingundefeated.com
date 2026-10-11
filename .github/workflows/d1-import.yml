@@ -17,6 +17,13 @@ name: D1 import
 #   production buckets change only through CI. Then it runs the same three commands with
 #   --confirm-production, which records that approval.
 #
+# Boxer photos (#64): before the import, both jobs copy the photos the environment's D1 doesn't
+# record yet from boxrec.com into its photo bucket, boxingundefeated-com-photos-<environment>, and
+# record them in D1 (scripts/d1/copy-photos.ts): politely, for at most 35 minutes, resumably; a
+# run with nothing new copies nothing. The import's finish then moves the page cache to a new
+# generation, so pages render with the new photos. The counts go into the job summary. The
+# production bucket, like production D1, changes only here, after the owner's approval.
+#
 # Both refuse a D1 that lacks one of this commit's migrations: run it after the deploy of this
 # commit has migrated that environment. Both refuse while a ci.yml deploy of the environment runs
 # or is pending, in the preflight and again right before the import; the other way round,
@@ -99,7 +106,8 @@ jobs:
     needs: preflight
     if: inputs.environment == 'staging'
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    # The photo copy may take 35 minutes; the import, parity and checks take a few more.
+    timeout-minutes: 75
     # actions: read for the deploy check.
     permissions:
       actions: read
@@ -158,6 +166,21 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: pnpm db:check-deployable -- --target staging --migrations-only
 
+      # Needs the photos table (migration 0003), so after the check above. Writes the staging
+      # photo bucket and D1; stops cleanly at the budget, leaving the rest to the next run.
+      - name: Copy new boxer photos into the staging photo bucket
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: pnpm db:copy-photos -- --target staging --source "$SOURCE" --max-minutes 35 --summary "$GITHUB_STEP_SUMMARY"
+
+      # The copy can take a while: the tip once more, right before the import.
+      - name: Require staging to still be at this run's commit after the photo copy
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ENVIRONMENT: staging
+        run: .github/scripts/verify-d1-import.sh --tip-only
+
       - name: Import into the staging D1
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
@@ -209,7 +232,8 @@ jobs:
     needs: preflight
     if: inputs.environment == 'production'
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    # The photo copy may take 35 minutes; the import, parity and checks take a few more.
+    timeout-minutes: 75
     # actions: read for the deploy check.
     permissions:
       actions: read
@@ -287,6 +311,19 @@ jobs:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: pnpm db:check-deployable -- --target production --confirm-production --migrations-only
+
+      # As on staging, into the production photo bucket and D1.
+      - name: Copy new boxer photos into the production photo bucket
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: pnpm db:copy-photos -- --target production --confirm-production --source "$SOURCE" --max-minutes 35 --summary "$GITHUB_STEP_SUMMARY"
+
+      - name: Require main to still be at this run's commit after the photo copy
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ENVIRONMENT: production
+        run: .github/scripts/verify-d1-import.sh --tip-only
 
       - name: Import into the production D1
         env:

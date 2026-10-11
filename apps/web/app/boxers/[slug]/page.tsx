@@ -66,16 +66,14 @@ export default async function BoxerPage({ params }: { params: Promise<{ slug: st
             takes its own line; a word longer than the screen breaks rather than scrolling the
             page sideways (#75). From `sm` up, the photo and name sit side by side as before. */}
         <div className="flex flex-col items-start gap-4 sm:flex-row sm:gap-6">
-          {boxer.avatarImage && (
-            <OptimizedImage
-              src={boxer.avatarImage}
-              alt={boxer.name}
-              width={128}
-              height={128}
-              className="w-32 h-32 rounded-full object-cover"
-              priority={true}
-            />
-          )}
+          <OptimizedImage
+            src={boxer.photo}
+            alt={boxer.name}
+            width={128}
+            height={128}
+            className="w-32 h-32 rounded-full object-cover"
+            priority={true}
+          />
           <div className="min-w-0 max-w-full break-words">
             <h1 className="text-4xl font-bold tracking-tight mb-2">
               {boxer.name}

@@ -14,9 +14,12 @@ deploy didn't run. What each environment sets is in [environments.md](environmen
   and `upload_source_maps` from the top level.
 - `apps/web/lib/worker/handle-request.ts` maps the request pipeline, in order: the build guard,
   staging's password gate, the canonical host, then the crawl policy, which wraps the retired
-  paths' 410 ([urls.md](urls.md#retired-urls)), `/api/search` and the XML sitemaps (from D1, per
-  the SERP sitemap index pattern), the D1 readiness gate, the edge cache and the not-found page,
-  and finally OpenNext.
+  paths' 410 ([urls.md](urls.md#retired-urls)), the boxer photos (from R2, `lib/worker/photos.ts`),
+  `/api/search` and the XML sitemaps (from D1, per the SERP sitemap index pattern), the D1
+  readiness gate, the edge cache and the not-found page, and finally OpenNext.
+  - `PHOTOS` is each environment's R2 photo bucket (`boxingundefeated-com-photos-<env>`), which the
+    Worker only reads ([d1.md](d1.md#boxer-photos)). `/photos/<sha256>.<ext>` answers 200 with a
+    year of immutable caching, 304 or 404; a slashed or malformed path goes on to OpenNext.
   - The password gate runs on every host of the staging Worker, before the canonical-host
     redirect: `*.workers.dev` without the password answers 401, not 308, and it is the only host
     CI can reach (#45). A request that passes loses its `Authorization` header, so the edge cache

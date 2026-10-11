@@ -4,7 +4,8 @@ import { cn } from '@boxingundefeated/design-system/lib/utils'
 import { useEffect, useRef, useState } from 'react'
 
 interface OptimizedImageProps {
-  src: string
+  /** A photo on this site (`/photos/<sha256>.<ext>`), or null for the placeholder. */
+  src?: string | null
   alt: string
   className?: string
   width?: number
@@ -14,7 +15,8 @@ interface OptimizedImageProps {
 
 /**
  * A boxer photo, or a placeholder of the same size when there is no photo or it fails to load.
- * The photos are hot-linked from boxrec.com, which answers some of them with an error.
+ * The photos are copies in R2 that the Worker serves (lib/worker/photos.ts); a boxer whose photo
+ * isn't copied has none.
  */
 export function OptimizedImage({
   src,
@@ -31,7 +33,7 @@ export function OptimizedImage({
   // A server-rendered image can fail before hydration attaches onError, so check on mount too.
   useEffect(() => {
     const image = imageRef.current
-    if (image?.complete && image.naturalWidth === 0) setFailedSrc(src)
+    if (src && image?.complete && image.naturalWidth === 0) setFailedSrc(src)
   }, [src])
 
   if (!src || failedSrc === src) {

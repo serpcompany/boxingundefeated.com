@@ -11,7 +11,7 @@ import {
   listBoxersByDivision,
   listDivisions
 } from './queries'
-import { bouts, boxers, divisions } from './schema'
+import { bouts, boxers, divisions, photos } from './schema'
 import { createTestDatabase, explainQueryPlan, type TestDatabase } from './test-support'
 import type { NewBout, NewBoxer, NewDivision } from './types'
 
@@ -41,6 +41,7 @@ function boxer(name: string, fields: Partial<NewBoxer> = {}): BoxerFixture {
 // collation would put LeRoy first, `localeCompare` (and NOCASE) put Lee first.
 const boxerRows: BoxerFixture[] = [
   boxer('Ana Alpha', {
+    avatarImage: 'https://boxrec.com/images/thumb/a/aa/ana.jpg/200px-ana.jpg',
     proDivision: 'heavy',
     proWins: 40,
     proWinsByKnockout: 30,
@@ -65,8 +66,16 @@ const boxerRows: BoxerFixture[] = [
     proTotalBouts: 12,
     proStatus: 'inactive'
   }),
-  boxer('Bob Bravo', { proDivision: 'heavy', proWins: 10, proLosses: 5, proTotalBouts: 15 }),
+  // A photo the copy hasn't reached (or failed): no `photos` row.
+  boxer('Bob Bravo', {
+    avatarImage: 'https://boxrec.com/images/thumb/b/bb/bob.jpg/200px-bob.jpg',
+    proDivision: 'heavy',
+    proWins: 10,
+    proLosses: 5,
+    proTotalBouts: 15
+  }),
   boxer('Carl Charlie', {
+    avatarImage: 'https://boxrec.com/build/images/main/v6-avatar.svg',
     proDivision: 'light heavy',
     proWins: 31,
     proLosses: 5,
@@ -99,10 +108,18 @@ const boutRows: NewBout[] = [
   bout(lee, 0, { opponentName: 'Ana Alpha', opponentBoxerId: ana.id, result: 'loss' })
 ]
 
+const ANA_PHOTO_KEY = `photos/${'a'.repeat(64)}.jpg`
+
 async function seed({ db }: TestDatabase) {
   await db.insert(divisions).values(divisionRows)
   await db.insert(boxers).values(boxerRows)
   await db.insert(bouts).values(boutRows)
+  await db.insert(photos).values({
+    sourceUrl: ana.avatarImage!,
+    key: ANA_PHOTO_KEY,
+    contentType: 'image/jpeg',
+    bytes: 8709
+  })
 }
 
 // What the pages compute today, from apps/web/lib/directory-pagination.ts and app/page.tsx.
@@ -147,7 +164,8 @@ describe('queries against the migrated schema', () => {
       'dataset_state',
       'divisions',
       'divisions_pro_division_unique',
-      'divisions_sort_order_unique'
+      'divisions_sort_order_unique',
+      'photos'
     ])
   })
 
@@ -204,6 +222,35 @@ describe('queries against the migrated schema', () => {
 
     it('returns null for an unknown slug', async () => {
       expect(await getBoxerProfile(test.db, 'nobody')).toBeNull()
+    })
+
+    it("returns the copied photo's key, and null for a photo that isn't copied", async () => {
+      expect((await getBoxerProfile(test.db, 'ana-alpha'))?.boxer.photoKey).toBe(ANA_PHOTO_KEY)
+      expect((await getBoxerProfile(test.db, 'bob-bravo'))?.boxer.photoKey).toBeNull()
+      expect((await getBoxerProfile(test.db, 'carl-charlie'))?.boxer.photoKey).toBeNull()
+      expect((await getBoxerProfile(test.db, 'zero-zed'))?.boxer.photoKey).toBeNull()
+    })
+  })
+
+  describe('photos', () => {
+    it('gives every listing card its copied photo key, and never the source URL', async () => {
+      const pages = [
+        (await listBoxers(test.db))!.items,
+        (await listBoxersByDivision(test.db, 'heavy'))!.items,
+        (await getHomepageData(test.db)).featuredBoxers
+      ]
+      for (const items of pages) {
+        expect(items.find(item => item.slug === 'ana-alpha')?.photoKey).toBe(ANA_PHOTO_KEY)
+        expect(items.find(item => item.slug === 'bob-bravo')?.photoKey).toBeNull()
+        for (const item of items) expect(item).not.toHaveProperty('avatarImage')
+      }
+      const all = (await listBoxers(test.db))!.items
+      expect(all.map(item => [item.slug, item.photoKey])).toEqual(
+        sortBoxersForDirectory(boxerRows).map(row => [
+          row.slug,
+          row.slug === 'ana-alpha' ? ANA_PHOTO_KEY : null
+        ])
+      )
     })
   })
 
@@ -365,15 +412,22 @@ describe('queries against the migrated schema', () => {
       expect(divisionListing).toContain(
         'USING INDEX boxers_division_directory_idx (pro_division=?)'
       )
-      for (const plan of [listing, divisionListing]) expect(plan).not.toContain('TEMP B-TREE')
+      for (const plan of [listing, divisionListing]) {
+        expect(plan).not.toContain('TEMP B-TREE')
+        // Each card's photo by the primary key, not a scan.
+        expect(plan).toContain('SEARCH photos USING INDEX sqlite_autoindex_photos_1 (source_url=?)')
+      }
     })
 
     it('reads a profile by slug, then its bouts by boxer and ordinal', async () => {
       const profile = () => getBoxerProfile(test.db, 'ana-alpha')
-      const boxerPlan = await planFor(profile, /from "boxers" where/)
+      const boxerPlan = await planFor(profile, /from "boxers" left join "photos"/)
       const boutPlan = await planFor(profile, /from "bouts"/)
 
       expect(boxerPlan).toContain('USING INDEX boxers_slug_unique (slug=?)')
+      expect(boxerPlan).toContain(
+        'SEARCH photos USING INDEX sqlite_autoindex_photos_1 (source_url=?)'
+      )
       expect(boutPlan).toContain('USING INDEX bouts_boxer_ordinal_unique (boxer_id=?)')
       expect(boutPlan).not.toContain('TEMP B-TREE')
     })

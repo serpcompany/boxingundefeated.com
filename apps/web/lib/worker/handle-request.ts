@@ -19,6 +19,9 @@
  *    path under them, and `/sitemap-shop.xml`) gets its 410 here, with its own noindex, before
  *    the XML sitemaps, the edge cache and the trailing-slash redirects, so `/blog` answers 410
  *    without a hop and the 410 is never stored.
+ *    A boxer photo, `/photos/<sha256>.<ext>`, is answered here from R2 by `runtime.photos`
+ *    (lib/worker/photos.ts), without the readiness gate or the edge cache: it reads no D1, and
+ *    browsers keep it for a year.
  *    `/api/search` and `/api/search/` are answered here, by `runtime.searchApi`
  *    (lib/worker/search-api.ts), and the XML sitemaps (`/sitemap-index.xml`, `/sitemap-*.xml`,
  *    and the old `/sitemap.xml` and `/sitemaps/*` URLs) by `runtime.sitemaps`
@@ -59,6 +62,7 @@ import {
 } from './edge-cache'
 import { type WorkerEnvironment, withEnvironmentPolicy } from './environment-policy'
 import { withNotFoundPage } from './not-found-page'
+import { isPhotoRequest } from './photos'
 import { isSearchApiRequest } from './search-api'
 import { isSitemapRequest } from './sitemaps'
 import { type StagingAccessEnvironment, stagingAccess } from './staging-access'
@@ -78,6 +82,8 @@ export interface WorkerRuntime {
   /** Whether D1 can serve D1 pages (`DatasetReadinessMemo.current`). Without it, no gate. */
   datasetReadiness?: () => Promise<DatasetReadiness>
   log?: (event: EdgeCacheEvent | DatasetUnavailableEvent | BuildEnvironmentMismatch) => void
+  /** `GET /photos/<sha256>.<ext>` from R2 (`r2Photos`). Without it, the request goes to OpenNext. */
+  photos?: (request: Request) => Promise<Response>
   /** `GET /api/search` on D1 (`d1SearchApi`). Without it, the request goes to OpenNext. */
   searchApi?: (request: Request) => Promise<Response>
   /** The XML sitemaps on D1 (`d1Sitemaps`). Without it, the request goes to OpenNext. */
@@ -136,6 +142,7 @@ async function handle(
   const answer = async (): Promise<Response> => {
     const retired = retiredPathResponse(request)
     if (retired) return retired
+    if (runtime.photos && isPhotoRequest(request)) return runtime.photos(request)
     const render = readsD1(request) ? (page: Request) => withNotFoundPage(page, serve) : serve
     if (runtime.searchApi && isSearchApiRequest(request)) return runtime.searchApi(request)
     if (runtime.sitemaps && isSitemapRequest(request)) return runtime.sitemaps(request)

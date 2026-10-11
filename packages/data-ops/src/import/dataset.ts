@@ -1,5 +1,6 @@
 import { DIVISIONS } from './divisions'
 import { buildOpponentIndex, directoryIndexOrder } from './opponents'
+import { isPlaceholderAvatar } from './photos'
 import { type Row, toBoutRow, toBoxerRow, toDivisionRow } from './rows'
 import { INTENTIONAL_DROPS, type SourceBoxer, validateSource } from './source'
 
@@ -46,7 +47,6 @@ export interface ImportDataset {
   sourceCounts: { boxers: number; bouts: number }
 }
 
-const PLACEHOLDER_AVATAR = /v6-avatar\.svg/
 /** The pipeline's cap on a boxer's bout list. */
 export const PIPELINE_BOUT_LIMIT = 100
 
@@ -116,8 +116,7 @@ export function prepareDataset(
   const quirks: DataQuirks = {
     emptyStringsToNull: countEmptyStrings(all),
     freeTextDatesOfBirth: all.filter(record => record.dateOfBirth).length,
-    placeholderAvatars: all.filter(record => PLACEHOLDER_AVATAR.test(record.avatarImage ?? ''))
-      .length,
+    placeholderAvatars: all.filter(record => isPlaceholderAvatar(record.avatarImage)).length,
     truncatedBoutLists: all.filter(record => record.bouts?.length === PIPELINE_BOUT_LIMIT).length,
     boxersWithoutBouts: all.filter(record => !record.bouts?.length).length,
     doubledBouts: [...boutSides.values()].filter(sides => sides > 1).length,
