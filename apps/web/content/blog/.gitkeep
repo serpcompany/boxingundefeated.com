@@ -1,3 +1,0 @@
-The shop is retired (#94). This empty folder stays only because CI runs `pnpm check:frontmatter`,
-which fails when apps/web/content/blog is missing. Remove it with that CI step and
-scripts/check-frontmatter.ts (an owner PR).

@@ -5,7 +5,6 @@
   "scripts": {
     "build": "turbo build",
     "build:worker": "pnpm --filter web build:worker",
-    "check:frontmatter": "tsx scripts/check-frontmatter.ts",
     "clean": "git clean -xdf node_modules dist .next",
     "clean:workspaces": "turbo clean",
     "db:check": "drizzle-kit check --config drizzle.config.ts",
@@ -48,7 +47,6 @@
     "@manypkg/cli": "^0.23.0",
     "cross-env": "^7.0.3",
     "drizzle-kit": "0.31.11",
-    "gray-matter": "^4.0.3",
     "lefthook": "^1.11.6",
     "tsx": "^4.23.15",
     "turbo": "^2.4.4",
