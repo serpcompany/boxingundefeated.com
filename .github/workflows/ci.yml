@@ -1,20 +1,52 @@
 name: CI
 
-# The repository's full check, on every pull request into staging (the base branch) or main
-# (promotions and hotfixes), and on every push to them. "All checks" is the one required check.
-# It passes when every job passed, or was skipped for a docs-only pull request or, for the Worker
-# build, a draft. Marking a draft ready for review runs everything again.
+# The repository's full check, and its deploys (SERP ci-workflows standard).
+#
+# - Pull requests into staging (the base branch) or main: the full check, with a Worker build for
+#   each config (local and staging in worker-e2e, production in worker-build-production). "All
+#   checks" is the one required check. It passes when every job passed, or was skipped for a
+#   docs-only pull request, a draft, or a push (worker-build-production). Marking a draft ready for
+#   review runs everything again.
+# - Pushes to staging and main: the same check, then the deploy. deploy-staging and
+#   deploy-production `needs:` "All checks" of the same run, so a commit whose check failed never
+#   deploys, and each deploys only its branch's current tip.
+# - Receipts ("Check each tree once"): each worker-e2e config records
+#   passed-worker-e2e-<config>-<tree> when it passes. A push or dispatch whose tree already passed
+#   skips the suite's steps, so an up-to-date squash merge or a promotion doesn't run it again; a
+#   pull request merged while behind gets a new tree and runs it.
+# - deploy-staging records passed-deploy-staging-<tree> once staging serves the commit and passes
+#   the smoke test. deploy-production releases only a tree with that receipt, or an owner's hotfix
+#   (.github/scripts/verify-production-release.sh). The `production` environment admits only main
+#   and asks for the owner's approval; only the wrangler steps receive the Cloudflare secrets.
+#
+# Agents never dispatch this workflow, re-run a deploy job, or approve the `production`
+# environment. Only the logins in RELEASE_OWNERS may release a hotfix: a dispatch from main with
+# `hotfix` and the typed confirmation, which deploys the production Worker only (no migrations).
+# Agents act through the owner's account, so AGENTS.md, not this list, keeps them out.
 on:
   pull_request:
     branches: [staging, main]
     types: [opened, synchronize, reopened, ready_for_review]
   push:
     branches: [staging, main]
+  workflow_dispatch:
+    inputs:
+      hotfix:
+        description: From main, release production without a staging deploy of its code (Worker only, owner only)
+        type: boolean
+        default: false
+      confirmation:
+        description: For a hotfix, type hotfix-boxingundefeated-production
+        type: string
+        default: ''
 
 permissions:
   contents: read
+  # The receipt lookups and the production release gate read artifacts and workflow runs.
+  actions: read
 
-# Cancels superseded runs of a pull request; every push to staging or main gets its own run.
+# Cancels superseded runs of a pull request; every push to staging or main gets its own run. The
+# deploy jobs queue in their own groups below.
 concurrency:
   group: ${{ github.workflow }}-${{ github.event_name == 'pull_request' && github.ref || github.run_id }}
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
@@ -23,6 +55,8 @@ env:
   NEXT_TELEMETRY_DISABLED: 1
   TURBO_TELEMETRY_DISABLED: 1
   WRANGLER_SEND_METRICS: false
+  RELEASE_OWNERS: devinschumacher
+  HOTFIX: ${{ github.event_name == 'workflow_dispatch' && inputs.hotfix }}
 
 jobs:
   changes:
@@ -33,7 +67,7 @@ jobs:
       contents: read
       pull-requests: read
     outputs:
-      # Pushes always run everything.
+      # Pushes and dispatches always run everything.
       code: ${{ github.event_name != 'pull_request' || steps.filter.outputs.code == 'true' || steps.filter.outputs.content == 'true' }}
     steps:
       - name: Detect a docs-only pull request
@@ -74,6 +108,18 @@ jobs:
 
       - name: Shop article frontmatter
         run: pnpm check:frontmatter
+
+      # The bindings and vars of wrangler.jsonc must match the committed types.
+      - name: cloudflare-env.d.ts matches wrangler.jsonc
+        working-directory: apps/web
+        run: |
+          pnpm cf-typegen
+          changed="$(git status --porcelain --untracked-files=all -- .)"
+          if [ -n "$changed" ]; then
+            git diff -- cloudflare-env.d.ts
+            echo "::error::pnpm cf-typegen changed: ${changed//$'\n'/, }. Run pnpm --filter web cf-typegen and commit cloudflare-env.d.ts."
+            exit 1
+          fi
 
   typecheck:
     name: Typecheck
@@ -142,6 +188,11 @@ jobs:
       - name: Install
         uses: ./.github/actions/install
 
+      # drizzle-kit check: the migration snapshots form one chain, with no two migrations made
+      # from the same parent (as after two branches each ran db:generate).
+      - name: Check the migration snapshots
+        run: pnpm db:check
+
       - name: Apply every migration in d1/drizzle to a fresh local D1, then seed the fixture
         run: pnpm db:reset:local
 
@@ -158,14 +209,182 @@ jobs:
             exit 1
           fi
 
+  # The E2E smoke suite on a Worker build in workerd, on the local D1 fixture, once per config:
+  # - local: the `local` build and the top level of wrangler.jsonc, then the link check.
+  # - staging: the staging build, served on the local top level and D1 with env.staging's vars
+  #   (`--env staging` would rewrite every Host header and read an empty local D1;
+  #   apps/e2e/README.md). The suite tests staging's password both ways: 401 without it, and 200
+  #   with no noindex with it. The deploy smoke can't test the second: on workers.dev, the only
+  #   host CI reaches (#45), the password gets a 308 to staging.boxingundefeated.com.
+  # It is also the pull request's staging Worker build. Every step after the receipt lookup is the
+  # suite, skipped together when a receipt matches; the job itself always runs, so the deploy
+  # jobs behind "All checks" do too.
   worker-e2e:
-    name: Worker build, E2E smoke and links
+    name: Worker build and E2E, ${{ matrix.config }} config
     needs: changes
     if: needs.changes.outputs.code == 'true' && github.event.pull_request.draft != true
     runs-on: ubuntu-latest
     timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        # `wrangler-env`: the env of wrangler.jsonc that the build must match and whose vars the
+        # preview serves with; empty for the top level.
+        include:
+          - config: local
+            build: build:worker
+            wrangler-env: ''
+          - config: staging
+            build: build:worker:staging
+            wrangler-env: staging
     env:
       PREVIEW_ORIGIN: http://localhost:8787
+      PREVIEW_VARS_ENV: ${{ matrix.wrangler-env }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      # A pull request always runs the suite. A push or dispatch skips it when a passing run of
+      # this repository already tested this tree; an error looking one up runs it.
+      - name: Look for a receipt for this tree
+        id: receipt
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO_ID: ${{ github.repository_id }}
+          SUITE: worker-e2e-${{ matrix.config }}
+        run: |
+          tree="$(git rev-parse 'HEAD^{tree}')"
+          echo "tree=$tree" >> "$GITHUB_OUTPUT"
+          [ "$GITHUB_EVENT_NAME" != pull_request ] || exit 0
+          n="$(gh api "repos/$GITHUB_REPOSITORY/actions/artifacts?name=passed-$SUITE-$tree" --jq \
+            "[.artifacts[] | select(.expired | not) | select(.workflow_run.head_repository_id == $REPO_ID)] | length")" || n=0
+          if [ "${n:-0}" -gt 0 ]; then
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+            echo "::notice title=Receipt::A passing run already tested tree $tree (passed-$SUITE-$tree): skipping the suite."
+          fi
+
+      - name: Install
+        if: steps.receipt.outputs.skip != 'true'
+        uses: ./.github/actions/install
+
+      - name: Cache the Next.js build cache
+        if: steps.receipt.outputs.skip != 'true'
+        uses: actions/cache@v6
+        with:
+          path: apps/web/.next/cache
+          key: next-worker-${{ matrix.config }}-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.sha }}
+          restore-keys: next-worker-${{ matrix.config }}-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-
+
+      - name: Build the Worker
+        if: steps.receipt.outputs.skip != 'true'
+        run: pnpm --filter web ${{ matrix.build }}
+
+      - name: Require the build to match its config
+        if: steps.receipt.outputs.skip != 'true'
+        run: pnpm --filter web check:build-environment ${PREVIEW_VARS_ENV:+"$PREVIEW_VARS_ENV"}
+
+      - name: Reset the local D1 (every migration, then the fixture)
+        if: steps.receipt.outputs.skip != 'true'
+        run: pnpm db:reset:local
+
+      # The readiness request carries the smoke-test header, which staging's password exempts.
+      - name: Start the local Worker preview
+        if: steps.receipt.outputs.skip != 'true'
+        run: |
+          vars=()
+          if [ -n "$PREVIEW_VARS_ENV" ]; then
+            # env.<name>.vars of wrangler.jsonc, as `--var NAME:VALUE` flags for the top level.
+            flags="$(cd apps/web && node -e '
+              const { unstable_readConfig } = require("wrangler")
+              const { vars } = unstable_readConfig(
+                { config: "wrangler.jsonc", env: process.env.PREVIEW_VARS_ENV },
+                { hideWarnings: true }
+              )
+              for (const [name, value] of Object.entries(vars)) console.log(`--var\n${name}:${value}`)
+            ')"
+            mapfile -t vars <<<"$flags"
+            echo "Serving the top level with env.$PREVIEW_VARS_ENV's vars: ${vars[*]}"
+          fi
+          (cd apps/web && nohup pnpm serve:worker "${vars[@]}" > "$RUNNER_TEMP/worker-preview.log" 2>&1 &)
+          for _ in $(seq 1 90); do
+            if curl -fsS -o /dev/null -H 'x-boxingundefeated-smoke-test: 1' "$PREVIEW_ORIGIN/"; then
+              echo "The preview answers on $PREVIEW_ORIGIN."
+              exit 0
+            fi
+            sleep 2
+          done
+          cat "$RUNNER_TEMP/worker-preview.log"
+          echo "::error::The local Worker preview did not answer 200 on $PREVIEW_ORIGIN/ within 3 minutes."
+          exit 1
+
+      - name: Require the preview to serve this build
+        if: steps.receipt.outputs.skip != 'true'
+        run: .github/scripts/wait-for-build.sh "$PREVIEW_ORIGIN" "$GITHUB_SHA" 1
+
+      # Through the e2e package, so the browser matches its @playwright/test.
+      - name: Install Chromium for Playwright
+        if: steps.receipt.outputs.skip != 'true'
+        run: pnpm --filter e2e exec playwright install --with-deps chromium
+
+      - name: E2E smoke against the local preview
+        if: steps.receipt.outputs.skip != 'true'
+        env:
+          BASE_URL: ${{ env.PREVIEW_ORIGIN }}
+          EXPECT_ENV: ${{ matrix.config }}
+        run: pnpm test:e2e
+
+      - name: List every page the sitemaps link
+        if: steps.receipt.outputs.skip != 'true' && matrix.config == 'local'
+        run: pnpm --silent --filter e2e sitemap-urls "$PREVIEW_ORIGIN" > "$RUNNER_TEMP/urls.txt"
+
+      # Every link and asset on those pages must answer 200 without a redirect. Only the preview's
+      # own URLs, never a third-party site (lychee.toml).
+      - name: Check the site's own links
+        if: steps.receipt.outputs.skip != 'true' && matrix.config == 'local'
+        uses: lycheeverse/lychee-action@e7477775783ea5526144ba13e8db5eec57747ce8 # v2.9.0
+        with:
+          args: --config lychee.toml --no-progress --files-from ${{ runner.temp }}/urls.txt
+          output: ${{ runner.temp }}/lychee.md
+
+      # Reached only when every step above passed.
+      - name: Record a receipt for this tree
+        if: steps.receipt.outputs.skip != 'true'
+        run: echo "${{ steps.receipt.outputs.tree }}" > "$RUNNER_TEMP/receipt.txt"
+
+      - name: Upload the receipt
+        if: steps.receipt.outputs.skip != 'true'
+        uses: actions/upload-artifact@v7
+        with:
+          name: passed-worker-e2e-${{ matrix.config }}-${{ steps.receipt.outputs.tree }}
+          path: ${{ runner.temp }}/receipt.txt
+          retention-days: 30
+          # A re-run uploads the same name again.
+          overwrite: true
+
+      - name: Keep the Playwright report and the preview log
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: e2e-${{ matrix.config }}-${{ github.run_attempt }}
+          path: |
+            apps/e2e/playwright-report/
+            apps/e2e/test-results/
+            ${{ runner.temp }}/worker-preview.log
+            ${{ runner.temp }}/lychee.md
+          if-no-files-found: ignore
+          retention-days: 14
+
+  # A pull request builds every deployed config, since each prerenders its own HTML
+  # (nextjs-on-workers standard): staging's in worker-e2e, production's here. On a push, the
+  # deploy job's build for its environment is the build check (ci-workflows standard).
+  worker-build-production:
+    name: Production Worker build
+    needs: changes
+    if: >-
+      github.event_name == 'pull_request' && needs.changes.outputs.code == 'true' &&
+      github.event.pull_request.draft != true
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -177,74 +396,20 @@ jobs:
         uses: actions/cache@v6
         with:
           path: apps/web/.next/cache
-          key: next-worker-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.sha }}
-          restore-keys: next-worker-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-
+          key: next-worker-production-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.sha }}
+          restore-keys: next-worker-production-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-
 
-      # The one Worker build of this job: the local config, which the preview serves.
-      - name: Build the Worker
-        run: pnpm --filter web build:worker
+      - name: Build the production Worker
+        run: pnpm --filter web build:worker:production
 
-      - name: Require the build to match the local config
-        run: pnpm --filter web check:build-environment
-
-      - name: Reset the local D1 (every migration, then the fixture)
-        run: pnpm db:reset:local
-
-      - name: Start the local Worker preview
-        run: |
-          (cd apps/web && nohup pnpm serve:worker > "$RUNNER_TEMP/worker-preview.log" 2>&1 &)
-          for _ in $(seq 1 90); do
-            if curl -fsS -o /dev/null "$PREVIEW_ORIGIN/"; then
-              echo "The preview answers on $PREVIEW_ORIGIN."
-              exit 0
-            fi
-            sleep 2
-          done
-          cat "$RUNNER_TEMP/worker-preview.log"
-          echo "::error::The local Worker preview did not answer 200 on $PREVIEW_ORIGIN/ within 3 minutes."
-          exit 1
-
-      - name: Require the preview to serve this build
-        run: .github/scripts/wait-for-build.sh "$PREVIEW_ORIGIN" "$GITHUB_SHA" 1
-
-      # Through the e2e package, so the browser matches its @playwright/test.
-      - name: Install Chromium for Playwright
-        run: pnpm --filter e2e exec playwright install --with-deps chromium
-
-      - name: E2E smoke against the local preview
-        env:
-          BASE_URL: ${{ env.PREVIEW_ORIGIN }}
-          EXPECT_ENV: local
-        run: pnpm test:e2e
-
-      - name: List every page the sitemaps link
-        run: pnpm --silent --filter e2e sitemap-urls "$PREVIEW_ORIGIN" > "$RUNNER_TEMP/urls.txt"
-
-      # Every link and asset on those pages must answer 200 without a redirect. Only the preview's
-      # own URLs, never a third-party site (lychee.toml).
-      - name: Check the site's own links
-        uses: lycheeverse/lychee-action@e7477775783ea5526144ba13e8db5eec57747ce8 # v2.9.0
-        with:
-          args: --config lychee.toml --no-progress --files-from ${{ runner.temp }}/urls.txt
-          output: ${{ runner.temp }}/lychee.md
-
-      - name: Keep the Playwright report and the preview log
-        if: failure()
-        uses: actions/upload-artifact@v7
-        with:
-          name: e2e-local-${{ github.run_attempt }}
-          path: |
-            apps/e2e/playwright-report/
-            apps/e2e/test-results/
-            ${{ runner.temp }}/worker-preview.log
-            ${{ runner.temp }}/lychee.md
-          if-no-files-found: ignore
-          retention-days: 14
+      - name: Require the build to match env.production
+        run: pnpm --filter web check:build-environment production
 
   all-checks:
     name: All checks
-    # The required check. It always reports, so a docs-only or draft run can still merge.
-    needs: [changes, lint, typecheck, test, migrations, worker-e2e]
+    # The required check, and the deploy jobs' gate. It always reports, so a docs-only or draft
+    # run can still merge.
+    needs: [changes, lint, typecheck, test, migrations, worker-e2e, worker-build-production]
     if: always()
     runs-on: ubuntu-latest
     timeout-minutes: 5
@@ -259,3 +424,263 @@ jobs:
             echo "::error::Failed or cancelled: $failed"
             exit 1
           fi
+
+  # Every push to staging: build the staging Worker, then, if staging still points at this commit,
+  # migrate the staging D1, deploy, and smoke-test the Worker on its workers.dev host.
+  deploy-staging:
+    name: Migrate, deploy and smoke-test staging
+    needs: all-checks
+    # Deploys wait for the check. The explicit result keeps a skipped pull-request-only job
+    # upstream of "All checks" from skipping this one.
+    if: >-
+      !cancelled() && needs.all-checks.result == 'success' &&
+      github.event_name == 'push' && github.ref == 'refs/heads/staging'
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    # Build, migrate, deploy and smoke test stay in this one job. Deploys never overlap; a newer
+    # push replaces a queued one, never a running one.
+    concurrency:
+      group: deploy-web-staging
+      cancel-in-progress: false
+    environment:
+      name: staging
+      url: https://staging.boxingundefeated.com
+    env:
+      # The Worker's own workers.dev host, with the smoke-test header. The zone's Bot Fight Mode
+      # challenges GitHub's runners on staging.boxingundefeated.com, and the free plan can't skip it.
+      SMOKE_ORIGIN: https://boxingundefeated-com-staging.serpcompany.workers.dev
+    steps:
+      - name: Require Cloudflare credentials
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          if [ -z "$CLOUDFLARE_API_TOKEN" ] || [ -z "$CLOUDFLARE_ACCOUNT_ID" ]; then
+            echo "::error::The staging environment needs the CLOUDFLARE_API_TOKEN and CLOUDFLARE_ACCOUNT_ID secrets."
+            exit 1
+          fi
+
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Install
+        uses: ./.github/actions/install
+
+      # Built before anything touches Cloudflare, so a failed build never leaves a migrated D1
+      # behind the old Worker.
+      - name: Build the staging Worker
+        run: pnpm --filter web build:worker:staging
+
+      - name: Require the build to match env.staging
+        run: pnpm --filter web check:build-environment staging
+
+      # Deploy only the branch tip. With `needs:`, deploys queue in the order their checks finish,
+      # so an older commit's run (or a re-run of one) could otherwise deploy over newer code.
+      - name: Deploy only if staging still points at this commit
+        id: tip
+        run: |
+          tip="$(git ls-remote origin refs/heads/staging | cut -f1)"
+          if [ "$tip" = "$GITHUB_SHA" ]; then
+            echo "deploy=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "::notice title=Not deployed::staging is now at ${tip:-an unknown commit}, not $GITHUB_SHA. Its own run deploys it."
+          fi
+
+      - name: Migrate the staging D1
+        if: steps.tip.outputs.deploy == 'true'
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: pnpm db:migrate:staging
+
+      - name: Require the staging D1 to be deployable
+        if: steps.tip.outputs.deploy == 'true'
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: pnpm db:check-deployable -- --target staging
+
+      - name: Deploy the staging Worker
+        if: steps.tip.outputs.deploy == 'true'
+        working-directory: apps/web
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: pnpm exec opennextjs-cloudflare deploy --env staging
+
+      # Production releases only a tree whose staging deploy passed this job, so the smoke test
+      # must reach the new version, not the one live before the deploy.
+      - name: Wait until staging serves this build
+        if: steps.tip.outputs.deploy == 'true'
+        run: .github/scripts/wait-for-build.sh "$SMOKE_ORIGIN" "$GITHUB_SHA"
+
+      # Through the e2e package, so the browser matches its @playwright/test.
+      - name: Install Chromium for Playwright
+        if: steps.tip.outputs.deploy == 'true'
+        run: pnpm --filter e2e exec playwright install --with-deps chromium
+
+      # The suite on workers.dev: staging's password (401 without it or with a wrong one, and with
+      # it a 308 to staging.boxingundefeated.com), the smoke-test requests' noindex and robots.txt's
+      # Disallow, among the rest (#16's suite). The 200 with the password and no noindex runs in
+      # worker-e2e's staging config before merge, since CI can't reach the custom domain (#45).
+      - name: Smoke-test staging
+        if: steps.tip.outputs.deploy == 'true'
+        env:
+          BASE_URL: ${{ env.SMOKE_ORIGIN }}
+          EXPECT_ENV: staging
+        run: pnpm test:e2e
+
+      # Read by verify-production-release.sh: staging migrated, deployed and smoke-tested this tree.
+      - name: Record the staging receipt for this tree
+        id: staged
+        if: steps.tip.outputs.deploy == 'true'
+        run: |
+          tree="$(git rev-parse 'HEAD^{tree}')"
+          echo "tree=$tree" >> "$GITHUB_OUTPUT"
+          echo "$GITHUB_SHA $tree" > "$RUNNER_TEMP/staged.txt"
+
+      - name: Upload the staging receipt
+        if: steps.tip.outputs.deploy == 'true'
+        uses: actions/upload-artifact@v7
+        with:
+          name: passed-deploy-staging-${{ steps.staged.outputs.tree }}
+          path: ${{ runner.temp }}/staged.txt
+          retention-days: 90
+          overwrite: true
+
+      - name: Keep the Playwright report
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: e2e-staging-deploy-${{ github.run_attempt }}
+          path: |
+            apps/e2e/playwright-report/
+            apps/e2e/test-results/
+          if-no-files-found: ignore
+          retention-days: 14
+
+  # main is production. Every push to main (a promotion from staging), or an owner's dispatch from
+  # main, checks the release first. verify-production-release.sh fails closed: main must still
+  # point at this commit, and deploy-staging must have deployed and smoke-tested this tree, unless
+  # it is an owner's hotfix. It documents the bootstrap and the hotfix path.
+  staging-verified:
+    name: Require a fresh release that staging verified
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      actions: read
+      contents: read
+    steps:
+      - name: Checkout the release scripts
+        uses: actions/checkout@v7
+        with:
+          sparse-checkout: .github/scripts
+
+      - name: Require main at this commit, and a staging deploy of its tree (or an owner's hotfix)
+        env:
+          GH_TOKEN: ${{ github.token }}
+          CONFIRMATION: ${{ inputs.confirmation }}
+        run: .github/scripts/verify-production-release.sh
+
+  # Waits for "All checks" of the same run and for the release check above, then for the owner's
+  # approval of the `production` environment.
+  deploy-production:
+    name: Migrate, deploy and smoke-test production
+    needs: [all-checks, staging-verified]
+    if: >-
+      !cancelled() && needs.all-checks.result == 'success' &&
+      needs.staging-verified.result == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    # Build, migrate, deploy and smoke test stay in this one job. Deploys never overlap; a newer
+    # push replaces a queued one, never a running one.
+    concurrency:
+      group: deploy-web-production
+      cancel-in-progress: false
+    environment:
+      name: production
+      url: https://boxingundefeated.com
+    env:
+      # The smoke test runs on the Worker's workers.dev host with the smoke-test header: the zone's
+      # Bot Fight Mode challenges GitHub's runners on the zone's own hostnames (#45).
+      SMOKE_ORIGIN: https://boxingundefeated-com-production.serpcompany.workers.dev
+    steps:
+      - name: Require Cloudflare credentials
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          if [ -z "$CLOUDFLARE_API_TOKEN" ] || [ -z "$CLOUDFLARE_ACCOUNT_ID" ]; then
+            echo "::error::The production environment needs the CLOUDFLARE_API_TOKEN and CLOUDFLARE_ACCOUNT_ID secrets."
+            exit 1
+          fi
+
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Install
+        uses: ./.github/actions/install
+
+      # Built before anything touches Cloudflare, so a failed build never leaves a migrated D1
+      # behind the old Worker.
+      - name: Build the production Worker
+        run: pnpm --filter web build:worker:production
+
+      - name: Require the build to match env.production
+        run: pnpm --filter web check:build-environment production
+
+      # The tip guard. The approval can come long after the push; refuse if main has moved on
+      # since. A re-run of this job alone still needs a hotfix owner.
+      - name: Require main to still point at this commit, and a hotfix owner
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: .github/scripts/verify-production-release.sh --fresh-only
+
+      # A hotfix deploys the Worker only: db:check-deployable then refuses pending migrations.
+      - name: Migrate the production D1
+        if: env.HOTFIX != 'true'
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: pnpm db:migrate:production
+
+      - name: Require the production D1 to be deployable
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: pnpm db:check-deployable -- --target production --confirm-production
+
+      - name: Deploy the production Worker
+        working-directory: apps/web
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: pnpm exec opennextjs-cloudflare deploy --env production
+
+      - name: Wait until production serves this build
+        run: .github/scripts/wait-for-build.sh "$SMOKE_ORIGIN" "$GITHUB_SHA"
+
+      # Through the e2e package, so the browser matches its @playwright/test.
+      - name: Install Chromium for Playwright
+        run: pnpm --filter e2e exec playwright install --with-deps chromium
+
+      # Asserts production is indexable (no noindex, robots allows crawling and lists the sitemap,
+      # GTM present) and asks for no password, among the rest (#16's suite). It sends the
+      # smoke-test header to workers.dev.
+      - name: Smoke-test production
+        env:
+          BASE_URL: ${{ env.SMOKE_ORIGIN }}
+          EXPECT_ENV: production
+        run: pnpm test:e2e
+
+      - name: Keep the Playwright report
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: e2e-production-${{ github.run_attempt }}
+          path: |
+            apps/e2e/playwright-report/
+            apps/e2e/test-results/
+          if-no-files-found: ignore
+          retention-days: 14
