@@ -30,8 +30,9 @@ import { metadata as searchMetadata } from './search/layout'
 import { generateMetadata as htmlSitemapMetadata } from './sitemap/page'
 
 /**
- * Every page's title is `<page title> - Boxing Undefeated`, the homepage's its own, and its
- * og:title and twitter:title are the same title (#87). Next.js replaces the root layout's
+ * Every page's title is `<page title> - Boxing Undefeated`, the homepage's its own, a boxer's
+ * `<name> Record, Stats & Fights` without the site name past 60 characters, and its og:title and
+ * twitter:title are the same title (#87). Next.js replaces the root layout's
  * `openGraph` and `twitter` with a page's whole, so a page that sets its title alone is shared as
  * the root's, the bare site name: its family fails here. So does a page file this table misses.
  */
@@ -68,8 +69,15 @@ const families: PageFamily[] = [
   {
     file: 'boxers/[slug]/page.tsx',
     path: '/boxers/manuel-ortiz/',
-    title: 'Manuel Ortiz - Professional Boxer - Boxing Undefeated',
+    title: 'Manuel Ortiz Record, Stats & Fights - Boxing Undefeated',
     metadata: () => boxerMetadata(params({ slug: 'manuel-ortiz' }))
+  },
+  {
+    // Over 60 characters with the site name, so without it; the name is never cut.
+    file: 'boxers/[slug]/page.tsx',
+    path: '/boxers/demetrius-williams/',
+    title: 'Demetrius Williams Record, Stats & Fights',
+    metadata: () => boxerMetadata(params({ slug: 'demetrius-williams' }))
   },
   {
     file: 'divisions/page.tsx',
@@ -154,10 +162,15 @@ function listing(currentPage: number): BoxerListingPage {
   }
 }
 
+const boxerNames: Record<string, string> = {
+  'manuel-ortiz': 'Manuel Ortiz',
+  'demetrius-williams': 'Demetrius Williams'
+}
+
 beforeEach(() => {
   mockGetBoxerProfile.mockImplementation(async slug =>
-    slug === 'manuel-ortiz'
-      ? { boxer: { slug, name: 'Manuel Ortiz', bio: null }, bouts: [], opponentLinks: new Map() }
+    boxerNames[slug]
+      ? { boxer: { slug, name: boxerNames[slug], bio: null }, bouts: [], opponentLinks: new Map() }
       : null
   )
   mockGetBoxersPage.mockImplementation(async page => (page <= 3 ? listing(page) : null))

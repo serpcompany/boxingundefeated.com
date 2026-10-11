@@ -6,6 +6,7 @@ import {
   createPageMetadata,
   createRootMetadata,
   MAX_META_DESCRIPTION_LENGTH,
+  MAX_TITLE_LENGTH,
   pageTitle
 } from './metadata'
 import { getShopPosts } from './shop-loader'
@@ -51,6 +52,45 @@ describe('metadata helpers', () => {
     expect(pageTitle('Boxers Directory - Page 2')).toBe(
       'Boxers Directory - Page 2 - Boxing Undefeated'
     )
+  })
+
+  it('keeps the site name on a title of any length unless the page lets it go', () => {
+    const long = 'Carlos Antonio Rodriguez Moreno Record, Stats & Fights'
+
+    expect(pageTitle(long)).toBe(`${long} - Boxing Undefeated`)
+    expect(pageTitle(long, { siteNameIfFits: false })).toBe(`${long} - Boxing Undefeated`)
+  })
+
+  it('with siteNameIfFits, keeps the site name on a title of exactly 60 characters', () => {
+    const title = pageTitle('Jonathan Gonzalez Record, Stats & Fights', { siteNameIfFits: true })
+
+    expect(MAX_TITLE_LENGTH).toBe(60)
+    expect(title).toBe('Jonathan Gonzalez Record, Stats & Fights - Boxing Undefeated')
+    expect(title).toHaveLength(MAX_TITLE_LENGTH)
+    expect(pageTitle('Ana Alpha Record, Stats & Fights', { siteNameIfFits: true })).toBe(
+      'Ana Alpha Record, Stats & Fights - Boxing Undefeated'
+    )
+  })
+
+  it('with siteNameIfFits, drops the site name past 60 characters and never cuts the title', () => {
+    // 61 characters with the site name.
+    expect('Demetrius Williams Record, Stats & Fights - Boxing Undefeated').toHaveLength(61)
+    expect(pageTitle('Demetrius Williams Record, Stats & Fights', { siteNameIfFits: true })).toBe(
+      'Demetrius Williams Record, Stats & Fights'
+    )
+
+    const long = 'Carlos Antonio Rodriguez Moreno Record, Stats & Fights'
+    expect(pageTitle(long, { siteNameIfFits: true })).toBe(long)
+  })
+
+  it('gives the dropped-site-name title to og:title and twitter:title as well', () => {
+    const title = "Hassan N'Dam N'Jikam Record, Stats & Fights"
+    const metadata = createPageMetadata({ title, siteNameIfFits: true })
+
+    expect(metadata.title).toBe(title)
+    expect(metadata.openGraph?.title).toBe(title)
+    expect(metadata.twitter?.title).toBe(title)
+    expect(metadata).not.toHaveProperty('siteNameIfFits')
   })
 
   it("gives a page's og:title and twitter:title its title, and its og:url its canonical", () => {

@@ -28,8 +28,10 @@ export async function generateMetadata({
   }
   const { boxer } = profile
 
+  // The owner's keyword pattern; a long name drops the site name rather than be cut (#87).
   return createPageMetadata({
-    title: `${boxer.name} - Professional Boxer`,
+    title: `${boxer.name} Record, Stats & Fights`,
+    siteNameIfFits: true,
     description: createBoxerMetaDescription(boxer),
     canonical: toAbsoluteUrl(baseUrl, `/boxers/${slug}`)
   })

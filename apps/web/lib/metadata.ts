@@ -27,12 +27,29 @@ export function createBoxerMetaDescription(boxer: Pick<ProfileBoxer, 'name' | 'b
   )
 }
 
+/** The longest title, in characters, that keeps the site name on a page with `siteNameIfFits`. */
+export const MAX_TITLE_LENGTH = 60
+
+export interface PageTitleOptions {
+  /**
+   * Leave out ` - Boxing Undefeated` when the whole title would be longer than `MAX_TITLE_LENGTH`,
+   * rather than cut the page's own title: a boxer's name always shows in full (#87).
+   */
+  siteNameIfFits?: boolean
+}
+
 /**
  * A page's document title, `<page title> - Boxing Undefeated`. Every page has one but the
- * homepage, whose title is its own (app/page.tsx).
+ * homepage, whose title is its own (app/page.tsx). With `siteNameIfFits`, a title that would be
+ * longer than `MAX_TITLE_LENGTH` is the page title alone.
  */
-export function pageTitle(title: string): string {
-  return `${title} - ${SITE_NAME}`
+export function pageTitle(
+  title: string,
+  { siteNameIfFits = false }: PageTitleOptions = {}
+): string {
+  const withSiteName = `${title} - ${SITE_NAME}`
+
+  return siteNameIfFits && withSiteName.length > MAX_TITLE_LENGTH ? title : withSiteName
 }
 
 export interface PageMetadataInput {
@@ -91,9 +108,13 @@ export function createDocumentMetadata({
   }
 }
 
-/** A page's metadata, titled `<title> - Boxing Undefeated` (`pageTitle`). */
-export function createPageMetadata({ title, ...page }: PageMetadataInput): Metadata {
-  return createDocumentMetadata({ ...page, title: pageTitle(title) })
+/** A page's metadata, titled `<title> - Boxing Undefeated` (`pageTitle`, with its options). */
+export function createPageMetadata({
+  title,
+  siteNameIfFits,
+  ...page
+}: PageMetadataInput & PageTitleOptions): Metadata {
+  return createDocumentMetadata({ ...page, title: pageTitle(title, { siteNameIfFits }) })
 }
 
 /**
