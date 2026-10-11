@@ -66,6 +66,7 @@ describe('buildSentryOptions', () => {
       frameContextLines: 0
     })
     expect(options.tracesSampleRate).toBeUndefined()
+    expect(options.traceLifecycle).toBe('static')
     expect(options).not.toHaveProperty('replaysSessionSampleRate')
     expect(options).not.toHaveProperty('profilesSampleRate')
     expect(typeof options.beforeSend).toBe('function')

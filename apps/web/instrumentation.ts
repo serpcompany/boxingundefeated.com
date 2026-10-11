@@ -25,6 +25,9 @@ export const onRequestError: Instrumentation.onRequestError = (error, request, c
         route_type: context.routeType
       })
       scope.setTransactionName(`${request.method} ${context.routePath}`)
+      // The browser's error boundary reports the same digest (lib/sentry/report.ts).
+      const digest = (error as { digest?: unknown } | null)?.digest
+      if (typeof digest === 'string') scope.setTag('next_digest', digest)
       captureException(error, {
         mechanism: { handled: false, type: 'auto.function.nextjs.on_request_error' }
       })

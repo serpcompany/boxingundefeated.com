@@ -42,10 +42,32 @@ export function workerSentryOptions(env: SentryWorkerEnvironment, release: strin
   return buildSentryOptions({ dsn: env.SENTRY_DSN, siteEnvironment: env.SITE_ENVIRONMENT, release })
 }
 
-/** Renames bundled Worker frames to the uploaded bundle's name (`toUploadedWorkerFilename`). */
+/**
+ * Renames bundled Worker frames to the uploaded bundle's name (`toUploadedWorkerFilename`). Sentry
+ * looks a frame's source map up by `abs_path` when it has one, so both are renamed.
+ */
 function uploadedFrame(frame: StackFrame): StackFrame {
   frame.filename = toUploadedWorkerFilename(frame.filename)
+  if (frame.abs_path) frame.abs_path = toUploadedWorkerFilename(frame.abs_path)
   return frame
+}
+
+/**
+ * `withSentry` re-streams a `text/plain` response that has no `Content-Length` header (its guess
+ * at a streamed AI response), so the Worker would answer it chunked instead of with its length:
+ * robots.txt and the 503 gates' bodies. Such a body, read into memory and given its length, passes
+ * through `withSentry` untouched. Only those small text bodies reach this.
+ */
+export async function withKnownLength(response: Response): Promise<Response> {
+  const type = response.headers.get('content-type') ?? ''
+  if (!response.body || response.headers.has('content-length') || !/^text\/plain\b/i.test(type)) {
+    return response
+  }
+  const body = await response.arrayBuffer()
+  // The Workers idiom: copies status, headers and Workers-only fields into a mutable response.
+  const sized = new Response(body, response)
+  sized.headers.set('content-length', String(body.byteLength))
+  return sized
 }
 
 /** `withSentry` around the handler, errors only, with the shared options and scrubber. */
@@ -55,7 +77,8 @@ export const wrapWithSentry: WrapWithSentry = <Env extends SentryWorkerEnvironme
 ) => {
   // `withSentry` instruments the object it is given in place, so it gets its own.
   const instrumented: ExportedHandler<Env> = {
-    fetch: (request, env, ctx) => handler.fetch(request as Request, env, ctx)
+    fetch: async (request, env, ctx) =>
+      withKnownLength(await handler.fetch(request as Request, env, ctx))
   }
   return Sentry.withSentry(
     (env: Env) => ({

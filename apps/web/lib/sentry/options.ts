@@ -78,8 +78,10 @@ export function buildSentryOptions({ dsn, siteEnvironment, release }: SentryConf
     ...(trimmedRelease ? { release: trimmedRelease } : {}),
     dataCollection: { ...sentryDataCollection, httpBodies: [] },
     maxBreadcrumbs: MAX_BREADCRUMBS,
-    // No tracing: without a sample rate the SDK records no spans and sends no transactions.
+    // No tracing: without a sample rate the SDK records no spans and sends no transactions, and
+    // the static lifecycle keeps the server SDK from adding its span streaming.
     tracesSampleRate: undefined,
+    traceLifecycle: 'static' as const,
     beforeSend: scrubEvent,
     beforeBreadcrumb: scrubBreadcrumb
   }

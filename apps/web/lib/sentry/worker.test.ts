@@ -4,6 +4,7 @@
 import {
   type SentryWorkerEnvironment,
   type WorkerFetchHandler,
+  withKnownLength,
   withSentryWhenEnabled
 } from './worker'
 
@@ -68,5 +69,39 @@ describe('withSentryWhenEnabled', () => {
     const worker = withSentryWhenEnabled(handler, '0.1.0+abc')
     expect(typeof worker.fetch).toBe('function')
     expect(handler.fetch).not.toHaveBeenCalled()
+  })
+})
+
+describe('withKnownLength', () => {
+  it('gives a text/plain body without a length its length, and keeps the rest', async () => {
+    const response = new Response('User-agent: *\nDisallow: /\n', {
+      status: 503,
+      headers: {
+        'content-type': 'text/plain; charset=utf-8',
+        'cache-control': 'no-store',
+        'x-robots-tag': 'noindex'
+      }
+    })
+    const sized = await withKnownLength(response)
+    expect(sized.status).toBe(503)
+    expect(Object.fromEntries(sized.headers)).toEqual({
+      'content-type': 'text/plain; charset=utf-8',
+      'cache-control': 'no-store',
+      'x-robots-tag': 'noindex',
+      'content-length': '26'
+    })
+    await expect(sized.text()).resolves.toBe('User-agent: *\nDisallow: /\n')
+  })
+
+  it('leaves every other response as it is', async () => {
+    const responses = [
+      new Response('<html></html>', { headers: { 'content-type': 'text/html' } }),
+      new Response('ok', { headers: { 'content-type': 'text/plain', 'content-length': '2' } }),
+      new Response(null, { status: 404, headers: { 'content-type': 'text/plain' } }),
+      new Response('{}', { headers: { 'content-type': 'application/json' } })
+    ]
+    for (const response of responses) {
+      await expect(withKnownLength(response)).resolves.toBe(response)
+    }
   })
 })
