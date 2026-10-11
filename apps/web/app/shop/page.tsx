@@ -2,17 +2,16 @@ import { Breadcrumb } from '@boxingundefeated/design-system/breadcrumb'
 import type { Metadata } from 'next'
 import { ShopPostList } from '@/components/shop-post-list'
 import { getPaginatedItems } from '@/lib/directory-pagination'
+import { createPageMetadata } from '@/lib/metadata'
 import { getShopPosts, SHOP_PAGE_SIZE } from '@/lib/shop-loader'
 import { getSiteOrigin } from '@/lib/site-config'
 
 export async function generateMetadata(): Promise<Metadata> {
-  return {
+  return createPageMetadata({
     title: 'Shop Guides',
     description: 'Browse boxing, fitness, and training gear buying guides.',
-    alternates: {
-      canonical: `${getSiteOrigin()}/shop/`
-    }
-  }
+    canonical: `${getSiteOrigin()}/shop/`
+  })
 }
 
 export default async function ShopPage() {

@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { ShopPostList } from '@/components/shop-post-list'
 import { getPaginatedItems, getPaginationPages } from '@/lib/directory-pagination'
+import { createPageMetadata } from '@/lib/metadata'
 import { getShopPageHref, getShopPosts, SHOP_PAGE_SIZE } from '@/lib/shop-loader'
 import { getSiteOrigin } from '@/lib/site-config'
 
@@ -26,13 +27,11 @@ export async function generateMetadata({
   const { page: pageParam } = await params
   const page = Number.parseInt(pageParam, 10)
 
-  return {
+  return createPageMetadata({
     title: `Shop Guides - Page ${page}`,
     description: `Browse page ${page} of boxing, fitness, and training gear buying guides.`,
-    alternates: {
-      canonical: `${getSiteOrigin()}${getShopPageHref(page)}`
-    }
-  }
+    canonical: `${getSiteOrigin()}${getShopPageHref(page)}`
+  })
 }
 
 export default async function ShopPaginatedPage({ params }: { params: Promise<{ page: string }> }) {

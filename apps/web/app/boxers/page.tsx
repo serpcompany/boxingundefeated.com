@@ -3,18 +3,15 @@ import type { Metadata } from 'next'
 import { BoxersDirectoryList } from '@/components/boxers-directory-list'
 import { getBoxersPage } from '@/lib/boxer-data'
 import { getBoxersPageHref } from '@/lib/directory-pagination'
+import { createPageMetadata } from '@/lib/metadata'
 import { getSiteOrigin } from '@/lib/site-config'
 
 export async function generateMetadata(): Promise<Metadata> {
-  const baseUrl = getSiteOrigin()
-
-  return {
+  return createPageMetadata({
     title: 'Boxers Directory',
     description: 'Browse our comprehensive directory of professional boxers.',
-    alternates: {
-      canonical: `${baseUrl}/boxers/`
-    }
-  }
+    canonical: `${getSiteOrigin()}/boxers/`
+  })
 }
 
 export default async function BoxersPage() {

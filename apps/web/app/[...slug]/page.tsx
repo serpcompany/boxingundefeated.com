@@ -2,10 +2,10 @@ import { Breadcrumb } from '@boxingundefeated/design-system/breadcrumb'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import { createMetaDescription } from '@/lib/metadata'
+import { createNotFoundMetadata, createPageMetadata } from '@/lib/metadata'
 import { decodePagePath, encodePath, routeKeyPath } from '@/lib/routing/non-ascii-paths'
 import { getShopPost, getShopSlugs } from '@/lib/shop-loader'
-import { getSiteOrigin, SITE_NAME } from '@/lib/site-config'
+import { getSiteOrigin } from '@/lib/site-config'
 import { normalizeInternalPath, toAbsoluteUrl } from '@/lib/url-utils'
 import './article.css'
 
@@ -51,18 +51,14 @@ export async function generateMetadata({
   const post = await getPostBySlug(pagePath(slug))
 
   if (!post) {
-    return {
-      title: `Page Not Found - ${SITE_NAME}`
-    }
+    return createNotFoundMetadata()
   }
 
-  return {
-    title: `${post.title} - ${SITE_NAME}`,
-    description: createMetaDescription(post.description),
-    alternates: {
-      canonical: toAbsoluteUrl(getSiteOrigin(), post.slug)
-    }
-  }
+  return createPageMetadata({
+    title: post.title,
+    description: post.description,
+    canonical: toAbsoluteUrl(getSiteOrigin(), post.slug)
+  })
 }
 
 export default async function BlogPostPage({ params }: { params: Promise<{ slug: string[] }> }) {

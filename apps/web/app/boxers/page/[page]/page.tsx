@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation'
 import { BoxersDirectoryList } from '@/components/boxers-directory-list'
 import { getBoxersPage } from '@/lib/boxer-data'
 import { getBoxersPageHref, parsePageNumber } from '@/lib/directory-pagination'
+import { createNotFoundMetadata, createPageMetadata } from '@/lib/metadata'
 import { getSiteOrigin } from '@/lib/site-config'
 
 /** The listing for `/boxers/page/<n>/`, or null for page 1 (that is `/boxers/`) or out of range. */
@@ -21,21 +22,16 @@ export async function generateMetadata({
   const listing = await getListing(pageParam)
 
   if (!listing) {
-    return {
-      title: 'Page Not Found'
-    }
+    return createNotFoundMetadata()
   }
 
   const page = listing.currentPage
-  const baseUrl = getSiteOrigin()
 
-  return {
+  return createPageMetadata({
     title: `Boxers Directory - Page ${page}`,
     description: `Browse page ${page} of our comprehensive directory of professional boxers.`,
-    alternates: {
-      canonical: `${baseUrl}${getBoxersPageHref(page)}`
-    }
-  }
+    canonical: `${getSiteOrigin()}${getBoxersPageHref(page)}`
+  })
 }
 
 export default async function BoxersPaginatedPage({

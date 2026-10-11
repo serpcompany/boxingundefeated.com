@@ -3,16 +3,15 @@ import { Card, CardContent, CardHeader, CardTitle } from '@boxingundefeated/desi
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { getDivisions } from '@/lib/boxer-data'
+import { createPageMetadata } from '@/lib/metadata'
 import { getSiteOrigin } from '@/lib/site-config'
 
 export async function generateMetadata(): Promise<Metadata> {
-  return {
+  return createPageMetadata({
     title: 'Boxing Divisions',
     description: 'Browse professional boxers by weight class.',
-    alternates: {
-      canonical: `${getSiteOrigin()}/divisions/`
-    }
-  }
+    canonical: `${getSiteOrigin()}/divisions/`
+  })
 }
 
 export default async function DivisionsPage() {

@@ -5,17 +5,21 @@ const page = `<!DOCTYPE html><html><head><meta charSet="utf-8"/>
 <title>Men&#x27;s Water Bottles - Boxing Directory</title>
 <meta name="robots" content="noindex"/>
 <link rel="canonical" href="https://boxingundefeated.com/shop/best/men&#x27;s-water-bottles/"/>
-<meta property="og:url" content="https://boxingundefeated.com"/></head>
+<meta property="og:url" content="https://boxingundefeated.com"/>
+<meta property="og:title" content="Men&#x27;s Water Bottles - Boxing Directory"/>
+<meta name="twitter:title" content="Men&#x27;s Water Bottles"/></head>
 <body><svg><title>Facebook</title></svg><h1 class="x">Men&#x27;s <span>Water</span>
   Bottles</h1><h1>Second</h1></body></html>`
 
 describe('pageFacts', () => {
-  it('reads the document title, canonical, og:url, first H1 and robots meta', () => {
+  it('reads the document title, canonical, og:url, og:title, twitter:title, first H1 and robots meta', () => {
     expect(pageFacts(page)).toEqual({
       title: "Men's Water Bottles - Boxing Directory",
       canonical: "https://boxingundefeated.com/shop/best/men's-water-bottles/",
       canonicalCount: 1,
       ogUrl: 'https://boxingundefeated.com',
+      ogTitle: "Men's Water Bottles - Boxing Directory",
+      twitterTitle: "Men's Water Bottles",
       h1: "Men's Water Bottles",
       robots: 'noindex'
     })

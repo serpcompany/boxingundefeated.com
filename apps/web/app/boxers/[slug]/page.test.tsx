@@ -22,6 +22,7 @@ jest.mock('@boxingundefeated/data-ops', () => ({
   getBoxerProfile: (db: unknown, slug: string) => mockQueryBoxerProfile(db, slug)
 }))
 
+import { createNotFoundMetadata } from '@/lib/metadata'
 import BoxerPage, { generateMetadata } from './page'
 
 const params = (slug: string) => ({ params: Promise.resolve({ slug }) })
@@ -163,7 +164,7 @@ describe('boxer profile page', () => {
     })
     const metadata = await generateMetadata(params('ana-alpha'))
 
-    expect(metadata.title).toBe('Ana Alpha - Professional Boxer')
+    expect(metadata.title).toBe('Ana Alpha - Professional Boxer - Boxing Undefeated')
     expect(metadata.description).toBe(
       'Professional boxing record and statistics for Ana Alpha. <p>Southpaw.</p>'
     )
@@ -174,9 +175,7 @@ describe('boxer profile page', () => {
     mockQueryBoxerProfile.mockResolvedValue(null)
 
     await expect(BoxerPage(params('world'))).rejects.toThrow('NEXT_HTTP_ERROR_FALLBACK;404')
-    await expect(generateMetadata(params('world'))).resolves.toEqual({
-      title: 'Boxer Not Found'
-    })
+    await expect(generateMetadata(params('world'))).resolves.toEqual(createNotFoundMetadata())
   })
 
   it('fails closed without the DB binding', async () => {

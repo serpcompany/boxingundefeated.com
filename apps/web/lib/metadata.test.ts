@@ -1,8 +1,12 @@
 import {
   createBoxerMetaDescription,
+  createDocumentMetadata,
   createMetaDescription,
+  createNotFoundMetadata,
+  createPageMetadata,
   createRootMetadata,
-  MAX_META_DESCRIPTION_LENGTH
+  MAX_META_DESCRIPTION_LENGTH,
+  pageTitle
 } from './metadata'
 import { getShopPosts } from './shop-loader'
 import { getSiteOrigin } from './site-config'
@@ -12,7 +16,7 @@ describe('metadata helpers', () => {
     const metadata = createRootMetadata()
     const description = metadata.description
 
-    // The fallback title of every page without its own, such as search and the 404.
+    // Every page replaces it with its own (app/page-titles.test.tsx).
     expect(metadata.title).toBe('Boxing Undefeated')
     expect(description).toEqual(expect.any(String))
     expect(metadata.metadataBase).toEqual(new URL(getSiteOrigin()))
@@ -41,6 +45,59 @@ describe('metadata helpers', () => {
       })
     )
     expect(metadata.twitter?.images).toEqual(['/opengraph-image.png'])
+  })
+
+  it('titles a page `<page title> - Boxing Undefeated`', () => {
+    expect(pageTitle('Boxers Directory - Page 2')).toBe(
+      'Boxers Directory - Page 2 - Boxing Undefeated'
+    )
+  })
+
+  it("gives a page's og:title and twitter:title its title, and its og:url its canonical", () => {
+    const canonical = 'https://boxingundefeated.com/divisions/heavy/page/2/'
+    const metadata = createPageMetadata({
+      title: 'Heavyweight Boxers - Page 2',
+      description: 'Browse page 2 of   professional heavyweight boxers.',
+      canonical
+    })
+    const title = 'Heavyweight Boxers - Page 2 - Boxing Undefeated'
+    const description = 'Browse page 2 of professional heavyweight boxers.'
+    const root = createRootMetadata()
+
+    expect(metadata).toEqual({
+      title,
+      description,
+      alternates: { canonical },
+      openGraph: { ...root.openGraph, title, description, url: canonical },
+      twitter: { ...root.twitter, title, description }
+    })
+  })
+
+  it("leaves out a canonical and og:url the page doesn't have, and keeps the site's description", () => {
+    const metadata = createPageMetadata({ title: 'Search Boxers' })
+
+    expect(metadata.title).toBe('Search Boxers - Boxing Undefeated')
+    expect(metadata.description).toBe(createRootMetadata().description)
+    expect(metadata.openGraph?.description).toBe(metadata.description)
+    expect(metadata).not.toHaveProperty('alternates')
+    expect(metadata.openGraph).not.toHaveProperty('url')
+  })
+
+  it('uses a document title as given: the homepage keeps its own', () => {
+    const metadata = createDocumentMetadata({ title: 'Boxing Undefeated - Professional Boxers' })
+
+    expect(metadata.title).toBe('Boxing Undefeated - Professional Boxers')
+    expect(metadata.openGraph?.title).toBe(metadata.title)
+    expect(metadata.twitter?.title).toBe(metadata.title)
+  })
+
+  it('titles every 404 Page Not Found, without a canonical', () => {
+    const metadata = createNotFoundMetadata()
+
+    expect(metadata.title).toBe('Page Not Found - Boxing Undefeated')
+    expect(metadata.openGraph?.title).toBe(metadata.title)
+    expect(metadata.twitter?.title).toBe(metadata.title)
+    expect(metadata).not.toHaveProperty('alternates')
   })
 
   it('creates non-empty capped boxer meta descriptions from boxer data', () => {

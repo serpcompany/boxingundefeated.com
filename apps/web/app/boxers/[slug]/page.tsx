@@ -6,7 +6,11 @@ import { FightHistory } from '@/components/fight-history'
 import { OptimizedImage } from '@/components/optimized-image'
 import { getBoxerProfile } from '@/lib/boxer-data'
 import { getBoxerStats } from '@/lib/boxer-stats'
-import { createBoxerMetaDescription } from '@/lib/metadata'
+import {
+  createBoxerMetaDescription,
+  createNotFoundMetadata,
+  createPageMetadata
+} from '@/lib/metadata'
 import { getSiteOrigin } from '@/lib/site-config'
 import { normalizeInternalPath, toAbsoluteUrl } from '@/lib/url-utils'
 
@@ -20,19 +24,15 @@ export async function generateMetadata({
   const baseUrl = getSiteOrigin()
 
   if (!profile) {
-    return {
-      title: 'Boxer Not Found'
-    }
+    return createNotFoundMetadata()
   }
   const { boxer } = profile
 
-  return {
+  return createPageMetadata({
     title: `${boxer.name} - Professional Boxer`,
     description: createBoxerMetaDescription(boxer),
-    alternates: {
-      canonical: toAbsoluteUrl(baseUrl, `/boxers/${slug}`)
-    }
-  }
+    canonical: toAbsoluteUrl(baseUrl, `/boxers/${slug}`)
+  })
 }
 
 export default async function BoxerPage({ params }: { params: Promise<{ slug: string }> }) {

@@ -40,6 +40,7 @@ jest.mock('@boxingundefeated/data-ops', () => ({
   getDirectoryCounts: (db: unknown) => mockGetDirectoryCounts(db)
 }))
 
+import { createNotFoundMetadata } from '@/lib/metadata'
 import { isRetiredPath } from '@/lib/routing/retired-paths'
 import BoxersPage from './boxers/page'
 import BoxersPaginatedPage, {
@@ -140,7 +141,7 @@ describe('listing pages', () => {
     for (const page of ['1', '999', '0', '02', '2abc']) {
       const params = { params: Promise.resolve({ page }) }
       await expect(BoxersPaginatedPage(params)).rejects.toThrow(NOT_FOUND)
-      await expect(boxersPageMetadata(params)).resolves.toEqual({ title: 'Page Not Found' })
+      await expect(boxersPageMetadata(params)).resolves.toEqual(createNotFoundMetadata())
     }
     // Only the page that might exist reached D1.
     expect(mockListBoxers.mock.calls.map(([, options]) => options)).toEqual([
@@ -188,7 +189,7 @@ describe('listing pages', () => {
     expect(screen.getByText('Showing 97-97 of 120 boxers')).toBeInTheDocument()
 
     const metadata = await divisionPageMetadata(params)
-    expect(metadata.title).toBe('Heavyweight Boxers - Page 3')
+    expect(metadata.title).toBe('Heavyweight Boxers - Page 3 - Boxing Undefeated')
     expect(metadata.alternates?.canonical).toBe('http://localhost:8787/divisions/heavy/page/3/')
     expect(
       (await divisionMetadata({ params: Promise.resolve({ division: 'heavy' }) })).alternates
@@ -201,12 +202,12 @@ describe('listing pages', () => {
 
     const unknown = { params: Promise.resolve({ division: 'super-duper' }) }
     await expect(DivisionPage(unknown)).rejects.toThrow(NOT_FOUND)
-    await expect(divisionMetadata(unknown)).resolves.toEqual({ title: 'Division Not Found' })
+    await expect(divisionMetadata(unknown)).resolves.toEqual(createNotFoundMetadata())
 
     for (const page of ['1', '99', '02']) {
       const params = { params: Promise.resolve({ division: 'heavy', page }) }
       await expect(DivisionPaginatedPage(params)).rejects.toThrow(NOT_FOUND)
-      await expect(divisionPageMetadata(params)).resolves.toEqual({ title: 'Division Not Found' })
+      await expect(divisionPageMetadata(params)).resolves.toEqual(createNotFoundMetadata())
     }
   })
 

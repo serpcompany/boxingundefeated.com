@@ -17,6 +17,8 @@ const facts = (overrides: Partial<PageFacts> = {}): PageFacts => ({
   canonical: 'https://boxingundefeated.com/boxers/manuel-ortiz/',
   canonicalCount: 1,
   ogUrl: null,
+  ogTitle: null,
+  twitterTitle: null,
   h1: 'Manuel Ortiz',
   robots: null,
   ...overrides
