@@ -24,6 +24,8 @@ export interface BuildEnvironmentRecord {
   siteEnvironment: SiteEnvironment
   /** The commit the Worker was built from (`GITHUB_SHA` in CI). */
   commit: string
+  /** The Sentry release, `<version>+<commit>` (scripts/build-stamp.ts); none if the commit is unknown. */
+  release?: string
 }
 
 /**

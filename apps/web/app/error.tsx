@@ -2,6 +2,7 @@
 
 import { Button } from '@boxingundefeated/design-system/button'
 import { useEffect } from 'react'
+import { reportBoundaryError } from '@/lib/sentry/report'
 
 type ErrorProps = {
   error: Error & { digest?: string }
@@ -12,6 +13,7 @@ type ErrorProps = {
 export default function Error({ error, reset }: ErrorProps) {
   useEffect(() => {
     console.error(error)
+    reportBoundaryError(error, 'route')
   }, [error])
 
   return (

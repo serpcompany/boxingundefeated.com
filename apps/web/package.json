@@ -28,6 +28,8 @@
     "@boxingundefeated/data-ops": "workspace:*",
     "@boxingundefeated/design-system": "workspace:*",
     "@icons-pack/react-simple-icons": "^12.3.0",
+    "@sentry/core": "11.6.0",
+    "@sentry/nextjs": "11.6.0",
     "gray-matter": "^4.0.3",
     "lucide-react": "^0.486.0",
     "next": "16.3.8",
@@ -40,6 +42,7 @@
   },
   "devDependencies": {
     "@opennextjs/cloudflare": "1.20.8",
+    "@sentry/cli": "3.8.0",
     "@tailwindcss/postcss": "^4.1.0",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.2.0",

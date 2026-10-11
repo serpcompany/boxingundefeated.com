@@ -4,6 +4,7 @@ import { Button } from '@boxingundefeated/design-system/button'
 import { fontVariable } from '@boxingundefeated/design-system/lib/fonts'
 import type NextError from 'next/error'
 import { useEffect } from 'react'
+import { reportBoundaryError } from '@/lib/sentry/report'
 
 type GlobalErrorProperties = {
   readonly error: NextError & { digest?: string }
@@ -13,6 +14,7 @@ type GlobalErrorProperties = {
 const GlobalError = ({ error, reset }: GlobalErrorProperties) => {
   useEffect(() => {
     console.error(error)
+    reportBoundaryError(error, 'global')
   }, [error])
 
   return (

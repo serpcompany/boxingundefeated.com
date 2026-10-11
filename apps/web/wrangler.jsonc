@@ -59,6 +59,9 @@
         // Requests with the x-boxingundefeated-smoke-test header are exempt, so CI can test
         // through the workers.dev URL.
         "CANONICAL_HOST_REDIRECT": "on"
+        // SENTRY_DSN is left out on purpose: the owner supplies it as the GitHub variable
+        // SENTRY_DSN, and the deploy passes it with `--var` (the browser build gets the same
+        // value). Without it, Sentry is off (lib/sentry/options.ts).
       },
       "version_metadata": {
         "binding": "CF_VERSION_METADATA"
@@ -91,6 +94,9 @@
         // Requests with the x-boxingundefeated-smoke-test header are exempt, so CI can test
         // through the workers.dev URL.
         "CANONICAL_HOST_REDIRECT": "on"
+        // SENTRY_DSN is left out on purpose: the owner supplies it as the GitHub variable
+        // SENTRY_DSN, and the deploy passes it with `--var` (the browser build gets the same
+        // value). Without it, Sentry is off (lib/sentry/options.ts).
       },
       "version_metadata": {
         "binding": "CF_VERSION_METADATA"

@@ -30,14 +30,17 @@ or deploy workflows, or production migrations, plus every release PR, and runs t
   - `content/`: markdown shop articles. The legal pages are TSX in `app/(legal)/`.
   - `public/`: files served at the same path; each needs an extension in
     `lib/routing/file-extensions.ts` (a test checks).
-  - `scripts/`: `build:worker` steps: the build's environment and commit
-    (`write-build-environment.ts`) and the shop's sitemap entries from `content/`
-    (`write-sitemap-content.ts`).
+  - `scripts/`: `build:worker` steps: the build's environment, commit and Sentry release
+    (`write-build-environment.ts`, `build-stamp.ts`) and the shop's sitemap entries from
+    `content/` (`write-sitemap-content.ts`); `sentry-release.sh` uploads source maps at deploy.
   - `wrangler.jsonc`, `open-next.config.ts`, `worker.ts`: the Worker. The top level is local
     only; `env.staging` (`staging.boxingundefeated.com`) and `env.production` (the apex and `www`)
     are the deployed Workers, each with its own D1 `DB`. `lib/worker/handle-request.ts` maps the
     request pipeline: canonical host, crawl policy, `/api/search` and the XML sitemaps (from D1,
     per the SERP sitemap index pattern), the D1 readiness gate, the edge cache, then OpenNext.
+  - `lib/sentry/`, `instrumentation.ts`, `instrumentation-client.ts`: Sentry error monitoring
+    in the browser and the Worker (serp telemetry standard). `options.ts` says when it is on and
+    what it collects; `scrub.ts` is the allowlist every event passes. Off without a DSN.
 - `d1/`: `drizzle/` migrations (`pnpm db:generate`; never edit `meta/`), `fixtures/`, `reports/`.
 - `packages/data-ops/`: the D1 data layer: the Drizzle schema (`src/schema.ts`), types, every
   query the app runs (`src/queries.ts`; the app never writes SQL) and the pipeline importer's
@@ -140,6 +143,7 @@ value is used, never at module load. A missing or unknown value is `local`.
 | `<meta name="robots">`, `X-Robots-Tag` | `noindex` | `noindex` | none |
 | `/robots.txt` | `Disallow: /` | `Disallow: /` | `Allow: /` and the sitemap index |
 | Google Tag Manager | no | no | `GTM-PP4HWLM` (in code) |
+| Sentry errors (`lib/sentry/`), with the GitHub variable `SENTRY_DSN` | no | yes | yes |
 | `CANONICAL_HOST_REDIRECT` (`www`, `*.workers.dev` -> origin) | `off` | `on` | `on` |
 
 Prerendered HTML is fixed at build, so a Worker build and the environment that serves it must use
