@@ -44,7 +44,8 @@ export const RETIRED_SECTIONS: readonly RetiredPath[] = [
     path: '/brands',
     reason:
       'Owner, 2026-10-11: "actually lets just remove the brands page." (#59). The shared ' +
-      "brands Worker's route there goes in serpcompany/serp#1490."
+      "brands Worker's route on the production apex was removed on 2026-10-11 " +
+      '(serpcompany/serp#1490), so `/brands` and `/brands/` answer this 410.'
   },
   {
     path: '/shop',
