@@ -4,14 +4,14 @@ import { renderToString } from 'react-dom/server.node'
 import type { ProfileBout } from '@/lib/boxer-data'
 import { FightHistory } from './fight-history'
 
-function makeBout(opponentName: string): ProfileBout {
+function makeBout(opponentName: string, fields: Partial<ProfileBout> = {}): ProfileBout {
   return {
     boxrecId: `bout-${opponentName}`,
     boutDate: '2024-01-01',
     opponentName,
     eventName: 'Test Event',
     result: 'win',
-    titleFight: false
+    ...fields
   }
 }
 
@@ -41,7 +41,7 @@ describe('FightHistory', () => {
 
   it('renders every bout in the HTML, the first 10 shown and the rest in a closed <details>', () => {
     const names = opponents(12)
-    const html = serverHtml(names.map(makeBout))
+    const html = serverHtml(names.map(name => makeBout(name)))
 
     expect(html.textContent).toContain('Fight History (12 Bouts)')
     for (const name of names) expect(html.textContent).toContain(name)
@@ -56,7 +56,7 @@ describe('FightHistory', () => {
   })
 
   it('is one list item per bout, numbered on after "Show more"', () => {
-    const html = serverHtml(opponents(12).map(makeBout))
+    const html = serverHtml(opponents(12).map(name => makeBout(name)))
     const [shown, more] = [...html.querySelectorAll('ol')]
 
     expect(html.querySelectorAll('li')).toHaveLength(12)
@@ -66,8 +66,48 @@ describe('FightHistory', () => {
     expect(more?.querySelectorAll('li')).toHaveLength(2)
   })
 
+  it('says "fight" and "Bout" for one, as for James Osborne\'s 11 bouts (#98)', () => {
+    const html = serverHtml(opponents(11).map(name => makeBout(name)))
+
+    expect(html.querySelector('summary')?.textContent).toBe('Show 1 more fight →')
+    expect(serverHtml([makeBout('Opponent 1')]).textContent).toContain('Fight History (1 Bout)')
+  })
+
+  it('has no stray bullet for a bout with no event name (#98)', () => {
+    const html = serverHtml([
+      makeBout('Named Event'),
+      makeBout('Empty Event', { eventName: '' }),
+      makeBout('No Event', { eventName: null }),
+      makeBout('Blank Event', { eventName: '  ' })
+    ])
+    const details = [...html.querySelectorAll('li .text-muted-foreground')].map(e => e.textContent)
+
+    expect(details).toEqual(['2024-01-01 • Test Event', '2024-01-01', '2024-01-01', '2024-01-01'])
+  })
+
+  it('wraps a very long opponent name in its column rather than widening the page (#98)', () => {
+    // 70 characters with no break, like the token #96's review injected: as a flex item with the
+    // default `min-width: auto`, it took 817 px at a 360 px viewport.
+    const token = 'X'.repeat(70)
+    const html = serverHtml([makeBout(token)])
+    render(
+      <FightHistory bouts={[makeBout(token)]} opponentLinks={new Map([[token, 'long-name']])} />
+    )
+
+    for (const name of [
+      html.querySelector('span.font-semibold'),
+      screen.getByRole('link', { name: token })
+    ]) {
+      expect(name?.textContent).toBe(token)
+      // Text in a block, not a flex item: it wraps in the column, which may shrink and breaks
+      // long words.
+      expect(name?.parentElement?.className).toBe('')
+      expect(name?.parentElement?.parentElement?.className).toBe('min-w-0 flex-1 break-words')
+    }
+  })
+
   it('has no "Show more" for 10 bouts or fewer', () => {
-    const html = serverHtml(opponents(10).map(makeBout))
+    const html = serverHtml(opponents(10).map(name => makeBout(name)))
 
     expect(html.textContent).toContain('Opponent 10')
     expect(html.querySelector('details')).toBeNull()

@@ -123,6 +123,7 @@ describe('boxer profile page', () => {
         nicknames: '"Hard Work"',
         managers: ['Ron Dove', 'Bob Kane'],
         proWins: 1,
+        proWinsByKnockout: 1,
         proTotalBouts: 2
       }),
       bouts: [d1Bout(0, 'Linked Opponent', 'linked-opponent'), d1Bout(1, 'Unknown Opponent', null)]
@@ -132,7 +133,10 @@ describe('boxer profile page', () => {
     render(await BoxerPage(params('ana-alpha')))
 
     expect(mockQueryBoxerProfile).toHaveBeenCalledWith(expect.anything(), 'ana-alpha')
-    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Ana Alpha""Hard Work""')
+    // The data quotes every nickname; the page shows it in one pair of quotes (#98).
+    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Ana Alpha"Hard Work"')
+    expect(screen.getByText('1 KO')).toBeInTheDocument()
+    expect(screen.getByText('1 victory')).toBeInTheDocument()
     expect(detail('Managers')?.textContent).toBe('Ron Dove\nBob Kane')
     for (const empty of ['Trainers', 'Promoters', 'Gym', 'Total Rounds']) {
       expect(detail(empty)).toBeNull()

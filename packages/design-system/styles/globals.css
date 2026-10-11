@@ -41,8 +41,6 @@
   --color-win: hsl(var(--win));
   --color-loss: hsl(var(--loss));
   --color-draw: hsl(var(--draw));
-  --color-title-fight: hsl(var(--title-fight));
-  --color-title-fight-foreground: hsl(var(--title-fight-foreground));
 
   /* Text links in content, and the route-change progress bar. */
   --color-link: hsl(var(--link));
@@ -139,15 +137,13 @@
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
     /*
-      Tailwind's green-700, red-600, yellow-700, yellow-500, blue-600 and blue-800. Results are
-      text on the card, so each needs 4.5:1 against it (WCAG AA): win 4.9, loss 4.8, draw 4.9;
-      black on the title-fight badge is 11.0 (#75, apps/web/components/result-colors.test.ts).
+      Tailwind's green-700, red-600, yellow-700, blue-600 and blue-800. Results are text on the
+      card, so each needs 4.5:1 against it (WCAG AA): win 4.9, loss 4.8, draw 4.9 (#75,
+      apps/web/components/result-colors.test.ts).
     */
     --win: 144.9 100% 25.5%;
     --loss: 357.2 100% 45.3%;
     --draw: 34.3 100% 32.5%;
-    --title-fight: 44.2 100% 47.1%;
-    --title-fight-foreground: 0 0% 0%;
     --link: 221.3 97.1% 53.5%;
     --link-hover: 227.1 75.7% 41.1%;
     --radius: 0.5rem;

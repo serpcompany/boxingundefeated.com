@@ -5,6 +5,7 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from '@boxingundefeated/design-system/card'
 import Link from 'next/link'
+import { plural } from '@/lib/boxer-data/display'
 import type { ProfileBout } from '@/lib/boxer-data/profile'
 import { normalizeInternalPath } from '@/lib/url-utils'
 
@@ -31,7 +32,9 @@ export function FightHistory({ bouts, opponentLinks }: FightHistoryProps) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Fight History ({bouts.length} Bouts)</CardTitle>
+        <CardTitle>
+          Fight History ({bouts.length} {plural(bouts.length, 'Bout')})
+        </CardTitle>
       </CardHeader>
       <CardContent>
         <ol className="space-y-3">
@@ -47,7 +50,7 @@ export function FightHistory({ bouts, opponentLinks }: FightHistoryProps) {
           <details className="group">
             {/* Hidden once open: the list then reads as one, as before. */}
             <summary className="mx-auto mt-4 block w-fit cursor-pointer list-none text-sm font-medium text-link hover:text-link-hover group-open:hidden [&::-webkit-details-marker]:hidden">
-              Show {more.length} more fights →
+              Show {more.length} more {plural(more.length, 'fight')} →
             </summary>
             <ol start={INITIAL_BOUTS + 1} className="space-y-3 border-t pt-3">
               {more.map((bout, index) => (
@@ -65,14 +68,24 @@ export function FightHistory({ bouts, opponentLinks }: FightHistoryProps) {
   )
 }
 
+/** The bout's date and event, joined by a bullet only when it has both. */
+function boutDetails({ boutDate, eventName }: ProfileBout): string {
+  return [boutDate, eventName]
+    .map(part => part?.trim())
+    .filter(Boolean)
+    .join(' • ')
+}
+
 function BoutRow({ bout, opponentSlug }: { bout: ProfileBout; opponentSlug: string | undefined }) {
+  const details = boutDetails(bout)
   return (
     <li className="border-b pb-3 last:border-0">
       <div className="flex justify-between items-start">
         {/* `min-w-0` lets the column shrink and a word wider than a phone break, instead of
-            pushing the result off the card and scrolling the page sideways (#75). */}
+            pushing the result off the card and scrolling the page sideways (#75). The opponent's
+            name is text in this column, not a flex item, so a long one wraps here too (#98). */}
         <div className="min-w-0 flex-1 break-words">
-          <div className="flex items-center gap-2">
+          <div>
             {opponentSlug ? (
               <Link
                 href={normalizeInternalPath(`/boxers/${opponentSlug}`)}
@@ -83,15 +96,8 @@ function BoutRow({ bout, opponentSlug }: { bout: ProfileBout; opponentSlug: stri
             ) : (
               <span className="font-semibold">{bout.opponentName}</span>
             )}
-            {bout.titleFight && (
-              <span className="text-xs bg-title-fight text-title-fight-foreground px-2 py-0.5 rounded">
-                Title Fight
-              </span>
-            )}
           </div>
-          <div className="text-sm text-muted-foreground mt-1">
-            {bout.boutDate} • {bout.eventName}
-          </div>
+          {details && <div className="text-sm text-muted-foreground mt-1">{details}</div>}
         </div>
         <div className="text-right">
           <span

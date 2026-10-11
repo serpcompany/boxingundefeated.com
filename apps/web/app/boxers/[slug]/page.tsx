@@ -5,6 +5,7 @@ import { notFound } from 'next/navigation'
 import { FightHistory } from '@/components/fight-history'
 import { OptimizedImage } from '@/components/optimized-image'
 import { getBoxerProfile } from '@/lib/boxer-data'
+import { formatNickname, plural } from '@/lib/boxer-data/display'
 import { getBoxerStats } from '@/lib/boxer-stats'
 import {
   createBoxerMetaDescription,
@@ -48,6 +49,9 @@ export default async function BoxerPage({ params }: { params: Promise<{ slug: st
   const { boxer, bouts, opponentLinks } = profile
   const baseUrl = getSiteOrigin()
   const stats = getBoxerStats(boxer)
+  const nickname = formatNickname(boxer.nicknames)
+  const wins = boxer.proWins || 0
+  const knockouts = boxer.proWinsByKnockout || 0
   const breadcrumbItems = [
     { name: 'Boxers', href: '/boxers/' },
     { name: boxer.name, href: normalizeInternalPath(`/boxers/${slug}`) }
@@ -75,9 +79,9 @@ export default async function BoxerPage({ params }: { params: Promise<{ slug: st
           <div className="min-w-0 max-w-full break-words">
             <h1 className="text-4xl font-bold tracking-tight mb-2">
               {boxer.name}
-              {boxer.nicknames && (
+              {nickname && (
                 <span className="block text-2xl text-muted-foreground sm:inline sm:ml-3">
-                  "{boxer.nicknames}"
+                  {nickname}
                 </span>
               )}
             </h1>
@@ -93,7 +97,7 @@ export default async function BoxerPage({ params }: { params: Promise<{ slug: st
             <CardContent>
               <div className="text-3xl font-bold">{stats.record}</div>
               <div className="text-sm text-muted-foreground mt-1">
-                {boxer.proWinsByKnockout || 0} KOs
+                {knockouts} {plural(knockouts, 'KO')}
               </div>
             </CardContent>
           </Card>
@@ -105,7 +109,7 @@ export default async function BoxerPage({ params }: { params: Promise<{ slug: st
             <CardContent>
               <div className="text-3xl font-bold">{stats.winRate}</div>
               <div className="text-sm text-muted-foreground mt-1">
-                {boxer.proWins || 0} victories
+                {wins} {plural(wins, 'victory', 'victories')}
               </div>
             </CardContent>
           </Card>

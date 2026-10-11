@@ -127,6 +127,8 @@ describe('listing pages', () => {
       ])
     )
     expect(screen.getByText('Showing 49-50 of 98 boxers')).toBeInTheDocument()
+    // The data quotes every nickname; the card shows it in one pair of quotes (#98).
+    expect(screen.getByText('"The Hammer"')).toBeInTheDocument()
     expect((await boxersPageMetadata(params)).alternates?.canonical).toBe(
       'http://localhost:8787/boxers/page/2/'
     )

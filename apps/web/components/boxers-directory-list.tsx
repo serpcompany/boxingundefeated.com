@@ -2,6 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@boxingundefeated/desi
 import Link from 'next/link'
 import { OptimizedImage } from '@/components/optimized-image'
 import type { ListedBoxer } from '@/lib/boxer-data'
+import { formatNickname } from '@/lib/boxer-data/display'
 import { getBoxerStats } from '@/lib/boxer-stats'
 import { getVisiblePaginationPages } from '@/lib/directory-pagination'
 import { normalizeInternalPath } from '@/lib/url-utils'
@@ -93,6 +94,7 @@ export function BoxersDirectoryList({
 
 function BoxerDirectoryCard({ boxer }: { boxer: ListedBoxer }) {
   const stats = getBoxerStats(boxer)
+  const nickname = formatNickname(boxer.nicknames)
 
   return (
     <Card className="hover:shadow-lg transition-shadow">
@@ -111,10 +113,8 @@ function BoxerDirectoryCard({ boxer }: { boxer: ListedBoxer }) {
             <Link href={normalizeInternalPath(`/boxers/${boxer.slug}`)} className="hover:underline">
               {boxer.name}
             </Link>
-            {boxer.nicknames && (
-              <span className="block text-sm font-normal text-muted-foreground">
-                "{boxer.nicknames}"
-              </span>
+            {nickname && (
+              <span className="block text-sm font-normal text-muted-foreground">{nickname}</span>
             )}
           </CardTitle>
         </div>

@@ -41,7 +41,6 @@ export interface ProfileBout {
   result: string
   resultMethod?: string | null
   resultRound?: string | null
-  titleFight: boolean
 }
 
 export interface BoxerProfileView {
@@ -105,8 +104,7 @@ export function fromD1Profile({ boxer, bouts }: BoxerProfile): BoxerProfileView 
       eventName: bout.eventName,
       result: bout.result,
       resultMethod: bout.resultMethod,
-      resultRound: bout.resultRound,
-      titleFight: bout.titleFight
+      resultRound: bout.resultRound
     })),
     opponentLinks
   }
