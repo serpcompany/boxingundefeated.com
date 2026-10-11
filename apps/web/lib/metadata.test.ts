@@ -171,6 +171,54 @@ describe('createMetaDescription', () => {
     expect(createMetaDescription(description)).toBe(`${'word '.repeat(29)}endings\u2026`)
   })
 
+  it.each([
+    ['straight', '"', '"'],
+    ['curly', '\u201c', '\u201d'],
+    ['single curly', '\u2018', '\u2019']
+  ])('keeps the %s closing quote that ends a cut description', (_name, open, close) => {
+    // The quoted phrase ends at 149 characters; the next word doesn't fit after it.
+    const phrase = `${open}Mi Vida Loca${close}`
+    const description = `${'word '.repeat(27)}${phrase} fighter`
+
+    expect(createMetaDescription(description)).toBe(`${'word '.repeat(27)}${phrase}\u2026`)
+  })
+
+  it.each([
+    ['straight', '"', '"'],
+    ['curly', '\u201c', '\u201d']
+  ])(
+    'cuts before the opening %s quote of a phrase it would leave open, keeping 100 characters or more',
+    (_name, open, close) => {
+      const description = `${'word '.repeat(22)}nickname ${open}${'quoted '.repeat(10)}end${close}`
+
+      expect(createMetaDescription(description)).toBe(`${'word '.repeat(22)}nickname\u2026`)
+    }
+  )
+
+  it.each([
+    ['straight', '"', '"'],
+    ['curly', '\u201c', '\u201d']
+  ])(
+    'keeps a phrase open, the ellipsis inside it, when cutting before its %s quote leaves under 100 characters',
+    (_name, open, close) => {
+      const description = `${'word '.repeat(10)}nickname ${open}${'quoted '.repeat(20)}end${close}`
+      const cut = createMetaDescription(description)
+
+      expect(cut).toBe(
+        `${'word '.repeat(10)}nickname ${open}${Array(13).fill('quoted').join(' ')}\u2026`
+      )
+      expect(cut.length).toBeLessThanOrEqual(MAX_META_DESCRIPTION_LENGTH)
+    }
+  )
+
+  it('does not take an apostrophe for an open quote', () => {
+    const description = `${'word '.repeat(22)}Tapia's ${'quoted '.repeat(10)}end`
+
+    expect(createMetaDescription(description)).toBe(
+      `${'word '.repeat(22)}Tapia's ${'quoted '.repeat(4)}quoted\u2026`
+    )
+  })
+
   it('cuts a single word longer than the limit mid-word', () => {
     expect(createMetaDescription('x'.repeat(200))).toBe(`${'x'.repeat(154)}\u2026`)
   })
@@ -203,6 +251,21 @@ describe('createBoxerMetaDescription', () => {
     expect(createBoxerMetaDescription(boxer)).toBe(
       'Jeff Franklin: The Rising Star. When it comes to boxing, few are as exciting. ' +
         'Career highlights: Won 20. Lost 2.'
+    )
+  })
+
+  it('closes a block that ends on a quote or a bracket with a full stop as well', () => {
+    const boxer = {
+      name: 'Rodolfo Jimenez',
+      bio:
+        '<p>The Rise of "Zurdo"</p><p>Boxing has always been a sport of grit.</p>' +
+        '<h2>Title \u201cContender\u201d</h2><h2>Record (Retired)</h2><p>Stats [updated]</p>' +
+        "<p>The champs'</p><p>Done.</p>"
+    }
+
+    expect(createBoxerMetaDescription(boxer)).toBe(
+      'The Rise of "Zurdo". Boxing has always been a sport of grit. Title \u201cContender\u201d. ' +
+        "Record (Retired). Stats [updated]. The champs'. Done."
     )
   })
 

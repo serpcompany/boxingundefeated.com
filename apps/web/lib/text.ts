@@ -45,8 +45,14 @@ const BLOCK_TAGS = new Set([
   'ul'
 ])
 
-/** Elements whose content is never shown as text. */
-const HIDDEN_CONTENT_TAGS = new Set(['script', 'style', 'template'])
+/**
+ * Elements whose content is never shown as text, each with the global, case-insensitive pattern
+ * that finds its closing tag. A pattern scans on from its `lastIndex`, so a fragment with many of
+ * these is read in one pass, not once per tag.
+ */
+const HIDDEN_CONTENT_CLOSERS = new Map(
+  ['script', 'style', 'template'].map(name => [name, new RegExp(`</${name}`, 'gi')])
+)
 
 const NAMED_ENTITIES: Record<string, string> = {
   amp: '&',
@@ -223,9 +229,10 @@ function readMarkup(html: string, start: number): Markup | undefined {
 }
 
 /** Where the content of a `<script>`, `<style>` or `<template>` ends: at its closing tag. */
-function findHiddenContentEnd(html: string, from: number, name: string): number {
-  const close = html.toLowerCase().indexOf(`</${name}`, from)
-  return close === -1 ? html.length : close
+function findHiddenContentEnd(html: string, from: number, closer: RegExp): number {
+  closer.lastIndex = from
+  const close = closer.exec(html)
+  return close ? close.index : html.length
 }
 
 /**
@@ -261,8 +268,11 @@ export function htmlToPlainText(html: string): string {
       if (BLOCK_TAGS.has(markup.name)) {
         lines.push(line)
         line = ''
-      } else if (!markup.closing && HIDDEN_CONTENT_TAGS.has(markup.name)) {
-        index = findHiddenContentEnd(html, index, markup.name)
+      } else if (!markup.closing) {
+        const closer = HIDDEN_CONTENT_CLOSERS.get(markup.name)
+        if (closer) {
+          index = findHiddenContentEnd(html, index, closer)
+        }
       }
     }
   }

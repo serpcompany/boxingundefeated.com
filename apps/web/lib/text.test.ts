@@ -41,6 +41,19 @@ describe('htmlToPlainText', () => {
     ).toBe('Shown text')
   })
 
+  it('finds a closing tag in any case, and reads many hidden blocks in linear time', () => {
+    expect(htmlToPlainText('a<SCRIPT>x < y</Script>b<Style>p {}</STYLE>c')).toBe('abc')
+
+    const pairs = 50_000
+    const start = performance.now()
+    const text = htmlToPlainText(`${'<script></script>'.repeat(pairs)}after`)
+    const elapsed = performance.now() - start
+
+    expect(text).toBe('after')
+    // It was 5.8 s while every opening tag lowercased the rest of the input.
+    expect(elapsed).toBeLessThan(200)
+  })
+
   it('keeps a < that starts no tag', () => {
     expect(htmlToPlainText('3 < 5 and a <3 and <')).toBe('3 < 5 and a <3 and <')
   })
