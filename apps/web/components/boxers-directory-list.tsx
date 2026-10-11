@@ -1,5 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@boxingundefeated/design-system/card'
 import Link from 'next/link'
+import { OptimizedImage } from '@/components/optimized-image'
 import type { ListedBoxer } from '@/lib/boxer-data'
 import { getBoxerStats } from '@/lib/boxer-stats'
 import { getVisiblePaginationPages } from '@/lib/directory-pagination'
@@ -98,11 +99,12 @@ function BoxerDirectoryCard({ boxer }: { boxer: ListedBoxer }) {
       <CardHeader>
         <div className="flex items-start gap-4">
           {boxer.avatarImage && (
-            <img
+            <OptimizedImage
               src={boxer.avatarImage}
               alt={boxer.name}
+              width={64}
+              height={64}
               className="h-16 w-16 rounded-full object-cover"
-              loading="lazy"
             />
           )}
           <CardTitle className="flex-1">

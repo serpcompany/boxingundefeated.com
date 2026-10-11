@@ -4,6 +4,7 @@ import { Target, TrendingUp, Trophy, Users } from 'lucide-react'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { JsonLd } from '@/components/json-ld'
+import { OptimizedImage } from '@/components/optimized-image'
 import { getHomepage } from '@/lib/boxer-data'
 import { getSiteOrigin } from '@/lib/site-config'
 
@@ -131,10 +132,13 @@ export default async function Home() {
                 <CardHeader>
                   <div className="flex items-center gap-3">
                     {boxer.avatarImage && (
-                      <img
+                      <OptimizedImage
                         src={boxer.avatarImage}
                         alt={boxer.name}
+                        width={48}
+                        height={48}
                         className="w-12 h-12 rounded-full object-cover"
+                        priority
                       />
                     )}
                     <CardTitle>

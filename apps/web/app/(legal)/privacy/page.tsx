@@ -1,6 +1,7 @@
 import { Breadcrumb } from '@boxingundefeated/design-system/breadcrumb'
 import type { Metadata } from 'next'
 import { getSiteOrigin } from '@/lib/site-config'
+import { legalTypography } from '../legal-typography'
 
 export const metadata: Metadata = {
   title: 'Privacy Policy - Boxing Directory',
@@ -16,7 +17,7 @@ export default function PrivacyPolicyPage() {
     <div className="container mx-auto px-4 py-8">
       <Breadcrumb items={breadcrumbItems} baseUrl={getSiteOrigin()} />
       <div className="max-w-3xl mx-auto space-y-8">
-        <div className="prose dark:prose-invert max-w-none">
+        <div className={legalTypography}>
           <h1>Privacy Policy</h1>
           <p>Last updated: {new Date().toLocaleDateString()}</p>
 

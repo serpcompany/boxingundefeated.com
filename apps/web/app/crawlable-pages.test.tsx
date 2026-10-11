@@ -76,16 +76,9 @@ describe('crawlable directory pages', () => {
     const socialLinks = [
       { label: 'Facebook', href: 'https://www.facebook.com/boxundefeated' },
       { label: 'GitHub', href: 'https://github.com/boxingundefeated' },
-      { label: 'Reddit', href: '#' },
       { label: 'Twitter', href: 'https://x.com/boxundefeated' },
       { label: 'Instagram', href: 'https://www.instagram.com/boxundefeated' },
-      { label: 'YouTube', href: '#' },
-      { label: 'Threads', href: '#' },
-      { label: 'TikTok', href: '#' },
-      {
-        label: 'LinkedIn',
-        href: 'https://www.linkedin.com/company/90466967/admin/dashboard/'
-      }
+      { label: 'LinkedIn', href: 'https://www.linkedin.com/company/boxingundefeated/' }
     ]
 
     for (const { label, href } of socialLinks) {
