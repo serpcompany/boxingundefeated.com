@@ -5,8 +5,11 @@
  *   pnpm db:import -- --target local|staging [--source <boxers.json>] [--out-dir <dir>]
  *                     [--allow-prune <n>] [--dry-run]
  *   pnpm db:import -- --target production --confirm-production --source <boxers.json>
- *                     [--allow-small-source] [...]   # only a run the owner approved in writing
+ *                     [--allow-small-source] [...]
  *   pnpm db:seed:local    # the committed fixture into the local D1; it takes no --target
+ *
+ * Staging and production runs happen only in .github/workflows/d1-import.yml, on a pinned R2
+ * artifact; its production job passes --confirm-production once the owner approved the run.
  *
  * The source defaults to $BOXERS_SOURCE, then from-pipeline/boxers.json in the repo root. The SQL
  * files land in d1/.import/<target>/ (gitignored). Production needs `--confirm-production` and an

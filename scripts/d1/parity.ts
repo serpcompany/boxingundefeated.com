@@ -12,7 +12,9 @@
  * Usage:
  *   pnpm db:parity -- --target local|staging [--source <boxers.json>]
  *                     [--out d1/reports/parity-<target>.md]
- *   pnpm db:parity -- --target production --confirm-production [...]   # owner-approved runs only
+ *   pnpm db:parity -- --target production --confirm-production [...]
+ *
+ * Staging and production runs happen only in .github/workflows/d1-import.yml, after its import.
  */
 import { createHash } from 'node:crypto'
 import { mkdirSync, readFileSync, statSync, writeFileSync } from 'node:fs'

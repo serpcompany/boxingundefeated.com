@@ -36,7 +36,7 @@ Planned: Ship (agents merge listed paths, to be chosen by the owner) once round 
   - `wrangler.jsonc`, `open-next.config.ts`, `worker.ts`, `lib/worker/`: the Worker. Its pipeline,
     build, preview, E2E, parity and link commands, and deploys: [worker.md](docs/agents/worker.md).
 - `d1/`: `drizzle/` migrations, `fixtures/`, `reports/`. [d1.md](docs/agents/d1.md): the boxer data
-  source (`from-pipeline/`), migrations, imports, the deploy gate and production writes.
+  (pinned in R2), migrations, imports (staging and production only from CI) and the deploy gate.
 - `packages/data-ops/`: the D1 data layer: the Drizzle schema (`src/schema.ts`), types, every
   query the app runs (`src/queries.ts`; the app never writes SQL) and the pipeline importer's
   mapping (`src/import/`). Vitest runs them on an in-memory D1 (Miniflare), migrations applied.
@@ -45,8 +45,9 @@ Planned: Ship (agents merge listed paths, to be chosen by the owner) once round 
 - `apps/e2e/`: the Playwright smoke suite, the sitemap URL lister and the parity check.
 - `scripts/`: `d1/` is the D1 import, parity and deploy checks; `check-frontmatter.ts`, which CI
   runs on the empty `apps/web/content/blog/` stub until an owner PR removes both (#94).
-- `.github/workflows/`: `ci.yml` (the check, then the deploys; `All checks` is the required check)
-  and `pr-issue-link.yml`. `.github/scripts/`: the production release gate and the deploy wait.
+- `.github/workflows/`: `ci.yml` (the check, then the deploys; `All checks` is the required check),
+  `d1-import.yml` (data imports, [d1.md](docs/agents/d1.md)) and `pr-issue-link.yml`.
+  `.github/scripts/`: the production release gate and the deploy wait.
 
 ## Commands
 
@@ -74,7 +75,7 @@ applies, its review loop included, with these specifics:
 - Base branch: `staging` (`main` is production). The owner promotes it with a fast-forward:
   `git fetch origin && git push origin origin/staging:main`. Deploys run only in `ci.yml`, on
   pushes to `staging` and `main`, once its checks pass on that commit; agents never deploy by hand,
-  dispatch `ci.yml` or re-run its deploy jobs, or approve the `production` environment.
+  dispatch `ci.yml` or `d1-import.yml`, re-run a deploy or import job, or approve `production`.
 - One issue, one `issue-<number>-<slug>` branch, one PR, squash merged. Work in a git worktree per
   issue, and never in a checkout that holds someone else's uncommitted changes.
 - PR title: a Conventional Commit for the outcome a user notices. The body starts with

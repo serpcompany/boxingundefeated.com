@@ -1,0 +1,289 @@
+name: D1 import
+
+# Imports a pinned boxer data artifact into the staging or production D1, by hand (#63). The
+# artifact is the pipeline's boxers.json, pinned in R2 at boxers/<version>.json, where the version
+# is its SHA-256 (scripts/d1/artifact.ts). How to pin one and run this: docs/agents/d1.md.
+#
+# - staging: dispatch from staging. It fetches the version from boxingundefeated-com-data-staging,
+#   checks its SHA-256, then runs db:import, db:parity and db:check-deployable on the staging D1.
+#   Once all three pass, it records the receipt passed-d1-import-staging-<version> (90 days).
+# - production: dispatch from main, with a version staging imported. The preflight refuses a
+#   version without that receipt, then the job waits for the owner's approval of the `production`
+#   environment. It copies the version from the staging bucket into
+#   boxingundefeated-com-data-production (a no-op when it is there; never an overwrite), since
+#   production buckets change only through CI, then runs the same three commands with
+#   --confirm-production, which records that approval.
+#
+# Both refuse a D1 that lacks one of this commit's migrations: run it after the deploy of this
+# commit has migrated that environment. Imports keep the prune cap (scripts/d1/import-boxers.ts);
+# allow_prune raises it for one run. A re-import keeps the last version's pages up while it runs;
+# a deploy of the same environment meanwhile fails db:check-deployable (an import in progress), so
+# re-run that deploy after the import.
+#
+# Never on push or pull request. Only the wrangler steps receive the Cloudflare secrets. Agents
+# never dispatch or re-run this workflow, or approve the `production` environment (AGENTS.md).
+
+# Names each run by its target and version, so `gh run list --workflow d1-import.yml` lists both.
+run-name: D1 import, ${{ inputs.environment }}, ${{ inputs.version }}
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: The D1 to import into. Dispatch staging from staging, production from main.
+        type: choice
+        options: [staging, production]
+        required: true
+      version:
+        description: The artifact version, its SHA-256 (pnpm db:upload-artifact prints it)
+        type: string
+        required: true
+      allow_prune:
+        description: Optional. Let this import prune up to this many boxers the artifact no longer has
+        type: string
+        required: false
+        default: ''
+
+permissions:
+  contents: read
+
+# One import per environment at a time. A dispatch that joins the group cancels one waiting there,
+# never a running one.
+concurrency:
+  group: d1-import-${{ inputs.environment }}
+  cancel-in-progress: false
+
+env:
+  WRANGLER_SEND_METRICS: false
+  VERSION: ${{ inputs.version }}
+  ALLOW_PRUNE: ${{ inputs.allow_prune }}
+  # Under the gitignored from-pipeline/, so the parity report names it like a local source.
+  SOURCE: from-pipeline/boxers-${{ inputs.version }}.json
+
+jobs:
+  preflight:
+    name: Check the inputs, the branch and, for production, the staging import
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      actions: read
+      contents: read
+    steps:
+      - name: Check the inputs and the branch
+        env:
+          ENVIRONMENT: ${{ inputs.environment }}
+          REF: ${{ github.ref }}
+        run: |
+          if ! [[ "$VERSION" =~ ^[0-9a-f]{64}$ ]]; then
+            echo "::error::version must be the artifact's SHA-256, 64 lowercase hex digits, as pnpm db:upload-artifact prints it."
+            exit 1
+          fi
+          if [ -n "$ALLOW_PRUNE" ] && ! [[ "$ALLOW_PRUNE" =~ ^[0-9]+$ ]]; then
+            echo "::error::allow_prune must be empty or a whole number of boxers."
+            exit 1
+          fi
+          case "$ENVIRONMENT" in
+            staging) branch=staging ;;
+            production) branch=main ;;
+            *) echo "::error::Unknown environment $ENVIRONMENT."; exit 1 ;;
+          esac
+          # The environment admits only that branch, whose code and migrations match its D1.
+          if [ "$REF" != "refs/heads/$branch" ]; then
+            echo "::error::Dispatch the $ENVIRONMENT import from $branch, not $REF."
+            exit 1
+          fi
+
+      # Production imports only a version that a staging import of this repository fetched,
+      # imported and proved with clean parity.
+      - name: Require a staging import of this version
+        if: inputs.environment == 'production'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          receipt="passed-d1-import-staging-$VERSION"
+          runs="$(gh api "repos/$GITHUB_REPOSITORY/actions/artifacts?name=$receipt&per_page=100" \
+            --jq '.artifacts[] | select((.expired | not) and .workflow_run.head_branch == "staging") | .workflow_run.id')" || {
+            echo "::error::Could not list the staging receipts; failing closed."
+            exit 1
+          }
+          for run_id in $runs; do
+            url="$(gh api "repos/$GITHUB_REPOSITORY/actions/runs/$run_id" \
+              --jq 'select(.path == ".github/workflows/d1-import.yml" and .event == "workflow_dispatch"
+                  and .head_repository.full_name == $ENV.GITHUB_REPOSITORY) | .html_url')" || {
+              echo "::error::Could not read run $run_id; failing closed."
+              exit 1
+            }
+            if [ -n "$url" ]; then
+              echo "Staging imported $VERSION with clean parity: $url"
+              exit 0
+            fi
+          done
+          echo "::error::No staging import of $VERSION in the last 90 days ($receipt). Dispatch this workflow from staging with environment staging and this version first."
+          exit 1
+
+  staging:
+    name: Import into staging
+    needs: preflight
+    if: inputs.environment == 'staging'
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    environment:
+      name: staging
+      url: https://staging.boxingundefeated.com
+    steps:
+      - name: Require Cloudflare credentials
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          if [ -z "$CLOUDFLARE_API_TOKEN" ] || [ -z "$CLOUDFLARE_ACCOUNT_ID" ]; then
+            echo "::error::The staging environment needs the CLOUDFLARE_API_TOKEN and CLOUDFLARE_ACCOUNT_ID secrets."
+            exit 1
+          fi
+
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Install
+        uses: ./.github/actions/install
+
+      - name: Fetch the artifact from the staging bucket and check its SHA-256
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: pnpm db:fetch-artifact -- --target staging --version "$VERSION" --out "$SOURCE"
+
+      - name: Require every migration of this commit in the staging D1
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: pnpm db:check-deployable -- --target staging --migrations-only
+
+      - name: Import into the staging D1
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: pnpm db:import -- --target staging --source "$SOURCE" ${ALLOW_PRUNE:+--allow-prune "$ALLOW_PRUNE"}
+
+      - name: Prove the import with parity
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: pnpm db:parity -- --target staging --source "$SOURCE" --out "$RUNNER_TEMP/parity-staging.md"
+
+      - name: Require the staging D1 to be deployable
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: pnpm db:check-deployable -- --target staging
+
+      # Reached only when every step above passed. The production preflight reads it.
+      - name: Record the staging receipt for this version
+        run: echo "$VERSION $GITHUB_SHA" > "$RUNNER_TEMP/imported.txt"
+
+      - name: Upload the staging receipt
+        uses: actions/upload-artifact@v7
+        with:
+          name: passed-d1-import-staging-${{ inputs.version }}
+          path: ${{ runner.temp }}/imported.txt
+          retention-days: 90
+          overwrite: true
+
+      - name: Parity report in the job summary
+        if: always()
+        run: |
+          if [ -f "$RUNNER_TEMP/parity-staging.md" ]; then
+            cat "$RUNNER_TEMP/parity-staging.md" >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - name: Keep the parity report
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: d1-import-staging-parity-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/parity-staging.md
+          if-no-files-found: ignore
+          retention-days: 90
+
+  production:
+    name: Import into production
+    needs: preflight
+    if: inputs.environment == 'production'
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    # Asks for the owner's approval, and admits only main.
+    environment:
+      name: production
+      url: https://boxingundefeated.com
+    steps:
+      - name: Require Cloudflare credentials
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          if [ -z "$CLOUDFLARE_API_TOKEN" ] || [ -z "$CLOUDFLARE_ACCOUNT_ID" ]; then
+            echo "::error::The production environment needs the CLOUDFLARE_API_TOKEN and CLOUDFLARE_ACCOUNT_ID secrets."
+            exit 1
+          fi
+
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Install
+        uses: ./.github/actions/install
+
+      - name: Fetch the artifact from the staging bucket and check its SHA-256
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: pnpm db:fetch-artifact -- --target staging --version "$VERSION" --out "$SOURCE"
+
+      # The upload reads the production object back (or the one already there) and checks its
+      # SHA-256, so what production pins is exactly what this job imports.
+      - name: Pin it in the production bucket
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: pnpm db:upload-artifact -- --target production --confirm-production --source "$SOURCE"
+
+      # --confirm-production from here on records the owner's approval of this run's
+      # `production` environment (docs/agents/d1.md).
+      - name: Require every migration of this commit in the production D1
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: pnpm db:check-deployable -- --target production --confirm-production --migrations-only
+
+      - name: Import into the production D1
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: pnpm db:import -- --target production --confirm-production --source "$SOURCE" ${ALLOW_PRUNE:+--allow-prune "$ALLOW_PRUNE"}
+
+      - name: Prove the import with parity
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: pnpm db:parity -- --target production --confirm-production --source "$SOURCE" --out "$RUNNER_TEMP/parity-production.md"
+
+      - name: Require the production D1 to be deployable
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: pnpm db:check-deployable -- --target production --confirm-production
+
+      - name: Parity report in the job summary
+        if: always()
+        run: |
+          if [ -f "$RUNNER_TEMP/parity-production.md" ]; then
+            cat "$RUNNER_TEMP/parity-production.md" >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - name: Keep the parity report
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: d1-import-production-parity-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/parity-production.md
+          if-no-files-found: ignore
+          retention-days: 90
