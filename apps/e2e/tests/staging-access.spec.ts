@@ -207,7 +207,7 @@ test.describe("staging's password", () => {
 
       const signedIn = await browser.newContext({
         extraHTTPHeaders: {},
-        httpCredentials: { username: 'staging', password: target.stagingPassword ?? '' }
+        httpCredentials: { username: 'staging', password: target.stagingPassword }
       })
       try {
         const page = await signedIn.newPage()

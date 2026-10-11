@@ -8,8 +8,9 @@
  * - `CANONICAL_ORIGIN`: optional. The origin canonicals must use; defaults to the environment's.
  * - `NON_CANONICAL_HOSTS`: optional, comma-separated. The hosts that must answer 308 to the
  *   canonical origin. Defaults below; an empty value tests none.
- * - `STAGING_BASIC_AUTH_PASSWORD`: staging's password (`stagingpassword`, public on purpose), for
- *   the tests that send it (tests/staging-access.spec.ts). Required with `EXPECT_ENV=staging`.
+ * - `STAGING_BASIC_AUTH_PASSWORD`: optional. Staging's password, for the tests that send it
+ *   (tests/staging-access.spec.ts). Defaults to `stagingpassword`, which every SERP site's staging
+ *   shares and which is public on purpose (serp docs/engineering/standards/staging-access.md).
  *
  * Requests to a `*.workers.dev` target carry the smoke-test header, which exempts them from the
  * canonical-host redirect (apps/web/lib/routing/canonical-host.ts). So does every request to a
@@ -29,6 +30,9 @@ export const LOCAL_ORIGIN = 'http://localhost:8787'
 export const LOCAL_PREVIEW_URL = 'http://localhost:8787'
 
 export const GTM_ID = 'GTM-PP4HWLM'
+
+/** The password every SERP site's staging shares; public, so not a secret (staging-access.md). */
+export const STAGING_PASSWORD = 'stagingpassword'
 
 const WWW_HOST = 'www.boxingundefeated.com'
 const PLATFORM_HOSTS: Record<'staging' | 'production', string> = {
@@ -53,8 +57,8 @@ export interface Target {
   /** True when `baseUrl` is this machine, so other hosts are reached with a `Host` header. */
   isLocal: boolean
   nonCanonicalHosts: NonCanonicalHost[]
-  /** Staging's password, from `STAGING_BASIC_AUTH_PASSWORD`; null when unset. */
-  stagingPassword: string | null
+  /** Staging's password: `STAGING_BASIC_AUTH_PASSWORD`, or `STAGING_PASSWORD` when unset. */
+  stagingPassword: string
 }
 
 /** `process.env`, or the same variables in a test. */
@@ -151,6 +155,6 @@ export function resolveTarget(input: TargetInput): Target {
           ? { host: name, url: baseUrl, headers: { host: name } }
           : { host: name, url: `https://${name}`, headers: {} }
     ),
-    stagingPassword: input.STAGING_BASIC_AUTH_PASSWORD || null
+    stagingPassword: input.STAGING_BASIC_AUTH_PASSWORD || STAGING_PASSWORD
   }
 }

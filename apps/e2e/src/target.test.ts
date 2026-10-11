@@ -1,5 +1,11 @@
 import { describe, expect, it } from 'vitest'
-import { basicAuthorization, resolveTarget, SMOKE_TEST_HEADER, smokeHeadersFor } from './target'
+import {
+  basicAuthorization,
+  resolveTarget,
+  SMOKE_TEST_HEADER,
+  STAGING_PASSWORD,
+  smokeHeadersFor
+} from './target'
 
 describe('resolveTarget', () => {
   it('defaults to the local preview with the local config', () => {
@@ -10,7 +16,7 @@ describe('resolveTarget', () => {
       headers: {},
       isLocal: true,
       nonCanonicalHosts: [],
-      stagingPassword: null
+      stagingPassword: 'stagingpassword'
     })
   })
 
@@ -32,7 +38,8 @@ describe('resolveTarget', () => {
       // Staging's password exempts smoke-test requests: the suite tests staging as CI sees it.
       headers: { [SMOKE_TEST_HEADER]: '1' },
       isLocal: false,
-      stagingPassword: null
+      // The shared staging password unless STAGING_BASIC_AUTH_PASSWORD overrides it.
+      stagingPassword: 'stagingpassword'
     })
     expect(target.nonCanonicalHosts).toEqual([
       {
@@ -47,10 +54,17 @@ describe('resolveTarget', () => {
     const target = resolveTarget({
       BASE_URL: 'http://localhost:8794',
       EXPECT_ENV: 'staging',
-      STAGING_BASIC_AUTH_PASSWORD: 'stagingpassword'
+      STAGING_BASIC_AUTH_PASSWORD: 'another-password'
     })
-    expect(target.stagingPassword).toBe('stagingpassword')
+    expect(target.stagingPassword).toBe('another-password')
     expect(target.headers).toEqual({ [SMOKE_TEST_HEADER]: '1' })
+    // Unset or empty, it is the shared one.
+    for (const value of [undefined, '']) {
+      expect(
+        resolveTarget({ EXPECT_ENV: 'staging', STAGING_BASIC_AUTH_PASSWORD: value }).stagingPassword
+      ).toBe(STAGING_PASSWORD)
+    }
+    expect(STAGING_PASSWORD).toBe('stagingpassword')
     expect(basicAuthorization('stagingpassword')).toBe(
       `Basic ${Buffer.from('staging:stagingpassword').toString('base64')}`
     )

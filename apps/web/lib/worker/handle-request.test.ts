@@ -623,6 +623,44 @@ describe("handleWorkerRequest with staging's password", () => {
     expect(serve).not.toHaveBeenCalled()
   })
 
+  it('asks for the password before the 308 of a shop path with non-ASCII letters', async () => {
+    const page = '/shop/best/br%C3%BCmate-water-bottles/'
+    for (const path of [page, '/shop/best/bru%CC%88mate-water-bottles']) {
+      const serve = serveSpy()
+      const refused = await handleWorkerRequest(new Request(`${STAGING}${path}`), staging, serve)
+      expect(refused.status).toBe(401)
+      expect(refused.headers.get('location')).toBeNull()
+      expect(serve).not.toHaveBeenCalled()
+    }
+
+    for (const [headers, robots] of [
+      [PASSWORD, null],
+      [SMOKE, 'noindex']
+    ] as const) {
+      const serve = serveSpy()
+      const redirected = await handleWorkerRequest(
+        new Request(`${STAGING}/shop/best/bru%CC%88mate-water-bottles`, { headers }),
+        staging,
+        serve
+      )
+      expect(redirected.status).toBe(308)
+      expect(redirected.headers.get('location')).toBe(page)
+      expect(redirected.headers.get('x-robots-tag')).toBe(robots)
+      expect(serve).not.toHaveBeenCalled()
+
+      const rendered = await handleWorkerRequest(
+        new Request(`${STAGING}${page}`, { headers }),
+        staging,
+        serve
+      )
+      expect(rendered.status).toBe(200)
+      expect(rendered.headers.get('x-robots-tag')).toBe(robots)
+      const [served] = serve.mock.calls[0] as unknown as [Request]
+      expect(served.url).toBe(`${STAGING}/shop/best/br~C3~BCmate-water-bottles/`)
+      expect(served.headers.has('authorization')).toBe(false)
+    }
+  })
+
   it('serves smoke-test requests without the password, and keeps their noindex with it', async () => {
     for (const headers of [SMOKE, { ...SMOKE, ...PASSWORD }]) {
       for (const host of [STAGING, STAGING_WORKERS_DEV]) {

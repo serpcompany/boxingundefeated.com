@@ -17,7 +17,7 @@ Run everything from the repository root.
 
 | Command | Input | Passes when |
 | --- | --- | --- |
-| `BASE_URL=<origin> EXPECT_ENV=<env> pnpm test:e2e` | `BASE_URL`: the origin under test. `EXPECT_ENV`: `local`, `staging` or `production`, required with `BASE_URL`. `STAGING_BASIC_AUTH_PASSWORD`: staging's password (`stagingpassword`), required with `EXPECT_ENV=staging` | Every smoke test passes |
+| `BASE_URL=<origin> EXPECT_ENV=<env> pnpm test:e2e` | `BASE_URL`: the origin under test. `EXPECT_ENV`: `local`, `staging` or `production`, required with `BASE_URL`. `STAGING_BASIC_AUTH_PASSWORD`: optional, staging's password, default `stagingpassword` | Every smoke test passes |
 | `EXPECT_ENV=<env> pnpm parity -- <origin>` | The candidate origin. `EXPECT_ENV` defaults to `production` | 0 mismatches outside `src/parity-allowlist.ts`, 0 errors |
 | `pnpm --silent --filter e2e sitemap-urls <origin> > urls.txt`, then `lychee --config lychee.toml --files-from urls.txt` | The origin under test, a local preview | Every link and asset on every page answers 200 without a redirect |
 
@@ -25,14 +25,15 @@ Run everything from the repository root.
   from the canonical-host redirect. The host test sends the same host without it and expects 308.
 - Staging is behind HTTP Basic auth (SERP
   [staging access](https://github.com/serpcompany/serp/blob/main/docs/engineering/standards/staging-access.md),
-  `apps/web/lib/worker/staging-access.ts`). Every request to a staging target carries the
-  smoke-test header, which also exempts it from the password, so the suite sees staging as CI
-  does, with noindex. `tests/staging-access.spec.ts` sends the password itself: 401 without it on
-  every host, a 308 from workers.dev or a 200 with no noindex with it, and `/robots.txt` without
-  it. On a workers.dev target a request with the password is redirected to
-  staging.boxingundefeated.com, which CI can't reach, so the tests of staging's pages behind the
-  password run against the custom domain or a local staging preview. Production and local must
-  never ask for a password.
+  `apps/web/lib/worker/staging-access.ts`). Its password is `stagingpassword`, public on purpose
+  and the suite's default; set `STAGING_BASIC_AUTH_PASSWORD` only to test another one. Every
+  request to a staging target carries the smoke-test header, which also exempts it from the
+  password, so the suite sees staging as CI does, with noindex. `tests/staging-access.spec.ts`
+  sends the password itself: 401 without it on every host, a 308 from workers.dev or a 200 with
+  no noindex with it, and `/robots.txt` without it. On a workers.dev target a request with the
+  password is redirected to staging.boxingundefeated.com, which CI can't reach, so the tests of
+  staging's pages behind the password run against the custom domain or a local staging preview.
+  Production and local must never ask for a password.
 - Optional for `test:e2e`: `CANONICAL_ORIGIN` (default: the environment's origin;
   `http://localhost:8787` for `local`) and `NON_CANONICAL_HOSTS` (comma-separated; default: the
   environment's `*.workers.dev` host, plus `www` for production on the apex or locally).
@@ -60,7 +61,7 @@ Run everything from the repository root.
 Examples:
 
 ```bash
-BASE_URL=https://staging.boxingundefeated.com EXPECT_ENV=staging STAGING_BASIC_AUTH_PASSWORD=stagingpassword pnpm test:e2e
+BASE_URL=https://staging.boxingundefeated.com EXPECT_ENV=staging pnpm test:e2e
 BASE_URL=https://boxingundefeated-com-production.serpcompany.workers.dev EXPECT_ENV=production pnpm test:e2e
 EXPECT_ENV=staging pnpm parity -- https://staging.boxingundefeated.com
 ```
@@ -92,14 +93,15 @@ BASE_URL=http://localhost:8805 EXPECT_ENV=production pnpm test:e2e
 Staging the same way, with its password; `--var` on the top level, like a gitignored
 `apps/web/.dev.vars` line `STAGING_BASIC_AUTH_PASSWORD=...`, sets the password a local run checks
 (`--env staging` takes `stagingpassword` from `env.staging` in `wrangler.jsonc`, but rewrites the
-`Host` header and reads an empty local staging D1):
+`Host` header and reads an empty local staging D1). To test another password, pass the same value
+to the suite as `STAGING_BASIC_AUTH_PASSWORD`:
 
 ```bash
 pnpm --filter web build:worker:staging
 CHOKIDAR_USEPOLLING=1 pnpm --filter web exec opennextjs-cloudflare preview --port 8805 \
   --var SITE_ENVIRONMENT:staging --var CANONICAL_HOST_REDIRECT:on \
   --var STAGING_BASIC_AUTH_PASSWORD:stagingpassword
-BASE_URL=http://localhost:8805 EXPECT_ENV=staging STAGING_BASIC_AUTH_PASSWORD=stagingpassword pnpm test:e2e
+BASE_URL=http://localhost:8805 EXPECT_ENV=staging pnpm test:e2e
 ```
 
 A local preview reaches the non-canonical hosts with a `Host` header. Parity against production

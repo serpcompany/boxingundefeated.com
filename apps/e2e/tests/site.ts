@@ -4,15 +4,11 @@ import { basicAuthorization, resolveTarget } from '../src/target'
 export const target = resolveTarget(process.env)
 
 /**
- * `Authorization` with staging's password (`STAGING_BASIC_AUTH_PASSWORD`), for staging tests that
- * request without the smoke-test header. Throws without it: a staging run must test the password.
+ * `Authorization` with staging's password (`target.stagingPassword`), or another one, for staging
+ * tests that request without the smoke-test header.
  */
 export function stagingAuthorization(password?: string, username?: string): string {
-  const expected = target.stagingPassword
-  if (!expected) {
-    throw new Error('Set STAGING_BASIC_AUTH_PASSWORD (stagingpassword) with EXPECT_ENV=staging.')
-  }
-  return basicAuthorization(password ?? expected, username)
+  return basicAuthorization(password ?? target.stagingPassword, username)
 }
 
 export interface SamplePage {
