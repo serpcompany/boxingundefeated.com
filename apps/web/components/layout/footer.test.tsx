@@ -11,6 +11,16 @@ describe('Footer', () => {
     }
   })
 
+  it('names the site Boxing Undefeated in its heading and copyright line', () => {
+    render(<Footer />)
+
+    expect(screen.getByRole('heading', { name: '🥊 Boxing Undefeated' })).toBeInTheDocument()
+    expect(
+      screen.getByText(`© ${new Date().getFullYear()} Boxing Undefeated. All rights reserved.`)
+    ).toBeInTheDocument()
+    expect(screen.queryByText(/Boxing Directory/)).not.toBeInTheDocument()
+  })
+
   it('links the site itself relatively, so each environment links to its own origin', () => {
     render(<Footer />)
 

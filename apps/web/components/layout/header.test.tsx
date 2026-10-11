@@ -17,6 +17,13 @@ describe('Header', () => {
     mockPathname = '/'
   })
 
+  it('names the site Boxing Undefeated in the logo link to the homepage', () => {
+    render(<Header />)
+
+    expect(screen.getByRole('link', { name: '🥊 Boxing Undefeated' })).toHaveAttribute('href', '/')
+    expect(screen.queryByText(/Boxing Directory/)).not.toBeInTheDocument()
+  })
+
   it('links the main sections and not the empty blog', () => {
     render(<Header />)
 

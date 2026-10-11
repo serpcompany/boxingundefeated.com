@@ -1,11 +1,11 @@
 import { Breadcrumb } from '@boxingundefeated/design-system/breadcrumb'
 import type { Metadata } from 'next'
-import { getSiteOrigin } from '@/lib/site-config'
+import { getSiteOrigin, SITE_NAME } from '@/lib/site-config'
 import { legalTypography } from '../legal-typography'
 
 export const metadata: Metadata = {
-  title: 'Terms of Service - Boxing Directory',
-  description: 'Terms of service for the Boxing Directory website.',
+  title: `Terms of Service - ${SITE_NAME}`,
+  description: `Terms of service for the ${SITE_NAME} website.`,
   // Resolved against the root layout's metadataBase, the environment's origin.
   alternates: { canonical: '/terms/' }
 }
@@ -23,13 +23,13 @@ export default function TermsOfServicePage() {
 
           <h2>Acceptance of Terms</h2>
           <p>
-            By accessing and using the Boxing Directory website, you accept and agree to be bound by
-            the terms and provision of this agreement.
+            By accessing and using the {SITE_NAME} website, you accept and agree to be bound by the
+            terms and provision of this agreement.
           </p>
 
           <h2>Use License</h2>
           <p>
-            The Boxing Directory provides information about professional boxers for educational and
+            {SITE_NAME} provides information about professional boxers for educational and
             informational purposes. All data is compiled from publicly available sources.
           </p>
 
@@ -42,8 +42,8 @@ export default function TermsOfServicePage() {
 
           <h2>Limitations</h2>
           <p>
-            In no event shall the Boxing Directory or its suppliers be liable for any damages
-            arising out of the use or inability to use the materials on this website.
+            In no event shall {SITE_NAME} or its suppliers be liable for any damages arising out of
+            the use or inability to use the materials on this website.
           </p>
 
           <h2>Revisions</h2>

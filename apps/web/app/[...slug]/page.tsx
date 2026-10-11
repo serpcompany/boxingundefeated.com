@@ -6,7 +6,7 @@ import { getBlogPost, getBlogSlugs } from '@/lib/blog-loader'
 import { createMetaDescription } from '@/lib/metadata'
 import { decodePagePath, encodePath, routeKeyPath } from '@/lib/routing/non-ascii-paths'
 import { getShopPost, getShopSlugs } from '@/lib/shop-loader'
-import { getSiteOrigin } from '@/lib/site-config'
+import { getSiteOrigin, SITE_NAME } from '@/lib/site-config'
 import { normalizeInternalPath, toAbsoluteUrl } from '@/lib/url-utils'
 import '../blog/blog.css'
 
@@ -59,12 +59,12 @@ export async function generateMetadata({
 
   if (!post) {
     return {
-      title: 'Page Not Found - Boxing Directory'
+      title: `Page Not Found - ${SITE_NAME}`
     }
   }
 
   return {
-    title: `${post.title} - Boxing Directory`,
+    title: `${post.title} - ${SITE_NAME}`,
     description: createMetaDescription(post.description),
     alternates: {
       canonical: toAbsoluteUrl(getSiteOrigin(), post.slug)

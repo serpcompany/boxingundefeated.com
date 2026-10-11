@@ -1,11 +1,11 @@
 import { Breadcrumb } from '@boxingundefeated/design-system/breadcrumb'
 import type { Metadata } from 'next'
-import { getSiteOrigin } from '@/lib/site-config'
+import { getSiteOrigin, SITE_NAME } from '@/lib/site-config'
 import { legalTypography } from '../legal-typography'
 
 export const metadata: Metadata = {
-  title: 'Privacy Policy - Boxing Directory',
-  description: 'Privacy policy for the Boxing Directory website.',
+  title: `Privacy Policy - ${SITE_NAME}`,
+  description: `Privacy policy for the ${SITE_NAME} website.`,
   // Resolved against the root layout's metadataBase, the environment's origin.
   alternates: { canonical: '/privacy/' }
 }
@@ -23,8 +23,8 @@ export default function PrivacyPolicyPage() {
 
           <h2>Information We Collect</h2>
           <p>
-            The Boxing Directory is a static website that displays information about professional
-            boxers. We do not collect any personal information from visitors.
+            {SITE_NAME} is a static website that displays information about professional boxers. We
+            do not collect any personal information from visitors.
           </p>
 
           <h2>Use of Data</h2>

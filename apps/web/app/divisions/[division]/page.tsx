@@ -4,7 +4,7 @@ import { notFound } from 'next/navigation'
 import { BoxersDirectoryList } from '@/components/boxers-directory-list'
 import { getDivisionPage } from '@/lib/boxer-data'
 import { getDivisionPageHref } from '@/lib/directory-pagination'
-import { getSiteOrigin } from '@/lib/site-config'
+import { getSiteOrigin, SITE_NAME } from '@/lib/site-config'
 
 export async function generateMetadata({
   params
@@ -23,7 +23,7 @@ export async function generateMetadata({
   const { name } = page.division
 
   return {
-    title: `${name} Boxers - Boxing Directory`,
+    title: `${name} Boxers - ${SITE_NAME}`,
     description: `Browse professional ${name.toLowerCase()} boxers with statistics and fight records.`,
     alternates: {
       canonical: `${getSiteOrigin()}${getDivisionPageHref(division, 1)}`
