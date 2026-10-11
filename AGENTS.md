@@ -10,19 +10,18 @@ The SERP-wide standards in
 apply here unless [Exceptions](#exceptions) declares otherwise. Use this file as a map: read only
 what the task needs, then verify against the code.
 
-Stage: ship
-Agents may merge: listed paths
+Stage: explore
+Agents may merge: yes
 
-- `apps/web/content/**`: the markdown shop articles.
-
-Only the owner changes these two lines and the list. An agent merges a PR only when every file
-it changes is on the list (deleted and renamed files count), it adds no redirect and removes,
-renames or moves no linked article, and changes no article's `slug:` (or file name, when it has
-no `slug:`), which sets its public URL (`lib/shop-loader.ts` reads `slug:` first); one at a time,
-up to date with `staging`, with CI green, a clean review and the last staging deploy passed. The
-owner merges the rest, including workflows, the finish gate, migrations and releases, and runs
-DNS changes. Rules, auto-merge included:
+Only the owner changes these two lines. Agents merge once CI is green and a fresh review (one round,
+plus a re-review of the fix commits after blocking findings) has no open blocking findings, one PR at
+a time, checking the staging deploy after each. The owner always merges PRs that change these lines,
+the finish-gate command, CI or deploy workflows or the scripts they run, shared-database migrations,
+and release PRs (`staging` to `main`), and runs DNS changes. An article's `slug:` (its file name when
+it has none) is its URL; changing one needs a redirect. Rules:
 [Verification Cadence](https://github.com/serpcompany/serp/blob/main/docs/engineering/standards/verification-cadence.md#merging-and-deploys).
+
+Planned: Ship (agents merge listed paths) once round 2 of #3 is done (owner, 2026-10-11).
 
 ## Where things live
 
