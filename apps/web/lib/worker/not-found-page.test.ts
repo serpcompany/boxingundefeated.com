@@ -145,4 +145,19 @@ describe('withNotFoundPage', () => {
       expect(serve).toHaveBeenCalledTimes(2)
     }
   })
+
+  it('keeps the empty 404 when rendering the not-found page throws', async () => {
+    const serve = jest.fn(async (request: Request) => {
+      if (new URL(request.url).pathname === '/_not-found') throw new Error('render failed')
+      return shell()
+    })
+    const response = await withNotFoundPage(new Request(UNKNOWN_BOXER), serve)
+
+    expect(response.status).toBe(404)
+    expect(await response.text()).toBe(ERROR_SHELL)
+    expect(response.headers.get('content-type')).toBe(HTML)
+    expect(response.headers.get('cache-control')).toBe(NO_STORE)
+    expect(response.headers.get('vary')).toBe(VARY)
+    expect(serve).toHaveBeenCalledTimes(2)
+  })
 })

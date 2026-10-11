@@ -47,7 +47,13 @@ export async function withNotFoundPage(
   const url = new URL(request.url)
   url.pathname = NOT_FOUND_PATH
   url.search = ''
-  const page = await render(new Request(url, { headers: request.headers }))
+  let page: Response
+  try {
+    page = await render(new Request(url, { headers: request.headers }))
+  } catch {
+    // The enhancement failed, not the request: it is still a 404, with the document it had.
+    return new Response(html, response)
+  }
   if (page.status !== 404 || !isHtml(page)) {
     void page.body?.cancel().catch(() => undefined)
     return new Response(html, response)
