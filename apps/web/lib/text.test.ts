@@ -1,3 +1,4 @@
+import { describe, expect, it } from 'vitest'
 import { decodeHtmlEntities, htmlToPlainText } from './text'
 
 describe('htmlToPlainText', () => {

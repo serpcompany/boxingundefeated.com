@@ -1,24 +1,26 @@
+// @vitest-environment happy-dom
+
 import type { BoutWithOpponent, Boxer, BoxerProfile } from '@boxingundefeated/data-ops'
 import { render, screen } from '@testing-library/react'
-// The Node build: jsdom has no MessageChannel, which the browser build needs.
-import { renderToString } from 'react-dom/server.node'
+import { renderToString } from 'react-dom/server'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 
-const mockGetCloudflareContext = jest.fn()
-const mockQueryBoxerProfile = jest.fn<Promise<BoxerProfile | null>, [unknown, string]>()
+const mockGetCloudflareContext = vi.fn()
+const mockQueryBoxerProfile = vi.fn<(...args: [unknown, string]) => Promise<BoxerProfile | null>>()
 
-jest.mock('next/navigation', () => ({
+vi.mock('next/navigation', () => ({
   notFound: () => {
     throw new Error('NEXT_HTTP_ERROR_FALLBACK;404')
   }
 }))
-// The Worker's reads call `connection()` so the page renders on request; `next/server` needs the
-// fetch globals jsdom lacks.
-jest.mock('next/server', () => ({ connection: jest.fn(async () => undefined) }))
-jest.mock('@opennextjs/cloudflare', () => ({
+// The Worker's reads call `connection()` so the page renders on request; it throws outside a
+// Next.js request.
+vi.mock('next/server', () => ({ connection: vi.fn(async () => undefined) }))
+vi.mock('@opennextjs/cloudflare', () => ({
   getCloudflareContext: (...args: unknown[]) => mockGetCloudflareContext(...args)
 }))
-jest.mock('@boxingundefeated/data-ops', () => ({
-  ...jest.requireActual('@boxingundefeated/data-ops'),
+vi.mock('@boxingundefeated/data-ops', async () => ({
+  ...(await vi.importActual('@boxingundefeated/data-ops')),
   getBoxerProfile: (db: unknown, slug: string) => mockQueryBoxerProfile(db, slug)
 }))
 

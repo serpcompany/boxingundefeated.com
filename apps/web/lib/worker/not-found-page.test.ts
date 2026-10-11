@@ -1,6 +1,4 @@
-/**
- * @jest-environment node
- */
+import { describe, expect, it, vi } from 'vitest'
 import { withNotFoundPage } from './not-found-page'
 
 const HTML = 'text/html; charset=utf-8'
@@ -30,7 +28,7 @@ function shell(init: ResponseInit = {}) {
 
 /** OpenNext: `page` for the page requested, the prerendered not-found page for `/_not-found`. */
 function openNext(page: () => Response = shell, notFound?: () => Response) {
-  return jest.fn(async (request: Request) =>
+  return vi.fn(async (request: Request) =>
     new URL(request.url).pathname === '/_not-found'
       ? (notFound?.() ??
         new Response(NOT_FOUND_PAGE, { status: 404, headers: { 'content-type': HTML } }))
@@ -147,7 +145,7 @@ describe('withNotFoundPage', () => {
   })
 
   it('keeps the empty 404 when rendering the not-found page throws', async () => {
-    const serve = jest.fn(async (request: Request) => {
+    const serve = vi.fn(async (request: Request) => {
       if (new URL(request.url).pathname === '/_not-found') throw new Error('render failed')
       return shell()
     })

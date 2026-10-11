@@ -1,7 +1,5 @@
-/**
- * @jest-environment node
- */
 import type { BoxerSearch } from '@boxingundefeated/data-ops'
+import { describe, expect, it, vi } from 'vitest'
 import type { DatasetReadiness } from './dataset-gate'
 import { EDGE_CACHE_HEADER } from './edge-cache'
 import { handleWorkerRequest } from './handle-request'
@@ -58,11 +56,11 @@ function setup(overrides: Partial<SearchApiOptions> = {}) {
   let readiness = ready
   const cache = new MemoryCache()
   const pending: Promise<unknown>[] = []
-  const search = jest.fn(async (query: string): Promise<BoxerSearch> => ({ ...floyd, query }))
-  const observe = jest.fn()
+  const search = vi.fn(async (query: string): Promise<BoxerSearch> => ({ ...floyd, query }))
+  const observe = vi.fn()
   const options: SearchApiOptions = {
     search,
-    readiness: jest.fn(async () => readiness),
+    readiness: vi.fn(async () => readiness),
     edgeCache: {
       context: { waitUntil: promise => void pending.push(promise) },
       openCache: async () => cache as unknown as Cache
@@ -105,7 +103,7 @@ describe('isSearchApiRequest', () => {
 describe('GET /api/search through the Worker pipeline', () => {
   function pipeline() {
     const api = setup()
-    const serve = jest.fn(async () => new Response('OpenNext', { status: 404 }))
+    const serve = vi.fn(async () => new Response('OpenNext', { status: 404 }))
     const runtime = { searchApi: (request: Request) => handleSearchApi(request, api.options) }
     return { api, serve, runtime }
   }

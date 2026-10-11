@@ -1,7 +1,5 @@
-/**
- * @jest-environment node
- */
 import type { BoutWithOpponent, Boxer } from '@boxingundefeated/data-ops'
+import { describe, expect, it } from 'vitest'
 import { fromD1Profile } from './profile'
 
 const boxer = {

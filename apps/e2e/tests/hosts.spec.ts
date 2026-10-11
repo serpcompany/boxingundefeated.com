@@ -1,6 +1,5 @@
-import { expect, test } from '@playwright/test'
 import { SMOKE_TEST_HEADER } from '../src/target'
-import { boxer, stagingAuthorization, target } from './site'
+import { boxer, expect, stagingAuthorization, target, test } from './site'
 
 /**
  * Canonical hosts (serpcompany/serp docs/engineering/standards/environment-configuration.md,

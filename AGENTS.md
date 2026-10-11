@@ -53,7 +53,7 @@ Planned: Ship (agents merge listed paths, to be chosen by the owner) once round 
 Inner loop, while editing (seconds):
 
 - `pnpm --filter web typecheck`
-- `pnpm --filter web exec jest <paths>`: the tests for the code you changed.
+- `pnpm --filter web exec vitest run <paths>`: the tests for the code you changed.
 - `pnpm --filter @boxingundefeated/data-ops test`: the query and importer tests.
 - `pnpm exec biome lint <paths>`
 - `pnpm --filter web exec next dev --port 3003`: the dev server, on the local D1. `/api/search`

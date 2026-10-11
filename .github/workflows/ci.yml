@@ -161,7 +161,7 @@ jobs:
       - name: Install
         uses: ./.github/actions/install
 
-      # web (Jest) and data-ops (Vitest on an in-memory D1).
+      # Vitest: web, the e2e helpers, and data-ops on an in-memory D1.
       - name: Unit tests
         run: pnpm test
 

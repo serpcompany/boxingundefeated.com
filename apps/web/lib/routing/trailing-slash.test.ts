@@ -1,10 +1,8 @@
-/**
- * @jest-environment node
- */
 import loadCustomRoutes from 'next/dist/lib/load-custom-routes'
 import { modifyRouteRegex } from 'next/dist/lib/redirect-status'
 import { getPathMatch } from 'next/dist/shared/lib/router/utils/path-match'
 import { prepareDestination } from 'next/dist/shared/lib/router/utils/prepare-destination'
+import { describe, expect, it } from 'vitest'
 import { canonicalPathname, slashRedirects } from './trailing-slash'
 
 // Compile the rules the way the Next.js server does (server/lib/router-utils/filesystem.js):

@@ -1,8 +1,6 @@
-/**
- * @jest-environment node
- */
 import fs from 'node:fs'
 import path from 'node:path'
+import { describe, expect, it } from 'vitest'
 import { stripMainModuleType } from './cloudflare-env-types'
 
 const generated = `declare namespace Cloudflare {

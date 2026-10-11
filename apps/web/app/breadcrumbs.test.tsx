@@ -1,3 +1,5 @@
+// @vitest-environment happy-dom
+
 import type {
   Boxer,
   BoxerListItem,
@@ -9,31 +11,30 @@ import type {
 import { render } from '@testing-library/react'
 import type { Metadata } from 'next'
 import type { ReactElement } from 'react'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { toAbsoluteUrl } from '@/lib/url-utils'
 
 // The boxer and division pages read D1 through data-ops in the Worker; these stand in for its
 // queries.
-const mockGetCloudflareContext = jest.fn()
-const mockGetBoxerProfile = jest.fn<Promise<BoxerProfile | null>, [unknown, string]>()
-const mockListBoxers = jest.fn<Promise<BoxerPage | null>, [unknown, { page?: number }]>()
-const mockListBoxersByDivision = jest.fn<
-  Promise<DivisionBoxerPage | null>,
-  [unknown, string, { page?: number }]
->()
-const mockListDivisions = jest.fn<Promise<DivisionWithCount[]>, [unknown]>()
+const mockGetCloudflareContext = vi.fn()
+const mockGetBoxerProfile = vi.fn<(...args: [unknown, string]) => Promise<BoxerProfile | null>>()
+const mockListBoxers = vi.fn<(...args: [unknown, { page?: number }]) => Promise<BoxerPage | null>>()
+const mockListBoxersByDivision =
+  vi.fn<(...args: [unknown, string, { page?: number }]) => Promise<DivisionBoxerPage | null>>()
+const mockListDivisions = vi.fn<(...args: [unknown]) => Promise<DivisionWithCount[]>>()
 
-jest.mock('next/navigation', () => ({
+vi.mock('next/navigation', () => ({
   notFound: () => {
     throw new Error('NEXT_HTTP_ERROR_FALLBACK;404')
   }
 }))
-// `next/server` needs the fetch globals jsdom lacks.
-jest.mock('next/server', () => ({ connection: jest.fn(async () => undefined) }))
-jest.mock('@opennextjs/cloudflare', () => ({
+// `connection()` throws outside a Next.js request.
+vi.mock('next/server', () => ({ connection: vi.fn(async () => undefined) }))
+vi.mock('@opennextjs/cloudflare', () => ({
   getCloudflareContext: (...args: unknown[]) => mockGetCloudflareContext(...args)
 }))
-jest.mock('@boxingundefeated/data-ops', () => ({
-  ...jest.requireActual('@boxingundefeated/data-ops'),
+vi.mock('@boxingundefeated/data-ops', async () => ({
+  ...(await vi.importActual('@boxingundefeated/data-ops')),
   getBoxerProfile: (db: unknown, slug: string) => mockGetBoxerProfile(db, slug),
   listBoxers: (db: unknown, options: { page?: number }) => mockListBoxers(db, options),
   listBoxersByDivision: (db: unknown, slug: string, options: { page?: number }) =>

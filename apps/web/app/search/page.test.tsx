@@ -1,4 +1,7 @@
+// @vitest-environment happy-dom
+
 import { act, fireEvent, render, screen } from '@testing-library/react'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import type { SearchResponse } from '@/lib/search/contract'
 import SearchPage from './page'
 
@@ -29,20 +32,22 @@ async function type(value: string) {
 
 async function settle(ms = 250) {
   await act(async () => {
-    jest.advanceTimersByTime(ms)
+    vi.advanceTimersByTime(ms)
   })
 }
 
 describe('search page', () => {
-  const fetchMock = jest.fn()
+  const fetchMock = vi.fn()
 
   beforeEach(() => {
-    jest.useFakeTimers()
+    // Time also passes on its own, so Testing Library's `findBy*` finishes: it waits on timers, and
+    // advances fake ones itself only under Jest.
+    vi.useFakeTimers({ shouldAdvanceTime: true })
     global.fetch = fetchMock
   })
 
   afterEach(() => {
-    jest.useRealTimers()
+    vi.useRealTimers()
     fetchMock.mockReset()
   })
 

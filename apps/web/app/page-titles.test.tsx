@@ -1,12 +1,14 @@
 import { readdirSync } from 'node:fs'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import type { BoxerListingPage, BoxerProfileView, DivisionListingPage } from '@/lib/boxer-data'
 
 // The pages' metadata reads D1 through lib/boxer-data; these stand in for it.
-const mockGetBoxerProfile = jest.fn<Promise<BoxerProfileView | null>, [string]>()
-const mockGetBoxersPage = jest.fn<Promise<BoxerListingPage | null>, [number]>()
-const mockGetDivisionPage = jest.fn<Promise<DivisionListingPage | null>, [string, number]>()
+const mockGetBoxerProfile = vi.fn<(...args: [string]) => Promise<BoxerProfileView | null>>()
+const mockGetBoxersPage = vi.fn<(...args: [number]) => Promise<BoxerListingPage | null>>()
+const mockGetDivisionPage =
+  vi.fn<(...args: [string, number]) => Promise<DivisionListingPage | null>>()
 
-jest.mock('@/lib/boxer-data', () => ({
+vi.mock('@/lib/boxer-data', () => ({
   getBoxerProfile: (slug: string) => mockGetBoxerProfile(slug),
   getBoxersPage: (page: number) => mockGetBoxersPage(page),
   getDivisionPage: (slug: string, page: number) => mockGetDivisionPage(slug, page)

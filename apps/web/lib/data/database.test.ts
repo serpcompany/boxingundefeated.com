@@ -1,7 +1,5 @@
-/**
- * @jest-environment node
- */
 import { getCloudflareContext } from '@opennextjs/cloudflare'
+import { describe, expect, it, vi } from 'vitest'
 import {
   DataBindingError,
   type DataBindings,
@@ -9,12 +7,12 @@ import {
   requireDatabaseBinding
 } from './database'
 
-jest.mock('@opennextjs/cloudflare', () => ({ getCloudflareContext: jest.fn() }))
+vi.mock('@opennextjs/cloudflare', () => ({ getCloudflareContext: vi.fn() }))
 
 const binding = {} as D1Database
 
 function withBindings(env: DataBindings) {
-  jest.mocked(getCloudflareContext).mockResolvedValue({ env } as never)
+  vi.mocked(getCloudflareContext).mockResolvedValue({ env } as never)
 }
 
 describe('requireDatabaseBinding', () => {

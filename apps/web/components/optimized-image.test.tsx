@@ -1,9 +1,22 @@
+// @vitest-environment happy-dom
+
 import { fireEvent, render, screen } from '@testing-library/react'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { OptimizedImage } from './optimized-image'
 
 const photo = 'https://boxrec.com/images/thumb/a/a6/photo.jpg/200px-photo.jpg'
 
 describe('OptimizedImage', () => {
+  // A browser's image is incomplete while it loads. happy-dom loads none and calls every image
+  // complete and broken, so the photo starts out loading here.
+  beforeEach(() => {
+    vi.spyOn(HTMLImageElement.prototype, 'complete', 'get').mockReturnValue(false)
+  })
+
+  afterEach(() => {
+    vi.restoreAllMocks()
+  })
+
   it('shows the photo while it loads', () => {
     render(<OptimizedImage src={photo} alt="Matthew Bowling" width={128} height={128} />)
 
@@ -23,8 +36,8 @@ describe('OptimizedImage', () => {
   })
 
   it('falls back when the photo failed before hydration, when onError was not yet attached', () => {
-    const complete = jest.spyOn(HTMLImageElement.prototype, 'complete', 'get').mockReturnValue(true)
-    const naturalWidth = jest
+    const complete = vi.spyOn(HTMLImageElement.prototype, 'complete', 'get').mockReturnValue(true)
+    const naturalWidth = vi
       .spyOn(HTMLImageElement.prototype, 'naturalWidth', 'get')
       .mockReturnValue(0)
 

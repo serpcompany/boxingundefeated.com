@@ -1,6 +1,6 @@
 import { gzipSync } from 'node:zlib'
-import { expect, type Page, test } from '@playwright/test'
-import { boxer, target } from './site'
+import type { Page } from '@playwright/test'
+import { boxer, expect, target, test } from './site'
 
 /**
  * A boxer profile's fight history (#80, apps/web/components/fight-history.tsx): every bout is in

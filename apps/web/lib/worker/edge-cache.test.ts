@@ -1,6 +1,4 @@
-/**
- * @jest-environment node
- */
+import { describe, expect, it, vi } from 'vitest'
 import {
   EDGE_CACHE_HEADER,
   EDGE_CACHE_TTL_SECONDS,
@@ -14,13 +12,13 @@ const HTML = { 'content-type': 'text/html; charset=utf-8' }
 
 function setup(overrides: Partial<EdgeCacheOptions> = {}) {
   const cache = new MemoryCache()
-  const openCache = jest.fn(async () => cache as unknown as Cache)
+  const openCache = vi.fn(async () => cache as unknown as Cache)
   const pending: Promise<unknown>[] = []
   const context = { waitUntil: (promise: Promise<unknown>) => void pending.push(promise) }
   const rendered: Request[] = []
   let status = 200
   let headers: Record<string, string> = { ...HTML, 'cache-control': NEXT_DYNAMIC_CACHE_CONTROL }
-  const render = jest.fn(async (request: Request) => {
+  const render = vi.fn(async (request: Request) => {
     rendered.push(request)
     return new Response(`<h1>${new URL(request.url).pathname} #${rendered.length}</h1>`, {
       status,
@@ -162,7 +160,7 @@ describe('withEdgeCache', () => {
   })
 
   it('logs one event per page request and none for files', async () => {
-    const observe = jest.fn()
+    const observe = vi.fn()
     const edge = setup({ observe })
     await edge.fetch('/boxers/jesse-hart/')
     await edge.fetch('/boxers/jesse-hart/')

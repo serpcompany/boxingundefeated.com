@@ -1,9 +1,12 @@
+// @vitest-environment happy-dom
+
 import { render } from '@testing-library/react'
+import { describe, expect, it, vi } from 'vitest'
 import { getSiteOrigin } from '@/lib/site-config'
 import Home, { generateMetadata } from './page'
 
 // The homepage reads D1 on request (lib/boxer-data); listing-pages.test.tsx covers its content.
-jest.mock('@/lib/boxer-data', () => ({
+vi.mock('@/lib/boxer-data', () => ({
   getHomepage: async () => ({
     totalBoxers: 0,
     activeBoxers: 0,

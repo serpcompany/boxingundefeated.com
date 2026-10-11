@@ -47,6 +47,10 @@ Run everything from the repository root.
   each child sitemap on a deployed environment, to keep the load on the live site small.
 - Playwright doesn't retry (`retries: 0`), so a flaky test fails the run. Only the host check
   retries, for up to 30 s, while a new deploy reaches every edge.
+- A console error or an uncaught error in the browser fails the test (`tests/site.ts`; specs
+  import `test` and `expect` from there). Exempt: another origin's failed request, since the
+  browser tests abort every one, and a page's own error status the test declares with
+  `expectedPageStatuses`, such as a not-found page's 404.
 - Parity writes `parity-report/parity-<host>.md` and `.json` here. Its options: `--reference
   <origin>` (default `https://boxingundefeated.com`, the production Worker: compare a candidate
   that isn't production, such as staging or a local preview, against it), `--concurrency <n>`

@@ -1,7 +1,15 @@
-import { type APIRequestContext, expect, type PlaywrightWorkerArgs, test } from '@playwright/test'
+import type { APIRequestContext, PlaywrightWorkerArgs } from '@playwright/test'
 import { isNoindex, pageFacts, robotsGroups } from '../src/html'
 import { isPlatformHost, SMOKE_TEST_HEADER } from '../src/target'
-import { boxer, canonicalUrl, stagingAuthorization, target } from './site'
+import {
+  boxer,
+  canonicalUrl,
+  expect,
+  stagingAuthorization,
+  target,
+  test,
+  watchBrowserErrors
+} from './site'
 
 /**
  * Staging's password (serpcompany/serp docs/engineering/standards/staging-access.md,
@@ -200,17 +208,20 @@ test.describe("staging's password", () => {
 
     test('a browser is asked for the password, then gets the site', async ({ browser }) => {
       const refused = await browser.newContext({ extraHTTPHeaders: {} })
+      const refusedErrors = watchBrowserErrors(refused, [401])
       try {
         const response = await (await refused.newPage()).goto(`${target.baseUrl}/`)
         expect(response?.status()).toBe(401)
       } finally {
         await refused.close()
       }
+      expect(refusedErrors, 'console errors and uncaught errors in the browser').toEqual([])
 
       const signedIn = await browser.newContext({
         extraHTTPHeaders: {},
         httpCredentials: { username: 'staging', password: target.stagingPassword }
       })
+      const signedInErrors = watchBrowserErrors(signedIn)
       try {
         const page = await signedIn.newPage()
         // Keep the browser on the site under test.
@@ -228,6 +239,7 @@ test.describe("staging's password", () => {
       } finally {
         await signedIn.close()
       }
+      expect(signedInErrors, 'console errors and uncaught errors in the browser').toEqual([])
     })
   })
 })

@@ -1,4 +1,7 @@
+// @vitest-environment happy-dom
+
 import type { SitemapData } from '@boxingundefeated/data-ops'
+import { describe, expect, it } from 'vitest'
 import { isRetiredPath } from '../routing/retired-paths'
 import {
   lastmodDate,

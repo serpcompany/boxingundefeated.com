@@ -1,6 +1,5 @@
-import { expect, test } from '@playwright/test'
 import { decodeEntities, isNoindex, pageFacts } from '../src/html'
-import { samplePages, target } from './site'
+import { expect, samplePages, target, test } from './site'
 
 /**
  * Retired URLs (#59, #94; apps/web/lib/routing/retired-paths.ts): `/blog`, `/brands` and `/shop`,

@@ -1,5 +1,5 @@
-import { type APIRequestContext, expect, test } from '@playwright/test'
-import { boxer, target } from './site'
+import type { APIRequestContext } from '@playwright/test'
+import { boxer, expect, target, test } from './site'
 
 /**
  * The URL trailing-slash standard (serpcompany/serp docs/engineering/standards/

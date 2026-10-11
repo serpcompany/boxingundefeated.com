@@ -1,5 +1,6 @@
 import { readdirSync, readFileSync } from 'node:fs'
 import { join, sep } from 'node:path'
+import { describe, expect, it } from 'vitest'
 
 // The root layout renders every page's one `<main>` landmark. A page or component that renders
 // another nests a second `<main>`, which screen readers and accessibility audits flag, so pages

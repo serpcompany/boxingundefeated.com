@@ -1,3 +1,5 @@
+// @vitest-environment happy-dom
+
 import type {
   BoxerListItem,
   BoxerPage,
@@ -7,31 +9,30 @@ import type {
   HomepageData
 } from '@boxingundefeated/data-ops'
 import { render, screen } from '@testing-library/react'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 // The pages read D1 through data-ops in the Worker; these stand in for its queries.
-const mockGetCloudflareContext = jest.fn()
-const mockConnection = jest.fn(async () => undefined)
-const mockListBoxers = jest.fn<Promise<BoxerPage | null>, [unknown, { page?: number }]>()
-const mockListBoxersByDivision = jest.fn<
-  Promise<DivisionBoxerPage | null>,
-  [unknown, string, { page?: number }]
->()
-const mockListDivisions = jest.fn<Promise<DivisionWithCount[]>, [unknown]>()
-const mockGetHomepageData = jest.fn<Promise<HomepageData>, [unknown]>()
-const mockGetDirectoryCounts = jest.fn<Promise<DirectoryCounts>, [unknown]>()
+const mockGetCloudflareContext = vi.fn()
+const mockConnection = vi.fn(async () => undefined)
+const mockListBoxers = vi.fn<(...args: [unknown, { page?: number }]) => Promise<BoxerPage | null>>()
+const mockListBoxersByDivision =
+  vi.fn<(...args: [unknown, string, { page?: number }]) => Promise<DivisionBoxerPage | null>>()
+const mockListDivisions = vi.fn<(...args: [unknown]) => Promise<DivisionWithCount[]>>()
+const mockGetHomepageData = vi.fn<(...args: [unknown]) => Promise<HomepageData>>()
+const mockGetDirectoryCounts = vi.fn<(...args: [unknown]) => Promise<DirectoryCounts>>()
 
-jest.mock('next/navigation', () => ({
+vi.mock('next/navigation', () => ({
   notFound: () => {
     throw new Error('NEXT_HTTP_ERROR_FALLBACK;404')
   }
 }))
-// `next/server` needs the fetch globals jsdom lacks.
-jest.mock('next/server', () => ({ connection: () => mockConnection() }))
-jest.mock('@opennextjs/cloudflare', () => ({
+// `connection()` throws outside a Next.js request.
+vi.mock('next/server', () => ({ connection: () => mockConnection() }))
+vi.mock('@opennextjs/cloudflare', () => ({
   getCloudflareContext: (...args: unknown[]) => mockGetCloudflareContext(...args)
 }))
-jest.mock('@boxingundefeated/data-ops', () => ({
-  ...jest.requireActual('@boxingundefeated/data-ops'),
+vi.mock('@boxingundefeated/data-ops', async () => ({
+  ...(await vi.importActual('@boxingundefeated/data-ops')),
   listBoxers: (db: unknown, options: { page?: number }) => mockListBoxers(db, options),
   listBoxersByDivision: (db: unknown, slug: string, options: { page?: number }) =>
     mockListBoxersByDivision(db, slug, options),
