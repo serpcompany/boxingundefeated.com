@@ -26,15 +26,17 @@ packages/data-ops/   D1 schema, queries, the pipeline importer's mapping and the
 packages/design-system/
 configs/             Shared Next.js and TypeScript configuration
 d1/                  Migrations, the committed fixture and parity reports
-scripts/d1/          db:import, db:parity, db:check-deployable
+scripts/d1/          db:import, db:parity, db:check-deployable, the R2 artifact scripts
 ```
 
 ## Data
 
-The pipeline's output (`from-pipeline/boxers.json`, about 104 MB, gitignored) is the only source
-of boxer data. `pnpm db:import` loads it into an environment's D1, idempotently, and
-`pnpm db:parity` proves the import lost nothing by comparing every row with that file. Local
-development and CI use a small committed fixture (`d1/fixtures/boxers.sample.json`).
+The pipeline's output (`boxers.json`, about 104 MB) is the only source of boxer data. Each version
+is pinned in R2 under its SHA-256 and never overwritten. `pnpm db:import` loads it into a D1,
+idempotently, and `pnpm db:parity` proves the import lost nothing by comparing every row with that
+file; staging and production import only through the `D1 import` workflow
+([docs/agents/d1.md](docs/agents/d1.md)). Local development and CI use a small committed fixture
+(`d1/fixtures/boxers.sample.json`).
 
 ```bash
 pnpm install

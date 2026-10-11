@@ -5,7 +5,7 @@ import type { ImportTarget } from '../../packages/data-ops/src/import'
 export const REPO_ROOT = resolve(import.meta.dirname, '../..')
 /** Wrangler runs here, like the `db:*` scripts: `apps/web/wrangler.jsonc` and its local state. */
 export const APP_DIR = join(REPO_ROOT, 'apps/web')
-const WRANGLER_BIN = join(REPO_ROOT, 'node_modules/.bin/wrangler')
+export const WRANGLER_BIN = join(REPO_ROOT, 'node_modules/.bin/wrangler')
 
 /** A D1 database and the Wrangler flags that reach it. */
 export type D1Target = Pick<ImportTarget, 'database' | 'flags'>
