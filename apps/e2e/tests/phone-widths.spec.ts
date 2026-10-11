@@ -12,7 +12,6 @@ const pages = [
   ...samplePages.map(({ path }) => path),
   '/boxers/matthew-bowling/',
   '/divisions/',
-  '/shop/',
   '/sitemap/',
   '/about/',
   '/privacy/',
