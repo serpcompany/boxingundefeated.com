@@ -45,8 +45,8 @@ Planned: Ship (agents merge listed paths, to be chosen by the owner) once round 
 - `apps/e2e/`: the Playwright smoke suite, the sitemap URL lister and the parity check.
 - `scripts/`: `d1/` is the D1 import, parity and deploy checks; `check-frontmatter.ts`, which CI
   runs on the empty `apps/web/content/blog/` stub until an owner PR removes both (#94).
-- `.github/workflows/`: `ci.yml` (the PR check; its `All checks` job is the required check),
-  `deploy-staging.yml` and `deploy-production.yml`.
+- `.github/workflows/`: `ci.yml` (the check, then the deploys; `All checks` is the required check)
+  and `pr-issue-link.yml`. `.github/scripts/`: the production release gate and the deploy wait.
 
 ## Commands
 
@@ -60,10 +60,10 @@ Inner loop, while editing (seconds):
   and the XML sitemaps are answered only by the Worker, so search fails here; use
   `pnpm preview:worker` for those.
 
-Finish gate: `pnpm check` (read-only Biome check, workspace check, typecheck, tests and
-`next build`). CI (`ci.yml`) runs it on every PR, plus migration validation, the Worker build, the
-E2E smoke suite and the link check; CI on the final commit is the record, so don't repeat it
-locally. Run it only to reproduce a CI failure, in the background.
+Finish gate: `pnpm check` (read-only Biome check, workspace check, typecheck, `db:check`, tests,
+`next build`). CI (`ci.yml`) runs it on every PR, plus migration validation, a Worker build per
+environment, E2E on the local and staging configs and the link check; CI on the final commit is the
+record, so don't repeat it locally. Run it only to reproduce a CI failure, in the background.
 
 ## Workflow
 
@@ -72,9 +72,9 @@ applies, its review loop included, with these specifics:
 
 - GitHub issues are the plan. The next task is the first open, unblocked sub-issue of the epic.
 - Base branch: `staging` (`main` is production). The owner promotes it with a fast-forward:
-  `git fetch origin && git push origin origin/staging:main`. Deploys run only in the deploy
-  workflows, on pushes to `staging` and `main`; agents never deploy by hand, dispatch a deploy
-  workflow, or approve the `production` environment.
+  `git fetch origin && git push origin origin/staging:main`. Deploys run only in `ci.yml`, on
+  pushes to `staging` and `main`, once its checks pass on that commit; agents never deploy by hand,
+  dispatch `ci.yml` or re-run its deploy jobs, or approve the `production` environment.
 - One issue, one `issue-<number>-<slug>` branch, one PR, squash merged. Work in a git worktree per
   issue, and never in a checkout that holds someone else's uncommitted changes.
 - PR title: a Conventional Commit for the outcome a user notices. The body starts with
@@ -87,7 +87,7 @@ applies, its review loop included, with these specifics:
   URL count of a local preview with a full import before and after (`sitemap-urls`), the diff of
   that list, and before/after output for sample URLs.
 - Visible UI: one screenshot of each changed page, from a local build or staging.
-- Deploy workflows: a link to the deploy run.
+- CI or deploy jobs: a link to the run.
 
 ## Invariants
 

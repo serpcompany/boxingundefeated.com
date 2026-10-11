@@ -9,7 +9,9 @@ environment sets is in [environments.md](environments.md).
 
 - `apps/web/wrangler.jsonc`, `open-next.config.ts`, `worker.ts`: the Worker. The top level of
   `wrangler.jsonc` is local only; `env.staging` (`staging.boxingundefeated.com`) and
-  `env.production` (the apex and `www`) are the deployed Workers, each with its own D1 `DB`.
+  `env.production` (the apex and `www`) are the deployed Workers, each with its own D1 `DB` and a
+  `WORKER_SELF_REFERENCE` binding to itself. Every env inherits `global_fetch_strictly_public`
+  and `upload_source_maps` from the top level.
 - `apps/web/lib/worker/handle-request.ts` maps the request pipeline, in order: the build guard,
   staging's password gate, the canonical host, then the crawl policy, which wraps the retired
   paths' 410 ([urls.md](urls.md#retired-urls)), `/api/search` and the XML sitemaps (from D1, per
@@ -38,6 +40,8 @@ Worker builds take about a minute. Boxer pages read the local D1, so seed it fir
   environment's vars and bindings, locally. Pair it with the matching build.
 - `pnpm test:e2e`: the smoke suite (`apps/e2e/`; its README has the CI interface) on the local
   preview after `db:reset:local` and `build:worker`; deployed: `BASE_URL=<origin> EXPECT_ENV=<env>`.
+  CI runs it on the local build and on the staging build served with `env.staging`'s vars on the
+  local top level (the README's staging recipe), where the password's 200 path is reachable.
 - `pnpm parity -- <origin> [--reference <origin>]`: every sitemap URL of the reference (default:
   production) on a candidate, compared.
 - Links (CI runs them on the local preview): `pnpm --silent --filter e2e sitemap-urls <origin>`
