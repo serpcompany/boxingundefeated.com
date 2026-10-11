@@ -20,6 +20,7 @@ origin anywhere else.
 | `/robots.txt` | `Disallow: /` | `Disallow: /`; `AhrefsSiteAudit` gets `Allow: /`; staging's sitemap index | `Allow: /` and the sitemap index |
 | Password (HTTP Basic) | no | `stagingpassword`, any username | no |
 | Google Tag Manager | no | no | `GTM-PP4HWLM` (in code) |
+| Cloudflare Web Analytics | no | injected by Cloudflare; only the team (password) sees it | injected by Cloudflare, not code; EU visitors excluded |
 | `CANONICAL_HOST_REDIRECT` (`www`, `*.workers.dev` -> origin) | `off` | `on` | `on` |
 
 Prerendered HTML is fixed at build, so a Worker build and the environment that serves it must use

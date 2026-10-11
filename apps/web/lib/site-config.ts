@@ -1,7 +1,6 @@
 /**
  * The site's environment and the values that depend on it: the origin used for canonicals,
- * JSON-LD and sitemaps, whether pages may be indexed, robots.txt, and the production-only analytics
- * (Google Tag Manager and Cloudflare Web Analytics).
+ * JSON-LD and sitemaps, whether pages may be indexed, robots.txt, and Google Tag Manager.
  *
  * serp `docs/engineering/standards/environment-configuration.md`: configuration is explicit per
  * environment, a site is non-production unless it is explicitly production, and configuration is
@@ -32,14 +31,6 @@ export const DEFAULT_LOCAL_PORT = '8787'
 /** The site's Google Tag Manager container. It is public: the tag ships it to every browser. */
 export const GTM_ID = 'GTM-PP4HWLM'
 
-/**
- * The site token of the `boxingundefeated.com` Cloudflare Web Analytics site (SERP account, site
- * tag `ef93062ec0e64199bd20ee553edd4b70`). It is public: the beacon ships it to every browser. The
- * root layout renders the beacon itself, so the site's automatic injection must be off: Cloudflare
- * allows one beacon per page, and injection would also add it to staging.
- */
-export const CLOUDFLARE_WEB_ANALYTICS_TOKEN = '80b63320ee254d8280f87ba2302fcab6'
-
 export const NON_PRODUCTION_ROBOTS_TAG = 'noindex'
 
 /** The raw inputs, so tests and scripts can resolve a configuration without `process.env`. */
@@ -57,8 +48,6 @@ export interface SiteConfig {
   origin: string
   /** The Google Tag Manager container to render, or null outside production. */
   gtmId: string | null
-  /** The Cloudflare Web Analytics site token to render the beacon with, or null outside production. */
-  cloudflareWebAnalyticsToken: string | null
 }
 
 /** Reads the inputs from `process.env`. */
@@ -98,8 +87,7 @@ export function getSiteConfig(input: SiteConfigInput = readSiteConfigInput()): S
     environment,
     isProduction,
     origin: siteOriginFor(environment, input.port),
-    gtmId: isProduction ? GTM_ID : null,
-    cloudflareWebAnalyticsToken: isProduction ? CLOUDFLARE_WEB_ANALYTICS_TOKEN : null
+    gtmId: isProduction ? GTM_ID : null
   }
 }
 
